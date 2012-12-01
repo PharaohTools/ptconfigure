@@ -1,10 +1,8 @@
 <html>
     <head>
         <title>eBay Code Practice</title>
-        <style media="all" type="text/css">
-            @import url("<?= $_SERVER["REQUEST_URI"]; ?>css/style.css");
-            @import url("<?= $_SERVER["REQUEST_URI"]; ?>css/daveCss.css");
-        </style>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" >
+        <link rel="stylesheet" type="text/css" href="/css/daveCss.css" >
     </head>
     <body>
         <div class="wrap">

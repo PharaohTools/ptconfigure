@@ -30,9 +30,11 @@ class Router {
 	* @desc: This private method populates the array of allowed routes
 	*/
 	private function populateAllowedRoutes() {
-            $this->allowedRoutes = array( "index" => array( "index" ) ,
+            $this->allowedRoutes = array(
+                "index" => array( "index" ) ,
                 "page" => array( "one" , "two" ) ,
-                "user" => array( "login" , "logout" ));
+                "user" => array( "login" , "logout"
+            ));
 	}
 
 }
