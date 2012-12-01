@@ -64,7 +64,9 @@ class Router {
      * @description:
      */
     private function setRouteAction() {
-        (isset($_REQUEST["action"]) && in_array( $_REQUEST["action"], $this->availableRoutes[$_REQUEST["control"]] ))
+        (isset($_REQUEST["action"])
+            && array_key_exists($_REQUEST["control"], $this->availableRoutes)
+            && in_array( $_REQUEST["action"], $this->availableRoutes[$_REQUEST["control"]] ))
         ? $this->route["action"] = $_REQUEST["action"] : $this->route = $this->getDefaultRoute();
     }
 
