@@ -11,18 +11,18 @@ Namespace Core;
 
 class View {
 
-    public function executeView($viewVars) {
-        $data = (!isset($viewVars["layout"]))
-                ? $this->processView($viewVars["view"], $viewVars["pageVars"]) : $this->processView($viewVars["view"], $viewVars["pageVars"], $viewVars["layout"]);
-        $this->renderAll($data) ;
+    public function executeView(Array $viewVars) {
+        try {
+            $viewVars["layout"] = (isset($viewVars["layout"])) ? $viewVars["layout"] : "default" ;
+            $templateData = $this->loadTemplate ($viewVars["view"], $viewVars["pageVars"]) ;
+            $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars["pageVars"]) ;
+            $this->renderAll($data) ;
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
     }
 
-    private function processView ($view, $pageVars, $layout="default") {
-        $templateData = $this->loadTemplate ($view, $pageVars) ;
-        return $this->loadLayout ($layout, $templateData, $pageVars) ;
-    }
-
-    private function loadLayout ($layout, $templateData, $pageVars) {
+    private function loadLayout ($layout, $templateData, Array $pageVars) {
         ob_start();
         $layoutFileName = ucfirst($layout)."Layout.tpl.php";
         $layoutFileFullPath = dirname(__FILE__).'/../views/'.$layoutFileName ;
@@ -30,16 +30,16 @@ class View {
         return ob_get_clean();
     }
 
-    private function loadTemplate ($view, $pageVars) {
+    private function loadTemplate ($view, Array $pageVars) {
         ob_start();
         $viewFileName = ucfirst($view)."View.tpl.php";
-        $viewFileFullPath =  dirname(__FILE__).'/../views/'.$viewFileName ;
+        $viewFileFullPath =  dirname(__FILE__).'/../views/'.ucfirst($view)."View.tpl.php";
         if ( file_exists($viewFileFullPath )) require_once($viewFileFullPath);
         return ob_get_clean();
     }
 
-    private function renderAll($renderedData) {
-        echo $renderedData;
+    private function renderAll($processedData) {
+        echo $processedData;
     }
 
 }

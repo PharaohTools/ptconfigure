@@ -1,4 +1,7 @@
-div.wrap{ width: 100%;}
-div.page{ width: 960px; margin: 0 auto;}
+div.wrap{ width: 100%; }
+div.page{ width: 960px; margin: 0 auto; }
 div.pageRow{ width: 100%; float: left; }
-h2{text-align: center;}
+h2{ text-align: center; }
+input.standardInput { width: 40%; height: 3em; margin: 0 auto; display: block; }
+input.button { cursor: pointer; }
+input.button:hover { color: white; background: none repeat scroll 0 0 #888; border: 1px solid #000; }
