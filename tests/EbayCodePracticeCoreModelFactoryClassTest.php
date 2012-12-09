@@ -6,7 +6,7 @@ class EbayCodePracticeCoreModelFactoryClassTest extends PHPUnit_Framework_TestCa
 
     public function setUp() {
         require_once("bootstrap.php");
-        $this->models = array("Router");
+        $this->models = array("User");
     }
 
     public function testgetModelReturnsAnObject() {

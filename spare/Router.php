@@ -22,7 +22,7 @@ class Router {
 	* @desc: This public method is the only method exposed, and is called by the router
 	*/
 	public function getAllowedRoutes() {
-            return $this->allowedRoutes;
+        return $this->allowedRoutes;
 	}
 
 	/**
@@ -30,11 +30,12 @@ class Router {
 	* @desc: This private method populates the array of allowed routes
 	*/
 	private function populateAllowedRoutes() {
-            $this->allowedRoutes = array(
-                "index" => array( "index" ) ,
-                "page" => array( "one" , "two" ) ,
-                "user" => array( "login" , "logout"
-            ));
+        $this->allowedRoutes = array(
+            "index" => array( "index" ) ,
+            "page" => array( "group" , "results" ) ,
+            "register" => array( "register" ) ,
+            "login" => array( "login" , "logout")
+        );
 	}
 
 }

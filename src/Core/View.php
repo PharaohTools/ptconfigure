@@ -2,19 +2,18 @@
 
 Namespace Core;
 
-/**
- * EBAY - CODE PRACTICE
- * 20/11/2012
- * ------
- * DAVID AMANSHIA
- */
-
 class View {
 
-    public function executeView(Array $viewVars) {
+    private $viewHelpers;
+
+    public function __construct(){
+        $this->viewHelpers = new ViewHelpers();
+    }
+
+    public function executeView($view, Array $viewVars) {
         $viewVars["layout"] = (isset($viewVars["layout"])) ? $viewVars["layout"] : "default" ;
-        $templateData = $this->loadTemplate ($viewVars["view"], $viewVars["pageVars"]) ;
-        $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars["pageVars"]) ;
+        $templateData = $this->loadTemplate ($view, $viewVars) ;
+        $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
         $this->renderAll($data) ;
     }
 

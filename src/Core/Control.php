@@ -2,13 +2,6 @@
 
 Namespace Core ;
 
-/**
- * EBAY - CODE PRACTICE
- * 20/11/2012
- * ------
- * DAVID AMANSHIA
- */
-
 class Control {
 
     private $modelFactory ;
@@ -17,10 +10,10 @@ class Control {
         $this->modelFactory = new ModelFactory();
     }
 
-    public function executeControl($control) {
+    public function executeControl($control, $pageVars) {
         $className = '\\Controller\\'.ucfirst($control);
         $controlObject = new $className;
-        return $controlObject->execute();
+        return $controlObject->execute($pageVars);
     }
 
 }
