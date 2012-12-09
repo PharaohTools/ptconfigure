@@ -2,18 +2,11 @@
 
 Namespace Controller ;
 
-/**
- * EBAY - CODE PRACTICE
- * 20/11/2012
- * ------
- * DAVID AMANSHIA
- */
-
 class Index extends Base {
 
-    public function execute() {
-        $content = array();
-        return array ("view"=>"index", "pageVars"=>$content);
+    public function execute($pageVars) {
+        parent::initUser($pageVars);
+        return array ("type"=>"view", "view"=>"index", "pageVars"=>$this->content);
     }
 
 }

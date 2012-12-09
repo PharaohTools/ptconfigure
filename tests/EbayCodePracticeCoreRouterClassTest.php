@@ -41,17 +41,7 @@ class EbayCodePracticeCoreRouterClassTest extends PHPUnit_Framework_TestCase {
     public function testrouterObjectHasAttributes() {
         $routerObject = new Core\Router() ;
         $this->assertObjectHasAttribute( 'route', $routerObject );
-        $this->assertObjectHasAttribute( 'modelRoute', $routerObject );
         $this->assertObjectHasAttribute( 'availableRoutes', $routerObject );
-    }
-
-    public function testrouterObjectHasModelFactoryAttributeOfModelRouterType() {
-        $routerObject = new Core\Router() ;
-        $reflectionObject = new ReflectionObject($routerObject);
-        $modelRouteProperty = $reflectionObject->getProperty('modelRoute');
-        $modelRouteProperty->setAccessible(true);
-        $modelRoutePropertyValue = $modelRouteProperty->getValue($routerObject);
-        $this->assertTrue( $modelRoutePropertyValue instanceof Model\Router );
     }
 
     public function testrouterObjectHasAvailableRoutesAttributeOfArrayType() {
@@ -93,9 +83,9 @@ class EbayCodePracticeCoreRouterClassTest extends PHPUnit_Framework_TestCase {
 
     public function testsetRouteActionSetsNonDefaultWithHappyNonDefaultRequest() {
         $_REQUEST["control"] = "page";
-        $_REQUEST["action"] = "one";
+        $_REQUEST["action"] = "group";
         $route = $this->executeSetRouteFunctionAndGetRoute("setRouteAction");
-        $this->assertTrue( $route["action"]=="one" );
+        $this->assertTrue( $route["action"]=="group" );
     }
 
     public function testsetRouteActionSetsDefaultWithSadRequest() {
