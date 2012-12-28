@@ -5,11 +5,11 @@ Namespace Core ;
 class Session {
 
 	public function __construct() {
-		$this->ecpSessionStart();
+		if (session_id()=='') {$this->ecpSessionStart();}
 	}
 
 	public function getVar($varName) {
-		return $_SESSION[$varName];
+		return (isset($_SESSION[$varName])) ? $_SESSION[$varName] : false ;
 	}
 
 	public function setVar($varName, $value) {

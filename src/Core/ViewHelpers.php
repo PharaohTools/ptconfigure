@@ -10,25 +10,20 @@ class ViewHelpers {
         $htmlVar .= $type.'" id="'.$field.'" name="'.$field.'"';
         if (isset($pageVars["formRequest"][$field])) { $htmlVar .= ' value="'.$pageVars["formRequest"][$field].'"'; }
         $htmlVar .= 'class="standardInput" />';
-        return $htmlVar;
-    }
+        return $htmlVar;}
 
     public function renderFieldErrors($field, $pageVars) {
         $htmlVar = '';
-        foreach ($pageVars["formResult"]["errors"] as $error) {
-            if ( $error["field"] == $field ) { $htmlVar .= $error["messages"]; }
-        }
-        return $htmlVar;
-    }
+        if (isset($pageVars["formResult"])) {
+            foreach ($pageVars["formResult"]["errors"] as $error) {
+                if ( $error["field"] == $field ) { $htmlVar .= $error["messages"]; } } }
+        return $htmlVar; }
 
     public function renderMessages($pageVars) {
         $htmlVar = '';
         if (isset($pageVars["messages"])) {
             foreach ($pageVars["messages"] as $message ) {
-                echo '<p>'.$message.'</p>';
-            }
-        }
-        return $htmlVar;
-    }
+                $htmlVar .= '<p>'.$message.'</p>'; } }
+        return $htmlVar; }
 
 }

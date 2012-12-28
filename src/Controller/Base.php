@@ -4,34 +4,31 @@ Namespace Controller ;
 
 class Base {
 
-    private $messages;
     public $content;
 
     public function __construct() {
-        $this->content = array();
-        $this->getMessages();
-        $this->content = $this->getContentArray();
-    }
+        $this->content = array(); }
 
-    public function getMessages() {
-        $this->messages[] = ( isset($_REQUEST["msg"]) ) ? $_REQUEST["msg"] : null ;
-    }
-
-    public function getContentArray() {
-        $this->content["messages"] = $this->getMessages();
-        return $this->content;
-    }
-
-    public function initUser($pageVars){
+    public function initUser($pageVars=array()){
         $this->content = array_merge($this->content, $pageVars);
-        $this->content["user"] = new \Model\User();
+        $this->content["userSession"] = new \Model\UserSession();
+        $this->content["userSession"]->startUserSession();
+        $this->content["userData"] = new \Model\UserData();
+        $email = $this->content["userData"]->checkUserExistsByHash($this->content["userSession"]->getUserId());
+        $this->content["userData"]->loadUser($email);
     }
 
-    public function checkIfFormPosted($formToCheck) {
-        return ($_SERVER['REQUEST_METHOD'] == 'POST'
-            && isset($_REQUEST["formId"])
-            && $_REQUEST["formId"]== $formToCheck)
-            ?  true : false;
+    public function initForm($pageVars=array(), $formToCheck ){
+        $this->content = array_merge($this->content, $pageVars);
+        $this->content["formSet"] = $this->checkIfFormPosted($formToCheck);
+    }
+
+    public function checkIfFormPosted($formToCheck="") {
+        return(isset($_SERVER['REQUEST_METHOD']) &&
+               $_SERVER['REQUEST_METHOD'] == 'POST' &&
+               isset($_REQUEST["formId"]) &&
+               $_REQUEST["formId"]== $formToCheck)
+               ? true : false;
     }
 
 }

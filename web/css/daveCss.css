@@ -1,4 +1,4 @@
-h1, h2, h3, h4, h5, h6, p { text-align: center; font-family:Arial; }
+html, body, h1, h2, h3, h4, h5, h6, p { text-align: center; font-family:Arial; }
 div.wrap{ width: 100%; }
 div.page{ width: 960px; margin: 0 auto; }
 div.pageRow{ width: 100%; float: left; }
@@ -19,3 +19,31 @@ input.buttonInput {
 }
 input.button { cursor: pointer; }
 input.button:hover { color: white; background: none repeat scroll 0 0 #888; border: 1px solid #000; }
+
+.dataGrid{
+    width: 960px;
+    display: inline-block;
+    border: 1px solid black;
+}
+
+.gridRecordDetailsRow{
+    width: 100%;
+    float:left;
+}
+
+.gridRecordDetailsTitleRow{
+    width: 100%;
+    float:left;
+    background: #CCC;
+}
+
+.gridRecordDetailsField{
+    width: 300px;
+    float: left;
+}
+
+.gridRecordDetailsInnerField{
+    width: 150px;
+    float: left;
+    overflow: hidden;
+}

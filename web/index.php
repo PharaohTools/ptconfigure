@@ -7,4 +7,4 @@
  * DAVID AMANSHIA
  */
 
-require_once("../src/bootstrap.php");
+require_once("../src/Bootstrap.php");

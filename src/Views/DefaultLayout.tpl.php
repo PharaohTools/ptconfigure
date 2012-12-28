@@ -20,11 +20,11 @@
                             <input type="submit" id="registerPageButtonSubmit" name="submit" value="Register" class="buttonInput button" />
                         </form>
 
-                <?php if ( $pageVars["user"]->getLoginStatus() ==true) { ?>
+                <?php   if ( isset($pageVars["userSession"]) && $pageVars["userSession"]->getLoginStatus()==true) { ?>
                         <form action="/index.php" id="logoutPageButton" method="POST">
                             <input type="hidden" id="logoutPageButtonControl" name="control" value="logout" class="buttonInput" />
                             <input type="hidden" id="logoutPageButtonAction" name="action" value="logout" class="buttonInput" />
-                            <input type="submit" id="logoutPageButtonSubmit" name="submit" value="logout" class="buttonInput button" />
+                            <input type="submit" id="logoutPageButtonSubmit" name="submit" value="Logout" class="buttonInput button" />
                         </form>
                 <?php } else { ?>
                         <form action="/index.php" id="loginPageButton" method="POST">
@@ -36,29 +36,45 @@
 
                     </div> <!-- end navMenu -->
 
-                <?php
+                    <?php
 
-                    if ( $pageVars["user"]->getLoginStatus() ==true) { ?>
+                    if ( isset($pageVars["userSession"]) && $pageVars["userSession"]->getLoginStatus()==true) { ?>
 
-                    <div class="navMenu">
-                        <form action="/index.php" id="userPageButton" method="POST">
-                            <input type="hidden" id="userPageButtonControl" name="control" value="user" class="buttonInput" />
-                            <input type="hidden" id="userPageButtonAction" name="action" value="user" class="buttonInput" />
-                            <input type="submit" id="userPageButtonSubmit" name="submit" value="user" class="buttonInput button" />
-                        </form>
-                        <form action="/index.php" id="groupPageButton" method="POST">
-                            <input type="hidden" id="groupPageButtonControl" name="control" value="group" class="buttonInput" />
-                            <input type="hidden" id="groupPageButtonAction" name="action" value="group" class="buttonInput" />
-                            <input type="submit" id="groupPageButtonSubmit" name="submit" value="group" class="buttonInput button" />
-                        </form>
-                        <form action="/index.php" id="resultsPageButton" method="POST">
-                            <input type="hidden" id="resultsPageButtonControl" name="control" value="results" class="buttonInput" />
-                            <input type="hidden" id="resultsPageButtonAction" name="action" value="results" class="buttonInput" />
-                            <input type="submit" id="resultsPageButtonSubmit" name="submit" value="results" class="buttonInput button" />
-                        </form>
-                    </div>
+                        <div class="navMenu">
+                            <form action="/index.php" id="userPageButton" method="POST">
+                                <input type="hidden" id="userPageButtonControl" name="control" value="userPage" class="buttonInput" />
+                                <input type="hidden" id="userPageButtonAction" name="action" value="user" class="buttonInput" />
+                                <input type="submit" id="userPageButtonSubmit" name="submit" value="User" class="buttonInput button" />
+                            </form>
+                            <form action="/index.php" id="groupPageButton" method="POST">
+                                <input type="hidden" id="groupPageButtonControl" name="control" value="groupPage" class="buttonInput" />
+                                <input type="hidden" id="groupPageButtonAction" name="action" value="group" class="buttonInput" />
+                                <input type="submit" id="groupPageButtonSubmit" name="submit" value="Group" class="buttonInput button" />
+                            </form>
+                            <form action="/index.php" id="resultsPageButton" method="POST">
+                                <input type="hidden" id="resultsPageButtonControl" name="control" value="resultsPage" class="buttonInput" />
+                                <input type="hidden" id="resultsPageButtonAction" name="action" value="results" class="buttonInput" />
+                                <input type="submit" id="resultsPageButtonSubmit" name="submit" value="Results" class="buttonInput button" />
+                            </form>
+                        </div>
 
-                <?php } ?>
+                        <?php } ?>
+
+                    <?php
+
+                    if ( isset($pageVars["userSession"]) &&
+                         $pageVars["userSession"]->getLoginStatus()==true &&
+                         $pageVars["userData"]->isAdmin()==true) { ?>
+
+                        <div class="navMenu">
+                            <form action="/index.php" id="administerPermissionsButton" method="POST">
+                                <input type="hidden" id="administerPermissionsButtonControl" name="control" value="administerPermissions" class="buttonInput" />
+                                <input type="hidden" id="administerPermissionsButtonAction" name="action" value="index" class="buttonInput" />
+                                <input type="submit" id="administerPermissionsButtonSubmit" name="submit" value="Permissions" class="buttonInput button" />
+                            </form>
+                        </div>
+
+                        <?php } ?>
                 </div> <!-- end pageRow div-->
 
                 <div class="pageRow">
@@ -68,6 +84,13 @@
                 <div class="pageRow">
                     <?php echo $templateData; ?>
                 </div> <!-- end pageRow div-->
+
+                <div class="pageRow">
+                    <p>
+                        Brought to you by eBay UK
+                    </p>
+                </div> <!-- end pageRow div-->
+
             </div>
         </div>
     </body>
