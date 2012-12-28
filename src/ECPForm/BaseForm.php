@@ -10,6 +10,7 @@ class BaseForm {
     public $formRequest;
     public $validationResult;
     public $formFields;
+    public $postBindValidators;
 
 	public function __construct() {
         $this->dbo = new \Core\Database();
@@ -28,17 +29,17 @@ class BaseForm {
 
     public function postBindForm() {
         $this->setPostBindValidators() ;
-        $postBindValidationResult = $this->executeValidationFunctions("post") ;
-        if ($this->validationResult["results"]=="true" && $postBindValidationResult["results"]=="true") {
+        $postBindValResult = $this->executeValidationFunctions("post") ;
+        if ($this->validationResult["results"]=="true" && $postBindValResult["results"]=="true") {
             $this->validationResult["messages"] =
-                array_merge($this->validationResult["messages"], $postBindValidationResult["messages"]) ;
+                array_merge($this->validationResult["messages"], $postBindValResult["messages"]) ;
             $this->validationResult["errors"] =
-                array_merge($this->validationResult["errors"], $postBindValidationResult["errors"]) ;
+                array_merge($this->validationResult["errors"], $postBindValResult["errors"]) ;
             $this->doSuccessCallback($this->validationResult);
         } else {
             $this->validationResult["results"] = false;
             $this->validationResult["errors"] =
-                array_merge($this->validationResult["errors"], $postBindValidationResult["errors"]) ;
+                array_merge($this->validationResult["errors"], $postBindValResult["errors"]) ;
             $this->doFailureCallback($this->validationResult);
         }
     }
@@ -66,17 +67,21 @@ class BaseForm {
         foreach ($validatorSource as $formFieldDetails) {
             $fieldName = $formFieldDetails["fieldName"];
             $fieldValidators = $formFieldDetails["validators"];
-            foreach ($fieldValidators as $fieldValidatorFunction => $fieldValidatorOptions) {
-                $singleValidationResult = $this->validationHelpers->$fieldValidatorFunction($fieldName, $fieldValidatorOptions);
-                if (array_key_exists("false", $singleValidationResult)) {
+            foreach ($fieldValidators as $fieldValFunc => $fieldValOpts) {
+                $singleValResult = $this->validationHelpers->$fieldValFunc( $fieldValOpts);
+                if (array_key_exists("false", $singleValResult)) {
                     $validationResults["results"] = "false";
-                    $singleError = array("field" => $fieldName, "messages" => $singleValidationResult["false"]);
-                    $validationResults["errors"][] = $singleError;
-                }
-            }
-        }
-
+                    $singleError = array("field" => $fieldName, "messages" => $singleValResult["false"]);
+                    $validationResults["errors"][] = $singleError; } } }
         return $validationResults;
+    }
+
+    public function setFormFields() {
+        $this->formFields = array();
+    }
+
+    public function setPostBindValidators() {
+        $this->postBindValidators = array();
     }
 
 }

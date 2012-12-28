@@ -1,0 +1,13 @@
+PHP MD README
+---------------
+
+This document
+
+The build is ready to pass the following
+
+1) functional tests - cucumber
+2) php md tests - phpmd
+3) phpunit tests - phpunit
+
+All available in the build/config folder, just run execute.php
+

@@ -4,21 +4,30 @@ Namespace Core;
 
 class Router {
 
+    /*
+     * todo expand availableroutes array or move to model, needs extra field of friendly route for action, all urls
+     * can be easily made friendly with one line in htaccess. http://forums.phpfreaks.com/topic/237372-
+     * friendly-urls-from-a-database/
+     */
     private	$route; // the attribute to be passed to the calling object
     private $availableRoutes = array(
-            "index" => array( "index" ) ,
-            "page" => array( "group" , "results" ) ,
-            "register" => array( "register" ) ,
-            "login" => array( "login" ),
-            "logout" => array( "logout")
-        );
+        "index" => array("index") ,
+        "register" => array("register") ,
+        "login" => array("login"),
+        "logout" => array("logout"),
+        "userPage" => array("user"),
+        "groupPage" => array("group"),
+        "resultsPage" => array("results"),
+        "administerPermissions" => array("index","save")
+    );
 
 	public function run() {
 		$this->setCurrentRoute();
         return $this->route ;
 	}
 
-	/**  @todo In real world Extra xss defense would be called here, as could a url rewriting function. */
+	/**  @todo In real world Extra xss defense would be called here, as could a url rewriting function.
+     */
 	private function setCurrentRoute() {
         $defaultRoute = $this->getDefaultRoute();
         $this->setRouteController();
