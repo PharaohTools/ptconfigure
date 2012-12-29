@@ -1,9 +1,18 @@
 <phpunit>
     <filter>
         <blacklist>
+            <directory suffix=".php">/var/www/ebayFun/ebaycodepractice/src</directory>
             <exclude>
-                <directory suffix=".php">../src</directory>
+                <directory suffix=".php">/var/www/ebayFun/ebaycodepractice/src</directory>
+                <directory suffix=".php">../../../src</directory>
             </exclude>
         </blacklist>
+        <whitelist>
+            <directory suffix=".php">/var/www/ebayFun/ebaycodepractice/src</directory>
+            <exclude>
+                <directory suffix=".php">/var/www/ebayFun/ebaycodepractice/src</directory>
+                <directory suffix=".php">../../../src</directory>
+            </exclude>
+        </whitelist>
     </filter>
 </phpunit>
