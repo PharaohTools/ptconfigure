@@ -16,7 +16,7 @@ class phpMDExecutor {
         $basePath = str_replace('build/config/phpmd', "", dirname(__FILE__));
         $command = 'phpmd '.$basePath.'src/ html '.dirname(__FILE__).'/rules/standard.xml ';
         $command .= ' --exclude '.$basePath.'src/Core/View.php';
-        $command .= ' --reportfile '.$basePath.'reports/phpmd/html/index.html';
+        $command .= ' --reportfile '.$basePath.'build/reports/phpmd/html/index.html';
         self::executeAndOutput($command); }
 
     private static function executeAndOutput($command) {
