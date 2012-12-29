@@ -1,0 +1,9 @@
+<phpunit>
+    <filter>
+        <blacklist>
+            <exclude>
+                <directory suffix=".php">/src/Views</directory>
+            </exclude>
+        </blacklist>
+    </filter>
+</phpunit>

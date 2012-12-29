@@ -13,7 +13,8 @@ class phpUnitCiExecutor {
         chdir($scriptLocation); }
 
     private function performUnitTests(){
-        $command = 'phpunit --coverage-clover ../../reports/phpunit/xml/report.xml ../../tests/phpunit/';
+        $command = 'phpunit  --configuration phpunit.xml ';
+        $command .= '--coverage-clover ../../reports/phpunit/xml/report.xml ../../tests/phpunit/';
         self::executeAndOutput($command); }
 
     private static function executeAndOutput($command) {
