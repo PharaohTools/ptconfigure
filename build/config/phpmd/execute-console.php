@@ -1,8 +1,8 @@
 <?php
 
-phpMDExecutor::execute();
+phpMDConsoleExecutor::execute();
 
-class phpMDExecutor {
+class phpMDConsoleExecutor {
 
     public static function execute(){
         self::setWorkingDirectory();
@@ -14,9 +14,8 @@ class phpMDExecutor {
 
     private function performTests(){
         $basePath = str_replace('build/config/phpmd', "", dirname(__FILE__));
-        $command = 'phpmd '.dirname(__FILE__).'/../../../src/ html '.dirname(__FILE__).'/rules/standard.xml ';
+        $command = 'phpmd '.dirname(__FILE__).'/../../../src/ text '.dirname(__FILE__).'/rules/standard.xml ';
         $command .= ' --exclude '.$basePath.'src/Core/View.php';
-        $command .= ' --reportfile '.dirname(__FILE__).'/../../reports/phpmd/index.html';
         self::executeAndOutput($command); }
 
     private static function executeAndOutput($command) {
