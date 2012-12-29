@@ -1,8 +1,8 @@
 <?php
 
-phpUnitExecutor::execute();
+phpUnitConsoleExecutor::execute();
 
-class phpUnitExecutor {
+class phpUnitConsoleExecutor {
 
     public static function execute(){
         self::setWorkingDirectory();
@@ -13,7 +13,7 @@ class phpUnitExecutor {
         chdir($scriptLocation); }
 
     private function performUnitTests(){
-        $command = 'phpunit --coverage-html ../../reports/phpunit/ ../../tests/phpunit/';
+        $command = 'phpunit ../../tests/phpunit/';
         self::executeAndOutput($command); }
 
     private static function executeAndOutput($command) {
