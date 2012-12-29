@@ -14,7 +14,7 @@ class phpUnitCiExecutor {
 
     private function performUnitTests(){
         $command = 'phpunit  --configuration phpunit.xml ';
-        $command .= '--coverage-clover ../../reports/phpunit/xml/empty.xml ../../tests/phpunit/';
+        $command .= '--coverage-clover ../../reports/phpunit/xml/report.xml ../../tests/phpunit/';
         self::executeAndOutput($command); }
 
     private static function executeAndOutput($command) {
