@@ -2,7 +2,7 @@
     <filter>
         <blacklist>
             <exclude>
-                <directory suffix=".php">../../src</directory>
+                <directory suffix=".php">../src</directory>
             </exclude>
         </blacklist>
     </filter>
