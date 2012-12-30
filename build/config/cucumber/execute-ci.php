@@ -6,8 +6,8 @@ class cukeCiExecutor {
 
     public static function execute(){
         self::setWorkingDirectory();
-        // self::startRuby();
-        // self::performTests();
+        self::startRuby();
+        self::performTests();
     }
 
     private function setWorkingDirectory(){
@@ -17,8 +17,6 @@ class cukeCiExecutor {
         self::executeAndOutput($command); }
 
     private function startRuby(){
-        //$starter = 'sh '.dirname(__FILE__).'/exec-ci.sh';
-        // $commOne = 'source $(rvm env 1.9.3 --path)';
         $commOne = 'rvm use 1.9.3';
         self::executeAndOutput($commOne); }
 
