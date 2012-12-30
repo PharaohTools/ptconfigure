@@ -40,7 +40,7 @@ class ValidationHelpers {
 
     public function validUserLogin($options=array() ) {
         $user = new \Model\UserData();
-        $validUser = ($user->checkPasswordCorrectFromUnHashedPassword($options["email"], $options["userPass"] ))
+        $validUser = ($user->checkPasswordCorrect($options["email"], $options["userPass"], "unhashed" ))
             ? array("true"=>"") : array("false"=>"The login details are incorrect") ;
         return $validUser;
     }
