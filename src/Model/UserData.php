@@ -104,11 +104,11 @@ class UserData {
         $stmt->close();
         return $email; }
 
-    public function checkPasswordCorrect($email, $password) {
-        return ($this->getUserHashedPassword($email) == $password ) ?  true : false; }
-
-    public function checkPasswordCorrectFromUnHashedPassword($email, $password) {
-        return ($this->getUserHashedPassword($email) == md5($password) ) ?  true : false; }
+    public function checkPasswordCorrect($email, $password, $unhashed=null) {
+        if ($unhashed=="unhashed") {
+           return ($this->getUserHashedPassword($email) == md5($password) ) ?  true : false;}
+        return ($this->getUserHashedPassword($email) == $password ) ?  true : false;
+    }
 
     private function getUserHashedPassword($email) {
         if ($stmt = $this->dbo->getDbo()->prepare("SELECT password FROM users WHERE email = ?")) {
