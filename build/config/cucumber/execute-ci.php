@@ -6,16 +6,21 @@ class cukeCiExecutor {
 
     public static function execute(){
         self::setWorkingDirectory();
-        self::startRuby();
-        self::performTests(); }
+        // self::startRuby();
+        // self::performTests();
+    }
 
     private function setWorkingDirectory(){
-        $scriptLocation = dirname(__FILE__).'/../../tests/';
-        chdir($scriptLocation); }
+        $basePath = str_replace('build/config/cucumber', "", dirname(__FILE__));
+        $scriptLocation = $basePath.'build/tests/';
+        $command = "cd $scriptLocation";
+        self::executeAndOutput($command); }
 
     private function startRuby(){
-        $starter = 'rvm use /home/golden/.rvm/bin/ruby';
-        self::executeAndOutput($starter); }
+        //$starter = 'sh '.dirname(__FILE__).'/exec-ci.sh';
+        // $commOne = 'source $(rvm env 1.9.3 --path)';
+        $commOne = 'rvm use 1.9.3';
+        self::executeAndOutput($commOne); }
 
     private function performTests(){
         $command = 'cucumber --format json -o cucumber.json';

@@ -10,11 +10,12 @@ class cukeConsoleExecutor {
         self::performTests(); }
 
     private function setWorkingDirectory(){
-        $scriptLocation = dirname(__FILE__).'/../../tests/';
+        $basePath = str_replace('build/config/cucumber', "", dirname(__FILE__));
+        $scriptLocation = $basePath.'build/tests/features/';
         chdir($scriptLocation); }
 
     private function startRuby(){
-        $starter = 'rvm use /home/golden/.rvm/bin/ruby';
+        $starter = 'rvm use /home/jenkins/.rvm/bin/ruby';
         self::executeAndOutput($starter); }
 
     private function performTests(){
