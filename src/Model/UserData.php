@@ -102,7 +102,8 @@ class UserData {
         $stmt->bind_result($email);
         $stmt->fetch();
         $stmt->close();
-        return $email; }
+        return $email;
+    }
 
     public function checkPasswordCorrect($email, $password, $unhashed=null) {
         if ($unhashed=="unhashed") {
@@ -118,7 +119,8 @@ class UserData {
             $stmt->bind_result($hashPass);
             $stmt->fetch();
             $stmt->close();
-            return $hashPass; }
+            return $hashPass;
+        }
     }
 
 }
