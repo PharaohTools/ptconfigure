@@ -9,7 +9,9 @@
 
 	<!-- Import the entire unused code rule set -->
 	<rule ref="rulesets/codesize.xml" />
-	<rule ref="rulesets/unusedcode.xml" />
+	<rule ref="rulesets/unusedcode.xml" >
+        <exclude name="UnusedPrivateMethod" />
+    </rule>
 	<rule ref="rulesets/naming.xml" >
         <exclude name="ShortVariable" />
     </rule>
