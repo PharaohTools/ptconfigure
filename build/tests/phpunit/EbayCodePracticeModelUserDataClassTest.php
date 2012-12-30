@@ -277,6 +277,42 @@ class EbayCodePracticeModelUserClassTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue( $returnValue==true );
     }
 
+    public function testSaveWillNotAddANewRecordToUserTableWithEmptyProperties() {
+        /* @todo this test */
+    }
+
+    public function testSaveWillNotAddANewRecordToUserTableWithDuplicateEmailProperty() {
+        /* @todo this test */
+    }
+
+    public function testSaveWillAddANewRecordToUserTableWithCorrectParameters() {
+        /* @todo this test */
+    }
+
+    public function testCheckPasswordCorrectWillReturnFalseIfEmailDoesNotExist() {
+        /* @todo this test */
+    }
+
+    public function testCheckPasswordCorrectWillReturnFalseIfPasswordIsWrong() {
+        /* @todo this test */
+    }
+
+    public function testCheckPasswordCorrectWillReturnTrueIfPasswordIsCorrect() {
+        /* @todo this test */
+    }
+
+    public function testGetUserHashedPasswordWillReturnNullIfEmailDoesNotExist() {
+        /* @todo this test */
+    }
+
+    public function testGetUserHashedPasswordWillReturnStringIfEmailDoesExist() {
+        /* @todo this test */
+    }
+
+    public function testGetUserHashedPasswordWillReturnStringOfCorrectValueIfEmailDoesExist() {
+        /* @todo this test */
+    }
+
 }
 
 class mockUserDataRoleRelationAvailable {
