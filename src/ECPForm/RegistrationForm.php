@@ -15,14 +15,8 @@ class RegistrationForm extends BaseForm {
 
     public function setPostBindValidators() {
         parent::setPostBindValidators();
-        $this->formRequest["userName"]= (isset($this->formRequest["userName"]))? $this->formRequest["userName"]:null;
-        $this->formRequest["email"]= (isset($this->formRequest["email"]))? $this->formRequest["email"]:null;
-        $this->formRequest["userPass"]= (isset($this->formRequest["userPass"]))? $this->formRequest["userPass"]:null;
-        $this->formRequest["userPass2"]= (isset($this->formRequest["userPass2"]))? $this->formRequest["userPass2"]:null;
-        $this->addValidatorForUserName()
-             ->addValidatorForEMail()
-             ->addValidatorForUserPass()
-             ->addValidatorForUserPass2();
+        $this->bindValueOrNullFieldsToForm();
+        $this->addValidators();
     }
 
     public function formSuccessCallBack(){
@@ -32,6 +26,20 @@ class RegistrationForm extends BaseForm {
                                               $this->formRequest["userPass"]) )
                       ? true : false ;
         return $userWasSet;
+    }
+
+    private function addValidators() {
+        $this->addValidatorForUserName();
+        $this->addValidatorForEMail();
+        $this->addValidatorForUserPass();
+        $this->addValidatorForUserPass2();
+    }
+
+    private function bindValueOrNullFieldsToForm() {
+        $this->formRequest["userName"]= (isset($this->formRequest["userName"]))? $this->formRequest["userName"]:null;
+        $this->formRequest["email"]= (isset($this->formRequest["email"]))? $this->formRequest["email"]:null;
+        $this->formRequest["userPass"]= (isset($this->formRequest["userPass"]))? $this->formRequest["userPass"]:null;
+        $this->formRequest["userPass2"]= (isset($this->formRequest["userPass2"]))? $this->formRequest["userPass2"]:null;
     }
 
     private function addValidatorForUserName() {
