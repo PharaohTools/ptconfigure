@@ -18,7 +18,7 @@ class cukeCiExecutor {
         self::executeAndOutput($starter); }
 
     private function performTests(){
-        $command = 'cucumber';
+        $command = 'cucumber --format json -o cucumber.json';
         self::executeAndOutput($command); }
 
     private static function executeAndOutput($command) {
