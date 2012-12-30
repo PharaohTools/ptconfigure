@@ -73,10 +73,10 @@ class UserData {
             return true; }
         return false; }
 
-    public function isAdmin() {
+    public function isAdmin($relation=null) {
         $role = new \Model\Role();
         $role->loadRoleByName("Administrator");
-        $relation = new UserRole($this, $role);
+        if (!isset($relation) ) { $relation = new UserRole($this, $role); }
         if ($relation->exists() ) {
             return true; }
         return false; }

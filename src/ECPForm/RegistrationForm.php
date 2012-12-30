@@ -16,10 +16,7 @@ class RegistrationForm extends BaseForm {
     public function setPostBindValidators() {
         parent::setPostBindValidators();
         $this->bindValueOrNullFieldsToForm();
-        $this->addValidatorForUserName()
-            ->addValidatorForEMail()
-            ->addValidatorForUserPass()
-            ->addValidatorForUserPass2();
+        $this->addValForUserName() ->addValForEMail() ->addValForUserPass() ->addValForUserPass2();
     }
 
     public function formSuccessCallBack(){
@@ -32,33 +29,23 @@ class RegistrationForm extends BaseForm {
     }
 
     private function bindValueOrNullFieldsToForm() {
-        $this->bindValueOrNullFieldsToFormFieldUserName();
-        $this->bindValueOrNullFieldsToFormFieldEmail();
-        $this->bindValueOrNullFieldsToFormFieldUserPass();
-        $this->bindValueOrNullFieldsToFormFieldUserPass2();
+        foreach ($this->formFields as $formField) {
+            $this->bindValueOrNullFieldsToFormField($formField["fieldName"]);  }
     }
 
-    private function bindValueOrNullFieldsToFormFieldUserName() {
-        $this->formRequest["userName"]= (isset($this->formRequest["userName"]))? $this->formRequest["userName"]:null;
-    }
-    private function bindValueOrNullFieldsToFormFieldEmail() {
-        $this->formRequest["email"]= (isset($this->formRequest["email"]))? $this->formRequest["email"]:null;
-    }
-    private function bindValueOrNullFieldsToFormFieldUserPass() {
-        $this->formRequest["userPass"]= (isset($this->formRequest["userPass"]))? $this->formRequest["userPass"]:null;
-    }
-    private function bindValueOrNullFieldsToFormFieldUserPass2() {
-        $this->formRequest["userPass2"]= (isset($this->formRequest["userPass2"]))? $this->formRequest["userPass2"]:null;
+    private function bindValueOrNullFieldsToFormField($fieldName) {
+        if (!isset($this->formRequest[$fieldName])) {
+            $this->formRequest[$fieldName] = null;}
     }
 
-    private function addValidatorForUserName() {
+    private function addValForUserName() {
         $this->postBindValidators[] = array(
             "fieldName"=>"userName",
             "validators"=>array( "notBlank"=>array( "fieldValue"=>$this->formRequest["userName"] ) ) );
         return $this;
     }
 
-    private function addValidatorForEMail() {
+    private function addValForEMail() {
         $this->postBindValidators[] = array(
             "fieldName"=>"email",
             "validators"=>array( "notBlank"=>array("fieldValue"=>$this->formRequest["email"]),
@@ -67,7 +54,7 @@ class RegistrationForm extends BaseForm {
         return $this;
     }
 
-    private function addValidatorForUserPass() {
+    private function addValForUserPass() {
         $this->postBindValidators[] = array(
             "fieldName"=>"userPass",
             "validators"=>array( "notBlank"=>array("fieldValue"=>$this->formRequest["userPass"]),
@@ -76,7 +63,7 @@ class RegistrationForm extends BaseForm {
         return $this;
     }
 
-    private function addValidatorForUserPass2() {
+    private function addValForUserPass2() {
         $this->postBindValidators[] = array(
             "fieldName"=>"userPass2",
             "validators"=>array( "notBlank"=>array("fieldValue"=>$this->formRequest["userPass2"]),

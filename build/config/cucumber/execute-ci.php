@@ -14,7 +14,7 @@ class cukeCiExecutor {
         chdir($scriptLocation); }
 
     private function startRuby(){
-        $starter = 'rvm use ~/.rvm/bin/ruby';
+        $starter = 'rvm use /home/golden/.rvm/bin/ruby';
         self::executeAndOutput($starter); }
 
     private function performTests(){

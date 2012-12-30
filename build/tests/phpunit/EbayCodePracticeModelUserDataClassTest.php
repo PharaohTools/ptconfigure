@@ -239,7 +239,7 @@ class EbayCodePracticeModelUserClassTest extends PHPUnit_Framework_TestCase {
         $randomRoleId = $this->getRandomRoleId();
         $role->loadRoleById($randomRoleId);
         $returnValue = $user->hasRole($role, new mockUserDataRoleRelationUnAvailable());
-        $this->assertTrue( is_bool($returnValue) );
+        $this->assertTrue( $returnValue==false );
     }
 
     public function testHasRoleWillReturnTrueWhenRoleAvailable() {
@@ -250,6 +250,30 @@ class EbayCodePracticeModelUserClassTest extends PHPUnit_Framework_TestCase {
         $randomRoleId = $this->getRandomRoleId();
         $role->loadRoleById($randomRoleId);
         $returnValue = $user->hasRole($role, new mockUserDataRoleRelationAvailable());
+        $this->assertTrue( $returnValue==true );
+    }
+
+    public function testIsAdminWillReturnBoolean() {
+        $user = new \Model\UserData();
+        $email = $this->getRandomUserEmail();
+        $user->loadUser($email);
+        $returnValue = $user->isAdmin();
+        $this->assertTrue( is_bool($returnValue) );
+    }
+
+    public function testIsAdminWillReturnFalseWhenRoleNotAvailable() {
+        $user= new \Model\UserData();
+        $email = $this->getRandomUserEmail();
+        $user->loadUser($email);
+        $returnValue = $user->isAdmin(new mockUserDataRoleRelationUnAvailable());
+        $this->assertTrue( $returnValue==false );
+    }
+
+    public function testIsAdminWillReturnTrueWhenRoleAvailable() {
+        $user= new \Model\UserData();
+        $email = $this->getRandomUserEmail();
+        $user->loadUser($email);
+        $returnValue = $user->isAdmin(new mockUserDataRoleRelationAvailable());
         $this->assertTrue( $returnValue==true );
     }
 
