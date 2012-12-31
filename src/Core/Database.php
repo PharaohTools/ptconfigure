@@ -7,22 +7,43 @@ class Database {
     private $dbo ;
     private $dataHelpers;
 
-    private $dbHost = "localhost";
-    private $dbUser = "root";
-    private $dbPass = "ebayebay";
-    private $dbName = "ebaycodepractice";
+    private $dbHost ;
+    private $dbUser ;
+    private $dbPass ;
+    private $dbName ;
 
-    public function __construct() {
-        try { $this->startConnection();
-              if ($this->dbo->connect_errno ) {
-                throw new \Exception ("Unable to connect to Database: ".$this->dbo->connect_errno); } }
-        catch (\Exception $e){
-            echo "Application Exception: ".$e; }
+    public function __construct($manual=null) {
+        if ($manual==null) {
+            $this->setConnectionVars();
+            $this->runDb(); }
+    }
+
+    public function runDb(){
+        $this->startConnection();
         $this->dataHelpers = new DatabaseHelpers();
+
+    }
+
+    private function setConnectionVars($overrides=null) {
+        if (isset($overrides) && is_array($overrides)) {
+            $this->dbHost = $overrides["dbHost"];
+            $this->dbUser = $overrides["dbUser"];
+            $this->dbPass = $overrides["dbPass"];
+            $this->dbName = $overrides["dbName"]; }
+        else {
+            $this->dbHost = "localhost";
+            $this->dbUser = "root";
+            $this->dbPass = "ebayebay";
+            $this->dbName = "ebaycodepractice"; }
+
     }
 
     private function startConnection() {
-        $this->dbo = new \mysqli($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
+        try {
+            $this->dbo = new \mysqli($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);}
+        catch (\Exception $e){
+            echo "Application Exception";
+            throw new \Exception ; }
     }
 
     public function getDbo() {
