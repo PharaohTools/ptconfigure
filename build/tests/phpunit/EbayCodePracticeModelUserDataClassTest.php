@@ -308,11 +308,11 @@ class EbayCodePracticeModelUserClassTest extends PHPUnit_Framework_TestCase {
         $stmt->bind_result($originalUserCount);
         $stmt->fetch();
 
+        $user= new \Model\UserData();
         $userSaveReflectionProperty = new \ReflectionProperty($user, 'email');
         $userSaveReflectionProperty->setAccessible(true);
         $userSaveReflectionProperty->setValue($user, 'damanshia@ebay.com');
 
-        $user= new \Model\UserData();
         $userSaveReflectionMethod = new \ReflectionMethod($user, 'save');
         $userSaveReflectionMethod->setAccessible(true);
         $userSaveReflectionMethod->invoke($user);
@@ -335,11 +335,32 @@ class EbayCodePracticeModelUserClassTest extends PHPUnit_Framework_TestCase {
         $stmt->bind_result($originalUserCount);
         $stmt->fetch();
 
-        $userSaveReflectionProperty = new \ReflectionProperty($user, 'email');
-        $userSaveReflectionProperty->setAccessible(true);
-        $userSaveReflectionProperty->setValue($user, 'damanshia@ebay.com');
-
         $user= new \Model\UserData();
+
+        $userHashReflectionProperty = new \ReflectionProperty($user, 'idHash');
+        $userHashReflectionProperty->setAccessible(true);
+        $userHashReflectionProperty->setValue($user, '88888888');
+
+        $userTimeCreateReflectionProperty = new \ReflectionProperty($user, 'timeCreate');
+        $userTimeCreateReflectionProperty->setAccessible(true);
+        $userTimeCreateReflectionProperty->setValue($user, time() );
+
+        $userTimeLoginReflectionProperty = new \ReflectionProperty($user, 'timeLogin');
+        $userTimeLoginReflectionProperty->setAccessible(true);
+        $userTimeLoginReflectionProperty->setValue($user, time() );
+
+        $userUserNameReflectionProperty = new \ReflectionProperty($user, 'userName');
+        $userUserNameReflectionProperty->setAccessible(true);
+        $userUserNameReflectionProperty->setValue($user, "testingUser");
+
+        $userEMailReflectionProperty = new \ReflectionProperty($user, 'email');
+        $userEMailReflectionProperty->setAccessible(true);
+        $userEMailReflectionProperty->setValue($user, 'testXZY30458@email.com');
+
+        $userPasswordReflectionProperty = new \ReflectionProperty($user, 'pWord');
+        $userPasswordReflectionProperty->setAccessible(true);
+        $userPasswordReflectionProperty->setValue($user, md5("password"));
+
         $userSaveReflectionMethod = new \ReflectionMethod($user, 'save');
         $userSaveReflectionMethod->setAccessible(true);
         $userSaveReflectionMethod->invoke($user);
@@ -351,31 +372,83 @@ class EbayCodePracticeModelUserClassTest extends PHPUnit_Framework_TestCase {
         $stmt->bind_result($newUserCount);
         $stmt->fetch();
 
-        $this->assertTrue( $originalUserCount==$newUserCount );
+        $this->assertTrue( ($originalUserCount+1)==$newUserCount );
+
+        $this->dropUser();
     }
 
-    public function testCheckPasswordCorrectWillReturnFalseIfEmailDoesNotExist() {
-        /* @todo this test */
+    public function testCheckPasswordCorrectWillReturnFalseIfEmailDoesNotExistHashedPass() {
+        $user= new \Model\UserData();
+        $returnValue = $user->checkPasswordCorrect("aCompletelyMadeUpEmailAddress@YourMum.com", md5(""));
+        $this->assertFalse($returnValue);
     }
 
-    public function testCheckPasswordCorrectWillReturnFalseIfPasswordIsWrong() {
-        /* @todo this test */
+    public function testCheckPasswordCorrectWillReturnFalseIfEmailDoesNotExistUnhashedPass() {
+        $user= new \Model\UserData();
+        $returnValue = $user->checkPasswordCorrect("aCompletelyMadeUpEmailAddress@YourMum.com", "", "unhashed");
+        $this->assertFalse($returnValue);
     }
 
-    public function testCheckPasswordCorrectWillReturnTrueIfPasswordIsCorrect() {
-        /* @todo this test */
+    public function testCheckPasswordCorrectWillReturnFalseIfPasswordIsWrongHashedPass() {
+        $this->createTestNonAdminUser();
+        $user= new \Model\UserData();
+        $returnValue = $user->checkPasswordCorrect("damanshia@ebay.com", md5("madeUpPassWordFromYoMama2378223817049") );
+        $this->assertFalse($returnValue);
+        $this->dropUser();
+    }
+
+    public function testCheckPasswordCorrectWillReturnFalseIfPasswordIsWrongUnhashedPass() {
+        $this->createTestNonAdminUser();
+        $user= new \Model\UserData();
+        $returnValue = $user->checkPasswordCorrect("damanshia@ebay.com", "madeUpPasFrmYoMam237sdvsd381049", "unhashed");
+        $this->assertFalse($returnValue);
+        $this->dropUser();
+    }
+
+    public function testCheckPasswordCorrectWillReturnTrueIfPasswordIsCorrectHashedPass() {
+        $this->createTestNonAdminUser();
+        $user= new \Model\UserData();
+        $returnValue = $user->checkPasswordCorrect("testXZY30458@email.com", md5("password") );
+        $this->assertTrue($returnValue);
+        $this->dropUser();
+    }
+
+    public function testCheckPasswordCorrectWillReturnTrueIfPasswordIsCorrectUnhashedPass() {
+        $this->createTestNonAdminUser();
+        $user= new \Model\UserData();
+        $returnValue = $user->checkPasswordCorrect("testXZY30458@email.com", "password", "unhashed");
+        $this->assertTrue($returnValue);
+        $this->dropUser();
     }
 
     public function testGetUserHashedPasswordWillReturnNullIfEmailDoesNotExist() {
-        /* @todo this test */
+        $this->createTestNonAdminUser();
+        $user= new \Model\UserData();
+        $userSaveReflectionMethod = new \ReflectionMethod($user, 'getUserHashedPassword');
+        $userSaveReflectionMethod->setAccessible(true);
+        $returnValue = $userSaveReflectionMethod->invokeArgs($user, array("aCompletelyMadeUpEmailAddress@YourMum.com") );
+        $this->assertTrue(is_null($returnValue));
+        $this->dropUser();
     }
 
     public function testGetUserHashedPasswordWillReturnStringIfEmailDoesExist() {
-        /* @todo this test */
+        $this->createTestNonAdminUser();
+        $user= new \Model\UserData();
+        $userSaveReflectionMethod = new \ReflectionMethod($user, 'getUserHashedPassword');
+        $userSaveReflectionMethod->setAccessible(true);
+        $returnValue = $userSaveReflectionMethod->invokeArgs($user, array("testXZY30458@email.com") );
+        $this->assertTrue(is_string($returnValue));
+        $this->dropUser();
     }
 
     public function testGetUserHashedPasswordWillReturnStringOfCorrectValueIfEmailDoesExist() {
-        /* @todo this test */
+        $this->createTestNonAdminUser();
+        $user= new \Model\UserData();
+        $userSaveReflectionMethod = new \ReflectionMethod($user, 'getUserHashedPassword');
+        $userSaveReflectionMethod->setAccessible(true);
+        $returnValue = $userSaveReflectionMethod->invokeArgs($user, array("testXZY30458@email.com") );
+        $this->assertTrue($returnValue == md5("password") );
+        $this->dropUser();
     }
 
 }
@@ -388,4 +461,12 @@ class mockUserDataRoleRelationAvailable {
 class mockUserDataRoleRelationUnAvailable {
     public function exists() {
         return false; }
+}
+
+class fakeDbo {
+    public function getDbo(){
+        $mysqli = \bootStrapForTests::getMysqlI();
+        return $mysqli ;
+    }
+
 }

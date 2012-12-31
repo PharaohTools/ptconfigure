@@ -35,10 +35,10 @@ class UserSession {
                                hash('sha512', $this->userData->getIdHash().$this->ipAddress.$this->userBrowser));
     }
 
-    private function loginCheck(){
-        $sessUserExistEmail = $this->checkSessionUserExists();
+    private function loginCheck($sessUserExistEmail=null, $vSession=null){
+        $sessUserExistEmail = ($sessUserExistEmail==null) ? $this->checkSessionUserExists() : $sessUserExistEmail ;
         if ($sessUserExistEmail != false) {
-             if ($this->verifySessionUser($sessUserExistEmail)){
+             if ( $vSession!=null || $this->verifySessionUser($sessUserExistEmail)){
                  return true; } }
         return false;
     }

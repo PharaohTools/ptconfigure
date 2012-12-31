@@ -6,11 +6,16 @@ class phpUnitHtmlExecutor {
 
     public static function execute(){
         self::setWorkingDirectory();
+        self::emptyOldFiles();
         self::performUnitTests(); }
 
     private function setWorkingDirectory(){
         $scriptLocation = dirname(__FILE__);
         chdir($scriptLocation); }
+
+    private function emptyOldFiles(){
+        $command = 'rm -rf ../../reports/phpunit/html/*';
+        self::executeAndOutput($command); }
 
     private function performUnitTests(){
         $command = 'phpunit --coverage-html ../../reports/phpunit/html/ ../../tests/phpunit/';
