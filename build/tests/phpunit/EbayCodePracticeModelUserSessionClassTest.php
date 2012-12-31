@@ -6,11 +6,15 @@ class EbayCodePracticeModelUserSessionClassTest extends PHPUnit_Framework_TestCa
         require_once("bootstrap.php"); }
 
     public function testgetUserIdReturnsNullIfNoUserIdIsSet() {
-        /* @todo this test */
+        $_SESSION["userId"] = null;
+        $userSession = new \Model\UserSession();
+        $this->assertTrue ($userSession->getUserId() == null );
     }
 
     public function testgetUserIdReturnsAnIdIfUserIdIsSet() {
-        /* @todo this test */
+        $_SESSION["userId"] = '12345678';
+        $userSession = new \Model\UserSession();
+        $this->assertTrue ($userSession->getUserId() == '12345678' );
     }
 
     public function testgetLoginStatusReturnsBoolean() {
@@ -43,7 +47,10 @@ class EbayCodePracticeModelUserSessionClassTest extends PHPUnit_Framework_TestCa
     }
 
     public function testlogoutUserSessionDeletesASession() {
-        /* @todo this test */
+        $_SESSION["userId"] = "TestIdForSession";
+        $userSession = new \Model\UserSession();
+        $userSession->logoutUserSession();
+        $this->assertTrue ( !isset($_SESSION["userId"]) );
     }
 
 

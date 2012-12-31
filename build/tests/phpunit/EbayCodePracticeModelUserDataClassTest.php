@@ -278,15 +278,80 @@ class EbayCodePracticeModelUserClassTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testSaveWillNotAddANewRecordToUserTableWithEmptyProperties() {
-        /* @todo this test */
+        $mysqli = \bootStrapForTests::getMysqlI();
+        $stmt = $mysqli->prepare("SELECT count(*) FROM users");
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($originalUserCount);
+        $stmt->fetch();
+
+        $user= new \Model\UserData();
+        $userSaveReflectionMethod = new \ReflectionMethod($user, 'save');
+        $userSaveReflectionMethod->setAccessible(true);
+        $userSaveReflectionMethod->invoke($user);
+
+        $mysqli = \bootStrapForTests::getMysqlI();
+        $stmt = $mysqli->prepare("SELECT count(*) FROM users");
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($newUserCount);
+        $stmt->fetch();
+
+        $this->assertTrue( $originalUserCount==$newUserCount );
     }
 
     public function testSaveWillNotAddANewRecordToUserTableWithDuplicateEmailProperty() {
-        /* @todo this test */
+        $mysqli = \bootStrapForTests::getMysqlI();
+        $stmt = $mysqli->prepare("SELECT count(*) FROM users");
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($originalUserCount);
+        $stmt->fetch();
+
+        $userSaveReflectionProperty = new \ReflectionProperty($user, 'email');
+        $userSaveReflectionProperty->setAccessible(true);
+        $userSaveReflectionProperty->setValue($user, 'damanshia@ebay.com');
+
+        $user= new \Model\UserData();
+        $userSaveReflectionMethod = new \ReflectionMethod($user, 'save');
+        $userSaveReflectionMethod->setAccessible(true);
+        $userSaveReflectionMethod->invoke($user);
+
+        $mysqli = \bootStrapForTests::getMysqlI();
+        $stmt = $mysqli->prepare("SELECT count(*) FROM users");
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($newUserCount);
+        $stmt->fetch();
+
+        $this->assertTrue( $originalUserCount==$newUserCount );
     }
 
     public function testSaveWillAddANewRecordToUserTableWithCorrectParameters() {
-        /* @todo this test */
+        $mysqli = \bootStrapForTests::getMysqlI();
+        $stmt = $mysqli->prepare("SELECT count(*) FROM users");
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($originalUserCount);
+        $stmt->fetch();
+
+        $userSaveReflectionProperty = new \ReflectionProperty($user, 'email');
+        $userSaveReflectionProperty->setAccessible(true);
+        $userSaveReflectionProperty->setValue($user, 'damanshia@ebay.com');
+
+        $user= new \Model\UserData();
+        $userSaveReflectionMethod = new \ReflectionMethod($user, 'save');
+        $userSaveReflectionMethod->setAccessible(true);
+        $userSaveReflectionMethod->invoke($user);
+
+        $mysqli = \bootStrapForTests::getMysqlI();
+        $stmt = $mysqli->prepare("SELECT count(*) FROM users");
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($newUserCount);
+        $stmt->fetch();
+
+        $this->assertTrue( $originalUserCount==$newUserCount );
     }
 
     public function testCheckPasswordCorrectWillReturnFalseIfEmailDoesNotExist() {
