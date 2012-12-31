@@ -48,13 +48,17 @@ class UserData {
         return false; }
 
     private function save() {
-        $query = 'INSERT INTO users (hash, timeCreate, timeLogin, userName, email, password) VALUES (?, ?, ?, ?, ? )';
-        if ($stmt = $this->dbo->getDbo()->prepare($query)) {
-            $stmt->bind_param('sisss', $this->idHash, $this->timeCreate, $this->timeLogin,
-                                       $this->userName, $this->email, $this->pWord);
-            if ($stmt->execute() ) {return true;}
-            return false; }
-        return false; }
+        $query = 'INSERT INTO users (hash, timeCreate, timeLogin, userName, email, password) VALUES (?, ?, ?, ?, ?, ? )';
+        $mysqli = $this->dbo->getDbo();
+        if (isset($this->idHash) && isset($this->timeCreate) && isset($this->timeLogin) &&
+            isset($this->userName) && isset($this->email) && isset($this->pWord) ) {
+            $stmt = $mysqli->prepare($query);
+            $stmt->bind_param('siisss', $this->idHash, $this->timeCreate, $this->timeLogin,
+                              $this->userName, $this->email, $this->pWord);
+            $stmt->execute();
+            return true;}
+        return false;
+    }
 
     private function createHash(){
         //function from http://stackoverflow.com/questions/853813/how-to-create-a-random-string-using-php
@@ -112,15 +116,14 @@ class UserData {
     }
 
     private function getUserHashedPassword($email) {
-        if ($stmt = $this->dbo->getDbo()->prepare("SELECT password FROM users WHERE email = ?")) {
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($hashPass);
-            $stmt->fetch();
-            $stmt->close();
-            return $hashPass;
-        }
+        $stmt = $this->dbo->getDbo()->prepare("SELECT password FROM users WHERE email = ?") ;
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($hashPass);
+        $stmt->fetch();
+        $stmt->close();
+        return $hashPass;
     }
 
 }
