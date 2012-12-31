@@ -10,7 +10,7 @@ class ValidationHelpers {
     }
 
     public function isEmailAddress($options=array()) {
-        $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
+        $regex = '/^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
         $isItAnEmail = (preg_match($regex, $options["fieldValue"])) ? array("true"=>"") : array("false"=>"This must be a valid email.") ;
         return $isItAnEmail ;
     }
