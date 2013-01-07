@@ -22,8 +22,9 @@ class UserRole {
             $this->loadRelation(); }
     }
 
-    private function checkRelationExists(){
-        $stmt = $this->dbo->getDbo()->prepare("SELECT count(*) FROM userRoles WHERE uid = ? AND rid = ?");
+    private function checkRelationExists($dbo=null) {
+        if ($dbo==null) {$dbo = $this->dbo; }
+        $stmt = $dbo->getDbo()->prepare("SELECT count(*) FROM userRoles WHERE uid = ? AND rid = ?");
         $stmt->bind_param('ii', $this->user->getId(), $this->role->getId() );
         $stmt->execute();
         $stmt->store_result();

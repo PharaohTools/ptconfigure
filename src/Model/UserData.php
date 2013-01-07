@@ -22,16 +22,18 @@ class UserData {
     public function getIdHash() {
         return $this->idHash; }
 
-    public function loadUser($email) {
-        $stmt = $this->dbo->getDbo()->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+    public function loadUser($email, $dbo=null) {
+        if ($dbo==null) {$dbo = $this->dbo; }
+        $stmt = $dbo->getDbo()->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($this->id, $this->idHash, $this->timeCreate, $this->timeLogin, $this->userName, $this->email, $this->pWord);
         $stmt->fetch(); }
 
-    public function loadUserById($id) {
-        $stmt = $this->dbo->getDbo()->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
+    public function loadUserById($id, $dbo=null) {
+        if ($dbo==null) {$dbo = $this->dbo; }
+        $stmt = $dbo->getDbo()->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
         $stmt->bind_param('i', $id);
         $stmt->execute();
         $stmt->store_result();
@@ -47,9 +49,10 @@ class UserData {
         if ($this->save() ) {return true;}
         return false; }
 
-    private function save() {
+    private function save($dbo=null) {
+        if ($dbo==null) {$dbo = $this->dbo; }
         $query = 'INSERT INTO users (hash, timeCreate, timeLogin, userName, email, password) VALUES (?, ?, ?, ?, ?, ? )';
-        $mysqli = $this->dbo->getDbo();
+        $mysqli = $dbo->getDbo();
         if (isset($this->idHash) && isset($this->timeCreate) && isset($this->timeLogin) &&
             isset($this->userName) && isset($this->email) && isset($this->pWord) ) {
             $stmt = $mysqli->prepare($query);
@@ -85,8 +88,9 @@ class UserData {
             return true; }
         return false; }
 
-    public function checkUserExists($email) {
-        $stmt = $this->dbo->getDbo()->prepare("SELECT count(*) FROM users WHERE email = ?");
+    public function checkUserExists($email, $dbo=null) {
+        if ($dbo==null) {$dbo = $this->dbo; }
+        $stmt = $dbo->getDbo()->prepare("SELECT count(*) FROM users WHERE email = ?");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $stmt->store_result();
