@@ -22,8 +22,9 @@ class GroupRole {
             $this->loadRelation(); }
     }
 
-    private function checkRelationExists(){
-        $stmt = $this->dbo->getDbo()->prepare("SELECT count(*) FROM groupRoles WHERE gid = ? AND rid = ?");
+    private function checkRelationExists($dbo=null) {
+        if ($dbo==null) {$dbo = $this->dbo; }
+        $stmt = $dbo->getDbo()->prepare("SELECT count(*) FROM groupRoles WHERE gid = ? AND rid = ?");
         $stmt->bind_param('ii', $this->group->getId(), $this->role->getId() );
         $stmt->execute();
         $stmt->store_result();

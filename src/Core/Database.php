@@ -21,7 +21,6 @@ class Database {
     public function runDb(){
         $this->startConnection();
         $this->dataHelpers = new DatabaseHelpers();
-
     }
 
     private function setConnectionVars($overrides=null) {
@@ -35,7 +34,6 @@ class Database {
             $this->dbUser = "root";
             $this->dbPass = "ebayebay";
             $this->dbName = "ebaycodepractice"; }
-
     }
 
     private function startConnection() {
