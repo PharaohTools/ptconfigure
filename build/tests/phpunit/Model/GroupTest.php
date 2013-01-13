@@ -78,7 +78,7 @@ class EbayCodePracticeModelGroupClassTest extends PHPUnit_Framework_TestCase {
     public function testSetNewGroupSetsGroupNamePropertyForExistingGroups() {
         $existingGroupFixtures = $this->getExistingGroupsFixtures();
         foreach ($existingGroupFixtures as $existingGroupFixture) {
-            $group = new \Model\Group() ;
+            $group = new \Model\Group("disabled") ;
             $group->setNewGroup($existingGroupFixture);
             $reflector = new ReflectionProperty($group, "groupName");
             $reflector->setAccessible(true);
@@ -88,7 +88,7 @@ class EbayCodePracticeModelGroupClassTest extends PHPUnit_Framework_TestCase {
     public function testSetNewGroupSetsGroupNamePropertyForTestGroups() {
         $testGroupFixtures = $this->getTestGroupsFixtures();
         foreach ($testGroupFixtures as $testGroupFixture) {
-            $group = new \Model\Group() ;
+            $group = new \Model\Group("disabled") ;
             $group->setNewGroup($testGroupFixture);
             $reflector = new ReflectionProperty($group, "groupName");
             $reflector->setAccessible(true);
@@ -106,34 +106,34 @@ class EbayCodePracticeModelGroupClassTest extends PHPUnit_Framework_TestCase {
 
     public function testisAdminReturnsBooleanIfNonAdminGroupLoaded() {
         $this->createTestNonAdminGroup();
-        $group = new \Model\Group() ;
+        $group = new \Model\Group("disabled") ;
         $group->loadGroupByName("testingGroup");
         $this->assertTrue ( is_bool($group->isAdmin()) );
         $this->dropGroup("testingGroup"); }
 
     public function testisAdminReturnsFalseIfNonAdminGroupLoaded() {
         $this->createTestNonAdminGroup();
-        $group = new \Model\Group() ;
+        $group = new \Model\Group("disabled") ;
         $group->loadGroupByName("testingGroup");
         $this->assertFalse ( $group->isAdmin() );
         $this->dropGroup("testingGroup"); }
 
     public function testisAdminReturnsTrueIfAdminGroupLoaded() {
         $this->createTestAdminGroup();
-        $group = new \Model\Group() ;
+        $group = new \Model\Group("disabled") ;
         $group->loadGroupByName("testingAdminGroup");
         $this->assertTrue ( $group->isAdmin() );
         $this->dropAdminGroup("testingAdminGroup"); }
 
     public function testGetIdReturnsNullOrInteger() {
-        $group = new \Model\Group() ;
+        $group = new \Model\Group("disabled") ;
         $id = $group->getId();
         $this->assertTrue( is_int($id) || is_null($id) ); }
 
     public function testloadGroupSetsGroupIdProperty() {
         $groupsFixtures = $this->getExistingGroupsFixtures();
         foreach ($groupsFixtures as $groupsFixture) {
-            $group = new \Model\Group() ;
+            $group = new \Model\Group("disabled") ;
             $group->loadGroupByName($groupsFixture);
             $mysqli = \bootStrapForTests::getMysqlI();
             $stmt = $mysqli->prepare("SELECT id FROM groups WHERE name = ? LIMIT 1");
@@ -148,7 +148,7 @@ class EbayCodePracticeModelGroupClassTest extends PHPUnit_Framework_TestCase {
     public function testloadGroupSetsGroupNameProperty() {
         $groupsFixtures = $this->getExistingGroupsFixtures();
         foreach ($groupsFixtures as $groupsFixture) {
-            $group = new \Model\Group() ;
+            $group = new \Model\Group("disabled") ;
             $group->loadGroupByName($groupsFixture);
             $mysqli = \bootStrapForTests::getMysqlI();
             $stmt = $mysqli->prepare("SELECT name FROM groups WHERE name = ? LIMIT 1");
@@ -161,7 +161,7 @@ class EbayCodePracticeModelGroupClassTest extends PHPUnit_Framework_TestCase {
 
 
     public function testHasRoleWillReturnBoolean() {
-        $group = new \Model\Group();
+        $group = new \Model\Group("disabled");
         $randomGroupId = $this->getRandomGroupId();
         $group->loadGroupById($randomGroupId);
         $role = new \Model\Role();
@@ -172,7 +172,7 @@ class EbayCodePracticeModelGroupClassTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testHasRoleWillReturnFalseWhenRoleNotAvailable() {
-        $group = new \Model\Group();
+        $group = new \Model\Group("disabled");
         $randomGroupId = $this->getRandomGroupId();
         $group->loadGroupById($randomGroupId);
         $role = new \Model\Role();
@@ -183,7 +183,7 @@ class EbayCodePracticeModelGroupClassTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testHasRoleWillReturnTrueWhenRoleAvailable() {
-        $group = new \Model\Group();
+        $group = new \Model\Group("disabled");
         $randomGroupId = $this->getRandomGroupId();
         $group->loadGroupById($randomGroupId);
         $role = new \Model\Role();

@@ -8,8 +8,9 @@ class Group {
     private	$id;
     private	$groupName;
 
-    public function __construct() {
-        $this->dbo = new \Core\Database();
+    public function __construct($disabled=null) {
+        if ($disabled==null) {
+            $this->dbo = new \Core\Database();  }
     }
 
     public function getId() {
