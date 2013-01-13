@@ -1,7 +1,37 @@
-PHP MD README
----------------
+A Coding Puzzle -
+-------------------
+The task at hand was as follows...
 
-This document
+We are going to focus on User Management and ACL.
+
+We want to be able to log in on an backend domain and access a blank hello page world on success. On failure,
+we need to be told that we can’t login. At this stage Login is only PHP.
+Password must be encrypted. User can create an account with name / email / password / creationdate / lastlogintime
+
+Once logged In, we want to display the username and a log out functionality and a menu with 3 pages. (User / Group /
+Results ). Below a “hello world” is enough. The user need to be able to navigate between this pages. If a
+non-authorized user tries to access Group, he needs to be told off. Only the user with the ADMIN role can see and
+interact with the menu Group.
+
+Each user can belong to X groups and each group can have X roles. Each user can have X roles too.
+
+Key points :
+-          Think extensibility, more functionalities will come
+-          100% test coverage on unit level. Report embedded
+-          Fat model / Thin controller
+-          Cucumber test coverage. Report embedded
+-          Think fluid interface.
+-          Think inheritance
+-          Think forward
+
+Bear in mind that this code will evolve, so code wisely or you will live with your mistakes J
+It needs to be MVC.
+Php code is in php file. Html code in html file.
+No framework at all. At this stage, no javascript too.
+
+
+
+-------------------------------------------------------------------
 
 The build is ready to pass the following
 
