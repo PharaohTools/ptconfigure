@@ -35,7 +35,22 @@ class EbayCodePracticeControllerBaseClassTest extends PHPUnit_Framework_TestCase
         $this->assertTrue( is_object ($controllerBaseContentPropertyValue["userData"]) );
     }
 
-    public function testInitUserSetsContentUserDataVarAsObjectOfUserType() {
+    public function testInitUserStartsTheUserSession() {
+        $mockUserSession = $this->getMockBuilder('\Model\UserSession')
+                                ->disableOriginalConstructor()
+                                ->getMock();
+        $mockUserSession->expects($this->once())->method('startUserSession');
+        $controllerBaseObject = new Controller\Base() ;
+        $reflectionObject = new ReflectionObject($controllerBaseObject);
+        $controllerBaseContentProperty = $reflectionObject->getProperty('content');
+        $controllerBaseContentProperty->setAccessible(true);
+        $controllerBaseContentPropertyValue = $controllerBaseContentProperty->getValue($controllerBaseObject);
+        $controllerBaseContentPropertyValue["userSession"] = $mockUserSession;
+        $controllerBaseContentProperty->setValue($controllerBaseObject, $controllerBaseContentPropertyValue);
+        $controllerBaseObject->initUser() ;
+    }
+
+    public function testInitUserSetsContentUserDataVarAsObjectOfUserDataType() {
         $controllerBaseObject = new Controller\Base() ;
         $controllerBaseObject->initUser() ;
         $reflectionObject = new ReflectionObject($controllerBaseObject);
@@ -43,6 +58,56 @@ class EbayCodePracticeControllerBaseClassTest extends PHPUnit_Framework_TestCase
         $controllerBaseContentProperty->setAccessible(true);
         $controllerBaseContentPropertyValue = $controllerBaseContentProperty->getValue($controllerBaseObject);
         $this->assertInstanceOf( '\Model\UserData', $controllerBaseContentPropertyValue["userData"] );
+    }
+
+    public function testInitUserSetsContentUserSessionVarAsObject() {
+        $controllerBaseObject = new Controller\Base() ;
+        $controllerBaseObject->initUser() ;
+        $reflectionObject = new ReflectionObject($controllerBaseObject);
+        $controllerBaseContentProperty = $reflectionObject->getProperty('content');
+        $controllerBaseContentProperty->setAccessible(true);
+        $controllerBaseContentPropertyValue = $controllerBaseContentProperty->getValue($controllerBaseObject);
+        $this->assertTrue( is_object ($controllerBaseContentPropertyValue["userSession"]) );
+    }
+
+    public function testInitUserSetsContentUserSessionVarAsObjectOfUserSessionType() {
+        $controllerBaseObject = new Controller\Base() ;
+        $controllerBaseObject->initUser() ;
+        $reflectionObject = new ReflectionObject($controllerBaseObject);
+        $controllerBaseContentProperty = $reflectionObject->getProperty('content');
+        $controllerBaseContentProperty->setAccessible(true);
+        $controllerBaseContentPropertyValue = $controllerBaseContentProperty->getValue($controllerBaseObject);
+        $this->assertInstanceOf( '\Model\UserSession', $controllerBaseContentPropertyValue["userSession"] );
+    }
+
+    public function testInitUserCheckUserExistence() {
+        $mockUserData = $this->getMockBuilder('\Model\UserData')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockUserData->expects($this->once())->method('checkUserExistsByHash');
+        $controllerBaseObject = new Controller\Base() ;
+        $reflectionObject = new ReflectionObject($controllerBaseObject);
+        $controllerBaseContentProperty = $reflectionObject->getProperty('content');
+        $controllerBaseContentProperty->setAccessible(true);
+        $controllerBaseContentPropertyValue = $controllerBaseContentProperty->getValue($controllerBaseObject);
+        $controllerBaseContentPropertyValue["userData"] = $mockUserData;
+        $controllerBaseContentProperty->setValue($controllerBaseObject, $controllerBaseContentPropertyValue);
+        $controllerBaseObject->initUser() ;
+    }
+
+    public function testInitUseLoadsAUser() {
+        $mockUserData = $this->getMockBuilder('\Model\UserData')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockUserData->expects($this->once())->method('loadUser');
+        $controllerBaseObject = new Controller\Base() ;
+        $reflectionObject = new ReflectionObject($controllerBaseObject);
+        $controllerBaseContentProperty = $reflectionObject->getProperty('content');
+        $controllerBaseContentProperty->setAccessible(true);
+        $controllerBaseContentPropertyValue = $controllerBaseContentProperty->getValue($controllerBaseObject);
+        $controllerBaseContentPropertyValue["userData"] = $mockUserData;
+        $controllerBaseContentProperty->setValue($controllerBaseObject, $controllerBaseContentPropertyValue);
+        $controllerBaseObject->initUser() ;
     }
 
     public function testCheckIfFormPostedReturnsAValue() {

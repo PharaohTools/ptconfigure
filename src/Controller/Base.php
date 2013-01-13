@@ -11,9 +11,9 @@ class Base {
 
     public function initUser($pageVars=array()){
         $this->content = array_merge($this->content, $pageVars);
-        $this->content["userSession"] = new \Model\UserSession();
+        if (!isset($this->content["userSession"])) { $this->content["userSession"] = new \Model\UserSession() ; }
         $this->content["userSession"]->startUserSession();
-        $this->content["userData"] = new \Model\UserData();
+        if (!isset($this->content["userData"])) { $this->content["userData"] = new \Model\UserData() ; }
         $email = $this->content["userData"]->checkUserExistsByHash($this->content["userSession"]->getUserId());
         $this->content["userData"]->loadUser($email);
     }
@@ -25,10 +25,10 @@ class Base {
 
     public function checkIfFormPosted($formToCheck="") {
         return(isset($_SERVER['REQUEST_METHOD']) &&
-               $_SERVER['REQUEST_METHOD'] == 'POST' &&
-               isset($_REQUEST["formId"]) &&
-               $_REQUEST["formId"]== $formToCheck)
-               ? true : false;
+            $_SERVER['REQUEST_METHOD'] == 'POST' &&
+            isset($_REQUEST["formId"]) &&
+            $_REQUEST["formId"]== $formToCheck)
+            ? true : false;
     }
 
 }
