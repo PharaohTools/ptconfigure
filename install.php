@@ -27,7 +27,7 @@ class Installer {
         $this->copyFilesToProgramDataFolder();
         $this->deleteExecutorIfExists();
         $this->saveExecutorFile();
-        $this->deleteInstallationFiles();
+       // $this->deleteInstallationFiles();
         $this->showCompletion();
     }
 
@@ -67,7 +67,7 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         $command = 'cp -r '.getcwd().'/* '.$this->programDataFolder;
-        return self::executeAndOutput($command);
+        return self::executeAndOutput($command, "Program Data folder populated");
     }
 
     private function deleteExecutorIfExists(){
@@ -85,6 +85,7 @@ class Installer {
     }
 
     private function saveExecutorFile(){
+        $this->populateExecutorFile();
         return file_put_contents($this->programExecutorFolder.'/devhelper', $this->bootStrapData);
     }
 
@@ -124,7 +125,7 @@ COMPLETION;
     private function populateExecutorFile() {
 $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
-require('$this->programDataFolder/src/Bootstrap.php')\n;
+require('$this->programDataFolder/src/Bootstrap.php');\n
 ?>";
     }
 
