@@ -14,7 +14,7 @@ class Project extends Base {
             $this->content["projectResult"] = $projectModel->askWhetherToInitializeProject();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
 
-        if ($action=="build-install.php") {
+        if ($action=="build-install") {
             $this->content["projectResult"] = $projectModel->askWhetherToInstallBuildInProject();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
 

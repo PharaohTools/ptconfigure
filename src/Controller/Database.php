@@ -26,7 +26,7 @@ class Database extends Base {
                 return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
             $this->content["messages"][] = "Invalid DB Platform";
             return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);  }
-        else if ($action=="install.php") {
+        else if ($action=="install") {
             $dbInstallModel = new \Model\DBInstall();
             $this->content["dbResult"] = $dbInstallModel->askWhetherToInstallDB();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
