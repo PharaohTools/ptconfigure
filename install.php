@@ -108,6 +108,7 @@ $this->titleData = <<<TITLE
 *   Golden Contact Computing  *
 *          Dev Helper         *
 *******************************
+
 TITLE;
     }
 
