@@ -1,25 +1,38 @@
-GC Devhelper
+Golden Contact Computing - Devhelper Tool
 -------------------
 
-This tool helps with setting up projects
+About:
+-----------------
+This tool helps with setting up projects. It's really cool for cloning/installing/spinning up webs apps easily and
+quickly.
 
-tasks
+Very cool for CI, after your CI tool performs the project checkout to run tests, you can install your webb app in one
+line like:
 
-newd7project - git checkout an empty d7 project
-newphpproject - git checkout a blank php project
-testify - set up server for testing - install phpunit if it doesnt exist, install ruby if it doesn't exist, git too
+devhelper install autopilot *autopilot-file*
+
+
+Installation
+-----------------
+
+To install devhelper cli on your machine do the following. If you already have php5 and git installed skip line 1:
+
+line 1: apt-get php5 git
+line 2: git clone https://github.com/phpengine/devhelper && cd devhelper && sudo ./install
+
+... that's it, now the devhelper command should be available at the command line for you.
 
 -------------------------------------------------------------
 
 Available Commands:
 ---------------------------------------
 
-install       - cli  **@todo**
+install       - cli
                 install a full web project - Checkout, Vhost, Hostfile, Cucumber Configuration, Database and Jenkins
                 Job. The installer will ask you for required values
                 example: devhelper install cli
 
-              - autopilot **@todo**
+              - autopilot
                 perform an "unattended" install using the defults in an autopilot file. Great for Remote Builds.
                 example: devhelper install autopilot
 
@@ -30,7 +43,7 @@ cukeconf,     - conf
 cuke            modify the url used for cucumber features testing
                 example: devhelper cukeconf cli
 
-               - reset
+              - reset
                 reset cuke uri to generic values so devhelper can write them. may need to be run before cuke conf.
                 example: devhelper cukeconf reset
 
@@ -66,7 +79,7 @@ project, proj - init
                 copy jenkins project stored in repo to running jenkins so you can run builds
                 example: devhelper proj build-install
 
-vhosteditor, - add
+vhosteditor,  - add
 vhc             create a Virtual Host
                 example: devhelper vhc add
 
