@@ -27,7 +27,7 @@ class Installer {
         $this->copyFilesToProgramDataFolder();
         $this->deleteExecutorIfExists();
         $this->saveExecutorFile();
-       // $this->deleteInstallationFiles();
+        $this->deleteInstallationFiles();
         $this->showCompletion();
     }
 
