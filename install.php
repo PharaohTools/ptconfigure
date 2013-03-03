@@ -117,15 +117,15 @@ $this->completionData = <<<COMPLETION
 ... All done!
 *******************************
 Thanks for installing , visit www.gcsoftshop.co.uk for more
+
 COMPLETION;
     }
 
     private function populateExecutorFile() {
-$this->bootStrapData = <<<BOOTSTRAP
-#!/usr/bin/php
-<?php
-require("$this->programDataFolder/src/Bootstrap.php");
-BOOTSTRAP;
+$this->bootStrapData = "#!/usr/bin/php\n
+<?php\n
+require('$this->programDataFolder/src/Bootstrap.php')\n;
+?>";
     }
 
     private function stripNewLines($inputLine) {
