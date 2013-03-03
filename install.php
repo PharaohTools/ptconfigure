@@ -109,12 +109,15 @@ $this->titleData = <<<TITLE
 *          Dev Helper         *
 *******************************
 
+
 TITLE;
     }
 
     private function populateCompletion() {
 $this->completionData = <<<COMPLETION
 ... All done!
+*******************************
+Thanks for installing , visit www.gcsoftshop.co.uk for more
 COMPLETION;
     }
 
@@ -126,4 +129,9 @@ require("$this->programDataFolder/src/Bootstrap.php");
 BOOTSTRAP;
     }
 
+    private function stripNewLines($inputLine) {
+        $inputLine = str_replace("\n", "", $inputLine);
+        $inputLine = str_replace("\r", "", $inputLine);
+        return $inputLine;
+    }
 }
