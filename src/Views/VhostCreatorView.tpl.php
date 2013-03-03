@@ -1,1 +1,2 @@
-Host Editor Finished
+<?= $pageVars["VHostEditorResult"]; ?>
+VHost Creator Finished

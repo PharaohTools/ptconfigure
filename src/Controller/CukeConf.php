@@ -2,15 +2,24 @@
 
 Namespace Controller ;
 
-class HostEditor extends Base {
+class CukeConf extends Base {
 
     public function execute($pageVars) {
+        $this->content["route"] = $pageVars["route"];
+        $this->content["messages"] = $pageVars["messages"];
+        $action = $pageVars["route"]["action"];
 
-            $hostEditorModel = new \Model\HostEditor();
-            $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostEntry();
-            return array ("type"=>"view", "view"=>"hostEditor", "pageVars"=>$this->content);
+        if ($action=="configure" || $action== "config" || $action== "conf") {
+            $cukeConfModel = new \Model\CukeConf();
+            $this->content["cukeConfResult"] = $cukeConfModel->askWhetherToCreateCuke();
+            return array ("type"=>"view", "view"=>"cukeConf", "pageVars"=>$this->content); }
 
-        $this->content["messages"] = "Invalid Host Editor Action";
+        else if ($action=="reset") {
+            $cukeConfModel = new \Model\CukeConf();
+            $this->content["cukeConfResult"] = $cukeConfModel->askWhetherToResetCuke();
+            return array ("type"=>"view", "view"=>"cukeConf", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "Invalid Cuke Configuration Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 

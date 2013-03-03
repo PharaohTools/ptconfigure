@@ -4,34 +4,32 @@ Namespace Core;
 
 class Router {
 
-    /*
-     * todo expand availableroutes array or move to model, needs extra field of friendly route for action, all urls
-     * can be easily made friendly with one line in htaccess. http://forums.phpfreaks.com/topic/237372-
-     * friendly-urls-from-a-database/
-     */
-    private	$route; // the attribute to be passed to the calling object
+    private	$argv;
+    private	$route;
     private $availableRoutes = array(
         "index" => array("index") ,
-        "register" => array("register") ,
-        "login" => array("login"),
-        "logout" => array("logout"),
-        "userPage" => array("user"),
-        "groupPage" => array("group"),
-        "resultsPage" => array("results"),
-        "administerPermissions" => array("index","save")
-    );
+        "setup" => array("dev-client") ,
+        "checkout" => array("git") ,
+        "hostEditor" => array("add", "rm") ,
+        "VHostEditor" => array("add", "rm") ,
+        "cukeConf" => array("conf", "reset")  ,
+        "database" => array("install.php", "drop", "configure", "config", "conf", "reset")  ,
+        "project" => array("init", "build-install.php")  ,
+        "install.php" => array("cli", "autopilot") );
 
-	public function run() {
+	public function run($argv) {
+        $this->argv = $argv;
 		$this->setCurrentRoute();
         return $this->route ;
 	}
 
-	/**  @todo In real world Extra xss defense would be called here, as could a url rewriting function.
-     */
 	private function setCurrentRoute() {
         $defaultRoute = $this->getDefaultRoute();
+        $this->parseControllerAliases();
         $this->setRouteController();
-        if ($this->route != $defaultRoute ) { $this->setRouteAction(); }
+        if ($this->route != $defaultRoute ) {
+            $this->setRouteAction();
+            $this->setRouteExtraParams(); }
 	}
 
     private function getDefaultRoute() {
@@ -39,18 +37,30 @@ class Router {
         return array( "control" => $keys[0] , "action" => $this->availableRoutes[$keys[0]][0] );
     }
 
+    private function parseControllerAliases() {
+        $aliases = array("co"=>"checkout", "hosteditor"=>"hostEditor", "vhostEditor"=>"VHostEditor",
+            "vhosteditor"=>"VHostEditor", "vhc"=>"VHostEditor", "cuke"=>"cukeConf", "cukeconf"=>"cukeConf",
+            "proj"=>"project", "db"=>"database");
+        if (isset($this->argv[1])) {
+            if (array_key_exists($this->argv[1], $aliases)) {
+                $this->argv[1] = strtr($this->argv[1], $aliases); } }
+    }
+
     private function setRouteController() {
-        (isset($_REQUEST["control"]) && array_key_exists( $_REQUEST["control"], $this->availableRoutes ))
-        ? $this->route["control"] = $_REQUEST["control"] : $this->route = $this->getDefaultRoute();
+        (isset($this->argv[1]) && array_key_exists( $this->argv[1], $this->availableRoutes ))
+            ? $this->route["control"] = $this->argv[1] : $this->route = $this->getDefaultRoute();
     }
 
     private function setRouteAction() {
-        $correctControl = array_key_exists($_REQUEST["control"], $this->availableRoutes) ;
-        $actionSet = isset($_REQUEST["action"]) ;
-        $actionExists = isset($this->availableRoutes[$_REQUEST["control"]]);
-        $correctAction = ($actionExists && in_array( $_REQUEST["action"], $this->availableRoutes[$_REQUEST["control"]] ) );
-        ($correctControl && $actionSet && $correctAction)
-        ? $this->route["action"] = $_REQUEST["action"] : $this->route = $this->getDefaultRoute();
+        $actionSet = isset($this->argv[2]) ;
+        $correctAct = in_array( $this->argv[2], $this->availableRoutes[$this->argv[1]] ) ;
+        ($actionSet && $correctAct) ? $this->route["action"] = $this->argv[2] : $this->route = $this->getDefaultRoute();
+    }
+
+    private function setRouteExtraParams() {
+        $numberOfExtraParams = count($this->argv)-3;
+        for ($i=3; $i<($numberOfExtraParams+3); $i++) {
+            $this->route["extraParams"][] = $this->argv[$i] ;}
     }
 
 }

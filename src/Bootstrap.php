@@ -2,15 +2,8 @@
 
 Namespace Core;
 
-/**
- * EBAY - CODE PRACTICE
- * 20/11/2012
- * ------
- * DAVID AMANSHIA
- */
-
 $bootStrap = new BootStrap();
-$bootStrap->main();
+$bootStrap->main($argv);
 
 class BootStrap {
 
@@ -20,9 +13,9 @@ class BootStrap {
         $autoLoader->launch();
     }
 
-    public function main() {
+    public function main($argv) {
         $routeObject = new \Core\Router();
-        $route = $routeObject->run();
+        $route = $routeObject->run($argv);
         $emptyPageVars = array("messages"=>array(), "route"=>$route);
         $this->executeControl($route["control"], $emptyPageVars);
     }

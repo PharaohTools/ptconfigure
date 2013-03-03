@@ -1,2 +1,2 @@
-<?= $pageVars["hostEditorResult"]; ?>
-Host Editor Finished
+<?= $pageVars["projectResult"]; ?>
+Project Editor Finished

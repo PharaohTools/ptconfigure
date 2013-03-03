@@ -12,7 +12,7 @@ class Installer {
     private $programDataFolder;
     private $programExecutorFolder;
 
-    public function__construct() {
+    public function __construct() {
         $this->populateTitle();
         $this->populateCompletion();
         $this->populateExecutorFile();
@@ -20,9 +20,9 @@ class Installer {
 
     public function installProgram() {
         $this->showTitle();
-        $this->programDataFolder = $this->askForProgramDataFolder();
-        $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-        $this->programDataFolder = $this->askForProgramDataFolder();
+        $this->askForProgramDataFolder();
+        $this->askForProgramExecutorFolder();
+        $this->askForProgramDataFolder();
         $this->deleteProgramDataFolderAsRootIfExists();
         $this->makeProgramDataFolderIfNeeded();
         $this->copyFilesToProgramDataFolder();
@@ -33,11 +33,11 @@ class Installer {
     }
 
     private function showTitle() {
-        print $this->title ;
+        print $this->titleData ;
     }
 
     private function showCompletion() {
-        print $this->completion ;
+        print $this->completionData ;
     }
 
     private function askForProgramDataFolder() {
@@ -57,7 +57,7 @@ class Installer {
     private function deleteProgramDataFolderAsRootIfExists(){
         if ( is_dir($this->programDataFolder)) {
             $command = 'sudo rm -f '.$this->programDataFolder;
-            self::executeAndOutput($command, "VHost $vHost Deleted  if existed"); }
+            self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
         return true;
     }
 
@@ -72,17 +72,17 @@ class Installer {
     }
 
     private function deleteExecutorIfExists(){
-        $command = 'sudo rm -f '.$this->vHostDir.'/'.$vHost;
-        self::executeAndOutput($command, "VHost $vHost Deleted  if existed");
+        $command = 'sudo rm '.$this->programExecutorFolder.'/devhelper';
+        self::executeAndOutput($command, "Program Executor Deleted  if existed");
         return true;
     }
 
     private function deleteInstallationFiles(){
         $installFilesDir = getcwd();
         $command = 'sudo mv ..';
-        return self::executeAndOutput($command);
+        self::executeAndOutput($command);
         $command = 'sudo rm -rf '.$installFilesDir;
-        return self::executeAndOutput($command);
+        self::executeAndOutput($command);
     }
 
     private function saveExecutorFile(){
@@ -111,7 +111,7 @@ $this->titleData = <<<TITLE
 TITLE;
     }
 
-    private function populateTitle() {
+    private function populateCompletion() {
 $this->completionData = <<<COMPLETION
 ... All done!
 COMPLETION;
@@ -121,7 +121,7 @@ COMPLETION;
 $this->bootStrapData = <<<BOOTSTRAP
 #!/usr/bin/php
 <?php
-require("$this->$programDataFolder/src/Bootstrap.php");
+require("$this->programDataFolder/src/Bootstrap.php");
 BOOTSTRAP;
     }
 

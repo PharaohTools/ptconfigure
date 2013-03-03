@@ -2,16 +2,24 @@
 
 Namespace Controller ;
 
-class Checkout extends Base {
+class HostEditor extends Base {
 
     public function execute($pageVars) {
-        if ($pageVars["route"]["action"] == "git") {
+        $this->content["route"] = $pageVars["route"];
+        $this->content["messages"] = $pageVars["messages"];
+        $action = $pageVars["route"]["action"];
 
-            $gitCheckoutModel = new \Model\GitCheckout();
-            $this->content["checkOutResult"] = $gitCheckoutModel->checkoutProject($pageVars["route"]["extraParams"][0]);
+        if ($action=="add") {
+            $hostEditorModel = new \Model\HostEditor();
+            $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostEntry();
+            return array ("type"=>"view", "view"=>"hostEditor", "pageVars"=>$this->content); }
 
-            return array ("type"=>"view", "view"=>"checkout", "pageVars"=>$this->content); }
-        $this->content["messages"] = "Invalid Checkout Action";
+        else if ($action=="rm") {
+            $hostEditorModel = new \Model\HostEditor();
+            $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostRemoval();
+            return array ("type"=>"view", "view"=>"hostEditor", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "Invalid Host Editor Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 

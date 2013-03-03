@@ -1,1 +1,2 @@
-Your Mum
+<?= $pageVars["checkOutResult"]; ?>
+In checkout View

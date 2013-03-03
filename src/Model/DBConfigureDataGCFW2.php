@@ -2,15 +2,15 @@
 
 Namespace Model;
 
-class DBConfigureDataDrupal70 extends Base {
+class DBConfigureDataGCFW2 extends Base {
 
-    private $settingsFileLocation = 'src/sites/default/settings.php';
+    private $settingsFileLocation = 'src/Core/Database.php';
 
     public function getProperty($property) {
         return $this->$property;
     }
 
-    public function __call(){
+    public function __call($var1, $var2){
         return null();
     }
 

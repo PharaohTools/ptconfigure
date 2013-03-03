@@ -4,12 +4,6 @@ Namespace Core;
 
 class View {
 
-    private $viewHelpers;
-
-    public function __construct(){
-        $this->viewHelpers = new ViewHelpers();
-    }
-
     public function executeView($view, Array $viewVars) {
         $viewVars["layout"] = (isset($viewVars["layout"])) ? $viewVars["layout"] : "default" ;
         $templateData = $this->loadTemplate ($view, $viewVars) ;
@@ -33,6 +27,15 @@ class View {
 
     private function renderAll($processedData) {
         echo $processedData;
+    }
+
+    private function renderMessages($pageVars) {
+        $outVar = '';
+        if (isset($pageVars["messages"])) {
+            foreach ($pageVars["messages"] as $message ) {
+                $outVar .= '***ERROR: '. $message."\n"; } }
+        $outVar .= "\n";
+        return $outVar;
     }
 
 }
