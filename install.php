@@ -1,0 +1,128 @@
+#!/usr/bin/php
+<?php
+
+$installer = new Installer();
+$installer->installProgram();
+
+class Installer {
+
+    private $titleData;
+    private $completionData;
+    private $bootStrapData;
+    private $programDataFolder;
+    private $programExecutorFolder;
+
+    public function__construct() {
+        $this->populateTitle();
+        $this->populateCompletion();
+        $this->populateExecutorFile();
+    }
+
+    public function installProgram() {
+        $this->showTitle();
+        $this->programDataFolder = $this->askForProgramDataFolder();
+        $this->programExecutorFolder = $this->askForProgramExecutorFolder();
+        $this->programDataFolder = $this->askForProgramDataFolder();
+        $this->deleteProgramDataFolderAsRootIfExists();
+        $this->makeProgramDataFolderIfNeeded();
+        $this->copyFilesToProgramDataFolder();
+        $this->deleteExecutorIfExists();
+        $this->saveExecutorFile();
+        $this->deleteInstallationFiles();
+        $this->showCompletion();
+    }
+
+    private function showTitle() {
+        print $this->title ;
+    }
+
+    private function showCompletion() {
+        print $this->completion ;
+    }
+
+    private function askForProgramDataFolder() {
+        $question = 'What is the program data directory?';
+        $question .= ' Found "/opt/devhelper" - use this? (Enter nothing for yes, No Trailing Slash)';
+        $input = self::askForInput($question);
+        $this->programDataFolder = ($input=="") ? "/opt/devhelper" : $input ;
+    }
+
+    private function askForProgramExecutorFolder(){
+        $question = 'What is the program executor directory?';
+        $question .= ' Found "/usr/bin" - use this? (Enter nothing for yes, No Trailing Slash)';
+        $input = self::askForInput($question);
+        $this->programExecutorFolder = ($input=="") ? "/usr/bin" : $input ;
+    }
+
+    private function deleteProgramDataFolderAsRootIfExists(){
+        if ( is_dir($this->programDataFolder)) {
+            $command = 'sudo rm -f '.$this->programDataFolder;
+            self::executeAndOutput($command, "VHost $vHost Deleted  if existed"); }
+        return true;
+    }
+
+    private function makeProgramDataFolderIfNeeded(){
+        if (!file_exists($this->programDataFolder)) {
+            mkdir($this->programDataFolder,  0777, true); }
+    }
+
+    private function copyFilesToProgramDataFolder(){
+        $command = 'sudo cp -r '.getcwd().'/* '.$this->programDataFolder;
+        return self::executeAndOutput($command);
+    }
+
+    private function deleteExecutorIfExists(){
+        $command = 'sudo rm -f '.$this->vHostDir.'/'.$vHost;
+        self::executeAndOutput($command, "VHost $vHost Deleted  if existed");
+        return true;
+    }
+
+    private function deleteInstallationFiles(){
+        $installFilesDir = getcwd();
+        $command = 'sudo mv ..';
+        return self::executeAndOutput($command);
+        $command = 'sudo rm -rf '.$installFilesDir;
+        return self::executeAndOutput($command);
+    }
+
+    private function saveExecutorFile(){
+        return file_put_contents($this->programExecutorFolder.'/devhelper', $this->bootStrapData);
+    }
+
+    private function askForInput($question, $required=null) {
+        $fp = fopen('php://stdin', 'r');
+        $last_line = false;
+        while (!$last_line) {
+            print "$question\n";
+            $inputLine = fgets($fp, 1024);
+            if ($required && strlen($inputLine)==0 ) {
+                print "You must enter a value. Please try again.\n"; }
+            else {$last_line = true;} }
+        $inputLine = $this->stripNewLines($inputLine);
+        return $inputLine;
+    }
+
+    private function populateTitle() {
+$this->titleData = <<<TITLE
+*******************************
+*   Golden Contact Computing  *
+*          Dev Helper         *
+*******************************
+TITLE;
+    }
+
+    private function populateTitle() {
+$this->completionData = <<<COMPLETION
+... All done!
+COMPLETION;
+    }
+
+    private function populateExecutorFile() {
+$this->bootStrapData = <<<BOOTSTRAP
+#!/usr/bin/php
+<?php
+require("$this->$programDataFolder/src/Bootstrap.php");
+BOOTSTRAP;
+    }
+
+}
