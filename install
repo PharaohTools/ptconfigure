@@ -69,7 +69,7 @@ class Installer {
     }
 
     private function copyFilesToProgramDataFolder(){
-        $command = 'cp -r '.getcwd().'/* '.$this->programDataFolder;
+        $command = 'cp -r '.dirname(__FILE__).'/* '.$this->programDataFolder;
         return self::executeAndOutput($command, "Program Data folder populated");
     }
 
