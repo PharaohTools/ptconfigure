@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2423f6f8-f582-4f6c-883e-0da2af26d1b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devhelper.iml" afterPath="$PROJECT_DIR$/devhelper.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install" afterPath="$PROJECT_DIR$/install" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="devhelper.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="2423f6f8-f582-4f6c-883e-0da2af26d1b0" time="1362351391149" ignored="false" />
-    <file path="/install" changelist="2423f6f8-f582-4f6c-883e-0da2af26d1b0" time="1362352010767" ignored="false" />
+    <file path="/install" changelist="2423f6f8-f582-4f6c-883e-0da2af26d1b0" time="1362353828957" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +69,7 @@
       <file leaf-file-name="install" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/install">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="61" selection-start="4701" selection-end="4701" vertical-scroll-proportion="0.4293478">
+            <state line="81" column="47" selection-start="2792" selection-end="2792" vertical-scroll-proportion="0.21195652">
               <folding />
             </state>
           </provider>
@@ -79,7 +78,7 @@
       <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="95" selection-start="571" selection-end="653" vertical-scroll-proportion="0.0">
+            <state line="14" column="69" selection-start="402" selection-end="402" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -373,14 +372,14 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="95" selection-start="571" selection-end="653" vertical-scroll-proportion="0.0">
+        <state line="14" column="69" selection-start="402" selection-end="402" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/install">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="61" selection-start="4701" selection-end="4701" vertical-scroll-proportion="0.4293478">
+        <state line="81" column="47" selection-start="2792" selection-end="2792" vertical-scroll-proportion="0.21195652">
           <folding />
         </state>
       </provider>

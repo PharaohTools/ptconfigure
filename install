@@ -31,7 +31,6 @@ class Installer {
         $this->saveExecutorFile();
         $this->deleteInstallationFiles();
         $this->changePermissions();
-        $this->returnToStartDirectory();
         $this->showCompletion();
     }
 
@@ -81,8 +80,7 @@ class Installer {
     }
 
     private function deleteInstallationFiles(){
-        $installFilesDir = getcwd();
-        $command = 'rm -rf '.$installFilesDir;
+        $command = 'rm -rf '.$this->startDirectory.'/devhelper';
         self::executeAndOutput($command);
     }
 
@@ -96,10 +94,6 @@ class Installer {
         self::executeAndOutput($command);
         $command = "chmod 775 $this->programExecutorFolder/devhelper";
         self::executeAndOutput($command);
-    }
-
-    private function returnToStartDirectory(){
-        chdir($this->startDirectory);
     }
 
     private function askForInput($question, $required=null) {
