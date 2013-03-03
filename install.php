@@ -6,6 +6,7 @@ $installer->installProgram();
 
 class Installer {
 
+    private $startDirectory;
     private $titleData;
     private $completionData;
     private $bootStrapData;
@@ -13,6 +14,7 @@ class Installer {
     private $programExecutorFolder;
 
     public function __construct() {
+        $this->populateStartDirectory();
         $this->populateTitle();
         $this->populateCompletion();
         $this->populateExecutorFile();
@@ -28,6 +30,8 @@ class Installer {
         $this->deleteExecutorIfExists();
         $this->saveExecutorFile();
         $this->deleteInstallationFiles();
+        $this->changePermissions();
+        $this->returnToStartDirectory();
         $this->showCompletion();
     }
 
@@ -78,8 +82,6 @@ class Installer {
 
     private function deleteInstallationFiles(){
         $installFilesDir = getcwd();
-        $command = 'cd ..';
-        self::executeAndOutput($command);
         $command = 'rm -rf '.$installFilesDir;
         self::executeAndOutput($command);
     }
@@ -87,6 +89,17 @@ class Installer {
     private function saveExecutorFile(){
         $this->populateExecutorFile();
         return file_put_contents($this->programExecutorFolder.'/devhelper', $this->bootStrapData);
+    }
+
+    private function changePermissions(){
+        $command = "chmod -R 775 $this->programDataFolder";
+        self::executeAndOutput($command);
+        $command = "chmod 775 $this->programExecutorFolder/devhelper";
+        self::executeAndOutput($command);
+    }
+
+    private function returnToStartDirectory(){
+        chdir ($this->startDirectory);
     }
 
     private function askForInput($question, $required=null) {
@@ -123,10 +136,14 @@ COMPLETION;
     }
 
     private function populateExecutorFile() {
-$this->bootStrapData = "#!/usr/bin/php\n
+        $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
 require('$this->programDataFolder/src/Bootstrap.php');\n
 ?>";
+    }
+
+    private function populateStartDirectory() {
+        $this->startDirectory = getcwd();
     }
 
     private function stripNewLines($inputLine) {
