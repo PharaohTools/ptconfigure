@@ -95,7 +95,7 @@ class DBInstall extends Base {
     }
 
     private function askForDBInstall(){
-        $question = 'Do you want to install.php a database?';
+        $question = 'Do you want to install a database?';
         return self::askYesOrNo($question);
     }
 

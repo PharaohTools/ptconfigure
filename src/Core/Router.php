@@ -13,9 +13,9 @@ class Router {
         "hostEditor" => array("add", "rm") ,
         "VHostEditor" => array("add", "rm") ,
         "cukeConf" => array("conf", "reset")  ,
-        "database" => array("install.php", "drop", "configure", "config", "conf", "reset")  ,
-        "project" => array("init", "build-install.php")  ,
-        "install.php" => array("cli", "autopilot") );
+        "database" => array("install", "drop", "configure", "config", "conf", "reset")  ,
+        "project" => array("init", "build-install")  ,
+        "install" => array("cli", "autopilot") );
 
 	public function run($argv) {
         $this->argv = $argv;

@@ -80,7 +80,7 @@ class Project extends Base  {
     }
 
     private function askForProjBuildInstallToScreen() {
-        $question = 'Do you want to install.php the Jenkins build for this project? (Y/N)';
+        $question = 'Do you want to install the Jenkins build for this project? (Y/N)';
         return self::askYesOrNo($question);
     }
 

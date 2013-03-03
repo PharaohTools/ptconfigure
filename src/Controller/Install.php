@@ -34,7 +34,7 @@ class Install extends Base {
             $cukeConfModel = new \Model\CukeConf();
             $this->content["cukeConfResult"] = $cukeConfModel->askWhetherToModifyCuke();
 
-            return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content); }
 
         if ($action=="autopilot") {
 
@@ -52,48 +52,48 @@ class Install extends Base {
                     $this->content["gitCheckoutResult"] = $gitCheckoutModel->runAutoPilotCloner($autoPilot);
                     if ($autoPilot->gitCheckoutExecute && $this->content["gitCheckoutResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Checkout/Clone Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     $this->content["gitDeletorResult"] = $gitCheckoutModel->runAutoPilotDeletor($autoPilot);
                     if ($autoPilot->gitDeletorExecute && $this->content["gitDeletorResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto PilotDeltor Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // project
                     $projectModel = new \Model\Project();
                     $this->content["projectInitResult"] = $projectModel->runAutoPilotInit($autoPilot);
                     if ($autoPilot->projectInitializeExecute && $this->content["projectInitResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Project Initialize Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     $this->content["projectBuildResult"] = $projectModel->runAutoPilotBuildInstall($autoPilot);
                     if ($autoPilot->projectBuildInstallExecute && $this->content["projectBuildResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Build Install Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // host editor
                     $hostEditorModel = new \Model\HostEditor();
                     $this->content["hostEditorAdditionResult"] = $hostEditorModel->runAutoPilotHostAddition($autoPilot);
                     if ($autoPilot->hostEditorAdditionExecute && $this->content["hostEditorAdditionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Host file editor creation Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     $this->content["hostEditorDeletionResult"] = $hostEditorModel->runAutoPilotHostDeletion($autoPilot);
                     if ($autoPilot->hostEditorDeletionExecute && $this->content["hostEditorDeletionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Host file editor deletion Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // V Host Editor
                     $VHostEditorModel = new \Model\VHostEditor();
                     $this->content["virtualHostCreatorResult"] = $VHostEditorModel->runAutoPilotVHostCreation($autoPilot);
                     if ($autoPilot->virtualHostEditorAdditionExecute && $this->content["virtualHostCreatorResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Virtual Host Creator Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     $this->content["virtualHostDeletionResult"] = $VHostEditorModel->runAutoPilotVHostDeletion($autoPilot);
                     if ($autoPilot->virtualHostEditorDeletionExecute && $this->content["virtualHostDeletionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Virtual Host Deletor Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
 
                     // DB Configure
@@ -103,34 +103,34 @@ class Install extends Base {
                     $this->content["dbResetResult"] = $dbConfigureModel->runAutoPilotDBReset($autoPilot);
                     if ($autoPilot->dbResetExecute && $this->content["dbResetResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot DB Reset Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     $this->content["dbConfigureResult"] = $dbConfigureModel->runAutoPilotDBConfiguration($autoPilot);
                     if ($autoPilot->dbConfigureExecute && $this->content["dbConfigureResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot DB Configure Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // DB Install
                     $dbInstallModel = new \Model\DBInstall();
                     $this->content["dbInstallResult"] = $dbInstallModel->runAutoPilotDBInstallation($autoPilot);
                     if ($autoPilot->dbInstallExecute && $this->content["dbInstallResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot DB Install Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
                     $this->content["dbDropResult"] = $dbInstallModel->runAutoPilotDBRemoval($autoPilot);
                     if ($autoPilot->dbDropExecute && $this->content["dbDropResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot DB Reset Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // Cuke Conf
                     $cukeConfModel = new \Model\CukeConf();
                     $this->content["cukeConfAdditionResult"] = $cukeConfModel->runAutoPilotAddition($autoPilot);
                     if ($autoPilot->cukeConfAdditionExecute && $this->content["cukeConfAdditionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Creator Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
                     $this->content["cukeConfResetResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
                     if ($autoPilot->cukeConfResetExecute && $this->content["cukeConfResetResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
-                        return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content);  } }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  } }
 
                 else {
                         $this->content["autoPilotErrors"]="Auto Pilot not defined"; }  }
@@ -138,7 +138,7 @@ class Install extends Base {
             else {
                 $this->content["autoPilotErrors"]="Auto Pilot not defined"; }
 
-            return array ("type"=>"view", "view"=>"install.php", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content); }
 
     }
 
