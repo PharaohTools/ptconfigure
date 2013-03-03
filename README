@@ -1,43 +1,75 @@
-A Coding Puzzle -
+GC Devhelper
 -------------------
-The task at hand was as follows...
 
-We are going to focus on User Management and ACL.
+This tool helps with setting up projects
 
-We want to be able to log in on an backend domain and access a blank hello page world on success. On failure,
-we need to be told that we can’t login. At this stage Login is only PHP.
-Password must be encrypted. User can create an account with name / email / password / creationdate / lastlogintime
+tasks
 
-Once logged In, we want to display the username and a log out functionality and a menu with 3 pages. (User / Group /
-Results ). Below a “hello world” is enough. The user need to be able to navigate between this pages. If a
-non-authorized user tries to access Group, he needs to be told off. Only the user with the ADMIN role can see and
-interact with the menu Group.
+newd7project - git checkout an empty d7 project
+newphpproject - git checkout a blank php project
+testify - set up server for testing - install phpunit if it doesnt exist, install ruby if it doesn't exist, git too
 
-Each user can belong to X groups and each group can have X roles. Each user can have X roles too.
+-------------------------------------------------------------
 
-Key points :
--          Think extensibility, more functionalities will come
--          100% test coverage on unit level. Report embedded
--          Fat model / Thin controller
--          Cucumber test coverage. Report embedded
--          Think fluid interface.
--          Think inheritance
--          Think forward
+Available Commands:
+---------------------------------------
 
-Bear in mind that this code will evolve, so code wisely or you will live with your mistakes J
-It needs to be MVC.
-Php code is in php file. Html code in html file.
-No framework at all. At this stage, no javascript too.
+install       - cli  **@todo**
+                install a full web project - Checkout, Vhost, Hostfile, Cucumber Configuration, Database and Jenkins
+                Job. The installer will ask you for required values
+                example: devhelper install cli
 
+              - autopilot **@todo**
+                perform an "unattended" install using the defults in an autopilot file. Great for Remote Builds.
+                example: devhelper install autopilot
 
+checkout,     - perform a checkout into configured projects folder
+co              example: devhelper co git https://github.com/phpengine/yourmum {optional custom clone dir}
 
--------------------------------------------------------------------
+cukeconf,     - conf
+cuke            modify the url used for cucumber features testing
+                example: devhelper cukeconf cli
 
-The build is ready to pass the following
+               - reset
+                reset cuke uri to generic values so devhelper can write them. may need to be run before cuke conf.
+                example: devhelper cukeconf reset
 
-1) functional tests - cucumber
-2) php md tests - phpmd
-3) phpunit tests - phpunit
+database, db  - configure, conf
+                set up db user & pw for a project, use admins to create new resources as needed.
+                example: devhelper db conf drupal
 
-All available in the build/config folder, just run execute.php
+              - reset
+                reset current db to generic values so devhelper can write them. may need to be run before db conf.
+                example: devhelper db reset drupal
 
+              - install
+                install the database for a project. run conf first to set up users unless you already have them.
+                example: devhelper db install
+
+              - drop
+                drop the database for a project.
+                example: devhelper db drop
+
+hosteditor,   - add
+                add a Host File entry
+                example: devhelper hosteditor add
+
+              - rm
+                remove a Host File entry
+                example: devhelper hosteditor rm
+
+project, proj - init
+                initialize DH project
+                example: devhelper proj init
+
+              - build-install
+                copy jenkins project stored in repo to running jenkins so you can run builds
+                example: devhelper proj build-install
+
+vhosteditor, - add
+vhc             create a Virtual Host
+                example: devhelper vhc add
+
+              - rm
+                remove a Virtual Host
+                example: devhelper vhc rm

@@ -1,1 +1,2 @@
-Host Editor Finished
+<?= $pageVars["cukeConfResult"]; ?>
+Cuke Configuration Finished

@@ -1,2 +1,2 @@
-<?= $pageVars["dbInstallResult"]; ?>
-DB Installation Finished
+<?= $pageVars["dbResult"]; ?>
+Database Actions Finished

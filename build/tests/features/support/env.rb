@@ -18,7 +18,7 @@ Capybara.configure do |config|
   host = Proc.new do |env|
     case env.to_sym
       when :development
-        ENV["APPLICATION_HOST"] || "http://www.ecp.tld"
+        ENV["APPLICATION_HOST"] || "****FEATURES URI****"
       when :test
 
       when :production

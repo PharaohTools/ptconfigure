@@ -1,2 +1,2 @@
-<?php echo $pageVars["checkOutResult"]; ?>
-In checkout View
+<?= $pageVars["hostEditorResult"]; ?>
+Host Editor Finished
