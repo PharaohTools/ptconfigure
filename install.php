@@ -22,7 +22,6 @@ class Installer {
         $this->showTitle();
         $this->askForProgramDataFolder();
         $this->askForProgramExecutorFolder();
-        $this->askForProgramDataFolder();
         $this->deleteProgramDataFolderAsRootIfExists();
         $this->makeProgramDataFolderIfNeeded();
         $this->copyFilesToProgramDataFolder();
