@@ -56,7 +56,7 @@ class Installer {
 
     private function deleteProgramDataFolderAsRootIfExists(){
         if ( is_dir($this->programDataFolder)) {
-            $command = 'sudo rm -f '.$this->programDataFolder;
+            $command = 'rm -rf '.$this->programDataFolder;
             self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
         return true;
     }
@@ -67,21 +67,21 @@ class Installer {
     }
 
     private function copyFilesToProgramDataFolder(){
-        $command = 'sudo cp -r '.getcwd().'/* '.$this->programDataFolder;
+        $command = 'cp -r '.getcwd().'/* '.$this->programDataFolder;
         return self::executeAndOutput($command);
     }
 
     private function deleteExecutorIfExists(){
-        $command = 'sudo rm '.$this->programExecutorFolder.'/devhelper';
+        $command = 'rm -f '.$this->programExecutorFolder.'/devhelper';
         self::executeAndOutput($command, "Program Executor Deleted  if existed");
         return true;
     }
 
     private function deleteInstallationFiles(){
         $installFilesDir = getcwd();
-        $command = 'sudo mv ..';
+        $command = 'cd ..';
         self::executeAndOutput($command);
-        $command = 'sudo rm -rf '.$installFilesDir;
+        $command = 'rm -rf '.$installFilesDir;
         self::executeAndOutput($command);
     }
 
