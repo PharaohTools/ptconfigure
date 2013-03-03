@@ -133,4 +133,17 @@ BOOTSTRAP;
         $inputLine = str_replace("\r", "", $inputLine);
         return $inputLine;
     }
+
+    private function executeAndOutput($command, $message=null) {
+        $outputArray = array();
+        exec($command, $outputArray);
+        $outputText = "";
+        foreach ($outputArray as $outputValue) {
+            $outputText .= "$outputValue\n"; }
+        if ($message !== null) {
+            $outputText .= "$message\n"; }
+        print $outputText;
+        return true;
+    }
+
 }
