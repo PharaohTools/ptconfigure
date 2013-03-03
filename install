@@ -99,7 +99,7 @@ class Installer {
     }
 
     private function returnToStartDirectory(){
-        chdir ($this->startDirectory);
+        chdir($this->startDirectory);
     }
 
     private function askForInput($question, $required=null) {
@@ -143,7 +143,7 @@ require('$this->programDataFolder/src/Bootstrap.php');\n
     }
 
     private function populateStartDirectory() {
-        $this->startDirectory = getcwd();
+        $this->startDirectory = str_replace("/devhelper", "", getcwd();
     }
 
     private function stripNewLines($inputLine) {
