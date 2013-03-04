@@ -127,8 +127,8 @@ class Install extends Base {
                     if ($autoPilot->cukeConfAdditionExecute && $this->content["cukeConfAdditionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Creator Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-                    $this->content["cukeConfResetResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
-                    if ($autoPilot->cukeConfResetExecute && $this->content["cukeConfResetResult"] != "1") {
+                    $this->content["cukeConfDeletionResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
+                    if ($autoPilot->cukeConfDeletionExecute && $this->content["cukeConfResetResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  } }
 
