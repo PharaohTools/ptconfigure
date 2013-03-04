@@ -6,7 +6,7 @@ if ($pageVars["route"]["action"]=="autopilot")
 
 Git Clone/Checkout: <?= $pageVars["gitCheckoutResult"] ; ?>
 
-Git Project Deletion: <?= $pageVars["projectDeletorResult"] ; ?>
+Git Project Deletion: <?= $pageVars["gitDeletorResult"] ; ?>
 
 
 Project Initialize: <?= $pageVars["projectInitResult"] ; ?>
