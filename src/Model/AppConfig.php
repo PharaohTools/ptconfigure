@@ -21,7 +21,7 @@ class AppConfig {
         $value = null;
         if (self::checkIsDHProject()) {
             $appConfigArray = self::loadDHProjectFile();
-            $value = $appConfigArray[$variable] ;
+            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ;
             self::saveDHProjectFile($appConfigArray); }
         return $value;
     }
