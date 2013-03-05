@@ -50,6 +50,7 @@ class DBConfigure extends Base {
         if ( !$this->askForDBConfigReset() ) { return false; }
         // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
         $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
+        $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileReverseDataChange();
         if ( !$this->checkSettingsFileOkay() ) { return false; }
@@ -65,6 +66,8 @@ class DBConfigure extends Base {
         $this->dbUser = $autoPilot->dbConfigureDBUser;
         $this->dbPass = $autoPilot->dbConfigureDBPass;
         $this->dbName = $autoPilot->dbConfigureDBName;
+        $this->platform = $autoPilot->dbConfigurePlatform;
+        $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileDataChange();
         $this->createSettingsFile();
@@ -75,6 +78,8 @@ class DBConfigure extends Base {
 
     public function runAutoPilotDBReset($autoPilot){
         if ( !$autoPilot->dbResetExecute ) { return false; }
+        $this->platform = $autoPilot->dbResetPlatform;
+        $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileReverseDataChange();
         $this->createSettingsFile();
