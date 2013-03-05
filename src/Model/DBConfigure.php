@@ -13,9 +13,8 @@ class DBConfigure extends Base {
     private $dbName ;
     private $tmpDir = '/tmp/settingsfile'; // no trailing slash
 
-    public function __construct($platform=null) {
-        $this->platform =  ($platform==null) ? $this->platform = $this->askForPlatform() : $platform ;
-        $this->setPlatformVars();
+    public function __construct() {
+        //do stuff
     }
 
     public function askWhetherToConfigureDB(){
@@ -28,6 +27,9 @@ class DBConfigure extends Base {
 
     private function performDBConfiguration(){
         if ( !$this->askForDBConfig() ) { return false; }
+        // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
+        $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
+        $this->setPlatformVars();
         $this->dbHost = $this->askForDBHost();
         $this->dbUser = $this->askForDBUser();
         $this->dbPass = $this->askForDBPass();
@@ -46,6 +48,8 @@ class DBConfigure extends Base {
 
     private function performDBConfigurationReset(){
         if ( !$this->askForDBConfigReset() ) { return false; }
+        // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
+        $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
         $this->loadCurrentSettingsFile();
         $this->settingsFileReverseDataChange();
         if ( !$this->checkSettingsFileOkay() ) { return false; }

@@ -97,16 +97,15 @@ class Install extends Base {
 
 
                     // DB Configure
-                    $dbConfigureModel = (isset($autoPilot->dbConfigurePlatform)) ?
-                        new \Model\DBConfigure($autoPilot->dbConfigurePlatform)  :
-                        new \Model\DBConfigure()  ;
+                    $dbConfigureModel = new \Model\DBConfigure() ;
                     $this->content["dbResetResult"] = $dbConfigureModel->runAutoPilotDBReset($autoPilot);
                     if ($autoPilot->dbResetExecute && $this->content["dbResetResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot DB Reset Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
+                    $dbConfigureModel = new \Model\DBConfigure() ;
                     $this->content["dbConfigureResult"] = $dbConfigureModel->runAutoPilotDBConfiguration($autoPilot);
-                    if ($autoPilot->dbConfigureExecute && $this->content["dbConfigureResult"] != "1") {
+                    if ($autoPilot->dbConfigureExecute && $this->content["dbConfigureResult"] != "1" ) {
                         $this->content["autoPilotErrors"]="Auto Pilot DB Configure Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
