@@ -27,7 +27,9 @@ line 2: git clone https://github.com/phpengine/devhelper && sudo devhelper/insta
 Available Commands:
 ---------------------------------------
 
-install       - cli
+install
+
+              - cli
                 install a full web project - Checkout, Vhost, Hostfile, Cucumber Configuration, Database and Jenkins
                 Job. The installer will ask you for required values
                 example: devhelper install cli
@@ -36,18 +38,24 @@ install       - cli
                 perform an "unattended" install using the defults in an autopilot file. Great for Remote Builds.
                 example: devhelper install autopilot
 
-checkout,     - perform a checkout into configured projects folder
-co              example: devhelper co git https://github.com/phpengine/yourmum {optional custom clone dir}
+checkout, co
 
-cukeconf,     - conf
-cuke            modify the url used for cucumber features testing
+              - perform a checkout into configured projects folder
+                example: devhelper co git https://github.com/phpengine/yourmum {optional custom clone dir}
+
+cukeconf, cuke
+
+              - conf
+                modify the url used for cucumber features testing
                 example: devhelper cukeconf cli
 
               - reset
                 reset cuke uri to generic values so devhelper can write them. may need to be run before cuke conf.
                 example: devhelper cukeconf reset
 
-database, db  - configure, conf
+database, db
+
+              - configure, conf
                 set up db user & pw for a project, use admins to create new resources as needed.
                 example: devhelper db conf drupal
 
@@ -63,7 +71,9 @@ database, db  - configure, conf
                 drop the database for a project.
                 example: devhelper db drop
 
-hosteditor,   - add
+hosteditor
+
+              - add
                 add a Host File entry
                 example: devhelper hosteditor add
 
@@ -71,7 +81,9 @@ hosteditor,   - add
                 remove a Host File entry
                 example: devhelper hosteditor rm
 
-project, proj - init
+project, proj
+
+              - init
                 initialize DH project
                 example: devhelper proj init
 
@@ -79,8 +91,11 @@ project, proj - init
                 copy jenkins project stored in repo to running jenkins so you can run builds
                 example: devhelper proj build-install
 
-vhosteditor,  - add
-vhc             create a Virtual Host
+vhosteditor,
+vhc
+
+              - add
+                create a Virtual Host
                 example: devhelper vhc add
 
               - rm
