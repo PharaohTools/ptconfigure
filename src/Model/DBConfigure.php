@@ -11,7 +11,7 @@ class DBConfigure extends Base {
     private $dbUser ;
     private $dbPass ;
     private $dbName ;
-    private $tmpDir = '/tmp/settingsfile'; // no trailing slash
+    private $tmpDir = '/tmp'; // no trailing slash
 
     public function __construct() {
         //do stuff
@@ -40,9 +40,8 @@ class DBConfigure extends Base {
         $this->loadCurrentSettingsFile();
         $this->settingsFileDataChange();
         if ( !$this->checkSettingsFileOkay() ) { return false; }
-        $this->createSettingsFile();
         $this->removeOldSettingsFile();
-        $this->moveSettingsFile();
+        $this->createSettingsFile();
         return true;
     }
 
@@ -54,9 +53,8 @@ class DBConfigure extends Base {
         $this->loadCurrentSettingsFile();
         $this->settingsFileReverseDataChange();
         if ( !$this->checkSettingsFileOkay() ) { return false; }
-        $this->createSettingsFile();
         $this->removeOldSettingsFile();
-        $this->moveSettingsFile();
+        $this->createSettingsFile();
         return true;
     }
 
@@ -70,9 +68,8 @@ class DBConfigure extends Base {
         $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileDataChange();
-        $this->createSettingsFile();
         $this->removeOldSettingsFile();
-        $this->moveSettingsFile();
+        $this->createSettingsFile();
         return true;
     }
 
@@ -82,9 +79,8 @@ class DBConfigure extends Base {
         $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileReverseDataChange();
-        $this->createSettingsFile();
         $this->removeOldSettingsFile();
-        $this->moveSettingsFile();
+        $this->createSettingsFile();
         return true;
     }
 
@@ -200,8 +196,10 @@ class DBConfigure extends Base {
     }
 
     private function createSettingsFile() {
-        if (!file_exists($this->tmpDir)) { mkdir ($this->tmpDir); }
-        return file_put_contents($this->tmpDir.'/'.$this->platformVars->getProperty("settingsFileName"), $this->settingsFileData);
+        $location  = $this->platformVars->getProperty("settingsFileLocation").'/';
+        $location .= $this->platformVars->getProperty("settingsFileName");
+        return file_put_contents($location, $this->settingsFileData);
+        echo "Moving new settings file in...\n" ;
     }
 
     private function removeOldSettingsFile(){
@@ -210,12 +208,13 @@ class DBConfigure extends Base {
         self::executeAndOutput($command, "Removing old settings file...\n");
     }
 
-    private function moveSettingsFile(){
-        $command  = 'mv '.$this->tmpDir.'/'.$this->platformVars->getProperty("settingsFileName").' ' ;
-        $command .= $this->platformVars->getProperty("settingsFileLocation").'/';
-        $command .= $this->platformVars->getProperty("settingsFileName");
-        self::executeAndOutput($command, "Moving new settings file in...\n");
-    }
+//    private function moveSettingsFile(){
+//        $command  = 'mv '.$this->tmpDir.'/'.$this->platformVars->getProperty("settingsFileName").' ' ;
+//        $command .= $this->platformVars->getProperty("settingsFileLocation").'/';
+//        $command .= $this->platformVars->getProperty("settingsFileName");
+//        echo $command;
+//        self::executeAndOutput($command, "Moving new settings file in...\n");
+//    }
 
 
 }
