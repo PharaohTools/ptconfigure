@@ -7,8 +7,10 @@ class VhostEditor extends Base {
     private $vHostTemplate ;
     private $docRoot ;
     private $url ;
+    private $fileSuffix ;
     private $vHostIp ;
     private $vHostForDeletion ;
+    private $vHostEnabledDir;
     private $vHostDir = '/etc/apache2/sites-available'; // no trailing slash
 
     public function __construct(){
@@ -28,11 +30,14 @@ class VhostEditor extends Base {
         $this->docRoot = $this->askForDocRoot();
         $this->url = $this->askForHostURL();
         $this->vHostIp = $this->askForVHostIp();
+        $this->fileSuffix = $this->askForFileSuffix();
         $this->processVHost();
         if ( !$this->checkVHostOkay() ) { return false; }
         $this->vHostDir = $this->askForVHostDirectory();
         $this->attemptVHostWrite();
-        $this->enableVHost();
+        if ( $this->askForEnableVHost() ) {
+            $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
+            $this->enableVHost(); }
         $this->restartApache();
         return true;
     }
@@ -42,7 +47,9 @@ class VhostEditor extends Base {
         $this->vHostDir = $this->askForVHostDirectory();
         $this->vHostForDeletion = $this->selectVHostInProjectOrFS();
         if ( !self::areYouSure("Definitely delete VHost?") ) { return false; }
-        $this->disableVHost();
+        if ( $this->askForDisableVHost() ) {
+            $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
+            $this->disableVHost(); }
         $this->attemptVHostDeletion();
         $this->restartApache();
         return true;
@@ -55,8 +62,9 @@ class VhostEditor extends Base {
         $this->vHostIp = $autoPilot->virtualHostEditorAdditionIp;
         $this->processVHost();
         $this->vHostDir = $autoPilot->virtualHostEditorAdditionDirectory;
-        $this->attemptVHostWrite();
-        $this->enableVHost();
+        $this->attemptVHostWrite($autoPilot->virtualHostEditorAdditionFileSuffix);
+        if ( !$autoPilot->virtualHostEditorVHostEnable ) {
+            $this->enableVHost($autoPilot->virtualHostEditorAdditionSymLinkDirectory); }
         $this->restartApache();
         return true;
     }
@@ -65,7 +73,8 @@ class VhostEditor extends Base {
         if ( !$autoPilot->virtualHostEditorDeletionExecute ) { return false; }
         $this->vHostDir = $autoPilot->virtualHostEditorDeletionDirectory;
         $this->vHostForDeletion = $autoPilot->virtualHostEditorDeletionTarget;
-        $this->disableVHost();
+        if ( !$autoPilot->virtualHostEditorVHostDisable ) {
+            $this->disableVHost($autoPilot->virtualHostEditorDeletionSymLinkDirectory); }
         $this->attemptVHostDeletion();
         $this->restartApache();
         return true;
@@ -81,6 +90,16 @@ class VhostEditor extends Base {
         return self::askYesOrNo($question);
     }
 
+    private function askForEnableVHost(){
+        $question = 'Do you want to enable this VHost? (hint - ubuntu probably yes, centos probably no)';
+        return self::askYesOrNo($question);
+    }
+
+    private function askForDisableVHost(){
+        $question = 'Do you want to disable this VHost? (hint - ubuntu probably yes, centos probably no)';
+        return self::askYesOrNo($question);
+    }
+
     private function askForDocRoot(){
         $question = 'What\'s the document root?';
         return self::askForInput($question, true);
@@ -89,6 +108,12 @@ class VhostEditor extends Base {
     private function askForHostURL(){
         $question = 'What URL do you want to add as server name?';
         return self::askForInput($question, true);
+    }
+
+    private function askForFileSuffix(){
+        $question = 'What File Suffix should be used? Enter for None (hint: ubuntu probably none centos, .conf)';
+        $input = self::askForInput($question) ;
+        return $input ;
     }
 
     private function askForVHostIp(){
@@ -110,14 +135,26 @@ class VhostEditor extends Base {
         return self::askForInput($question, true);
     }
 
+    private function askForVHostEnabledDirectory(){
+        $question = 'What is your Enabled/Available/Symlink VHost directory?';
+        if ($this->detectVHostEnabledFolderExistence()) { $question .= ' Found "/etc/apache2/sites-enabled" - use this?';
+            $input = self::askForInput($question);
+            return ($input=="") ? $this->vHostDir : $input ;  }
+        return self::askForInput($question, true);
+    }
+
     private function detectVHostFolderExistence(){
         return file_exists($this->vHostDir);
     }
 
-    private function attemptVHostWrite(){
+    private function detectVHostEnabledFolderExistence(){
+        return file_exists("/etc/apache2/sites-enabled");
+    }
+
+    private function attemptVHostWrite($virtualHostEditorAdditionFileSuffix=null){
         $this->createVHost();
-        $this->moveVHostAsRoot();
-        $this->writeVHostToProjectFile();
+        $this->moveVHostAsRoot($virtualHostEditorAdditionFileSuffix);
+        $this->writeVHostToProjectFile($virtualHostEditorAdditionFileSuffix);
     }
 
     private function attemptVHostDeletion(){
@@ -137,8 +174,8 @@ class VhostEditor extends Base {
         return file_put_contents($tmpDir.'/'.$this->url, $this->vHostTemplate);
     }
 
-    private function moveVHostAsRoot(){
-        $command = 'sudo mv /tmp/vhosttemp/'.$this->url.' '.$this->vHostDir.'/'.$this->url;
+    private function moveVHostAsRoot($virtualHostEditorAdditionFileSuffix=null){
+        $command = 'sudo mv /tmp/vhosttemp/'.$this->url.' '.$this->vHostDir.'/'.$this->url.$virtualHostEditorAdditionFileSuffix;
         return self::executeAndOutput($command);
     }
 
@@ -149,9 +186,9 @@ class VhostEditor extends Base {
         return true;
     }
 
-    private function writeVHostToProjectFile(){
+    private function writeVHostToProjectFile($virtualHostEditorAdditionFileSuffix=null){
         if ($this->checkIsDHProject()){
-            \Model\AppConfig::setProjectVariable("virtual-hosts", $this->url); }
+            \Model\AppConfig::setProjectVariable("virtual-hosts", $this->url.$virtualHostEditorAdditionFileSuffix); }
     }
 
     private function deleteVHostFromProjectFile(){
@@ -163,8 +200,9 @@ class VhostEditor extends Base {
             \Model\AppConfig::setProjectVariable("virtual-hosts", $allProjectVHosts); }
     }
 
-    private function enableVHost(){
-        $vHostEnabledDir = str_replace("sites-available", "sites-enabled", $this->vHostDir );
+    private function enableVHost($vHostEditorAdditionSymLinkDirectory=null){
+        $vHostEnabledDir = (isset($vHostEditorAdditionSymLinkDirectory)) ?
+            $vHostEditorAdditionSymLinkDirectory : str_replace("sites-available", "sites-enabled", $this->vHostDir );
         $command = 'sudo ln -s '.$this->vHostDir.'/'.$this->url.' '.$vHostEnabledDir.'/'.$this->url;
         return self::executeAndOutput($command, "VHost Enabled/Symlink Created");
     }
