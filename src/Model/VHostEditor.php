@@ -11,6 +11,7 @@ class VhostEditor extends Base {
     private $vHostIp ;
     private $vHostForDeletion ;
     private $vHostEnabledDir;
+    private $apacheCommand;
     private $vHostDir = '/etc/apache2/sites-available'; // no trailing slash
 
     public function __construct(){
@@ -38,6 +39,7 @@ class VhostEditor extends Base {
         if ( $this->askForEnableVHost() ) {
             $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
             $this->enableVHost(); }
+        $this->apacheCommand = $this->askForApacheCommand();
         $this->restartApache();
         return true;
     }
@@ -51,6 +53,7 @@ class VhostEditor extends Base {
             $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
             $this->disableVHost(); }
         $this->attemptVHostDeletion();
+        $this->apacheCommand = $this->askForApacheCommand();
         $this->restartApache();
         return true;
     }
@@ -63,8 +66,9 @@ class VhostEditor extends Base {
         $this->processVHost();
         $this->vHostDir = $autoPilot->virtualHostEditorAdditionDirectory;
         $this->attemptVHostWrite($autoPilot->virtualHostEditorAdditionFileSuffix);
-        if ( !$autoPilot->virtualHostEditorVHostEnable ) {
+        if ( $autoPilot->virtualHostEditorAdditionVHostEnable==true ) {
             $this->enableVHost($autoPilot->virtualHostEditorAdditionSymLinkDirectory); }
+        $this->apacheCommand = $autoPilot->virtualHostEditorAdditionApacheCommand;
         $this->restartApache();
         return true;
     }
@@ -73,9 +77,10 @@ class VhostEditor extends Base {
         if ( !$autoPilot->virtualHostEditorDeletionExecute ) { return false; }
         $this->vHostDir = $autoPilot->virtualHostEditorDeletionDirectory;
         $this->vHostForDeletion = $autoPilot->virtualHostEditorDeletionTarget;
-        if ( !$autoPilot->virtualHostEditorVHostDisable ) {
+        if ( $autoPilot->virtualHostEditorDeletionVHostDisable==true ) {
             $this->disableVHost($autoPilot->virtualHostEditorDeletionSymLinkDirectory); }
         $this->attemptVHostDeletion();
+        $this->apacheCommand = $autoPilot->virtualHostEditorDeletionApacheCommand;
         $this->restartApache();
         return true;
     }
@@ -114,6 +119,12 @@ class VhostEditor extends Base {
         $question = 'What File Suffix should be used? Enter for None (hint: ubuntu probably none centos, .conf)';
         $input = self::askForInput($question) ;
         return $input ;
+    }
+
+    private function askForApacheCommand(){
+        $question = 'What is the service name of apache? Enter for apache2. (hint: ubuntu - apache2, centos- httpd)';
+        $input = self::askForInput($question) ;
+        return ($input=="") ? 'apache2' : $input ;
     }
 
     private function askForVHostIp(){
@@ -216,7 +227,7 @@ class VhostEditor extends Base {
     }
 
     private function restartApache(){
-        $command = 'sudo service apache2 restart';
+        $command = "sudo service $this->apacheCommand restart";
         return self::executeAndOutput($command);
     }
 
