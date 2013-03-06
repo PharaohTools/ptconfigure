@@ -198,8 +198,8 @@ class DBConfigure extends Base {
     private function createSettingsFile() {
         $location  = $this->platformVars->getProperty("settingsFileLocation").'/';
         $location .= $this->platformVars->getProperty("settingsFileName");
-        return file_put_contents($location, $this->settingsFileData);
         echo "Moving new settings file in...\n" ;
+        return file_put_contents($location, $this->settingsFileData);
     }
 
     private function removeOldSettingsFile(){
