@@ -9,21 +9,19 @@ class AutoPilot {
     public $sshInvokeSSHDataData = null;
     public $sshInvokeSSHScriptExecute = false;
     public $sshInvokeSSHScriptFile = null;
-    public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
-                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
-                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk")  );
+    public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") );
 
     // Git Checkout Variables
-    public $gitCheckoutExecute = false;
-    public $gitCheckoutProjectOriginRepo = null;
-    public $gitCheckoutCustomCloneFolder = null;
+    public $gitCheckoutExecute = true;
+    public $gitCheckoutProjectOriginRepo = 'http://github.com/phpengine/rock-paper-scissors-drupal';
+    public $gitCheckoutCustomCloneFolder = null; // set by constructor called function
 
     // Git Project Deletor
     public $gitDeletorExecute = false;
     public $gitDeletorCustomFolder = null;
 
     // Project Init Variables
-    public $projectInitializeExecute = true;
+    public $projectInitializeExecute = false;
 
     // Project Build Variables
     public $projectBuildInstallExecute = false;
@@ -32,7 +30,7 @@ class AutoPilot {
     public $projectJenkinsFSFolder = false;
 
     // Host File Editor Addition Variables
-    public $hostEditorAdditionExecute = true;
+    public $hostEditorAdditionExecute = false;
     public $hostEditorAdditionIP = '127.0.0.1';
     public $hostEditorAdditionURI = 'rps-drupal.testsite.tld';
 
@@ -96,16 +94,22 @@ class AutoPilot {
     public $cukeConfDeletionExecute = false;
 
     // Version
-    public $versionExecute = false;
-    public $versionAppRootDirectory = null;
-    public $versionArrayPointToRollback = null;
+    public $versionExecute = true;
+    public $versionAppRootDirectory = null; // set below
+    public $versionArrayPointToRollback = "0"; // 0 latest, 1 rollback 1, 2, etc as available
 
     public function __construct() {
-	    $this->calculateVHostDocRoot();
+        $this->calculateVHostDocRoot();
+        $this->setVersionTimestamp();
     }
 
     private function calculateVHostDocRoot() {
-	    $this->virtualHostEditorAdditionDocRoot = getcwd().'/'.$this->gitCheckoutCustomCloneFolder;
+        $this->virtualHostEditorAdditionDocRoot = getcwd().'/current/src';
+        $this->versionAppRootDirectory = getcwd();
+    }
+
+    private function setVersionTimestamp() {
+        $this->gitCheckoutCustomCloneFolder = time();
     }
 
 }

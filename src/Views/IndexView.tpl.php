@@ -1,70 +1,132 @@
+Golden Contact Computing - Devhelper Tool
+-------------------
+
+About:
+-----------------
+This tool helps with setting up projects. It's really cool for cloning/installing/spinning up webs apps easily and
+quickly.
+
+Very cool for CI, after your CI tool performs the project checkout to run tests, you can install your webb app in one
+line like:
+
+devhelper install autopilot *autopilot-file*
+
+
+Installation
+-----------------
+
+To install devhelper cli on your machine do the following. If you already have php5 and git installed skip line 1:
+
+line 1: apt-get php5 git
+line 2: git clone https://github.com/phpengine/devhelper && sudo devhelper/install
+
+... that's it, now the devhelper command should be available at the command line for you.
+
+-------------------------------------------------------------
+
 Available Commands:
 ---------------------------------------
 
-install       - cli
-                install a full web project - Checkout, Vhost, Hostfile, Cucumber Configuration, Database and Jenkins
-                Job. The installer will ask you for required values
-                example: devhelper install cli
+install
 
-              - autopilot
-                perform an "unattended" install using the defults in an autopilot file. Great for Remote Builds.
-                example: devhelper install autopilot
+        - cli
+        install a full web project - Checkout, VHost, Hostfile, Cucumber Configuration, Database Install and
+        Settings Config, and Jenkins Job. The installer will ask you for required values
+        example: devhelper install cli
 
-checkout,     - perform a checkout into configured projects folder
-co              example: devhelper co git https://github.com/phpengine/yourmum {optional custom clone dir}
+        - autopilot
+        perform an "unattended" install using the defaults in an autopilot file. Great for Remote Builds.
+        example: devhelper install autopilot
 
-cukeconf,     - conf
-cuke            modify the url used for cucumber features testing
-                example: devhelper cukeconf cli
 
-              - reset
-                reset cuke uri to generic values so devhelper can write them. may need to be run before cuke conf.
-                example: devhelper cukeconf reset
+checkout, co
 
-database, db  - configure, conf
-                set up db user & pw for a project, use admins to create new resources as needed.
-                example: devhelper db conf drupal
+        - perform a checkout into configured projects folder
+        example: devhelper co git https://github.com/phpengine/yourmum {optional custom clone dir}
 
-              - reset
-                reset current db to generic values so devhelper can write them. may need to be run before db conf.
-                example: devhelper db reset drupal
+cukeconf, cuke
 
-              - install
-                install the database for a project. run conf first to set up users unless you already have them.
-                example: devhelper db install
+        - conf
+        modify the url used for cucumber features testing
+        example: devhelper cukeconf cli
 
-              - drop
-                drop the database for a project.
-                example: devhelper db drop
+        - reset
+        reset cuke uri to generic values so devhelper can write them. may need to be run before cuke conf.
+        example: devhelper cukeconf reset
 
-hosteditor,   - add
-                add a Host File entry
-                example: devhelper hosteditor add
+database, db
 
-              - rm
-                remove a Host File entry
-                example: devhelper hosteditor rm
+        - configure, conf
+        set up db user & pw for a project, use admins to create new resources as needed.
+        example: devhelper db conf drupal
 
-invoke, inv   - shell
-                Will use the values stored in the project file for servers
-                example: devhelper invoke shell production autopilot-settings-file
+        - reset
+        reset current db to generic values so devhelper can write them. may need to be run before db conf.
+        example: devhelper db reset drupal
 
-              - script
-                execute each line of a provided script file on the remote/s
-                example: devhelper invoke script autopilot-script-file
+        - install
+        install the database for a project. run conf first to set up users unless you already have them.
+        example: devhelper db install
 
-project, proj - init
-                initialize DH project
-                example: devhelper proj init
+        - drop
+        drop the database for a project.
+        example: devhelper db drop
 
-              - build-install
-                copy jenkins project stored in repo to running jenkins so you can run builds
-                example: devhelper proj build-install
+hosteditor
 
-vhosteditor,  - add
-vhc             create a Virtual Host
-                example: devhelper vhc add
+        - add
+        add a Host File entry
+        example: devhelper hosteditor add
 
-              - rm
-                remove a Virtual Host
-                example: devhelper vhc rm
+        - rm
+        remove a Host File entry
+        example: devhelper hosteditor rm
+
+invoke, inv
+
+        - shell
+        Will ask you for details for servers, then open a shell for you to execute on multiple servers
+        example: devhelper invoke shell
+
+        - script
+        Will ask you for details for servers, then execute each line of a provided script file on the remote/s
+        example: devhelper invoke script script-file
+
+        - autopilot
+        execute each line of a script file, multiple script files, or php variable data on one or more remotes
+        example: devhelper invoke autopilot autopilot-file
+
+project, proj
+
+        - init
+        initialize DH project
+        example: devhelper proj init
+
+        - build-install
+        copy jenkins project stored in repo to running jenkins so you can run builds
+        example: devhelper proj build-install
+
+version
+
+        - cli
+        Will change back the *current* symlink to whichever available version you pick
+        example: devhelper version cli
+
+        - latest
+        Will change back the *current* symlink to the latest created version
+        example: devhelper version latest
+
+        - rollback
+        Will change back the *current* symlink to the latest created version but one
+        example: devhelper version rollback
+
+
+vhosteditor, vhc
+
+        - add
+        create a Virtual Host
+        example: devhelper vhc add
+
+        - rm
+        remove a Virtual Host
+        example: devhelper vhc rm

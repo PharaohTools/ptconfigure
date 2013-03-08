@@ -18,12 +18,23 @@ class VhostEditor extends Base {
         $this->setVhostTemplate();
     }
 
+    public function askWhetherToListVHost(){
+        return $this->performVHostListing();
+    }
+
     public function askWhetherToCreateVHost(){
         return $this->performVHostCreation();
     }
 
     public function askWhetherToDeleteVHost(){
         return $this->performVHostDeletion();
+    }
+
+    private function performVHostListing(){
+        $this->vHostDir = $this->askForVHostDirectory();
+        $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
+        $this->listAllVHosts();
+        return true;
     }
 
     private function performVHostCreation(){
@@ -233,6 +244,36 @@ class VhostEditor extends Base {
 
     private function checkIsDHProject() {
         return file_exists('dhproj');
+    }
+
+    private function listAllVHosts() {
+        $projResults = ($this->checkIsDHProject()) ? \Model\AppConfig::getProjectVariable("virtual-hosts") : array() ;
+        $enabledResults = scandir($this->vHostEnabledDir);
+        $otherResults = scandir($this->vHostDir);
+        $question = "Please Choose VHost for Deletion:\n";
+        $i1 = $i2 = $i3 = 0;
+        $availableVHosts = array();
+        if (count($projResults)>0) {
+            $question .= "--- Project Virtual Hosts: ---\n";
+            foreach ($projResults as $result) {
+                $question .= "($i1) $result\n";
+                $i1++;
+                $availableVHosts[] = $result;} }
+        if (count($enabledResults)>0) {
+            $question .= "--- Enabled Virtual Hosts: ---\n";
+            foreach ($otherResults as $result) {
+                if ($result === '.' or $result === '..') continue;
+                $question .= "($i1) $result\n";
+                $i1++;
+                $availableVHosts[] = $result;} }
+        if (count($otherResults)>0) {
+            $question .= "--- All Available Virtual Hosts: ---\n";
+            foreach ($otherResults as $result) {
+                if ($result === '.' or $result === '..') continue;
+                $question .= "($i1) $result\n";
+                $i1++;
+                $availableVHosts[] = $result;} }
+        echo $question;
     }
 
     private function selectVHostInProjectOrFS(){
