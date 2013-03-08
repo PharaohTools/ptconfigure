@@ -129,3 +129,7 @@ vhosteditor, vhc
               - rm
                 remove a Virtual Host
                 example: devhelper vhc rm
+
+              - list
+                List current Virtual Hosts
+                example: devhelper vhc list
