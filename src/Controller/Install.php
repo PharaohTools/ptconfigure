@@ -35,8 +35,9 @@ class Install extends Base {
             $this->content["cukeCreateResult"] = $cukeConfModel->askWhetherToCreateCuke();
             $this->content["cukeResetResult"] = $cukeConfModel->askWhetherToResetCuke();
 
-            $versionSymLinkModel = new \Model\VersionSymlinker();
-            $this->content["versioningResult"] = $versionSymLinkModel->askWhetherRePointSymlinksToFolder();
+            $versionModel = new \Model\Version();
+            $this->content["versioningResult"] = $versionModel->askWhetherToVersionSpecific();
+
 
 //            $maintenanceModel = new \Model\MaintenanceSwitcher();
 //            $this->content["maintenanceResult"] = $maintenanceModel->askWhetherToSwitchMaintenanceOn();
