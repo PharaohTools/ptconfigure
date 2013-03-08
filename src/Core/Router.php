@@ -8,6 +8,7 @@ class Router {
     private	$route;
     private $availableRoutes = array(
         "index" => array("index") ,
+        "invoke" => array("shell", "script", "autopilot") ,
         "setup" => array("dev-client") ,
         "checkout" => array("git") ,
         "hostEditor" => array("add", "rm") ,

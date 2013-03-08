@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Install extends Base {
+class Rollback extends Base {
 
     public function execute($pageVars) {
         $this->content["route"] = $pageVars["route"];
@@ -34,13 +34,6 @@ class Install extends Base {
             $cukeConfModel = new \Model\CukeConf();
             $this->content["cukeCreateResult"] = $cukeConfModel->askWhetherToCreateCuke();
             $this->content["cukeResetResult"] = $cukeConfModel->askWhetherToResetCuke();
-
-            $versionSymLinkModel = new \Model\VersionSymlinker();
-            $this->content["versioningResult"] = $versionSymLinkModel->askWhetherRePointSymlinksToFolder();
-
-//            $maintenanceModel = new \Model\MaintenanceSwitcher();
-//            $this->content["maintenanceResult"] = $maintenanceModel->askWhetherToSwitchMaintenanceOn();
-//            $this->content["maintenanceResult"] = $maintenanceModel->askWhetherToSwitchMaintenanceOff();
 
             return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content); }
 
@@ -103,6 +96,7 @@ class Install extends Base {
                         $this->content["autoPilotErrors"]="Auto Pilot Virtual Host Deletor Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
+
                     // DB Configure
                     $dbConfigureModel = new \Model\DBConfigure() ;
                     $this->content["dbResetResult"] = $dbConfigureModel->runAutoPilotDBReset($autoPilot);
@@ -136,41 +130,15 @@ class Install extends Base {
                     $this->content["cukeConfDeletionResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
                     if ($autoPilot->cukeConfDeletionExecute && $this->content["cukeConfResetResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
-                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-
-//                    // Cuke Conf
-//                    $cukeConfModel = new \Model\CukeConf();
-//                    $this->content["cukeConfAdditionResult"] = $cukeConfModel->runAutoPilotAddition($autoPilot);
-//                    if ($autoPilot->cukeConfAdditionExecute && $this->content["cukeConfAdditionResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Creator Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-//                    $this->content["cukeConfDeletionResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
-//                    if ($autoPilot->cukeConfDeletionExecute && $this->content["cukeConfResetResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-//
-//                    // Cuke Conf
-//                    $cukeConfModel = new \Model\CukeConf();
-//                    $this->content["cukeConfAdditionResult"] = $cukeConfModel->runAutoPilotAddition($autoPilot);
-//                    if ($autoPilot->cukeConfAdditionExecute && $this->content["cukeConfAdditionResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Creator Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-//                    $this->content["cukeConfDeletionResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
-//                    if ($autoPilot->cukeConfDeletionExecute && $this->content["cukeConfResetResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-                }
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  } }
 
                 else {
-                    $this->content["autoPilotErrors"]="Auto Pilot couldn't load"; } }
+                        $this->content["autoPilotErrors"]="Auto Pilot not defined"; }  }
 
             else {
-                $this->content["autoPilotErrors"]="Auto Pilot not defined";  } }
+                $this->content["autoPilotErrors"]="Auto Pilot not defined"; }
 
-        else {
-            $this->content["autoPilotErrors"]="No Action"; }
-
-        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);
+            return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content); }
 
     }
 

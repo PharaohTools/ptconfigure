@@ -12,6 +12,8 @@ class Installer {
     private $bootStrapData;
     private $programDataFolder;
     private $programExecutorFolder;
+    private $programNameMachine = "devhelper";
+    private $programNameFriendly = " Devhelper! "; // 12 chars
 
     public function __construct() {
         $this->populateStartDirectory();
@@ -44,9 +46,9 @@ class Installer {
 
     private function askForProgramDataFolder() {
         $question = 'What is the program data directory?';
-        $question .= ' Found "/opt/devhelper" - use this? (Enter nothing for yes, No Trailing Slash)';
+        $question .= ' Found "/opt/'.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
         $input = self::askForInput($question);
-        $this->programDataFolder = ($input=="") ? "/opt/devhelper" : $input ;
+        $this->programDataFolder = ($input=="") ? "/opt/$this->programNameMachine" : $input ;
     }
 
     private function askForProgramExecutorFolder(){
@@ -74,25 +76,25 @@ class Installer {
     }
 
     private function deleteExecutorIfExists(){
-        $command = 'rm -f '.$this->programExecutorFolder.'/devhelper';
+        $command = 'rm -f '.$this->programExecutorFolder.'/'.$this->programNameMachine;
         self::executeAndOutput($command, "Program Executor Deleted  if existed");
         return true;
     }
 
     private function deleteInstallationFiles(){
-        $command = 'rm -rf '.$this->startDirectory.'/devhelper';
+        $command = 'rm -rf '.$this->startDirectory.'/'.$this->programNameMachine;
         self::executeAndOutput($command);
     }
 
     private function saveExecutorFile(){
         $this->populateExecutorFile();
-        return file_put_contents($this->programExecutorFolder.'/devhelper', $this->bootStrapData);
+        return file_put_contents($this->programExecutorFolder.'/'.$this->programNameMachine, $this->bootStrapData);
     }
 
     private function changePermissions(){
         $command = "chmod -R 775 $this->programDataFolder";
         self::executeAndOutput($command);
-        $command = "chmod 775 $this->programExecutorFolder/devhelper";
+        $command = "chmod 775 $this->programExecutorFolder/$this->programNameMachine";
         self::executeAndOutput($command);
     }
 
@@ -110,10 +112,10 @@ class Installer {
     }
 
     private function populateTitle() {
-$this->titleData = <<<TITLE
+        $this->titleData = <<<TITLE
 *******************************
 *   Golden Contact Computing  *
-*          Dev Helper         *
+*         $this->programNameFriendly        *
 *******************************
 
 
@@ -121,7 +123,7 @@ TITLE;
     }
 
     private function populateCompletion() {
-$this->completionData = <<<COMPLETION
+        $this->completionData = <<<COMPLETION
 ... All done!
 *******************************
 Thanks for installing , visit www.gcsoftshop.co.uk for more
@@ -137,7 +139,7 @@ require('$this->programDataFolder/src/Bootstrap.php');\n
     }
 
     private function populateStartDirectory() {
-        $this->startDirectory = str_replace("/devhelper", "", dirname(__FILE__));
+        $this->startDirectory = str_replace("/$this->programNameMachine", "", dirname(__FILE__));
     }
 
     private function stripNewLines($inputLine) {
