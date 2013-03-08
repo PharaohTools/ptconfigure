@@ -52,6 +52,7 @@ class Version extends Base {
             $question .= "--- All Versions: ---\n";
             foreach ($otherResults as $result) {
                 if ($result === '.' or $result === '..') continue;
+                if (!is_dir($this->appRootDirectory.'/'.$result)) continue;
                 $question .= "($i1) $result\n";
                 $i1++;
                 $availableVersions[] = $result;} }
