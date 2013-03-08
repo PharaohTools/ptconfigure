@@ -119,7 +119,9 @@ class InvokeSSH extends Base {
             $server = array();
             $server["target"] = $this->askForServerTarget();
             $server["user"] = $this->askForServerUser();
-            $server["password"] = $this->askForServerPassword(); }
+            $server["password"] = $this->askForServerPassword();
+            $question = 'Add Another Server?';
+            $serverAddingExecution = self::askYesOrNo($question); }
         return self::askForInput($question, true);
     }
 
