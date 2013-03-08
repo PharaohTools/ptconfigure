@@ -68,13 +68,16 @@
  * @link       http://phpseclib.sourceforge.net
  */
 
+/*GOLDEN CONTACT*/
+$srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
+
 /**
  * Include Math_BigInteger
  *
  * Used to do Diffie-Hellman key exchange and DSA/RSA signature verification.
  */
 if (!class_exists('Math_BigInteger')) {
-    require_once('../Math/BigInteger.php');
+             require_once($srcFolder.'/Libraries/seclib;/Math/BigInteger.php');
 }
 
 /**
@@ -85,35 +88,35 @@ if (!class_exists('Math_BigInteger')) {
 // call function_exists() a second time to stop the require_once from being called outside
 // of the auto loader
 if (!function_exists('crypt_random') && !class_exists('Crypt_Random') && !function_exists('crypt_random')) {
-    require_once('../Crypt/Random.php');
+             require_once($srcFolder.'/Libraries/seclib;/Crypt/Random.php');
 }
 
 /**
  * Include Crypt_Hash
  */
 if (!class_exists('Crypt_Hash')) {
-    require_once('../Crypt/Hash.php');
+             require_once($srcFolder.'/Libraries/seclib;/Crypt/Hash.php');
 }
 
 /**
  * Include Crypt_TripleDES
  */
 if (!class_exists('Crypt_TripleDES')) {
-    require_once('../Crypt/TripleDES.php');
+             require_once($srcFolder.'/Libraries/seclib;/Crypt/TripleDES.php');
 }
 
 /**
  * Include Crypt_RC4
  */
 if (!class_exists('Crypt_RC4')) {
-    require_once('../Crypt/RC4.php');
+             require_once($srcFolder.'/Libraries/seclib;/Crypt/RC4.php');
 }
 
 /**
  * Include Crypt_AES
  */
 if (!class_exists('Crypt_AES')) {
-    require_once('../Crypt/AES.php');
+             require_once($srcFolder.'/Libraries/seclib;/Crypt/AES.php');
 }
 
 /**#@+
@@ -2898,7 +2901,7 @@ class Net_SSH2 {
                 $signature = $this->_string_shift($signature, $temp['length']);
 
                 if (!class_exists('Crypt_RSA')) {
-                    require_once('../Crypt/RSA.php');
+                             require_once($srcFolder.'/Libraries/seclib;/Crypt/RSA.php');
                 }
 
                 $rsa = new Crypt_RSA();
