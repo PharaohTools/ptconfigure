@@ -4,6 +4,15 @@ Namespace Core ;
 
 class AutoPilot {
 
+    // SSH Invoke Variables
+    public $sshInvokeSSHDataExecute = false;
+    public $sshInvokeSSHDataData = null;
+    public $sshInvokeSSHScriptExecute = false;
+    public $sshInvokeSSHScriptFile = null;
+    public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
+                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
+                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk")  );
+
     // Git Checkout Variables
     public $gitCheckoutExecute = false;
     public $gitCheckoutProjectOriginRepo = null;
@@ -85,6 +94,11 @@ class AutoPilot {
 
     // Cuke Conf Deletion Variables
     public $cukeConfDeletionExecute = false;
+
+    // Version
+    public $versionExecute = false;
+    public $versionAppRootDirectory = null;
+    public $versionArrayPointToRollback = null;
 
     public function __construct() {
 	    $this->calculateVHostDocRoot();

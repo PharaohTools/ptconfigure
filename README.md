@@ -105,8 +105,22 @@ project, proj
                 copy jenkins project stored in repo to running jenkins so you can run builds
                 example: devhelper proj build-install
 
-vhosteditor,
-vhc
+version
+
+              - cli
+                Will change back the *current* symlink to whichever available version you pick
+                example: devhelper version cli
+
+              - latest
+                Will change back the *current* symlink to the latest created version
+                example: devhelper version latest
+
+              - rollback
+                Will change back the *current* symlink to the latest created version but one
+                example: devhelper version rollback
+
+
+vhosteditor, vhc
 
               - add
                 create a Virtual Host
