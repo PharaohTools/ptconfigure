@@ -230,10 +230,9 @@ class VhostEditor extends Base {
     }
 
     private function disableVHost(){
-
-        var_dump($this->vHostForDeletion);
-
         foreach ($this->vHostForDeletion as $vHost) {
+            $command = 'a2dissite '.$vHost;
+            self::executeAndOutput($command, "a2dissite $vHost done");
             $command = 'sudo rm -f '.$this->vHostEnabledDir.'/'.$vHost;
             self::executeAndOutput($command, "VHost $vHost Disabled  if existed"); }
         return true;
