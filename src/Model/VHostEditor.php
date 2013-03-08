@@ -139,9 +139,9 @@ class VhostEditor extends Base {
     }
 
     private function askForVHostIp(){
-        $question = 'What IP should be set? Enter for 127.0.0.1';
+        $question = 'What IP:Port should be set? Enter for 127.0.0.1:80';
         $input = self::askForInput($question) ;
-        return ($input=="") ? '127.0.0.1' : $input ;
+        return ($input=="") ? '127.0.0.1:80' : $input ;
     }
 
     private function checkVHostOkay(){
