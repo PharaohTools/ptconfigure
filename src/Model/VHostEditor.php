@@ -308,6 +308,7 @@ class VhostEditor extends Base {
 
     private function setVhostTemplate() {
         $this->vHostTemplate = <<<'TEMPLATE'
+NameVirtualHost ****IP ADDRESS****
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
 	ServerName ****SERVER NAME****
