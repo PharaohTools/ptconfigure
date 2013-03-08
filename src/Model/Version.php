@@ -31,7 +31,7 @@ class Version extends Base {
     public function runAutoPilotVersion($autoPilot){
         if ( !$autoPilot->versionExecute ) { return false; }
         $this->appRootDirectory = $autoPilot->versionAppRootDirectory;
-        $this->appVersion = $this->selectAppVersion($autoPilot->arrayPointToRollback);
+        $this->appVersion = $this->selectAppVersion($autoPilot->versionArrayPointToRollback);
         $this->symlinkRemover();
         $this->symlinkCreator();
         return true;
