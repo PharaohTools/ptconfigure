@@ -4,7 +4,7 @@ Namespace Model;
 
 class InvokeSSH extends Base {
 
-    private $servers;
+    private $servers = array();
     private $sshCommands;
 
     public function askWhetherToInvokeSSHShell() {
@@ -120,6 +120,7 @@ class InvokeSSH extends Base {
             $server["target"] = $this->askForServerTarget();
             $server["user"] = $this->askForServerUser();
             $server["password"] = $this->askForServerPassword();
+            $this->servers[] = $server;
             $question = 'Add Another Server?';
             $serverAddingExecution = self::askYesOrNo($question); }
         return self::askForInput($question, true);
