@@ -250,7 +250,7 @@ class VhostEditor extends Base {
         $projResults = ($this->checkIsDHProject()) ? \Model\AppConfig::getProjectVariable("virtual-hosts") : array() ;
         $enabledResults = scandir($this->vHostEnabledDir);
         $otherResults = scandir($this->vHostDir);
-        $question = "Please Choose VHost for Deletion:\n";
+        $question = "Current Installed VHosts:\n";
         $i1 = $i2 = $i3 = 0;
         $availableVHosts = array();
         if (count($projResults)>0) {
