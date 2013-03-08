@@ -145,7 +145,7 @@ class VhostEditor extends Base {
     }
 
     private function checkVHostOkay(){
-        $question = 'Please check VHost: '.$this->vHostTemplate."\n\nIs this Okay? () Y/N";
+        $question = 'Please check VHost: '.$this->vHostTemplate."\n\nIs this Okay?";
         return self::askYesOrNo($question);
     }
 
