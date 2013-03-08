@@ -37,6 +37,10 @@ Cuke Configure: <?= $pageVars["cukeConfAdditionResult"]  ; ?>
 
 Cuke Reset: <?= $pageVars["cukeConfDeletionResult"]  ; ?>
 
+
+Versioning: <?= $pageVars["versioningResult"]  ; ?>
+
+
 <?php
 } else {
 ?>
