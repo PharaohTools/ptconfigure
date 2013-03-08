@@ -89,7 +89,10 @@ class InvokeSSH extends Base {
     }
 
     private function attemptSSH2Connection($server) {
-        require_once("../Libraries/seclib/Net/SSH2.php") ;
+        $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
+        $ssh2File = $srcFolder."Libraries/seclib/Net/SSH2.php" ;
+        echo $ssh2File;
+        require_once($ssh2File) ;
         $ssh = new Net_SSH2($server["target"]);
         if ($ssh->login($server["username"], $server["password"]) == true) {
             return $ssh; }
