@@ -139,27 +139,13 @@ class Install extends Base {
                         $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
-//                    // Cuke Conf
-//                    $cukeConfModel = new \Model\CukeConf();
-//                    $this->content["cukeConfAdditionResult"] = $cukeConfModel->runAutoPilotAddition($autoPilot);
-//                    if ($autoPilot->cukeConfAdditionExecute && $this->content["cukeConfAdditionResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Creator Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-//                    $this->content["cukeConfDeletionResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
-//                    if ($autoPilot->cukeConfDeletionExecute && $this->content["cukeConfResetResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-//
-//                    // Cuke Conf
-//                    $cukeConfModel = new \Model\CukeConf();
-//                    $this->content["cukeConfAdditionResult"] = $cukeConfModel->runAutoPilotAddition($autoPilot);
-//                    if ($autoPilot->cukeConfAdditionExecute && $this->content["cukeConfAdditionResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Creator Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-//                    $this->content["cukeConfDeletionResult"] = $cukeConfModel->runAutoPilotDeletion($autoPilot);
-//                    if ($autoPilot->cukeConfDeletionExecute && $this->content["cukeConfResetResult"] != "1") {
-//                        $this->content["autoPilotErrors"]="Auto Pilot Cuke Conf Reset Broken";
-//                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+                    // Versioning
+                    $versionModel = new \Model\Version();
+                    $this->content["versioningResult"] = $versionModel->runAutoPilotVersion($autoPilot);
+                    if ($autoPilot->versionExecute && $this->content["cukeConfAdditionResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot Versioning Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+
                 }
 
                 else {
