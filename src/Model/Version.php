@@ -74,11 +74,13 @@ class Version extends Base {
 
     private function symlinkRemover() {
         $command  = 'rm -f '.$this->appRootDirectory.'/current';
+        echo "Removed Version Symlink\n";
         self::executeAndOutput($command);
     }
 
     private function symlinkCreator() {
         $command  = 'ln -s '.$this->appRootDirectory.'/'.$this->appVersion.' '.$this->appRootDirectory.'/current';
+        echo "Created Version Symlink\n";
         self::executeAndOutput($command);
     }
 
