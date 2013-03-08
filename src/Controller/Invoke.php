@@ -9,7 +9,7 @@ class Invoke extends Base {
         $this->content["messages"] = $pageVars["messages"];
         $action = $pageVars["route"]["action"];
 
-        if ($action=="shell") {
+        if ($action=="cli") {
 
             $invSSHModel = new \Model\InvokeSSH();
             $this->content["shlResult"] = $invSSHModel->askWhetherToInvokeSSHShell();
