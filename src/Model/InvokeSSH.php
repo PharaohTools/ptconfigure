@@ -93,7 +93,7 @@ class InvokeSSH extends Base {
         $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
         require_once($ssh2File) ;
         $ssh = new \Net_SSH2($server["target"]);
-        if ($ssh->login($server["username"], $server["password"]) == true) {
+        if ($ssh->login($server["user"], $server["pword"]) == true) {
             return $ssh; }
         return null;
     }
@@ -114,17 +114,18 @@ class InvokeSSH extends Base {
     }
 
     private function askForServerInfo(){
-        $question = "Enter Server Info:\n";
-        if ( count($this->servers)<1) { $question .= "You need to enter at least one server\n"; }
-        echo $question;
+        $startQuestion = "Enter Server Info:\n";
+        echo $startQuestion;
         $serverAddingExecution = true;
+        $question = '';
         while ($serverAddingExecution == true) {
             $server = array();
             $server["target"] = $this->askForServerTarget();
             $server["user"] = $this->askForServerUser();
-            $server["password"] = $this->askForServerPassword();
+            $server["pword"] = $this->askForServerPassword();
             $this->servers[] = $server;
             $question .= 'Add Another Server?';
+            if ( count($this->servers)<1) { $question .= "You need to enter at least one server\n"; }
             $serverAddingExecution = self::askYesOrNo($question); }
     }
 
