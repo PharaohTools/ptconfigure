@@ -13,7 +13,7 @@ class Router {
         "setup" => array("dev-client") ,
         "checkout" => array("git") ,
         "hostEditor" => array("add", "rm") ,
-        "VHostEditor" => array("add", "rm") ,
+        "VHostEditor" => array("add", "rm", "list") ,
         "cukeConf" => array("conf", "reset")  ,
         "database" => array("install", "drop", "configure", "config", "conf", "reset")  ,
         "project" => array("init", "build-install")  ,
