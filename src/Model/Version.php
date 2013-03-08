@@ -55,15 +55,14 @@ class Version extends Base {
                 $question .= "($i1) $result\n";
                 $i1++;
                 $availableVersions[] = $result;} }
-        var_dump ($version);
-        if (isset($version) ) { return array($availableVersions[$version]) ; }
+        if (isset($version) ) { return $availableVersions[$version] ; }
         else {
             $validChoice = false;
             while ($validChoice == false) {
                 $input = self::askForInput($question) ;
                 if ( array_key_exists($input, $availableVersions) ){
                     $validChoice = true;} }
-            return array($availableVersions[$input]) ; }
+            return $availableVersions[$input] ; }
     }
 
     private function selectAppRoot(){
