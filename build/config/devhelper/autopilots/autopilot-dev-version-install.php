@@ -40,7 +40,7 @@ class AutoPilot {
     public $hostEditorDeletionURI = null;
 
     // Virtual Host Editor Addition Variables
-    public $virtualHostEditorAdditionExecute = true;
+    public $virtualHostEditorAdditionExecute = false;
     public $virtualHostEditorAdditionDocRoot;
     public $virtualHostEditorAdditionURL = 'rps-drupal.testsite.tld';
     public $virtualHostEditorAdditionFileSuffix = '';
@@ -71,7 +71,7 @@ class AutoPilot {
     public $dbConfigureDBName = 'rpstestdb';
 
     // DB Install - Install DB and User
-    public $dbInstallExecute = true;
+    public $dbInstallExecute = false;
     public $dbInstallDBHost = '127.0.0.1';
     public $dbInstallDBUser = 'rpstestuser';
     public $dbInstallDBPass = 'rpstestpass';
