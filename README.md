@@ -30,12 +30,12 @@ Available Commands:
 install
 
               - cli
-                install a full web project - Checkout, Vhost, Hostfile, Cucumber Configuration, Database and Jenkins
-                Job. The installer will ask you for required values
+                install a full web project - Checkout, VHost, Hostfile, Cucumber Configuration, Database Install and
+                Settings Config, and Jenkins Job. The installer will ask you for required values
                 example: devhelper install cli
 
               - autopilot
-                perform an "unattended" install using the defults in an autopilot file. Great for Remote Builds.
+                perform an "unattended" install using the defaults in an autopilot file. Great for Remote Builds.
                 example: devhelper install autopilot
 
 checkout, co
@@ -80,6 +80,20 @@ hosteditor
               - rm
                 remove a Host File entry
                 example: devhelper hosteditor rm
+
+invoke, inv   
+
+              - shell
+                Will ask you for details for servers, then open a shell for you to execute on multiple servers
+                example: devhelper invoke shell
+
+              - script
+                Will ask you for details for servers, then execute each line of a provided script file on the remote/s
+                example: devhelper invoke script script-file
+
+              - autopilot
+                execute each line of a script file, multiple script files, or php variable data on one or more remotes
+                example: devhelper invoke autopilot autopilot-file
 
 project, proj
 

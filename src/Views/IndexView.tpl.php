@@ -45,6 +45,14 @@ hosteditor,   - add
                 remove a Host File entry
                 example: devhelper hosteditor rm
 
+invoke, inv   - shell
+                Will use the values stored in the project file for servers
+                example: devhelper invoke shell production autopilot-settings-file
+
+              - script
+                execute each line of a provided script file on the remote/s
+                example: devhelper invoke script autopilot-script-file
+
 project, proj - init
                 initialize DH project
                 example: devhelper proj init

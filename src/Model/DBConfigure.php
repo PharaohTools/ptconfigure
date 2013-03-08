@@ -208,13 +208,4 @@ class DBConfigure extends Base {
         self::executeAndOutput($command, "Removing old settings file...\n");
     }
 
-//    private function moveSettingsFile(){
-//        $command  = 'mv '.$this->tmpDir.'/'.$this->platformVars->getProperty("settingsFileName").' ' ;
-//        $command .= $this->platformVars->getProperty("settingsFileLocation").'/';
-//        $command .= $this->platformVars->getProperty("settingsFileName");
-//        echo $command;
-//        self::executeAndOutput($command, "Moving new settings file in...\n");
-//    }
-
-
 }
