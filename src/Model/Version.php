@@ -55,9 +55,9 @@ class Version extends Base {
                 $question .= "($i1) $result\n";
                 $i1++;
                 $availableVersions[] = $result;} }
-        if (isset($version) && is_int($version)) {
-            return array($availableVersions[$version]) ;
-        } else {
+        var_dump ($version);
+        if (isset($version) ) { return array($availableVersions[$version]) ; }
+        else {
             $validChoice = false;
             while ($validChoice == false) {
                 $input = self::askForInput($question) ;
