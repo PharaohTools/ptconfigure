@@ -173,7 +173,7 @@ class DBInstall extends Base {
 
     private function dropDB() {
         $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
-        die (mysql_error($dbc));
+        echo (mysql_error($dbc));
         $query = 'DROP DATABASE '.$this->dbName.';';
         mysql_query($query, $dbc) ;
         print "Database $this->dbName dropped";
