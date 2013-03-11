@@ -9,9 +9,7 @@ class AutoPilot {
     public $sshInvokeSSHDataData = null;
     public $sshInvokeSSHScriptExecute = false;
     public $sshInvokeSSHScriptFile = null;
-    public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
-                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
-                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk")  );
+    public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") );
 
     // Git Checkout Variables
     public $gitCheckoutExecute = false;
@@ -59,6 +57,7 @@ class AutoPilot {
     public $virtualHostEditorDeletionVHostDisable = null;
     public $virtualHostEditorDeletionSymLinkDirectory = null;
     public $virtualHostEditorDeletionApacheCommand = "httpd";
+    public $virtualHostEditorAdditionTemplateData = null; // will use default template if null
 
     // DB Configuration Reset - App Settings
     public $dbResetExecute = true;

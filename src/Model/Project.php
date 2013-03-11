@@ -8,25 +8,38 @@ class Project extends Base  {
     private $jenkinsNewJobFolderName;
     private $jenkinsFSFolder = "/var/lib/jenkins";
     private $tempFolder = "/tmp/tempbuild/";
+    private $projectContainerDirectory;
 
     public function askWhetherToInitializeProject() {
         return $this->performProjectInitialize();
+    }
+
+    public function askWhetherToInitializeProjectContainer() {
+        return $this->performProjectContainerInitialize();
     }
 
     public function askWhetherToInstallBuildInProject() {
         return $this->performInstallBuildInProject();
     }
 
+    public function runAutoProjectContainerInitialize($autoPilot) {
+        $projContInit = $autoPilot->projectInitializeExecute;
+        if ($projContInit != true) { return false; }
+        $this->projectContainerDirectory = $autoPilot->projectContainerDirectory;
+        $this->projectContainerInitialize();
+        return true;
+    }
+
     public function runAutoPilotInit($autoPilot) {
         $projInit = $autoPilot->projectInitializeExecute;
-        if (!$projInit) { return false; }
+        if ($projInit != true) { return false; }
         $this->projectInitialize();
         return true;
     }
 
     public function runAutoPilotBuildInstall($autoPilot) {
         $projBuildInstall = $autoPilot->projectBuildInstallExecute;
-        if (!$projBuildInstall) { return false; }
+        if ($projBuildInstall != true) { return false; }
         if ( !$this->checkIsDHProject() ) { return "No Devhelper project file found. Try: \ndevhelper proj init\n"; }
         $this->jenkinsOriginalJobFolderName = $autoPilot->projectJenkinsOriginalJobFolderName;
         $this->jenkinsFSFolder = $autoPilot->projectJenkinsFSFolder;
@@ -50,6 +63,16 @@ class Project extends Base  {
         return "Seems Fine...";
     }
 
+    private function performProjectContainerInitialize() {
+        $projContInit = $this->askForProjContainerModifyToScreen();
+        if (!$projContInit) { return false; }
+        $projContInit = $this->askForProjContainerInitToScreen();
+        if (!$projContInit) { return false; }
+        $this->projectContainerDirectory = $this->askForProjContainerDirectory();
+        $this->projectContainerInitialize();
+        return "Seems Fine...";
+    }
+
     private function performInstallBuildInProject() {
         $projInit = $this->askForProjModifyToScreen();
         if (!$projInit) { return false; }
@@ -70,28 +93,64 @@ class Project extends Base  {
     }
 
     private function askForProjModifyToScreen() {
-        $question = 'Do you want to Modify Project Settings? (Y/N)';
+        $question = 'Do you want to Modify Project Settings?';
         return self::askYesOrNo($question);
     }
 
     private function askForProjInitToScreen() {
-        $question = 'Do you want to initialize this as a devhelper project? (Y/N)';
+        $question = 'Do you want to initialize this as a devhelper project?';
         return self::askYesOrNo($question);
     }
 
+    private function askForProjContainerModifyToScreen() {
+        $question = 'Do you want to Modify Project Container Settings?';
+        return self::askYesOrNo($question);
+    }
+
+    private function askForProjContainerInitToScreen() {
+        $question = 'Do you want to initialize this as a devhelper project Container?';
+        return self::askYesOrNo($question);
+    }
+
+    private function askForProjContainerDirectory(){
+        $question = 'What is your Project Container directory?';
+        return self::askForInput($question, true);
+    }
+
+    private function selectJenkinsFolderInFileSystem(){
+        $question = 'What is your Jenkins home?';
+        if ($this->detectJenkinsHomeFolderExistence()) {
+            $question .= ' Found "'. $this->jenkinsFSFolder.'" - use this?';
+            $input = self::askForInput($question);
+            return ($input=="") ? $this->jenkinsFSFolder : $input ;  }
+        return self::askForInput($question, true);
+    }
+
     private function askForProjBuildInstallToScreen() {
-        $question = 'Do you want to install the Jenkins build for this project? (Y/N)';
+        $question = 'Do you want to install the Jenkins build for this project?';
         return self::askYesOrNo($question);
     }
 
     private function projectInitialize() {
-        if ($this->checkIsDHProject()) {
+        if ($this->checkIsDHProject() == false) {
             $command = 'touch dhproj';
             self::executeAndOutput($command, "Project file created"); }
     }
 
+    private function projectContainerInitialize() {
+        if ($this->checkIsDHProjectContainer() == false) {
+            $command = 'mkdir -p '.$this->projectContainerDirectory;;
+            self::executeAndOutput($command, "Project Container directory created");
+            $command = 'touch dhprojc';
+            self::executeAndOutput($command, "Project Container file created"); }
+    }
+
     private function checkIsDHProject() {
         return file_exists('dhproj');
+    }
+
+    private function checkIsDHProjectContainer() {
+        return file_exists('dhprojc');
     }
 
     private function selectJenkinsFolderInProject(){
@@ -114,15 +173,6 @@ class Project extends Base  {
                 $validChoice = true;}
             $i++; }
         return $availableDirs[$input] ;
-    }
-
-    private function selectJenkinsFolderInFileSystem(){
-        $question = 'What is your Jenkins home?';
-        if ($this->detectJenkinsHomeFolderExistence()) {
-            $question .= ' Found "'. $this->jenkinsFSFolder.'" - use this?';
-            $input = self::askForInput($question);
-            return ($input=="") ? $this->jenkinsFSFolder : $input ;  }
-        return self::askForInput($question, true);
     }
 
     private function getNewJobFolderIfJenkinsFolderExistsInFileSystem(){

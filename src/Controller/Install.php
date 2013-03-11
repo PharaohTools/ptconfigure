@@ -11,6 +11,10 @@ class Install extends Base {
 
         if ($action=="cli") {
 
+            // project
+            $projectModel = new \Model\Project();
+            $this->content["projectContInitResult"] = $projectModel->askWhetherToInitializeProjectContainer();
+
             $gitCheckoutModel = new \Model\GitCheckout();
             $this->content["checkoutResult"] = $gitCheckoutModel->checkoutProject();
 
@@ -38,11 +42,6 @@ class Install extends Base {
             $versionModel = new \Model\Version();
             $this->content["versioningResult"] = $versionModel->askWhetherToVersionSpecific();
 
-
-//            $maintenanceModel = new \Model\MaintenanceSwitcher();
-//            $this->content["maintenanceResult"] = $maintenanceModel->askWhetherToSwitchMaintenanceOn();
-//            $this->content["maintenanceResult"] = $maintenanceModel->askWhetherToSwitchMaintenanceOff();
-
             return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content); }
 
         if ($action=="autopilot") {
@@ -55,6 +54,13 @@ class Install extends Base {
                 $autoPilot = $this->loadAutoPilot($autoPilotFile);
 
                 if ( $autoPilot!==null ) {
+
+                    // project
+                    $projectModel = new \Model\Project();
+                    $this->content["projectContInitResult"] = $projectModel->runAutoPilotInit($autoPilot);
+                    if ($autoPilot->projectContainerInitializeExecute && $this->content["projectContInitResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot Project Container Initialize Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // git checkout
                     $gitCheckoutModel = new \Model\GitCheckout();

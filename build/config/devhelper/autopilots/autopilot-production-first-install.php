@@ -12,7 +12,7 @@ class AutoPilot {
     public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") );
 
     // Git Checkout Variables
-    public $gitCheckoutExecute = false;
+    public $gitCheckoutExecute = true;
     public $gitCheckoutProjectOriginRepo = null;
     public $gitCheckoutCustomCloneFolder = null;
 
@@ -43,21 +43,21 @@ class AutoPilot {
     public $virtualHostEditorAdditionExecute = true;
     public $virtualHostEditorAdditionDocRoot;
     public $virtualHostEditorAdditionURL = 'rps-drupal.testsite.tld';
-    public $virtualHostEditorAdditionFileSuffix = '';
+    public $virtualHostEditorAdditionFileSuffix = '.conf';
     public $virtualHostEditorAdditionIp = '*:80';
-    public $virtualHostEditorAdditionDirectory = '/etc/apache2/sites-available';
-    public $virtualHostEditorAdditionVHostEnable = true;
-    public $virtualHostEditorAdditionSymLinkDirectory = '/etc/apache2/sites-enabled';
-    public $virtualHostEditorAdditionApacheCommand = "apache2";
+    public $virtualHostEditorAdditionDirectory = '/etc/httpd/vhosts.d';
+    public $virtualHostEditorAdditionVHostEnable = false;
+    public $virtualHostEditorAdditionSymLinkDirectory = null;
+    public $virtualHostEditorAdditionApacheCommand = "httpd";
     public $virtualHostEditorAdditionTemplateData = null; // will use default template if null
 
     // Virtual Host Editor Deletion Variables
     public $virtualHostEditorDeletionExecute = false;
     public $virtualHostEditorDeletionIP = null;
     public $virtualHostEditorDeletionURI = null;
-    public $virtualHostEditorDeletionVHostDisable = false;
+    public $virtualHostEditorDeletionVHostDisable = null;
     public $virtualHostEditorDeletionSymLinkDirectory = null;
-    public $virtualHostEditorDeletionApacheCommand = "apache2";
+    public $virtualHostEditorDeletionApacheCommand = null;
 
     // DB Configuration Reset - App Settings
     public $dbResetExecute = true;
@@ -108,3 +108,13 @@ class AutoPilot {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
