@@ -8,7 +8,7 @@ class DBConfigureDataGCFW2 extends Base {
     private $settingsFileName = 'Database.php';
     private $settingsFileReplacements ;
     private $extraConfigFileReplacements ;
-    private $extraConfigFiles = array('build/config/phpunit/bootstrap.php'); // extra files requiring db config
+    private $extraConfigFiles = array('build/tests/phpunit/bootstrap.php'); // extra files requiring db config
 
     public function __construct(){
         $this->setReplacements();
