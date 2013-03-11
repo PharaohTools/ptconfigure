@@ -179,19 +179,19 @@ class DBConfigure extends Base {
 
     private function doExtraSettingsFilesDataChanges() {
         foreach ($this->platformVars->getProperty("extraConfigFiles") as $settingsFile) {
-            echo "Loading Extra settings file $settingsFile...\n" ;
+            echo "Loading Extra settings file $settingsFile to configure values...\n" ;
             $command  = 'cat '.$settingsFile;
             $this->currentExtraSettingsFileData = self::executeAndLoad($command);
             $replacements =  array('****DB USER****'=>$this->dbUser, '****DB NAME****'=>$this->dbName,
                 '****DB PASS****'=>$this->dbPass, '****DB HOST****'=>$this->dbHost, );
             $this->currentExtraSettingsFileData = strtr($this->currentExtraSettingsFileData, $replacements);
             echo "Moving Extra settings file in...\n" ;
-            return file_put_contents($settingsFile, $this->settingsFileData);}
+            return file_put_contents($settingsFile, $this->currentExtraSettingsFileData);}
     }
 
     private function doExtraSettingsFilesReverseDataChanges() {
         foreach ($this->platformVars->getProperty("extraConfigFiles") as $settingsFile) {
-            echo "Loading Extra settings file...\n" ;
+            echo "Loading Extra settings file $settingsFile to reset values...\n" ;
             $command  = 'cat '.$settingsFile;
             $this->currentExtraSettingsFileData = self::executeAndLoad($command);
             $settingsFileLines = explode("\n", $this->currentExtraSettingsFileData);
