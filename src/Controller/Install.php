@@ -25,8 +25,8 @@ class Install extends Base {
             $hostEditorModel = new \Model\HostEditor();
             $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostEntry();
 
-            $VhostEditorModel = new \Model\VhostEditor();
-            $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToCreateVHost();
+            $VHostEditorModel = new \Model\VHostEditor();
+            $this->content["VhostEditorResult"] = $VHostEditorModel->askWhetherToCreateVHost();
 
             $dbConfigureModel = new \Model\DBConfigure();
             $this->content["dbResetResult"] = $dbConfigureModel->askWhetherToResetDBConfiguration();
@@ -170,7 +170,7 @@ class Install extends Base {
     private function loadAutoPilot($autoPilotFile){
         if (file_exists($autoPilotFile)) {
             include_once($autoPilotFile); }
-        $autoPilot = (class_exists('\Core\AutoPilot')) ? new \Core\AutoPilot() : null ;
+        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ? new \Core\AutoPilotConfigured() : null ;
         return $autoPilot;
     }
 
