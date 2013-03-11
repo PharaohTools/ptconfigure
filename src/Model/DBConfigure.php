@@ -178,7 +178,7 @@ class DBConfigure extends Base {
 
     private function settingsFileReverseDataChange(){
         $settingsFileLines = explode("\n", $this->settingsFileData);
-        $replacements = $this->platformVars->getProperty("settingsFileLocation") ;
+        $replacements = $this->platformVars->getProperty("settingsFileReplacements") ;
         foreach ( $settingsFileLines as &$settingsFileLine ) {
             foreach ( $replacements as $searchFor=>$replaceWith ) {
                 if (strpos($settingsFileLine, $searchFor)) {
