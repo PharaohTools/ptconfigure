@@ -28,9 +28,9 @@ Database Reset: <?= $pageVars["dbResetResult"]  ; ?>
 
 Database Configure: <?= $pageVars["dbConfigureResult"]  ; ?>
 
-Database Install: <?= $pageVars["dbInstallResult"]  ; ?>
-
 Database Drop: <?= $pageVars["dbDropResult"] ; ?>
+
+Database Install: <?= $pageVars["dbInstallResult"]  ; ?>
 
 
 Cuke Configure: <?= $pageVars["cukeConfAdditionResult"]  ; ?>

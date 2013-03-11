@@ -125,13 +125,13 @@ class Install extends Base {
 
                     // DB Install
                     $dbInstallModel = new \Model\DBInstall();
-                    $this->content["dbInstallResult"] = $dbInstallModel->runAutoPilotDBInstallation($autoPilot);
-                    if ($autoPilot->dbInstallExecute && $this->content["dbInstallResult"] != "1") {
-                        $this->content["autoPilotErrors"]="Auto Pilot DB Install Broken";
-                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
                     $this->content["dbDropResult"] = $dbInstallModel->runAutoPilotDBRemoval($autoPilot);
                     if ($autoPilot->dbDropExecute && $this->content["dbDropResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot DB Reset Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+                    $this->content["dbInstallResult"] = $dbInstallModel->runAutoPilotDBInstallation($autoPilot);
+                    if ($autoPilot->dbInstallExecute && $this->content["dbInstallResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot DB Install Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // Cuke Conf
