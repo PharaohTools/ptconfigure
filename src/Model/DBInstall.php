@@ -164,10 +164,13 @@ class DBInstall extends Base {
     private function databaseAndUserCreator() {
         $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
         $query = 'create database if not exists '.$this->dbName.';';
+        echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
-        $query = 'grant usage on *.* to '.$this->dbUser.'@'.$this->dbHost.' identified by "'.$this->dbPass.'";';
+        $query = 'grant usage on *.* to '.$this->dbUser.'@% identified by "'.$this->dbPass.'";';
+        echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
-        $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@'.$this->dbHost ;
+        $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@%' ;
+        echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
     }
 
@@ -184,6 +187,7 @@ class DBInstall extends Base {
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->dbUser.' -p'.$this->dbPass.' ';
         $command .= $this->dbName.' < '.$sqlFileToExecute;
         self::executeAndOutput($command);
+        print "Database script executed";
     }
 
 
