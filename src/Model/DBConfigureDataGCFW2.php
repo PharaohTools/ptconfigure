@@ -37,9 +37,9 @@ class DBConfigureDataGCFW2 extends Base {
 
         $this->extraConfigFileReplacements = array(
             '$bootstrapDbName =' => '$bootstrapDbName = "****DB NAME****" ; ',
-            '$bootstrapDbUser =' => '$this->dbUser = "****DB USER****" ; ',
-            '$bootstrapDbPass =' => '$this->dbPass = "****DB PASS****" ; ',
-            '$bootstrapDbHost =' => '$this->dbHost = "****DB HOST****" ; ');
+            '$bootstrapDbUser =' => '$bootstrapDbUser = "****DB USER****" ; ',
+            '$bootstrapDbPass =' => '$bootstrapDbPass = "****DB PASS****" ; ',
+            '$bootstrapDbHost =' => '$bootstrapDbHost = "****DB HOST****" ; ');
 
     }
 
