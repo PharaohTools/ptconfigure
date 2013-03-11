@@ -89,10 +89,10 @@ class DBConfigure extends Base {
     }
 
     public function setPlatformVars() {
-        if ($this->platform==("d7" || "drupal7" || "drupal")) {
+        if (in_array($this->platform, array("d7", "drupal7" , "drupal"))) {
             $this->platformVars = new \Model\DBConfigureDataDrupal70();
             return; }
-        if ($this->platform==("php" || "gcfw" || "gcfw2")) {
+        if (in_array($this->platform, array("php", "gcfw", "gcfw2"))) {
             $this->platformVars = new \Model\DBConfigureDataGCFW2();
             return; }
         $this->platformVars = new \Model\DBConfigureDataGCFW2();
