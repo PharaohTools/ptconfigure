@@ -9,9 +9,7 @@ class AutoPilot {
     public $sshInvokeSSHDataData = null;
     public $sshInvokeSSHScriptExecute = false;
     public $sshInvokeSSHScriptFile = null;
-    public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
-                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") ,
-                                      array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk")  );
+    public $sshInvokeServers = array( array("target"=>"127.0.0.1", "user"=>"dave", "pword"=>"milk") );
 
     // Git Checkout Variables
     public $gitCheckoutExecute = false;
@@ -51,6 +49,7 @@ class AutoPilot {
     public $virtualHostEditorAdditionVHostEnable = false;
     public $virtualHostEditorAdditionSymLinkDirectory = null;
     public $virtualHostEditorAdditionApacheCommand = null;
+    public $virtualHostEditorAdditionTemplateData = null; // will use default template if null
 
     // Virtual Host Editor Deletion Variables
     public $virtualHostEditorDeletionExecute = true;

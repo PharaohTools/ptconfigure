@@ -49,6 +49,7 @@ class AutoPilot {
     public $virtualHostEditorAdditionVHostEnable = true;
     public $virtualHostEditorAdditionSymLinkDirectory = '/etc/apache2/sites-enabled';
     public $virtualHostEditorAdditionApacheCommand = "apache2";
+    public $virtualHostEditorAdditionTemplateData = null; // will use default template if null
 
     // Virtual Host Editor Deletion Variables
     public $virtualHostEditorDeletionExecute = false;

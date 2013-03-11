@@ -4,7 +4,8 @@ Namespace Model;
 
 class DBConfigureDataGCFW2 extends Base {
 
-    private $settingsFileLocation = 'src/Core/Database.php';
+    private $settingsFileLocation = 'src/Core'; // no trail slash
+    private $settingsFileName = 'Database.php';
 
     public function getProperty($property) {
         return $this->$property;
