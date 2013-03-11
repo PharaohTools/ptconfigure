@@ -7,6 +7,7 @@ class DBConfigure extends Base {
     private $platform;
     private $platformVars;
     private $settingsFileData;
+    private $currentExtraSettingsFileData;
     private $dbHost ;
     private $dbUser ;
     private $dbPass ;
@@ -70,6 +71,8 @@ class DBConfigure extends Base {
         $this->settingsFileDataChange();
         $this->removeOldSettingsFile();
         $this->createSettingsFile();
+        if (is_array($autoPilot->extraConfigFiles) && count($autoPilot->extraConfigFiles)>0) {
+            $this->doExtraSettingsFilesDataChanges(); }
         return true;
     }
 
@@ -81,6 +84,8 @@ class DBConfigure extends Base {
         $this->settingsFileReverseDataChange();
         $this->removeOldSettingsFile();
         $this->createSettingsFile();
+        if (is_array($autoPilot->extraConfigFiles) && count($autoPilot->extraConfigFiles)>0) {
+            $this->doExtraSettingsFilesReverseDataChanges(); }
         return true;
     }
 
@@ -168,6 +173,34 @@ class DBConfigure extends Base {
         $command  = 'cat '.$this->platformVars->getProperty("settingsFileLocation").'/';
         $command .= $this->platformVars->getProperty("settingsFileName");
         $this->settingsFileData = self::executeAndLoad($command);
+    }
+
+    private function doExtraSettingsFilesDataChanges() {
+        foreach ($this->platformVars->getProperty("extraConfigFiles") as $settingsFile) {
+            echo "Loading Extra settings file $settingsFile...\n" ;
+            $command  = 'cat '.$settingsFile;
+            $this->currentExtraSettingsFileData = self::executeAndLoad($command);
+            $replacements =  array('****DB USER****'=>$this->dbUser, '****DB NAME****'=>$this->dbName,
+                '****DB PASS****'=>$this->dbPass, '****DB HOST****'=>$this->dbHost, );
+            $this->currentExtraSettingsFileData = strtr($this->currentExtraSettingsFileData, $replacements);
+            echo "Moving Extra settings file in...\n" ;
+            return file_put_contents($settingsFile, $this->settingsFileData);}
+    }
+
+    private function doExtraSettingsFilesReverseDataChanges() {
+        foreach ($this->platformVars->getProperty("extraConfigFiles") as $settingsFile) {
+            echo "Loading Extra settings file...\n" ;
+            $command  = 'cat '.$settingsFile;
+            $this->currentExtraSettingsFileData = self::executeAndLoad($command);
+            $settingsFileLines = explode("\n", $this->currentExtraSettingsFileData);
+            $replacements = $this->platformVars->getProperty("extraConfigFileReplacements") ;
+            foreach ( $settingsFileLines as &$settingsFileLine ) {
+                foreach ( $replacements as $searchFor=>$replaceWith ) {
+                    if (strpos($settingsFileLine, $searchFor)) {
+                        $settingsFileLine = $replaceWith; } } }
+            $this->currentExtraSettingsFileData = implode("\n", $settingsFileLines);
+            echo "Moving Extra settings file in...\n" ;
+            return file_put_contents($settingsFile, $this->settingsFileData); }
     }
 
     private function settingsFileDataChange(){

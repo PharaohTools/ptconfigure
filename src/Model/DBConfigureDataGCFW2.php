@@ -7,9 +7,12 @@ class DBConfigureDataGCFW2 extends Base {
     private $settingsFileLocation = 'src/Core'; // no trail slash
     private $settingsFileName = 'Database.php';
     private $settingsFileReplacements ;
+    private $extraConfigFileReplacements ;
+    private $extraConfigFiles = array('build/config/phpunit/bootstrap.php'); // extra files requiring db config
 
     public function __construct(){
         $this->setReplacements();
+        $this->setExtraConfigReplacements();
     }
 
     public function getProperty($property) {
@@ -27,6 +30,16 @@ class DBConfigureDataGCFW2 extends Base {
             '$this->dbUser ='=>'$this->dbUser = "****DB USER****" ; ',
             '$this->dbPass ='=>'$this->dbPass = "****DB PASS****" ; ',
             '$this->dbHost ='=>'$this->dbHost = "****DB HOST****" ; ');
+
+    }
+
+    private function setExtraConfigReplacements(){
+
+        $this->extraConfigFileReplacements = array(
+            '$bootstrapDbName =' => '$bootstrapDbName = "****DB NAME****" ; ',
+            '$bootstrapDbUser =' => '$this->dbUser = "****DB USER****" ; ',
+            '$bootstrapDbPass =' => '$this->dbPass = "****DB PASS****" ; ',
+            '$bootstrapDbHost =' => '$this->dbHost = "****DB HOST****" ; ');
 
     }
 
