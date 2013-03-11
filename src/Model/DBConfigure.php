@@ -71,7 +71,8 @@ class DBConfigure extends Base {
         $this->settingsFileDataChange();
         $this->removeOldSettingsFile();
         $this->createSettingsFile();
-        if (is_array($autoPilot->extraConfigFiles) && count($autoPilot->extraConfigFiles)>0) {
+        if (is_array($this->platformVars->getProperty("extraConfigFiles")) &&
+            count($this->platformVars->getProperty("extraConfigFiles"))>0) {
             $this->doExtraSettingsFilesDataChanges(); }
         return true;
     }
@@ -84,7 +85,8 @@ class DBConfigure extends Base {
         $this->settingsFileReverseDataChange();
         $this->removeOldSettingsFile();
         $this->createSettingsFile();
-        if (is_array($autoPilot->extraConfigFiles) && count($autoPilot->extraConfigFiles)>0) {
+        if (is_array($this->platformVars->getProperty("extraConfigFiles")) &&
+            count($this->platformVars->getProperty("extraConfigFiles"))>0) {
             $this->doExtraSettingsFilesReverseDataChanges(); }
         return true;
     }
