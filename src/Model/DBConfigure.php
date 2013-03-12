@@ -202,7 +202,7 @@ class DBConfigure extends Base {
                         $settingsFileLine = $replaceWith; } } }
             $this->currentExtraSettingsFileData = implode("\n", $settingsFileLines);
             echo "Moving Extra settings file in...\n" ;
-            return file_put_contents($settingsFile, $this->settingsFileData); }
+            return file_put_contents($settingsFile, $this->currentExtraSettingsFileData); }
     }
 
     private function settingsFileDataChange(){
