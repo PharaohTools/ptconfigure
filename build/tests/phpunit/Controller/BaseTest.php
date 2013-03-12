@@ -7,7 +7,7 @@ class EbayCodePracticeControllerBaseClassTest extends PHPUnit_Framework_TestCase
     }
 
     public function testControllerBaseInstantiates() {
-        $controllerBaseObject = new Controller\Base() ;
+        $controllerBaseObject = new \Controller\Base() ;
         $this->assertTrue( is_object($controllerBaseObject) );
     }
 

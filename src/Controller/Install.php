@@ -64,14 +64,14 @@ class Install extends Base {
 
                     // git checkout
                     $gitCheckoutModel = new \Model\GitCheckout();
+                    $this->content["gitDeletorResult"] = $gitCheckoutModel->runAutoPilotDeletor($autoPilot);
+                    if ($autoPilot->gitDeletorExecute && $this->content["gitDeletorResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot Deletor Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+
                     $this->content["gitCheckoutResult"] = $gitCheckoutModel->runAutoPilotCloner($autoPilot);
                     if ($autoPilot->gitCheckoutExecute && $this->content["gitCheckoutResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Checkout/Clone Broken";
-                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-
-                    $this->content["gitDeletorResult"] = $gitCheckoutModel->runAutoPilotDeletor($autoPilot);
-                    if ($autoPilot->gitDeletorExecute && $this->content["gitDeletorResult"] != "1") {
-                        $this->content["autoPilotErrors"]="Auto PilotDeltor Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // project
