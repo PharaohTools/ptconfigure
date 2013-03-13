@@ -1,2 +1,2 @@
-<?= $pageVars["hostEditorResult"]; ?>
+<?php echo $pageVars["hostEditorResult"]; ?>
 Host Editor Finished

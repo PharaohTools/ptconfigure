@@ -3,8 +3,8 @@
 GC Devhelper
 ******************************
 
-<?= $this->renderMessages($pageVars); ?>
-<?= $templateData; ?>
+<?php echo $this->renderMessages($pageVars); ?>
+<?php echo $templateData; ?>
 
 ******************************
 

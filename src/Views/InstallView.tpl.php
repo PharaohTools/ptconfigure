@@ -4,48 +4,48 @@ if ($pageVars["route"]["action"]=="autopilot")
   if (!isset($pageVars["autoPilotErrors"])) {
 ?>
 
-Git Clone/Checkout: <?= $pageVars["gitCheckoutResult"] ; ?>
+Git Clone/Checkout: <?php echo $pageVars["gitCheckoutResult"] ; ?>
 
-Git Project Deletion: <?= $pageVars["gitDeletorResult"] ; ?>
-
-
-Project Initialize: <?= $pageVars["projectInitResult"] ; ?>
-
-Project Build Install: <?= $pageVars["projectBuildResult"] ; ?>
+Git Project Deletion: <?php echo $pageVars["gitDeletorResult"] ; ?>
 
 
-Host File Entry Creation: <?= $pageVars["hostEditorAdditionResult"] ; ?>
+Project Initialize: <?php echo $pageVars["projectInitResult"] ; ?>
 
-Host File Entry Deletion: <?= $pageVars["hostEditorDeletionResult"] ; ?>
-
-
-Virtual Host Creation: <?= $pageVars["virtualHostCreatorResult"]  ; ?>
-
-Virtual Host Deletion: <?= $pageVars["virtualHostDeletionResult"] ; ?>
+Project Build Install: <?php echo $pageVars["projectBuildResult"] ; ?>
 
 
-Database Reset: <?= $pageVars["dbResetResult"]  ; ?>
+Host File Entry Creation: <?php echo $pageVars["hostEditorAdditionResult"] ; ?>
 
-Database Configure: <?= $pageVars["dbConfigureResult"]  ; ?>
-
-Database Drop: <?= $pageVars["dbDropResult"] ; ?>
-
-Database Install: <?= $pageVars["dbInstallResult"]  ; ?>
+Host File Entry Deletion: <?php echo $pageVars["hostEditorDeletionResult"] ; ?>
 
 
-Cuke Configure: <?= $pageVars["cukeConfAdditionResult"]  ; ?>
+Virtual Host Creation: <?php echo $pageVars["virtualHostCreatorResult"]  ; ?>
 
-Cuke Reset: <?= $pageVars["cukeConfDeletionResult"]  ; ?>
+Virtual Host Deletion: <?php echo $pageVars["virtualHostDeletionResult"] ; ?>
 
 
-Versioning: <?= $pageVars["versioningResult"]  ; ?>
+Database Reset: <?php echo $pageVars["dbResetResult"]  ; ?>
+
+Database Configure: <?php echo $pageVars["dbConfigureResult"]  ; ?>
+
+Database Drop: <?php echo $pageVars["dbDropResult"] ; ?>
+
+Database Install: <?php echo $pageVars["dbInstallResult"]  ; ?>
+
+
+Cuke Configure: <?php echo $pageVars["cukeConfAdditionResult"]  ; ?>
+
+Cuke Reset: <?php echo $pageVars["cukeConfDeletionResult"]  ; ?>
+
+
+Versioning: <?php echo $pageVars["versioningResult"]  ; ?>
 
 
 <?php
 } else {
 ?>
 Auto Pilot errors:
-<?= $pageVars["autoPilotErrors"]; ?>
+<?php echo $pageVars["autoPilotErrors"]; ?>
 <?php
 
 } else if ($pageVars["route"]["action"]=="cli") {

@@ -1,2 +1,2 @@
-<?= $pageVars["versioningResult"]; ?>
+<?php echo $pageVars["versioningResult"]; ?>
 Versioning Finished
