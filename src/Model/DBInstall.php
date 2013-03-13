@@ -172,7 +172,7 @@ class DBInstall extends Base {
         $query = 'grant usage on *.* to '.$this->dbUser.'@\'localhost\' identified by "'.$this->dbPass.'";';
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
-        $query = 'grant all privileges on \''.$this->dbName.'\'.* to '.$this->dbUser.'@\'%\'' ;
+        $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\'' ;
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
     }
