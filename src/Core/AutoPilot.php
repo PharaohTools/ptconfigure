@@ -5,7 +5,7 @@ Namespace Core ;
 class AutoPilot {
 
     // Project Container Init Variables
-    public $projectContainerInitializeExecute = false; // true or false
+    public $projectContainerInitExecute = false; // true or false
     public $projectContainerDirectory = null;
 
     // SSH Invoke Variables

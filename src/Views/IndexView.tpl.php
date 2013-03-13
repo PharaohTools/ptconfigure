@@ -98,6 +98,10 @@ invoke, inv
 
 project, proj
 
+        - container
+        make a container folder for revisions (like /var/www/applications/*APP NAME*)
+        example: devhelper proj container
+
         - init
         initialize DH project
         example: devhelper proj init

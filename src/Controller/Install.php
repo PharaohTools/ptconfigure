@@ -76,6 +76,11 @@ class Install extends Base {
 
                     // project
                     $projectModel = new \Model\Project();
+                    $this->content["projectContainerResult"] = $projectModel->runAutoPilotInit($autoPilot);
+                    if ($autoPilot->projectContainerInitExecute && $this->content["projectContainerResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot Project Container Setup Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+
                     $this->content["projectInitResult"] = $projectModel->runAutoPilotInit($autoPilot);
                     if ($autoPilot->projectInitializeExecute && $this->content["projectInitResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Project Initialize Broken";

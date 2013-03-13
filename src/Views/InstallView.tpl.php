@@ -9,6 +9,8 @@ Git Clone/Checkout: <?php echo $pageVars["gitCheckoutResult"] ; ?>
 Git Project Deletion: <?php echo $pageVars["gitDeletorResult"] ; ?>
 
 
+Project Container: <?php echo $pageVars["projectContainerResult"] ; ?>
+
 Project Initialize: <?php echo $pageVars["projectInitResult"] ; ?>
 
 Project Build Install: <?php echo $pageVars["projectBuildResult"] ; ?>

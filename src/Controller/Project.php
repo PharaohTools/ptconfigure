@@ -10,6 +10,10 @@ class Project extends Base {
         $action = $pageVars["route"]["action"];
         $projectModel = new \Model\Project();
 
+        if ($action=="container") {
+            $this->content["projectResult"] = $projectModel->askWhetherToInitializeProjectContainer();
+            return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
+
         if ($action=="init") {
             $this->content["projectResult"] = $projectModel->askWhetherToInitializeProject();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
