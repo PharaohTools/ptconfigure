@@ -68,6 +68,9 @@ class DBInstall extends Base {
         $this->dbRootPass = $this->askForRootDBPass();
         $this->dbName = $this->askForDBName();
         $this->dropDB();
+        if ( $this->askForDBUserDrop() ) {
+            $this->dbUser = $this->askForDBUser();
+            $this->userDropper(); }
         return "Seems Fine...";
     }
 
@@ -85,12 +88,15 @@ class DBInstall extends Base {
     }
 
     public function runAutoPilotDBRemoval($autoPilot){
-        if ( !$autoPilot->dbDropExecute ) { return false; }
+        if ( $autoPilot->dbDropExecute!==true ) { return false; }
         $this->dbHost = $autoPilot->dbDropDBHost;
         $this->dbName = $autoPilot->dbDropDBName;
         $this->dbRootUser = $autoPilot->dbDropDBRootUser;
         $this->dbRootPass = $autoPilot->dbDropDBRootPass;
         $this->dropDB();
+        if ( $autoPilot->dbDropUserExecute ==true ) {
+            $this->dbUser = $autoPilot->dbDropDBUser;
+            $this->userDropper(); }
         return true;
     }
 
@@ -101,6 +107,11 @@ class DBInstall extends Base {
 
     private function askForDBDrop(){
         $question = 'Do you want to drop a database?';
+        return self::askYesOrNo($question);
+    }
+
+    private function askForDBUserDrop(){
+        $question = 'Do you want to drop a user?';
         return self::askYesOrNo($question);
     }
 
@@ -175,6 +186,17 @@ class DBInstall extends Base {
         $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\'' ;
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+    }
+
+    private function userDropper() {
+        $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+        $query = 'DROP USER \''.$this->dbUser.'\'@\'localhost\'; ' ;
+        echo "$query\n";
+        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        $query = 'DROP USER \''.$this->dbUser.'\'@\'%\'; ' ;
+        echo "$query\n";
+        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        print "Database User $this->dbUser dropped\n";
     }
 
     private function dropDB() {
