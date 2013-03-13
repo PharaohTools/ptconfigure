@@ -73,9 +73,9 @@ class VhostEditor extends Base {
         $this->docRoot = $autoPilot->virtualHostEditorAdditionDocRoot;
         $this->url = $autoPilot->virtualHostEditorAdditionURL;
         $this->vHostIp = $autoPilot->virtualHostEditorAdditionIp;
-        ($autoPilot->virtualHostEditorAdditionTemplateData == null) ?
-            $this->setVhostDefaultTemplate() :
-            $this->vHostTemplate = $autoPilot->virtualHostEditorAdditionTemplateData;
+        if ($autoPilot->virtualHostEditorAdditionTemplateData != null) {
+            $this->vHostTemplate = $autoPilot->virtualHostEditorAdditionTemplateData; }
+        else { $this->setVhostDefaultTemplate(); }
         $this->processVHost();
         $this->vHostDir = $autoPilot->virtualHostEditorAdditionDirectory;
         $this->attemptVHostWrite($autoPilot->virtualHostEditorAdditionFileSuffix);
