@@ -169,7 +169,10 @@ class DBInstall extends Base {
         $query = 'grant usage on *.* to '.$this->dbUser.'@\'%\' identified by "'.$this->dbPass.'";';
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
-        $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\'' ;
+        $query = 'grant usage on *.* to '.$this->dbUser.'@\'localhost\' identified by "'.$this->dbPass.'";';
+        echo "$query\n";
+        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        $query = 'grant all privileges on \''.$this->dbName.'\'.* to '.$this->dbUser.'@\'%\'' ;
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
     }
@@ -179,7 +182,7 @@ class DBInstall extends Base {
         echo (mysql_error($dbc));
         $query = 'DROP DATABASE '.$this->dbName.';';
         mysql_query($query, $dbc) ;
-        print "Database $this->dbName dropped";
+        print "Database $this->dbName dropped\n";
     }
 
     private function sqlInstaller() {
@@ -187,7 +190,7 @@ class DBInstall extends Base {
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->dbUser.' -p'.$this->dbPass.' ';
         $command .= $this->dbName.' < '.$sqlFileToExecute;
         self::executeAndOutput($command);
-        print "Database script executed";
+        print "Database script executed\n";
     }
 
 
