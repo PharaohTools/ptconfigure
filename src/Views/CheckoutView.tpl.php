@@ -1,2 +1,2 @@
-<?= $pageVars["checkOutResult"]; ?>
+<?php echo $pageVars["checkOutResult"]; ?>
 In checkout View

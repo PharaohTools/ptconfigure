@@ -1,2 +1,2 @@
-<?= $pageVars["projectResult"]; ?>
+<?php echo $pageVars["projectResult"]; ?>
 Project Editor Finished

@@ -1,2 +1,2 @@
-<?= $pageVars["VHostEditorResult"]; ?>
+<?php echo $pageVars["VHostEditorResult"]; ?>
 VHost Creator Finished

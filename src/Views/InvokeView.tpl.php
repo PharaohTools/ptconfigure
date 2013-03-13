@@ -4,25 +4,25 @@ if ($pageVars["route"]["action"]=="autopilot") {
   if (!isset($pageVars["autoPilotErrors"])) {
 ?>
 
-Invoke SSH Script Result: <?= $pageVars["invSshScriptResult"] ; ?>
+Invoke SSH Script Result: <?php echo $pageVars["invSshScriptResult"] ; ?>
 
-Invoke SSH Data Result: <?= $pageVars["invSshDataResult"] ; ?>
+Invoke SSH Data Result: <?php echo $pageVars["invSshDataResult"] ; ?>
 
 <?php
 } else {
 ?>
 Auto Pilot errors:
-<?= $pageVars["autoPilotErrors"]; ?>
+<?php echo $pageVars["autoPilotErrors"]; ?>
 <?php
 } } else if ($pageVars["route"]["action"]=="shell") {
     ?>
-Shell Result: <?= $pageVars["shlResult"]  ; ?>
+Shell Result: <?php echo $pageVars["shlResult"]  ; ?>
 
 Invoke Shell Cli
 <?php
 } else if ($pageVars["route"]["action"]=="script") {
     ?>
-Shell Result: <?= $pageVars["shlResult"]  ; ?>
+Shell Result: <?php echo $pageVars["shlResult"]  ; ?>
 
 Invoke Script
 <?php
