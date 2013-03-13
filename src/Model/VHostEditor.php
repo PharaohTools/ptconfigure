@@ -153,9 +153,12 @@ class VhostEditor extends Base {
 
     private function askForVHostDirectory(){
         $question = 'What is your VHost directory?';
-        if ($this->detectVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - use this?';
+        if ($this->detectApacheVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - use this?';
             $input = self::askForInput($question);
             return ($input=="") ? $this->vHostDir : $input ;  }
+        if ($this->detectRHVHostFolderExistence()) { $question .= ' Found "/etc/httpd/vhosts.d" - use this?';
+            $input = self::askForInput($question);
+            return ($input=="") ? "/etc/httpd/vhosts.d" : $input ;  }
         return self::askForInput($question, true);
     }
 
@@ -176,8 +179,12 @@ class VhostEditor extends Base {
         return self::askForInput($question, true);
     }
 
-    private function detectVHostFolderExistence(){
-        return file_exists($this->vHostDir);
+    private function detectApacheVHostFolderExistence(){
+        return file_exists("/etc/apache2/sites-available");
+    }
+
+    private function detectRHVHostFolderExistence(){
+        return file_exists("/etc/httpd/vhosts.d");
     }
 
     private function detectVHostEnabledFolderExistence(){
