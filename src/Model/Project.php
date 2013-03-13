@@ -22,7 +22,7 @@ class Project extends Base  {
         return $this->performInstallBuildInProject();
     }
 
-    public function runAutoPilotProjectContainerInitialize($autoPilot) {
+    public function runAutoPilotProjectContInit($autoPilot) {
         $projContInit = $autoPilot->projectContainerInitExecute;
         if ($projContInit != true) { return false; }
         $this->projectContainerDirectory = $autoPilot->projectContainerDirectory;
