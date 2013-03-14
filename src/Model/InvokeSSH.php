@@ -163,6 +163,7 @@ class InvokeSSH extends Base {
     }
 
     private function doSSHCommand($sshObject, $command){
+        return $sshObject->read("gitdeploy@live");
         $sshObject->write("$command\n");
         return $sshObject->read();
         // return $sshObject->exec(escapeshellcmd($command));
