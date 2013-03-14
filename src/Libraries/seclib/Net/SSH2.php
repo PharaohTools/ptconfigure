@@ -1936,6 +1936,11 @@ class Net_SSH2 {
             if (is_bool($response)) {
                 return $response ? $this->_string_shift($this->interactiveBuffer, strlen($this->interactiveBuffer)) : false;
             }
+            /* GC */
+            $sizeTooBig = (strlen($this->interactiveBuffer)>100);
+            if ($sizeTooBig) {
+                return $response ? $this->_string_shift($this->interactiveBuffer, strlen($this->interactiveBuffer)) : false;
+            }
 
             $this->interactiveBuffer.= $response;
         }
