@@ -163,7 +163,9 @@ class InvokeSSH extends Base {
     }
 
     private function doSSHCommand($sshObject, $command){
-        return $sshObject->exec(escapeshellcmd($command));
+        $sshObject->write("$command\n");
+        return $sshObject->read('invoke@box:$');
+        // return $sshObject->exec(escapeshellcmd($command));
     }
 
 }
