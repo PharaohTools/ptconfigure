@@ -84,7 +84,7 @@ hosteditor
 
 invoke, inv
 
-        - shell
+        - cli
         Will ask you for details for servers, then open a shell for you to execute on multiple servers
         example: devhelper invoke shell
 
