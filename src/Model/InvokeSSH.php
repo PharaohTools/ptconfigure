@@ -61,8 +61,9 @@ class InvokeSSH extends Base {
         $this->sshCommands = explode("\n", file_get_contents($params[0]) ) ;
         foreach ($this->sshCommands as $sshCommand) {
             foreach ($this->servers as &$server) {
+                echo "[".$server["target"]."] Executing $sshCommand...\n"  ;
                 $this->doSSHCommand($server["ssh2Object"], $sshCommand ) ;
-                echo "[".$server["target"]."] Executed $sshCommand"  ; } }
+                echo "[".$server["target"]."] $sshCommand Completed...\n"  ; } }
         echo "Script Completed";
         return true;
     }
@@ -157,7 +158,7 @@ class InvokeSSH extends Base {
     }
 
     private function doSSHCommand($sshObject, $command){
-        echo $sshObject->exec(escapeshellcmd($command));
+        echo $sshObject->exec(escapeshellcmd($command))."\n";
     }
 
 }
