@@ -11,8 +11,8 @@ class InvokeSSH extends Base {
         return $this->performInvokeSSHShell();
     }
 
-    public function askWhetherToInvokeSSHScript($params) {
-        return $this->performInvokeSSHScript($params);
+    public function askWhetherToInvokeSSHScript($params=null) {
+        return $this->performInvokeSSHScript($params=null);
     }
 
     public function runAutoPilotInvokeSSHData($autoPilot) {
@@ -27,7 +27,7 @@ class InvokeSSH extends Base {
     }
 
     public function runAutoPilotInvokeSSHScript($autoPilot) {
-        if ( $autoPilot->sshInvokeSSHDataExecute !== true ) { return false; }
+        if ( $autoPilot->sshInvokeSSHScriptExecute !== true ) { return false; }
         $this->populateServers($autoPilot);
         $this->sshCommands = explode("\n", file_get_contents($autoPilot->sshInvokeSSHScriptFile) ) ;
         foreach ($this->sshCommands as $sshCommand) {

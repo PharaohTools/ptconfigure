@@ -4,6 +4,8 @@ if ($pageVars["route"]["action"]=="autopilot")
   if (!isset($pageVars["autoPilotErrors"])) {
 ?>
 
+
+
 Git Clone/Checkout: <?php echo $pageVars["gitCheckoutResult"] ; ?>
 
 Git Project Deletion: <?php echo $pageVars["gitDeletorResult"] ; ?>
