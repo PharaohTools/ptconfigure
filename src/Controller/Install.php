@@ -11,7 +11,10 @@ class Install extends Base {
 
         if ($action=="cli") {
 
-            // project
+            $sshModel = new \Model\InvokeSSH();
+            $this->content["invokeSshScriptResult"] = $sshModel->askWhetherToInvokeSSHScript();
+            $this->content["invokeSshShellResult"] = $sshModel->askWhetherToInvokeSSHShell();
+
             $projectModel = new \Model\Project();
             $this->content["projectContInitResult"] = $projectModel->askWhetherToInitializeProjectContainer();
 
@@ -54,6 +57,18 @@ class Install extends Base {
                 $autoPilot = $this->loadAutoPilot($autoPilotFile);
 
                 if ( $autoPilot!==null ) {
+
+                    // ssh data/script invoke
+                    $sshModel = new \Model\InvokeSSH();
+                    $this->content["sshInvokeDataResult"] = $sshModel->runAutoPilotInvokeSSHData($autoPilot);
+                    if ($autoPilot->sshInvokeSSHDataExecute && $this->content["sshInvokeDataResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot SSH Invoke Data Setup Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+
+                    $this->content["sshInvokeScriptResult"] = $sshModel->runAutoPilotInvokeSSHScript($autoPilot);
+                    if ($autoPilot->sshInvokeSSHScriptExecute && $this->content["sshInvokeScriptResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot SSH Invoke Script Setup Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // project
                     $projectModel = new \Model\Project();
