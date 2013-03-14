@@ -35,9 +35,9 @@ Database Drop: <?php echo $pageVars["dbDropResult"] ; ?>
 Database Install: <?php echo $pageVars["dbInstallResult"]  ; ?>
 
 
-Cuke Configure: <?php echo $pageVars["cukeConfAdditionResult"]  ; ?>
-
 Cuke Reset: <?php echo $pageVars["cukeConfDeletionResult"]  ; ?>
+
+Cuke Configure: <?php echo $pageVars["cukeConfAdditionResult"]  ; ?>
 
 
 Versioning: <?php echo $pageVars["versioningResult"]  ; ?>
