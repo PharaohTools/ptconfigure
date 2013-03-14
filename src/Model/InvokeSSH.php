@@ -73,10 +73,10 @@ class InvokeSSH extends Base {
     }
 
     private function loadServerData($autoPilot=null) {
-        $srvAvail = (isset($autoPilot->invokeSSHServers) && is_array($autoPilot->invokeSSHServers) &&
-            count($autoPilot->invokeSSHServers) > 0);
+        $srvAvail = (isset($autoPilot->sshInvokeServers) && is_array($autoPilot->sshInvokeServers) &&
+            count($autoPilot->sshInvokeServers) > 0);
         if ($srvAvail == true) {
-            $this->servers = $autoPilot->invokeSSHServers; }
+            $this->servers = $autoPilot->sshInvokeServers; }
         else {
             $this->askForServerInfo(); }
     }
