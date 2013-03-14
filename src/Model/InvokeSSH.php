@@ -78,8 +78,7 @@ class InvokeSSH extends Base {
         if ($srvAvail == true) {
             $this->servers = $autoPilot->invokeSSHServers; }
         else {
-            $this->askForServerInfo();
-        }
+            $this->askForServerInfo(); }
     }
 
     private function loadSSHConnections() {
