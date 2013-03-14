@@ -47,11 +47,12 @@ class InvokeSSH extends Base {
             if ( $command == false) {
                 $commandExecution = false; }
             else {
+                echo "Opening CLI...\n"  ;
                 foreach ($this->servers as &$server) {
                     echo "[".$server["target"]."] Executing $command...\n"  ;
                     echo $this->doSSHCommand($server["ssh2Object"], $command)."\n" ;
                     echo "[".$server["target"]."] $command Completed...\n"  ; } } }
-            echo "Shell Completed";
+        echo "Shell Completed";
         return true;
     }
 
@@ -86,6 +87,7 @@ class InvokeSSH extends Base {
     }
 
     private function loadSSHConnections() {
+        echo 'Attempting to load SSH connections... ';
         foreach ($this->servers as &$server) {
             $attempt = $this->attemptSSH2Connection($server) ;
             if ($attempt == null) {
