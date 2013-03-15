@@ -61,6 +61,7 @@ class DBConfigure extends Base {
 
     public function runAutoPilotDBConfiguration($autoPilot){
         if ( !$autoPilot->dbConfigureExecute ) { return false; }
+        echo "DB Config Setup:\n";
         $this->dbHost = $autoPilot->dbConfigureDBHost;
         $this->dbUser = $autoPilot->dbConfigureDBUser;
         $this->dbPass = $autoPilot->dbConfigureDBPass;
@@ -79,6 +80,7 @@ class DBConfigure extends Base {
 
     public function runAutoPilotDBReset($autoPilot){
         if ( !$autoPilot->dbResetExecute ) { return false; }
+        echo "DB Config Reset:\n";
         $this->platform = $autoPilot->dbResetPlatform;
         $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
@@ -229,14 +231,14 @@ class DBConfigure extends Base {
     private function createSettingsFile() {
         $location  = $this->platformVars->getProperty("settingsFileLocation").'/';
         $location .= $this->platformVars->getProperty("settingsFileName");
-        echo "Moving new settings file in...\n" ;
+        echo "Moving new settings file ".$this->platformVars->getProperty("settingsFileName")." in...\n" ;
         return file_put_contents($location, $this->settingsFileData);
     }
 
     private function removeOldSettingsFile(){
         $command    = 'rm '.$this->platformVars->getProperty("settingsFileLocation").'/';
         $command .= $this->platformVars->getProperty("settingsFileName");
-        self::executeAndOutput($command, "Removing old settings file...\n");
+        self::executeAndOutput($command, "Removing old settings file ".$this->platformVars->getProperty("settingsFileName")."...\n");
     }
 
 }
