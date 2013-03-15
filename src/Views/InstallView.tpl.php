@@ -4,14 +4,13 @@ if ($pageVars["route"]["action"]=="autopilot")
   if (!isset($pageVars["autoPilotErrors"])) {
 ?>
 
+Project Container: <?php echo $pageVars["projectContainerResult"] ; ?>
 
 
 Git Clone/Checkout: <?php echo $pageVars["gitCheckoutResult"] ; ?>
 
 Git Project Deletion: <?php echo $pageVars["gitDeletorResult"] ; ?>
 
-
-Project Container: <?php echo $pageVars["projectContainerResult"] ; ?>
 
 Project Initialize: <?php echo $pageVars["projectInitResult"] ; ?>
 
@@ -21,11 +20,6 @@ Project Build Install: <?php echo $pageVars["projectBuildResult"] ; ?>
 Host File Entry Creation: <?php echo $pageVars["hostEditorAdditionResult"] ; ?>
 
 Host File Entry Deletion: <?php echo $pageVars["hostEditorDeletionResult"] ; ?>
-
-
-Virtual Host Creation: <?php echo $pageVars["virtualHostCreatorResult"]  ; ?>
-
-Virtual Host Deletion: <?php echo $pageVars["virtualHostDeletionResult"] ; ?>
 
 
 Database Reset: <?php echo $pageVars["dbResetResult"]  ; ?>
@@ -44,6 +38,10 @@ Cuke Configure: <?php echo $pageVars["cukeConfAdditionResult"]  ; ?>
 
 Versioning: <?php echo $pageVars["versioningResult"]  ; ?>
 
+
+Virtual Host Creation: <?php echo $pageVars["virtualHostCreatorResult"]  ; ?>
+
+Virtual Host Deletion: <?php echo $pageVars["virtualHostDeletionResult"] ; ?>
 
 <?php
 } else {
