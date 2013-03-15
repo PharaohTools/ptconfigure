@@ -141,6 +141,9 @@ class Project extends Base  {
         if ($this->checkIsDHProjectContainer() == false) {
             $command = 'mkdir -p '.$this->projectContainerDirectory;
             self::executeAndOutput($command, "Project Container directory created");
+            chdir($this->projectContainerDirectory);
+            echo getcwd();
+            self::executeAndOutput($command, "Moving to Container");
             $command = 'cd '.$this->projectContainerDirectory;
             self::executeAndOutput($command, "Moving to Container");
             $command = 'pwd '.$this->projectContainerDirectory;
