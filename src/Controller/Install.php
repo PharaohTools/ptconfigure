@@ -163,7 +163,7 @@ class Install extends Base {
                     // Versioning
                     $versionModel = new \Model\Version();
                     $this->content["versioningResult"] = $versionModel->runAutoPilotVersion($autoPilot);
-                    if ($autoPilot->versionExecute && $this->content["cukeConfAdditionResult"] != "1") {
+                    if ($autoPilot->versionExecute && $this->content["versioningResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Versioning Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
