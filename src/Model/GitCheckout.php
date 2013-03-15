@@ -11,6 +11,9 @@ class GitCheckout extends Base {
         $params[0] = $autoPilot->gitCheckoutProjectOriginRepo;
         $params[1] = $autoPilot->gitCheckoutCustomCloneFolder;
         if (!$this->doGitCommandWithErrorCheck($params) ) {return false; }
+        $this->setWebServerUser($autoPilot);
+        $this->changeNewProjectPermissions();
+        $this->changeNewProjectFolderOwner();
         $this->changeToProjectDirectory();
         return true;
     }
@@ -27,6 +30,10 @@ class GitCheckout extends Base {
             $params = array();
             $params[0] = $this->askForGitTargetRepo(); }
         $this->doGitCommand($params);
+        if (!$this->askAlsoChangePerms() ) {return false; }
+        $this->setWebServerUser();
+        $this->changeNewProjectPermissions();
+        $this->changeNewProjectFolderOwner();
         $this->changeToProjectDirectory();
         return true;
     }
@@ -34,6 +41,11 @@ class GitCheckout extends Base {
     private function askForGitTargetRepo(){
         $question = 'What\'s git repo to clone from?';
         return self::askForInput($question, true);
+    }
+
+    private function askAlsoChangePerms(){
+        $question = 'Also change permissions/owner?';
+        return self::askYesOrNo($question);
     }
 
     private function doGitCommandWithErrorCheck($params){
@@ -66,6 +78,40 @@ class GitCheckout extends Base {
          else {
              echo "Could not navigate to: ".getcwd().'/'.$this->projectDirectory."\n"; }
         echo "Now in: ".getcwd()."\n\n";
+    }
+
+    private function setWebServerUser($autoPilot = null){
+        if ($autoPilot != null) { $this->webServerUser = $autoPilot->gitWebServerUser; }
+        else { $this->webServerUser = $this->askWebServerUser(); }
+    }
+
+    private function changeNewProjectPermissions(){
+        $command  = 'sudo chmod -R 755 '.getcwd().'/'.$this->projectDirectory;
+        self::executeAndOutput($command, "Changing Folder Permissions...");
+    }
+
+    private function changeNewProjectFolderOwner(){
+        $command  = 'sudo chown -R '.$this->webServerUser.' '.$this->projectDirectory;
+        self::executeAndOutput($command, "Changing Folder Owner...");
+    }
+
+    private function askWebServerUser(){
+        $question = 'What user is Apache Web Server running as?';
+        if ($this->detectApacheVHostFolderExistence()) { $question .= ' Guessed ubuntu:www-data - use this?';
+            $input = self::askForInput($question);
+            return ($input=="") ? "www-data" : $input ;  }
+        if ($this->detectRHVHostFolderExistence()) { $question .= ' Guessed Centos/RH:apache - use this?';
+            $input = self::askForInput($question);
+            return ($input=="") ? "apache" : $input ;  }
+        return self::askForInput($question, true);
+    }
+
+    private function detectApacheVHostFolderExistence(){
+        return file_exists("/etc/apache2/sites-available");
+    }
+
+    private function detectRHVHostFolderExistence(){
+        return file_exists("/etc/httpd/vhosts.d");
     }
 
 }
