@@ -113,18 +113,6 @@ class Install extends Base {
                         $this->content["autoPilotErrors"]="Host file editor deletion Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
-                    // V Host Editor
-                    $VHostEditorModel = new \Model\VHostEditor();
-                    $this->content["virtualHostCreatorResult"] = $VHostEditorModel->runAutoPilotVHostCreation($autoPilot);
-                    if ($autoPilot->virtualHostEditorAdditionExecute && $this->content["virtualHostCreatorResult"] != "1") {
-                        $this->content["autoPilotErrors"]="Auto Pilot Virtual Host Creator Broken";
-                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-
-                    $this->content["virtualHostDeletionResult"] = $VHostEditorModel->runAutoPilotVHostDeletion($autoPilot);
-                    if ($autoPilot->virtualHostEditorDeletionExecute && $this->content["virtualHostDeletionResult"] != "1") {
-                        $this->content["autoPilotErrors"]="Auto Pilot Virtual Host Deletor Broken";
-                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-
                     // DB Configure
                     $dbConfigureModel = new \Model\DBConfigure() ;
                     $this->content["dbResetResult"] = $dbConfigureModel->runAutoPilotDBReset($autoPilot);
@@ -165,6 +153,18 @@ class Install extends Base {
                     $this->content["versioningResult"] = $versionModel->runAutoPilotVersion($autoPilot);
                     if ($autoPilot->versionExecute && $this->content["versioningResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Versioning Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+
+                    // V Host Editor
+                    $VHostEditorModel = new \Model\VHostEditor();
+                    $this->content["virtualHostCreatorResult"] = $VHostEditorModel->runAutoPilotVHostCreation($autoPilot);
+                    if ($autoPilot->virtualHostEditorAdditionExecute && $this->content["virtualHostCreatorResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot Virtual Host Creator Broken";
+                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
+
+                    $this->content["virtualHostDeletionResult"] = $VHostEditorModel->runAutoPilotVHostDeletion($autoPilot);
+                    if ($autoPilot->virtualHostEditorDeletionExecute && $this->content["virtualHostDeletionResult"] != "1") {
+                        $this->content["autoPilotErrors"]="Auto Pilot Virtual Host Deletor Broken";
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                 }
