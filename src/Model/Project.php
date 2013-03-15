@@ -139,8 +139,10 @@ class Project extends Base  {
 
     private function projectContainerInitialize() {
         if ($this->checkIsDHProjectContainer() == false) {
-            $command = 'mkdir -p '.$this->projectContainerDirectory;;
+            $command = 'mkdir -p '.$this->projectContainerDirectory;
             self::executeAndOutput($command, "Project Container directory created");
+            chdir($this->projectContainerDirectory);
+            echo "Moving to Container $this->projectContainerDirectory\n";
             $command = 'touch dhprojc';
             self::executeAndOutput($command, "Project Container file created"); }
     }
