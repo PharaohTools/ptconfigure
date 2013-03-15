@@ -177,13 +177,16 @@ class DBInstall extends Base {
         $query = 'create database if not exists '.$this->dbName.';';
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
-        $query = 'grant usage on *.* to '.$this->dbUser.'@\'%\' identified by "'.$this->dbPass.'";';
+        $query = 'grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\' identified by "'.$this->dbPass.'";';
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
-        $query = 'grant usage on *.* to '.$this->dbUser.'@\'localhost\' identified by "'.$this->dbPass.'";';
+        $query = 'grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\' identified by "'.$this->dbPass.'";';
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
         $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\'' ;
+        echo "$query\n";
+        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\'' ;
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
     }
