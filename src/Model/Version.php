@@ -43,7 +43,7 @@ class Version extends Base {
     }
 
     private function selectAppVersion($version){
-        $otherResults = scandir($this->appRootDirectory);
+        $otherResults = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
         arsort($otherResults) ;
         $question = "Please Choose Version to make current (Showing newest first, Enter none for newest):\n";
         $i1 = 0;
