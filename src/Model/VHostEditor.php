@@ -74,9 +74,9 @@ class VhostEditor extends Base {
         $this->url = $autoPilot->virtualHostEditorAdditionURL;
         $this->vHostIp = $autoPilot->virtualHostEditorAdditionIp;
         if ($autoPilot->virtualHostEditorAdditionTemplateData != null) {
-            echo "Using autopilot vhost";
+            echo "Using autopilot vhost\n";
             $this->vHostTemplate = $autoPilot->virtualHostEditorAdditionTemplateData; }
-        else { echo "Using default vhost";
+        else { echo "Using default vhost\n";
             $this->setVhostDefaultTemplate(); }
         $this->processVHost();
         $this->vHostDir = $autoPilot->virtualHostEditorAdditionDirectory;
