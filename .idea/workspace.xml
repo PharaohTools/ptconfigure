@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b077a44b-3090-465e-93ce-d60dbfddc018" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/DBConfigure.php" afterPath="$PROJECT_DIR$/src/Model/DBConfigure.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php" afterPath="$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="devhelper.iws" />
@@ -51,10 +51,10 @@
     <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/devhelper/autopilots/autopilot-test-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363237589388" ignored="false" />
     <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/devhelper/autopilots/autopilot-production-invoke.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363028102257" ignored="false" />
     <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/devhelper/autopilots/autopilot-dev-jenkins-reset-for-push.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363221997769" ignored="false" />
-    <file path="/DBConfigure.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363329905669" ignored="false" />
+    <file path="/DBConfigure.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363330038587" ignored="false" />
     <file path="/autopilot-dev-jenkins-uninstall.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362976794529" ignored="false" />
     <file path="/DBConfigureDataGCFW2.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363031743384" ignored="false" />
-    <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/src/Core/Database.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363025241305" ignored="false" />
+    <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/src/Core/Database.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363330369396" ignored="false" />
     <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/db/database.sql" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363138427512" ignored="false" />
     <file path="/Database.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362979642962" ignored="false" />
     <file path="/DBInstall.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363147486963" ignored="false" />
@@ -247,19 +247,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBConfigure.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DBConfigure.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="219" column="32" selection-start="9290" selection-end="9290" vertical-scroll-proportion="0.35714287">
+            <state line="225" column="103" selection-start="9575" selection-end="9575" vertical-scroll-proportion="-11.041667">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBConfigureDataGCFW2.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DBConfigureDataGCFW2.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="33" selection-start="778" selection-end="778" vertical-scroll-proportion="-17.5">
+            <state line="29" column="84" selection-start="930" selection-end="930" vertical-scroll-proportion="0.67196816">
               <folding />
             </state>
           </provider>
@@ -315,8 +315,8 @@
         <option value="$PROJECT_DIR$/src/Model/Project.php" />
         <option value="$PROJECT_DIR$/src/Controller/Install.php" />
         <option value="$PROJECT_DIR$/src/Views/InstallView.tpl.php" />
-        <option value="$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php" />
         <option value="$PROJECT_DIR$/src/Model/DBConfigure.php" />
+        <option value="$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php" />
       </list>
     </option>
   </component>
@@ -840,16 +840,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php">
+    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="33" selection-start="778" selection-end="778" vertical-scroll-proportion="-17.5">
+        <state line="225" column="103" selection-start="9575" selection-end="9575" vertical-scroll-proportion="-11.041667">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
+    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="219" column="32" selection-start="9290" selection-end="9290" vertical-scroll-proportion="0.35714287">
+        <state line="29" column="84" selection-start="930" selection-end="930" vertical-scroll-proportion="0.67196816">
           <folding />
         </state>
       </provider>
