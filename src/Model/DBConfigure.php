@@ -218,6 +218,7 @@ class DBConfigure extends Base {
         $replacements = $this->platformVars->getProperty("settingsFileReplacements") ;
 
         var_dump($replacements);
+        var_dump($settingsFileLines);
 
         foreach ( $settingsFileLines as &$settingsFileLine ) {
             foreach ( $replacements as $searchFor=>$replaceWith ) {
