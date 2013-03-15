@@ -219,8 +219,7 @@ class DBConfigure extends Base {
         foreach ( $settingsFileLines as &$settingsFileLine ) {
             foreach ( $replacements as $searchFor=>$replaceWith ) {
                 if (strpos($settingsFileLine, $searchFor)) {
-                    $settingsFileLine = $replaceWith;
-                echo "bumed";} } }
+                    $settingsFileLine = $replaceWith; } } }
         $this->settingsFileData = implode("\n", $settingsFileLines);
     }
 

@@ -5,6 +5,7 @@ Namespace Model;
 class GitCheckout extends Base {
 
     private $projectDirectory;
+    private $webServerUser;
 
     public function runAutoPilotCloner($autoPilot){
         if (!$autoPilot->gitCheckoutExecute) {return false; }

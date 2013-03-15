@@ -51,7 +51,7 @@ class Version extends Base {
         if (count($otherResults)>0) {
             $question .= "--- All Versions: ---\n";
             foreach ($otherResults as $result) {
-                if ($result === '.' or $result === '..') continue;
+                if ($result === '.' || $result === '..' || $result === 'current') continue;
                 if (!is_dir($this->appRootDirectory.'/'.$result)) continue;
                 $question .= "($i1) $result\n";
                 $i1++;
