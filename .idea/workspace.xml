@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b077a44b-3090-465e-93ce-d60dbfddc018" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Invoke.php" afterPath="$PROJECT_DIR$/src/Controller/Invoke.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/InvokeSSH.php" afterPath="$PROJECT_DIR$/src/Model/InvokeSSH.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="devhelper.iws" />
@@ -17,7 +15,7 @@
     <file path="/README" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363292916347" ignored="false" />
     <file path="/Invoke.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362707151238" ignored="false" />
     <file path="$PROJECT_DIR$/../dapperstrano/src/Model/InvokeSSH.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362674438678" ignored="false" />
-    <file path="/InvokeSSH.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363291925713" ignored="false" />
+    <file path="/InvokeSSH.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363304214626" ignored="false" />
     <file path="/Install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363273846922" ignored="false" />
     <file path="/VersionSymLinker.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362712877483" ignored="false" />
     <file path="/autopilot-dev-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362979877430" ignored="false" />
@@ -132,6 +130,7 @@
     <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/phpunit/execute-console.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363239788003" ignored="false" />
     <file path="/LoginFormTest.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363240774442" ignored="false" />
     <file path="/BaseTest.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363242253610" ignored="false" />
+    <file path="/SSH2.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363297448905" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,28 +230,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="19" selection-start="2823" selection-end="2823" vertical-scroll-proportion="2.419355">
+            <state line="85" column="19" selection-start="2823" selection-end="2823" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Install.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="43" selection-start="387" selection-end="387" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvokeSSH.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="InvokeSSH.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Model/InvokeSSH.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="163" column="57" selection-start="6461" selection-end="6461" vertical-scroll-proportion="-15.333333">
+            <state line="97" column="128" selection-start="4214" selection-end="4214" vertical-scroll-proportion="0.70178926">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="15.0">
               <folding />
             </state>
           </provider>
@@ -261,7 +260,7 @@
       <file leaf-file-name="SSH2.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="11.25">
+            <state line="1911" column="37" selection-start="68301" selection-end="68301" vertical-scroll-proportion="-3.6923077">
               <folding />
             </state>
           </provider>
@@ -303,7 +302,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Views/HostEditorView.tpl.php" />
         <option value="$PROJECT_DIR$/src/Views/InvokeView.tpl.php" />
         <option value="$PROJECT_DIR$/src/Views/ProjectView.tpl.php" />
         <option value="$PROJECT_DIR$/src/Views/VersionView.tpl.php" />
@@ -314,11 +312,12 @@
         <option value="$PROJECT_DIR$/src/Model/VHostEditor.php" />
         <option value="$PROJECT_DIR$/src/Views/InstallView.tpl.php" />
         <option value="$PROJECT_DIR$/src/Controller/Install.php" />
-        <option value="$PROJECT_DIR$/src/Model/InvokeSSH.php" />
         <option value="$PROJECT_DIR$/src/Controller/Invoke.php" />
         <option value="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php" />
+        <option value="$PROJECT_DIR$/src/Model/InvokeSSH.php" />
       </list>
     </option>
   </component>
@@ -374,6 +373,86 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seclib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devhelper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seclib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Net" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -586,7 +665,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1368" height="742" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -607,7 +686,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13981763" sideWeight="0.6701031" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20136778" sideWeight="0.6701031" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -678,13 +757,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Core/AutoPilot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="47" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Version.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -723,20 +795,6 @@
     <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="43" selection-start="387" selection-end="387" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/InvokeSSH.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="163" column="57" selection-start="6461" selection-end="6461" vertical-scroll-proportion="-15.333333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="11.25">
           <folding />
         </state>
       </provider>
@@ -785,7 +843,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="19" selection-start="2823" selection-end="2823" vertical-scroll-proportion="2.419355">
+        <state line="85" column="19" selection-start="2823" selection-end="2823" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="15.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1911" column="37" selection-start="68301" selection-end="68301" vertical-scroll-proportion="-3.6923077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/InvokeSSH.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="128" selection-start="4214" selection-end="4214" vertical-scroll-proportion="0.70178926">
           <folding />
         </state>
       </provider>
