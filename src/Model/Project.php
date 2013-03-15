@@ -138,26 +138,25 @@ class Project extends Base  {
     }
 
     private function projectContainerInitialize() {
-        if ($this->checkIsDHProjectContainer() == false) {
-            $command = 'mkdir -p '.$this->projectContainerDirectory;
-            self::executeAndOutput($command, "Project Container directory created");
-            chdir($this->projectContainerDirectory);
-            echo getcwd().' space '.$this->projectContainerDirectory;
-            $command = 'cd '.$this->projectContainerDirectory;
-            self::executeAndOutput($command, "Moving to Container");
-            $command = 'pwd '.$this->projectContainerDirectory;
-            self::executeAndOutput($command, "Showing Container Directory");
-            $command = 'touch dhprojc';
-            self::executeAndOutput($command, "Project Container file created"); }
+        $command = 'mkdir -p '.$this->projectContainerDirectory;
+        self::executeAndOutput($command, "Project Container directory created");
+        chdir($this->projectContainerDirectory);
+        echo getcwd().' space '.$this->projectContainerDirectory;
+        $command = 'cd '.$this->projectContainerDirectory;
+        self::executeAndOutput($command, "Moving to Container");
+        $command = 'pwd '.$this->projectContainerDirectory;
+        self::executeAndOutput($command, "Showing Container Directory");
+        $command = 'touch dhprojc';
+        self::executeAndOutput($command, "Project Container file created");
     }
 
     private function checkIsDHProject() {
         return file_exists('dhproj');
     }
 
-    private function checkIsDHProjectContainer() {
-        return file_exists('dhprojc');
-    }
+//    private function checkIsDHProjectContainer() {
+//        return file_exists('dhprojc');
+//    }
 
     private function selectJenkinsFolderInProject(){
         $results = scandir(getcwd().'/'."build/config/jenkins");
