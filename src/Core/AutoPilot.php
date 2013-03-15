@@ -19,6 +19,7 @@ class AutoPilot {
     public $gitCheckoutExecute = false; // true or false
     public $gitCheckoutProjectOriginRepo = null;
     public $gitCheckoutCustomCloneFolder = null;
+    public $gitWebServerUser = null; // apache / www-data
 
     // Git Project Deletor
     public $gitDeletorExecute = false; // true or false
