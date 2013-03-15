@@ -42,15 +42,15 @@ class InvokeSSH extends Base {
         $this->askForSSHShellExecute();
         $this->populateServers();
         $commandExecution = true;
+        echo "Opening CLI...\n"  ;
         while ($commandExecution == true) {
             $command = $this->askForACommand();
             if ( $command == false) {
                 $commandExecution = false; }
             else {
-                echo "Opening CLI...\n"  ;
                 foreach ($this->servers as &$server) {
                     echo "[".$server["target"]."] Executing $command...\n"  ;
-                    echo $this->doSSHCommand($server["ssh2Object"], $command)."\n" ;
+                    echo $this->doSSHCommand($server["ssh2Object"], $command) ;
                     echo "[".$server["target"]."] $command Completed...\n"  ; } } }
         echo "Shell Completed";
         return true;
@@ -66,7 +66,7 @@ class InvokeSSH extends Base {
         foreach ($this->sshCommands as $sshCommand) {
             foreach ($this->servers as &$server) {
                 echo "[".$server["target"]."] Executing $sshCommand...\n"  ;
-                echo $this->doSSHCommand($server["ssh2Object"], $sshCommand )."\n" ;
+                echo $this->doSSHCommand($server["ssh2Object"], $sshCommand ) ;
                 echo "[".$server["target"]."] $sshCommand Completed...\n"  ; } }
         echo "Script Completed";
         return true;
@@ -93,7 +93,9 @@ class InvokeSSH extends Base {
             if ($attempt == null) {
                 echo 'Connection to Server '.$server["target"].' failed. '; }
             else {
-                $server["ssh2Object"] = $attempt ; } }
+                $server["ssh2Object"] = $attempt ;
+                echo $this->changeBashPromptToDevhelper($server["ssh2Object"]);
+                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Devhelper Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
     }
 
@@ -123,17 +125,27 @@ class InvokeSSH extends Base {
     }
 
     private function askForServerInfo(){
-        $startQuestion = "Enter Server Info:\n";
+        $startQuestion = <<<QUESTION
+***********************************
+*   Due to a software limitation, *
+*   The user that you user here   *
+*  will have their command prompt *
+*   changed to DEVHELPERPROMPT... *
+*  ... I'm working on that one... *
+*  Exit program to stop (CTRL+C)  *
+***********************************
+Enter Server Info:
+
+QUESTION;
         echo $startQuestion;
         $serverAddingExecution = true;
-        $question = '';
         while ($serverAddingExecution == true) {
             $server = array();
             $server["target"] = $this->askForServerTarget();
             $server["user"] = $this->askForServerUser();
             $server["pword"] = $this->askForServerPassword();
             $this->servers[] = $server;
-            $question .= 'Add Another Server?';
+            $question = 'Add Another Server?';
             if ( count($this->servers)<1) { $question .= "You need to enter at least one server\n"; }
             $serverAddingExecution = self::askYesOrNo($question); }
     }
@@ -162,12 +174,16 @@ class InvokeSSH extends Base {
         return ($input=="") ? false : $input ;
     }
 
-    private function doSSHCommand($sshObject, $command){
-        $returnVar = $sshObject->read();
-        $sshObject->write("$command\n");
-        $returnVar .= $sshObject->read();
-        return $returnVar ;
-        // return $sshObject->exec(escapeshellcmd($command));
+    private function changeBashPromptToDevhelper( $sshObject ) {
+        $command = 'echo "export PS1=DEVHELPERPROMPT" >> ~/.bashrc ' ;
+        return $sshObject->exec("$command\n") ;
+    }
+
+    private function doSSHCommand( $sshObject, $command, $first=null ) {
+        $returnVar = ($first==null) ? "" : $sshObject->read("DEVHELPERPROMPT") ;
+        $sshObject->write("$command\n") ;
+        $returnVar .= $sshObject->read("DEVHELPERPROMPT") ;
+        return str_replace("DEVHELPERPROMPT", "", $returnVar) ;
     }
 
 }
