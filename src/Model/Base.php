@@ -73,7 +73,21 @@ class Base {
         return $inputLine;
     }
 
-    private function stripNewLines($inputLine) {
+    protected function askForArrayOption($question, $options, $required=null) {
+        $fp = fopen('php://stdin', 'r');
+        $last_line = false;
+        while ($last_line == false) {
+            print "$question\n";
+            for ( $i=0 ; $i<count($options) ; $i++) { print "($i) $options[$i] \n"; }
+            $inputLine = fgets($fp, 1024);
+            if ($required && strlen($inputLine)==0 ) { print "You must enter a value. Please try again.\n"; }
+            elseif ( !in_array($inputLine, $options)) { print "Enter one of the given options. Please try again.\n"; }
+            else {$last_line = true; } }
+        $inputLine = $this->stripNewLines($inputLine);
+        return $options[$inputLine];
+    }
+
+    protected function stripNewLines($inputLine) {
         $inputLine = str_replace("\n", "", $inputLine);
         $inputLine = str_replace("\r", "", $inputLine);
         return $inputLine;

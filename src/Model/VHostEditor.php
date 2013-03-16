@@ -137,9 +137,9 @@ class VhostEditor extends Base {
     }
 
     private function askForApacheCommand(){
-        $question = 'What is the service name of apache? Enter for apache2. (hint: ubuntu - apache2, centos- httpd)';
-        $input = self::askForInput($question) ;
-        return ($input=="") ? 'apache2' : $input ;
+        $question = 'What is the service name of apache?';
+        $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ;
+        return $input ;
     }
 
     private function askForVHostIp(){
