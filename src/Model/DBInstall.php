@@ -167,7 +167,9 @@ class DBInstall extends Base {
         $dbc = mysqli_connect($this->dbHost , $this->dbRootUser , $this->dbRootPass );
         $resultSet = mysql_query("SELECT User from mysql.user;", $dbc);
         $dbs = array();
+        var_dump("result", $resultSet);
         while ($miniRay = mysql_fetch_array($resultSet) ) {
+            var_dump("miniray", $resultSet);
             $dbs[] = $miniRay[0] ; }
         return $dbs;
     }
