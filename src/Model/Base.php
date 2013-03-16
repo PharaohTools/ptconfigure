@@ -81,7 +81,7 @@ class Base {
             for ( $i=0 ; $i<count($options) ; $i++) { print "($i) $options[$i] \n"; }
             $inputLine = fgets($fp, 1024);
             if ($required && strlen($inputLine)==0 ) { print "You must enter a value. Please try again.\n"; }
-            elseif ( ($inputLine>=0) && ($inputLine<=count($options) ) ) {
+            elseif ( is_int($inputLine) && ($inputLine>=0) && ($inputLine<=count($options) ) ) {
                 print "Enter one of the given options. Please try again.\n"; }
             else {$last_line = true; } }
         $inputLine = $this->stripNewLines($inputLine);
