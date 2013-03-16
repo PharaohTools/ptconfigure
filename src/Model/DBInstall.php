@@ -165,6 +165,7 @@ class DBInstall extends Base {
 
     private function getDbNameList() {
         $dbc = mysqli_connect($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+        var_dump($dbc);
         $resultSet = mysql_query("SELECT User from mysql.user;", $dbc);
         $dbs = array();
         var_dump("result", $resultSet);
