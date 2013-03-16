@@ -63,7 +63,7 @@ class DBInstall extends Base {
 
     private function performDBDrop() {
         if ( !$this->askForDBDrop() ) { return false; }
-        if (!$this->useRootToDropDb() ) { return "You declined using root"; }
+        // if (!$this->useRootToDropDb() ) { return "You declined using root"; }
         $this->dbRootUser = $this->askForRootDBUser();
         $this->dbRootPass = $this->askForRootDBPass();
         $this->dbName = $this->askForDBName();
@@ -155,43 +155,52 @@ class DBInstall extends Base {
     }
 
     private function getDbUsers() {
-        $dbc = mysqli_connect($this->dbHost , $this->dbRootUser , $this->dbRootPass );
-        $resultSet = mysql_query("SELECT User from mysql.user;", $dbc);
+        $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+        $mysqliResult = $mysqli->query('SELECT User from mysql.user;');
         $users = array();
-        while ($miniRay = mysql_fetch_array($resultSet) ) {
-            $users[] = $miniRay[0] ; }
-        return $users;
+        while ($user = $mysqliResult->fetch_array()) {
+            $users[] = $user[0]; }
+        $i=0;
+        $usersSorted = array();
+        foreach ($users as $user) {
+            if ( !in_array($user, array("root")) ) {
+                $usersSorted[$i] = $user;
+                $i++; } }
+        return $usersSorted;
     }
 
     private function getDbNameList() {
-        $dbc = mysqli_connect($this->dbHost , $this->dbRootUser , $this->dbRootPass );
-        var_dump($dbc);
-        $resultSet = mysql_query("SELECT User from mysql.user;", $dbc);
+        $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+        $mysqliResult = $mysqli->query('show databases;');
         $dbs = array();
-        var_dump("result", $resultSet);
-        while ($miniRay = mysql_fetch_array($resultSet) ) {
-            var_dump("miniray", $resultSet);
-            $dbs[] = $miniRay[0] ; }
-        return $dbs;
+        while ($db = $mysqliResult->fetch_array()) {
+            $dbs[] = $db[0];}
+        $dbsTrimmed = array_diff($dbs, array("test", "mysql", "information_schema", "performance_schema"));
+        $i=0;
+        $dbsSorted = array();
+        foreach ($dbsTrimmed as $db) {
+            $dbsSorted[$i] = $db;
+            $i++; }
+        return $dbsSorted;
     }
 
     private function useRootToSetUpUserAndDb(){
-        $question = 'MySQL Root Details required to setup DB/User - Continue?';
+        $question = 'MySQL Admin Details required to setup DB/User - Continue?';
         return self::askYesOrNo($question);
     }
 
-    private function useRootToDropDb(){
-        $question = 'MySQL Root Details required to Drop DB - Continue? ';
-        return self::askYesOrNo($question);
-    }
+//    private function useRootToDropDb(){
+//        $question = 'MySQL Admin Details required to Drop DB - Continue? ';
+//        return self::askYesOrNo($question);
+//    }
 
     private function askForRootDBUser(){
-        $question = 'What\'s the MySQL Root DB User?';
+        $question = 'What\'s the MySQL Admin User?';
         return self::askForInput($question, true);
     }
 
     private function askForRootDBPass(){
-        $question = 'What\'s the MySQL Root DB Password?';
+        $question = 'What\'s the MySQL Admin Password?';
         return self::askForInput($question, true);
     }
 
