@@ -267,6 +267,7 @@ class VhostEditor extends Base {
     }
 
     private function restartApache(){
+        echo "Restarting Apache...\n";
         $command = "sudo service $this->apacheCommand restart";
         return self::executeAndOutput($command);
     }
