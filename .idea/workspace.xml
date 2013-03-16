@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b077a44b-3090-465e-93ce-d60dbfddc018" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/AutoPilot.php" afterPath="$PROJECT_DIR$/src/Core/AutoPilot.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/GitCheckout.php" afterPath="$PROJECT_DIR$/src/Model/GitCheckout.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Base.php" afterPath="$PROJECT_DIR$/src/Model/Base.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/VHostEditor.php" afterPath="$PROJECT_DIR$/src/Model/VHostEditor.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="devhelper.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363321968740" ignored="false" />
+    <file path="/Dummy.txt" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363456812507" ignored="false" />
     <file path="/Rollback.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362631715700" ignored="false" />
     <file path="/Deploy.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362674569163" ignored="false" />
     <file path="/IndexView.tpl.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363292895140" ignored="false" />
@@ -25,7 +26,7 @@
     <file path="/Version.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363325811949" ignored="false" />
     <file path="/README.md" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363292929875" ignored="false" />
     <file path="/autopilot-dev-version-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362769613338" ignored="false" />
-    <file path="/VHostEditor.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363205353833" ignored="false" />
+    <file path="/VHostEditor.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363461304475" ignored="false" />
     <file path="/Router.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362721793216" ignored="false" />
     <file path="/InstallView.tpl.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363166012572" ignored="false" />
     <file path="/autopilot-production-first-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1362771669204" ignored="false" />
@@ -118,9 +119,9 @@
     <file path="/DatabaseHelpers.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363155503953" ignored="false" />
     <file path="/autopilot-test-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363204207679" ignored="false" />
     <file path="/autopilot-test-uninstall.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363156182410" ignored="false" />
-    <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/devhelper/autopilots/autopilot-staging-invoke.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363292298324" ignored="false" />
+    <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/devhelper/autopilots/autopilot-staging-invoke.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363336725193" ignored="false" />
     <file path="/autopilot-staging-invoke.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363164650490" ignored="false" />
-    <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/devhelper/autopilots/autopilot-staging-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363334579546" ignored="false" />
+    <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/build/config/devhelper/autopilots/autopilot-staging-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363456862320" ignored="false" />
     <file path="/autopilot-staging-install.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363334565407" ignored="false" />
     <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/src/Views/AdministerPermissionsView.tpl.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363239230472" ignored="false" />
     <file path="$PROJECT_DIR$/../../devapps/mvc-practice-php/src/Views/LoginView.tpl.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363239239022" ignored="false" />
@@ -130,7 +131,8 @@
     <file path="/LoginFormTest.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363240774442" ignored="false" />
     <file path="/BaseTest.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363242253610" ignored="false" />
     <file path="/SSH2.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363297448905" ignored="false" />
-    <file path="/GitCheckout.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363332159878" ignored="false" />
+    <file path="/GitCheckout.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363336976367" ignored="false" />
+    <file path="/Base.php" changelist="b077a44b-3090-465e-93ce-d60dbfddc018" time="1363461123171" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,19 +196,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Install.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="167" column="104" selection-start="11375" selection-end="11375" vertical-scroll-proportion="-17.833334">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Project.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/Project.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="197" column="16" selection-start="8115" selection-end="8840" vertical-scroll-proportion="-2.9583333">
+            <state line="209" column="48" selection-start="8655" selection-end="8655" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -215,7 +208,7 @@
       <file leaf-file-name="GitCheckout.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/GitCheckout.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="85" selection-start="3048" selection-end="3064" vertical-scroll-proportion="-5.0">
+            <state line="84" column="85" selection-start="3076" selection-end="3092" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -224,25 +217,25 @@
       <file leaf-file-name="AutoPilot.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Core/AutoPilot.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="57" selection-start="776" selection-end="776" vertical-scroll-proportion="-13.125">
+            <state line="21" column="57" selection-start="776" selection-end="776" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VHostEditor.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="VHostEditor.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="153" column="20" selection-start="5903" selection-end="6078" vertical-scroll-proportion="-3.75">
+            <state line="141" column="23" selection-start="5631" selection-end="5631" vertical-scroll-proportion="0.37375745">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InstallView.tpl.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Views/InstallView.tpl.php">
+      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="-3.75">
+            <state line="86" column="35" selection-start="3136" selection-end="3136" vertical-scroll-proportion="-17.833334">
               <folding />
             </state>
           </provider>
@@ -251,7 +244,16 @@
       <file leaf-file-name="DBConfigure.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="225" column="103" selection-start="9575" selection-end="9575" vertical-scroll-proportion="-11.041667">
+            <state line="221" column="54" selection-start="9503" selection-end="9503" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Version.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Version.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="57" column="113" selection-start="2139" selection-end="2139" vertical-scroll-proportion="-0.625">
               <folding />
             </state>
           </provider>
@@ -260,7 +262,7 @@
       <file leaf-file-name="DBConfigureDataGCFW2.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="42" selection-start="738" selection-end="1149" vertical-scroll-proportion="-12.833333">
+            <state line="27" column="42" selection-start="738" selection-end="1149" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -269,16 +271,16 @@
       <file leaf-file-name="DBConfigureDataDrupal70.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataDrupal70.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="7.7916665">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBInstall.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DBInstall.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/DBInstall.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="140" column="64" selection-start="5479" selection-end="5479" vertical-scroll-proportion="2.7137177">
+            <state line="140" column="64" selection-start="5479" selection-end="5479" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -302,22 +304,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Model/VHostEditor.php" />
-        <option value="$PROJECT_DIR$/src/Controller/Invoke.php" />
         <option value="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php" />
         <option value="$PROJECT_DIR$/src/Model/InvokeSSH.php" />
         <option value="$PROJECT_DIR$/src/Model/DBInstall.php" />
-        <option value="$PROJECT_DIR$/src/Model/Version.php" />
         <option value="$PROJECT_DIR$/src/Model/Project.php" />
         <option value="$PROJECT_DIR$/src/Controller/Install.php" />
         <option value="$PROJECT_DIR$/src/Views/InstallView.tpl.php" />
-        <option value="$PROJECT_DIR$/src/Model/DBConfigure.php" />
         <option value="$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php" />
-        <option value="$PROJECT_DIR$/src/Model/GitCheckout.php" />
         <option value="$PROJECT_DIR$/src/Core/AutoPilot.php" />
+        <option value="$PROJECT_DIR$/src/Model/GitCheckout.php" />
+        <option value="$PROJECT_DIR$/src/Model/DBConfigure.php" />
+        <option value="$PROJECT_DIR$/src/Model/Version.php" />
+        <option value="$PROJECT_DIR$/src/Model/Base.php" />
+        <option value="$PROJECT_DIR$/src/Model/VHostEditor.php" />
       </list>
     </option>
   </component>
@@ -356,6 +358,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -389,63 +392,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devhelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devhelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devhelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devhelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devhelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devhelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -453,7 +401,7 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../devapps/mvc-practice-php" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -546,6 +494,19 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -572,19 +533,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -658,7 +606,6 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -674,11 +621,12 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22720365" sideWeight="0.6701031" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17705168" sideWeight="0.6701031" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
     </layout>
@@ -745,18 +693,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1911" column="37" selection-start="68301" selection-end="68301" vertical-scroll-proportion="-0.625">
-          <folding />
-        </state>
+        <state line="1911" column="37" selection-start="68301" selection-end="68301" vertical-scroll-proportion="-0.625" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/InvokeSSH.php">
@@ -780,13 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Version.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="102" selection-start="1512" selection-end="1512" vertical-scroll-proportion="-13.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="167" column="104" selection-start="11375" selection-end="11375" vertical-scroll-proportion="-17.833334">
@@ -796,63 +728,77 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Views/InstallView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="-3.75">
+        <state line="6" column="0" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataDrupal70.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="7.7916665">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="225" column="103" selection-start="9575" selection-end="9575" vertical-scroll-proportion="-11.041667">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="42" selection-start="738" selection-end="1149" vertical-scroll-proportion="-12.833333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Project.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="197" column="16" selection-start="8115" selection-end="8840" vertical-scroll-proportion="-2.9583333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="20" selection-start="5903" selection-end="6078" vertical-scroll-proportion="-3.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/GitCheckout.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="85" selection-start="3048" selection-end="3064" vertical-scroll-proportion="-5.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/AutoPilot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="57" selection-start="776" selection-end="776" vertical-scroll-proportion="-13.125">
+        <state line="27" column="42" selection-start="738" selection-end="1149" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/DBInstall.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="64" selection-start="5479" selection-end="5479" vertical-scroll-proportion="2.7137177">
+        <state line="140" column="64" selection-start="5479" selection-end="5479" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Project.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="209" column="48" selection-start="8655" selection-end="8655" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/GitCheckout.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="85" selection-start="3076" selection-end="3092" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/AutoPilot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="57" selection-start="776" selection-end="776" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="221" column="54" selection-start="9503" selection-end="9503" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Version.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="113" selection-start="2139" selection-end="2139" vertical-scroll-proportion="-0.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="35" selection-start="3136" selection-end="3136" vertical-scroll-proportion="-17.833334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="23" selection-start="5631" selection-end="5631" vertical-scroll-proportion="0.37375745">
           <folding />
         </state>
       </provider>
