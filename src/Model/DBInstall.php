@@ -128,7 +128,8 @@ class DBInstall extends Base {
 
     private function askForDBUser(){
         $question = 'What\'s the application DB User?';
-        return self::askForInput($question, true);
+        $allDbUsers = $this->getDbUsers();
+        return self::askForArrayOption($question, $allDbUsers, true);
     }
 
     private function askForDBPass(){
@@ -138,7 +139,8 @@ class DBInstall extends Base {
 
     private function askForDBName(){
         $question = 'What\'s the application DB Name?';
-        return self::askForInput($question, true);
+        $allDbNames = $this->getDbNameList();
+        return self::askForArrayOption($question, $allDbNames, true);
     }
 
     private function canIConnect(){
@@ -150,6 +152,24 @@ class DBInstall extends Base {
         else {
             mysqli_close($con);
             return true;}
+    }
+
+    private function getDbUsers() {
+        $dbc = mysqli_connect($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+        $resultSet = mysql_query("SELECT User from mysql.user;", $dbc);
+        $users = array();
+        while ($miniRay = mysql_fetch_array($resultSet) ) {
+            $users[] = $miniRay[0] ; }
+        return $users;
+    }
+
+    private function getDbNameList() {
+        $dbc = mysqli_connect($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+        $resultSet = mysql_query("SELECT User from mysql.user;", $dbc);
+        $dbs = array();
+        while ($miniRay = mysql_fetch_array($resultSet) ) {
+            $dbs[] = $miniRay[0] ; }
+        return $dbs;
     }
 
     private function useRootToSetUpUserAndDb(){
