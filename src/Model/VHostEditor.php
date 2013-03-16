@@ -56,6 +56,7 @@ class VhostEditor extends Base {
 
     private function performVHostDeletion(){
         if ( !$this->askForVHostDeletion() ) { return false; }
+        echo "Deleting vhost\n";
         $this->vHostDir = $this->askForVHostDirectory();
         $this->vHostForDeletion = $this->selectVHostInProjectOrFS();
         if ( self::areYouSure("Definitely delete VHost?") == false ) { return false; }
@@ -70,6 +71,7 @@ class VhostEditor extends Base {
 
     public function runAutoPilotVHostCreation($autoPilot){
         if ( !$autoPilot->virtualHostEditorAdditionExecute ) { return false; }
+        echo "Creating vhost\n";
         $this->docRoot = $autoPilot->virtualHostEditorAdditionDocRoot;
         $this->url = $autoPilot->virtualHostEditorAdditionURL;
         $this->vHostIp = $autoPilot->virtualHostEditorAdditionIp;
