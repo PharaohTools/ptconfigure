@@ -11,6 +11,7 @@ class GitCheckout extends Base {
         if (!$autoPilot->gitCheckoutExecute) {return false; }
         $params[0] = $autoPilot->gitCheckoutProjectOriginRepo;
         $params[1] = $autoPilot->gitCheckoutCustomCloneFolder;
+        $params[2] = $autoPilot->gitCheckoutCustomBranch;
         if (!$this->doGitCommandWithErrorCheck($params) ) {return false; }
         $this->setWebServerUser($autoPilot);
         $this->changeNewProjectPermissions();
@@ -59,8 +60,10 @@ class GitCheckout extends Base {
 
     private function doGitCommand($params){
         $projectOriginRepo = $params[0];
-        $customCloneFolder = (isset($params[1])) ? $params[1] : null ;
-        $command  = 'git clone '.escapeshellarg($projectOriginRepo);
+        $customCloneFolder = (isset($params[1]) && ($params[1]) != "none") ? $params[1] : null ;
+        $customBranch = (isset($params[2]) && ($params[2]) != "none") ? $params[2] : null ;
+        $branchParam = ($customBranch!=null) ? '-b '.$customBranch.' --single-branch ' : "" ;
+        $command  = 'git clone '.$branchParam.escapeshellarg($projectOriginRepo);
         if (isset($customCloneFolder)) {
             $command .= ' '.escapeshellarg($customCloneFolder); }
         $nameInRepo = substr($projectOriginRepo, strrpos($projectOriginRepo, '/', -1) );
