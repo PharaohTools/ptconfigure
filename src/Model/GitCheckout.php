@@ -101,7 +101,7 @@ class GitCheckout extends Base {
 
     private function askWebServerUser(){
         $question = 'What user is Apache Web Server running as?';
-        if ($this->detectApacheVHostFolderExistence()) { $question .= ' Guessed ubuntu:www-data - use this?';
+        if ($this->detectDebianApacheVHostFolderExistence()) { $question .= ' Guessed ubuntu:www-data - use this?';
             $input = self::askForInput($question);
             return ($input=="") ? "www-data" : $input ;  }
         if ($this->detectRHVHostFolderExistence()) { $question .= ' Guessed Centos/RH:apache - use this?';
@@ -110,7 +110,7 @@ class GitCheckout extends Base {
         return self::askForInput($question, true);
     }
 
-    private function detectApacheVHostFolderExistence(){
+    private function detectDebianApacheVHostFolderExistence(){
         return file_exists("/etc/apache2/sites-available");
     }
 
