@@ -4,6 +4,11 @@ if ($pageVars["route"]["action"]=="autopilot")
   if (!isset($pageVars["autoPilotErrors"])) {
 ?>
 
+SSH Data: <?php echo $pageVars["sshInvokeDataResult"] ; ?>
+
+SSH Script: <?php echo $pageVars["sshInvokeScriptResult"] ; ?>
+
+
 Project Container: <?php echo $pageVars["projectContainerResult"] ; ?>
 
 

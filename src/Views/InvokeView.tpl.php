@@ -4,9 +4,9 @@ if ($pageVars["route"]["action"]=="autopilot") {
   if (!isset($pageVars["autoPilotErrors"])) {
 ?>
 
-Invoke SSH Script Result: <?php echo $pageVars["invSshScriptResult"] ; ?>
+Invoke SSH Script Result: <?php echo $pageVars["sshInvokeScriptResult"] ; ?>
 
-Invoke SSH Data Result: <?php echo $pageVars["invSshDataResult"] ; ?>
+Invoke SSH Data Result: <?php echo $pageVars["sshInvokeDataResult"] ; ?>
 
 <?php
 } else {
