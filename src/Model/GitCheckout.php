@@ -28,9 +28,9 @@ class GitCheckout extends Base {
     }
 
     public function checkoutProject($params=null){
-        if ($params==null) {
-            $params = array();
-            $params[0] = $this->askForGitTargetRepo(); }
+        if ($this->askWhetherToDownload() != true) { return false; }
+        if ($params==null) { $params = array();
+                             $params[0] = $this->askForGitTargetRepo(); }
         $this->doGitCommand($params);
         if (!$this->askAlsoChangePerms() ) {return false; }
         $this->setWebServerUser();
@@ -38,6 +38,11 @@ class GitCheckout extends Base {
         $this->changeNewProjectFolderOwner();
         $this->changeToProjectDirectory();
         return true;
+    }
+
+    private function askWhetherToDownload(){
+        $question = 'Perform a clone/download of files?';
+        return self::askYesOrNo($question);
     }
 
     private function askForGitTargetRepo(){
@@ -53,8 +58,7 @@ class GitCheckout extends Base {
     private function doGitCommandWithErrorCheck($params){
         $data = $this->doGitCommand($params);
         print $data;
-        if (substr($data, 0, 5)=="error") {
-            return false; }
+        if ( substr($data, 0, 5) == "error" ) { return false; }
         return true;
     }
 
@@ -63,9 +67,9 @@ class GitCheckout extends Base {
         $customCloneFolder = (isset($params[1]) && ($params[1]) != "none") ? $params[1] : null ;
         $customBranch = (isset($params[2]) && ($params[2]) != "none") ? $params[2] : null ;
         // @todo the git --single-branch option gave errors on centos 6.2, so instead of cloning a single branch I
-        // changed it to clone whole repo then switch to specified. works on ubuntu
+        // changed it to clone whole repo then switch to specified. works on ubuntu and centos
         // $branchParam = ($customBranch!=null) ? $customBranch.' --single-branch ' : "" ;
-        $branchParam = ($customBranch!=null) ? '-b '.escapeshellarg($customBranch).' ' : "" ;
+        $branchParam = ($customBranch != null) ? '-b '.escapeshellarg($customBranch).' ' : "" ;
         $command  = 'git clone '.$branchParam.escapeshellarg($projectOriginRepo);
         if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
         $nameInRepo = substr($projectOriginRepo, strrpos($projectOriginRepo, '/', -1) );
