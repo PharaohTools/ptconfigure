@@ -55,8 +55,8 @@ class Project extends Base  {
     }
 
     private function performProjectInitialize() {
-        $projInit = $this->askForProjModifyToScreen();
-        if (!$projInit) { return false; }
+        $projInit = $this->askForProjModifyToScreen("To initialise Project");
+        if ($projInit != true) { return false; }
         $projInit = $this->askForProjInitToScreen();
         if (!$projInit) { return false; }
         $this->projectInitialize();
@@ -65,7 +65,7 @@ class Project extends Base  {
 
     private function performProjectContainerInitialize() {
         $projContInit = $this->askForProjContainerModifyToScreen();
-        if (!$projContInit) { return false; }
+        if ($projContInit!=true) { return false; }
         $projContInit = $this->askForProjContainerInitToScreen();
         if (!$projContInit) { return false; }
         $this->projectContainerDirectory = $this->askForProjContainerDirectory();
@@ -74,8 +74,8 @@ class Project extends Base  {
     }
 
     private function performInstallBuildInProject() {
-        $projInit = $this->askForProjModifyToScreen();
-        if (!$projInit) { return false; }
+        $projInit = $this->askForProjModifyToScreen("To Install Build");
+        if ($projInit!=true) { return false; }
         if ( !$this->checkIsDHProject() ) { return "No Devhelper project file found. Try: \ndevhelper proj init\n"; }
         $projInit = $this->askForProjBuildInstallToScreen();
         if (!$projInit) { return false; }

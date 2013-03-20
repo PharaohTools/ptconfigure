@@ -12,7 +12,7 @@ class InvokeSSH extends Base {
     }
 
     public function askWhetherToInvokeSSHScript($params=null) {
-        return $this->performInvokeSSHScript($params=null);
+        return $this->performInvokeSSHScript($params);
     }
 
     public function runAutoPilotInvokeSSHData($autoPilot) {
@@ -38,7 +38,8 @@ class InvokeSSH extends Base {
                 echo "[".$server["target"]."] $sshCommand Completed...\n"  ; } }
     }
 
-    public function performInvokeSSHShell(){
+    public function performInvokeSSHShell() {
+        if ($this->askForSSHShellExecute() != true) { return false; }
         $this->askForSSHShellExecute();
         $this->populateServers();
         $commandExecution = true;
@@ -57,10 +58,9 @@ class InvokeSSH extends Base {
     }
 
     public function performInvokeSSHScript($params=null){
-        if ($params==null) {
-            $params = array();
-            $params[0] = $this->askForScriptLocation(); }
-        $this->askForSSHScriptExecute();
+        if ($this->askForSSHScriptExecute() != true) { return false; }
+        if ($params==null) { $params = array();
+                             $params[0] = $this->askForScriptLocation(); }
         $this->populateServers();
         $this->sshCommands = explode("\n", file_get_contents($params[0]) ) ;
         foreach ($this->sshCommands as $sshCommand) {
