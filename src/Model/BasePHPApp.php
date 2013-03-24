@@ -188,7 +188,7 @@ require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
   }
 
   private function deleteInstallationFiles(){
-    $command = 'rm -rf '.$this->startDirectory.'/'.$this->programNameMachine;
+    $command = 'rm -rf '.$this->tempDir.'/'.$this->programNameMachine;
     self::executeAndOutput($command);
   }
 
