@@ -45,7 +45,7 @@ class Installer {
     }
 
     private function askForProgramDataFolder() {
-        $this->programDataFolder = "/opt/devhelper" ;
+        $this->programDataFolder = "/opt/".$this->programNameMachine ;
     }
 
     private function askForProgramExecutorFolder(){
