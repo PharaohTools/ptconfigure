@@ -4,13 +4,11 @@ Namespace Model;
 
 class PHPUnit extends BasePHPApp {
 
-
   public function __construct() {
-
+    $this->autopilotDefiner = "PHPUnit35";
     $this->fileSource = "http://github.com/phpengine/boxboss-source-phpunit";
-    $this->tempDir = '/tmp';
     $this->programNameMachine = "phpunit"; // command to be used on command line
-    $this->programNameFriendly = "GC Box Boss!"; // 12 chars
+    $this->programNameFriendly = " PHP Unit ! "; // 12 chars
     parent::__construct();
   }
 

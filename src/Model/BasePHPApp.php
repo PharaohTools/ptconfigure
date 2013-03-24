@@ -5,11 +5,11 @@ Namespace Model;
 class BasePHPApp extends Base {
 
 
-  private $fileSource = "http://github.com/phpengine/boxboss-source-phpunit";
+  private $fileSource;
   private $tempDir = '/tmp';
-  private $programNameMachine = "phpunit"; // command to be used on command line
-  private $autopilotDefiner = "PHPUnit35";
-  private $programNameFriendly = " PHP Unit ! "; // 12 chars
+  private $programNameMachine ;
+  private $autopilotDefiner ;
+  private $programNameFriendly;
 
   protected $startDirectory;
   protected $titleData;
@@ -67,16 +67,16 @@ COMPLETION;
   }
 
   private function performPHPAppInstall() {
-    $doInstall = $this->askWhetherToInstallPHPApp();
+    $doInstall = $this->askWhetherToInstallPHPAppToScreen();
     if (!$doInstall) { return false; }
     $this->install();
     return true;
   }
 
   private function performPHPAppUnInstall() {
-    $doUnInstall = $this->askWhetherToUnInstallPHPApp();
+    $doUnInstall = $this->askWhetherToUnInstallPHPAppToScreen();
     if (!$doUnInstall) { return false; }
-    $this->unInstall($this->installDir, $this->executor);
+    $this->unInstall();
     return true;
   }
   public function runAutoPilotPHPAppInstall($autoPilot){
@@ -95,7 +95,9 @@ COMPLETION;
 
   public function install($autoPilot = null) {
     $this->showTitle();
-    $this->programDataFolder =$this->askForProgramDataFolder();
+    $this->programDataFolder = ($autoPilot)
+      ? $autoPilot->{$this->autopilotDefiner}
+      : $this->askForProgramDataFolder();
     $this->programExecutorFolder = $this->askForProgramExecutorFolder();
     $params[0] = $this->fileSource;
     $params[1] = $this->programNameMachine;
@@ -127,6 +129,16 @@ COMPLETION;
 
   private function showCompletion() {
     print $this->completionData ;
+  }
+
+  private function askWhetherToInstallPHPAppToScreen(){
+    $question = "Install ".$this->programNameFriendly." ?";
+    return self::askYesOrNo($question);
+  }
+
+  private function askWhetherToUnInstallPHPAppToScreen(){
+    $question = "Un Install ".$this->programNameFriendly." ?";
+    return self::askYesOrNo($question);
   }
 
   private function askForProgramDataFolder() {
