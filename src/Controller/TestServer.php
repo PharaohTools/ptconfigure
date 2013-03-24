@@ -13,6 +13,12 @@ class TestServer extends Base {
       $phpUnitModel = new \Model\PHPUnit();
       $this->content["phpUnitInstallResult"] = $phpUnitModel->askWhetherToInstallPHPApp();
 
+      $phpCSModel = new \Model\PHPCS();
+      $this->content["phpCSInstallResult"] = $phpCSModel->askWhetherToInstallPHPApp();
+
+      $phpMDModel = new \Model\PHPMD();
+      $this->content["phpCSInstallResult"] = $phpMDModel->askWhetherToInstallPHPApp();
+
       return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);
 
     }
