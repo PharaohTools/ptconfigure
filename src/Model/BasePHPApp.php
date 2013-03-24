@@ -5,33 +5,28 @@ Namespace Model;
 class BasePHPApp extends Base {
 
 
-  private $fileSource;
-  private $tempDir = '/tmp';
-  private $programNameMachine ;
-  private $autopilotDefiner ;
-  private $programNameFriendly;
+  protected $fileSources;
+  protected $tempDir = '/tmp';
+  protected $programNameMachine ;
+  protected $autopilotDefiner ;
+  protected $programNameFriendly;
+  protected $programNameInstaller;
 
   protected $startDirectory;
   protected $titleData;
 
   protected $completionData;
   protected $bootStrapData;
+  protected $extraBootStrap;
 
   protected $programDataFolder;
   protected $programExecutorFolder;
+  protected $programExecutorTargetPath;
 
   public function __construct() {
     $this->populateStartDirectory();
     $this->populateTitle();
     $this->populateCompletion();
-    $this->populateExecutorFile();
-  }
-
-  private function populateExecutorFile() {
-    $this->bootStrapData = "#!/usr/bin/php\n
-<?php\n
-require('".$this->programDataFolder."/".$this->programNameMachine."');\n
-?>";
   }
 
   private function populateStartDirectory() {
@@ -99,13 +94,12 @@ COMPLETION;
       ? $autoPilot->{$this->autopilotDefiner}
       : $this->askForProgramDataFolder();
     $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-    $params[0] = $this->fileSource;
-    $params[1] = $this->programNameMachine;
-    $this->doGitCommandWithErrorCheck($params);
+    $this->doGitCommandWithErrorCheck();
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->makeProgramDataFolderIfNeeded();
     $this->copyFilesToProgramDataFolder();
     $this->deleteExecutorIfExists();
+    $this->populateExecutorFile();
     $this->saveExecutorFile();
     $this->deleteInstallationFiles();
     $this->changePermissions();
@@ -132,12 +126,12 @@ COMPLETION;
   }
 
   private function askWhetherToInstallPHPAppToScreen(){
-    $question = "Install ".$this->programNameFriendly." ?";
+    $question = "Install ".$this->programNameInstaller." ?";
     return self::askYesOrNo($question);
   }
 
   private function askWhetherToUnInstallPHPAppToScreen(){
-    $question = "Un Install ".$this->programNameFriendly." ?";
+    $question = "Un Install ".$this->programNameInstaller." ?";
     return self::askYesOrNo($question);
   }
 
@@ -155,6 +149,18 @@ COMPLETION;
     return ($input=="") ? "/usr/bin" : $input ;
   }
 
+  private function populateExecutorFile() {
+    $arrayOfPaths = scandir($this->programDataFolder);
+    $pathStr = "" ;
+    foreach ($arrayOfPaths as $path) {
+      $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ; }
+    $this->bootStrapData = "#!/usr/bin/php\n
+<?php\n
+set_include_path('" . $pathStr . "'.get_include_path() );
+require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
+?>";
+  }
+
   private function deleteProgramDataFolderAsRootIfExists(){
     if ( is_dir($this->programDataFolder)) {
       $command = 'rm -rf '.$this->programDataFolder;
@@ -168,7 +174,7 @@ COMPLETION;
   }
 
   private function copyFilesToProgramDataFolder(){
-    $command = 'cp -r '.dirname(__FILE__).'/* '.$this->programDataFolder;
+    $command = 'cp -r '.$this->tempDir.'/'.$this->programNameMachine.'/* '.$this->programDataFolder;
     return self::executeAndOutput($command, "Program Data folder populated");
   }
 
@@ -195,21 +201,22 @@ COMPLETION;
     self::executeAndOutput($command);
   }
 
-  private function doGitCommandWithErrorCheck($params){
-    $data = $this->doGitCommand($params);
+  private function doGitCommandWithErrorCheck(){
+    $data = $this->doGitCommand();
     print $data;
     if ( substr($data, 0, 5) == "error" ) { return false; }
     return true;
   }
 
-  private function doGitCommand($params){
-    $projectOriginRepo = $params[0];
-    $customCloneFolder = (isset($params[1]) && ($params[1]) != "none") ? $params[1] : null ;
-    $command  = 'git clone '.escapeshellarg($projectOriginRepo);
-    if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
-    $nameInRepo = substr($projectOriginRepo, strrpos($projectOriginRepo, '/', -1) );
-    $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
-    return self::executeAndLoad($command);
+  private function doGitCommand(){
+    $data = "";
+    foreach ($this->fileSources as $fileSource) {
+      $command  = 'git clone '.escapeshellarg($fileSource[0]);
+      if ($fileSource[2] != null) { $command .= ' -b '.$fileSource[2];}
+      $command .= ' '.$this->programNameMachine;
+      if ($fileSource[1] != null) { $command .= '/'.$fileSource[1];}
+      $data .= self::executeAndLoad($command); }
+    return $data;
   }
 
 }
