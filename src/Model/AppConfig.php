@@ -6,7 +6,7 @@ class AppConfig {
 
 
     private static function checkIsDHProject() {
-        return file_exists('dhproj');
+        return file_exists('bbsettings');
     }
 
     public static function setProjectVariable($variable, $value, $listAdd=null) {
@@ -27,7 +27,7 @@ class AppConfig {
     }
 
     private static function loadDHProjectFile() {
-        $appConfigArrayJSON = file_get_contents('dhproj');
+        $appConfigArrayJSON = file_get_contents('bbsettings');
         $decoded = json_decode($appConfigArrayJSON);
         $appConfigArray = (is_array($decoded)) ? $decoded : array() ;
         return new \ArrayObject($appConfigArray);
@@ -36,7 +36,7 @@ class AppConfig {
     private static function saveDHProjectFile($appConfigArray) {
         $appConfigObject = new \ArrayObject($appConfigArray);
         $appConfigObjectJSON = json_encode($appConfigObject);
-        file_put_contents('dhproj', $appConfigObjectJSON);
+        file_put_contents('bbsettings', $appConfigObjectJSON);
     }
 
 }

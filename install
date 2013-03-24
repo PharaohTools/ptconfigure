@@ -12,8 +12,8 @@ class Installer {
     private $bootStrapData;
     private $programDataFolder;
     private $programExecutorFolder;
-    private $programNameMachine = "devhelper";
-    private $programNameFriendly = " Devhelper! "; // 12 chars
+    private $programNameMachine = "boxboss";
+    private $programNameFriendly = "GC Box Boss!"; // 12 chars
 
     public function __construct() {
         $this->populateStartDirectory();
