@@ -11,10 +11,28 @@ class Install extends Base {
 
         if ($action=="dev-client") {
 
-            $phpUnitModel = new \Model\PHPUnit();
-            $this->content["phpUnitInstallResult"] = $phpUnitModel->askWhetherToInstallPHPApp();
+          $install = new \Controller\DevClient();
+          return $install->execute($pageVars);}
 
-            return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content); }
+        if ($action=="dev-server") {
+
+          $install = new \Controller\DevClient();
+          return $install->execute($pageVars);}
+
+        if ($action=="test-server") {
+
+          $install = new \Controller\DevClient();
+          return $install->execute($pageVars);}
+
+        if ($action=="git-server") {
+
+          $install = new \Controller\DevClient();
+          return $install->execute($pageVars);}
+
+        if ($action=="production") {
+
+          $install = new \Controller\DevClient();
+          return $install->execute($pageVars);}
 
         if ($action=="autopilot") {
 

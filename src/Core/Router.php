@@ -8,7 +8,8 @@ class Router {
     private	$route;
     private $availableRoutes = array(
         "index" => array("index") ,
-        "install" => array("dev-client", "autopilot") );
+        "install" => array("dev-client", "dev-server", "git-server",
+          "test-server", "production", "cherry-pick", "autopilot") );
 
 	public function run($argv) {
         $this->argv = $argv;

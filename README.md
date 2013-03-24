@@ -64,7 +64,7 @@ Available Commands:
 
 install
 
-        - dev-client
+        - dev-client @todo
         install a dev client machine for you to work on, a bunch of IDE's, DB's and a complete set of the
         tools you need to start work immediately. You can use the keyword silent which will use boxboss's
         default values to perform an unattended install. You can also use the keyword autogen which will
@@ -73,7 +73,7 @@ install
         example: boxboss install dev-client *user* silent
         example: boxboss install dev-client *user* autogen
 
-        - dev-server
+        - dev-server @todo
         Install the preconfigured list of software for a developers server. Specifying a user to install software
         as is required. You can use the keyword silent which will use boxboss's default values to perform an
         unattended install. You can also use the keyword autogen which will generate values for sensitive data
@@ -82,7 +82,7 @@ install
         example: boxboss install dev-server *user* silent
         example: boxboss install dev-server *user* autogen
 
-        - test-server
+        - test-server @todo
         Install the preconfigured list of software for a testing server. Specifying a user to install software
         as is required. You can use the keyword silent which will use boxboss's default values to perform an
         unattended install. You can also use the keyword autogen which will generate values for sensitive data
@@ -91,11 +91,15 @@ install
         example: boxboss install test-server *user* silent
         example: boxboss install test-server *user* autogen
 
-        - autopilot
+        - autopilot @todo
         Perform an installation, or multiple installations of software, using the configurations and options
         provided in an autopilot file.
         example: boxboss install autopilot *autopilot-file*
 
-        - cherry-pick
+        - cherry-pick @todo
         Install indivdual available programs
         example: boxboss install cherry-pick *user*
+
+        @todo quite a few on this one, currently only phpunit is available. Installers for phpcs, phpmd, ruby,
+        jenkins, mysql, apache2, php modules, apache modules, git web/viewgit, web page analyzer, intelli j,
+        java (for intellij), eclipse, geany, mysql workbench, git cola, git k, all still to come

@@ -2,145 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6db2ee95-814d-44ac-afc1-57c1facbeea0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/devhelper.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dhproj" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/cucumber/html/screenshots/.gitplaceholder" afterPath="$PROJECT_DIR$/build/reports/cucumber/html/screenshots/.gitplaceholder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings-white.png" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings-white.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings.png" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/.buildpath" afterPath="$PROJECT_DIR$/src/.buildpath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/AppConfig.php" afterPath="$PROJECT_DIR$/src/Model/AppConfig.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AutoLoad.php" afterPath="$PROJECT_DIR$/src/AutoLoad.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Base.php" afterPath="$PROJECT_DIR$/src/Controller/Base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Base.php" afterPath="$PROJECT_DIR$/src/Model/Base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/BaseFormTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/BaseFormTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/BasePHPApp.php" afterPath="$PROJECT_DIR$/src/Model/BasePHPApp.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/BaseTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/BaseTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bootstrap.php" afterPath="$PROJECT_DIR$/src/Bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/Control.php" afterPath="$PROJECT_DIR$/src/Core/Control.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ControlTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ControlTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseHelpersTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseHelpersTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/DefaultLayout.tpl.php" afterPath="$PROJECT_DIR$/src/Views/DefaultLayout.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/GroupPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/GroupPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/GroupPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/GroupPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupRoleTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupRoleTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/GroupTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/GroupTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/Homepage.feature" afterPath="$PROJECT_DIR$/build/tests/features/Homepage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Index.php" afterPath="$PROJECT_DIR$/src/Controller/Index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/IndexTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/IndexTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/DevClient.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/DevServer.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/GitServer.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Views/InstallDevClientView.tpl.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/ProductionServer.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/TestServer.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Install.php" afterPath="$PROJECT_DIR$/src/Controller/Install.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/InstallView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/InstallView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/LoginFormTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/LoginFormTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/LoginPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/LoginPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/LoginPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/LoginPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/LoginTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/LoginTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/LogoutPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/LogoutPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/LogoutTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/LogoutTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/ModelRoleTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/ModelRoleTest.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/RegisterPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/RegisterPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/RegisterPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/RegisterPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/RegisterTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/RegisterTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/RegistrationFormTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/RegistrationFormTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/ResultsPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/ResultsPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/ResultsPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/ResultsPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/ResultsPageTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/ResultsPageTest.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/Router.php" afterPath="$PROJECT_DIR$/src/Core/Router.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/RouterTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/RouterTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/SessionTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/SessionTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/UserDataTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/UserDataTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/UserPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/UserPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/UserPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/UserPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/UserPageTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/UserPageTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/UserRoleTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/UserRoleTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/UserSessionTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/UserSessionTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ValidationHelpersTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ValidationHelpersTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/View.php" afterPath="$PROJECT_DIR$/src/Core/View.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewHelpersTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewHelpersTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/support/archiver.rb" afterPath="$PROJECT_DIR$/build/tests/features/support/archiver.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/basic_steps.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/basic_steps.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap-responsive.min.css" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap-responsive.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/bootstrap.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/bootstrap.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/jenkins/build.xml" afterPath="$PROJECT_DIR$/build/config/jenkins/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit_bootstrap.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit_bootstrap.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/cssxfire.xml" afterPath="$PROJECT_DIR$/.idea/cssxfire.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/cucumber/cucumber.json" afterPath="$PROJECT_DIR$/build/reports/cucumber/cucumber.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpmd/html/empty.html" afterPath="$PROJECT_DIR$/build/reports/phpmd/html/empty.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpmd/xml/empty.xml" afterPath="$PROJECT_DIR$/build/reports/phpmd/xml/empty.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/support/env.rb" afterPath="$PROJECT_DIR$/build/tests/features/support/env.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/execute-ci.php" afterPath="$PROJECT_DIR$/build/config/phpmd/execute-ci.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/execute-ci.php" afterPath="$PROJECT_DIR$/build/config/phpunit/execute-ci.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/execute-console.php" afterPath="$PROJECT_DIR$/build/config/phpmd/execute-console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/execute-console.php" afterPath="$PROJECT_DIR$/build/config/phpunit/execute-console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/execute-html.php" afterPath="$PROJECT_DIR$/build/config/phpmd/execute-html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/execute-html.php" afterPath="$PROJECT_DIR$/build/config/phpunit/execute-html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/highcharts.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/highcharts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/support/hooks.rb" afterPath="$PROJECT_DIR$/build/tests/features/support/hooks.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/html5shiv.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/html5shiv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/index.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/index.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/index.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install-silent" afterPath="$PROJECT_DIR$/install-silent" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install" afterPath="$PROJECT_DIR$/install" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/jquery.min.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/jquery.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/phpunit.xml" afterPath="$PROJECT_DIR$/build/config/phpunit/phpunit.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_AutoLoad.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_AutoLoad.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Base.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Base.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_GroupPage.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_GroupPage.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Index.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Index.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Login.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Login.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Logout.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Logout.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Register.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Register.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_ResultsPage.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_ResultsPage.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_UserPage.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_UserPage.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Control.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Control.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Database.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Database.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_DatabaseHelpers.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_DatabaseHelpers.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Router.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Router.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Session.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Session.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ValidationHelpers.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ValidationHelpers.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_View.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_View.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ViewHelpers.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ViewHelpers.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_BaseForm.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_BaseForm.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_LoginForm.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_LoginForm.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_RegistrationForm.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_RegistrationForm.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Group.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Group.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_GroupRole.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_GroupRole.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Role.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Role.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserData.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserData.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserRole.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserRole.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserSession.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserSession.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/rules/standard.xml" afterPath="$PROJECT_DIR$/build/config/phpmd/rules/standard.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/css/style.css" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="boxboss.iws" />
@@ -148,10 +18,19 @@
     <file path="/Dummy.txt" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364125865534" ignored="false" />
     <file path="/install" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364072122543" ignored="false" />
     <file path="/IndexView.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364076424291" ignored="false" />
-    <file path="/a.dummy" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364128820610" ignored="false" />
-    <file path="/PHPUnit.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364134316194" ignored="false" />
-    <file path="/BasePHPApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364135748793" ignored="false" />
-    <file path="/Install.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364136615874" ignored="false" />
+    <file path="/a.dummy" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147116659" ignored="false" />
+    <file path="/PHPUnit.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364144626214" ignored="false" />
+    <file path="/BasePHPApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364146228950" ignored="false" />
+    <file path="/Install.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364146844729" ignored="false" />
+    <file path="/README.md" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147576813" ignored="false" />
+    <file path="/DefaultLayout.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364138463817" ignored="false" />
+    <file path="/install-silent" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364139458943" ignored="false" />
+    <file path="/DevClient.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364146927507" ignored="false" />
+    <file path="/TestServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147160521" ignored="false" />
+    <file path="/GitServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147179480" ignored="false" />
+    <file path="/ProductionServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147202781" ignored="false" />
+    <file path="/Router.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147259625" ignored="false" />
+    <file path="/InstallDevClientView.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147948409" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,73 +89,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="IndexView.tpl.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Views/IndexView.tpl.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="51" selection-start="0" selection-end="5025" vertical-scroll-proportion="-0.625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="51" selection-start="5025" selection-end="5025" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="0" selection-start="0" selection-end="5025" vertical-scroll-proportion="0.9003906">
+            <state line="65" column="0" selection-start="3100" selection-end="5514" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PHPUnit.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/PHPUnit.php">
+      <file leaf-file-name="InstallView.tpl.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Views/InstallView.tpl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="3" selection-start="376" selection-end="376" vertical-scroll-proportion="-8.75">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="20.375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasePHPApp.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
+      <file leaf-file-name="InstallDevClientView.tpl.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Views/InstallDevClientView.tpl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="51" selection-start="2827" selection-end="2827" vertical-scroll-proportion="-6.7083335">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Router.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Core/Router.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="33" selection-start="186" selection-end="186" vertical-scroll-proportion="-6.25">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppConfig.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/AppConfig.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="37" selection-start="1406" selection-end="1406" vertical-scroll-proportion="-23.75">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="11" column="15" selection-start="265" selection-end="265" vertical-scroll-proportion="-6.875">
               <folding />
             </state>
           </provider>
@@ -285,7 +119,61 @@
       <file leaf-file-name="Install.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="106" selection-start="1240" selection-end="1243" vertical-scroll-proportion="-19.375">
+            <state line="20" column="0" selection-start="538" selection-end="538" vertical-scroll-proportion="-7.3333335">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DevServer.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/DevServer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="15" selection-start="46" selection-end="46" vertical-scroll-proportion="-2.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GitServer.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/GitServer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="9" selection-start="40" selection-end="40" vertical-scroll-proportion="-2.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductionServer.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/ProductionServer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="16" selection-start="47" selection-end="47" vertical-scroll-proportion="-2.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Router.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Core/Router.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="51" selection-start="273" selection-end="273" vertical-scroll-proportion="13.166667">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestServer.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/TestServer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="10" selection-start="41" selection-end="41" vertical-scroll-proportion="-2.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DevClient.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="61" selection-start="459" selection-end="459" vertical-scroll-proportion="0.46106556">
               <folding />
             </state>
           </provider>
@@ -309,16 +197,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/bboss" />
-        <option value="$PROJECT_DIR$/install" />
         <option value="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Model/AppConfig.php" />
         <option value="$PROJECT_DIR$/README" />
+        <option value="$PROJECT_DIR$/src/Views/DefaultLayout.tpl.php" />
+        <option value="$PROJECT_DIR$/install-silent" />
         <option value="$PROJECT_DIR$/src/Model/PHPUnit.php" />
         <option value="$PROJECT_DIR$/src/Model/BasePHPApp.php" />
         <option value="$PROJECT_DIR$/src/Controller/Install.php" />
+        <option value="$PROJECT_DIR$/src/Controller/DevServer.php" />
+        <option value="$PROJECT_DIR$/src/Controller/TestServer.php" />
+        <option value="$PROJECT_DIR$/src/Controller/GitServer.php" />
+        <option value="$PROJECT_DIR$/src/Controller/ProductionServer.php" />
         <option value="$PROJECT_DIR$/src/Core/Router.php" />
-        <option value="$PROJECT_DIR$/src/Model/AppConfig.php" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Views/InstallDevClientView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Controller/DevClient.php" />
       </list>
     </option>
   </component>
@@ -422,24 +316,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -482,6 +358,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Views" />
+      <recent name="$PROJECT_DIR$/src/Controller" />
       <recent name="$PROJECT_DIR$/src/Model" />
     </key>
   </component>
@@ -683,111 +561,119 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README">
+    <entry file="file://$PROJECT_DIR$/install-silent">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="51" selection-start="5025" selection-end="5025" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Views/IndexView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="51" selection-start="0" selection-end="5025" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="51" selection-start="5025" selection-end="5025" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/boxboss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="50" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bboss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="29" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Views/IndexView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="51" selection-start="0" selection-end="5025" vertical-scroll-proportion="-0.625">
+        <state line="47" column="40" selection-start="1330" selection-end="1358" vertical-scroll-proportion="0.47113594">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/install">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="32" selection-start="101" selection-end="5419" vertical-scroll-proportion="0.8882682">
+        <state line="10" column="62" selection-start="183" selection-end="183" vertical-scroll-proportion="0.2793296">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/PHPUnit.php">
+    <entry file="file://$PROJECT_DIR$/src/Views/DefaultLayout.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="3" selection-start="376" selection-end="376" vertical-scroll-proportion="-8.75">
+        <state line="2" column="10" selection-start="42" selection-end="42" vertical-scroll-proportion="-1.25">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="51" selection-start="2827" selection-end="2827" vertical-scroll-proportion="-6.7083335">
+        <state line="158" column="33" selection-start="4715" selection-end="4715" vertical-scroll-proportion="-24.666666">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../devhelper/src/Model/GitCheckout.php">
+    <entry file="file://$PROJECT_DIR$/src/Model/PHPUnit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="63" selection-start="232" selection-end="416" vertical-scroll-proportion="0.28483605">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="51" selection-start="5025" selection-end="5025" vertical-scroll-proportion="0.0">
+        <state line="28" column="37" selection-start="781" selection-end="781" vertical-scroll-proportion="-17.5">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="106" selection-start="1240" selection-end="1243" vertical-scroll-proportion="-19.375">
+        <state line="20" column="0" selection-start="538" selection-end="538" vertical-scroll-proportion="-7.3333335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/TestServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="10" selection-start="41" selection-end="41" vertical-scroll-proportion="-2.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/DevServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="15" selection-start="46" selection-end="46" vertical-scroll-proportion="-2.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/GitServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="9" selection-start="40" selection-end="40" vertical-scroll-proportion="-2.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/ProductionServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="16" selection-start="47" selection-end="47" vertical-scroll-proportion="-2.5">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Core/Router.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="33" selection-start="186" selection-end="186" vertical-scroll-proportion="-6.25">
+        <state line="11" column="51" selection-start="273" selection-end="273" vertical-scroll-proportion="13.166667">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/AppConfig.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="37" selection-start="1406" selection-end="1406" vertical-scroll-proportion="-23.75">
+        <state line="10" column="48" selection-start="250" selection-end="250" vertical-scroll-proportion="-0.89959013">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="0" selection-start="0" selection-end="5025" vertical-scroll-proportion="0.9003906">
+        <state line="65" column="0" selection-start="3100" selection-end="5514" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Views/InstallView.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="20.375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Views/InstallDevClientView.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="15" selection-start="265" selection-end="265" vertical-scroll-proportion="-6.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="61" selection-start="459" selection-end="459" vertical-scroll-proportion="0.46106556">
           <folding />
         </state>
       </provider>
