@@ -17,7 +17,8 @@ class PHPCS extends BasePHPApp {
     $this->programNameMachine = "phpcs"; // command and app dir name
     $this->programNameFriendly = "PHP CSniffer"; // 12 chars
     $this->programNameInstaller = "PHP Code Sniffer";
-    $this->programExecutorTargetPath = 'PHP_CodeSniffer-1.5.0RC1/CodeSniffer.php';
+    $this->programExecutorTargetPath = 'phpcs/phpcs/PHP_CodeSniffer-1.5.0RC1/CodeSniffer.php';
+    $this->initialize();
   }
 
 }

@@ -25,8 +25,11 @@ class BasePHPApp extends Base {
 
   public function __construct() {
     $this->populateStartDirectory();
-    $this->populateTitle();
     $this->populateCompletion();
+  }
+
+  public function initialize() {
+    $this->populateTitle();
   }
 
   private function populateStartDirectory() {
