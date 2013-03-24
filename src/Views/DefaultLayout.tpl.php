@@ -1,6 +1,6 @@
 
 ******************************
-GC Devhelper
+GC BoxBoss
 ******************************
 
 <?php echo $this->renderMessages($pageVars); ?>
