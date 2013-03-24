@@ -214,10 +214,11 @@ require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
   private function doGitCommand(){
     $data = "";
     foreach ($this->fileSources as $fileSource) {
-      $command  = 'git clone '.escapeshellarg($fileSource[0]);
+      $command  = 'git clone ';
       if (isset($fileSource[3]) &&
           $fileSource[3] = true) { $command .= '--recursive ';}
       if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
+      $command .= escapeshellarg($fileSource[0]).' ';
       $command .= ' '.$this->programNameMachine;
       if ($fileSource[1] != null) { $command .= '/'.$fileSource[1];}
       $data .= self::executeAndLoad($command); }
