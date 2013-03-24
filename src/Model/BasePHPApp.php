@@ -22,6 +22,7 @@ class BasePHPApp extends Base {
   protected $programDataFolder;
   protected $programExecutorFolder;
   protected $programExecutorTargetPath;
+  protected $extraCommandsArray;
 
   public function __construct() {
     $this->populateStartDirectory();
@@ -106,6 +107,7 @@ COMPLETION;
     $this->saveExecutorFile();
     $this->deleteInstallationFiles();
     $this->changePermissions();
+    $this->extraCommands();
     $this->showCompletion();
   }
 
@@ -216,11 +218,19 @@ require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
     foreach ($this->fileSources as $fileSource) {
       $command  = 'git clone ';
       if (isset($fileSource[3]) &&
-          $fileSource[3] = true) { $command .= '--recursive ';}
+        $fileSource[3] = true) { $command .= '--recursive ';}
       if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
       $command .= escapeshellarg($fileSource[0]).' ';
       $command .= ' '.$this->programNameMachine;
       if ($fileSource[1] != null) { $command .= '/'.$fileSource[1];}
+      $data .= self::executeAndLoad($command); }
+    return $data;
+  }
+
+  private function extraCommands(){
+    $data = "";
+    foreach ($this->extraCommandsArray as $command) {
+      str_replace("****PROGDIR****", "", $command);
       $data .= self::executeAndLoad($command); }
     return $data;
   }
