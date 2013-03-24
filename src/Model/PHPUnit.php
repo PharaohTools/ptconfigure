@@ -48,6 +48,7 @@ class PHPUnit extends BasePHPApp {
     $this->programNameFriendly = " PHP Unit ! "; // 12 chars
     $this->programNameInstaller = "PHP Unit";
     $this->programExecutorTargetPath = 'phpunit/phpunit.php';
+    $this->initialize();
   }
 
 }
