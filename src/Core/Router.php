@@ -8,16 +8,7 @@ class Router {
     private	$route;
     private $availableRoutes = array(
         "index" => array("index") ,
-        "invoke" => array("cli", "script", "autopilot") ,
-        "version" => array("cli", "latest", "rollback", "specific") ,
-        "setup" => array("dev-client") ,
-        "checkout" => array("git") ,
-        "hostEditor" => array("add", "rm") ,
-        "VHostEditor" => array("add", "rm", "list") ,
-        "cukeConf" => array("conf", "reset")  ,
-        "database" => array("install", "drop", "configure", "config", "conf", "reset")  ,
-        "project" => array("init", "build-install")  ,
-        "install" => array("cli", "autopilot") );
+        "install" => array("dev-client", "autopilot") );
 
 	public function run($argv) {
         $this->argv = $argv;
