@@ -48,7 +48,12 @@ To install boxboss cli on your machine do the following. If you already have php
 
 apt-get php5 git
 
-git clone https://github.com/phpengine/boxboss && sudo boxboss/install
+git clone https://github.com/phpengine/boxboss && sudo php boxboss/install-silent
+
+or...
+
+git clone https://github.com/phpengine/boxboss && sudo php boxboss/install
+(If you want to choose the install directory)
 
 ... that's it, now the boxboss command should be available at the command line for you.
 
