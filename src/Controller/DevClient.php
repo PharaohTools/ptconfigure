@@ -13,6 +13,9 @@ class DevClient extends Base {
       $phpUnitModel = new \Model\PHPUnit();
       $this->content["phpUnitInstallResult"] = $phpUnitModel->askWhetherToInstallPHPApp();
 
+      $phpCSModel = new \Model\PHPCS();
+      $this->content["phpCSInstallResult"] = $phpCSModel->askWhetherToInstallPHPApp();
+
       return array ("type"=>"view", "view"=>"installDevClient", "pageVars"=>$this->content);
 
     }
