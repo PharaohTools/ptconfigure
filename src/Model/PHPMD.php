@@ -9,7 +9,7 @@ class PHPMD extends BasePHPApp {
     $this->autopilotDefiner = "PHPMD";
     $this->fileSources = array(
       array(
-        "https://github.com/phpengine/boxboss-phpmd.git",
+        "https://github.com/phpmd/phpmd.git",
         "phpmd",
         null, // custom branch
         true // submodules also ?
@@ -20,6 +20,9 @@ class PHPMD extends BasePHPApp {
     $this->programNameInstaller = "PHP Mess Detector";
     $this->programExecutorTargetPath = 'phpmd/src/bin/phpmd.php';
     $this->initialize();
+    $this->extraCommandsArray = array(
+      'ant ****PROGDIR****/phpmd/src/bin/initialize'
+    ); // must be after initialize
   }
 
 }
