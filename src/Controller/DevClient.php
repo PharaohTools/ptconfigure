@@ -20,7 +20,7 @@ class DevClient extends Base {
       $this->content["phpMDInstallResult"] = $phpMDModel->askWhetherToInstallPHPApp();
 
       $jenkinsModel = new \Model\Jenkins();
-      $this->content["jenkinsInstallResult"] = $jenkinsModel->ask();
+      $this->content["jenkinsInstallResult"] = $jenkinsModel->askWhetherToInstallLinuxApp();
 
       return array ("type"=>"view", "view"=>"installDevClient", "pageVars"=>$this->content);
 
