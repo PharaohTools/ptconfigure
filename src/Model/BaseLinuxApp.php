@@ -120,15 +120,13 @@ COMPLETION;
   private function changePermissions(){
     $command = "chmod -R 775 $this->programDataFolder";
     self::executeAndOutput($command);
-    $command = "chmod 775 $this->programExecutorFolder/$this->programNameMachine";
-    self::executeAndOutput($command);
   }
 
   private function doInstallCommand(){
     $data = "";
     foreach ($this->installCommands as $command) {
       str_replace("****PROGDIR****", $this->programDataFolder, $command);
-      $data .= self::executeAndLoad($command); }
+      $data .= self::executeAndOutput($command); }
     return $data;
   }
 
@@ -136,7 +134,7 @@ COMPLETION;
     $data = "";
     foreach ($this->uninstallCommands as $command) {
       str_replace("****PROGDIR****", $this->programDataFolder, $command);
-      $data .= self::executeAndLoad($command); }
+      $data .= self::executeAndOutput($command); }
     return $data;
   }
 
@@ -144,7 +142,7 @@ COMPLETION;
     $data = "";
     foreach ($this->extraCommandsArray as $command) {
       str_replace("****PROGDIR****", $this->programDataFolder, $command);
-      $data .= self::executeAndLoad($command); }
+      $data .= self::executeAndOutput($command); }
     return $data;
   }
 

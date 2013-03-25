@@ -9,6 +9,7 @@ class Jenkins extends BaseLinuxApp {
     $this->autopilotDefiner = "Jenkins";
     $this->installCommands = array( "apt-get install jenkins" );
     $this->uninstallCommands = array( "apt-get remove jenkins" );
+    $this->programDataFolder = "/var/lib/jenkins"; // command and app dir name
     $this->programNameMachine = "jenkins"; // command and app dir name
     $this->programNameFriendly = " ! Jenkins !"; // 12 chars
     $this->programNameInstaller = "Jenkins";
