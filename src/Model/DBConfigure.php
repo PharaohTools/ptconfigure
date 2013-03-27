@@ -99,17 +99,24 @@ class DBConfigure extends Base {
 
     public function setPlatformVars() {
         if (in_array($this->platform, array("d7", "drupal7" , "drupal"))) {
-            $this->platformVars = new \Model\DBConfigureDataDrupal70();
-            return; }
+          $this->platformVars = new \Model\DBConfigureDataDrupal70();
+          return; }
         if (in_array($this->platform, array("php", "gcfw", "gcfw2"))) {
-            $this->platformVars = new \Model\DBConfigureDataGCFW2();
-            return; }
+          $this->platformVars = new \Model\DBConfigureDataGCFW2();
+          return; }
+        if (in_array($this->platform, array("joomla", "j15", "joomla15"))) {
+          $this->platformVars = new \Model\DBConfigureDataJoomla15();
+          return; }
+        if (in_array($this->platform, array("j30", "joomla30"))) {
+          $this->platformVars = new \Model\DBConfigureDataJoomla15();
+          return; }
         $this->platformVars = new \Model\DBConfigureDataGCFW2();
         return;
     }
 
     private function askForPlatform(){
-        $availablePlats = array("drupal7", "php" , "gcfw" , "gcfw2");
+        $availablePlats = array("drupal7", "php" , "gcfw" , "gcfw2", "joomla15",
+          "joomla30");
         $question = "Please Choose Project Platform:\n";
         $i=0;
         foreach ($availablePlats as $plat) {
@@ -229,7 +236,9 @@ class DBConfigure extends Base {
     }
 
     private function createSettingsFile() {
-        $location  = $this->platformVars->getProperty("settingsFileLocation").'/';
+        (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
+          ? $location = $this->platformVars->getProperty("settingsFileLocation").'/'
+          : $location = "" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
         echo "Moving new settings file ".$this->platformVars->getProperty("settingsFileName")." in...\n" ;
         return file_put_contents($location, $this->settingsFileData);
