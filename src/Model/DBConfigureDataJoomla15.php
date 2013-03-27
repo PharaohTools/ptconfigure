@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class DBConfigureDataDrupal70 extends Base {
+class DBConfigureDataJoomla15 extends Base {
 
-    private $settingsFileLocation = 'src/sites/default'; // no trail slash
-    private $settingsFileName = 'settings.php';
+    private $settingsFileLocation = ''; // no trail slash, empty for root
+    private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;
     private $extraConfigFileReplacements ;
     private $extraConfigFiles = array('build/config/phpunit/bootstrap.php'); // extra files requiring db config
@@ -25,23 +25,19 @@ class DBConfigureDataDrupal70 extends Base {
 
 
     private function setReplacements(){
-
         $this->settingsFileReplacements = array(
         "'database'"=>"      'database' => '****DB NAME****',",
         "'username'"=>"      'username' => '****DB USER****',",
         "'password'"=>"      'password' => '****DB PASS****',",
-        "'host'"=>"      'host' => '****DB HOST****'," );
-
+        "'host'"    =>"      'host' => '****DB HOST****'," );
     }
 
     private function setExtraConfigReplacements(){
-
         $this->extraConfigFileReplacements = array(
             '$bootstrapDbName =' => '$bootstrapDbName = "****DB NAME****" ; ',
             '$bootstrapDbUser =' => '$this->dbUser = "****DB USER****" ; ',
             '$bootstrapDbPass =' => '$this->dbPass = "****DB PASS****" ; ',
             '$bootstrapDbHost =' => '$this->dbHost = "****DB HOST****" ; ');
-
     }
 
 }
