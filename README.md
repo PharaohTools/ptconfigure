@@ -17,8 +17,14 @@ Installation
 
 To install devhelper cli on your machine do the following. If you already have php5 and git installed skip line 1:
 
-line 1: apt-get php5 git
-line 2: git clone https://github.com/phpengine/devhelper && sudo devhelper/install
+apt-get php5 git
+
+git clone https://github.com/phpengine/devhelper && sudo devhelper/install-silent
+
+or...
+
+git clone https://github.com/phpengine/devhelper && sudo devhelper/install
+(if you want to choose the install location)
 
 ... that's it, now the devhelper command should be available at the command line for you.
 
@@ -103,12 +109,24 @@ project, proj
                 make a container folder for revisions (like /var/www/applications/*APP NAME*)
                 example: devhelper proj container
 
-              - init
-                initialize DH project
+              - init @todo should question for dh proj structure
+                initialize an existing directory as a DH project
                 example: devhelper proj init
 
-              - build-install
+              - new @todo all of this command
+                Create a new Project, using devhelper default directory structure, including
+                creating the Git Repo and Master, Staging and Production branches. Also install
+                the appropriate CD/CI/Test builds on the Main Jenkins server, so we can create
+                a new CD project from one command.
+                example: devhelper proj init
+
+              - build-install @todo should question jenkins username/email
                 copy jenkins project stored in repo to running jenkins so you can run builds
+                example: devhelper proj build-install
+
+              - build-save @todo all of this command
+                copy jenkins project from running jenkins to repo, with Generic Values that can
+                make the Repo version free of personalisation and installable by devhelper.
                 example: devhelper proj build-install
 
 version

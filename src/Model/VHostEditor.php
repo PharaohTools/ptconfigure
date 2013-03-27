@@ -4,37 +4,42 @@ Namespace Model;
 
 class VhostEditor extends Base {
 
-    private $vHostTemplate ;
-    private $docRoot ;
-    private $url ;
-    private $fileSuffix ;
-    private $vHostIp ;
-    private $vHostForDeletion ;
+    private $vHostTemplate;
+    private $docRoot;
+    private $url;
+    private $fileSuffix;
+    private $vHostIp;
+    private $vHostForDeletion;
     private $vHostEnabledDir;
     private $apacheCommand;
-    private $vHostDir = '/etc/apache2/sites-available'; // no trailing slash
-    private $vHostTemplateDir ;
+    private $vHostDir = '/etc/apache2/sites-available' ; // no trailing slash
+    private $vHostTemplateDir;
+    private $vHostDefaultTemplates;
 
-    public function askWhetherToListVHost(){
+    public function __construct() {
+      $this->setVHostDefaultTemplates();
+    }
+
+    public function askWhetherToListVHost() {
         return $this->performVHostListing();
     }
 
-    public function askWhetherToCreateVHost(){
+    public function askWhetherToCreateVHost() {
         return $this->performVHostCreation();
     }
 
-    public function askWhetherToDeleteVHost(){
+    public function askWhetherToDeleteVHost() {
         return $this->performVHostDeletion();
     }
 
-    private function performVHostListing(){
+    private function performVHostListing() {
         $this->vHostDir = $this->askForVHostDirectory();
         $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
         $this->listAllVHosts();
         return true;
     }
 
-    private function performVHostCreation(){
+    private function performVHostCreation() {
         if ( !$this->askForVHostEntry() ) { return false; }
         $this->docRoot = $this->askForDocRoot();
         $this->url = $this->askForHostURL();
@@ -59,7 +64,8 @@ class VhostEditor extends Base {
         echo "Deleting vhost\n";
         $this->vHostDir = $this->askForVHostDirectory();
         $this->vHostForDeletion = $this->selectVHostInProjectOrFS();
-        if ( self::areYouSure("Definitely delete VHost?") == false ) { return false; }
+        if ( self::areYouSure("Definitely delete VHost?") == false ) {
+          return false; }
         if ( $this->askForDisableVHost() ) {
             $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
             $this->disableVHost(); }
@@ -123,8 +129,9 @@ class VhostEditor extends Base {
     }
 
     private function askForDocRoot(){
-        $question = 'What\'s the document root?';
-        return self::askForInput($question, true);
+      $question = 'What\'s the document root? enter nothing for '.getcwd();
+      $input = self::askForInput($question);
+      return ($input=="") ? getcwd() : $input ;
     }
 
     private function askForHostURL(){
@@ -307,7 +314,9 @@ class VhostEditor extends Base {
     }
 
     private function selectVHostInProjectOrFS(){
-        $projResults = ($this->checkIsDHProject()) ? \Model\AppConfig::getProjectVariable("virtual-hosts") : array() ;
+        $projResults = ($this->checkIsDHProject())
+          ? \Model\AppConfig::getProjectVariable("virtual-hosts")
+          : array() ;
         $otherResults = scandir($this->vHostDir);
         $question = "Please Choose VHost for Deletion:\n";
         $i1 = $i2 = 0;
@@ -336,12 +345,18 @@ class VhostEditor extends Base {
     }
 
     private function selectVHostTemplate(){
-        $vHostTemplateResults = scandir($this->vHostTemplateDir);
+        $vHostTemplateResults = (is_array($this->vHostTemplateDir) &&
+        count($this->vHostTemplateDir)>0)
+          ? scandir($this->vHostTemplateDir)
+          : array() ;
         $question = "Please Choose VHost Template: (Enter nothing for default) \n";
         $i1 = $i2 = 0;
         $availableVHostTemplates = array();
-        $question .= "--- Default Virtual Host Template: ---\n";
-        $question .= "() Default\n";
+        $question .= "--- Default Virtual Host Templates: ---\n";
+        foreach ($this->vHostDefaultTemplates as $title => $data) {
+          $question .= "($i1) $title\n";
+          $i1++;
+          $availableVHostTemplates[] = $title; }
         if (count($vHostTemplateResults)>0) {
             $question .= "--- Virtual Host Templates in Project: ---\n";
             foreach ($vHostTemplateResults as $result) {
@@ -351,20 +366,37 @@ class VhostEditor extends Base {
                 $availableVHostTemplates[] = $result;} }
         $validChoice = false;
         while ($validChoice == false) {
-            if ($i2>0) { $question = "That's not a valid option, ".$question; }
+            if ($i2==1) { $question = "That's not a valid option, ".$question; }
             $input = self::askForInput($question) ;
-            if ( array_key_exists($input, $availableVHostTemplates) ){
+            if (array_key_exists($input, $availableVHostTemplates) ){
                 $validChoice = true;}
             $i2++; }
-        if ( $input="" ){
-            $this->setVhostDefaultTemplate(); }
-        else {
-            $this->vHostTemplate = file_get_contents($this->vHostTemplateDir.'/'.$availableVHostTemplates[$input]); }
-        return array($availableVHostTemplates[$input]) ;
+        if (array_key_exists($availableVHostTemplates[$input], $this->vHostDefaultTemplates) ) {
+          $this->vHostTemplate
+            = $this->vHostDefaultTemplates[$availableVHostTemplates[$input]];
+          return ; }
+      $this->vHostTemplate = file_get_contents($this->vHostTemplateDir . '/' .
+        $availableVHostTemplates[$input]);
     }
 
-    private function setVhostDefaultTemplate() {
-        $this->vHostTemplate = <<<'TEMPLATE'
+    private function setVHostDefaultTemplates() {
+
+      $template1 = <<<'TEMPLATE1'
+NameVirtualHost ****IP ADDRESS****
+<VirtualHost ****IP ADDRESS****>
+	ServerAdmin webmaster@localhost
+	ServerName ****SERVER NAME****
+	DocumentRoot ****WEB ROOT****
+	<Directory ****WEB ROOT****>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+</VirtualHost>
+TEMPLATE1;
+
+      $template2 = <<<'TEMPLATE2'
 NameVirtualHost ****IP ADDRESS****
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
@@ -377,8 +409,45 @@ NameVirtualHost ****IP ADDRESS****
 		allow from all
 	</Directory>
 </VirtualHost>
-TEMPLATE;
-    }
+TEMPLATE2;
 
+      $template3 = <<<'TEMPLATE3'
+NameVirtualHost ****IP ADDRESS****
+<VirtualHost ****IP ADDRESS****>
+	ServerAdmin webmaster@localhost
+	ServerName ****SERVER NAME****
+	DocumentRoot ****WEB ROOT****/web
+	<Directory ****WEB ROOT****/web>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+</VirtualHost>
+TEMPLATE3;
+
+      $template4 = <<<'TEMPLATE4'
+NameVirtualHost ****IP ADDRESS****
+<VirtualHost ****IP ADDRESS****>
+	ServerAdmin webmaster@localhost
+	ServerName ****SERVER NAME****
+	DocumentRoot ****WEB ROOT****/docroot
+	<Directory ****WEB ROOT****/docroot>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+</VirtualHost>
+TEMPLATE4;
+
+    $this->vHostDefaultTemplates = array(
+      "docroot-no-suffix" => $template1,
+      "docroot-src-sfx" => $template2,
+      "docroot-web-suffix" => $template3,
+      "docroot-docroot-suffix" => $template4,
+    );
+
+    }
 
 }
