@@ -4,7 +4,7 @@ Namespace Model;
 
 class DBConfigureDataJoomla15 extends Base {
 
-    private $settingsFileLocation = ''; // no trail slash, empty for root
+    private $settingsFileLocation = 'src'; // no trail slash, empty for root
     private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;
     private $extraConfigFileReplacements ;
@@ -23,13 +23,12 @@ class DBConfigureDataJoomla15 extends Base {
         return null();
     }
 
-
     private function setReplacements(){
         $this->settingsFileReplacements = array(
-        "'database'"=>"      'database' => '****DB NAME****',",
-        "'username'"=>"      'username' => '****DB USER****',",
-        "'password'"=>"      'password' => '****DB PASS****',",
-        "'host'"    =>"      'host' => '****DB HOST****'," );
+            'var $db ' => '  var $db = "****DB NAME****";',
+            'var $user ' => '  var $user = "****DB USER****";',
+            'var $password ' => '  var $password = "****DB PASS****";',
+            'var $host ' => '  var $host = "****DB HOST****";');
     }
 
     private function setExtraConfigReplacements(){
