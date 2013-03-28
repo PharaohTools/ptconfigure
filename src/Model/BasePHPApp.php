@@ -229,9 +229,11 @@ require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
 
   private function extraCommands(){
     $data = "";
-    foreach ($this->extraCommandsArray as $command) {
-      str_replace("****PROGDIR****", $this->programDataFolder, $command);
-      $data .= self::executeAndLoad($command); }
+    if (is_array($this->extraCommandsArray)
+      && count($this->extraCommandsArray)>0 ) {
+      foreach ($this->extraCommandsArray as $command) {
+        str_replace("****PROGDIR****", $this->programDataFolder, $command);
+        $data .= self::executeAndLoad($command); } }
     return $data;
   }
 
