@@ -28,6 +28,10 @@ class PHPMD extends BasePHPApp {
     $this->extraCommandsArray = array(
       'ant ****PROGDIR****/phpmd/src/bin/initialize'
     ); // must be after initialize
+    $this->extraPathsArray = array(
+      'src/main/php'
+    ); // must be after initialize
+
   }
 
 }

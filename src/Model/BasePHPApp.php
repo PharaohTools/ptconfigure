@@ -158,7 +158,11 @@ COMPLETION;
     $arrayOfPaths = scandir($this->programDataFolder);
     $pathStr = "" ;
     foreach ($arrayOfPaths as $path) {
-      $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ; }
+      $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ;
+      if (isset($this->extraPathsArray) && count($this->extraPathsArray)>0 ) {
+        foreach ($this->extraPathsArray as $extraPath) {
+        $pathStr .= $this->programDataFolder . '/' .$path . '/' . $extraPath .
+          PATH_SEPARATOR ; } } }
     $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
 set_include_path('" . $pathStr . "'.get_include_path() );
