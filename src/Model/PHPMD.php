@@ -13,17 +13,6 @@ class PHPMD extends BasePHPApp {
         "phpmd",
         null, // custom branch
       ),
-//      array(
-//        "https://github.com/phpmd/phpmd.git",
-//        "phpmd",
-//        null, // custom branch
-//        true // submodules also ?
-//      ),
-//      array(
-//        "https://github.com/manuelpichler/pdepend.git",
-//        "pdepend",
-//        null, // custom branch
-//      )
     );
     $this->programNameMachine = "phpmd"; // command and app dir name
     $this->programNameFriendly = "PHP Mess Dt."; // 12 chars

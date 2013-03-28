@@ -44,7 +44,7 @@ class PHPUnit extends BasePHPApp {
         "1.0" // can be null for none
       ),
       array(
-        "https://github.com/sebastianbergmann/php-timer.git",
+        "https://github.com/phpengine/boxboss-phpunit-php-timer",
         "php-timer",
         null // can be null for none
       ),
