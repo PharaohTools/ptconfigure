@@ -43,6 +43,11 @@ class PHPUnit extends BasePHPApp {
         "phpunit-selenium",
         "1.0" // can be null for none
       ),
+      array(
+        "https://github.com/sebastianbergmann/php-timer.git",
+        "php-timer",
+        null // can be null for none
+      ),
     );
     $this->programNameMachine = "phpunit"; // command and app dir name
     $this->programNameFriendly = " PHP Unit ! "; // 12 chars
