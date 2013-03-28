@@ -70,15 +70,15 @@ COMPLETION;
     $this->unInstall();
     return true;
   }
-  public function runAutoPilotPHPAppInstall($autoPilot){
-    $doInstall = $autoPilot->PHPUnitInstallExecute;
+  public function runAutoPilotLinuxAppInstall($autoPilot){
+    $doInstall = $autoPilot->{$this->autopilotDefiner."InstallExecute"};
     if ($doInstall !== true) { return false; }
     $this->install($autoPilot);
     return true;
   }
 
-  public function runAutoPilotPHPAppUnInstall($autoPilot){
-    $doUnInstall = $autoPilot->hostEditorDeletionExecute;
+  public function runAutoPilotLinuxAppUnInstall($autoPilot){
+    $doUnInstall = $autoPilot->{$this->autopilotDefiner."InstallExecute"};
     if ($doUnInstall !== true) { return false; }
     $this->unInstall($autoPilot);
     return true;

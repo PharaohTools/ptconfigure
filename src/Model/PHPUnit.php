@@ -48,6 +48,11 @@ class PHPUnit extends BasePHPApp {
         "php-timer",
         null // can be null for none
       ),
+      array(
+        "https://github.com/sebastianbergmann/php-text-template.git",
+        "php-text-template",
+        null // can be null for none
+      ),
     );
     $this->programNameMachine = "phpunit"; // command and app dir name
     $this->programNameFriendly = " PHP Unit ! "; // 12 chars
