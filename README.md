@@ -100,6 +100,7 @@ install
         Install indivdual available programs
         example: boxboss install cherry-pick *user*
 
-        @todo quite a few on this one, currently only phpunit is available. Installers for phpcs, phpmd, ruby,
+        @todo quite a few on this one, currently phpunit, phpcs, phpmd are available. Installers for ruby,
         jenkins, mysql, apache2, php modules, apache modules, git web/viewgit, web page analyzer, intelli j,
-        java (for intellij), eclipse, geany, mysql workbench, git cola, git k, all still to come
+        java (for intellij), eclipse, geany, mysql workbench, git cola, git k, hip-hop, devhelper, all
+        still to come

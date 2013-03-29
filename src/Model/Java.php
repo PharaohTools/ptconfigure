@@ -14,7 +14,7 @@ class Java extends BaseLinuxApp {
     $this->programDataFolder = "/opt/ruby/";
     $this->programNameMachine = "java"; // command and app dir name
     $this->programNameFriendly = "Oracle Java!"; // 12 chars
-    $this->programNameInstaller = "  Java!  ";
+    $this->programNameInstaller = "Java!";
     $this->initialize();
   }
 
