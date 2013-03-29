@@ -79,14 +79,14 @@ COMPLETION;
     return true;
   }
   public function runAutoPilotPHPAppInstall($autoPilot){
-    $doInstall = $autoPilot->PHPUnitInstallExecute;
+    $doInstall = $autoPilot->{$this->autopilotDefiner."InstallExecute"};
     if ($doInstall !== true) { return false; }
     $this->install($autoPilot);
     return true;
   }
 
   public function runAutoPilotPHPAppUnInstall($autoPilot){
-    $doUnInstall = $autoPilot->hostEditorDeletionExecute;
+    $doUnInstall = $autoPilot->{$this->autopilotDefiner."UnInstallExecute"};
     if ($doUnInstall !== true) { return false; }
     $this->unInstall($autoPilot);
     return true;
@@ -95,9 +95,11 @@ COMPLETION;
   public function install($autoPilot = null) {
     $this->showTitle();
     $this->programDataFolder = ($autoPilot)
-      ? $autoPilot->{$this->autopilotDefiner}
+      ? $autoPilot->{$this->autopilotDefiner."InstallDirectory"}
       : $this->askForProgramDataFolder();
-    $this->programExecutorFolder = $this->askForProgramExecutorFolder();
+    $this->programExecutorFolder = ($autoPilot)
+      ? $autoPilot->{$this->autopilotDefiner."ExecutorDirectory"}
+      : $this->askForProgramExecutorFolder();
     $this->doGitCommandWithErrorCheck();
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->makeProgramDataFolderIfNeeded();
@@ -158,11 +160,7 @@ COMPLETION;
     $arrayOfPaths = scandir($this->programDataFolder);
     $pathStr = "" ;
     foreach ($arrayOfPaths as $path) {
-      $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ;
-      if (isset($this->extraPathsArray) && count($this->extraPathsArray)>0 ) {
-        foreach ($this->extraPathsArray as $extraPath) {
-        $pathStr .= $this->programDataFolder . '/' .$path . '/' . $extraPath .
-          PATH_SEPARATOR ; } } }
+      $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ; }
     $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
 set_include_path('" . $pathStr . "'.get_include_path() );

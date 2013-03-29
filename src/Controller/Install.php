@@ -9,67 +9,46 @@ class Install extends Base {
         $this->content["messages"] = $pageVars["messages"];
         $action = $pageVars["route"]["action"];
 
-        if ($action=="dev-client") {
+        $actionsToClasses = array(
+          "dev-client" => "DevClient",
+          "dev-server" => "DevServer",
+          "test-server" => "TestServer",
+          "git-server" => "GitServer",
+          "production" => "ProductionServer" );
 
-          $install = new \Controller\DevClient();
-          return $install->execute($pageVars);}
-
-        if ($action=="dev-server") {
-
-          $install = new \Controller\DevClient();
-          return $install->execute($pageVars);}
-
-        if ($action=="test-server") {
-
-          $install = new \Controller\DevClient();
-          return $install->execute($pageVars);}
-
-        if ($action=="git-server") {
-
-          $install = new \Controller\DevClient();
-          return $install->execute($pageVars);}
-
-        if ($action=="production") {
-
-          $install = new \Controller\DevClient();
+        if (array_key_exists($action, $actionsToClasses)) {
+          $install = new $actionsToClasses[$action]();
           return $install->execute($pageVars);}
 
         if ($action=="autopilot") {
-
-            $autoPilotType= (isset($pageVars["route"]["extraParams"][0])) ? $pageVars["route"]["extraParams"][0] : null;
-
-            if (isset($autoPilotType) && strlen($autoPilotType)>0 ) {
-
-                $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotType);
-                $autoPilot = $this->loadAutoPilot($autoPilotFile);
-
+            $autoPilotFileName= (isset($pageVars["route"]["extraParams"][0]))
+              ? $pageVars["route"]["extraParams"][0]
+              : null;
+            if (isset($autoPilotFileName) && strlen($autoPilotFileName)>0 ) {
+              $autoPilot = $this->loadAutoPilot($autoPilotFileName);
                 if ( $autoPilot!==null ) {
-
-                    $phpUnitModel = new \Model\PHPUnit();
-                    $this->content["phpUnitInstallResult"] = $phpUnitModel->runAutoPilotPHPAppInstall($autoPilot);
-                    if ($autoPilot->phpUnitInstallExecute && $this->content["phpUnitInstallResult"] != "1") {
-                        $this->content["autoPilotErrors"]="Auto Pilot PHPUnit Install Broken";
-                        return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
-
-                }
-
+                  $install = new Autopilot();
+                  return $install->execute($pageVars, $autoPilot); }
                 else {
                     $this->content["autoPilotErrors"]="Auto Pilot couldn't load"; } }
-
             else {
                 $this->content["autoPilotErrors"]="Auto Pilot not defined";  } }
-
         else {
             $this->content["autoPilotErrors"]="No Action"; }
-
         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);
-
     }
 
-    private function loadAutoPilot($autoPilotFile){
+    private function loadAutoPilot($autoPilotFileName){
+        $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotFileName);
+        $defaultFolderToCheck = str_replace("src/Controller",
+          "build/config/boxboss", dirname(__FILE__));
+        $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
         if (file_exists($autoPilotFile)) {
-            include_once($autoPilotFile); }
-        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ? new \Core\AutoPilotConfigured() : null ;
+          require_once($autoPilotFile); }
+        else if (file_exists($defaultName)) {
+          include_once($defaultName); }
+        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
+          new \Core\AutoPilotConfigured() : null ;
         return $autoPilot;
     }
 

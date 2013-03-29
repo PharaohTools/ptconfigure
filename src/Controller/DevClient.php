@@ -18,6 +18,9 @@ class DevClient extends Base {
       $phpMDModel = new \Model\PHPMD();
       $this->content["phpMDInstallResult"] = $phpMDModel->askWhetherToInstallPHPApp();
 
+      $gitToolsModel = new \Model\GitTools();
+      $this->content["gitToolsInstallResult"] = $gitToolsModel->askWhetherToInstallLinuxApp();
+
       $javaModel = new \Model\Java();
       $this->content["javaInstallResult"] = $javaModel->askWhetherToInstallLinuxApp();
 

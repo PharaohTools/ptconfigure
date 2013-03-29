@@ -19,13 +19,18 @@ give you lots of tasty alcohol to help encourage your flow, but I can't hold it 
 So, there are basically only a few simple commands...
 
 boxboss install cherry-pick - Pick individual or multiple bits of software to install
-boxboss install autopilot - Use preset defaults to perform an unattended installation
+boxboss install autopilot *Your Custom File* - Use preset defaults to perform an unattended installation
 
-boxboss install dev-client - Install a preconfigured set of software for a dev client (Your Workstation)
-boxboss install dev-server - Install a preconfigured set of software for a dev server (Team Playaround Box)
-boxboss install test-server - Install a preconfigured set of software for a Build/Testing server
-boxboss install git-server - Install a preconfigured set of software for a Git SCM server
-boxboss install production - Install a preconfigured set of software for a Production server (Public Server)
+boxboss install autopilot dev-client - Install a preconfigured set of software for a dev client (Your Workstation)
+boxboss install autopilot dev-server - Install a preconfigured set of software for a dev server (Team Playaround Box)
+boxboss install autopilot test-server - Install a preconfigured set of software for a Build/Testing server
+boxboss install autopilot git-server - Install a preconfigured set of software for a Git SCM server
+boxboss install autopilot production - Install a preconfigured set of software for a Production server (Public Server)
+
+add silent or autogen like ...
+
+boxboss install autopilot dev-client-silent
+boxboss install autopilot dev-server-autogen
 
 ... which pretty much do as described ... all have the option of providing silent or autogen as a parameter.
 
@@ -69,33 +74,39 @@ install
         tools you need to start work immediately. You can use the keyword silent which will use boxboss's
         default values to perform an unattended install. You can also use the keyword autogen which will
         generate values for sensitive data to perform an unattended install.
-        example: boxboss install dev-client *user*
-        example: boxboss install dev-client *user* silent
-        example: boxboss install dev-client *user* autogen
+        example: boxboss install autopilot dev-client
+        example: boxboss install autopilot dev-client-silent
+        example: boxboss install autopilot dev-client-autogen
 
-        - dev-server
+        - dev-server @todo
         Install the preconfigured list of software for a developers server. Specifying a user to install software
         as is required. You can use the keyword silent which will use boxboss's default values to perform an
         unattended install. You can also use the keyword autogen which will generate values for sensitive data
         to perform an unattended install.
-        example: boxboss install dev-server *user*
-        example: boxboss install dev-server *user* silent
-        example: boxboss install dev-server *user* autogen
+        example: boxboss install autopilot dev-server
+        example: boxboss install autopilot dev-server-silent
+        example: boxboss install autopilot dev-server-autogen
 
-        - test-server
+        - test-server @todo
         Install the preconfigured list of software for a testing server. Specifying a user to install software
         as is required. You can use the keyword silent which will use boxboss's default values to perform an
         unattended install. You can also use the keyword autogen which will generate values for sensitive data
         to perform an unattended install.
-        example: boxboss install test-server *user*
-        example: boxboss install test-server *user* silent
-        example: boxboss install test-server *user* autogen
+        example: boxboss install autopilot test-server
+        example: boxboss install autopilot test-server-silent
+        example: boxboss install autopilot test-server-autogen
 
         - autopilot
         Perform an installation, or multiple installations of software, using the configurations and options
         provided in an autopilot file.
         example: boxboss install autopilot *autopilot-file*
 
-        - cherry-pick
+        - cherry-pick @todo
         Install indivdual available programs
-        example: boxboss install cherry-pick *user*
+        example: boxboss install cherry-pick
+
+        @todo quite a few on this one, currently git & tools, phpunit, phpcs, phpmd, ruby, jenkin
+        selenium, devhelper are available. Installers for mysql, apache2, php modules, apache modules,
+        git web/viewgit, web page analyzer, intelli j, java (for intellij), eclipse,
+        geany, mysql workbench, hip-hop, devhelper, all
+        still to come
