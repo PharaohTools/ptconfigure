@@ -88,7 +88,8 @@ COMPLETION;
     $this->showTitle();
     $this->executePreInstallFunctions($autoPilot);
     $this->doInstallCommand();
-    $this->changePermissions($this->programDataFolder);
+    if ($this->programDataFolder) {
+      $this->changePermissions($this->programDataFolder); }
     $this->extraCommands();
     $this->showCompletion();
   }
@@ -191,11 +192,9 @@ COMPLETION;
     $this->swapInstallUserDetails($commandArray);
   }
 
-  private function swapCommandDirs(&$commandGroupArray) {
-    foreach ($commandGroupArray as &$commGroup) {
-      foreach ($commGroup as &$comm) {
-        $comm = str_replace("****PROGDIR****", $this->programDataFolder,
-          $comm); } }
+  private function swapCommandDirs(&$commandArray) {
+    foreach ($commandArray as &$comm) {
+        $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);}
   }
 
   private function swapInstallUserDetails(&$commandArray) {
