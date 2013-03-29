@@ -4,23 +4,22 @@ Namespace Model;
 
 class BaseLinuxApp extends Base {
 
-
   protected $installCommands;
   protected $uninstallCommands;
+  protected $installUserName;
+  protected $installUserHomeDir;
   protected $programNameMachine ;
   protected $autopilotDefiner ;
   protected $programNameFriendly;
   protected $programDataFolder;
   protected $programNameInstaller;
-
   protected $startDirectory;
   protected $titleData;
-
   protected $completionData;
   protected $bootStrapData;
   protected $extraBootStrap;
-
   protected $extraCommandsArray;
+  protected $registeredPreInstallFunctions;
 
   public function __construct() {
     $this->populateCompletion();
@@ -86,6 +85,7 @@ COMPLETION;
 
   public function install($autoPilot = null) {
     $this->showTitle();
+    $this->executePreInstallFunctions($autoPilot);
     $this->doInstallCommand();
     $this->changePermissions();
     $this->extraCommands();
@@ -94,12 +94,17 @@ COMPLETION;
 
   public function unInstall($autoPilot = null) {
     $this->showTitle();
+    $this->executePreUnInstallFunctions($autoPilot);
     $this->doUnInstallCommand();
     $this->extraCommands();
     $this->showCompletion();
   }
 
   private function showTitle() {
+    print $this->titleData ;
+  }
+
+  private function getInstallPreferences() {
     print $this->titleData ;
   }
 
@@ -117,33 +122,70 @@ COMPLETION;
     return self::askYesOrNo($question);
   }
 
+  private function askForInstallUserName($autoPilot=null){
+    if ( isset($autoPilot) &&
+      $autoPilot->{$this->autopilotDefiner."InstallUserName"} ) {
+      $this->installUserHomeDir
+        = $autoPilot->{$this->autopilotDefiner."InstallUserName"}; }
+    else {
+      $question = "Enter User To Install As:";
+      $this->installUserName = self::askForInput($question, true); }
+  }
+
+  private function askForInstallUserHomeDir($autoPilot=null){
+    if ( isset($autoPilot) &&
+         $autoPilot->{$this->autopilotDefiner."InstallUserHomeDir"} ) {
+      $this->installUserHomeDir
+        = $autoPilot->{$this->autopilotDefiner."InstallUserHomeDir"}; }
+    else {
+      $question = "Enter Install User Home Dir:";
+      $this->installUserHomeDir = self::askForInput($question, true); }
+  }
+
+  private function executePreInstallFunctions($autoPilot){
+    if (isset($this->registeredPreInstallFunctions) &&
+        is_array($this->registeredPreInstallFunctions) &&
+        count($this->registeredPreInstallFunctions) >0) {
+      foreach ($this->registeredPreInstallFunctions as $func) {
+        self::$func($autoPilot); } }
+  }
+
   private function changePermissions(){
     $command = "chmod -R 775 $this->programDataFolder";
     self::executeAndOutput($command);
   }
 
   private function doInstallCommand(){
-    $data = "";
-    foreach ($this->installCommands as $command) {
-      str_replace("****PROGDIR****", $this->programDataFolder, $command);
-      $data .= self::executeAndOutput($command); }
-    return $data;
+    self::swapCommandArrayPlaceHolders($this->installCommands);
+    self::executeAsShell($this->installCommands);
   }
 
   private function doUnInstallCommand(){
-    $data = "";
-    foreach ($this->uninstallCommands as $command) {
-      str_replace("****PROGDIR****", $this->programDataFolder, $command);
-      $data .= self::executeAndOutput($command); }
-    return $data;
+    self::swapCommandArrayPlaceHolders($this->uninstallCommands);
+    self::executeAsShell($this->uninstallCommands);
   }
 
   private function extraCommands(){
-    $data = "";
-    foreach ($this->extraCommandsArray as $command) {
-      str_replace("****PROGDIR****", $this->programDataFolder, $command);
-      $data .= self::executeAndOutput($command); }
-    return $data;
+    self::swapCommandArrayPlaceHolders($this->extraCommandsArray);
+    self::executeAsShell($this->extraCommandsArray);
+  }
+
+  private function swapCommandArrayPlaceHolders(&$commandArray) {
+    $this->swapCommandDirs($commandArray);
+    $this->swapInstallUserDetails($commandArray);
+  }
+
+  private function swapCommandDirs(&$commandArray) {
+    foreach ($commandArray as &$comm) {
+      $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm); }
+  }
+
+  private function swapInstallUserDetails(&$commandArray) {
+    foreach ($commandArray as &$comm) {
+      $comm = str_replace("****INSTALL USER NAME****", $this->installUserName,
+        $comm);
+      $comm = str_replace("****INSTALL USER HOME DIR****",
+        $this->installUserHomeDir, $comm); }
   }
 
 }

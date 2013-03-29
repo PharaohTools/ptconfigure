@@ -4,25 +4,31 @@ Namespace Model;
 
 class Base {
 
-    protected function executeAndOutput($command, $message=null) {
-        $outputArray = array();
-        exec($command, $outputArray);
-        $outputText = "";
-        foreach ($outputArray as $outputValue) {
-            $outputText .= "$outputValue\n"; }
-        if ($message !== null) {
-            $outputText .= "$message\n"; }
-        print $outputText;
-        return true;
-    }
+  protected function executeAsShell($multiLineCommand, $message=null) {
+    $tempFile = "/tmp/boxboss-temp-script-".time().".sh";
+    $fileVar = "";
+    foreach ($multiLineCommand as $command) {
+      $fileVar .= $command."\n" ; }
+    file_put_contents($tempFile, $fileVar);
+    $outputText = shell_exec("sh $tempFile");
+    if ($message !== null) {
+      $outputText .= "$message\n"; }
+    print $outputText;
+    unlink($tempFile);
+    return true;
+  }
+
+  protected function executeAndOutput($command, $message=null) {
+    $outputText = shell_exec($command);
+    if ($message !== null) {
+      $outputText .= "$message\n"; }
+    print $outputText;
+    return true;
+  }
 
     protected function executeAndLoad($command) {
-        $outputArray = array();
-        exec($command, $outputArray);
-        $outputText = "";
-        foreach ($outputArray as $outputValue) {
-            $outputText .= "$outputValue\n"; }
-        return $outputText;
+      $outputText = shell_exec($command);
+      return $outputText;
     }
 
     protected function askYesOrNo($question) {
