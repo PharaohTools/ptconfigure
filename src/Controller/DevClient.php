@@ -8,10 +8,9 @@ class DevClient extends Base {
 
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
-      $action = $pageVars["route"]["action"];
 
       $phpUnitModel = new \Model\PHPUnit();
-      $this->content["phpUnitInstallResult"] = $phpUnitModel->askWhetherToInstallPHPApp();
+      $this->content["phpUnitInstallResult"]= $phpUnitModel->askWhetherToInstallPHPApp();
 
       $phpCSModel = new \Model\PHPCS();
       $this->content["phpCSInstallResult"] = $phpCSModel->askWhetherToInstallPHPApp();
@@ -19,8 +18,17 @@ class DevClient extends Base {
       $phpMDModel = new \Model\PHPMD();
       $this->content["phpMDInstallResult"] = $phpMDModel->askWhetherToInstallPHPApp();
 
+      $javaModel = new \Model\Java();
+      $this->content["javaInstallResult"] = $javaModel->askWhetherToInstallLinuxApp();
+
       $jenkinsModel = new \Model\Jenkins();
       $this->content["jenkinsInstallResult"] = $jenkinsModel->askWhetherToInstallLinuxApp();
+
+      $rubyRVMModel = new \Model\RubyRVM();
+      $this->content["rubyRVMInstallResult"] = $rubyRVMModel->askWhetherToInstallLinuxApp();
+
+      $seleniumModel = new \Model\SeleniumServer();
+      $this->content["seleniumInstallResult"] = $seleniumModel->askWhetherToInstallLinuxApp();
 
       return array ("type"=>"view", "view"=>"installDevClient", "pageVars"=>$this->content);
 
