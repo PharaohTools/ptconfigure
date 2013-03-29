@@ -2,23 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6db2ee95-814d-44ac-afc1-57c1facbeea0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/PHPMD.php" afterPath="$PROJECT_DIR$/src/Model/PHPMD.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/PHPUnit.php" afterPath="$PROJECT_DIR$/src/Model/PHPUnit.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/RubyRVM.php" afterPath="$PROJECT_DIR$/src/Model/RubyRVM.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="boxboss.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364476989641" ignored="false" />
+    <file path="/Dummy.txt" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364562227991" ignored="false" />
     <file path="/install" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364072122543" ignored="false" />
     <file path="/IndexView.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364076424291" ignored="false" />
-    <file path="/a.dummy" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147116659" ignored="false" />
+    <file path="/a.dummy" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364574462542" ignored="false" />
     <file path="/PHPUnit.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364440400859" ignored="false" />
     <file path="/BasePHPApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364472731399" ignored="false" />
     <file path="/Install.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364146844729" ignored="false" />
-    <file path="/README.md" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364441280197" ignored="false" />
+    <file path="/README.md" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364574009431" ignored="false" />
     <file path="/DefaultLayout.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364138463817" ignored="false" />
     <file path="/install-silent" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364139458943" ignored="false" />
-    <file path="/DevClient.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364178349007" ignored="false" />
+    <file path="/DevClient.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364496057649" ignored="false" />
     <file path="/TestServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147160521" ignored="false" />
     <file path="/GitServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147179480" ignored="false" />
     <file path="/ProductionServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147202781" ignored="false" />
@@ -28,7 +27,7 @@
     <file path="/PHPMD.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364472198797" ignored="false" />
     <file path="$PROJECT_DIR$/../devhelper/README.md" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364441280197" ignored="false" />
     <file path="/Jenkins.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364178559859" ignored="false" />
-    <file path="/BaseLinuxApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364464427809" ignored="false" />
+    <file path="/BaseLinuxApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364570786269" ignored="false" />
     <file path="$PROJECT_DIR$/../devhelper/src/Model/VHostEditor.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364254016358" ignored="false" />
     <file path="/VHostEditor.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364251616034" ignored="false" />
     <file path="/DummyFile.xpath" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364289918792" ignored="false" />
@@ -37,6 +36,10 @@
     <file path="$PROJECT_DIR$/../../GoodFoodContainer/Deployed/docroot/sites/all/modules/custom/bbcgf_system_terms/bbcgf_system_terms.module" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364315118037" ignored="false" />
     <file path="$PROJECT_DIR$/../devhelper/README" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364441292886" ignored="false" />
     <file path="$PROJECT_DIR$/../../GoodFoodContainer/bbcgoodfood/docroot/sites/all/modules/custom/bbcgf_system_terms/bbcgf_system_terms.module" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364472493187" ignored="false" />
+    <file path="/SeleniumServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364494184203" ignored="false" />
+    <file path="/Ruby.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364570822561" ignored="false" />
+    <file path="/Java.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364496016295" ignored="false" />
+    <file path="/Base.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364571024333" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +54,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -86,6 +88,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -95,64 +98,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PHPMD.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/PHPMD.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="8" selection-start="318" selection-end="318" vertical-scroll-proportion="-8.75">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Jenkins.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/Jenkins.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="27" selection-start="135" selection-end="151" vertical-scroll-proportion="0.0">
+            <state line="8" column="27" selection-start="135" selection-end="151" vertical-scroll-proportion="-5.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseLinuxApp.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/BaseLinuxApp.php">
+      <file leaf-file-name="SeleniumServer.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/SeleniumServer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="134" column="45" selection-start="3439" selection-end="3439" vertical-scroll-proportion="0.0">
+            <state line="16" column="3" selection-start="595" selection-end="595" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DevClient.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
+      <file leaf-file-name="Install.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="91" selection-start="789" selection-end="789" vertical-scroll-proportion="0.0">
+            <state line="30" column="0" selection-start="813" selection-end="813" vertical-scroll-proportion="-0.625">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestServer.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/TestServer.php">
+      <file leaf-file-name="RubyRVM.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Model/RubyRVM.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="86" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0">
+            <state line="12" column="50" selection-start="208" selection-end="406" vertical-scroll-proportion="0.3508772">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PHPUnit.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Model/PHPUnit.php">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="63" selection-start="1346" selection-end="1346" vertical-scroll-proportion="0.2930328">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasePHPApp.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="157" column="54" selection-start="4594" selection-end="4594" vertical-scroll-proportion="-0.625">
+            <state line="93" column="25" selection-start="4861" selection-end="4861" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -176,22 +161,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/install-silent" />
-        <option value="$PROJECT_DIR$/src/Controller/Install.php" />
-        <option value="$PROJECT_DIR$/src/Controller/GitServer.php" />
-        <option value="$PROJECT_DIR$/src/Controller/ProductionServer.php" />
-        <option value="$PROJECT_DIR$/src/Core/Router.php" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Views/InstallDevClientView.tpl.php" />
         <option value="$PROJECT_DIR$/src/Model/PHPCS.php" />
         <option value="$PROJECT_DIR$/src/Controller/DevServer.php" />
         <option value="$PROJECT_DIR$/src/Controller/TestServer.php" />
-        <option value="$PROJECT_DIR$/src/Controller/DevClient.php" />
         <option value="$PROJECT_DIR$/src/Model/Jenkins.php" />
-        <option value="$PROJECT_DIR$/src/Model/BaseLinuxApp.php" />
         <option value="$PROJECT_DIR$/src/Model/BasePHPApp.php" />
         <option value="$PROJECT_DIR$/src/Model/PHPMD.php" />
         <option value="$PROJECT_DIR$/src/Model/PHPUnit.php" />
+        <option value="$PROJECT_DIR$/src/Model/SeleniumServer.php" />
+        <option value="$PROJECT_DIR$/src/Controller/DevClient.php" />
+        <option value="$PROJECT_DIR$/src/Model/BaseLinuxApp.php" />
+        <option value="$PROJECT_DIR$/src/Model/Base.php" />
+        <option value="$PROJECT_DIR$/src/Model/Ruby.php" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Model/Java.php" />
+        <option value="$PROJECT_DIR$/src/Model/RubyRVM.php" />
       </list>
     </option>
   </component>
@@ -233,6 +218,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -279,14 +266,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boxboss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boxboss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -294,14 +297,14 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="com.jetbrains.php.tools.quality.messDetector.MessDetectorConfigurable" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="options.lastSelected" value="com.jetbrains.php.tools.quality.messDetector.MessDetectorConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -332,19 +335,6 @@
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -371,6 +361,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -435,27 +438,27 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295688" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295688" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21355236" sideWeight="0.98679245" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23921971" sideWeight="0.9559083" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286219" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -524,51 +527,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Views/InstallDevClientView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="433" selection-end="433" vertical-scroll-proportion="-8.75" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/PHPCS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="40" selection-start="555" selection-end="555" vertical-scroll-proportion="-11.875" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Views/IndexView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="42.791668" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Views/InstallView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="78" selection-start="1352" selection-end="1352" vertical-scroll-proportion="-9.625" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="86" selection-start="5394" selection-end="5394" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/TestServer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="86" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/DevServer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="86" selection-start="652" selection-end="652" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="60" selection-start="813" selection-end="813" vertical-scroll-proportion="0.033333335" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/GitServer.php">
@@ -576,44 +537,100 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
+    <entry file="file://$PROJECT_DIR$/src/Model/PHPMD.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="91" selection-start="789" selection-end="789" vertical-scroll-proportion="0.0">
+        <state line="14" column="8" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/SeleniumServer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="3" selection-start="595" selection-end="595" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/AppConfig.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Jenkins.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="27" selection-start="135" selection-end="151" vertical-scroll-proportion="0.0">
+        <state line="8" column="27" selection-start="135" selection-end="151" vertical-scroll-proportion="-5.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/BaseLinuxApp.php">
+    <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="45" selection-start="3439" selection-end="3439" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="157" column="54" selection-start="4594" selection-end="4594" vertical-scroll-proportion="-0.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/PHPMD.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="8" selection-start="318" selection-end="318" vertical-scroll-proportion="-8.75">
+        <state line="30" column="0" selection-start="813" selection-end="813" vertical-scroll-proportion="-0.625">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/PHPUnit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="63" selection-start="1346" selection-end="1346" vertical-scroll-proportion="0.2930328">
+        <state line="46" column="63" selection-start="1346" selection-end="1346" vertical-scroll-proportion="0.2915811">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="44" selection-start="304" selection-end="304" vertical-scroll-proportion="0.050632913">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="11" selection-start="3533" selection-end="3696" vertical-scroll-proportion="0.5021097">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="43" selection-start="357" selection-end="357" vertical-scroll-proportion="-7.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/BaseLinuxApp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="186" column="56" selection-start="5547" selection-end="5576" vertical-scroll-proportion="-17.166666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Views/IndexView.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="43.375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Java.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="40" selection-start="593" selection-end="593" vertical-scroll-proportion="-10.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="25" selection-start="4861" selection-end="4861" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/RubyRVM.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="50" selection-start="208" selection-end="406" vertical-scroll-proportion="0.3508772">
           <folding />
         </state>
       </provider>
