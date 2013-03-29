@@ -1,5 +1,5 @@
 
-Devhelper: <?php echo $pageVars["DevhelperInstallResult"] ; ?>
+Devhelper: <?php echo $pageVars["devhelperInstallResult"] ; ?>
 
 Git Tools: <?php echo $pageVars["gitToolsInstallResult"] ; ?>
 
