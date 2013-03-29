@@ -4,31 +4,31 @@ Namespace Model;
 
 class Base {
 
-  protected function executeAsShell($multiLineCommand, $message=null) {
-    $tempFile = "/tmp/boxboss-temp-script-".time().".sh";
-    $fileVar = "";
-    foreach ($multiLineCommand as $command) {
-      $fileVar .= $command."\n" ; }
-    file_put_contents($tempFile, $fileVar);
-    $outputText = shell_exec("sh $tempFile");
-    if ($message !== null) {
-      $outputText .= "$message\n"; }
-    print $outputText;
-    unlink($tempFile);
-    return true;
-  }
+    protected function executeAsShell($multiLineCommand, $message=null) {
+        $tempFile = "/tmp/boxboss-temp-script-".mt_rand(100, 99999999999).".sh";
+        echo "Creating $tempFile\n";
+        $fileVar = "";
+        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
+        file_put_contents($tempFile, $fileVar);
+        chmod($tempFile, 0755);
+        echo "Executing $tempFile\n";
+        $outputText = shell_exec($tempFile);
+        if ($message !== null) { $outputText .= "$message\n"; }
+        echo $outputText;
+        shell_exec("rm $tempFile", "Temp File $tempFile Removed");
+    }
 
-  protected function executeAndOutput($command, $message=null) {
-    $outputText = shell_exec($command);
-    if ($message !== null) {
-      $outputText .= "$message\n"; }
-    print $outputText;
-    return true;
-  }
+    protected function executeAndOutput($command, $message=null) {
+        $outputText = shell_exec($command);
+        if ($message !== null) {
+          $outputText .= "$message\n"; }
+        print $outputText;
+        return true;
+    }
 
     protected function executeAndLoad($command) {
-      $outputText = shell_exec($command);
-      return $outputText;
+        $outputText = shell_exec($command);
+        return $outputText;
     }
 
     protected function askYesOrNo($question) {
