@@ -8,9 +8,9 @@ class RubyRVM extends BaseLinuxApp {
     parent::__construct();
     $this->autopilotDefiner = "RubyRVM";
     $this->installCommands = array(
-      "apt-get install -y libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 " .
-        "libxml2-dev libxslt1-dev bison libffi-dev libmysql-dev libmysql " .
-        "libgdbm-dev libncurses5-dev",
+      "apt-get install -y libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 ".
+        "libxml2-dev libxslt1-dev bison libffi-dev libmysqlclient-dev " .
+        "libmysql-ruby libgdbm-dev libncurses5-dev",
       "su ****INSTALL USER NAME****",
       "cd ****INSTALL USER HOME DIR****",
       "curl -L https://get.rvm.io | bash -s stable --ruby",
