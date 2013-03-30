@@ -2,30 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6db2ee95-814d-44ac-afc1-57c1facbeea0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/Autopilot.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Model/Devhelper.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Model/GitTools.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-dev-install.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-dev-reset-for-push.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-dev-uninstall.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-dev-version-install.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-production-first-install.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-production-install.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-production-uninstall.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-test-install.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-test-reset-for-push.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config/boxboss/autopilots/autopilot-test-uninstall.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/AutoPilot.php" afterPath="$PROJECT_DIR$/src/Core/AutoPilot.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Model/Firefox14.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Autopilot.php" afterPath="$PROJECT_DIR$/src/Controller/Autopilot.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/BaseLinuxApp.php" afterPath="$PROJECT_DIR$/src/Model/BaseLinuxApp.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/BasePHPApp.php" afterPath="$PROJECT_DIR$/src/Model/BasePHPApp.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/DevClient.php" afterPath="$PROJECT_DIR$/src/Controller/DevClient.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Install.php" afterPath="$PROJECT_DIR$/src/Controller/Install.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/SeleniumServer.php" afterPath="$PROJECT_DIR$/src/Model/SeleniumServer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" afterPath="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="boxboss.iws" />
@@ -37,10 +21,10 @@
     <file path="/PHPUnit.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364440400859" ignored="false" />
     <file path="/BasePHPApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364591891302" ignored="false" />
     <file path="/Install.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364592525858" ignored="false" />
-    <file path="/README.md" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364598523019" ignored="false" />
+    <file path="/README.md" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601694562" ignored="false" />
     <file path="/DefaultLayout.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364138463817" ignored="false" />
     <file path="/install-silent" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364139458943" ignored="false" />
-    <file path="/DevClient.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364593612536" ignored="false" />
+    <file path="/DevClient.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601897291" ignored="false" />
     <file path="/TestServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147160521" ignored="false" />
     <file path="/GitServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147179480" ignored="false" />
     <file path="/ProductionServer.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364147202781" ignored="false" />
@@ -50,7 +34,7 @@
     <file path="/PHPMD.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364472198797" ignored="false" />
     <file path="$PROJECT_DIR$/../devhelper/README.md" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364441280197" ignored="false" />
     <file path="/Jenkins.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364178559859" ignored="false" />
-    <file path="/BaseLinuxApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364596169492" ignored="false" />
+    <file path="/BaseLinuxApp.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601506724" ignored="false" />
     <file path="$PROJECT_DIR$/../devhelper/src/Model/VHostEditor.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364254016358" ignored="false" />
     <file path="/VHostEditor.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364251616034" ignored="false" />
     <file path="/DummyFile.xpath" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364289918792" ignored="false" />
@@ -65,11 +49,15 @@
     <file path="/Base.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364582598160" ignored="false" />
     <file path="/AutoPilot.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364595278089" ignored="false" />
     <file path="/autopilot-dev-client-silent.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364598421129" ignored="false" />
-    <file path="/Autopilot.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364598493639" ignored="false" />
-    <file path="/InstallAutopilotView.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364598460108" ignored="false" />
+    <file path="/Autopilot.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364600511582" ignored="false" />
+    <file path="/InstallAutopilotView.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364600471082" ignored="false" />
     <file path="/GitTools.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364593011743" ignored="false" />
     <file path="/PHPSeleniumServerExec.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364595204158" ignored="false" />
     <file path="/Devhelper.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364598235834" ignored="false" />
+    <file path="$PROJECT_DIR$/../../GoldenNew/AlcaEnterpriseShops/LushLips/build/tests/features/support/env.rb" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601357520" ignored="false" />
+    <file path="/Firefox14.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601604101" ignored="false" />
+    <file path="/env.rb" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601357520" ignored="false" />
+    <file path="/dev-client-silent.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601670482" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,10 +116,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="dev-client-silent.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="dev-client-silent.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="18" selection-start="215" selection-end="215" vertical-scroll-proportion="-6.875">
+            <state line="26" column="19" selection-start="575" selection-end="575" vertical-scroll-proportion="0.8423326">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DevClient.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="31" selection-start="1378" selection-end="1378" vertical-scroll-proportion="-14.125">
               <folding />
             </state>
           </provider>
@@ -140,25 +137,16 @@
       <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="52" selection-start="0" selection-end="5760" vertical-scroll-proportion="0.0">
+            <state line="112" column="22" selection-start="5772" selection-end="5772" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndexView.tpl.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Views/IndexView.tpl.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="6" selection-start="3315" selection-end="3315" vertical-scroll-proportion="-45.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="78" selection-start="1670" selection-end="1670" vertical-scroll-proportion="0.8116233">
+            <state line="55" column="82" selection-start="2858" selection-end="2939" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -167,7 +155,43 @@
       <file leaf-file-name="Autopilot.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/Autopilot.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="55" selection-start="482" selection-end="482" vertical-scroll-proportion="-8.75">
+            <state line="49" column="25" selection-start="1744" selection-end="1744" vertical-scroll-proportion="-16.833334">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Firefox14.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Firefox14.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="33" selection-start="98" selection-end="98" vertical-scroll-proportion="-3.75">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseLinuxApp.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/BaseLinuxApp.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="206" column="70" selection-start="6628" selection-end="6628" vertical-scroll-proportion="-11.791667">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RubyRVM.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/RubyRVM.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="40" selection-start="1012" selection-end="1041" vertical-scroll-proportion="-15.625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BasePHPApp.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="189" column="62" selection-start="5951" selection-end="5951" vertical-scroll-proportion="-8.583333">
               <folding />
             </state>
           </provider>
@@ -176,7 +200,7 @@
       <file leaf-file-name="InstallAutopilotView.tpl.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="9" selection-start="10" selection-end="10" vertical-scroll-proportion="-0.625">
+            <state line="19" column="43" selection-start="609" selection-end="609" vertical-scroll-proportion="-11.875">
               <folding />
             </state>
           </provider>
@@ -200,22 +224,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/build/config/boxboss/autopilot-dev-client-silent.php" />
-        <option value="$PROJECT_DIR$/src/Model/BasePHPApp.php" />
         <option value="$PROJECT_DIR$/src/Controller/Install.php" />
-        <option value="$PROJECT_DIR$/src/Controller/DevClient.php" />
         <option value="$PROJECT_DIR$/src/Model/GitTools.php" />
         <option value="$PROJECT_DIR$/src/Model/PHPSeleniumServerExec.php" />
-        <option value="$PROJECT_DIR$/src/Model/BaseLinuxApp.php" />
         <option value="$PROJECT_DIR$/src/Model/SeleniumServer.php" />
         <option value="$PROJECT_DIR$/src/Model/Devhelper.php" />
         <option value="$PROJECT_DIR$/src/Core/AutoPilot.php" />
-        <option value="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" />
-        <option value="$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php" />
-        <option value="$PROJECT_DIR$/src/Controller/Autopilot.php" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
         <option value="$PROJECT_DIR$/README" />
+        <option value="$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Controller/Autopilot.php" />
+        <option value="$PROJECT_DIR$/src/Model/BasePHPApp.php" />
+        <option value="$PROJECT_DIR$/src/Model/BaseLinuxApp.php" />
+        <option value="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Model/Firefox14.php" />
+        <option value="$PROJECT_DIR$/src/Controller/DevClient.php" />
       </list>
     </option>
   </component>
@@ -305,24 +329,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -356,68 +362,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jenkins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -592,7 +536,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295688" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24845996" sideWeight="0.9559083" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24537988" sideWeight="0.9559083" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -667,44 +611,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Model/PHPUnit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="40" selection-start="153" selection-end="162" vertical-scroll-proportion="-3.0833333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="162" column="73" selection-start="4873" selection-end="4873" vertical-scroll-proportion="-11.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="21" selection-start="440" selection-end="440" vertical-scroll-proportion="-7.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="93" selection-start="746" selection-end="746" vertical-scroll-proportion="-13.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/GitTools.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="69" selection-start="321" selection-end="321" vertical-scroll-proportion="-6.25">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/BaseLinuxApp.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="73" selection-start="6060" selection-end="6060" vertical-scroll-proportion="-12.541667">
           <folding />
         </state>
       </provider>
@@ -730,37 +639,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="18" selection-start="215" selection-end="215" vertical-scroll-proportion="-6.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/SeleniumServer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="47" selection-start="492" selection-end="492" vertical-scroll-proportion="0.522541">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="9" selection-start="10" selection-end="10" vertical-scroll-proportion="-0.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/Autopilot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="55" selection-start="482" selection-end="482" vertical-scroll-proportion="-8.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="52" selection-start="0" selection-end="5760" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -774,7 +655,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="78" selection-start="1670" selection-end="1670" vertical-scroll-proportion="0.8116233">
+        <state line="55" column="82" selection-start="2858" selection-end="2939" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="43" selection-start="609" selection-end="609" vertical-scroll-proportion="-11.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/BasePHPApp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="189" column="62" selection-start="5951" selection-end="5951" vertical-scroll-proportion="-8.583333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/RubyRVM.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="40" selection-start="1012" selection-end="1041" vertical-scroll-proportion="-15.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Autopilot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="25" selection-start="1744" selection-end="1744" vertical-scroll-proportion="-16.833334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="22" selection-start="5772" selection-end="5772" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/BaseLinuxApp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="206" column="70" selection-start="6628" selection-end="6628" vertical-scroll-proportion="-11.791667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Firefox14.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="33" selection-start="98" selection-end="98" vertical-scroll-proportion="-3.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="31" selection-start="1378" selection-end="1378" vertical-scroll-proportion="-14.125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="19" selection-start="575" selection-end="575" vertical-scroll-proportion="0.8423326">
           <folding />
         </state>
       </provider>

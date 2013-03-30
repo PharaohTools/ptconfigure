@@ -33,6 +33,9 @@ class DevClient extends Base {
       $seleniumModel = new \Model\SeleniumServer();
       $this->content["seleniumInstallResult"] = $seleniumModel->askWhetherToInstallLinuxApp();
 
+      $firefox14Model = new \Model\Firefox14();
+      $this->content["firefox14InstallResult"] = $firefox14Model->askWhetherToInstallLinuxApp();
+
       return array ("type"=>"view", "view"=>"installDevClient", "pageVars"=>$this->content);
 
     }

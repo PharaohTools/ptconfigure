@@ -24,6 +24,9 @@ class AutoPilotConfigured extends AutoPilot {
       // Selenium Server
       $this->SeleniumServerInstallExecute = true;
 
+      // Firefox 14
+      $this->Firefox14InstallExecute = true;
+
     }
 
 }

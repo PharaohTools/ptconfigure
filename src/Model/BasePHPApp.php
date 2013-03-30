@@ -187,7 +187,7 @@ require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
 
   private function deleteExecutorIfExists(){
     $command = 'rm -f '.$this->programExecutorFolder.'/'.$this->programNameMachine;
-    self::executeAndOutput($command, "Program Executor Deleted  if existed");
+    self::executeAndOutput($command, "Program Executor Deleted if existed");
     return true;
   }
 

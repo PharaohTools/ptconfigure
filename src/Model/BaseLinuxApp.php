@@ -21,6 +21,10 @@ class BaseLinuxApp extends Base {
   protected $extraCommandsArray;
   protected $registeredPreInstallFunctions;
   protected $registeredPreUnInstallFunctions;
+  protected $registeredPostInstallFunctions;
+  protected $registeredPostUnInstallFunctions;
+  protected $programExecutorFolder;
+  protected $programExecutorTargetPath;
 
   public function __construct() {
     $this->populateCompletion();
@@ -88,6 +92,7 @@ COMPLETION;
     $this->showTitle();
     $this->executePreInstallFunctions($autoPilot);
     $this->doInstallCommand();
+    $this->executePostInstallFunctions($autoPilot);
     if ($this->programDataFolder) {
       $this->changePermissions($this->programDataFolder); }
     $this->extraCommands();
@@ -98,6 +103,7 @@ COMPLETION;
     $this->showTitle();
     $this->executePreUnInstallFunctions($autoPilot);
     $this->doUnInstallCommand();
+    $this->executePostUninstallFunctions($autoPilot);
     $this->extraCommands();
     $this->showCompletion();
   }
@@ -140,7 +146,6 @@ COMPLETION;
       $this->installUserHomeDir = self::askForInput($question, true); }
   }
 
-
   private function askForInstallDirectory($autoPilot=null){
     if (isset($autoPilot) &&
       $autoPilot->{$this->autopilotDefiner."InstallDirectory"} ) {
@@ -159,11 +164,27 @@ COMPLETION;
         self::$func($autoPilot); } }
   }
 
+  private function executePostInstallFunctions($autoPilot){
+    if (isset($this->registeredPostInstallFunctions) &&
+      is_array($this->registeredPostInstallFunctions) &&
+      count($this->registeredPostInstallFunctions) >0) {
+      foreach ($this->registeredPostInstallFunctions as $func) {
+        self::$func($autoPilot); } }
+  }
+
   private function executePreUnInstallFunctions($autoPilot){
     if (isset($this->registeredPreUnInstallFunctions) &&
       is_array($this->registeredPreUnInstallFunctions) &&
       count($this->registeredPreUnInstallFunctions) >0) {
       foreach ($this->registeredPreUnInstallFunctions as $func) {
+        self::$func($autoPilot); } }
+  }
+
+  private function executePostUnInstallFunctions($autoPilot){
+    if (isset($this->registeredPostUnInstallFunctions) &&
+      is_array($this->registeredPostUnInstallFunctions) &&
+      count($this->registeredPostUnInstallFunctions) >0) {
+      foreach ($this->registeredPostUnInstallFunctions as $func) {
         self::$func($autoPilot); } }
   }
 
@@ -175,6 +196,25 @@ COMPLETION;
   private function changePermissions($target=null){
     $command = "chmod -R 775 $target";
     self::executeAndOutput($command);
+  }
+
+  private function deleteExecutorIfExists(){
+    $command = 'rm -f '.$this->programExecutorFolder.'/'.$this->programNameMachine;
+    self::executeAndOutput($command, "Program Executor Deleted if existed");
+    return true;
+  }
+
+  private function saveExecutorFile(){
+    $this->populateExecutorFile();
+    return file_put_contents($this->programExecutorFolder.'/'.
+      $this->programNameMachine, $this->bootStrapData);
+  }
+
+  private function populateExecutorFile() {
+    $this->bootStrapData = "#!/usr/bin/php\n
+<?php\n
+exec('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
+?>";
   }
 
   private function doUnInstallCommand(){
@@ -194,7 +234,9 @@ COMPLETION;
 
   private function swapCommandDirs(&$commandArray) {
     foreach ($commandArray as &$comm) {
-        $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);}
+      $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);
+      $comm = str_replace("****PROG EXECUTOR****", $this->programDataFolder,
+        $comm);}
   }
 
   private function swapInstallUserDetails(&$commandArray) {
