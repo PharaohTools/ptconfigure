@@ -23,6 +23,7 @@ class BaseLinuxApp extends Base {
   protected $registeredPreUnInstallFunctions;
   protected $registeredPostInstallFunctions;
   protected $registeredPostUnInstallFunctions;
+  protected $programExecutorCommand;
   protected $programExecutorFolder;
   protected $programExecutorTargetPath;
 
@@ -160,32 +161,32 @@ COMPLETION;
     if (isset($this->registeredPreInstallFunctions) &&
       is_array($this->registeredPreInstallFunctions) &&
       count($this->registeredPreInstallFunctions) >0) {
-      foreach ($this->registeredPreInstallFunctions as $func=>$value) {
-        self::$func($autoPilot, $value); } }
+      foreach ($this->registeredPreInstallFunctions as $func) {
+        self::$func($autoPilot); } }
   }
 
   private function executePostInstallFunctions($autoPilot){
     if (isset($this->registeredPostInstallFunctions) &&
       is_array($this->registeredPostInstallFunctions) &&
       count($this->registeredPostInstallFunctions) >0) {
-      foreach ($this->registeredPostInstallFunctions as $func=>$value) {
-        self::$func($autoPilot, $value); } }
+      foreach ($this->registeredPostInstallFunctions as $func) {
+        self::$func($autoPilot); } }
   }
 
   private function executePreUnInstallFunctions($autoPilot){
     if (isset($this->registeredPreUnInstallFunctions) &&
       is_array($this->registeredPreUnInstallFunctions) &&
       count($this->registeredPreUnInstallFunctions) >0) {
-      foreach ($this->registeredPreUnInstallFunctions as $func=>$value) {
-        self::$func($autoPilot, $value); } }
+      foreach ($this->registeredPreUnInstallFunctions as $func) {
+        self::$func($autoPilot); } }
   }
 
   private function executePostUnInstallFunctions($autoPilot){
     if (isset($this->registeredPostUnInstallFunctions) &&
       is_array($this->registeredPostUnInstallFunctions) &&
       count($this->registeredPostUnInstallFunctions) >0) {
-      foreach ($this->registeredPostUnInstallFunctions as $func=>$value) {
-        self::$func($autoPilot, $value); } }
+      foreach ($this->registeredPostUnInstallFunctions as $func) {
+        self::$func($autoPilot); } }
   }
 
   private function doInstallCommand(){
@@ -206,14 +207,15 @@ COMPLETION;
 
   private function saveExecutorFile(){
     $this->populateExecutorFile();
-    return file_put_contents($this->programExecutorFolder.'/'.
-      $this->programNameMachine, $this->bootStrapData);
+    $executorPath = $this->programExecutorFolder.'/'.$this->programNameMachine;
+    file_put_contents($executorPath, $this->bootStrapData);
+    $this->changePermissions(null, $executorPath);
   }
 
   private function populateExecutorFile() {
     $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
-exec('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
+exec('".$this->programExecutorCommand."');\n
 ?>";
   }
 

@@ -21,6 +21,12 @@ class SeleniumServer extends BaseLinuxApp {
     $this->programNameMachine = "selenium"; // command and app dir name
     $this->programNameFriendly = "Selenium Srv"; // 12 chars
     $this->programNameInstaller = "Selenium Server";
+    $this->programExecutorFolder = "/usr/bin";
+    $this->programExecutorTargetPath = "firefox-bin";
+    $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder .
+      '/selenium-server.jar';
+    $this->registeredPostInstallFunctions = array("deleteExecutorIfExists",
+      "saveExecutorFile");
     $this->initialize();
   }
 
