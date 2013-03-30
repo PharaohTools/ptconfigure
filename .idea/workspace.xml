@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6db2ee95-814d-44ac-afc1-57c1facbeea0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/AutoPilot.php" afterPath="$PROJECT_DIR$/src/Core/AutoPilot.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Model/Firefox17.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/DevClient.php" afterPath="$PROJECT_DIR$/src/Controller/DevClient.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" afterPath="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="boxboss.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364605491930" ignored="false" />
+    <file path="/Dummy.txt" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364608095912" ignored="false" />
     <file path="/install" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364072122543" ignored="false" />
     <file path="/IndexView.tpl.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364076424291" ignored="false" />
     <file path="/a.dummy" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364588673030" ignored="false" />
@@ -52,6 +53,7 @@
     <file path="/Firefox14.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364605586122" ignored="false" />
     <file path="/env.rb" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601357520" ignored="false" />
     <file path="/dev-client-silent.php" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364601670482" ignored="false" />
+    <file path="$PROJECT_DIR$/../../GoldenNew/AlcaEnterpriseShops/LushLips/Gemfile.lock" changelist="6db2ee95-814d-44ac-afc1-57c1facbeea0" time="1364608149993" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,16 +115,7 @@
       <file leaf-file-name="dev-client-silent.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="19" selection-start="575" selection-end="575" vertical-scroll-proportion="-10.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Install.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="36" selection-start="603" selection-end="603" vertical-scroll-proportion="0.0">
+            <state line="30" column="22" selection-start="664" selection-end="664" vertical-scroll-proportion="-14.041667">
               <folding />
             </state>
           </provider>
@@ -131,7 +124,7 @@
       <file leaf-file-name="DevClient.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="92" selection-start="498" selection-end="498" vertical-scroll-proportion="-9.375">
+            <state line="42" column="59" selection-start="1696" selection-end="1696" vertical-scroll-proportion="-15.208333">
               <folding />
             </state>
           </provider>
@@ -146,10 +139,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AutoPilot.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AutoPilot.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Core/AutoPilot.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="53" selection-start="393" selection-end="393" vertical-scroll-proportion="0.42207792">
+            <state line="13" column="53" selection-start="393" selection-end="393" vertical-scroll-proportion="-8.125">
               <folding />
             </state>
           </provider>
@@ -159,6 +152,15 @@
         <entry file="file://$PROJECT_DIR$/src/Model/Firefox14.php">
           <provider selected="true" editor-type-id="text-editor">
             <state line="26" column="0" selection-start="1013" selection-end="1115" vertical-scroll-proportion="-15.083333">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Firefox17.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Model/Firefox17.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="74" selection-start="1147" selection-end="1147" vertical-scroll-proportion="1.0356348">
               <folding />
             </state>
           </provider>
@@ -218,22 +220,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Model/GitTools.php" />
         <option value="$PROJECT_DIR$/src/Model/PHPSeleniumServerExec.php" />
         <option value="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/src/Views/InstallAutopilotView.tpl.php" />
         <option value="$PROJECT_DIR$/src/Controller/Autopilot.php" />
         <option value="$PROJECT_DIR$/src/Model/BasePHPApp.php" />
-        <option value="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Controller/Install.php" />
         <option value="$PROJECT_DIR$/src/Model/BaseLinuxApp.php" />
         <option value="$PROJECT_DIR$/src/Model/Firefox14.php" />
         <option value="$PROJECT_DIR$/src/Model/SeleniumServer.php" />
         <option value="$PROJECT_DIR$/src/Model/Devhelper.php" />
-        <option value="$PROJECT_DIR$/src/Controller/DevClient.php" />
         <option value="$PROJECT_DIR$/src/Core/AutoPilot.php" />
+        <option value="$PROJECT_DIR$/src/Model/Firefox17.php" />
+        <option value="$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php" />
+        <option value="$PROJECT_DIR$/src/Controller/DevClient.php" />
       </list>
     </option>
   </component>
@@ -288,128 +290,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="boxboss" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxboss" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="boxboss" />
@@ -586,7 +466,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295688" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24485597" sideWeight="0.9559083" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31893003" sideWeight="0.9559083" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -662,11 +542,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Views/IndexView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="6" selection-start="3315" selection-end="3315" vertical-scroll-proportion="-45.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
         <state line="55" column="82" selection-start="2858" selection-end="2939" vertical-scroll-proportion="0.0" />
@@ -719,27 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="19" selection-start="575" selection-end="575" vertical-scroll-proportion="-10.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Firefox14.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="1013" selection-end="1115" vertical-scroll-proportion="-15.083333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="92" selection-start="498" selection-end="498" vertical-scroll-proportion="-9.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/PHPUnit.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -754,6 +608,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/AutoPilot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="53" selection-start="393" selection-end="393" vertical-scroll-proportion="-8.125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Firefox14.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="0" selection-start="1013" selection-end="1115" vertical-scroll-proportion="-15.083333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/config/boxboss/dev-client-silent.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="22" selection-start="664" selection-end="664" vertical-scroll-proportion="-14.041667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Autopilot.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="71" selection-start="386" selection-end="549" vertical-scroll-proportion="-9.166667">
@@ -761,9 +636,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/AutoPilot.php">
+    <entry file="file://$PROJECT_DIR$/src/Controller/DevClient.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="53" selection-start="393" selection-end="393" vertical-scroll-proportion="0.42207792">
+        <state line="42" column="59" selection-start="1696" selection-end="1696" vertical-scroll-proportion="-15.208333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Firefox17.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="74" selection-start="1147" selection-end="1147" vertical-scroll-proportion="1.0356348">
           <folding />
         </state>
       </provider>

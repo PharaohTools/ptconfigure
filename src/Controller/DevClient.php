@@ -39,6 +39,9 @@ class DevClient extends Base {
       $firefox14Model = new \Model\Firefox14();
       $this->content["firefox14InstallResult"] = $firefox14Model->askWhetherToInstallLinuxApp();
 
+      $firefox17Model = new \Model\Firefox17();
+      $this->content["firefox17InstallResult"] = $firefox17Model->askWhetherToInstallLinuxApp();
+
       return array ("type"=>"view", "view"=>"installDevClient", "pageVars"=>$this->content);
 
     }

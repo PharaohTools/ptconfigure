@@ -27,6 +27,9 @@ class AutoPilotConfigured extends AutoPilot {
       // Firefox 14
       $this->Firefox14InstallExecute = true;
 
+      // Firefox 17
+      $this->Firefox17InstallExecute = true;
+
     }
 
 }
