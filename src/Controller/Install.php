@@ -17,7 +17,8 @@ class Install extends Base {
           "production" => "ProductionServer" );
 
         if (array_key_exists($action, $actionsToClasses)) {
-          $install = new $actionsToClasses[$action]();
+          $className = '\\Controller\\'.$actionsToClasses[$action];
+          $install = new $className();
           return $install->execute($pageVars);}
 
         if ($action=="autopilot") {

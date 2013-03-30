@@ -20,9 +20,9 @@ class Firefox14 extends BaseLinuxApp {
     $this->programNameFriendly = " Firefox 14 "; // 12 chars
     $this->programNameInstaller = "Firefox 14";
     $this->programExecutorFolder = "/usr/bin";
-    $this->programExecutorTargetPath = "/opt/firefox14/firefox-bin";
+    $this->programExecutorTargetPath = "firefox-bin";
     $this->registeredPostInstallFunctions = array("deleteExecutorIfExists",
-      "saveExecutorFile");
+      "saveExecutorFile", "changePermissions"=>"/usr/bin/firefox14");
     $this->initialize();
   }
 

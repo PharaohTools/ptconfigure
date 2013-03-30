@@ -160,32 +160,32 @@ COMPLETION;
     if (isset($this->registeredPreInstallFunctions) &&
       is_array($this->registeredPreInstallFunctions) &&
       count($this->registeredPreInstallFunctions) >0) {
-      foreach ($this->registeredPreInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+      foreach ($this->registeredPreInstallFunctions as $func=>$value) {
+        self::$func($autoPilot, $value); } }
   }
 
   private function executePostInstallFunctions($autoPilot){
     if (isset($this->registeredPostInstallFunctions) &&
       is_array($this->registeredPostInstallFunctions) &&
       count($this->registeredPostInstallFunctions) >0) {
-      foreach ($this->registeredPostInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+      foreach ($this->registeredPostInstallFunctions as $func=>$value) {
+        self::$func($autoPilot, $value); } }
   }
 
   private function executePreUnInstallFunctions($autoPilot){
     if (isset($this->registeredPreUnInstallFunctions) &&
       is_array($this->registeredPreUnInstallFunctions) &&
       count($this->registeredPreUnInstallFunctions) >0) {
-      foreach ($this->registeredPreUnInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+      foreach ($this->registeredPreUnInstallFunctions as $func=>$value) {
+        self::$func($autoPilot, $value); } }
   }
 
   private function executePostUnInstallFunctions($autoPilot){
     if (isset($this->registeredPostUnInstallFunctions) &&
       is_array($this->registeredPostUnInstallFunctions) &&
       count($this->registeredPostUnInstallFunctions) >0) {
-      foreach ($this->registeredPostUnInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+      foreach ($this->registeredPostUnInstallFunctions as $func=>$value) {
+        self::$func($autoPilot, $value); } }
   }
 
   private function doInstallCommand(){
@@ -193,7 +193,7 @@ COMPLETION;
     self::executeAsShell($this->installCommands);
   }
 
-  private function changePermissions($target=null){
+  private function changePermissions($autoPilot, $target=null){
     $command = "chmod -R 775 $target";
     self::executeAndOutput($command);
   }
