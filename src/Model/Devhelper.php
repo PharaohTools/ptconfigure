@@ -6,7 +6,7 @@ class Devhelper extends BasePHPApp {
 
   public function __construct() {
     parent::__construct();
-    $this->autopilotDefiner = "PHPCS";
+    $this->autopilotDefiner = "Devhelper";
     $this->fileSources = array(
       array(
         "https://github.com/phpengine/devhelper.git",
