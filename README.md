@@ -106,7 +106,7 @@ install
         example: boxboss install cherry-pick
 
         @todo quite a few on this one, currently git & tools, phpunit, phpcs, phpmd, ruby, jenkin
-        selenium, devhelper are available. Installers for mysql, apache2, php modules, apache modules,
+        selenium, firefox 14, devhelper are available. Installers for mysql, apache2, php modules, apache modules,
         git web/viewgit, web page analyzer, intelli j, java (for intellij), eclipse,
         geany, mysql workbench, hip-hop, devhelper, all
         still to come

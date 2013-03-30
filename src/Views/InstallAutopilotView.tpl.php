@@ -17,6 +17,8 @@ Ruby RVM: <?php echo $pageVars["rubyRVMInstallResult"] ; ?>
 
 Selenium: <?php echo $pageVars["seleniumInstallResult"] ; ?>
 
+Firefox 14: <?php echo $pageVars["firefox14InstallResult"] ; ?>
+
 <?php
 //} else if (isset($pageVars["route"]["extraParams"][0]) &&
 //                 $pageVars["route"]["extraParams"][0]=="autogen") {

@@ -45,6 +45,10 @@ class Autopilot extends Base {
       $this->content["seleniumInstallResult"]
         = $seleniumModel->runAutoPilotLinuxAppInstall($autoPilot);
 
+      $firefox14Model = new \Model\Firefox14();
+      $this->content["firefox14InstallResult"]
+        = $firefox14Model->runAutoPilotLinuxAppInstall($autoPilot);
+
       return array ("type"=>"view", "view"=>"installAutopilot",
         "pageVars"=>$this->content);
 
