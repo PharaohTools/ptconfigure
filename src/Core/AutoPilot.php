@@ -11,7 +11,7 @@ class AutoPilot {
   // Devhelper Install Variables
   public $DevhelperInstallExecute = false; // true or false
   public $DevhelperUnInstallExecute = false;
-  public $DevhelperInstallDirectory = '/opt/phpunit';
+  public $DevhelperInstallDirectory = '/opt/devhelper';
   public $DevhelperExecutorDirectory = '/usr/bin';
 
   // PHP Unit 3.5 (for php 5.3) Install Variables

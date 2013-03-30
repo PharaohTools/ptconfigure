@@ -9,6 +9,12 @@ class DevClient extends Base {
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
 
+      $gitToolsModel = new \Model\GitTools();
+      $this->content["gitToolsInstallResult"] = $gitToolsModel->askWhetherToInstallLinuxApp();
+
+      $devhelperModel = new \Model\Devhelper();
+      $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
+
       $phpUnitModel = new \Model\PHPUnit();
       $this->content["phpUnitInstallResult"]= $phpUnitModel->askWhetherToInstallPHPApp();
 
@@ -17,9 +23,6 @@ class DevClient extends Base {
 
       $phpMDModel = new \Model\PHPMD();
       $this->content["phpMDInstallResult"] = $phpMDModel->askWhetherToInstallPHPApp();
-
-      $gitToolsModel = new \Model\GitTools();
-      $this->content["gitToolsInstallResult"] = $gitToolsModel->askWhetherToInstallLinuxApp();
 
       $javaModel = new \Model\Java();
       $this->content["javaInstallResult"] = $javaModel->askWhetherToInstallLinuxApp();
