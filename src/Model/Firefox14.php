@@ -10,6 +10,7 @@ class Firefox14 extends BaseLinuxApp {
     $this->installCommands = array(
       "cd /tmp" ,
       "git clone https://github.com/phpengine/boxboss-firefox14 firefox14",
+      "rm -rf ****PROGDIR****",
       "mkdir -p ****PROGDIR****",
       "mv /tmp/firefox14/* ****PROGDIR****",
       "rm -rf /tmp/firefox14" );
@@ -22,8 +23,9 @@ class Firefox14 extends BaseLinuxApp {
     $this->programNameInstaller = "Firefox 14";
     $this->programExecutorFolder = "/usr/bin";
     $this->programExecutorTargetPath = "firefox-bin";
+    $this->programExecutorCommand = $this->programDataFolder.'/'.$this->programExecutorTargetPath;
     $this->registeredPostInstallFunctions = array("deleteExecutorIfExists",
-      "saveExecutorFile", "changePermissions"=>"/usr/bin/firefox14");
+      "saveExecutorFile");
     $this->initialize();
   }
 
