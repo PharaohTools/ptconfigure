@@ -11,7 +11,8 @@ class Firefox14 extends BaseLinuxApp {
       "cd /tmp" ,
       "git clone https://github.com/phpengine/boxboss-firefox14 firefox14",
       "mkdir -p ****PROGDIR****",
-      "mv /tmp/firefox14/* ****PROGDIR****" );
+      "mv /tmp/firefox14/* ****PROGDIR****",
+      "rm -rf /tmp/firefox14" );
     $this->uninstallCommands = array(
       "rm -rf ****PROGDIR****",
       "rm -rf ****PROG EXECUTOR****", );
