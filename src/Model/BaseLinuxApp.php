@@ -235,18 +235,20 @@ exec('".$this->programExecutorCommand."');\n
   }
 
   private function swapCommandDirs(&$commandArray) {
-    foreach ($commandArray as &$comm) {
-      $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);
-      $comm = str_replace("****PROG EXECUTOR****", $this->programDataFolder,
-        $comm);}
+    if (is_array($commandArray) && count($commandArray)>0) {
+      foreach ($commandArray as &$comm) {
+        $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);
+        $comm = str_replace("****PROG EXECUTOR****", $this->programDataFolder,
+          $comm); } }
   }
 
   private function swapInstallUserDetails(&$commandArray) {
-    foreach ($commandArray as &$comm) {
-      $comm = str_replace("****INSTALL USER NAME****", $this->installUserName,
-        $comm);
-      $comm = str_replace("****INSTALL USER HOME DIR****",
-        $this->installUserHomeDir, $comm); }
+    if (is_array($commandArray) && count($commandArray)>0) {
+      foreach ($commandArray as &$comm) {
+        $comm = str_replace("****INSTALL USER NAME****", $this->installUserName,
+          $comm);
+        $comm = str_replace("****INSTALL USER HOME DIR****",
+          $this->installUserHomeDir, $comm); } }
   }
 
 }
