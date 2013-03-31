@@ -15,7 +15,8 @@ class Base {
         $outputText = shell_exec($tempFile);
         if ($message !== null) { $outputText .= "$message\n"; }
         echo $outputText;
-        shell_exec("rm $tempFile", "Temp File $tempFile Removed");
+        shell_exec("rm $tempFile");
+        echo "Temp File $tempFile Removed";
     }
 
     protected function executeAndOutput($command, $message=null) {
