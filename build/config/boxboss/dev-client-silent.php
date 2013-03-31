@@ -21,6 +21,15 @@ class AutoPilotConfigured extends AutoPilot {
       // PHP Mess Detector
       $this->PHPMDInstallExecute = true;
 
+      // Oracle Java 7 JDK
+      $this->JavaJDKInstallExecute = false;
+
+      // Jenkins
+      $this->JenkinsInstallExecute = true;
+
+      // Ruby RVM
+      $this->RubyRVMInstallExecute = true;
+
       // Selenium Server
       $this->SeleniumServerInstallExecute = true;
 
