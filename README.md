@@ -17,13 +17,13 @@ Installation
 
 To install devhelper cli on your machine do the following. If you already have php5 and git installed skip line 1:
 
-apt-get php5 git
+sudo apt-get install php5 git
 
-git clone https://github.com/phpengine/devhelper && sudo devhelper/install-silent
+git clone https://github.com/phpengine/devhelper && sudo php devhelper/install-silent
 
 or...
 
-git clone https://github.com/phpengine/devhelper && sudo devhelper/install
+git clone https://github.com/phpengine/devhelper && sudo php devhelper/install
 (if you want to choose the install location)
 
 ... that's it, now the devhelper command should be available at the command line for you.

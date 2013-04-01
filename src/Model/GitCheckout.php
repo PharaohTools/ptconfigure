@@ -69,7 +69,7 @@ class GitCheckout extends Base {
         // @todo the git --single-branch option gave errors on centos 6.2, so instead of cloning a single branch I
         // changed it to clone whole repo then switch to specified. works on ubuntu and centos
         // $branchParam = ($customBranch!=null) ? $customBranch.' --single-branch ' : "" ;
-        $branchParam = ($customBranch != null) ? '-b '.escapeshellarg($customBranch).' ' : "" ;
+        $branchParam = ($customBranch != null) ? '--branch '.escapeshellarg($customBranch).' ' : "" ;
         $command  = 'git clone '.$branchParam.escapeshellarg($projectOriginRepo);
         if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
         $nameInRepo = substr($projectOriginRepo, strrpos($projectOriginRepo, '/', -1) );
