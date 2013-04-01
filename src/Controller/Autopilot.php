@@ -9,9 +9,17 @@ class Autopilot extends Base {
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
 
+      $boxBossModel = new \Model\DeveloperTools();
+      $this->content["boxBossInstallResult"]
+        = $boxBossModel->runAutoPilotLinuxAppInstall($autoPilot);
+
       $gitToolsModel = new \Model\GitTools();
       $this->content["gitToolsInstallResult"]
         = $gitToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
+
+      $devToolsModel = new \Model\DeveloperTools();
+      $this->content["devToolsInstallResult"]
+        = $devToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
 
       $devhelperModel = new \Model\Devhelper();
       $this->content["devhelperInstallResult"]
@@ -48,6 +56,18 @@ class Autopilot extends Base {
       $firefox14Model = new \Model\Firefox14();
       $this->content["firefox14InstallResult"]
         = $firefox14Model->runAutoPilotLinuxAppInstall($autoPilot);
+
+      $firefox17Model = new \Model\Firefox17();
+      $this->content["firefox17InstallResult"]
+        = $firefox17Model->runAutoPilotLinuxAppInstall($autoPilot);
+
+      $mysqlToolsModel = new \Model\MysqlTools();
+      $this->content["mysqlToolsInstallResult"]
+        = $mysqlToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
+
+      $mediaToolsModel = new \Model\MediaTools();
+      $this->content["mediaToolsInstallResult"]
+        = $mediaToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
 
       return array ("type"=>"view", "view"=>"installAutopilot",
         "pageVars"=>$this->content);

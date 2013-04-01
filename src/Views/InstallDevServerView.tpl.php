@@ -1,3 +1,7 @@
+Development Server Preconfigured Installer:
+--------------------------------------------
+
+BoxBoss Upgrade: <?php echo $pageVars["boxBossInstallResult"] ; ?>
 
 Devhelper: <?php echo $pageVars["devhelperInstallResult"] ; ?>
 
@@ -24,14 +28,6 @@ Firefox 17: <?php echo $pageVars["fireFox17InstallResult"] ; ?>
 MySQL Tools: <?php echo $pageVars["mysqlToolsInstallResult"] ; ?>
 
 Media Tools: <?php echo $pageVars["mediaToolsInstallResult"] ; ?>
-
-<?php
-//} else if (isset($pageVars["route"]["extraParams"][0]) &&
-//                 $pageVars["route"]["extraParams"][0]=="autogen") {
-//
-?>
-<?php
-//} ?>
 
 ------------------------------
 Installer Finished
