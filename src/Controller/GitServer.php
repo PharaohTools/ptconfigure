@@ -8,12 +8,17 @@ class GitServer extends Base {
 
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
-      $action = $pageVars["route"]["action"];
 
-      $phpUnitModel = new \Model\PHPUnit();
-      $this->content["phpUnitInstallResult"] = $phpUnitModel->askWhetherToInstallPHPApp();
+      $boxBossModel = new \Model\BoxBoss();
+      $this->content["boxBossInstallResult"] = $boxBossModel->askWhetherToInstallPHPApp();
 
-      return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);
+      $gitToolsModel = new \Model\GitTools();
+      $this->content["gitToolsInstallResult"] = $gitToolsModel->askWhetherToInstallLinuxApp();
+
+      $devhelperModel = new \Model\Devhelper();
+      $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
+
+      return array ("type"=>"view", "view"=>"installGitServer", "pageVars"=>$this->content);
 
     }
 
