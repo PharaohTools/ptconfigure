@@ -51,7 +51,7 @@ Installation
 
 To install boxboss cli on your machine do the following. If you already have php5 and git installed skip line 1:
 
-apt-get php5 git
+sudo apt-get install php5 git
 
 git clone https://github.com/phpengine/boxboss && sudo php boxboss/install-silent
 
@@ -78,7 +78,7 @@ install
         example: boxboss install autopilot dev-client-silent
         example: boxboss install autopilot dev-client-autogen
 
-        - dev-server @todo
+        - dev-server
         Install the preconfigured list of software for a developers server. Specifying a user to install software
         as is required. You can use the keyword silent which will use boxboss's default values to perform an
         unattended install. You can also use the keyword autogen which will generate values for sensitive data
@@ -87,7 +87,7 @@ install
         example: boxboss install autopilot dev-server-silent
         example: boxboss install autopilot dev-server-autogen
 
-        - test-server @todo
+        - test-server
         Install the preconfigured list of software for a testing server. Specifying a user to install software
         as is required. You can use the keyword silent which will use boxboss's default values to perform an
         unattended install. You can also use the keyword autogen which will generate values for sensitive data
@@ -106,7 +106,6 @@ install
         example: boxboss install cherry-pick
 
         @todo quite a few on this one, currently git & tools, phpunit, phpcs, phpmd, ruby, jenkin
-        selenium, firefox 14, devhelper are available. Installers for mysql, apache2, php modules, apache modules,
-        git web/viewgit, web page analyzer, intelli j, java (for intellij), eclipse,
-        geany, mysql workbench, hip-hop, devhelper, all
-        still to come
+        selenium, devhelper, geany, mysql workbench, devhelper, kompozer, php modules,apache modules
+        are available. Installers for mysql, apache2, intelli j, java (for intellij), hip-hop ,
+        git web/viewgit (a devhelper autopilot) , web page analyzer (a devhelper autopilot) still to do

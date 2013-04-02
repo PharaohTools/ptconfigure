@@ -78,7 +78,7 @@ install
     example: boxboss install autopilot dev-client-silent
     example: boxboss install autopilot dev-client-autogen
 
-    - dev-server @todo
+    - dev-server
     Install the preconfigured list of software for a developers server. Specifying a user to install software
     as is required. You can use the keyword silent which will use boxboss's default values to perform an
     unattended install. You can also use the keyword autogen which will generate values for sensitive data
@@ -87,7 +87,7 @@ install
     example: boxboss install autopilot dev-server-silent
     example: boxboss install autopilot dev-server-autogen
 
-    - test-server @todo
+    - test-server
     Install the preconfigured list of software for a testing server. Specifying a user to install software
     as is required. You can use the keyword silent which will use boxboss's default values to perform an
     unattended install. You can also use the keyword autogen which will generate values for sensitive data
