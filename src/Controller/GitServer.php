@@ -15,6 +15,12 @@ class GitServer extends Base {
       $gitToolsModel = new \Model\GitTools();
       $this->content["gitToolsInstallResult"] = $gitToolsModel->askWhetherToInstallLinuxApp();
 
+      $phpModulesModel = new \Model\PHPModules();
+      $this->content["phpModulesInstallResult"] = $phpModulesModel->askWhetherToInstallLinuxApp();
+
+      $apacheModulesModel = new \Model\ApacheModules();
+      $this->content["apacheModulesInstallResult"] = $apacheModulesModel->askWhetherToInstallLinuxApp();
+
       $devhelperModel = new \Model\Devhelper();
       $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
 

@@ -3,6 +3,10 @@ Devhelper: <?php echo $pageVars["devhelperInstallResult"] ; ?>
 
 Git Tools: <?php echo $pageVars["gitToolsInstallResult"] ; ?>
 
+PHP Modules: <?php echo $pageVars["phpModulesInstallResult"] ; ?>
+
+Apache Modules: <?php echo $pageVars["apacheModulesInstallResult"] ; ?>
+
 PHP Unit 3.5: <?php echo $pageVars["phpUnit35InstallResult"] ; ?>
 
 PHP CodeSniffer: <?php echo $pageVars["phpCSInstallResult"] ; ?>
