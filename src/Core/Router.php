@@ -1,4 +1,4 @@
-<?php
+<?php			
 
 Namespace Core;
 
@@ -7,7 +7,7 @@ class Router {
     private	$argv;
     private	$route;
     private $availableRoutes = array(
-        "index" => array("index") ,
+        "index" => array("index") ,		
         "invoke" => array("cli", "script", "autopilot") ,
         "version" => array("cli", "latest", "rollback", "specific") ,
         "setup" => array("dev-client") ,
