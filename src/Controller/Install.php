@@ -182,11 +182,20 @@ class Install extends Base {
 
     }
 
-    private function loadAutoPilot($autoPilotFile){
-        if (file_exists($autoPilotFile)) {
-            include_once($autoPilotFile); }
-        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ? new \Core\AutoPilotConfigured() : null ;
+    private function loadAutoPilot($autoPilotFileName){
+        $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotFileName);
+        $defaultFolderToCheck = str_replace("src/Controller",
+          "build/config/devhelper", dirname(__FILE__));
+        $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
+        if (file_exists($defaultName)) {
+          include_once($defaultName); }
+        else if (file_exists("autopilot-".$defaultName)) {
+          include_once("autopilot-".$defaultName); }
+        else if (file_exists($autoPilotFile)) {
+          require_once($autoPilotFile); } 
+        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
+          new \Core\AutoPilotConfigured() : null ;
         return $autoPilot;
     }
-
+    
 }
