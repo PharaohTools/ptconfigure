@@ -16,7 +16,7 @@ class Router {
         "VHostEditor" => array("add", "rm", "list") ,
         "cukeConf" => array("conf", "reset")  ,
         "database" => array("install", "drop", "configure", "config", "conf", "reset")  ,
-        "project" => array("init", "build-install")  ,
+        "project" => array("init", "build-install", "container", "cont")  ,
         "install" => array("cli", "autopilot") );
 
 	public function run($argv) {
