@@ -44,10 +44,12 @@ class Install extends Base {
         $defaultFolderToCheck = str_replace("src/Controller",
           "build/config/boxboss", dirname(__FILE__));
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
-        if (file_exists($autoPilotFile)) {
-          require_once($autoPilotFile); }
-        else if (file_exists($defaultName)) {
+        if (file_exists($defaultName)) {
           include_once($defaultName); }
+        else if (file_exists("autopilot-".$defaultName)) {
+          include_once("autopilot-".$defaultName); }
+        else if (file_exists($autoPilotFile)) {
+          require_once($autoPilotFile); } 
         $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
           new \Core\AutoPilotConfigured() : null ;
         return $autoPilot;

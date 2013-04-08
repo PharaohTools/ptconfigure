@@ -12,6 +12,9 @@ class ProductionServer extends Base {
       $boxBossModel = new \Model\BoxBoss();
       $this->content["boxBossInstallResult"] = $boxBossModel->askWhetherToInstallPHPApp();
 
+      $stToolsModel = new \Model\StandardTools();
+      $this->content["stToolsInstallResult"] = $stToolsModel->askWhetherToInstallLinuxApp();
+
       $gitToolsModel = new \Model\GitTools();
       $this->content["gitToolsInstallResult"] = $gitToolsModel->askWhetherToInstallLinuxApp();
 

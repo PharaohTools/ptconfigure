@@ -8,15 +8,18 @@ class Base {
         $tempFile = "/tmp/boxboss-temp-script-".mt_rand(100, 99999999999).".sh";
         echo "Creating $tempFile\n";
         $fileVar = "";
-        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
+        if (is_array($multiLineCommand) && count($multiLineCommand)>0) {
+			foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; } }
         file_put_contents($tempFile, $fileVar);
-        chmod($tempFile, 0755);
+        echo "chmod 755 $tempFile 2>/dev/null\n";
+        shell_exec("chmod 755 $tempFile 2>/dev/null");
+        echo "Changing $tempFile Permissions\n";
         echo "Executing $tempFile\n";
         $outputText = shell_exec($tempFile);
         if ($message !== null) { $outputText .= "$message\n"; }
         echo $outputText;
         shell_exec("rm $tempFile");
-        echo "Temp File $tempFile Removed";
+        echo "Temp File $tempFile Removed\n";
     }
 
     protected function executeAndOutput($command, $message=null) {

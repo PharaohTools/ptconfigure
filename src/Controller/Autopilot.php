@@ -13,6 +13,10 @@ class Autopilot extends Base {
       $this->content["boxBossInstallResult"]
         = $boxBossModel->runAutoPilotLinuxAppInstall($autoPilot);
 
+      $stToolsModel = new \Model\StandardTools();
+      $this->content["stToolsInstallResult"]
+        = $stToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
+
       $gitToolsModel = new \Model\GitTools();
       $this->content["gitToolsInstallResult"]
         = $gitToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
