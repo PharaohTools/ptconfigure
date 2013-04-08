@@ -12,6 +12,9 @@ class DevClient extends Base {
       $boxBossModel = new \Model\BoxBoss();
       $this->content["boxBossInstallResult"] = $boxBossModel->askWhetherToInstallPHPApp();
 
+      $stToolsModel = new \Model\StandardTools();
+      $this->content["stToolsInstallResult"] = $stToolsModel->askWhetherToInstallLinuxApp();
+
       $gitToolsModel = new \Model\GitTools();
       $this->content["gitToolsInstallResult"] = $gitToolsModel->askWhetherToInstallLinuxApp();
 
@@ -28,7 +31,7 @@ class DevClient extends Base {
       $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
 
       $phpUnitModel = new \Model\PHPUnit();
-      $this->content["phpUnitInstallResult"]= $phpUnitModel->askWhetherToInstallPHPApp();
+      $this->content["phpUnit35InstallResult"]= $phpUnitModel->askWhetherToInstallPHPApp();
 
       $phpCSModel = new \Model\PHPCS();
       $this->content["phpCSInstallResult"] = $phpCSModel->askWhetherToInstallPHPApp();
