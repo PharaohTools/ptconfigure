@@ -9,7 +9,7 @@ class Autopilot extends Base {
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
 
-      $boxBossModel = new \Model\DeveloperTools();
+      $boxBossModel = new \Model\BoxBoss();
       $this->content["boxBossInstallResult"]
         = $boxBossModel->runAutoPilotLinuxAppInstall($autoPilot);
 
@@ -20,10 +20,6 @@ class Autopilot extends Base {
       $gitToolsModel = new \Model\GitTools();
       $this->content["gitToolsInstallResult"]
         = $gitToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
-
-      $devToolsModel = new \Model\DeveloperTools();
-      $this->content["devToolsInstallResult"]
-        = $devToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
 
       $devhelperModel = new \Model\Devhelper();
       $this->content["devhelperInstallResult"]
@@ -56,7 +52,7 @@ class Autopilot extends Base {
       $seleniumModel = new \Model\SeleniumServer();
       $this->content["seleniumInstallResult"]
         = $seleniumModel->runAutoPilotLinuxAppInstall($autoPilot);
-
+ 
       $firefox14Model = new \Model\Firefox14();
       $this->content["firefox14InstallResult"]
         = $firefox14Model->runAutoPilotLinuxAppInstall($autoPilot);
@@ -65,6 +61,14 @@ class Autopilot extends Base {
       $this->content["firefox17InstallResult"]
         = $firefox17Model->runAutoPilotLinuxAppInstall($autoPilot);
 
+      $devToolsModel = new \Model\DeveloperTools();
+      $this->content["devToolsInstallResult"]
+        = $devToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
+
+      $intelllijModel = new \Model\IntelliJ();
+      $this->content["devToolsInstallResult"]
+        = $intelllijModel->runAutoPilotLinuxAppInstall($autoPilot);
+        
       $mysqlToolsModel = new \Model\MysqlTools();
       $this->content["mysqlToolsInstallResult"]
         = $mysqlToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
