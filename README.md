@@ -20,7 +20,7 @@ So, there are basically only a few simple commands...
 
 boxboss install cherry-pick - Pick individual or multiple bits of software to install
 boxboss install autopilot *Your Custom File* - Use preset defaults to perform an unattended installation
-
+ 
 boxboss install autopilot dev-client - Install a preconfigured set of software for a dev client (Your Workstation)
 boxboss install autopilot dev-server - Install a preconfigured set of software for a dev server (Team Playaround Box)
 boxboss install autopilot test-server - Install a preconfigured set of software for a Build/Testing server
@@ -105,7 +105,7 @@ install
         Install indivdual available programs
         example: boxboss install cherry-pick
 
-        @todo quite a few on this one, currently git & tools, phpunit, phpcs, phpmd, ruby, jenkin
+        @todo not many left just the more complex..., currently git & tools, phpunit, phpcs, phpmd, ruby, jenkin
         selenium, devhelper, geany, mysql workbench, devhelper, kompozer, php modules,apache modules
-        are available. Installers for mysql, apache2, intelli j, java (for intellij), hip-hop ,
-        git web/viewgit (a devhelper autopilot) , web page analyzer (a devhelper autopilot) still to do
+        mysql, apache2, intelli j, java (for intellij) are available. Installers for , hip-hop ,
+        git web/viewgit (a devhelper autopilot) , web page test (a devhelper autopilot) still to do

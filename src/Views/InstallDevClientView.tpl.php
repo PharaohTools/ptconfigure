@@ -22,12 +22,16 @@ Java: <?php echo $pageVars["javaInstallResult"] ; ?>
 Jenkins: <?php echo $pageVars["jenkinsInstallResult"] ; ?>
 
 Ruby RVM: <?php echo $pageVars["rubyRVMInstallResult"] ; ?>
-
+ 
 Selenium: <?php echo $pageVars["seleniumInstallResult"] ; ?>
 
 Firefox 14: <?php echo $pageVars["fireFox14InstallResult"] ; ?>
 
 Firefox 17: <?php echo $pageVars["fireFox17InstallResult"] ; ?>
+
+Developer Tools: <?php echo $pageVars["developerToolsInstallResult"] ; ?>
+
+Intelli J: <?php echo $pageVars["intellijInstallResult"] ; ?>
 
 MySQL Tools: <?php echo $pageVars["mysqlToolsInstallResult"] ; ?>
 
