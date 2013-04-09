@@ -68,7 +68,15 @@ class Autopilot extends Base {
       $intelllijModel = new \Model\IntelliJ();
       $this->content["devToolsInstallResult"]
         = $intelllijModel->runAutoPilotLinuxAppInstall($autoPilot);
-        
+
+      $mysqlToolsModel = new \Model\MysqlTools();
+      $this->content["mysqlToolsInstallResult"]
+        = $mysqlToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
+
+      $mysqlAdminsModel = new \Model\MysqlAdmins();
+      $this->content["mysqlAdminsInstallResult"]
+        = $mysqlAdminsModel->runAutoPilotLinuxAppInstall($autoPilot);
+
       $mysqlToolsModel = new \Model\MysqlTools();
       $this->content["mysqlToolsInstallResult"]
         = $mysqlToolsModel->runAutoPilotLinuxAppInstall($autoPilot);

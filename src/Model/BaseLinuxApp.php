@@ -130,7 +130,7 @@ COMPLETION;
   private function askForInstallUserName($autoPilot=null){
     if (isset($autoPilot) &&
       $autoPilot->{$this->autopilotDefiner."InstallUserName"} ) {
-      $this->installUserHomeDir
+      $this->installUserName
         = $autoPilot->{$this->autopilotDefiner."InstallUserName"}; }
     else {
       $question = "Enter User To Install As:";
