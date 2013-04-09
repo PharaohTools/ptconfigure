@@ -49,12 +49,11 @@ class Install extends Base {
 
         if ($action=="autopilot") {
 
-            $autoPilotType= (isset($pageVars["route"]["extraParams"][0])) ? $pageVars["route"]["extraParams"][0] : null;
+            $autoPilotParam= (isset($pageVars["route"]["extraParams"][0])) ? $pageVars["route"]["extraParams"][0] : null;
 
-            if (isset($autoPilotType) && strlen($autoPilotType)>0 ) {
+            if (isset($autoPilotParam) && strlen($autoPilotParam)>0 ) {
 
-                $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotType);
-                $autoPilot = $this->loadAutoPilot($autoPilotFile);
+                $autoPilot = $this->loadAutoPilot($autoPilotParam);
 
                 if ( $autoPilot!==null ) {
 
@@ -184,13 +183,13 @@ class Install extends Base {
 
     private function loadAutoPilot($autoPilotFileName){
         $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotFileName);
-        $defaultFolderToCheck = str_replace("src/Controller",
-          "build/config/devhelper", dirname(__FILE__));
+        $defaultFolderToCheck = getcwd()."/build/config/devhelper/autopilots";
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
+        $defaultAndPilotName = $defaultFolderToCheck.'/'."autopilot-".$autoPilotFileName.".php";
         if (file_exists($defaultName)) {
-          include_once($defaultName); }
-        else if (file_exists("autopilot-".$defaultName)) {
-          include_once("autopilot-".$defaultName); }
+          require_once($defaultName); }
+        else if (file_exists($defaultAndPilotName)) {
+          require_once($defaultAndPilotName); }
         else if (file_exists($autoPilotFile)) {
           require_once($autoPilotFile); } 
         $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
