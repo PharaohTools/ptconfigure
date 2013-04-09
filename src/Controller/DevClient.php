@@ -63,6 +63,12 @@ class DevClient extends Base {
       $mysqlToolsModel = new \Model\MysqlTools();
       $this->content["mysqlToolsInstallResult"] = $mysqlToolsModel->askWhetherToInstallLinuxApp();
 
+      $mysqlAdminsModel = new \Model\MysqlAdmins();
+      $this->content["mysqlAdminsInstallResult"] = $mysqlAdminsModel->askWhetherToInstallLinuxApp();
+
+      $sudoNoPassModel = new \Model\SudoNoPass();
+      $this->content["sudoNoPassInstallResult"] = $sudoNoPassModel->askWhetherToInstallLinuxApp();
+
       $mediaToolsModel = new \Model\MediaTools();
       $this->content["mediaToolsInstallResult"] = $mediaToolsModel->askWhetherToInstallLinuxApp();
 
