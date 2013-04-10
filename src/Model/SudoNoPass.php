@@ -19,8 +19,14 @@ class SudoNoPass extends BaseLinuxApp {
     $this->initialize();
   }
 
-  private function setInstallCommandsWithNewUserName() {
-    array('echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" >> /etc/sudoers ' );
+  protected function setInstallCommandsWithNewUserName() {
+      $this->installCommands = array(
+        'echo "The following will be written to /etc/sudoers" ',
+        'echo "Please check if it looks wrong" ',
+        'echo "It may break your system if wrong !!!" ',
+        'echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" ',
+        'echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" >> /etc/sudoers '
+    );
   }
 
 }

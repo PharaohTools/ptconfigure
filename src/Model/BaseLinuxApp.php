@@ -162,7 +162,7 @@ COMPLETION;
       is_array($this->registeredPreInstallFunctions) &&
       count($this->registeredPreInstallFunctions) >0) {
       foreach ($this->registeredPreInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+        $this->$func($autoPilot); } }
   }
 
   private function executePostInstallFunctions($autoPilot){
@@ -170,7 +170,7 @@ COMPLETION;
       is_array($this->registeredPostInstallFunctions) &&
       count($this->registeredPostInstallFunctions) >0) {
       foreach ($this->registeredPostInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+        $this->$func($autoPilot); } }
   }
 
   private function executePreUnInstallFunctions($autoPilot){
@@ -178,7 +178,7 @@ COMPLETION;
       is_array($this->registeredPreUnInstallFunctions) &&
       count($this->registeredPreUnInstallFunctions) >0) {
       foreach ($this->registeredPreUnInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+        $this->$func($autoPilot); } }
   }
 
   private function executePostUnInstallFunctions($autoPilot){
@@ -186,7 +186,7 @@ COMPLETION;
       is_array($this->registeredPostUnInstallFunctions) &&
       count($this->registeredPostUnInstallFunctions) >0) {
       foreach ($this->registeredPostUnInstallFunctions as $func) {
-        self::$func($autoPilot); } }
+        $this->$func($autoPilot); } }
   }
 
   private function doInstallCommand(){
