@@ -42,6 +42,12 @@ class DevClient extends Base {
       $jenkinsModel = new \Model\Jenkins();
       $this->content["jenkinsInstallResult"] = $jenkinsModel->askWhetherToInstallLinuxApp();
 
+      $jenkinsPluginsModel = new \Model\JenkinsPlugins();
+      $this->content["jenkinsPluginsInstallResult"] = $jenkinsPluginsModel->askWhetherToInstallLinuxApp();
+
+      $jenkinsSudoModel = new \Model\JenkinsSudoNoPass();
+      $this->content["jenkinsSudoInstallResult"] = $jenkinsSudoModel->askWhetherToInstallLinuxApp();
+
       $rubyRVMModel = new \Model\RubyRVM();
       $this->content["rubyRVMInstallResult"] = $rubyRVMModel->askWhetherToInstallLinuxApp();
 

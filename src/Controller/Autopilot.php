@@ -45,6 +45,14 @@ class Autopilot extends Base {
       $this->content["jenkinsInstallResult"]
         = $jenkinsModel->runAutoPilotLinuxAppInstall($autoPilot);
 
+      $jenkinsPluginsModel = new \Model\Jenkins();
+      $this->content["jenkinsPluginsInstallResult"]
+        = $jenkinsPluginsModel->runAutoPilotLinuxAppInstall($autoPilot);
+
+      $jenkinsSudoModel = new \Model\JenkinsSudoNoPass();
+      $this->content["jenkinsSudoInstallResult"]
+            = $jenkinsSudoModel->runAutoPilotLinuxAppInstall($autoPilot);
+
       $rubyRVMModel = new \Model\RubyRVM();
       $this->content["rubyRVMInstallResult"]
         = $rubyRVMModel->runAutoPilotLinuxAppInstall($autoPilot);
@@ -77,9 +85,9 @@ class Autopilot extends Base {
       $this->content["mysqlAdminsInstallResult"]
         = $mysqlAdminsModel->runAutoPilotLinuxAppInstall($autoPilot);
 
-      $mysqlToolsModel = new \Model\MysqlTools();
-      $this->content["mysqlToolsInstallResult"]
-        = $mysqlToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
+      $sudoNoPassModel = new \Model\SudoNoPass();
+      $this->content["sudoNoPassInstallResult"]
+        = $sudoNoPassModel->runAutoPilotLinuxAppInstall($autoPilot);
 
       $mediaToolsModel = new \Model\MediaTools();
       $this->content["mediaToolsInstallResult"]

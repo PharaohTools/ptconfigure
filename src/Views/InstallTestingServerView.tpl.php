@@ -21,6 +21,10 @@ Java: <?php echo $pageVars["javaInstallResult"] ; ?>
 
 Jenkins: <?php echo $pageVars["jenkinsInstallResult"] ; ?>
 
+Jenkins Plugins: <?php echo $pageVars["jenkinsPluginsInstallResult"] ; ?>
+
+Jenkins Sudo: <?php echo $pageVars["jenkinsSudoInstallResult"] ; ?>
+
 Ruby RVM: <?php echo $pageVars["rubyRVMInstallResult"] ; ?>
 
 Selenium: <?php echo $pageVars["seleniumInstallResult"] ; ?>
