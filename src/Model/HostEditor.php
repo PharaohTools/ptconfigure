@@ -84,7 +84,7 @@ class HostEditor extends Base {
     }
 
     private function askForHostfileUri(){
-        $question = 'What URI do you want to add to the hostfile?';
+        $question = 'What URI do you want to affect to the hostfile?';
         return self::askForInput($question, true);
     }
 

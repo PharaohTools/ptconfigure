@@ -99,8 +99,8 @@ class DBConfigure extends Base {
 
     public function setPlatformVars() {
         if (in_array($this->platform, array("d7", "drupal7" , "drupal"))) {
-          $this->platformVars = new \Model\DBConfigureDataDrupal70();
-          return; }
+            $this->platformVars = new \Model\DBConfigureDataDrupal70();
+            return; }
         if (in_array($this->platform, array("php", "gcfw", "gcfw2"))) {
           $this->platformVars = new \Model\DBConfigureDataGCFW2();
           return; }
@@ -115,8 +115,7 @@ class DBConfigure extends Base {
     }
 
     private function askForPlatform(){
-        $availablePlats = array("drupal7", "php" , "gcfw" , "gcfw2", "joomla15",
-          "joomla30");
+        $availablePlats = array("drupal7", "php" , "gcfw" , "gcfw2", "joomla15", "joomla30");
         $question = "Please Choose Project Platform:\n";
         $i=0;
         foreach ($availablePlats as $plat) {

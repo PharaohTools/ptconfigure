@@ -27,6 +27,14 @@ class Database extends Base {
             $dbInstallModel = new \Model\DBInstall();
             $this->content["dbResult"] = $dbInstallModel->askWhetherToDropDB();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
+        else if ($action=="useradd") {
+            $dbInstallModel = new \Model\DBInstall();
+            $this->content["dbResult"] = $dbInstallModel->askWhetherToAddUser();
+            return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
+        else if ($action=="userdrop") {
+            $dbInstallModel = new \Model\DBInstall();
+            $this->content["dbResult"] = $dbInstallModel->askWhetherToDropUser();
+            return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
         $this->content["messages"][] = "Invalid DB Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }

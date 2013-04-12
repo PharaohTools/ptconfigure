@@ -20,6 +20,14 @@ class DBInstall extends Base {
         return $this->performDBDrop();
     }
 
+    public function askWhetherToAddUser(){
+        return $this->performAddUser();
+    }
+
+    public function askWhetherToDropUser(){
+        return $this->performDropUser();
+    }
+
     private function performDBInstallation(\Model\DBConfigure $dbConfigObject=null){
         if ($dbConfigObject!==null) {
             return $this->performDBInstallationWithConfig($dbConfigObject) ; }
@@ -39,7 +47,8 @@ class DBInstall extends Base {
             if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
             $this->dbRootUser = $this->askForRootDBUser();
             $this->dbRootPass = $this->askForRootDBPass();
-            $this->databaseAndUserCreator(); }
+            $this->databaseCreator();
+            $this->userCreator(); }
         $this->sqlInstaller();
         return "Seems Fine...";
     }
@@ -49,25 +58,41 @@ class DBInstall extends Base {
         $this->dbHost = $this->askForDBHost();
         $this->dbUser = $this->askForDBUser();
         $this->dbPass = $this->askForDBPass();
-        $this->dbName = $this->askForDBName();
+        $this->dbName = $this->askForDBFreeFormName();
         $canIConnect = $this->canIConnect();
         if ($canIConnect!==true) {
             if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; }
             if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
             $this->dbRootUser = $this->askForRootDBUser();
             $this->dbRootPass = $this->askForRootDBPass();
-            $this->databaseAndUserCreator(); }
+            $this->databaseCreator();
+            $this->userCreator(); }
         $this->sqlInstaller();
         return "Seems Fine...";
     }
 
     private function performDBDrop() {
-        if ( !$this->askForDBDrop() ) { return false; }
+        if ( !$this->askForDBDropActions() ) { return false; }
         // if (!$this->useRootToDropDb() ) { return "You declined using root"; }
-        $this->dbRootUser = $this->askForRootDBUser();
-        $this->dbRootPass = $this->askForRootDBPass();
-        $this->dbName = $this->askForDBName();
-        $this->dropDB();
+        if ( $this->askForDBDrop() ) {
+            $this->dbRootUser = $this->askForRootDBUser();
+            $this->dbRootPass = $this->askForRootDBPass();
+            $this->dbName = $this->askForDBFixedName();
+            $this->dropDB(); }
+        if ( $this->askForDBUserDrop() ) {
+            $this->dbUser = $this->askForDBUser();
+            $this->userDropper(); }
+        return "Seems Fine...";
+    }
+
+    private function performAddUser() {
+        if ( $this->askForDBUserAdd() ) {
+            $this->dbUser = $this->askForFreeFormDBUser();
+            $this->userCreator(); }
+        return "Seems Fine...";
+    }
+
+    private function performDropUser() {
         if ( $this->askForDBUserDrop() ) {
             $this->dbUser = $this->askForDBUser();
             $this->userDropper(); }
@@ -82,7 +107,8 @@ class DBInstall extends Base {
         $this->dbName = $autoPilot->dbInstallDBName;
         $this->dbRootUser = $autoPilot->dbInstallDBRootUser;
         $this->dbRootPass = $autoPilot->dbInstallDBRootPass;
-        $this->databaseAndUserCreator();
+        $this->userCreator();
+        $this->databaseCreator();
         $this->sqlInstaller();
         return true;
     }
@@ -105,6 +131,11 @@ class DBInstall extends Base {
         return self::askYesOrNo($question);
     }
 
+    private function askForDBDropActions(){
+        $question = 'Do you want to perform drop actions (user/db)?';
+        return self::askYesOrNo($question);
+    }
+
     private function askForDBDrop(){
         $question = 'Do you want to drop a database?';
         return self::askYesOrNo($question);
@@ -115,8 +146,13 @@ class DBInstall extends Base {
         return self::askYesOrNo($question);
     }
 
+    private function askForDBUserAdd(){
+        $question = 'Do you want to add a user?';
+        return self::askYesOrNo($question);
+    }
+
     private function verifyContinueWithNonConnectDetails(){
-        $question = 'Cannot connect with these details. Sure you want to continue? (Y/N)';
+        $question = 'Cannot connect with these details. Sure you want to continue?';
         return self::askYesOrNo($question);
     }
 
@@ -132,12 +168,26 @@ class DBInstall extends Base {
         return self::askForArrayOption($question, $allDbUsers, true);
     }
 
+    private function askForFreeFormDBUser(){
+        $question = 'What\'s the application DB User?';
+        return self::askForInput($question, true);
+    }
+
     private function askForDBPass(){
         $question = 'What\'s the application DB Password?';
         return self::askForInput($question, true);
     }
 
-    private function askForDBName(){
+    private function askForDBFreeFormName(){
+        $question = 'What\'s the application DB Name?'."\n";
+        $question .= 'Current Db\'s are:'."\n";
+        $allDbNames = $this->getDbNameList();
+        foreach ($allDbNames as $onedbname) {
+            $question .= $onedbname."\n"; }
+        return self::askForInput($question, true);
+    }
+
+    private function askForDBFixedName(){
         $question = 'What\'s the application DB Name?';
         $allDbNames = $this->getDbNameList();
         return self::askForArrayOption($question, $allDbNames, true);
@@ -189,11 +239,6 @@ class DBInstall extends Base {
         return self::askYesOrNo($question);
     }
 
-//    private function useRootToDropDb(){
-//        $question = 'MySQL Admin Details required to Drop DB - Continue? ';
-//        return self::askYesOrNo($question);
-//    }
-
     private function askForRootDBUser(){
         $question = 'What\'s the MySQL Admin User?';
         return self::askForInput($question, true);
@@ -204,11 +249,15 @@ class DBInstall extends Base {
         return self::askForInput($question, true);
     }
 
-    private function databaseAndUserCreator() {
+    private function databaseCreator() {
         $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
         $query = 'create database if not exists '.$this->dbName.';';
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+    }
+
+    private function userCreator() {
+        $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
         $query = 'grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\' identified by "'.$this->dbPass.'";';
         echo "$query\n";
         mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
