@@ -15,7 +15,7 @@ class Router {
         "hostEditor" => array("add", "rm") ,
         "VHostEditor" => array("add", "rm", "list") ,
         "cukeConf" => array("conf", "reset")  ,
-        "database" => array("install", "drop", "configure", "config", "conf", "reset")  ,
+        "database" => array("install", "drop", "configure", "config", "conf", "reset", "useradd", "userdrop")  ,
         "project" => array("init", "build-install", "container", "cont")  ,
         "install" => array("cli", "autopilot") );
 

@@ -2,213 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1246df2-c000-4958-84f3-fd5aac30cd80" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Model/DBConfigureDataJoomla15.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/cucumber/html/screenshots/.gitplaceholder" afterPath="$PROJECT_DIR$/build/reports/cucumber/html/screenshots/.gitplaceholder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings-white.png" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings-white.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings.png" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/img/glyphicons-halflings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/.buildpath" afterPath="$PROJECT_DIR$/src/.buildpath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/AES.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/AES.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/File/ANSI.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/File/ANSI.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/File/ASN1.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/File/ASN1.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/AppConfig.php" afterPath="$PROJECT_DIR$/src/Model/AppConfig.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AutoLoad.php" afterPath="$PROJECT_DIR$/src/AutoLoad.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Base.php" afterPath="$PROJECT_DIR$/src/Controller/Base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Base.php" afterPath="$PROJECT_DIR$/src/Model/Base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/BaseFormTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/BaseFormTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/BaseTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/BaseTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Math/BigInteger.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Math/BigInteger.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bootstrap.php" afterPath="$PROJECT_DIR$/src/Bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Checkout.php" afterPath="$PROJECT_DIR$/src/Controller/Checkout.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/CheckoutView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/CheckoutView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/Control.php" afterPath="$PROJECT_DIR$/src/Core/Control.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ControlTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ControlTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/CukeConf.php" afterPath="$PROJECT_DIR$/src/Controller/CukeConf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/CukeConf.php" afterPath="$PROJECT_DIR$/src/Model/CukeConf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/CukeConfView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/CukeConfView.tpl.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/DBConfigure.php" afterPath="$PROJECT_DIR$/src/Model/DBConfigure.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/DBConfigureDataDrupal70.php" afterPath="$PROJECT_DIR$/src/Model/DBConfigureDataDrupal70.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php" afterPath="$PROJECT_DIR$/src/Model/DBConfigureDataGCFW2.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/DBInstall.php" afterPath="$PROJECT_DIR$/src/Model/DBInstall.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/DES.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/DES.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Database.php" afterPath="$PROJECT_DIR$/src/Controller/Database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseHelpersTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseHelpersTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/DatabaseTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/DatabaseView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/DatabaseView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/DefaultLayout.tpl.php" afterPath="$PROJECT_DIR$/src/Views/DefaultLayout.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/GitCheckout.php" afterPath="$PROJECT_DIR$/src/Model/GitCheckout.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/GroupPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/GroupPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/GroupPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/GroupPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupRoleTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupRoleTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/GroupTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/GroupTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/GroupTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/Hash.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/Hash.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/Homepage.feature" afterPath="$PROJECT_DIR$/build/tests/features/Homepage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/HostEditor.php" afterPath="$PROJECT_DIR$/src/Controller/HostEditor.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/HostEditor.php" afterPath="$PROJECT_DIR$/src/Model/HostEditor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/HostEditorView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/HostEditorView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Index.php" afterPath="$PROJECT_DIR$/src/Controller/Index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/IndexTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/IndexTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/IndexView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Install.php" afterPath="$PROJECT_DIR$/src/Controller/Install.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/InstallView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/InstallView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Invoke.php" afterPath="$PROJECT_DIR$/src/Controller/Invoke.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/InvokeSSH.php" afterPath="$PROJECT_DIR$/src/Model/InvokeSSH.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/InvokeView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/InvokeView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/LoginFormTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/LoginFormTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/LoginPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/LoginPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/LoginPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/LoginPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/LoginTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/LoginTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/LogoutPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/LogoutPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/LogoutTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/LogoutTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/ModelRoleTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/ModelRoleTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Project.php" afterPath="$PROJECT_DIR$/src/Controller/Project.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Project.php" afterPath="$PROJECT_DIR$/src/Model/Project.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/ProjectView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/ProjectView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/RC4.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/RC4.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/RSA.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/RSA.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/Random.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/Random.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/RegisterPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/RegisterPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/RegisterPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/RegisterPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/RegisterTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/RegisterTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/RegistrationFormTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/ECPForm/RegistrationFormTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/ResultsPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/ResultsPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/ResultsPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/ResultsPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/ResultsPageTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/ResultsPageTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/Rijndael.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/Rijndael.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/Router.php" afterPath="$PROJECT_DIR$/src/Core/Router.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/RouterTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/RouterTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Net/SFTP.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Net/SFTP.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH1.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH1.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Net/SSH2.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/SessionTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/SessionTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/TripleDES.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/Crypt/TripleDES.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/UserDataTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/UserDataTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/UserPage.feature" afterPath="$PROJECT_DIR$/build/tests/features/UserPage.feature" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/UserPage.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/UserPage.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Controller/UserPageTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Controller/UserPageTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/UserRoleTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/UserRoleTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Model/UserSessionTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Model/UserSessionTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/VHostEditor.php" afterPath="$PROJECT_DIR$/src/Controller/VHostEditor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/VHostEditor.php" afterPath="$PROJECT_DIR$/src/Model/VHostEditor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ValidationHelpersTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ValidationHelpersTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Version.php" afterPath="$PROJECT_DIR$/src/Controller/Version.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Version.php" afterPath="$PROJECT_DIR$/src/Model/Version.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/VersionView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/VersionView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/VhostCreatorView.tpl.php" afterPath="$PROJECT_DIR$/src/Views/VhostCreatorView.tpl.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Core/View.php" afterPath="$PROJECT_DIR$/src/Core/View.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewHelpersTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewHelpersTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewTest.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/Core/ViewTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/File/X509.php" afterPath="$PROJECT_DIR$/src/Libraries/seclib/File/X509.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/support/archiver.rb" afterPath="$PROJECT_DIR$/build/tests/features/support/archiver.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-install.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-install.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-reset-for-push.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-reset-for-push.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-uninstall.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-uninstall.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-version-install.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-dev-version-install.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-production-first-install.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-production-first-install.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-production-install.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-production-install.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-production-uninstall.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-production-uninstall.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-test-install.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-test-install.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-test-reset-for-push.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-test-reset-for-push.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-test-uninstall.php" afterPath="$PROJECT_DIR$/build/config/devhelper/autopilots/autopilot-test-uninstall.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/step_definitions/basic_steps.rb" afterPath="$PROJECT_DIR$/build/tests/features/step_definitions/basic_steps.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap-responsive.min.css" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap-responsive.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/bootstrap.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/phpunit/bootstrap.php" afterPath="$PROJECT_DIR$/build/tests/phpunit/bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/jenkins/build.xml" afterPath="$PROJECT_DIR$/build/config/jenkins/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit_bootstrap.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/build_tests_phpunit_bootstrap.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/cssxfire.xml" afterPath="$PROJECT_DIR$/.idea/cssxfire.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/cucumber/cucumber.json" afterPath="$PROJECT_DIR$/build/reports/cucumber/cucumber.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devhelper.iml" afterPath="$PROJECT_DIR$/devhelper.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/devhelper" afterPath="$PROJECT_DIR$/devhelper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dhproj" afterPath="$PROJECT_DIR$/dhproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dvhlp" afterPath="$PROJECT_DIR$/dvhlp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpmd/html/empty.html" afterPath="$PROJECT_DIR$/build/reports/phpmd/html/empty.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpmd/xml/empty.xml" afterPath="$PROJECT_DIR$/build/reports/phpmd/xml/empty.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/support/env.rb" afterPath="$PROJECT_DIR$/build/tests/features/support/env.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/execute-ci.php" afterPath="$PROJECT_DIR$/build/config/phpmd/execute-ci.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/execute-ci.php" afterPath="$PROJECT_DIR$/build/config/phpunit/execute-ci.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/execute-console.php" afterPath="$PROJECT_DIR$/build/config/phpmd/execute-console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/execute-console.php" afterPath="$PROJECT_DIR$/build/config/phpunit/execute-console.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/execute-html.php" afterPath="$PROJECT_DIR$/build/config/phpmd/execute-html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/execute-html.php" afterPath="$PROJECT_DIR$/build/config/phpunit/execute-html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/highcharts.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/highcharts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/tests/features/support/hooks.rb" afterPath="$PROJECT_DIR$/build/tests/features/support/hooks.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/html5shiv.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/html5shiv.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/index.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/index.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/index.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install-silent" afterPath="$PROJECT_DIR$/install-silent" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install" afterPath="$PROJECT_DIR$/install" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/js/jquery.min.js" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/js/jquery.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Libraries/seclib/openssl.cnf" afterPath="$PROJECT_DIR$/src/Libraries/seclib/openssl.cnf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpunit/phpunit.xml" afterPath="$PROJECT_DIR$/build/config/phpunit/phpunit.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_AutoLoad.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_AutoLoad.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Base.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Base.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_GroupPage.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_GroupPage.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Index.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Index.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Login.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Login.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Logout.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Logout.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Register.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_Register.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_ResultsPage.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_ResultsPage.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_UserPage.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Controller_UserPage.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Control.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Control.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Database.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Database.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_DatabaseHelpers.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_DatabaseHelpers.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Router.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Router.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Session.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_Session.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ValidationHelpers.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ValidationHelpers.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_View.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_View.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ViewHelpers.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Core_ViewHelpers.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_BaseForm.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_BaseForm.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_LoginForm.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_LoginForm.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_RegistrationForm.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_ECPForm_RegistrationForm.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.dashboard.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Group.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Group.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_GroupRole.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_GroupRole.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Role.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_Role.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserData.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserData.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserRole.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserRole.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserSession.php.html" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/src_Model_UserSession.php.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/config/phpmd/rules/standard.xml" afterPath="$PROJECT_DIR$/build/config/phpmd/rules/standard.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/reports/phpunit/html/css/style.css" afterPath="$PROJECT_DIR$/build/reports/phpunit/html/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="devhelper.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364323132199" ignored="false" />
+    <file path="/Dummy.txt" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365780045425" ignored="false" />
     <file path="/README.md" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364175055297" ignored="false" />
     <file path="/Jenkins.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364178559858" ignored="false" />
     <file path="$PROJECT_DIR$/../boxboss/src/Model/Jenkins.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364178570503" ignored="false" />
     <file path="$PROJECT_DIR$/../boxboss/src/Model/BaseLinuxApp.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364178628921" ignored="false" />
-    <file path="/BaseLinuxApp.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364178618646" ignored="false" />
+    <file path="/BaseLinuxApp.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365551294766" ignored="false" />
     <file path="$PROJECT_DIR$/../boxboss/src/Controller/DevClient.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364178350901" ignored="false" />
-    <file path="/DevClient.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364178349009" ignored="false" />
+    <file path="/DevClient.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365546683129" ignored="false" />
     <file path="/VHostEditor.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364251616332" ignored="false" />
     <file path="/DBConfigureDataJoomla15.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1364323194423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/src/Model/PHPModules.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365545735475" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Controller/DevClient.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365546704415" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Model/SudoNoPass.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365552042297" ignored="false" />
+    <file path="/SudoNoPass.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365551411369" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Controller/Autopilot.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365547804290" ignored="false" />
+    <file path="/Autopilot.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365547515249" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Model/RubyRVM.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365547831873" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Model/MysqlAdmins.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365555902513" ignored="false" />
+    <file path="/MysqlAdmins.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365555893195" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Model/BaseLinuxApp.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365551322117" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/.idea/workspace.xml" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365549699873" ignored="false" />
+    <file path="/DBConfigure.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365773810310" ignored="false" />
+    <file path="/a.dummy" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365773828784" ignored="false" />
+    <file path="/DBConfigureDataDrupal70Docroot.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365773849939" ignored="false" />
+    <file path="/var/www/goodfood-application/docroot/sites/default/settings.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365774015832" ignored="false" />
+    <file path="/var/www/goodfood-application/docroot/sites/bbcgoodfood.com/settings.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365774262400" ignored="false" />
+    <file path="/DBInstall.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365785761656" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Model/StandardTools.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365780331126" ignored="false" />
+    <file path="$PROJECT_DIR$/../../boxboss/boxboss/src/Model/ApacheModules.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365784534589" ignored="false" />
+    <file path="/var/www/goodfood-application/docroot/sites/all/modules/custom/bbcgf_system_terms/bbcgf_system_terms.module" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365782059465" ignored="false" />
+    <file path="/bbcgf_system_terms.module" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365781826916" ignored="false" />
+    <file path="/Database.php" changelist="f1246df2-c000-4958-84f3-fd5aac30cd80" time="1365785803011" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,6 +57,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -230,6 +65,7 @@
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
         <option name="SUSPEND_POLICY" value="SuspendAll" />
         <option name="SUSPEND" value="true" />
         <option name="COUNT_FILTER_ENABLED" value="false" />
@@ -246,6 +82,7 @@
         <option name="ENABLED" value="false" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
         <option name="SUSPEND_POLICY" value="SuspendAll" />
         <option name="SUSPEND" value="true" />
         <option name="COUNT_FILTER_ENABLED" value="false" />
@@ -257,7 +94,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -267,19 +103,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="VHostEditor.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
+      <file leaf-file-name="DBInstall.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/DBInstall.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="318" column="10" selection-start="13338" selection-end="13338" vertical-scroll-proportion="-0.625">
+            <state line="27" column="39" selection-start="693" selection-end="693" vertical-scroll-proportion="-11.916667">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBConfigureDataJoomla15.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataJoomla15.php">
+      <file leaf-file-name="Router.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Core/Router.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="38" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.52">
+            <state line="17" column="107" selection-start="618" selection-end="618" vertical-scroll-proportion="0.49707603">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Database.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/Database.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="78" selection-start="1972" selection-end="1992" vertical-scroll-proportion="-18.708334">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HostEditor.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/HostEditor.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="86" column="46" selection-start="2948" selection-end="2948" vertical-scroll-proportion="-10.291667">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VHostEditor.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="153" column="37" selection-start="5939" selection-end="6117" vertical-scroll-proportion="-0.625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DBConfigure.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="115" column="86" selection-start="4646" selection-end="4646" vertical-scroll-proportion="-8.791667">
               <folding />
             </state>
           </provider>
@@ -306,14 +178,39 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Model/VHostEditor.php" />
         <option value="$PROJECT_DIR$/src/Model/DBConfigureDataJoomla15.php" />
+        <option value="$PROJECT_DIR$/src/Model/DBConfigureDataDrupal70.php" />
+        <option value="$PROJECT_DIR$/src/Model/DBConfigureDataDrupal70Docroot.php" />
+        <option value="$PROJECT_DIR$/src/Model/DBConfigure.php" />
+        <option value="$PROJECT_DIR$/src/Model/HostEditor.php" />
+        <option value="$PROJECT_DIR$/src/Model/DBInstall.php" />
+        <option value="$PROJECT_DIR$/src/Controller/Database.php" />
+        <option value="$PROJECT_DIR$/src/Core/Router.php" />
       </list>
     </option>
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="24" />
-    <option name="width" value="1026" />
+    <option name="width" value="1368" />
     <option name="height" value="721" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Android Lint</id>
+          </State>
+          <State>
+            <id>Error handling</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -344,7 +241,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -391,23 +287,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="editor.preferences.appearance" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../boxboss/boxboss" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -419,6 +320,10 @@
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
       <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
       <method />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -525,26 +430,28 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1026" height="721" extended-state="6" />
+    <frame x="-1" y="24" width="1368" height="721" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3449692" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21352583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -579,7 +486,7 @@
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORISONTALLY" value="true" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
     <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
     <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
     <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
@@ -589,6 +496,10 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
     <option name="LIMIT_HISTORY" value="true" />
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
     <option name="LAST_COMMIT_MESSAGE" />
@@ -602,6 +513,7 @@
     <option name="ACTIVE_VCS_NAME" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
@@ -609,28 +521,86 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
+    <entry file="file://$PROJECT_DIR$/src/Model/DBInstall.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="318" column="10" selection-start="13338" selection-end="13338" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="91" selection-start="5022" selection-end="5022" vertical-scroll-proportion="0.83778626" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="318" column="10" selection-start="13338" selection-end="13338" vertical-scroll-proportion="-0.625">
+        <state line="153" column="54" selection-start="5939" selection-end="6117" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataJoomla15.php">
+    <entry file="file://$PROJECT_DIR$/src/Model/DBInstall.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="38" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.52">
+        <state line="241" column="62" selection-start="9684" selection-end="9684" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/DBInstall.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/VHostEditor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="153" column="37" selection-start="5939" selection-end="6117" vertical-scroll-proportion="-0.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigureDataDrupal70.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="40" selection-start="111" selection-end="111" vertical-scroll-proportion="0.18987341">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/DBConfigure.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="86" selection-start="4646" selection-end="4646" vertical-scroll-proportion="-8.791667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/HostEditor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="46" selection-start="2948" selection-end="2948" vertical-scroll-proportion="-10.291667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Install.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.619883">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/DBInstall.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="39" selection-start="693" selection-end="693" vertical-scroll-proportion="-11.916667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="78" selection-start="1972" selection-end="1992" vertical-scroll-proportion="-18.708334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="107" selection-start="618" selection-end="618" vertical-scroll-proportion="0.49707603">
           <folding />
         </state>
       </provider>
