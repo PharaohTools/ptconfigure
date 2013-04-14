@@ -40,9 +40,9 @@ class Router {
     }
 
     private function parseControllerAliases() {
-        $aliases = array("co"=>"checkout", "hosteditor"=>"hostEditor", "vhostEditor"=>"VHostEditor",
-            "vhosteditor"=>"VHostEditor", "vhc"=>"VHostEditor", "cuke"=>"cukeConf", "cukeconf"=>"cukeConf",
-            "proj"=>"project", "db"=>"database");
+        $aliases = array("co"=>"checkout", "hosteditor"=>"hostEditor", "he"=>"hostEditor", "host"=>"hostEditor",
+            "vhostEditor"=>"VHostEditor", "vhosteditor"=>"VHostEditor", "vhc"=>"VHostEditor", "cuke"=>"cukeConf",
+            "cukeconf"=>"cukeConf", "proj"=>"project", "db"=>"database");
         if (isset($this->argv[1])) {
             if (array_key_exists($this->argv[1], $aliases)) {
                 $this->argv[1] = strtr($this->argv[1], $aliases); } }

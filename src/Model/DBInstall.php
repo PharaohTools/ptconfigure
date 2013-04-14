@@ -88,6 +88,8 @@ class DBInstall extends Base {
     private function performAddUser() {
         if ( $this->askForDBUserAdd() ) {
             $this->dbUser = $this->askForFreeFormDBUser();
+            $this->dbPass = $this->askForDBPass();
+            $this->dbName = $this->askForDBFixedName();
             $this->userCreator(); }
         return "Seems Fine...";
     }

@@ -426,7 +426,22 @@ NameVirtualHost ****IP ADDRESS****
 </VirtualHost>
 TEMPLATE3;
 
-      $template4 = <<<'TEMPLATE4'
+        $template4 = <<<'TEMPLATE4'
+NameVirtualHost ****IP ADDRESS****
+<VirtualHost ****IP ADDRESS****>
+	ServerAdmin webmaster@localhost
+	ServerName ****SERVER NAME****
+	DocumentRoot ****WEB ROOT****/www
+	<Directory ****WEB ROOT****/www>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+</VirtualHost>
+TEMPLATE4;
+
+        $template5 = <<<'TEMPLATE5'
 NameVirtualHost ****IP ADDRESS****
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
@@ -439,13 +454,14 @@ NameVirtualHost ****IP ADDRESS****
 		allow from all
 	</Directory>
 </VirtualHost>
-TEMPLATE4;
+TEMPLATE5;
 
     $this->vHostDefaultTemplates = array(
       "docroot-no-suffix" => $template1,
       "docroot-src-sfx" => $template2,
       "docroot-web-suffix" => $template3,
-      "docroot-docroot-suffix" => $template4,
+      "docroot-www-suffix" => $template4,
+      "docroot-docroot-suffix" => $template5
     );
 
     }
