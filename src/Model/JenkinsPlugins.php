@@ -9,7 +9,7 @@ class JenkinsPlugins extends BaseLinuxApp {
     $this->autopilotDefiner = "JenkinsPlugins";
     $this->installCommands = array(
         "cd /tmp" ,
-        "git clone https://github.com/phpengine/cleopatra-jenkins-plugins jplugins",
+        "git clone https://github.com/phpengine/jenkins-php-plugins jplugins",
         "rm -rf ****PROGDIR****",
         "mkdir -p ****PROGDIR****",
         "mv /tmp/jplugins/* ****PROGDIR****",
