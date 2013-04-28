@@ -5,6 +5,7 @@ Namespace Model;
 class Base {
 
     protected function executeAndOutput($command, $message=null) {
+        print $command."\n";
         $outputArray = array();
         exec($command, $outputArray);
         $outputText = "";
