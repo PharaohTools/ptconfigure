@@ -27,14 +27,14 @@ class Base {
     }
 
     protected function askYesOrNo($question) {
-        print "$question (Y/N) \n";
+        print "$question (Y/N)\n";
         $fp = fopen('php://stdin', 'r');
         $last_line = false;
         while (!$last_line) {
             $inputChar = fgetc($fp);
             $yesOrNo = ($inputChar=="y"||$inputChar=="Y") ? true : false;
             $last_line = true; }
-        return $yesOrNo;
+        return (isset($yesOrNo)) ? $yesOrNo : false;
     }
 
     protected function areYouSure($question) {
@@ -44,8 +44,8 @@ class Base {
         while (!$last_line) {
             $inputChar = fgetc($fp);
             $yesOrNo = ($inputChar=="y"||$inputChar=="Y") ? true : false;
-            $last_line = true; }
-        return $yesOrNo;
+          $last_line = true; }
+      return (isset($yesOrNo)) ? $yesOrNo : false;
     }
 
     protected function askForDigit($question) {
@@ -58,7 +58,7 @@ class Base {
             if (in_array($inputChar, array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")) ) { $last_line = true; }
             else { echo "You must enter a single digit. Please try again\n"; continue; }
         $i++; }
-        return $inputChar;
+        return (isset($inputChar)) ? $inputChar : false;
     }
 
     protected function askForInput($question, $required=null) {
