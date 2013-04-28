@@ -13,6 +13,8 @@ class JenkinsPlugins extends BaseLinuxApp {
         "rm -rf ****PROGDIR****",
         "mkdir -p ****PROGDIR****",
         "mv /tmp/jplugins/* ****PROGDIR****",
+        "chmod -R 775 ****PROGDIR****/*",
+        "chown -R jenkins ****PROGDIR****",
         "rm -rf /tmp/jplugins",
         "service jenkins restart"
     );
