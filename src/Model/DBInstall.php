@@ -12,7 +12,7 @@ class DBInstall extends Base {
     private $dbRootPass ;
 
     public function askWhetherToInstallDB(\Model\DBConfigure $dbConfigObject=null){
-        if ($dbConfigObject) { return $this->performDBInstallation($dbConfigObject); }
+        if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
         else { return $this->performDBInstallation(); }
     }
 
@@ -56,6 +56,8 @@ class DBInstall extends Base {
     private function performDBInstallationWithNoConfig() {
         if ( !$this->askForDBInstall() ) { return false; }
         $this->dbHost = $this->askForDBHost();
+        $this->dbRootUser = $this->askForRootDBUser();
+        $this->dbRootPass = $this->askForRootDBPass();
         $this->dbUser = $this->askForDBUser();
         $this->dbPass = $this->askForDBPass();
         $this->dbName = $this->askForDBFreeFormName();
@@ -63,8 +65,6 @@ class DBInstall extends Base {
         if ($canIConnect!==true) {
             if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; }
             if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
-            $this->dbRootUser = $this->askForRootDBUser();
-            $this->dbRootPass = $this->askForRootDBPass();
             $this->databaseCreator();
             $this->userCreator(); }
         $this->sqlInstaller();
@@ -166,8 +166,12 @@ class DBInstall extends Base {
 
     private function askForDBUser(){
         $question = 'What\'s the application DB User?';
-        $allDbUsers = $this->getDbUsers();
-        return self::askForArrayOption($question, $allDbUsers, true);
+        $allDbUsers = array_merge(array("**CREATE NEW USER**"), $this->getDbUsers()) ;
+        $user = self::askForArrayOption($question, $allDbUsers, true);
+        if ($user=="**CREATE NEW USER**") {
+          $question = 'Enter New User Name?';
+          $user = self::askForInput($question, true); }
+        return $user;
     }
 
     private function askForFreeFormDBUser(){
