@@ -11,6 +11,8 @@ class DBConfigure extends Base {
     private $dbHost ;
     private $dbUser ;
     private $dbPass ;
+    private $dbRootUser ;
+    private $dbRootPass ;
     private $dbName ;
     private $tmpDir = '/tmp'; // no trailing slash
 
@@ -31,6 +33,9 @@ class DBConfigure extends Base {
         // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
         $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
         $this->setPlatformVars();
+        $this->dbRootUser = $this->askForRootDBUser();
+        if ($this->dbRootUser != "") {
+            $this->dbRootPass = $this->askForRootDBPass(); }
         $this->dbHost = $this->askForDBHost();
         $this->dbUser = $this->askForDBUser();
         $this->dbPass = $this->askForDBPass();
@@ -154,8 +159,55 @@ class DBConfigure extends Base {
     }
 
     private function askForDBUser(){
-        $question = 'What\'s the application DB User?';
-        return self::askForInput($question, true);
+        $question = 'What\'s the application DB User?'."\n";
+        if ($this->dbRootUser != "") {
+          $allDbUsers = array_merge(array("**ENTER PLAIN TEXT**"), $this->getDbUsers()) ;
+          $user = self::askForArrayOption($question, $allDbUsers, true);
+          if ($user=="**ENTER PLAIN TEXT**") {
+            $question = 'Enter DB Username Text?';
+            $user = self::askForInput($question, true); } }
+        $user = (isset($user)) ? $user : self::askForInput($question, true);
+        return $user ;
+    }
+
+    private function askForRootDBUser(){
+      $question = 'What\'s the MySQL Admin User? (Enter nothing to skip loading current users to help config)';
+      return self::askForInput($question, true);
+    }
+
+    private function askForRootDBPass(){
+      $question = 'What\'s the MySQL Admin Password?';
+      return self::askForInput($question, true);
+    }
+
+    private function getDbUsers() {
+      $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+      $mysqliResult = $mysqli->query('SELECT User from mysql.user;');
+      $users = array();
+      while ($user = $mysqliResult->fetch_array()) {
+        $users[] = $user[0]; }
+      $i=0;
+      $usersSorted = array();
+      foreach ($users as $user) {
+        if ( !in_array($user, array("root")) ) {
+          $usersSorted[$i] = $user;
+          $i++; } }
+      return $usersSorted;
+    }
+
+    private function getDbNameList() {
+      $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+      $mysqliResult = $mysqli->query('show databases;');
+      $dbs = array();
+      while ($db = $mysqliResult->fetch_array()) {
+        $dbs[] = $db[0];}
+      $dbsTrimmed = array_diff($dbs, array("test", "mysql", "information_schema", "performance_schema"));
+      $i=0;
+      $dbsSorted = array();
+      foreach ($dbsTrimmed as $db) {
+        $dbsSorted[$i] = $db;
+        $i++; }
+      return $dbsSorted;
     }
 
     private function askForDBPass(){
@@ -164,9 +216,17 @@ class DBConfigure extends Base {
     }
 
     private function askForDBName(){
-        $question = 'What\'s the application DB Name?';
-        return self::askForInput($question, true);
+        $question = 'What\'s the application DB Name?'."\n";
+        if ($this->dbRootUser != "") {
+          $allDbNames = array_merge(array("**ENTER PLAIN TEXT**"), $this->getDbNameList()) ;
+          $dbName = self::askForArrayOption($question, $allDbNames, true);
+          if ($dbName=="**ENTER PLAIN TEXT**") {
+            $question = 'Enter DB Name Text?';
+            $dbName = self::askForInput($question, true); } }
+        $dbName = (isset($dbName)) ? $dbName : self::askForInput($question, true);
+        return $dbName ;
     }
+
 
     private function canIConnect(){
         error_reporting(0);
@@ -189,7 +249,7 @@ class DBConfigure extends Base {
         foreach ($this->platformVars->getProperty("extraConfigFiles") as $settingsFile) {
             echo "Loading Extra settings file $settingsFile to configure values...\n" ;
             $command  = 'cat '.$settingsFile;
-            $this->currentExtraSettingsFileData = self::executeAndLoad($command);
+            $this->currentExtraSettingsFileDat = self::executeAndLoad($command);
             $replacements =  array('****DB USER****'=>$this->dbUser, '****DB NAME****'=>$this->dbName,
                 '****DB PASS****'=>$this->dbPass, '****DB HOST****'=>$this->dbHost, );
             $this->currentExtraSettingsFileData = strtr($this->currentExtraSettingsFileData, $replacements);
