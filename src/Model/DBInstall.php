@@ -73,13 +73,15 @@ class DBInstall extends Base {
 
     private function performDBDrop() {
         if ( !$this->askForDBDropActions() ) { return false; }
-        // if (!$this->useRootToDropDb() ) { return "You declined using root"; }
         if ( $this->askForDBDrop() ) {
             $this->dbRootUser = $this->askForRootDBUser();
             $this->dbRootPass = $this->askForRootDBPass();
             $this->dbName = $this->askForDBFixedName();
             $this->dropDB(); }
         if ( $this->askForDBUserDrop() ) {
+            if (!isset($this->dbRootUser)) {
+                $this->dbRootUser = $this->askForRootDBUser();
+                $this->dbRootPass = $this->askForRootDBPass(); }
             $this->dbUser = $this->askForDBUser();
             $this->userDropper(); }
         return "Seems Fine...";
