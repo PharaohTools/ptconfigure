@@ -2,11 +2,11 @@
 
 Namespace Model;
 
-class JenkinsPlugins extends BaseLinuxApp {
+class VNCServer extends BaseLinuxApp {
 
   public function __construct() {
     parent::__construct();
-    $this->autopilotDefiner = "JenkinsPlugins";
+    $this->autopilotDefiner = "VNCServer";
     $this->installCommands = array(
         "cd /tmp" ,
         "git clone https://github.com/phpengine/jenkins-php-plugins jplugins",
@@ -23,9 +23,9 @@ class JenkinsPlugins extends BaseLinuxApp {
         "service jenkins restart"
     );
     $this->programDataFolder = "/var/lib/jenkins/plugins"; // command and app dir name
-    $this->programNameMachine = "jenkinsplugins"; // command and app dir name
-    $this->programNameFriendly = "Jenkns Plgs!"; // 12 chars
-    $this->programNameInstaller = "Jenkins Plugins";
+    $this->programNameMachine = "boxboss-vncserver"; // command and app dir name
+    $this->programNameFriendly = "!VNC Server!"; // 12 chars
+    $this->programNameInstaller = "VNC Server";
     $this->initialize();
   }
 
