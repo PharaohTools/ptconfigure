@@ -2,11 +2,11 @@
 
 Namespace Model;
 
-class BoxBoss extends BasePHPApp {
+class JRush extends BasePHPApp {
 
   public function __construct() {
     parent::__construct();
-    $this->autopilotDefiner = "BoxBoss";
+    $this->autopilotDefiner = "JRush";
     $this->fileSources = array(
       array(
         "https://bitbucket.org/phpengine/jrush.git",

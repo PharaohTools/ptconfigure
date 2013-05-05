@@ -27,6 +27,9 @@ class ProductionServer extends Base {
       $devhelperModel = new \Model\Devhelper();
       $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
 
+      $jRushModel = new \Model\JRush();
+      $this->content["jrushInstallResult"] = $jRushModel->askWhetherToInstallPHPApp();
+
       return array ("type"=>"view", "view"=>"installProductionServer", "pageVars"=>$this->content);
 
     }

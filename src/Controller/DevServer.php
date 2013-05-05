@@ -30,8 +30,11 @@ class DevServer extends Base {
       $devhelperModel = new \Model\Devhelper();
       $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
 
+      $jRushModel = new \Model\JRush();
+      $this->content["jrushInstallResult"] = $jRushModel->askWhetherToInstallPHPApp();
+
       $phpUnitModel = new \Model\PHPUnit();
-      $this->content["phpUnitInstallResult"]= $phpUnitModel->askWhetherToInstallPHPApp();
+      $this->content["phpUnit35InstallResult"]= $phpUnitModel->askWhetherToInstallPHPApp();
 
       $phpCSModel = new \Model\PHPCS();
       $this->content["phpCSInstallResult"] = $phpCSModel->askWhetherToInstallPHPApp();
@@ -50,6 +53,9 @@ class DevServer extends Base {
 
       $jenkinsSudoModel = new \Model\JenkinsSudoNoPass();
       $this->content["jenkinsSudoInstallResult"] = $jenkinsSudoModel->askWhetherToInstallLinuxApp();
+
+      $vncServerModel = new \Model\VNCServer();
+      $this->content["vncServerInstallResult"] = $vncServerModel->askWhetherToInstallLinuxApp();
 
       $rubyRVMModel = new \Model\RubyRVM();
       $this->content["rubyRVMInstallResult"] = $rubyRVMModel->askWhetherToInstallLinuxApp();

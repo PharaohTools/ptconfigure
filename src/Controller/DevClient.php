@@ -27,6 +27,9 @@ class DevClient extends Base {
       $devhelperModel = new \Model\Devhelper();
       $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
 
+      $jRushModel = new \Model\JRush();
+      $this->content["jrushInstallResult"] = $jRushModel->askWhetherToInstallPHPApp();
+
       $phpUnitModel = new \Model\PHPUnit();
       $this->content["phpUnit35InstallResult"]= $phpUnitModel->askWhetherToInstallPHPApp();
 
@@ -47,6 +50,9 @@ class DevClient extends Base {
 
       $jenkinsSudoModel = new \Model\JenkinsSudoNoPass();
       $this->content["jenkinsSudoInstallResult"] = $jenkinsSudoModel->askWhetherToInstallLinuxApp();
+
+      $vncServerModel = new \Model\VNCServer();
+      $this->content["vncServerInstallResult"] = $vncServerModel->askWhetherToInstallLinuxApp();
 
       $rubyRVMModel = new \Model\RubyRVM();
       $this->content["rubyRVMInstallResult"] = $rubyRVMModel->askWhetherToInstallLinuxApp();

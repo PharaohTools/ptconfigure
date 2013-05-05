@@ -5,6 +5,8 @@ BoxBoss Upgrade: <?php echo $pageVars["boxBossInstallResult"] ; ?>
 
 Devhelper: <?php echo $pageVars["devhelperInstallResult"] ; ?>
 
+JRush: <?php echo $pageVars["jRushInstallResult"] ; ?>
+
 Git Tools: <?php echo $pageVars["gitToolsInstallResult"] ; ?>
 
 PHP Modules: <?php echo $pageVars["phpModulesInstallResult"] ; ?>
@@ -24,6 +26,8 @@ Jenkins: <?php echo $pageVars["jenkinsInstallResult"] ; ?>
 Jenkins Plugins: <?php echo $pageVars["jenkinsPluginsInstallResult"] ; ?>
 
 Jenkins Sudo: <?php echo $pageVars["jenkinsSudoInstallResult"] ; ?>
+
+VNC Server: <?php echo $pageVars["vncServerInstallResult"] ; ?>
 
 Ruby RVM: <?php echo $pageVars["rubyRVMInstallResult"] ; ?>
 
