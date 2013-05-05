@@ -5,6 +5,8 @@ BoxBoss Upgrade: <?php echo $pageVars["boxBossInstallResult"] ; ?>
 
 Devhelper: <?php echo $pageVars["devhelperInstallResult"] ; ?>
 
+JRush: <?php echo $pageVars["jRushInstallResult"] ; ?>
+
 Git Tools: <?php echo $pageVars["gitToolsInstallResult"] ; ?>
 
 PHP Modules: <?php echo $pageVars["phpModulesInstallResult"] ; ?>
@@ -25,6 +27,8 @@ Jenkins Plugins: <?php echo $pageVars["jenkinsPluginsInstallResult"] ; ?>
 
 Jenkins Sudo: <?php echo $pageVars["jenkinsSudoInstallResult"] ; ?>
 
+VNC Server: <?php echo $pageVars["vncServerInstallResult"] ; ?>
+
 Ruby RVM: <?php echo $pageVars["rubyRVMInstallResult"] ; ?>
  
 Selenium: <?php echo $pageVars["seleniumInstallResult"] ; ?>
@@ -40,19 +44,6 @@ Intelli J: <?php echo $pageVars["intellijInstallResult"] ; ?>
 MySQL Tools: <?php echo $pageVars["mysqlToolsInstallResult"] ; ?>
 
 Media Tools: <?php echo $pageVars["mediaToolsInstallResult"] ; ?>
-
-<?php
-//if (isset($pageVars["route"]["extraParams"][0]) &&
-//          $pageVars["route"]["extraParams"][0]=="silent") {
-//  ?>
-<!--  Silent Genererated Installer Values-->
-<?php
-//} else if (isset($pageVars["route"]["extraParams"][0]) &&
-//                 $pageVars["route"]["extraParams"][0]=="autogen") {
-//  ?>
-<!--  Auto Genererated Installer Values-->
-<?php
-//} ?>
 
 ------------------------------
 Installer Finished
