@@ -17,7 +17,8 @@ class Router {
         "cukeConf" => array("conf", "reset")  ,
         "database" => array("install", "drop", "configure", "config", "conf", "reset", "useradd", "userdrop")  ,
         "project" => array("init", "build-install", "container", "cont")  ,
-        "install" => array("cli", "autopilot") );
+        "install" => array("cli", "autopilot") ,
+        "AppSettings" => array("set", "get", "list", "delete") );
 
 	public function run($argv) {
         $this->argv = $argv;
@@ -42,7 +43,7 @@ class Router {
     private function parseControllerAliases() {
         $aliases = array("co"=>"checkout", "hosteditor"=>"hostEditor", "he"=>"hostEditor", "host"=>"hostEditor",
             "vhostEditor"=>"VHostEditor", "vhosteditor"=>"VHostEditor", "vhc"=>"VHostEditor", "cuke"=>"cukeConf",
-            "cukeconf"=>"cukeConf", "proj"=>"project", "db"=>"database");
+            "cukeconf"=>"cukeConf", "proj"=>"project", "db"=>"database", "appsettings"=>"AppSettings");
         if (isset($this->argv[1])) {
             if (array_key_exists($this->argv[1], $aliases)) {
                 $this->argv[1] = strtr($this->argv[1], $aliases); } }
