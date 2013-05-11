@@ -57,6 +57,11 @@ class AppConfig {
         return $value;
     }
 
+    public static function getAllAppVariables() {
+        $appConfigArray = self::loadAppFile();
+        return $appConfigArray;
+    }
+
     private static function loadAppFile() {
         $appFile = self::getAppBaseDir().'/cleoapp';
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }

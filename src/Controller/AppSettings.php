@@ -18,6 +18,10 @@ class AppSettings extends Base {
             $this->content["configResult"] = $appSettingsModel->askWhetherToGetConfig();
             return array ("type"=>"view", "view"=>"config", "pageVars"=>$this->content); }
 
+        if ($action=="delete") {
+            $this->content["configResult"] = $appSettingsModel->askWhetherToDeleteConfig();
+            return array ("type"=>"view", "view"=>"config", "pageVars"=>$this->content); }
+
         if ($action=="list") {
             $this->content["configResult"] = $appSettingsModel->askWhetherToListConfigs();
             return array ("type"=>"view", "view"=>"config", "pageVars"=>$this->content); }
