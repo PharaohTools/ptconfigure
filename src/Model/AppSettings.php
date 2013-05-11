@@ -12,7 +12,7 @@ class AppSettings extends Base  {
         return $this->performConfigGetting();
     }
 
-    public function askWhetherToListConfig() {
+    public function askWhetherToListConfigs() {
         return $this->performConfigListing();
     }
 
@@ -40,7 +40,7 @@ class AppSettings extends Base  {
     private function performConfigListing() {
         $doConf = $this->askForConfAppSettingsToScreen();
         if ($doConf != true) { return false; }
-        $allConfVars = $this->getAllConfVars();
+        $allConfVars = $this->findAllConfValues();
         return $allConfVars ;
     }
 
@@ -88,18 +88,18 @@ class AppSettings extends Base  {
         return $currentConf ;
     }
 
+    private function findAllConfValues() {
+        return \Model\AppConfig::getAllAppVariables() ;
+    }
+
     private function writeSettingToAppFile($confVar, $confValue) {
         $allAppConfVars = $this->getAppConfVarList() ;
         $listAdd = $allAppConfVars[$confVar] ;
         \Model\AppConfig::setAppVariable($confVar, $confValue, $listAdd);
     }
 
-    private function deleteSettingFromAppFile(){
-        $allProjectVHosts = \Model\AppConfig::getProjectVariable("virtual-hosts");
-        for ($i = 0; $i<=count($allProjectVHosts) ; $i++ ) {
-            if (isset($allProjectVHosts[$i]) && in_array($allProjectVHosts[$i], $this->vHostForDeletion)) {
-                unset($allProjectVHosts[$i]); } }
-        \Model\AppConfig::setProjectVariable("virtual-hosts", $allProjectVHosts);
+    private function deleteSettingFromAppFile($confVar){
+        \Model\AppConfig::deleteAppVariable($confVar);
     }
 
 }

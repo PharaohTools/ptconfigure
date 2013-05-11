@@ -44,6 +44,24 @@ install
                 perform an "unattended" install using the defaults in an autopilot file. Great for Remote Builds.
                 example: devhelper install autopilot
 
+appsettings   - configure default application settings, ie: mysql admin user, host, pass
+
+              - set
+                Set a configuration value
+                example: devhelper appsettings set
+
+              - get
+                Get the value of a setting you have configured
+                example: devhelper appsettings get
+
+              - delete
+                Delete a setting you have configured
+                example: devhelper appsettings delete
+
+              - list
+                Display a list of all default available settings
+                example: devhelper appsettings list
+
 checkout, co
 
               - perform a checkout into configured projects folder. If you dont want to specify target dir but do want
