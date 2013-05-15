@@ -79,8 +79,7 @@ class DBInstall extends Base {
             $this->dropDB(); }
         if ( $this->askForDBUserDrop() ) {
             if (!isset($this->dbRootUser)) {
-                $this->dbRootUser = $this->askForRootDBUser();
-                $this->dbRootPass = $this->askForRootDBPass(); }
+              $this->loadDBAdminUser(); }
             $this->dbUser = $this->askForDBUser();
             $this->userDropper(); }
         return "Seems Fine...";
