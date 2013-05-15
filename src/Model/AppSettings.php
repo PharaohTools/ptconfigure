@@ -40,7 +40,7 @@ class AppSettings extends Base  {
     private function performConfigListing() {
         $doConf = $this->askForConfAppSettingsToScreen();
         if ($doConf != true) { return false; }
-        $allConfVars = $this->findAllConfValues();
+        $allConfVars = $this->findAllSetAndUnsetConfValues();
         return $allConfVars ;
     }
 
@@ -70,6 +70,8 @@ class AppSettings extends Base  {
 
     private function getAppConfVarList() {
         $appConfVars = array("mysql-admin-user"=>false, "mysql-admin-host"=>false, "mysql-admin-pass"=>false) ;
+        $appConfVars = array_merge($appConfVars, array("linux-user"=>false, "linux-user-dir"=>false, "program-dir"=>false) );
+        $appConfVars = array_merge($appConfVars, array("temp-base-dir"=>false) );
         $appConfVars = array_merge($appConfVars, array() ); // add more lines like this when needed
         return $appConfVars;
     }
@@ -88,8 +90,11 @@ class AppSettings extends Base  {
         return $currentConf ;
     }
 
-    private function findAllConfValues() {
-        return \Model\AppConfig::getAllAppVariables() ;
+    private function findAllSetAndUnsetConfValues() {
+        $allSetAndUnset = array();
+        $allSetAndUnset["allSet"] = \Model\AppConfig::getAllAppVariables() ;
+        $allSetAndUnset["allTotal"] = $this->getAppConfVarList();
+        return $allSetAndUnset ;
     }
 
     private function writeSettingToAppFile($confVar, $confValue) {
@@ -98,7 +103,7 @@ class AppSettings extends Base  {
         \Model\AppConfig::setAppVariable($confVar, $confValue, $listAdd);
     }
 
-    private function deleteSettingFromAppFile($confVar){
+    private function deleteSettingFromAppFile($confVar) {
         \Model\AppConfig::deleteAppVariable($confVar);
     }
 
