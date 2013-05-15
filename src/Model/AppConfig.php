@@ -28,7 +28,8 @@ class AppConfig {
     private static function loadProjectFile() {
         $appConfigArrayJSON = file_get_contents('dhproj');
         $decoded = json_decode($appConfigArrayJSON);
-        return new \ArrayObject($decoded);
+        if (is_object($decoded) || is_array($decoded)) { return new \ArrayObject($decoded); }
+        else { return new \ArrayObject(array()); }
     }
 
     private static function saveProjectFile($appConfigArray) {

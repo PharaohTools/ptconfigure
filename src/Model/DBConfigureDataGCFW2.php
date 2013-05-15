@@ -26,10 +26,10 @@ class DBConfigureDataGCFW2 extends Base {
     private function setReplacements(){
 
         $this->settingsFileReplacements = array(
-            '****DBNAMEHOLDER****' => '$this->dbName = "****DB NAME****" ; // ****DBNAMEHOLDER****',
-            '****DBUSERHOLDER****' => '$this->dbUser = "****DB USER****" ; // ****DBUSERHOLDER****',
-            '****DBPASSHOLDER****' => '$this->dbPass = "****DB PASS****" ; // ****DBPASSHOLDER****',
-            '****DBHOSTHOLDER****' => '$this->dbHost = "****DB HOST****" ; // ****DBHOSTHOLDER****');
+            '$this->dbName =' => '            $this->dbName = "****DB NAME****" ; // ****DBNAMEHOLDER****',
+            '$this->dbUser =' => '            $this->dbUser = "****DB USER****" ; // ****DBUSERHOLDER****',
+            '$this->dbPass =' => '            $this->dbPass = "****DB PASS****" ; // ****DBPASSHOLDER****',
+            '$this->dbHost =' => '            $this->dbHost = "****DB HOST****" ; // ****DBHOSTHOLDER****');
 
     }
 

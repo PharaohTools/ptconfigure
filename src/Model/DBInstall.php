@@ -74,8 +74,7 @@ class DBInstall extends Base {
     private function performDBDrop() {
         if ( !$this->askForDBDropActions() ) { return false; }
         if ( $this->askForDBDrop() ) {
-            $this->dbRootUser = $this->askForRootDBUser();
-            $this->dbRootPass = $this->askForRootDBPass();
+            $this->loadDBAdminUser();
             $this->dbName = $this->askForDBFixedName();
             $this->dropDB(); }
         if ( $this->askForDBUserDrop() ) {
@@ -177,8 +176,26 @@ class DBInstall extends Base {
     }
 
     private function askForFreeFormDBUser(){
-        $question = 'What\'s the application DB User?';
-        return self::askForInput($question, true);
+      $question = 'What\'s the application DB User?';
+      return self::askForInput($question, true);
+    }
+
+    private function loadDBAdminUser() {
+      $confUser = \Model\AppConfig::getAppVariable("mysql-admin-user") ;
+      $confPass = \Model\AppConfig::getAppVariable("mysql-admin-pass") ;
+      $confHost = \Model\AppConfig::getAppVariable("mysql-admin-host") ;
+      if ($confUser != null && $confPass != null && $confHost != null ) {
+        $this->dbHost = $confHost;
+        $this->dbRootUser = $confUser;
+        $this->dbRootPass = $confPass; }
+      else {
+        $this->dbHost = $this->askForDBHost();
+        $this->dbRootUser = $this->askForRootDBUser();
+        $this->dbRootPass = $this->askForRootDBPass(); }
+      $canAdminConnect = $this->canAdminConnect();
+      if ($canAdminConnect !== true) {
+        echo $canAdminConnect;
+        die(); }
     }
 
     private function askForDBPass(){
@@ -202,14 +219,25 @@ class DBInstall extends Base {
     }
 
     private function canIConnect(){
-        error_reporting(0);
-        $con = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
-        error_reporting(E_ALL ^ E_WARNING);
-        if (mysqli_connect_errno($con)) {
-            return "Failed to connect to MySQL: " . mysqli_connect_error(); }
-        else {
-            mysqli_close($con);
-            return true;}
+      error_reporting(0);
+      $con = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
+      error_reporting(E_ALL ^ E_WARNING);
+      if (mysqli_connect_errno($con)) {
+        return "Failed to connect to MySQL: " . mysqli_connect_error(); }
+      else {
+        mysqli_close($con);
+        return true;}
+    }
+
+    private function canAdminConnect(){
+      error_reporting(0);
+      $con = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+      error_reporting(E_ALL ^ E_WARNING);
+      if (mysqli_connect_errno($con)) {
+        return "Admin Failed to connect to MySQL: " . mysqli_connect_error(); }
+      else {
+        mysqli_close($con);
+        return true;}
     }
 
     private function getDbUsers() {
