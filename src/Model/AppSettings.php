@@ -71,7 +71,7 @@ class AppSettings extends Base  {
     private function getAppConfVarList() {
         $appConfVars = array("mysql-admin-user"=>false, "mysql-admin-host"=>false, "mysql-admin-pass"=>false) ;
         $appConfVars = array_merge($appConfVars, array("linux-user"=>false, "linux-user-dir"=>false, "program-dir"=>false) );
-        $appConfVars = array_merge($appConfVars, array("temp-base-dir"=>false) );
+        $appConfVars = array_merge($appConfVars, array("temp-base-dir"=>false, "distro"=>false, "op-sys"=>false) );
         $appConfVars = array_merge($appConfVars, array() ); // add more lines like this when needed
         return $appConfVars;
     }
