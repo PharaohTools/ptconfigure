@@ -21,21 +21,26 @@ class Install extends Base {
           $install = new $className();
           return $install->execute($pageVars);}
 
-        if ($action=="autopilot") {
+        if (array_key_exists($action, $actionsToClasses)) {
+          $className = '\\Controller\\'.$actionsToClasses[$action];
+          $install = new $className();
+          return $install->execute($pageVars); }
+        else{
+          if ($action=="autopilot") {
             $autoPilotFileName= (isset($pageVars["route"]["extraParams"][0]))
               ? $pageVars["route"]["extraParams"][0]
               : null;
             if (isset($autoPilotFileName) && strlen($autoPilotFileName)>0 ) {
               $autoPilot = $this->loadAutoPilot($autoPilotFileName);
-                if ( $autoPilot!==null ) {
-                  $install = new Autopilot();
-                  return $install->execute($pageVars, $autoPilot); }
-                else {
-                    $this->content["autoPilotErrors"]="Auto Pilot couldn't load"; } }
+              if ( $autoPilot!==null ) {
+                $install = new Autopilot();
+                return $install->execute($pageVars, $autoPilot); }
+              else {
+                $this->content["autoPilotErrors"]="Auto Pilot couldn't load"; } }
             else {
-                $this->content["autoPilotErrors"]="Auto Pilot not defined";  } }
-        else {
-            $this->content["autoPilotErrors"]="No Action"; }
+              $this->content["autoPilotErrors"]="Auto Pilot not defined";  } }
+          else {
+            $this->content["autoPilotErrors"]="No Action"; } }
         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);
     }
 
