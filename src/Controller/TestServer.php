@@ -66,8 +66,17 @@ class TestServer extends Base {
       $fireFox17Model = new \Model\Firefox17();
       $this->content["fireFox17InstallResult"] = $fireFox17Model->askWhetherToInstallLinuxApp();
 
+      $mysqlServerModel = new \Model\MysqlServer();
+      $this->content["mysqlServerInstallResult"] = $mysqlServerModel->askWhetherToInstallLinuxApp();
+
       $mysqlToolsModel = new \Model\MysqlTools();
       $this->content["mysqlToolsInstallResult"] = $mysqlToolsModel->askWhetherToInstallLinuxApp();
+
+      $mysqlAdminsModel = new \Model\MysqlAdmins();
+      $this->content["mysqlAdminsInstallResult"] = $mysqlAdminsModel->askWhetherToInstallLinuxApp();
+
+      $sudoNoPassModel = new \Model\SudoNoPass();
+      $this->content["sudoNoPassInstallResult"] = $sudoNoPassModel->askWhetherToInstallLinuxApp();
 
       return array ("type"=>"view", "view"=>"installTestServer", "pageVars"=>$this->content);
 

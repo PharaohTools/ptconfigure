@@ -41,7 +41,13 @@ Developer Tools: <?php echo $pageVars["developerToolsInstallResult"] ; ?>
 
 Intelli J: <?php echo $pageVars["intellijInstallResult"] ; ?>
 
+MySQL Server: <?php echo $pageVars["mysqlServerInstallResult"] ; ?>
+
 MySQL Tools: <?php echo $pageVars["mysqlToolsInstallResult"] ; ?>
+
+MySQL Admins: <?php echo $pageVars["mysqlAdminInstallResult"] ; ?>
+
+User Sudo: <?php echo $pageVars["sudoNoPassInstallResult"] ; ?>
 
 Media Tools: <?php echo $pageVars["mediaToolsInstallResult"] ; ?>
 

@@ -37,7 +37,10 @@ Firefox 14: <?php echo $pageVars["fireFox14InstallResult"] ; ?>
 
 Firefox 17: <?php echo $pageVars["fireFox17InstallResult"] ; ?>
 
+MySQL Server: <?php echo $pageVars["mysqlServerInstallResult"] ; ?>
+
 MySQL Tools: <?php echo $pageVars["mysqlToolsInstallResult"] ; ?>
 
+MySQL Admins: <?php echo $pageVars["mysqlAdminInstallResult"] ; ?>
 ------------------------------
 Installer Finished

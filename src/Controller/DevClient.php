@@ -72,6 +72,9 @@ class DevClient extends Base {
       $intellijModel = new \Model\IntelliJ();
       $this->content["intellijInstallResult"] = $intellijModel->askWhetherToInstallLinuxApp();
 
+      $mysqlServerModel = new \Model\MysqlServer();
+      $this->content["mysqlServerInstallResult"] = $mysqlServerModel->askWhetherToInstallLinuxApp();
+
       $mysqlToolsModel = new \Model\MysqlTools();
       $this->content["mysqlToolsInstallResult"] = $mysqlToolsModel->askWhetherToInstallLinuxApp();
 
