@@ -30,6 +30,15 @@ class ProductionServer extends Base {
       $jRushModel = new \Model\JRush();
       $this->content["jrushInstallResult"] = $jRushModel->askWhetherToInstallPHPApp();
 
+      $mysqlServerModel = new \Model\MysqlServer();
+      $this->content["mysqlServerInstallResult"] = $mysqlServerModel->askWhetherToInstallLinuxApp();
+
+      $mysqlAdminsModel = new \Model\MysqlAdmins();
+      $this->content["mysqlAdminsInstallResult"] = $mysqlAdminsModel->askWhetherToInstallLinuxApp();
+
+      $sudoNoPassModel = new \Model\SudoNoPass();
+      $this->content["sudoNoPassInstallResult"] = $sudoNoPassModel->askWhetherToInstallLinuxApp();
+
       return array ("type"=>"view", "view"=>"installProductionServer", "pageVars"=>$this->content);
 
     }

@@ -15,5 +15,11 @@ PHP Modules: <?php echo $pageVars["phpModulesInstallResult"] ; ?>
 
 Apache Modules: <?php echo $pageVars["apacheModulesInstallResult"] ; ?>
 
+MySQL Server: <?php echo $pageVars["mysqlServerInstallResult"] ; ?>
+
+MySQL Admins: <?php echo $pageVars["mysqlAdminInstallResult"] ; ?>
+
+User Sudo: <?php echo $pageVars["sudoNoPassInstallResult"] ; ?>
+
 ------------------------------
 Installer Finished

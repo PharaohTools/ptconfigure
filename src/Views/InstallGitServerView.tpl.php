@@ -11,5 +11,7 @@ PHP Modules: <?php echo $pageVars["phpModulesInstallResult"] ; ?>
 
 Apache Modules: <?php echo $pageVars["apacheModulesInstallResult"] ; ?>
 
+User Sudo: <?php echo $pageVars["sudoNoPassInstallResult"] ; ?>
+
 ------------------------------
 Installer Finished

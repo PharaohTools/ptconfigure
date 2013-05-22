@@ -27,6 +27,9 @@ class GitServer extends Base {
       $devhelperModel = new \Model\Devhelper();
       $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
 
+      $sudoNoPassModel = new \Model\SudoNoPass();
+      $this->content["sudoNoPassInstallResult"] = $sudoNoPassModel->askWhetherToInstallLinuxApp();
+
       return array ("type"=>"view", "view"=>"installGitServer", "pageVars"=>$this->content);
 
     }
