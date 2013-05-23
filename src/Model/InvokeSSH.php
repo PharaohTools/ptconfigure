@@ -40,7 +40,6 @@ class InvokeSSH extends Base {
 
     public function performInvokeSSHShell() {
         if ($this->askForSSHShellExecute() != true) { return false; }
-        $this->askForSSHShellExecute();
         $this->populateServers();
         $commandExecution = true;
         echo "Opening CLI...\n"  ;
