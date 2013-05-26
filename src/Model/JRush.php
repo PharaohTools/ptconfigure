@@ -9,7 +9,7 @@ class JRush extends BasePHPApp {
     $this->autopilotDefiner = "JRush";
     $this->fileSources = array(
       array(
-        "https://bitbucket.org/phpengine/jrush.git",
+        "https://phpengine:b33byp455@bitbucket.org/phpengine/jrush.git",
         "jrush",
         null // can be null for none
       )
