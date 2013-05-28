@@ -113,7 +113,7 @@ class DBConfigure extends Base {
           $this->platformVars = new \Model\DBConfigureDataJoomla15();
           return; }
         if (in_array($this->platform, array("j30", "joomla30"))) {
-          $this->platformVars = new \Model\DBConfigureDataJoomla15();
+          $this->platformVars = new \Model\DBConfigureDataJoomla30();
           return; }
         $this->platformVars = new \Model\DBConfigureDataGCFW2();
         return;
