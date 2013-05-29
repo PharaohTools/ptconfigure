@@ -68,7 +68,8 @@ class AppConfig {
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayJSON = file_get_contents($appFile);
         $decoded = json_decode($appConfigArrayJSON);
-        return new \ArrayObject($decoded);
+        $returnObject = (is_array($decoded)) ? new \ArrayObject($decoded) : new \ArrayObject(array()) ;
+        return $returnObject;
     }
 
     private static function saveAppFile($appConfigArray) {
