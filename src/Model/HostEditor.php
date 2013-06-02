@@ -135,6 +135,7 @@ class HostEditor extends Base {
     private function deleteHostFileEntryFromProjectFile(){
         if ($this->checkIsDHProject()) {
             $allHostFileEntries = \Model\AppConfig::getProjectVariable("host-entries");
+            if ($allHostFileEntries instanceof \stdClass) { $allHostFileEntries = new \ArrayObject($allHostFileEntries); }
             for ($i = 0; $i<=count($allHostFileEntries) ; $i++ ) {
                 if (isset($allHostFileEntries[$i]) && array_key_exists($allHostFileEntries[$i], $this->uri)) {
                     unset($allHostFileEntries[$i]); } }
