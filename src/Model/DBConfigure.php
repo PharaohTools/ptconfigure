@@ -115,6 +115,10 @@ class DBConfigure extends Base {
         if (in_array($this->platform, array("j30", "joomla30"))) {
           $this->platformVars = new \Model\DBConfigureDataJoomla30();
           return; }
+        if ($this->platform != "") {
+          $platformClassName = '\Model\DBConfigureData'.$this->platform ;
+          $this->platformVars = new $platformClassName();
+          return; }
         $this->platformVars = new \Model\DBConfigureDataGCFW2();
         return;
     }
