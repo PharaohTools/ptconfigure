@@ -16,6 +16,7 @@ class BootStrap {
     public function main($argv) {
         $routeObject = new \Core\Router();
         $route = $routeObject->run($argv);
+        // var_dump("route in main: ", $route);
         $emptyPageVars = array("messages"=>array(), "route"=>$route);
         $this->executeControl($route["control"], $emptyPageVars);
     }
@@ -23,16 +24,20 @@ class BootStrap {
     private function executeControl($controlToExecute, $pageVars=null) {
         $control = new \Core\Control();
         $controlResult = $control->executeControl($controlToExecute, $pageVars);
+        // var_dump("control result", $controlResult);
         try {
             if ($controlResult["type"]=="view") {
-                $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
+              echo "isview";
+              $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
             else if ($controlResult["type"]=="control") {
+              echo "is control";
                 $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); }
         } catch (\Exception $e) {
             throw new \Exception( 'No controller result type specified', 0, $e); }
     }
 
     private function executeView($viewTemplate, $viewVars) {
+        echo $viewTemplate.' - '.$viewVars ;
         $view = new \Core\View();
         $view->executeView($viewTemplate, $viewVars);
     }

@@ -8,31 +8,47 @@ class AutoLoader{
       spl_autoload_register('Core\autoLoader::autoLoad');
     }
 
-    public static function autoLoad($className) {
-      // look in core
-      $classNameForLoad = str_replace('\\' , DIRECTORY_SEPARATOR, $className);
-      $filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . $classNameForLoad.'.php';
-      if (is_readable($filename)) {
-        require_once $filename;
-        return; }
-      // look in extensions
-      $extensionParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . "Extensions" ;
-      $extensionIndividualDirectories = scandir($extensionParentDir);
-      foreach ($extensionIndividualDirectories as $singleExtensionDir) {
-        if (!in_array($singleExtensionDir, array(".", ".."))) { // if not dot or double dot
-          if ( is_dir($extensionParentDir.DIRECTORY_SEPARATOR.$singleExtensionDir)) { // if is a dir
+  public static function autoLoad($className) {
+    // look in core as normal
+    $classNameForLoad = str_replace('\\' , DIRECTORY_SEPARATOR, $className);
+    $filename = dirname(__FILE__) . DIRECTORY_SEPARATOR . $classNameForLoad.'.php';
+    if (is_readable($filename)) {
+      require_once $filename;
+      return; }
+    // look in Extensions, and then in core modules, so that an extension version will load first
+    // also finally looks in Core, but only Base should be in there
+    $allModuleParentDirectories = array("Extensions", "Modules", "Core");
+    foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
+      $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
+      $modulesIndividualDirectories = scandir($currentModulesParentDir);
+      foreach ($modulesIndividualDirectories as $singleModuleDir) {
+        if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
+          if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
             $classNameForLoad = str_replace('\\' , DIRECTORY_SEPARATOR, $className);
             $filename =
-              $extensionParentDir . DIRECTORY_SEPARATOR . $singleExtensionDir .
+              $currentModulesParentDir . DIRECTORY_SEPARATOR . $singleModuleDir .
               DIRECTORY_SEPARATOR . $classNameForLoad.'.php';
-            echo $filename;
             if (is_readable($filename)) {
               require_once $filename;
-              return;
-            }
-          }
-        }
-      }
-    }
+              return; } } } } }
+  }
+
+  public static function getInfoObjects() {
+    $allInfoObjects = array();
+    $allModuleParentDirectories = array("Extensions", "Modules", "Core");
+    foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
+      $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
+      $modulesIndividualDirectories = scandir($currentModulesParentDir);
+      foreach ($modulesIndividualDirectories as $singleModuleDir) {
+        if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
+          if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
+            $filesInModuleDirectory = scandir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir);
+            foreach ($filesInModuleDirectory as $fileInModuleDirectory) {
+              if (substr($fileInModuleDirectory, 0, 5) == "info.") {
+                require_once $currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.$fileInModuleDirectory;
+                $className = '\Info\\'.$singleModuleDir.'Info' ;
+                $allInfoObjects[] = new $className(); } } } } } }
+    return $allInfoObjects;
+  }
 
 }
