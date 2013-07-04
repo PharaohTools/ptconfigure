@@ -5,7 +5,7 @@ Namespace Core;
 class AutoLoader{
 
     public function launch() {
-      spl_autoload_register('Core\autoLoader::autoLoad');
+      spl_autoload_register('Core\AutoLoader::autoLoad');
     }
 
   public static function autoLoad($className) {
