@@ -82,9 +82,9 @@ class AutoPilot {
     public $dbDropDBName = null;
     public $dbDropDBHost = null;
     public $dbDropDBRootUser = null;
-        public $dbDropDBRootPass = null;
-        public $dbDropUserExecute = false; // true or false
-        public $dbDropDBUser = null;
+    public $dbDropDBRootPass = null;
+    public $dbDropUserExecute = false; // true or false
+    public $dbDropDBUser = null;
 
     // DB Install - Install DB and User
     public $dbInstallExecute = false; // true or false
