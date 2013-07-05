@@ -1,10 +1,12 @@
-Golden Contact Computing - Dapperstrano Tool
+Golden Contact Computing - Dapperstrano
 -------------------
 
 About:
 -----------------
-This tool helps with setting up projects. It's really cool for cloning/installing/spinning up webs apps easily and
-quickly.
+
+If you've heard of the Ruby tool Capistrano, then you can probably guess what this is for. It performs the same function
+but does the same in PHP. This tool helps with setting up projects. It's really cool for cloning/installing/spinning up
+webs apps easily and quickly. Its for deploying PHP Web apps to one or multiple servers using a config file.
 
 Very cool for CI, after your CI tool performs the project checkout to run tests, you can install your webb app in one
 line like:
