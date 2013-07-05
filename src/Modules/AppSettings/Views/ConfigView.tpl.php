@@ -9,7 +9,7 @@ if ($pageVars["route"]["action"] == "list") {
               $i = 0;
               foreach ($configResultValues as $configResultKey => $configResultValue ) {
                 /* var_dump($configResultValues); */
-                echo "$configResultKey";
+                echo "   $configResultKey";
                 if (isset($configResultValue) && strlen($configResultValue)>0) { echo ' is: '.$configResultValue ; }
                 echo " \n";
                 $i++; } }

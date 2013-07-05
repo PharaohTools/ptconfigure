@@ -5,7 +5,6 @@ Namespace Model;
 class Base {
 
     protected function executeAndOutput($command, $message=null) {
-        print $command."\n";
         $outputArray = array();
         exec($command, $outputArray);
         $outputText = "";
@@ -67,7 +66,7 @@ class Base {
         while (!$last_line) {
             print "$question\n";
             $inputLine = fgets($fp, 1024);
-            if ($required && strlen($inputLine)==0 ) {
+            if ($required != null && ($inputLine=="" || $inputLine=="\n" || $inputLine=="\r" ) ) {
                 print "You must enter a value. Please try again.\n"; }
             else {$last_line = true;} }
         $inputLine = $this->stripNewLines($inputLine);
