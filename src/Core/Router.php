@@ -8,22 +8,6 @@ class Router {
     private	$route;
     private $availableRoutes = array() ;
 
-    /*
-    private $availableRoutes = array(
-        "index" => array("index") , -  done
-        "invoke" => array("cli", "script", "autopilot") , done
-        "version" => array("cli", "latest", "rollback", "specific") ,
-        "checkout" => array("git") , done
-        "hostEditor" => array("add", "rm") ,done
-        "VHostEditor" => array("add", "rm", "list") ,done
-        "cukeConf" => array("conf", "reset")  , done
-        "database" => array("install", "drop", "configure", "config", "conf", "reset", "useradd", "userdrop")  , done
-        "project" => array("init", "build-install", "container", "cont") done ,
-        "install" => array("cli", "autopilot") , done
-        "AppSettings" => array("set", "get", "list", "delete") ); done
-    */
-
-
     public function run($argv) {
         $this->argv = $argv;
         $this->setCurrentRoute();
@@ -52,11 +36,6 @@ class Router {
 
     private function parseControllerAliases() {
         $allInfoObjects = AutoLoader::getInfoObjects() ;
-        /*
-        $aliases = array("co"=>"checkout", "hosteditor"=>"hostEditor", "he"=>"hostEditor", "host"=>"hostEditor",
-            "vhostEditor"=>"VHostEditor", "vhosteditor"=>"VHostEditor", "vhc"=>"VHostEditor", "cuke"=>"cukeConf",
-            "cukeconf"=>"cukeConf", "proj"=>"project", "db"=>"database");
-        */
         $aliases = array();
         foreach ($allInfoObjects as $infoObject) {
             $aliases = array_merge( $aliases, $infoObject->routeAliases() ); }
@@ -77,6 +56,7 @@ class Router {
     }
 
     private function setRouteExtraParams() {
+        $this->route["extraParams"] = array();
         $numberOfExtraParams = count($this->argv)-3;
         for ($i=3; $i<($numberOfExtraParams+3); $i++) {
             $this->route["extraParams"][] = $this->argv[$i] ;}

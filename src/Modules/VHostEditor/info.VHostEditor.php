@@ -13,16 +13,31 @@ class VHostEditorInfo {
     }
 
     public function routesAvailable() {
-      return array( "VHostEditor" => array("add", "rm", "list")  );
+      return array( "VHostEditor" => array_merge(parent::routesAvailable(), array("add", "rm", "list") ) );
     }
 
     public function routeAliases() {
-      return array("vhc"=>"VHostEditor");
+      return array("vhc"=>"VHostEditor", "vhosted"=>"VHostEditor", "vhed"=>"VHostEditor");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Apache VHosts Functions.
+
+  VHostEditor, vhosteditor, vhc, vhosted
+
+          - add
+          create a Virtual Host
+          example: devhelper vhc add
+
+          - rm
+          remove a Virtual Host
+          example: devhelper vhc rm
+
+          - list
+          List current Virtual Hosts
+          example: devhelper vhc list
+
 HELPDATA;
       return $help ;
     }
