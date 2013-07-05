@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class GitCheckout extends Base {
+class CheckoutGit extends Base {
 
     private $projectDirectory;
     private $webServerUser;

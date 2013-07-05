@@ -5,8 +5,9 @@ Namespace Controller ;
 class Project extends Base {
 
     public function execute($pageVars) {
-        $this->content["route"] = $pageVars["route"];
-        $this->content["messages"] = $pageVars["messages"];
+        $isHelp = parent::checkForHelp($pageVars) ;
+        if ( is_array($isHelp) ) {
+          return $isHelp; }
         $action = $pageVars["route"]["action"];
         $projectModel = new \Model\Project();
 

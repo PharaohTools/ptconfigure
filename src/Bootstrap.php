@@ -27,17 +27,14 @@ class BootStrap {
         // var_dump("control result", $controlResult);
         try {
             if ($controlResult["type"]=="view") {
-              echo "isview";
-              $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
+                $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
             else if ($controlResult["type"]=="control") {
-              echo "is control";
                 $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); }
         } catch (\Exception $e) {
             throw new \Exception( 'No controller result type specified', 0, $e); }
     }
 
     private function executeView($viewTemplate, $viewVars) {
-        echo $viewTemplate.' - '.$viewVars ;
         $view = new \Core\View();
         $view->executeView($viewTemplate, $viewVars);
     }
