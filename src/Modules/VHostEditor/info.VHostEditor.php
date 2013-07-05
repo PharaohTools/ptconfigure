@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class VHostEditorInfo {
+class VHostEditorInfo extends Base {
 
     public $hidden = false;
 

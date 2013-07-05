@@ -24,7 +24,7 @@ class CukeConfInfo extends Base {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can configure Cucumber configurations
 
-  cukeconf, cuke
+  CukeConf, cukeConf, cukeconf, cuke
 
           - conf
           modify the url used for cucumber features testing

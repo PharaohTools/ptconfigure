@@ -25,7 +25,7 @@ class DatabaseInfo extends Base {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Databasing Functions.
 
-  database, db
+  Database, database, db
 
           - configure, conf
           set up db user & pw for a project, use admins to create new resources as needed.
