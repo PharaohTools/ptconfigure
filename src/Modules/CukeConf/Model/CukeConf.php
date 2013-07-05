@@ -18,7 +18,7 @@ class CukeConf extends Base {
         $cukeFileEntry = $this->askForCukeModToScreen();
         if (!$cukeFileEntry) { return false; }
         if ( !$this->checkIsDHProject() ) {
-            return "You don't appear to be in a devhelper project. Try: \ndevhelper proj init\n"; }
+            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
         $uri = $this->askForCukefileUri();
         $this->loadCurrentCukeFile();
         $this->cukeFileDataChange( $uri);
@@ -33,7 +33,7 @@ class CukeConf extends Base {
         $cukeFileEntry = $this->askForCukeResetToScreen();
         if (!$cukeFileEntry) { return false; }
         if ( !$this->checkIsDHProject() ) {
-            return "You don't appear to be in a devhelper project. Try: \ndevhelper proj init\n"; }
+            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
         $this->loadCurrentCukeFile();
         $this->cukeFileReverseDataChange();
         $this->checkCukeFileOkay();
@@ -45,7 +45,7 @@ class CukeConf extends Base {
 
     public function runAutoPilotAddition($autoPilot){
         if ( !$autoPilot->cukeConfAdditionExecute ) {
-            return "You don't appear to be in a devhelper project. Try: \ndevhelper proj init\n"; }
+            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
         $uri = $autoPilot->cukeConfAdditionURI;
         $this->loadCurrentCukeFile();
         $this->cukeFileDataChange( $uri);
@@ -58,7 +58,7 @@ class CukeConf extends Base {
     public function runAutoPilotDeletion($autoPilot){
         if ( !$autoPilot->cukeConfDeletionExecute ) { return false; }
         if ( !$this->checkIsDHProject() ) {
-            return "You don't appear to be in a devhelper project. Try: \ndevhelper proj init\n"; }
+            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
         $this->loadCurrentCukeFile();
         $this->cukeFileReverseDataChange();
         $this->createCukeFile();

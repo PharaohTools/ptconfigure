@@ -1,6 +1,6 @@
 
 ******************************
-GC Devhelper
+Dapperstrano
 ******************************
 
 <?php echo $this->renderMessages($pageVars); ?>

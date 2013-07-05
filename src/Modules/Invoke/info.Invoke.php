@@ -28,15 +28,15 @@ class InvokeInfo extends Base {
 
         - cli
         Will ask you for details for servers, then open a shell for you to execute on multiple servers
-        example: devhelper invoke shell
+        example: dapperstrano invoke shell
 
         - script
         Will ask you for details for servers, then execute each line of a provided script file on the remote/s
-        example: devhelper invoke script script-file
+        example: dapperstrano invoke script script-file
 
         - autopilot
         execute each line of a script file, multiple script files, or php variable data on one or more remotes
-        example: devhelper invoke autopilot autopilot-file
+        example: dapperstrano invoke autopilot autopilot-file
 
 HELPDATA;
       return $help ;

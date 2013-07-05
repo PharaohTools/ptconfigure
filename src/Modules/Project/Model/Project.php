@@ -40,7 +40,7 @@ class Project extends Base  {
     public function runAutoPilotBuildInstall($autoPilot) {
         $projBuildInstall = $autoPilot->projectBuildInstallExecute;
         if ($projBuildInstall != true) { return false; }
-        if ( !$this->checkIsDHProject() ) { return "No Devhelper project file found. Try: \ndevhelper proj init\n"; }
+        if ( !$this->checkIsDHProject() ) { return "No Dapperstrano project file found. Try: \ndapperstrano proj init\n"; }
         $this->jenkinsOriginalJobFolderName = $autoPilot->projectJenkinsOriginalJobFolderName;
         $this->jenkinsFSFolder = $autoPilot->projectJenkinsFSFolder;
         $this->jenkinsNewJobFolderName = $autoPilot->projectJenkinsNewJobFolderName ;
@@ -76,7 +76,7 @@ class Project extends Base  {
     private function performInstallBuildInProject() {
         $projInit = $this->askForProjModifyToScreen("To Install Build");
         if ($projInit!=true) { return false; }
-        if ( !$this->checkIsDHProject() ) { return "No Devhelper project file found. Try: \ndevhelper proj init\n"; }
+        if ( !$this->checkIsDHProject() ) { return "No Dapperstrano project file found. Try: \ndapperstrano proj init\n"; }
         $projInit = $this->askForProjBuildInstallToScreen();
         if (!$projInit) { return false; }
         $this->jenkinsOriginalJobFolderName = $this->selectJenkinsFolderInProject();
@@ -98,7 +98,7 @@ class Project extends Base  {
     }
 
     private function askForProjInitToScreen() {
-        $question = 'Do you want to initialize this as a devhelper project?';
+        $question = 'Do you want to initialize this as a dapperstrano project?';
         return self::askYesOrNo($question);
     }
 
@@ -108,7 +108,7 @@ class Project extends Base  {
     }
 
     private function askForProjContainerInitToScreen() {
-        $question = 'Do you want to initialize this as a devhelper project Container?';
+        $question = 'Do you want to initialize this as a dapperstrano project Container?';
         return self::askYesOrNo($question);
     }
 

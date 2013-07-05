@@ -28,11 +28,11 @@ class HostEditorInfo extends Base {
 
           - add
           add a Host File entry
-          example: devhelper hosteditor add
+          example: dapperstrano hosteditor add
 
           - rm
           remove a Host File entry
-          example: devhelper hosteditor rm
+          example: dapperstrano hosteditor rm
 
 HELPDATA;
       return $help ;

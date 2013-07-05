@@ -29,11 +29,11 @@ class InstallInfo extends Base {
           - cli
           install a full web project - Checkout, VHost, Hostfile, Cucumber Configuration, Database Install and
           Settings Config, and Jenkins Job. The installer will ask you for required values
-          example: devhelper install cli
+          example: dapperstrano install cli
 
           - autopilot
           perform an "unattended" install using the defaults in an autopilot file. Great for Remote Builds.
-          example: devhelper install autopilot
+          example: dapperstrano install autopilot
 
 HELPDATA;
       return $help ;

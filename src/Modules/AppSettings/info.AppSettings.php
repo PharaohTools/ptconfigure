@@ -29,19 +29,19 @@ class AppSettingsInfo extends Base {
 
         - set
         Set a configuration value
-        example: devhelper appsettings set
+        example: dapperstrano appsettings set
 
         - get
         Get the value of a setting you have configured
-        example: devhelper appsettings get
+        example: dapperstrano appsettings get
 
         - delete
         Delete a setting you have configured
-        example: devhelper appsettings delete
+        example: dapperstrano appsettings delete
 
         - list
         Display a list of all default available settings
-        example: devhelper appsettings list
+        example: dapperstrano appsettings list
 
 HELPDATA;
       return $help ;
