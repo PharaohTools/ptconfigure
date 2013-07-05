@@ -29,15 +29,15 @@ class VersionInfo extends Base {
 
           - specific
           Will change back the *current* symlink to whichever available version you pick
-          example: devhelper version cli
+          example: dapperstrano version cli
 
           - latest
           Will change back the *current* symlink to the latest created version
-          example: devhelper version latest
+          example: dapperstrano version latest
 
           - rollback
           Will change back the *current* symlink to the latest created version but one
-          example: devhelper version rollback
+          example: dapperstrano version rollback
 
 HELPDATA;
       return $help ;

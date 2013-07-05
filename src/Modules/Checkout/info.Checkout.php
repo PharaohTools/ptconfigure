@@ -28,8 +28,8 @@ class CheckoutInfo extends Base {
 
           - perform a checkout into configured projects folder. If you don't want to specify target dir but do want
           to specify a branch, then enter the text "none" as that parameter.
-          example: devhelper co git https://github.com/phpengine/yourmum {optional target dir} {optional branch}
-          example: devhelper co git https://github.com/phpengine/yourmum none {optional branch}
+          example: dapperstrano co git https://github.com/phpengine/yourmum {optional target dir} {optional branch}
+          example: dapperstrano co git https://github.com/phpengine/yourmum none {optional branch}
 
 HELPDATA;
       return $help ;

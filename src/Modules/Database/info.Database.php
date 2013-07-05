@@ -29,19 +29,19 @@ class DatabaseInfo extends Base {
 
           - configure, conf
           set up db user & pw for a project, use admins to create new resources as needed.
-          example: devhelper db conf drupal
+          example: dapperstrano db conf drupal
 
           - reset
-          reset current db to generic values so devhelper can write them. may need to be run before db conf.
-          example: devhelper db reset drupal
+          reset current db to generic values so dapperstrano can write them. may need to be run before db conf.
+          example: dapperstrano db reset drupal
 
           - install
           install the database for a project. run conf first to set up users unless you already have them.
-          example: devhelper db install
+          example: dapperstrano db install
 
           - drop
           drop the database for a project.
-          example: devhelper db drop
+          example: dapperstrano db drop
 
 HELPDATA;
       return $help ;

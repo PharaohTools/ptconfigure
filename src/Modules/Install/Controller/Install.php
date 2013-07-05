@@ -184,7 +184,7 @@ class Install extends Base {
 
     private function loadAutoPilot($autoPilotFileName){
         $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotFileName);
-        $defaultFolderToCheck = getcwd()."/build/config/devhelper/autopilots";
+        $defaultFolderToCheck = getcwd()."/build/config/dapperstrano/autopilots";
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
         $defaultAndPilotName = $defaultFolderToCheck.'/'."autopilot-".$autoPilotFileName.".php";
         if (file_exists($defaultName)) {

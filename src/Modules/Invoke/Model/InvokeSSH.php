@@ -93,8 +93,8 @@ class InvokeSSH extends Base {
                 echo 'Connection to Server '.$server["target"].' failed. '; }
             else {
                 $server["ssh2Object"] = $attempt ;
-                echo $this->changeBashPromptToDevhelper($server["ssh2Object"]);
-                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Devhelper Remote SSH on ...'.$server["target"].'"', true ) ; } }
+                echo $this->changeBashPromptToDapperstrano($server["ssh2Object"]);
+                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Dapperstrano Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
     }
 
@@ -129,7 +129,7 @@ class InvokeSSH extends Base {
 *   Due to a software limitation, *
 *   The user that you user here   *
 *  will have their command prompt *
-*   changed to DEVHELPERPROMPT... *
+*  changed to DAPPERSTRANOPROMPT  *
 *  ... I'm working on that one... *
 *  Exit program to stop (CTRL+C)  *
 ***********************************
@@ -173,16 +173,16 @@ QUESTION;
         return ($input=="") ? false : $input ;
     }
 
-    private function changeBashPromptToDevhelper( $sshObject ) {
-        $command = 'echo "export PS1=DEVHELPERPROMPT" >> ~/.bashrc ' ;
+    private function changeBashPromptToDapperstrano( $sshObject ) {
+        $command = 'echo "export PS1=DAPPERSTRANOPROMPT" >> ~/.bashrc ' ;
         return $sshObject->exec("$command\n") ;
     }
 
     private function doSSHCommand( $sshObject, $command, $first=null ) {
-        $returnVar = ($first==null) ? "" : $sshObject->read("DEVHELPERPROMPT") ;
+        $returnVar = ($first==null) ? "" : $sshObject->read("DAPPERSTRANOPROMPT") ;
         $sshObject->write("$command\n") ;
-        $returnVar .= $sshObject->read("DEVHELPERPROMPT") ;
-        return str_replace("DEVHELPERPROMPT", "", $returnVar) ;
+        $returnVar .= $sshObject->read("DAPPERSTRANOPROMPT") ;
+        return str_replace("DAPPERSTRANOPROMPT", "", $returnVar) ;
     }
 
 }

@@ -28,11 +28,11 @@ class CukeConfInfo extends Base {
 
           - conf
           modify the url used for cucumber features testing
-          example: devhelper cukeconf cli
+          example: dapperstrano cukeconf cli
 
           - reset
-          reset cuke uri to generic values so devhelper can write them. may need to be run before cuke conf.
-          example: devhelper cukeconf reset
+          reset cuke uri to generic values so dapperstrano can write them. may need to be run before cuke conf.
+          example: dapperstrano cukeconf reset
 HELPDATA;
       return $help ;
     }

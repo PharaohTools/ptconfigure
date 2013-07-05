@@ -30,15 +30,15 @@ class ProjectInfo extends Base {
 
           - container
           make a container folder for revisions (like /var/www/applications/*APP NAME*)
-          example: devhelper proj container
+          example: dapperstrano proj container
 
           - init
           initialize DH project
-          example: devhelper proj init
+          example: dapperstrano proj init
 
           - build-install
           copy jenkins project stored in repo to running jenkins so you can run builds
-          example: devhelper proj build-install
+          example: dapperstrano proj build-install
 
 HELPDATA;
       return $help ;

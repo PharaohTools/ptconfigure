@@ -28,15 +28,15 @@ class VHostEditorInfo extends Base {
 
           - add
           create a Virtual Host
-          example: devhelper vhc add
+          example: dapperstrano vhc add
 
           - rm
           remove a Virtual Host
-          example: devhelper vhc rm
+          example: dapperstrano vhc rm
 
           - list
           List current Virtual Hosts
-          example: devhelper vhc list
+          example: dapperstrano vhc list
 
 HELPDATA;
       return $help ;
