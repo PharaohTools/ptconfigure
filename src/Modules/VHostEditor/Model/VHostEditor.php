@@ -167,7 +167,7 @@ class VhostEditor extends Base {
     }
 
     private function askForVHostDirectory(){
-        $question = 'What is your VHost directory?  Enter nothing to choose from application defaults';
+        $question = 'What is your VHost directory?';
         if ($this->detectApacheVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - use this?';
             $input = self::askForInput($question);
             return ($input=="") ? $this->vHostDir : $input ;  }
