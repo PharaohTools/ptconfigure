@@ -25,7 +25,7 @@ class AppSettingsInfo extends Base {
   This command is part of Core and provides you  with a method by which you can configure Application Settings.
   You can configure default application settings, ie: mysql admin user, host, pass
 
-  appsettings
+  AppSettings, appsettings
 
         - set
         Set a configuration value

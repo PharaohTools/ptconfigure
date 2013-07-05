@@ -18,14 +18,14 @@ class VersionInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("version" => "Version");
+      return array("version" => "Version", "vrs" => "Version");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Application Versioning, allowing for rollbacks and the like.
 
-  version
+  Version, version, vrs
 
           - specific
           Will change back the *current* symlink to whichever available version you pick

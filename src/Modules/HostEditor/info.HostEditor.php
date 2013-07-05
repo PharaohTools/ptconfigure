@@ -24,7 +24,7 @@ class HostEditorInfo extends Base {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Host File Management Functions.
 
-  hosteditor
+  HostEditor, hosteditor, he, hostEditor
 
           - add
           add a Host File entry

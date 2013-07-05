@@ -26,7 +26,7 @@ class ProjectInfo extends Base {
   This command is part of Core and handles Project initialisation functions, like configuring a project, or a project
   container and also installing Jenkins build files into a running Jenkins instance.
 
-  project, proj
+  Project, project, proj
 
           - container
           make a container folder for revisions (like /var/www/applications/*APP NAME*)

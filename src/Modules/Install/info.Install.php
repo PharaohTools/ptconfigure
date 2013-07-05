@@ -13,18 +13,18 @@ class InstallInfo {
     }
 
     public function routesAvailable() {
-      return array( "install" => array("cli", "autopilot") );
+      return array( "Install" => array("cli", "autopilot") );
     }
 
     public function routeAliases() {
-      return array();
+      return array("install" => "Install");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles default Install.
 
-  install
+  Install, install
 
           - cli
           install a full web project - Checkout, VHost, Hostfile, Cucumber Configuration, Database Install and

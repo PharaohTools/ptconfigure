@@ -24,7 +24,7 @@ class InvokeInfo extends Base {
       $help = <<<"HELPDATA"
   This command is part of Core and handles SSH Connection Functions.
 
-  invoke, inv
+  Invoke, invoke, inv
 
         - cli
         Will ask you for details for servers, then open a shell for you to execute on multiple servers

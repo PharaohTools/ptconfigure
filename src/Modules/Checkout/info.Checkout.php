@@ -24,7 +24,7 @@ class CheckoutInfo extends Base {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Checkout Functions. Currently it only handles Git, but adding SVN wont take too long.
 
-  checkout, co
+  Checkout, checkout, co
 
           - perform a checkout into configured projects folder. If you don't want to specify target dir but do want
           to specify a branch, then enter the text "none" as that parameter.
