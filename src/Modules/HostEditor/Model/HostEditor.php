@@ -110,7 +110,7 @@ class HostEditor extends Base {
     }
 
     private function hostFileDataAdd($ipEntry, $uri){
-        $this->hostFileData .= "\n$ipEntry          $uri";
+        $this->hostFileData .= "$ipEntry          $uri";
         $this->writeHostFileEntryToProjectFile();
     }
 

@@ -64,23 +64,22 @@ class AppConfig {
     }
 
     private static function loadAppFile() {
-        $appFile = self::getAppBaseDir().'/cleoapp';
+        $appFile = self::getAppBaseDir().'/dapperapp';
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayJSON = file_get_contents($appFile);
         $decoded = json_decode($appConfigArrayJSON);
-        $returnObject = (is_array($decoded)) ? new \ArrayObject($decoded) : new \ArrayObject(array()) ;
+        $returnObject = (is_object($decoded)) ? new \ArrayObject($decoded) : new \ArrayObject(array()) ;
         return $returnObject;
     }
 
     private static function saveAppFile($appConfigArray) {
         $appConfigObject = new \ArrayObject($appConfigArray);
         $appConfigObjectJSON = json_encode($appConfigObject);
-        file_put_contents(self::getAppBaseDir().'/cleoapp', $appConfigObjectJSON);
+        file_put_contents(self::getAppBaseDir().'/dapperapp', $appConfigObjectJSON);
     }
 
     private static function getAppBaseDir() {
-        $modelDir = dirname(__FILE__);
-        $baseDir = substr($modelDir, 0, strlen($modelDir)-6);
+        $baseDir = dirname(__FILE__)."/../../..";
         return $baseDir;
     }
 

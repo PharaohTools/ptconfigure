@@ -129,7 +129,7 @@ class VhostEditor extends Base {
     }
 
     private function askForDocRoot(){
-      $question = 'What\'s the document root? enter nothing for '.getcwd();
+      $question = 'What\'s the document root? Enter nothing for '.getcwd();
       $input = self::askForInput($question);
       return ($input=="") ? getcwd() : $input ;
     }
@@ -140,19 +140,23 @@ class VhostEditor extends Base {
     }
 
     private function askForFileSuffix(){
-        $question = 'What File Suffix should be used? Enter for None (hint: ubuntu probably none centos, .conf)';
+        $question = 'What File Suffix should be used? Enter nothing for None (hint: ubuntu probably none centos, .conf)';
         $input = self::askForInput($question) ;
         return $input ;
     }
 
     private function askForApacheCommand(){
-        $question = 'What is the service name of apache?';
-        $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ;
+      $linuxTypeFromConfig = \Model\AppConfig::getAppVariable("linux-type") ;
+        if ( in_array($linuxTypeFromConfig, array("debian", "redhat") ) ) {
+          $input = ($linuxTypeFromConfig == "debian") ? "apache2" : "httpd" ; }
+        else {
+          $question = 'What is the service name of apache?';
+          $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ; }
         return $input ;
     }
 
     private function askForVHostIp(){
-        $question = 'What IP:Port should be set? Enter for 127.0.0.1:80';
+        $question = 'What IP:Port should be set? Enter nothing for 127.0.0.1:80';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1:80' : $input ;
     }
@@ -163,7 +167,7 @@ class VhostEditor extends Base {
     }
 
     private function askForVHostDirectory(){
-        $question = 'What is your VHost directory?';
+        $question = 'What is your VHost directory?  Enter nothing to choose from application defaults';
         if ($this->detectApacheVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - use this?';
             $input = self::askForInput($question);
             return ($input=="") ? $this->vHostDir : $input ;  }
@@ -182,12 +186,15 @@ class VhostEditor extends Base {
     }
 
     private function askForVHostTemplateDirectory(){
-        $question = 'What is your VHost Template directory?';
+        $question = 'What is your VHost Template directory? Enter nothing for default templates';
         if ($this->detectVHostTemplateFolderExistence()) {
             $question .= ' Found "'.$this->docRoot.'/build/config/devhelper/virtual-hosts" - use this?';
             $input = self::askForInput($question);
             return ($input=="") ? $this->vHostTemplateDir : $input ;  }
-        return self::askForInput($question, true);
+        else {
+          $input = self::askForInput($question);
+          return ($input=="") ? $this->vHostTemplateDir : $input ;
+        }
     }
 
     private function detectApacheVHostFolderExistence(){
@@ -349,7 +356,7 @@ class VhostEditor extends Base {
         count($this->vHostTemplateDir)>0)
           ? scandir($this->vHostTemplateDir)
           : array() ;
-        $question = "Please Choose VHost Template: (Enter nothing for default) \n";
+        $question = "Please Choose VHost Template: \n";
         $i1 = $i2 = 0;
         $availableVHostTemplates = array();
         $question .= "--- Default Virtual Host Templates: ---\n";

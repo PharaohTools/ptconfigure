@@ -5,8 +5,9 @@ Namespace Controller ;
 class Install extends Base {
 
     public function execute($pageVars) {
-        $this->content["route"] = $pageVars["route"];
-        $this->content["messages"] = $pageVars["messages"];
+        $isHelp = parent::checkForHelp($pageVars) ;
+        if ( is_array($isHelp) ) {
+          return $isHelp; }
         $action = $pageVars["route"]["action"];
 
         if ($action=="cli") {
@@ -18,7 +19,7 @@ class Install extends Base {
             $projectModel = new \Model\Project();
             $this->content["projectContInitResult"] = $projectModel->askWhetherToInitializeProjectContainer();
 
-            $gitCheckoutModel = new \Model\GitCheckout();
+            $gitCheckoutModel = new \Model\CheckoutGit();
             $this->content["checkoutResult"] = $gitCheckoutModel->checkoutProject();
 
             $projectModel = new \Model\Project();

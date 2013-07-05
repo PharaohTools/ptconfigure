@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class InstallInfo {
+class InstallInfo extends Base {
 
     public $hidden = false;
 
@@ -13,7 +13,7 @@ class InstallInfo {
     }
 
     public function routesAvailable() {
-      return array( "Install" => array("cli", "autopilot") );
+      return array( "Install" => array_merge(parent::routesAvailable(), array("cli", "autopilot") ) );
     }
 
     public function routeAliases() {
