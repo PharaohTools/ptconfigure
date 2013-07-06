@@ -24,8 +24,8 @@ class TestServer extends Base {
       $apacheModulesModel = new \Model\ApacheModules();
       $this->content["apacheModulesInstallResult"] = $apacheModulesModel->askWhetherToInstallLinuxApp();
 
-      $devhelperModel = new \Model\Devhelper();
-      $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
+      $dapperstranoModel = new \Model\Dapperstrano();
+      $this->content["dapperstranoInstallResult"] = $dapperstranoModel->askWhetherToInstallPHPApp();
 
       $jRushModel = new \Model\JRush();
       $this->content["jrushInstallResult"] = $jRushModel->askWhetherToInstallPHPApp();
