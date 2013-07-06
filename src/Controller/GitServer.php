@@ -24,8 +24,8 @@ class GitServer extends Base {
       $apacheModulesModel = new \Model\ApacheModules();
       $this->content["apacheModulesInstallResult"] = $apacheModulesModel->askWhetherToInstallLinuxApp();
 
-      $devhelperModel = new \Model\Devhelper();
-      $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
+      $dapperstranoModel = new \Model\Dapperstrano();
+      $this->content["dapperstranoInstallResult"] = $dapperstranoModel->askWhetherToInstallPHPApp();
 
       $sudoNoPassModel = new \Model\SudoNoPass();
       $this->content["sudoNoPassInstallResult"] = $sudoNoPassModel->askWhetherToInstallLinuxApp();

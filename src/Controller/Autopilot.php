@@ -21,9 +21,9 @@ class Autopilot extends Base {
       $this->content["gitToolsInstallResult"]
         = $gitToolsModel->runAutoPilotLinuxAppInstall($autoPilot);
 
-      $devhelperModel = new \Model\Devhelper();
-      $this->content["devhelperInstallResult"]
-        = $devhelperModel->runAutoPilotPHPAppInstall($autoPilot);
+      $dapperstranoModel = new \Model\Dapperstrano();
+      $this->content["dapperstranoInstallResult"]
+        = $dapperstranoModel->runAutoPilotPHPAppInstall($autoPilot);
 
       $phpUnit35Model = new \Model\PHPUnit();
       $this->content["phpUnit35InstallResult"]

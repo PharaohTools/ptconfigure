@@ -27,8 +27,8 @@ class DevServer extends Base {
       $devToolsModel = new \Model\DeveloperTools();
       $this->content["devToolsInstallResult"] = $devToolsModel->askWhetherToInstallLinuxApp();
 
-      $devhelperModel = new \Model\Devhelper();
-      $this->content["devhelperInstallResult"] = $devhelperModel->askWhetherToInstallPHPApp();
+      $dapperstranoModel = new \Model\Dapperstrano();
+      $this->content["dapperstranoInstallResult"] = $dapperstranoModel->askWhetherToInstallPHPApp();
 
       $jRushModel = new \Model\JRush();
       $this->content["jrushInstallResult"] = $jRushModel->askWhetherToInstallPHPApp();
