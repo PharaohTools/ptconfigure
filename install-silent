@@ -45,7 +45,7 @@ class Installer {
     }
 
     private function askForProgramDataFolder() {
-        $this->programDataFolder = "/opt/devhelper" ;
+        $this->programDataFolder = "/opt/dapperstrano/dapperstrano" ;
     }
 
     private function askForProgramExecutorFolder(){

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/devhelper.iml" filepath="$PROJECT_DIR$/devhelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dapperstrano.iml" filepath="$PROJECT_DIR$/dapperstrano.iml" />
     </modules>
   </component>
 </project>
