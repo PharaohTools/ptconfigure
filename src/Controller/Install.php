@@ -47,7 +47,7 @@ class Install extends Base {
     private function loadAutoPilot($autoPilotFileName){
         $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotFileName);
         $defaultFolderToCheck = str_replace("src/Controller",
-          "build/config/boxboss", dirname(__FILE__));
+          "build/config/cleopatra", dirname(__FILE__));
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
         if (file_exists($defaultName)) {
           include_once($defaultName); }

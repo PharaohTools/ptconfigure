@@ -9,7 +9,7 @@ class PHPCS extends BasePHPApp {
     $this->autopilotDefiner = "PHPCS";
     $this->fileSources = array(
       array(
-        "https://github.com/phpengine/boxboss-phpcs.git",
+        "https://github.com/phpengine/cleopatra-phpcs.git",
         "phpcs",
         null // can be null for none
       )

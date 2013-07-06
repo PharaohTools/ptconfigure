@@ -1,7 +1,7 @@
 Development Server Preconfigured Installer:
 --------------------------------------------
 
-BoxBoss Upgrade: <?php echo $pageVars["boxBossInstallResult"] ; ?>
+Cleopatra Upgrade: <?php echo $pageVars["cleopatraInstallResult"] ; ?>
 
 Devhelper: <?php echo $pageVars["devhelperInstallResult"] ; ?>
 

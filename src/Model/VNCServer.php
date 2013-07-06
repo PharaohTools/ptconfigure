@@ -23,7 +23,7 @@ class VNCServer extends BaseLinuxApp {
         "service jenkins restart"
     );
     $this->programDataFolder = "/var/lib/jenkins/plugins"; // command and app dir name
-    $this->programNameMachine = "boxboss-vncserver"; // command and app dir name
+    $this->programNameMachine = "cleopatra-vncserver"; // command and app dir name
     $this->programNameFriendly = "!VNC Server!"; // 12 chars
     $this->programNameInstaller = "VNC Server";
     $this->initialize();

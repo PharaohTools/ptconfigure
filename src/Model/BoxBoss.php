@@ -2,22 +2,22 @@
 
 Namespace Model;
 
-class BoxBoss extends BasePHPApp {
+class Cleopatra extends BasePHPApp {
 
   public function __construct() {
     parent::__construct();
-    $this->autopilotDefiner = "BoxBoss";
+    $this->autopilotDefiner = "Cleopatra";
     $this->fileSources = array(
       array(
-        "https://github.com/phpengine/boxboss.git",
-        "boxboss",
+        "https://github.com/phpengine/cleopatra.git",
+        "cleopatra",
         null // can be null for none
       )
     );
-    $this->programNameMachine = "boxboss"; // command and app dir name
-    $this->programNameFriendly = " Box Boss !!"; // 12 chars
-    $this->programNameInstaller = "BoxBoss - Update to latest version";
-    $this->programExecutorTargetPath = 'boxboss/src/Bootstrap.php';
+    $this->programNameMachine = "cleopatra"; // command and app dir name
+    $this->programNameFriendly = " Cleopatra! "; // 12 chars
+    $this->programNameInstaller = "Cleopatra - Update to latest version";
+    $this->programExecutorTargetPath = 'cleopatra/src/Bootstrap.php';
     $this->initialize();
   }
 

@@ -1,7 +1,7 @@
 Production Server Preconfigured Installer:
 --------------------------------------------
 
-BoxBoss Upgrade: <?php echo $pageVars["boxBossInstallResult"] ; ?>
+Cleopatra Upgrade: <?php echo $pageVars["cleopatraInstallResult"] ; ?>
 
 Standard Tools: <?php echo $pageVars["stToolsInstallResult"] ; ?>
 

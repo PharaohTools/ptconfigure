@@ -1,6 +1,6 @@
 
 ******************************
-GC BoxBoss
+GC Cleopatra
 ******************************
 
 <?php echo $this->renderMessages($pageVars); ?>
