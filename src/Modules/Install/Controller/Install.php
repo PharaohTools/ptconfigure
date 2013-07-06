@@ -78,7 +78,7 @@ class Install extends Base {
                         return array ("type"=>"view", "view"=>"install", "pageVars"=>$this->content);  }
 
                     // git checkout
-                    $gitCheckoutModel = new \Model\GitCheckout();
+                    $gitCheckoutModel = new \Model\CheckoutGit();
                     $this->content["gitDeletorResult"] = $gitCheckoutModel->runAutoPilotDeletor($autoPilot);
                     if ($autoPilot->gitDeletorExecute && $this->content["gitDeletorResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Deletor Broken";
