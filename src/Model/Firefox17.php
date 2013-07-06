@@ -9,7 +9,7 @@ class Firefox17 extends BaseLinuxApp {
     $this->autopilotDefiner = "Firefox17";
     $this->installCommands = array(
       "cd /tmp" ,
-      "git clone https://github.com/phpengine/boxboss-firefox17 firefox17",
+      "git clone https://github.com/phpengine/cleopatra-firefox17 firefox17",
       "rm -rf ****PROGDIR****",
       "mkdir -p ****PROGDIR****",
       "mv /tmp/firefox17/* ****PROGDIR****",

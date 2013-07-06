@@ -5,7 +5,7 @@ Namespace Model;
 class Base {
 
     protected function executeAsShell($multiLineCommand, $message=null) {
-        $tempFile = "/tmp/boxboss-temp-script-".mt_rand(100, 99999999999).".sh";
+        $tempFile = "/tmp/cleopatra-temp-script-".mt_rand(100, 99999999999).".sh";
         echo "Creating $tempFile\n";
         $fileVar = "";
         if (is_array($multiLineCommand) && count($multiLineCommand)>0) {

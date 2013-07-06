@@ -10,7 +10,7 @@ class SeleniumServer extends BaseLinuxApp {
     $this->autopilotDefiner = "SeleniumServer";
     $this->installCommands = array(
       "cd /tmp" ,
-      "git clone https://github.com/phpengine/boxboss-selenium selenium",
+      "git clone https://github.com/phpengine/cleopatra-selenium selenium",
       "mkdir -p ****PROGDIR****",
       "mv /tmp/selenium/* ****PROGDIR****",
       "rm -rf /tmp/selenium/",

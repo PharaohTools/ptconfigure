@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/boxboss.iml" filepath="$PROJECT_DIR$/boxboss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cleopatra.iml" filepath="$PROJECT_DIR$/cleopatra.iml" />
     </modules>
   </component>
 </project>

@@ -9,7 +9,7 @@ class PHPMD extends BasePHPApp {
     $this->autopilotDefiner = "PHPMD";
     $this->fileSources = array(
       array(
-        "https://github.com/phpengine/boxboss-phpmd.git",
+        "https://github.com/phpengine/cleopatra-phpmd.git",
         "phpmd",
         null, // custom branch
       ),

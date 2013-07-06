@@ -9,9 +9,9 @@ class Autopilot extends Base {
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
 
-      $boxBossModel = new \Model\BoxBoss();
-      $this->content["boxBossInstallResult"]
-        = $boxBossModel->runAutoPilotLinuxAppInstall($autoPilot);
+      $cleopatraModel = new \Model\Cleopatra();
+      $this->content["cleopatraInstallResult"]
+        = $cleopatraModel->runAutoPilotLinuxAppInstall($autoPilot);
 
       $stToolsModel = new \Model\StandardTools();
       $this->content["stToolsInstallResult"]

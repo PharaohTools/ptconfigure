@@ -9,7 +9,7 @@ class Firefox14 extends BaseLinuxApp {
     $this->autopilotDefiner = "Firefox14";
     $this->installCommands = array(
       "cd /tmp" ,
-      "git clone https://github.com/phpengine/boxboss-firefox14 firefox14",
+      "git clone https://github.com/phpengine/cleopatra-firefox14 firefox14",
       "rm -rf ****PROGDIR****",
       "mkdir -p ****PROGDIR****",
       "mv /tmp/firefox14/* ****PROGDIR****",

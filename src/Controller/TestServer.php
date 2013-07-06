@@ -9,8 +9,8 @@ class TestServer extends Base {
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
 
-      $boxBossModel = new \Model\BoxBoss();
-      $this->content["boxBossInstallResult"] = $boxBossModel->askWhetherToInstallPHPApp();
+      $cleopatraModel = new \Model\Cleopatra();
+      $this->content["cleopatraInstallResult"] = $cleopatraModel->askWhetherToInstallPHPApp();
 
       $stToolsModel = new \Model\StandardTools();
       $this->content["stToolsInstallResult"] = $stToolsModel->askWhetherToInstallLinuxApp();
