@@ -174,7 +174,7 @@ QUESTION;
     }
 
     private function changeBashPromptToDapperstrano( $sshObject ) {
-        $command = 'echo "export PS1=DAPPERSTRANOPROMPT" >> ~/.bashrc ' ;
+        $command = 'echo "export PS1=DAPPERSTRANOPROMPT" > ~/.bash_login ' ;
         return $sshObject->exec("$command\n") ;
     }
 
