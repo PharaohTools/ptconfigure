@@ -7,15 +7,18 @@ class Version extends Base {
     private $appRootDirectory ;
     private $appVersion ;
 
-    public function askWhetherToVersionSpecific(){
+    public function askWhetherToVersionSpecific($params){
+        $this->setCmdLineParams($params);
         return $this->performSymLinkVersion();
     }
 
-    public function askWhetherToVersionLatest(){
+    public function askWhetherToVersionLatest($params){
+        $this->setCmdLineParams($params);
         return $this->performSymLinkVersion("0");
     }
 
-    public function askWhetherToVersionRollback(){
+    public function askWhetherToVersionRollback($params){
+        $this->setCmdLineParams($params);
         return $this->performSymLinkVersion("1");
     }
 
@@ -23,8 +26,10 @@ class Version extends Base {
         if ( !$this->askForSymLinkChange() ) { return false; }
         $this->appRootDirectory = $this->selectAppRoot();
         $this->appVersion = $this->selectAppVersion($arrayPointToRollback);
+        $versionLimit = (isset($this->params["limit"])) ? $this->params["limit"] : $this->selectVersionLimit();
         $this->symlinkRemover();
         $this->symlinkCreator();
+        $this->removeDirectoriesToLimit( $versionLimit ) ;
         return "Seems Fine...";
     }
 
@@ -34,12 +39,19 @@ class Version extends Base {
         $this->appVersion = $this->selectAppVersion($autoPilot->versionArrayPointToRollback);
         $this->symlinkRemover();
         $this->symlinkCreator();
+        $this->removeDirectoriesToLimit( $this->isLimitSet() ) ;
         return true;
     }
 
     private function askForSymLinkChange(){
         $question = 'Do you want to change the version that *current* points to?';
         return self::askYesOrNo($question);
+    }
+
+    private function selectVersionLimit(){
+      var_dump("pr:", $this->params);
+        $question = 'How many Versions to limit to?';
+        return self::askForInteger($question);
     }
 
     private function selectAppVersion($version){
@@ -84,5 +96,34 @@ class Version extends Base {
         self::executeAndOutput($command);
     }
 
+    private function removeDirectoriesToLimit($versionLimit) {
+        $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
+        arsort($allEntries) ;
+        $i = 0;
+        foreach ($allEntries as $currentKey => $oneEntry) {
+            $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
+            if ( is_dir($fullDirPath) == null ) {
+                unset ($allEntries[$currentKey]); } // remove entry from array if not directory
+            else if (\Model\Project::checkIsDHProject($fullDirPath) == false) {
+                unset ($allEntries[$currentKey]); } // remove entry from array if directory not a project
+            else if ($oneEntry=="." || $oneEntry=="..") {
+                unset ($allEntries[$currentKey]); }// remove entry from array if its dot notation
+            $i++; }
+        // now we have an array of all projects in directory
+        $allEntries = array_reverse($allEntries, true);
+        $i=1;
+        $dirsToLeave = count($allEntries) - $versionLimit;
+        foreach ($allEntries as &$oneEntry) {
+            $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
+            if ($i < $dirsToLeave) {
+              $this->deleteDirectory($fullDirPath);
+              echo "Removing Project Directory $fullDirPath as Versioning Limitation\n"; }
+            $i++; }
+    }
+
+    private function deleteDirectory($fullDirPath) {
+        system('rm -rf ' . $fullDirPath, $retval);
+        return $retval == 0; // UNIX commands return zero on success
+    }
 
 }

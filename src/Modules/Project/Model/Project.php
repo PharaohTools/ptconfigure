@@ -150,8 +150,11 @@ class Project extends Base  {
         self::executeAndOutput($command, "Project Container file created");
     }
 
-    private function checkIsDHProject() {
-        return file_exists('dhproj');
+    public static function checkIsDHProject($dir = null) {
+        if ($dir == null) {
+          return file_exists('dhproj'); }
+        else {
+          return file_exists($dir.'/dhproj'); }
     }
 
 //    private function checkIsDHProjectContainer() {

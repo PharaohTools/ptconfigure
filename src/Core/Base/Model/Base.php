@@ -4,6 +4,8 @@ Namespace Model;
 
 class Base {
 
+    protected $params ;
+
     protected function executeAndOutput($command, $message=null) {
         $outputArray = array();
         exec($command, $outputArray);
@@ -23,6 +25,17 @@ class Base {
         foreach ($outputArray as $outputValue) {
             $outputText .= "$outputValue\n"; }
         return $outputText;
+    }
+
+    protected function setCmdLineParams($params) {
+        $cmdParams = array();
+        foreach ($params as $param) {
+            if ( substr($param, 0, 2)=="--" && strpos($param, '=') != null ) {
+                $equalsPos = strpos($param, "=") ;
+                $paramKey = substr($param, 2, $equalsPos-2) ;
+                $paramValue = substr($param, $equalsPos+1, strlen($param)) ;
+                $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); } }
+        $this->params = $cmdParams;
     }
 
     protected function askYesOrNo($question) {
@@ -61,16 +74,32 @@ class Base {
     }
 
     protected function askForInput($question, $required=null) {
-        $fp = fopen('php://stdin', 'r');
-        $last_line = false;
-        while (!$last_line) {
-            print "$question\n";
-            $inputLine = fgets($fp, 1024);
-            if ($required != null && ($inputLine=="" || $inputLine=="\n" || $inputLine=="\r" ) ) {
-                print "You must enter a value. Please try again.\n"; }
-            else {$last_line = true;} }
-        $inputLine = $this->stripNewLines($inputLine);
-        return $inputLine;
+      $fp = fopen('php://stdin', 'r');
+      $last_line = false;
+      while (!$last_line) {
+        print "$question\n";
+        $inputLine = fgets($fp, 1024);
+        if ($required != null && ($inputLine=="" || $inputLine=="\n" || $inputLine=="\r" ) ) {
+          print "You must enter a value. Please try again.\n"; }
+        else {$last_line = true;} }
+      $inputLine = $this->stripNewLines($inputLine);
+      return $inputLine;
+    }
+
+    protected function askForInteger($question, $required=null) {
+      $fp = fopen('php://stdin', 'r');
+      $last_line = false;
+      while (!$last_line) {
+        print "$question\n";
+        $inputLine = fgets($fp, 1024);
+        $inputLine = str_replace( "\n", "", $inputLine);
+        if ($required != null && ($inputLine=="" || $inputLine=="\n" || $inputLine=="\r" ) ) {
+          print "You must enter a value. Please try again.\n"; }
+        else if ( !is_numeric($inputLine) ) {
+          print "You must enter an Integer value. Please try again.\n"; }
+        else {$last_line = true;} }
+      $inputLine = $this->stripNewLines($inputLine);
+      return $inputLine;
     }
 
     protected function askForArrayOption($question, $options, $required=null) {
