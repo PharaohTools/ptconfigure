@@ -39,7 +39,7 @@ class Version extends Base {
         $this->appVersion = $this->selectAppVersion($autoPilot->versionArrayPointToRollback);
         $this->symlinkRemover();
         $this->symlinkCreator();
-        $this->removeDirectoriesToLimit( $this->isLimitSet() ) ;
+        $this->removeDirectoriesToLimit( $autoPilot->versionLimit ) ;
         return true;
     }
 
@@ -49,8 +49,7 @@ class Version extends Base {
     }
 
     private function selectVersionLimit(){
-      var_dump("pr:", $this->params);
-        $question = 'How many Versions to limit to?';
+        $question = 'How many Versions to limit to? Enter 0 to ignore version limits';
         return self::askForInteger($question);
     }
 
@@ -97,28 +96,29 @@ class Version extends Base {
     }
 
     private function removeDirectoriesToLimit($versionLimit) {
-        $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
-        arsort($allEntries) ;
-        $i = 0;
-        foreach ($allEntries as $currentKey => $oneEntry) {
+        if ($versionLimit !=0) {
+          $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
+          arsort($allEntries) ;
+          $i = 0;
+          foreach ($allEntries as $currentKey => $oneEntry) {
             $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
             if ( is_dir($fullDirPath) == null ) {
-                unset ($allEntries[$currentKey]); } // remove entry from array if not directory
+              unset ($allEntries[$currentKey]); } // remove entry from array if not directory
             else if (\Model\Project::checkIsDHProject($fullDirPath) == false) {
-                unset ($allEntries[$currentKey]); } // remove entry from array if directory not a project
+              unset ($allEntries[$currentKey]); } // remove entry from array if directory not a project
             else if ($oneEntry=="." || $oneEntry=="..") {
-                unset ($allEntries[$currentKey]); }// remove entry from array if its dot notation
+              unset ($allEntries[$currentKey]); }// remove entry from array if its dot notation
             $i++; }
-        // now we have an array of all projects in directory
-        $allEntries = array_reverse($allEntries, true);
-        $i=1;
-        $dirsToLeave = count($allEntries) - $versionLimit;
-        foreach ($allEntries as &$oneEntry) {
+          // now we have an array of all projects in directory
+          $allEntries = array_reverse($allEntries, true);
+          $i=1;
+          $dirsToLeave = count($allEntries) - $versionLimit;
+          foreach ($allEntries as &$oneEntry) {
             $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
             if ($i < $dirsToLeave) {
               $this->deleteDirectory($fullDirPath);
               echo "Removing Project Directory $fullDirPath as Versioning Limitation\n"; }
-            $i++; }
+            $i++; } }
     }
 
     private function deleteDirectory($fullDirPath) {
