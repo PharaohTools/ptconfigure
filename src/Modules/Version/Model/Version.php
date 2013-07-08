@@ -96,7 +96,7 @@ class Version extends Base {
     }
 
     private function removeDirectoriesToLimit($versionLimit) {
-        if ($versionLimit !=0) {
+        if ($versionLimit != null && $versionLimit>0) {
           $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
           arsort($allEntries) ;
           $i = 0;
@@ -119,6 +119,8 @@ class Version extends Base {
               $this->deleteDirectory($fullDirPath);
               echo "Removing Project Directory $fullDirPath as Versioning Limitation\n"; }
             $i++; } }
+        else {
+          echo "Ignoring Versioning Limitation\n"; }
     }
 
     private function deleteDirectory($fullDirPath) {
