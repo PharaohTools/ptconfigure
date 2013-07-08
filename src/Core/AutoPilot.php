@@ -106,6 +106,7 @@ class AutoPilot {
     public $versionExecute = false; // true or false
     public $versionAppRootDirectory = null;
     public $versionArrayPointToRollback = null;
+    public $versionLimit = null;
 
     public function __construct() {
         $this->calculateVHostDocRoot();
