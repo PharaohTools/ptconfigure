@@ -13,19 +13,19 @@ class Version extends Base {
         if ($action=="latest") {
 
             $versionModel = new \Model\Version();
-            $this->content["shlResult"] = $versionModel->askWhetherToVersionLatest();
+            $this->content["versioningResult"] = $versionModel->askWhetherToVersionLatest($pageVars["route"]["extraParams"]);
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
 
         if ($action=="rollback") {
 
             $versionModel = new \Model\Version();
-            $this->content["shlResult"] = $versionModel->askWhetherToVersionRollback($pageVars["route"]["extraParams"]);
+            $this->content["versioningResult"] = $versionModel->askWhetherToVersionRollback($pageVars["route"]["extraParams"]);
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
 
         if ($action=="specific") {
 
             $versionModel = new \Model\Version();
-            $this->content["shlResult"] = $versionModel->askWhetherToVersionSpecific($pageVars["route"]["extraParams"]);
+            $this->content["versioningResult"] = $versionModel->askWhetherToVersionSpecific($pageVars["route"]["extraParams"]);
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
 
         if ($action=="autopilot") {
@@ -36,7 +36,7 @@ class Version extends Base {
                 $autoPilot = $this->loadAutoPilot($autoPilotFile);
                 if ( $autoPilot!==null ) {
                     $versionModel = new \Model\Version();
-                    $this->content["versionResult"] = $versionModel->runAutoPilotVersion($autoPilot);
+                    $this->content["versioningResult"] = $versionModel->runAutoPilotVersion($autoPilot);
                     if ($autoPilot->sshVersionExecute && $this->content["versionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Version Script Broken";
                         return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content);  } }

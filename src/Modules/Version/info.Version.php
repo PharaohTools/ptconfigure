@@ -29,7 +29,7 @@ class VersionInfo extends Base {
 
           - specific
           Will change back the *current* symlink to whichever available version you pick
-          example: dapperstrano version cli
+          example: dapperstrano version specific
 
           - latest
           Will change back the *current* symlink to the latest created version
@@ -38,6 +38,10 @@ class VersionInfo extends Base {
           - rollback
           Will change back the *current* symlink to the latest created version but one
           example: dapperstrano version rollback
+
+
+      You can also apply a limit to the number of Versions to keep by using the --limit parameter
+          example: dapperstrano version latest --limit=3
 
 HELPDATA;
       return $help ;
