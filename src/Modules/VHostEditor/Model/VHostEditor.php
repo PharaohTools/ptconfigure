@@ -231,13 +231,13 @@ class VhostEditor extends Base {
     }
 
     private function createVHost() {
-        $tmpDir = '/tmp/vhosttemp/';
+        $tmpDir = $this->baseTempDir.'/vhosttemp/';
         if (!file_exists($tmpDir)) {mkdir ($tmpDir);}
         return file_put_contents($tmpDir.'/'.$this->url, $this->vHostTemplate);
     }
 
     private function moveVHostAsRoot($virtualHostEditorAdditionFileSuffix=null){
-        $command = 'sudo mv /tmp/vhosttemp/'.$this->url.' '.$this->vHostDir.'/'.$this->url.$virtualHostEditorAdditionFileSuffix;
+        $command = 'sudo mv '.$this->baseTempDir.'/vhosttemp/'.$this->url.' '.$this->vHostDir.'/'.$this->url.$virtualHostEditorAdditionFileSuffix;
         return self::executeAndOutput($command);
     }
 

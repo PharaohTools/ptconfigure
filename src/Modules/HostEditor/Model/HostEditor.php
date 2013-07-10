@@ -99,13 +99,13 @@ class HostEditor extends Base {
     }
 
     private function createHostFile() {
-        $tmpDir = '/tmp/hostfile/';
+        $tmpDir = $this->baseTempDir.'/hostfile/';
         if (!file_exists($tmpDir)) { mkdir ($tmpDir); }
         return file_put_contents($tmpDir.'/hosts', $this->hostFileData);
     }
 
     private function moveHostFileAsRoot(){
-        $command = 'sudo mv /tmp/hostfile/hosts /etc/hosts';
+        $command = 'sudo mv '.$this->baseTempDir.'/hostfile/hosts /etc/hosts';
         self::executeAndOutput($command);
     }
 

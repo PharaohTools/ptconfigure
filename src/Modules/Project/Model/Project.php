@@ -7,7 +7,7 @@ class Project extends Base  {
     private $jenkinsOriginalJobFolderName;
     private $jenkinsNewJobFolderName;
     private $jenkinsFSFolder = "/var/lib/jenkins";
-    private $tempFolder = "/tmp/tempbuild/";
+    private $tempFolder = "/tempbuild/";
     private $projectContainerDirectory;
 
     public function askWhetherToInitializeProject() {
@@ -191,7 +191,7 @@ class Project extends Base  {
     }
 
     private function tryToCreateTempFolder(){
-        if (!file_exists($this->tempFolder)) { mkdir ($this->tempFolder);}
+        if (!file_exists($this->baseTempDir.$this->tempFolder)) { mkdir ($this->baseTempDir.$this->tempFolder);}
     }
 
     private function projectBuildInstall(){

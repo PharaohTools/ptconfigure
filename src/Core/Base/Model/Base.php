@@ -5,6 +5,14 @@ Namespace Model;
 class Base {
 
     protected $params ;
+    protected $baseTempDir ;
+
+    public function __construct() {
+      $tempDirInConfig = \Model\AppConfig::getAppVariable("temp-directory") ;
+      $tempDirInConfig = (substr($tempDirInConfig, -1, 1) == "/") ?
+        substr($tempDirInConfig, 0, strlen($tempDirInConfig)-1) : $tempDirInConfig ;
+      $this->baseTempDir = ($tempDirInConfig == null ) ? "/tmp/dapperstrano" : $tempDirInConfig ;
+    }
 
     protected function executeAndOutput($command, $message=null) {
         $outputArray = array();
