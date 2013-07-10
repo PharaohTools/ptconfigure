@@ -14,7 +14,6 @@ class DBConfigure extends Base {
     private $dbRootUser ;
     private $dbRootPass ;
     private $dbName ;
-    private $tmpDir = '/tmp'; // no trailing slash
 
     public function __construct() {
         //do stuff

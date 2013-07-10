@@ -112,7 +112,7 @@ class CukeConf extends Base {
     }
 
     private function createCukeFile() {
-        $tmpDir = '/tmp/cukefile/';
+        $tmpDir = $this->baseTempDir.'/cukefile';
         if (!file_exists($tmpDir)) { mkdir ($tmpDir); }
         return file_put_contents($tmpDir.'/env.rb', $this->cukeFileData);
     }
@@ -123,7 +123,7 @@ class CukeConf extends Base {
     }
 
     private function moveCukeFile(){
-        $command = 'mv /tmp/cukefile/env.rb build/tests/features/support/env.rb';
+        $command = 'mv '.$this->baseTempDir.'/cukefile/env.rb build/tests/features/support/env.rb';
         self::executeAndOutput($command);
     }
 
