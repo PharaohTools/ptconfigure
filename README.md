@@ -9,7 +9,9 @@ To install cleopatra cli on your machine do the following. If you already have p
 sudo apt-get install php5 git
 
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
+
 or...
+
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install (If you want to choose the install dir)
 
 ... that's it, now the cleopatra command should be available at the command line for you.
