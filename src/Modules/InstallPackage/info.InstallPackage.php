@@ -28,7 +28,7 @@ class InstallPackageInfo extends Base {
   This command is part of Core and provides you  with a method by which you can perform some default CLI Installs of
   different types of box.
 
-  Install, install
+  InstallPackage, installpackage, installpack, install-pack, install, inpack, install-package
 
     - dev-client
       install a dev client machine for you to work on, a bunch of IDE's, DB's and a complete set of the
