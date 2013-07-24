@@ -46,17 +46,28 @@ Usage:
 So, there are a few simple commands...
 
 First, you can just use
+
 cleopatra
+
 ...This will give you a list of the available modules...
 
+
 Then you can use
+
 cleopatra *ModuleName* help
+
 ...This will display the help for that module, and tell you a list of available alias for the module command, and the
 available actions too.
 
+
 You can also use these out of the box groups of packages...
+
 cleopatra InstallPackage dev-client - Install preconfigured software/config for a dev client (Your Workstation)
+
 cleopatra InstallPackage dev-server - Install preconfigured software/config for a dev server (Team Playaround Box)
+
 cleopatra InstallPackage test-server - Install preconfigured software/config for a Build/Testing server
+
 cleopatra InstallPackage git-server - Install preconfigured software/config for a Git SCM server
+
 cleopatra InstallPackage production - Install preconfigured software/config for a Production server (Public Server)
