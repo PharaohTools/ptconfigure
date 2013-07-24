@@ -27,7 +27,8 @@ class JavaInfo extends Base {
   Java, java, java17
 
         - install
-        Installs the latest version of Java JDK 1.7
+        Installs a version of Oracle Java JDK 1.7. It will also configure java,
+        javac and javaws to be provided by the new Oracle version.
         example: cleopatra java17 install
 
 HELPDATA;
