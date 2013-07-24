@@ -15,6 +15,7 @@ class ApacheModules extends BaseLinuxApp {
         "a2enmod ssl",
         "apt-get install -y libapache2-mod-proxy-html",
         "a2enmod proxy",
+        "a2enmod proxy_http",
         "apt-get install -y libapache2-mod-php5",
         "a2enmod php5",
         "service apache2 restart" );
@@ -25,6 +26,7 @@ class ApacheModules extends BaseLinuxApp {
         "a2dismod deflate",
         "a2dismod ssl",
         "a2dismod proxy",
+        "a2dismod proxy_http",
         "apt-get remove -y libapache2-mod-proxy-html",
         "a2dismod php5",
         "apt-get remove -y libapache2-mod-php5",
