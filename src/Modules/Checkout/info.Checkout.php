@@ -20,6 +20,22 @@ class CheckoutInfo extends Base {
       return array("co"=>"Checkout", "checkout"=>"Checkout");
     }
 
+    public function autoPilotVariables() {
+      return array(
+              "CheckoutGit" => array(
+                "gitCheckoutExecute" => array(
+                  "gitCheckoutExecute" => "boolean",
+                  "gitCheckoutProjectOriginRepo"=>"string",
+                  "gitCheckoutCustomCloneFolder"=>"string",
+                  "gitCheckoutCustomBranch"=>"string",
+                  "gitCheckoutWebServerUser"=>"string"),
+                "gitDeletorExecute" => array(
+                  "gitDeletorExecute" => "boolean",
+                  "gitDeletorCustomFolder" => "string" )
+              )
+             );
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Checkout Functions. Currently it only handles Git, but adding SVN wont take too long.

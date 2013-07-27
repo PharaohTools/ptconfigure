@@ -21,6 +21,41 @@ class DatabaseInfo extends Base {
       return array("db"=>"Database", "database"=>"Database");
     }
 
+    public function autoPilotVariables() {
+      return array(
+        "DBConfigure" => array(
+          "dbResetExecute" => array(
+            "dbResetExecute" => "boolean",
+            "dbResetPlatform" => "string", ) ,
+          "dbConfigureExecute" => array(
+            "dbConfigureExecute" => "boolean",
+            "dbConfigureDBHost" => "string",
+            "dbConfigureDBUser"=>"string",
+            "dbConfigureDBPass"=>"string",
+            "dbConfigureDBName"=>"string",
+            "dbConfigurePlatform"=>"string", ) ,
+        ) ,
+        "DBInstall" => array(
+          "dbDropExecute" => array(
+            "dbDropExecute" => "boolean",
+            "dbDropDBHost" => "string",
+            "dbDropDBName" => "string",
+            "dbDropDBRootUser"=>"string",
+            "dbDropDBRootPass"=>"string",
+            "dbDropUserExecute"=>"string",
+            "dbDropDBUser"=>"string", ) ,
+          "dbInstallExecute" => array(
+            "dbInstallExecute" => "boolean",
+            "dbInstallDBHost" => "string",
+            "dbInstallDBUser" => "string",
+            "dbInstallDBPass" => "string",
+            "dbInstallDBName" => "string",
+            "dbInstallDBRootUser" => "string",
+            "dbInstallDBRootPass" => "string", ) ,
+        ) ,
+      );
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Databasing Functions.

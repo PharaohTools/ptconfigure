@@ -7,6 +7,12 @@ class InvokeSSH extends Base {
     private $servers = array();
     private $sshCommands;
 
+    public function runAutoPilot($autoPilot){
+        $this->runAutoPilotInvokeSSHData($autoPilot);
+        $this->runAutoPilotInvokeSSHScript($autoPilot);
+        return true;
+    }
+
     public function askWhetherToInvokeSSHShell() {
         return $this->performInvokeSSHShell();
     }
@@ -16,9 +22,9 @@ class InvokeSSH extends Base {
     }
 
     public function runAutoPilotInvokeSSHData($autoPilot) {
-        if ( $autoPilot->sshInvokeSSHDataExecute !== true ) { return false; }
+        if ( !isset($autoPilot["sshInvokeSSHDataExecute"]) || $autoPilot["sshInvokeSSHDataExecute"] !== true ) { return false; }
         $this->populateServers($autoPilot);
-        $this->sshCommands = explode("\n", $autoPilot->sshInvokeSSHDataData ) ;
+        $this->sshCommands = explode("\n", $autoPilot["sshInvokeSSHDataData"] ) ;
         foreach ($this->sshCommands as $sshCommand) {
             foreach ($this->servers as &$server) {
                 echo "[".$server["target"]."] Executing $sshCommand...\n"  ;
@@ -28,9 +34,9 @@ class InvokeSSH extends Base {
     }
 
     public function runAutoPilotInvokeSSHScript($autoPilot) {
-        if ( $autoPilot->sshInvokeSSHScriptExecute !== true ) { return false; }
+        if ( !isset($autoPilot["sshInvokeSSHScriptExecute"]) || $autoPilot["sshInvokeSSHScriptExecute"] !== true ) { return false; }
         $this->populateServers($autoPilot);
-        $this->sshCommands = explode("\n", file_get_contents($autoPilot->sshInvokeSSHScriptFile) ) ;
+        $this->sshCommands = explode("\n", file_get_contents($autoPilot["sshInvokeSSHScriptFile"]) ) ;
         foreach ($this->sshCommands as $sshCommand) {
             foreach ($this->servers as &$server) {
                 echo "[".$server["target"]."] Executing $sshCommand...\n"  ;
@@ -77,10 +83,10 @@ class InvokeSSH extends Base {
     }
 
     private function loadServerData($autoPilot=null) {
-        $srvAvail = (isset($autoPilot->sshInvokeServers) && is_array($autoPilot->sshInvokeServers) &&
-            count($autoPilot->sshInvokeServers) > 0);
+        $srvAvail = (isset($autoPilot["sshInvokeServers"]) && is_array($autoPilot["sshInvokeServers"]) &&
+            count($autoPilot["sshInvokeServers"]) > 0);
         if ($srvAvail == true) {
-            $this->servers = $autoPilot->sshInvokeServers; }
+            $this->servers = $autoPilot["sshInvokeServers"]; }
         else {
             $this->askForServerInfo(); }
     }

@@ -68,4 +68,25 @@ class AutoLoader{
                   return new $className(); } } } } } }
     }
 
+    public static function getSingleInfoObjectOfModel($modelName) {
+      $allModuleParentDirectories = array("Extensions", "Modules", "Core");
+      foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
+        $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
+        $modulesIndividualDirectories = scandir($currentModulesParentDir);
+        foreach ($modulesIndividualDirectories as $singleModuleDir) {
+          if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
+            if  (is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
+              if  (is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.'Model')) { // if is a dir
+                $filesInModelDirectory = scandir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.'Model');
+                foreach ($filesInModelDirectory as $fileInModelDirectory) {
+                  if ($fileInModelDirectory == $modelName.'.php') {
+                    // we're in the right module
+                    $filesInModuleDirectory = scandir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir);
+                    foreach ($filesInModuleDirectory as $fileInModuleDirectory) {
+                      if (substr($fileInModuleDirectory, 0, 5) == "info.") {
+                        require_once $currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.$fileInModuleDirectory;
+                        $className = '\Info\\'.$singleModuleDir.'Info' ;
+                        return new $className(); } } } } } } } } }
+    }
+
 }

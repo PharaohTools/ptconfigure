@@ -19,6 +19,12 @@ class DBConfigure extends Base {
         //do stuff
     }
 
+    public function runAutoPilot($autoPilot){
+        $this->runAutoPilotDBReset($autoPilot);
+        $this->runAutoPilotDBConfiguration($autoPilot);
+        return true;
+    }
+
     public function askWhetherToConfigureDB(){
         return $this->performDBConfiguration();
     }
@@ -64,13 +70,13 @@ class DBConfigure extends Base {
     }
 
     public function runAutoPilotDBConfiguration($autoPilot){
-        if ( !$autoPilot->dbConfigureExecute ) { return false; }
+        if ( !isset($autoPilot["dbConfigureExecute"]) || $autoPilot["dbConfigureExecute"] == false ) { return false; }
         echo "DB Config Setup:\n";
-        $this->dbHost = $autoPilot->dbConfigureDBHost;
-        $this->dbUser = $autoPilot->dbConfigureDBUser;
-        $this->dbPass = $autoPilot->dbConfigureDBPass;
-        $this->dbName = $autoPilot->dbConfigureDBName;
-        $this->platform = $autoPilot->dbConfigurePlatform;
+        $this->dbHost = $autoPilot["dbConfigureDBHost"];
+        $this->dbUser = $autoPilot["dbConfigureDBUser"];
+        $this->dbPass = $autoPilot["dbConfigureDBPass"];
+        $this->dbName = $autoPilot["dbConfigureDBName"];
+        $this->platform = $autoPilot["dbConfigurePlatform"];
         $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileDataChange();
@@ -83,9 +89,9 @@ class DBConfigure extends Base {
     }
 
     public function runAutoPilotDBReset($autoPilot){
-        if ( !$autoPilot->dbResetExecute ) { return false; }
+        if ( !isset($autoPilot["dbResetExecute"]) || $autoPilot["dbResetExecute"] == false ) { return false; }
         echo "DB Config Reset:\n";
-        $this->platform = $autoPilot->dbResetPlatform;
+        $this->platform = $autoPilot["dbResetPlatform"];
         $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileReverseDataChange();

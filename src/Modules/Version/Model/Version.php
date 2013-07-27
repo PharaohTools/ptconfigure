@@ -7,6 +7,10 @@ class Version extends Base {
     private $appRootDirectory ;
     private $appVersion ;
 
+    public function runAutopilot($autpoilot){
+      $this->runAutoPilotVersion($autpoilot);
+    }
+
     public function askWhetherToVersionSpecific($params){
         $this->setCmdLineParams($params);
         return $this->performSymLinkVersion();
@@ -34,12 +38,12 @@ class Version extends Base {
     }
 
     public function runAutoPilotVersion($autoPilot){
-        if ( !$autoPilot->versionExecute ) { return false; }
-        $this->appRootDirectory = $autoPilot->versionAppRootDirectory;
-        $this->appVersion = $this->selectAppVersion($autoPilot->versionArrayPointToRollback);
+        if ( !$autoPilot["versionExecute"] ) { return false; }
+        $this->appRootDirectory = $autoPilot["versionAppRootDirectory"];
+        $this->appVersion = $this->selectAppVersion($autoPilot["versionArrayPointToRollback"]);
         $this->symlinkRemover();
         $this->symlinkCreator();
-        $this->removeDirectoriesToLimit( $autoPilot->versionLimit ) ;
+        $this->removeDirectoriesToLimit( $autoPilot["versionLimit"] ) ;
         return true;
     }
 

@@ -7,8 +7,15 @@ class Project extends Base  {
     private $jenkinsOriginalJobFolderName;
     private $jenkinsNewJobFolderName;
     private $jenkinsFSFolder = "/var/lib/jenkins";
-    private $tempFolder = "/tempbuild/";
+    private $tempFolder = "/projectTemp/";
     private $projectContainerDirectory;
+
+    public function runAutoPilot($autoPilot){
+        $this->runAutoPilotProjectContInit($autoPilot);
+        $this->runAutoPilotInit($autoPilot);
+        $this->runAutoPilotBuildInstall($autoPilot);
+        return true;
+    }
 
     public function askWhetherToInitializeProject() {
         return $this->performProjectInitialize();
@@ -23,27 +30,27 @@ class Project extends Base  {
     }
 
     public function runAutoPilotProjectContInit($autoPilot) {
-        $projContInit = $autoPilot->projectContainerInitExecute;
+        $projContInit =(isset($autoPilot["projectContainerInitExecute"]) && $autoPilot["projectContainerInitExecute"] );
         if ($projContInit != true) { return false; }
-        $this->projectContainerDirectory = $autoPilot->projectContainerDirectory;
+        $this->projectContainerDirectory = $autoPilot["projectContainerDirectory"];
         $this->projectContainerInitialize();
         return true;
     }
 
     public function runAutoPilotInit($autoPilot) {
-        $projInit = $autoPilot->projectInitializeExecute;
+        $projInit = (isset($autoPilot["projectInitializeExecute"]) && $autoPilot["projectInitializeExecute"] ==true );
         if ($projInit != true) { return false; }
         $this->projectInitialize();
         return true;
     }
 
     public function runAutoPilotBuildInstall($autoPilot) {
-        $projBuildInstall = $autoPilot->projectBuildInstallExecute;
+        $projBuildInstall = ( isset($autoPilot["projectBuildInstallExecute"]) && $autoPilot["projectBuildInstallExecute"]) == true;
         if ($projBuildInstall != true) { return false; }
         if ( !$this->checkIsDHProject() ) { return "No Dapperstrano project file found. Try: \ndapperstrano proj init\n"; }
-        $this->jenkinsOriginalJobFolderName = $autoPilot->projectJenkinsOriginalJobFolderName;
-        $this->jenkinsFSFolder = $autoPilot->projectJenkinsFSFolder;
-        $this->jenkinsNewJobFolderName = $autoPilot->projectJenkinsNewJobFolderName ;
+        $this->jenkinsOriginalJobFolderName = $autoPilot["projectJenkinsOriginalJobFolderName"];
+        $this->jenkinsFSFolder = $autoPilot["projectJenkinsFSFolder"];
+        $this->jenkinsNewJobFolderName = $autoPilot["projectJenkinsNewJobFolderName"] ;
         $this->tryToCreateTempFolder();
         $this->projectBuildInstall();
         $this->changeNewJenkinsJobFolderPermissions();
@@ -191,7 +198,8 @@ class Project extends Base  {
     }
 
     private function tryToCreateTempFolder(){
-        if (!file_exists($this->baseTempDir.$this->tempFolder)) { mkdir ($this->baseTempDir.$this->tempFolder);}
+        if (!file_exists($this->baseTempDir.$this->tempFolder)) {
+          mkdir ($this->baseTempDir.$this->tempFolder, 0777, true);}
     }
 
     private function projectBuildInstall(){
