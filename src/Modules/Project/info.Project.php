@@ -21,6 +21,23 @@ class ProjectInfo extends Base {
       return array("proj"=>"Project", "project"=>"Project");
     }
 
+    public function autoPilotVariables() {
+      return array(
+        "Project" => array(
+          "projectContainerInitExecute" => array(
+            "projectContainerInitExecute" => "boolean",
+            "projectContainerDirectory" => "string", ) ,
+          "projectInitializeExecute" => array(
+            "projectInitializeExecute" => "boolean", ) ,
+          "projectBuildInstallExecute" => array(
+            "projectBuildInstallExecute" => "boolean",
+            "projectJenkinsOriginalJobFolderName" => "string",
+            "projectJenkinsFSFolder" => "string",
+            "projectJenkinsNewJobFolderName" => "string", ) ,
+        ) ,
+      );
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Project initialisation functions, like configuring a project, or a project

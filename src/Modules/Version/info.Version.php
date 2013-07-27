@@ -21,6 +21,18 @@ class VersionInfo extends Base {
       return array("version" => "Version", "vrs" => "Version");
     }
 
+    public function autoPilotVariables() {
+      return array(
+        "Version" => array(
+          "versionExecute" => array(
+            "versionExecute" => "boolean",
+            "versionAppRootDirectory" => "string",
+            "versionArrayPointToRollback" => "string",
+            "versionLimit" => "string", ) ,
+        ) ,
+      );
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Application Versioning, allowing for rollbacks and the like.

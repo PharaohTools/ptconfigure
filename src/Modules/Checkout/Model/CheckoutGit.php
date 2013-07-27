@@ -7,11 +7,17 @@ class CheckoutGit extends Base {
     private $projectDirectory;
     private $webServerUser;
 
+    public function runAutoPilot($autoPilot){
+        $this->runAutoPilotDeletor($autoPilot);
+        $this->runAutoPilotCloner($autoPilot);
+        return true;
+    }
+
     public function runAutoPilotCloner($autoPilot){
-        if (!$autoPilot->gitCheckoutExecute) {return false; }
-        $params[0] = $autoPilot->gitCheckoutProjectOriginRepo;
-        $params[1] = $autoPilot->gitCheckoutCustomCloneFolder;
-        $params[2] = $autoPilot->gitCheckoutCustomBranch;
+        if (!$autoPilot["gitCheckoutExecute"]) {return false; }
+        $params[0] = $autoPilot["gitCheckoutProjectOriginRepo"];
+        $params[1] = $autoPilot["gitCheckoutCustomCloneFolder"];
+        $params[2] = $autoPilot["gitCheckoutCustomBranch"];
         if (!$this->doGitCommandWithErrorCheck($params) ) {return false; }
         $this->setWebServerUser($autoPilot);
         $this->changeNewProjectPermissions();
@@ -21,8 +27,8 @@ class CheckoutGit extends Base {
     }
 
     public function runAutoPilotDeletor($autoPilot){
-        if (!$autoPilot->gitDeletorExecute) {return false; }
-        $this->projectDirectory = (getcwd().'/'.$autoPilot->gitDeletorCustomFolder);
+        if (!$autoPilot["gitDeletorExecute"]) {return false; }
+        $this->projectDirectory = (getcwd().'/'.$autoPilot["gitDeletorCustomFolder"]);
         $this->dropDirectory();
         return true;
     }
@@ -91,7 +97,7 @@ class CheckoutGit extends Base {
     }
 
     private function setWebServerUser($autoPilot = null){
-        if ($autoPilot != null) { $this->webServerUser = $autoPilot->gitWebServerUser; }
+        if ($autoPilot != null) { $this->webServerUser = $autoPilot["gitCheckoutWebServerUser"]; }
         else { $this->webServerUser = $this->askWebServerUser(); }
     }
 

@@ -36,12 +36,12 @@ class Invoke extends Base {
 
                     $invSSHModel = new \Model\InvokeSSH();
                     $this->content["invSshScriptResult"] = $invSSHModel->runAutoPilotInvokeSSHScript($autoPilot);
-                    if ($autoPilot->sshInvokeSSHDataExecute && $this->content["invSshScriptResult"] != "1") {
+                    if ($autoPilot["sshInvokeSSHDataExecute"] && $this->content["invSshScriptResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Invoke SSH Script Broken";
                         return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content);  }
 
                     $this->content["invSshDataResult"] = $invSSHModel->runAutoPilotInvokeSSHData($autoPilot);
-                    if ($autoPilot->sshInvokeSSHDataExecute && $this->content["invSshDataResult"] != "1") {
+                    if ($autoPilot["sshInvokeSSHDataExecute"] && $this->content["invSshDataResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Invoke SSH Data Broken";
                         return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content);  } }
 

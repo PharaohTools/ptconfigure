@@ -8,6 +8,12 @@ class HostEditor extends Base {
     private $uri;
     private $ipAddress;
 
+    public function runAutoPilot($autoPilot){
+        $auto1 = $this->runAutoPilotHostDeletion($autoPilot);
+        $auto2 = $this->runAutoPilotHostAddition($autoPilot);
+        return  ( $auto1==true || $auto2==true ) ? true : false ;
+    }
+
     public function askWhetherToDoHostEntry(){
         return $this->performHostAddition();
     }
@@ -45,10 +51,12 @@ class HostEditor extends Base {
     }
 
     public function runAutoPilotHostAddition($autoPilot){
-        $hostFileEntry = $autoPilot->hostEditorAdditionExecute;
+        $hostFileEntry =
+        (isset($autoPilot["hostEditorAdditionExecute"]) && $autoPilot["hostEditorAdditionExecute"]==true)
+          ? true : false;
         if (!$hostFileEntry) { return false; }
-        $ipEntry = $autoPilot->hostEditorAdditionIP;
-        $uri = $autoPilot->hostEditorAdditionURI;
+        $ipEntry = $autoPilot["hostEditorAdditionIP"];
+        $uri = $autoPilot["hostEditorAdditionURI"];
         $this->loadCurrentHostFile();
         $this->hostFileDataAdd($ipEntry, $uri);
         $this->createHostFile();
@@ -57,10 +65,12 @@ class HostEditor extends Base {
     }
 
     public function runAutoPilotHostDeletion($autoPilot){
-        $hostFileEntry = $autoPilot->hostEditorDeletionExecute;
+        $hostFileEntry =
+          (isset($autoPilot["hostEditorDeletionExecute"]) && $autoPilot["hostEditorDeletionExecute"]==true)
+          ? true : false;
         if (!$hostFileEntry) { return false; }
-        $ipEntry = $autoPilot->hostEditorDeletionIP;
-        $uri = $autoPilot->hostEditorDeletionURI;
+        $ipEntry = $autoPilot["hostEditorDeletionIP"];
+        $uri = $autoPilot["hostEditorDeletionURI"];
         $this->loadCurrentHostFile();
         $this->hostFileDataRemove($ipEntry, $uri);
         $this->createHostFile();
@@ -100,8 +110,8 @@ class HostEditor extends Base {
 
     private function createHostFile() {
         $tmpDir = $this->baseTempDir.'/hostfile/';
-        if (!file_exists($tmpDir)) { mkdir ($tmpDir); }
-        return file_put_contents($tmpDir.'/hosts', $this->hostFileData);
+        if (!file_exists($tmpDir)) { mkdir ($tmpDir, 0777, true); }
+        return file_put_contents($tmpDir.'hosts', $this->hostFileData);
     }
 
     private function moveHostFileAsRoot(){

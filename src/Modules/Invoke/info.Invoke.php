@@ -20,7 +20,50 @@ class InvokeInfo extends Base {
       return array("invoke" => "Invoke", "inv" => "Invoke");
     }
 
-    public function helpDefinition() {
+    public function autoPilotVariables() {
+      return array(
+        "InvokeSSH" => array(
+          "sshInvokeSSHScriptExecute" => array(
+            "sshInvokeSSHScriptExecute" => "boolean",
+            "sshInvokeSSHScriptFile" => "string",
+            "sshInvokeServers" => "string-array", ) ,
+          "sshInvokeSSHDataExecute" => array(
+            "sshInvokeSSHDataExecute" => "boolean",
+            "sshInvokeSSHDataData" => "string",
+            "sshInvokeServers" => array("target", "user", "pword"), ) ,
+        ) ,
+      );
+    }
+
+  public function generatorCodeInjection($step=null) {
+    $inject = <<<'HELPDATA'
+      /*
+      //
+      // This function will set the sshInvokeSSHDataData variable with the data that
+      // you need in it. Call this in your constructor
+      //
+      private function setSSHData() {
+        $step =
+HELPDATA
+    ;
+    $inject .= ' "'.$step.'";' ;
+    $inject .= <<<'HELPDATA'
+
+        $this->steps[$step]["InvokeSSH"]["sshInvokeSSHDataData"] = <<<"SSHDATA"
+script line 1
+script line 2
+script line 3
+SSHDATA
+;
+      }
+      */
+HELPDATA
+    ;
+    return $inject ;
+  }
+
+
+  public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles SSH Connection Functions.
 

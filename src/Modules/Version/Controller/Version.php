@@ -37,7 +37,7 @@ class Version extends Base {
                 if ( $autoPilot!==null ) {
                     $versionModel = new \Model\Version();
                     $this->content["versioningResult"] = $versionModel->runAutoPilotVersion($autoPilot);
-                    if ($autoPilot->sshVersionExecute && $this->content["versionResult"] != "1") {
+                    if ($autoPilot["sshVersionExecute"] && $this->content["versionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Version Script Broken";
                         return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content);  } }
                 else {

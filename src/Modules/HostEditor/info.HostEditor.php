@@ -20,6 +20,21 @@ class HostEditorInfo extends Base {
       return array("he"=>"HostEditor", "hostEditor"=>"HostEditor");
     }
 
+    public function autoPilotVariables() {
+      return array(
+        "HostEditor" => array(
+          "hostEditorAdditionExecute" => array(
+            "hostEditorAdditionExecute" => "boolean",
+            "hostEditorAdditionIP" => "string",
+            "hostEditorAdditionURI" => "string", ) ,
+          "hostEditorDeletionExecute" => array(
+            "hostEditorDeletionExecute" => "boolean",
+            "hostEditorDeletionIP" => "string",
+            "hostEditorDeletionURI"=>"string", ) ,
+        ) ,
+      );
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and handles Host File Management Functions.

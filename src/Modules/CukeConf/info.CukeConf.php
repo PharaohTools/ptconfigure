@@ -20,6 +20,18 @@ class CukeConfInfo extends Base {
       return array("cukeconf"=>"CukeConf", "cukeConf"=>"CukeConf", "cuke"=>"CukeConf");
     }
 
+    public function autoPilotVariables() {
+      return array(
+        "CukeConf" => array(
+          "cukeConfAdditionExecute" => array(
+            "cukeConfAdditionExecute" => "boolean",
+            "cukeConfAdditionURI"=>"string", ) ,
+          "cukeConfDeletionExecute" => array(
+            "cukeConfDeletionExecute" => "boolean", ) ,
+        )
+      );
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can configure Cucumber configurations

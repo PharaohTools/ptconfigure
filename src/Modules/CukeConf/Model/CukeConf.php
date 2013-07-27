@@ -6,6 +6,12 @@ class CukeConf extends Base {
 
     private $cukeFileData;
 
+    public function runAutoPilot($autoPilot){
+        $this->runAutoPilotAddition($autoPilot);
+        $this->runAutoPilotDeletion($autoPilot);
+        return true;
+    }
+
     public function askWhetherToCreateCuke(){
         return $this->performCukeConfigure();
     }
@@ -44,9 +50,10 @@ class CukeConf extends Base {
     }
 
     public function runAutoPilotAddition($autoPilot){
-        if ( !$autoPilot->cukeConfAdditionExecute ) {
-            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
-        $uri = $autoPilot->cukeConfAdditionURI;
+        if ( !isset($autoPilot["cukeConfAdditionExecute"]) || $autoPilot["cukeConfAdditionExecute"]==false ) { return false; }
+      if ( !$this->checkIsDHProject() ) {
+        return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
+        $uri = $autoPilot["cukeConfAdditionURI"];
         $this->loadCurrentCukeFile();
         $this->cukeFileDataChange( $uri);
         $this->createCukeFile();
@@ -56,7 +63,7 @@ class CukeConf extends Base {
     }
 
     public function runAutoPilotDeletion($autoPilot){
-        if ( !$autoPilot->cukeConfDeletionExecute ) { return false; }
+        if ( !isset($autoPilot["cukeConfDeletionExecute"]) || $autoPilot["cukeConfDeletionExecute"]==false) { return false; }
         if ( !$this->checkIsDHProject() ) {
             return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
         $this->loadCurrentCukeFile();
@@ -113,7 +120,7 @@ class CukeConf extends Base {
 
     private function createCukeFile() {
         $tmpDir = $this->baseTempDir.'/cukefile';
-        if (!file_exists($tmpDir)) { mkdir ($tmpDir); }
+        if (!file_exists($tmpDir)) { mkdir ($tmpDir, 0777, true); }
         return file_put_contents($tmpDir.'/env.rb', $this->cukeFileData);
     }
 

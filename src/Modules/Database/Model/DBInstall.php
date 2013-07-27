@@ -11,6 +11,12 @@ class DBInstall extends Base {
     private $dbRootUser ;
     private $dbRootPass ;
 
+    public function runAutoPilot($autoPilot){
+        $this->runAutoPilotDBRemoval($autoPilot);
+        $this->runAutoPilotDBInstallation($autoPilot);
+        return true;
+    }
+
     public function askWhetherToInstallDB(\Model\DBConfigure $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
         else { return $this->performDBInstallation(); }
@@ -102,13 +108,13 @@ class DBInstall extends Base {
     }
 
     public function runAutoPilotDBInstallation($autoPilot){
-        if ( !$autoPilot->dbInstallExecute ) { return false; }
-        $this->dbHost = $autoPilot->dbInstallDBHost;
-        $this->dbUser = $autoPilot->dbInstallDBUser;
-        $this->dbPass = $autoPilot->dbInstallDBPass;
-        $this->dbName = $autoPilot->dbInstallDBName;
-        $this->dbRootUser = $autoPilot->dbInstallDBRootUser;
-        $this->dbRootPass = $autoPilot->dbInstallDBRootPass;
+        if ( !isset($autoPilot["dbInstallExecute"]) || $autoPilot["dbInstallExecute"]== false ) { return false; }
+        $this->dbHost = $autoPilot["dbInstallDBHost"];
+        $this->dbUser = $autoPilot["dbInstallDBUser"];
+        $this->dbPass = $autoPilot["dbInstallDBPass"];
+        $this->dbName = $autoPilot["dbInstallDBName"];
+        $this->dbRootUser = $autoPilot["dbInstallDBRootUser"];
+        $this->dbRootPass = $autoPilot["dbInstallDBRootPass"];
         $this->userCreator();
         $this->databaseCreator();
         $this->sqlInstaller();
@@ -116,14 +122,14 @@ class DBInstall extends Base {
     }
 
     public function runAutoPilotDBRemoval($autoPilot){
-        if ( $autoPilot->dbDropExecute!==true ) { return false; }
-        $this->dbHost = $autoPilot->dbDropDBHost;
-        $this->dbName = $autoPilot->dbDropDBName;
-        $this->dbRootUser = $autoPilot->dbDropDBRootUser;
-        $this->dbRootPass = $autoPilot->dbDropDBRootPass;
+        if ( !isset($autoPilot["dbDropExecute"]) || $autoPilot["dbDropExecute"]==false ) { return false; }
+        $this->dbHost = $autoPilot["dbDropDBHost"];
+        $this->dbName = $autoPilot["dbDropDBName"];
+        $this->dbRootUser = $autoPilot["dbDropDBRootUser"];
+        $this->dbRootPass = $autoPilot["dbDropDBRootPass"];
         $this->dropDB();
-        if ( $autoPilot->dbDropUserExecute ==true ) {
-            $this->dbUser = $autoPilot->dbDropDBUser;
+        if ( isset($autoPilot["dbDropUserExecute"]) && $autoPilot["dbDropUserExecute"] == true ) {
+            $this->dbUser = $autoPilot["dbDropDBUser"];
             $this->userDropper(); }
         return true;
     }

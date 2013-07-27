@@ -122,7 +122,7 @@ class Base {
                 print "Enter one of the given options. Please try again.\n"; }
             else {$last_line = true; } }
         $inputLine = $this->stripNewLines($inputLine);
-        return $options[$inputLine];
+        return (isset($options[$inputLine])) ? $options[$inputLine] : "" ;
     }
 
     protected function stripNewLines($inputLine) {
