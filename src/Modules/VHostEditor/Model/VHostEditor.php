@@ -82,7 +82,8 @@ class VhostEditor extends Base {
     }
 
     public function runAutoPilotVHostCreation($autoPilot){
-        if ( !$autoPilot["virtualHostEditorAdditionExecute"] ) { return false; }
+        if ( !isset($autoPilot["virtualHostEditorAdditionExecute"]) ||
+          $autoPilot["virtualHostEditorAdditionExecute"] == false ) { return false; }
         echo "Creating vhost\n";
         $this->docRoot = $autoPilot["virtualHostEditorAdditionDocRoot"];
         $this->url = $autoPilot["virtualHostEditorAdditionURL"];
