@@ -106,9 +106,9 @@ class VhostEditor extends Base {
     public function runAutoPilotVHostDeletion($autoPilot) {
         if ( !isset($autoPilot["virtualHostEditorDeletionExecute"]) ||
           $autoPilot["virtualHostEditorDeletionExecute"] == false) { return false; }
-        $this->vHostDir = (is_array( $autoPilot["virtualHostEditorDeletionDirectory"]) ) ?
-          $autoPilot["virtualHostEditorDeletionDirectory"] : array( $autoPilot["virtualHostEditorDeletionDirectory"] );
-        $this->vHostForDeletion = $autoPilot["virtualHostEditorDeletionTarget"];
+        $this->vHostDir = $autoPilot["virtualHostEditorDeletionDirectory"] ;
+        $this->vHostForDeletion = (is_array( $autoPilot["virtualHostEditorDeletionTarget"]) ) ?
+          $autoPilot["virtualHostEditorDeletionTarget"] : array( $autoPilot["virtualHostEditorDeletionTarget"] );
         if ( $autoPilot["virtualHostEditorDeletionVHostDisable"]==true ) {
             $this->disableVHost($autoPilot["virtualHostEditorDeletionSymLinkDirectory"]); }
         $this->attemptVHostDeletion();
