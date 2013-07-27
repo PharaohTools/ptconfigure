@@ -249,7 +249,7 @@ class DBConfigure extends Base {
     }
 
     private function loadCurrentSettingsFile() {
-        $command  = 'cat '.$this->platformVars->getProperty("settingsFileLocation").'/';
+        $command  = 'cat '.getcwd().'/'.$this->platformVars->getProperty("settingsFileLocation").'/';
         $command .= $this->platformVars->getProperty("settingsFileName");
         $this->settingsFileData = self::executeAndLoad($command);
     }
