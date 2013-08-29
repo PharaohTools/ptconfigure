@@ -13,11 +13,24 @@ class ApacheModulesInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "ApacheModules" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "ApacheModules" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("apache-modules"=>"ApacheModules", "apachemods"=>"ApacheModules", "apachemodules"=>"ApacheModules");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "ApacheModules" => array(
+          "ApacheModules" => array(
+            "programDataFolder" => "/var/lib/jenkins", // command and app dir name
+            "programNameMachine" => "jenkins", // command and app dir name
+            "programNameFriendly" => " ! Jenkins !", // 12 chars
+            "programNameInstaller" => "Jenkins",
+          )
+        )
+      );
     }
 
     public function helpDefinition() {

@@ -13,7 +13,7 @@ class AutopilotInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Autopilot" =>  array_merge(parent::defaultActionsAvailable(), array("install", "execute") ) );
+      return array( "Autopilot" =>  array_merge(parent::routesAvailable(), array("install", "execute") ) );
     }
 
     public function routeAliases() {

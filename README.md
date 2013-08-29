@@ -67,7 +67,5 @@ cleopatra InstallPackage dev-client - Install preconfigured software/config for 
 cleopatra InstallPackage dev-server - Install preconfigured software/config for a dev server (Team Playaround Box)
 
 cleopatra InstallPackage test-server - Install preconfigured software/config for a Build/Testing server
-
 cleopatra InstallPackage git-server - Install preconfigured software/config for a Git SCM server
-
 cleopatra InstallPackage production - Install preconfigured software/config for a Production server (Public Server)

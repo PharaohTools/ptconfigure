@@ -13,11 +13,24 @@ class CleopatraInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Cleopatra" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "Cleopatra" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("cleo"=>"Cleopatra", "cleopatra"=>"Cleopatra");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "Cleopatra" => array(
+          "Cleopatra" => array(
+            "programNameMachine" => "cleopatra", // command and app dir name
+            "programNameFriendly" => " Cleopatra! ",
+            "programNameInstaller" => "Cleopatra - Update to latest version",
+            "programExecutorTargetPath" => 'cleopatra/src/Bootstrap.php',
+          )
+        )
+      );
     }
 
     public function helpDefinition() {

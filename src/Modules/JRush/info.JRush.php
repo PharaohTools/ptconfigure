@@ -13,11 +13,24 @@ class JRushInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "JRush" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "JRush" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("jrush"=>"JRush", "Jrush"=>"JRush", "jRush"=>"JRush");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "JRush" => array(
+          "JRush" => array(
+            "programNameMachine" => "jrush", // command and app dir name
+            "programNameFriendly" => "JRush",
+            "programNameInstaller" => "JRush - The Joomla command line installer",
+            "programExecutorTargetPath" => 'jrush/src/Bootstrap.php',
+          )
+        )
+      );
     }
 
     public function helpDefinition() {

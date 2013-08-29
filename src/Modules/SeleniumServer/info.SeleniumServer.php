@@ -13,12 +13,25 @@ class SeleniumServerInfo extends Base {
   }
 
   public function routesAvailable() {
-    return array( "SeleniumServer" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+    return array( "SeleniumServer" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
     return array("selenium-server"=>"SeleniumServer", "selenium"=>"SeleniumServer",
       "selenium-srv"=>"SeleniumServer", "seleniumserver"=>"SeleniumServer");
+  }
+
+  public function autoPilotVariables() {
+    return array(
+      "SeleniumServer" => array(
+        "SeleniumServer" => array(
+          "programDataFolder" => "/opt/SeleniumServer", // command and app dir name
+          "programNameMachine" => "seleniumserver", // command and app dir name
+          "programNameFriendly" => "Selenium Srv", // 12 chars
+          "programNameInstaller" => "Selenium Server",
+        ),
+      )
+    );
   }
 
   public function helpDefinition() {

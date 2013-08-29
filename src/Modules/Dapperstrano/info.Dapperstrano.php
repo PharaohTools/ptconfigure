@@ -13,11 +13,24 @@ class DapperstranoInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Dapperstrano" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "Dapperstrano" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("dapper"=>"Dapperstrano", "dapperstrano"=>"Dapperstrano");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "Dapperstrano" => array(
+          "Dapperstrano" => array(
+            "programNameMachine" => "dapperstrano", // command and app dir name
+            "programNameFriendly" => "Dapperstrano",
+            "programNameInstaller" => "Dapperstrano - Update to latest version",
+            "programExecutorTargetPath" => 'dapperstrano/src/Bootstrap.php',
+          )
+        )
+      );
     }
 
     public function helpDefinition() {

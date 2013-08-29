@@ -13,12 +13,25 @@ class SudoNoPassInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "SudoNoPass" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "SudoNoPass" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("sudonopass"=>"SudoNoPass", "sudo-nopass"=>"SudoNoPass",
         "sudo-passwordless"=>"SudoNoPass");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "SudoNoPass" => array(
+          "SudoNoPass" => array(
+            "programDataFolder" => "/opt/SudoNoPass", // command and app dir name
+            "programNameMachine" => "sudonopass", // command and app dir name
+            "programNameFriendly" => "SudoNoPass", // 12 chars
+            "programNameInstaller" => "Sudo capability with No Password for a user",
+          ),
+        )
+      );
     }
 
     public function helpDefinition() {

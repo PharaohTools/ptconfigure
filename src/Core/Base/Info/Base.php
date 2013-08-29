@@ -11,7 +11,7 @@ class Base {
     public function __construct() {
     }
 
-    public function defaultActionsAvailable() {
+    public function routesAvailable() {
       return array("help");
     }
 

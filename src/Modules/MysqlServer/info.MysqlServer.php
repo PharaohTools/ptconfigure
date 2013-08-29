@@ -13,11 +13,24 @@ class MysqlServerInfo extends Base {
   }
 
   public function routesAvailable() {
-    return array( "MysqlServer" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+    return array( "MysqlServer" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
     return array("mysql-server"=>"MysqlServer", "mysqlserver"=>"MysqlServer");
+  }
+
+  public function autoPilotVariables() {
+    return array(
+      "MysqlServer" => array(
+        "MysqlServer" => array(
+          "programDataFolder" => "/opt/MysqlServer", // command and app dir name
+          "programNameMachine" => "mysqlserver", // command and app dir name
+          "programNameFriendly" => "Mysql Server!", // 12 chars
+          "programNameInstaller" => "Mysql Server",
+        ),
+      )
+    );
   }
 
   public function helpDefinition() {

@@ -13,7 +13,7 @@ class InstallPackageInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "InstallPackage" =>  array_merge(parent::defaultActionsAvailable(), array("autopilot", "dev-client",
+      return array( "InstallPackage" =>  array_merge(parent::routesAvailable(), array("autopilot", "dev-client",
         "devclient", "dev-server", "devserver", "git-server", "gitserver", "jenkins-server",  "jenkinsserver", "build-server",
         "buildserver", "production", "prod-server", "prod", "test-server","testserver") ) );
     }

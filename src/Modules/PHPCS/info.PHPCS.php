@@ -13,11 +13,24 @@ class PHPCSInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "PHPCS" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "PHPCS" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("phpcs"=>"PHPCS");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "PHPCS" => array(
+          "PHPCS" => array(
+            "programDataFolder" => "/opt/PHPCS", // command and app dir name
+            "programNameMachine" => "phpcs", // command and app dir name
+            "programNameFriendly" => "PHP C Sniff!", // 12 chars
+            "programNameInstaller" => "PHP Code Sniffer",
+          ),
+        )
+      );
     }
 
     public function helpDefinition() {
