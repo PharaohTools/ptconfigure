@@ -74,8 +74,7 @@ class Generator extends Base {
       $miniRay = array();
       $i=0;
       if (!is_array($autoVariableDetails)) {
-        $this->allEntries[] = array($autoVarTitle => $autoVariableDetails);
-        var_dump($this->allEntries); }
+        $this->allEntries[] = array($autoVarTitle => $autoVariableDetails); }
       else {
         foreach ($autoVariableDetails as $autoVariableDetailName => $autoVariableDetailType) {
           if (substr($autoVariableDetailName, strlen($autoVariableDetailName)-7, 7)=="Execute") {
