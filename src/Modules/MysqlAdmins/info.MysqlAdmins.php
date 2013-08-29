@@ -28,6 +28,11 @@ class MysqlAdminsInfo extends Base {
           "programNameMachine" => "mysqladmins", // command and app dir name
           "programNameFriendly" => "Mysql Admins!", // 12 chars
           "programNameInstaller" => "Mysql Admins",
+          "mysqlNewAdminUser" => "string",
+          "mysqlNewAdminPass" => "string",
+          "mysqlRootUser" => "string",
+          "mysqlRootPass" => "string",
+          "dbHost" => "string"
         ),
       )
     );

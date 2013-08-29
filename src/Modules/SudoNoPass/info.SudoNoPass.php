@@ -29,6 +29,7 @@ class SudoNoPassInfo extends Base {
             "programNameMachine" => "sudonopass", // command and app dir name
             "programNameFriendly" => "SudoNoPass", // 12 chars
             "programNameInstaller" => "Sudo capability with No Password for a user",
+            "installUserName" => "string"
           ),
         )
       );
