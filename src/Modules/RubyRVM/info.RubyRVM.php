@@ -28,6 +28,8 @@ class RubyRVMInfo extends Base {
           "programNameMachine" => "rubyrvm", // command and app dir name
           "programNameFriendly" => "Ruby RVM!", // 12 chars
           "programNameInstaller" => "Ruby RVM - Ruby Version Manager",
+          "installUserName" => "string",
+          "installUserHomeDir" => "string",
         ),
       )
     );
