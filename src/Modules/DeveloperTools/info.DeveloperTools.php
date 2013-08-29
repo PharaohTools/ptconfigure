@@ -13,11 +13,24 @@ class DeveloperToolsInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "DeveloperTools" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "DeveloperTools" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("devtools"=>"DeveloperTools", "dev-tools"=>"DeveloperTools");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "DeveloperTools" => array(
+          "DeveloperTools" => array(
+            "programDataFolder" => "/opt/DeveloperTools", // command and app dir name
+            "programNameMachine" => "developertools", // command and app dir name
+            "programNameFriendly" => "Devel Tools!", // 12 chars
+            "programNameInstaller" => "Developer Tools",
+          ),
+        )
+      );
     }
 
     public function helpDefinition() {

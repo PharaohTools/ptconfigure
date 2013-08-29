@@ -13,11 +13,24 @@ class MysqlAdminsInfo extends Base {
   }
 
   public function routesAvailable() {
-    return array( "MysqlAdmins" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+    return array( "MysqlAdmins" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
     return array("mysql-admins"=>"MysqlAdmins", "mysqladmins"=>"MysqlAdmins");
+  }
+
+  public function autoPilotVariables() {
+    return array(
+      "MysqlAdmins" => array(
+        "MysqlAdmins" => array(
+          "programDataFolder" => "/opt/MysqlAdmins", // command and app dir name
+          "programNameMachine" => "mysqladmins", // command and app dir name
+          "programNameFriendly" => "Mysql Admins!", // 12 chars
+          "programNameInstaller" => "Mysql Admins",
+        ),
+      )
+    );
   }
 
   public function helpDefinition() {

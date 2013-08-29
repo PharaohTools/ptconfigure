@@ -13,11 +13,24 @@ class RubyRVMInfo extends Base {
   }
 
   public function routesAvailable() {
-    return array( "RubyRVM" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+    return array( "RubyRVM" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
     return array("rubyrvm"=>"RubyRVM", "rubyRVM"=>"RubyRVM", "ruby-rvm"=>"RubyRVM");
+  }
+
+  public function autoPilotVariables() {
+    return array(
+      "RubyRVM" => array(
+        "RubyRVM" => array(
+          "programDataFolder" => "/opt/RubyRVM", // command and app dir name
+          "programNameMachine" => "rubyrvm", // command and app dir name
+          "programNameFriendly" => "Ruby RVM!", // 12 chars
+          "programNameInstaller" => "Ruby RVM - Ruby Version Manager",
+        ),
+      )
+    );
   }
 
   public function helpDefinition() {

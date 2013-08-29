@@ -13,11 +13,24 @@ class MediaToolsInfo extends Base {
   }
 
   public function routesAvailable() {
-    return array( "MediaTools" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+    return array( "MediaTools" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
     return array("media-tools"=>"MediaTools", "mediatools"=>"MediaTools");
+  }
+
+  public function autoPilotVariables() {
+    return array(
+      "MediaTools" => array(
+        "MediaTools" => array(
+          "programDataFolder" => "/opt/MediaTools", // command and app dir name
+          "programNameMachine" => "mediatools", // command and app dir name
+          "programNameFriendly" => "Media Tools!", // 12 chars
+          "programNameInstaller" => "Media Tools",
+        ),
+      )
+    );
   }
 
   public function helpDefinition() {

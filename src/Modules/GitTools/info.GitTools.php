@@ -13,11 +13,24 @@ class GitToolsInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "GitTools" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "GitTools" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("gittools"=>"GitTools", "git-tools"=>"GitTools");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "GitTools" => array(
+          "GitTools" => array(
+            "programDataFolder" => "", // command and app dir name
+            "programNameMachine" => "gittools", // command and app dir name
+            "programNameFriendly" => "!Git Tools!!", // 12 chars
+            "programNameInstaller" => "Git Tools",
+          )
+        )
+      );
     }
 
     public function helpDefinition() {

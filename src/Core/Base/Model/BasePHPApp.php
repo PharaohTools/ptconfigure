@@ -5,7 +5,6 @@ Namespace Model;
 class BasePHPApp extends Base {
 
   protected $fileSources;
-  protected $tempDir = '/tmp';
 
   public function __construct() {
     $this->populateStartDirectory();

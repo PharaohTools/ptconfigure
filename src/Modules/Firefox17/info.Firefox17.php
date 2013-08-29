@@ -13,11 +13,24 @@ class Firefox17Info extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Firefox17" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "Firefox17" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("ff17"=>"Firefox17", "firefox17"=>"Firefox17");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "Firefox17" => array(
+          "Firefox17" => array(
+            "programDataFolder" => "/opt/firefox17", // command and app dir name
+            "programNameMachine" => "firefox17", // command and app dir name
+            "programNameFriendly" => "Firefox 17", // 12 chars
+            "programNameInstaller" => "Firefox 17",
+          )
+        )
+      );
     }
 
     public function helpDefinition() {

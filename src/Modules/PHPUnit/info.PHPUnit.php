@@ -13,11 +13,24 @@ class PHPUnitInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "PHPUnit" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "PHPUnit" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("phpunit"=>"PHPUnit", "phpUnit"=>"PHPUnit", "php-unit"=>"PHPUnit");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "PHPUnit" => array(
+          "PHPUnit" => array(
+            "programDataFolder" => "/opt/PHPUnit", // command and app dir name
+            "programNameMachine" => "phpunit", // command and app dir name
+            "programNameFriendly" => "PHP Unit!", // 12 chars
+            "programNameInstaller" => "PHP Unit - PHP Testing Framework",
+          ),
+        )
+      );
     }
 
     public function helpDefinition() {

@@ -13,12 +13,25 @@ class JenkinsSudoNoPassInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "JenkinsSudoNoPass" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "JenkinsSudoNoPass" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("jenkinssudonopass"=>"JenkinsSudoNoPass", "jenkins-sudo-nopass"=>"JenkinsSudoNoPass",
         "jenkins-sudo-passwordless"=>"JenkinsSudoNoPass");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "JenkinsSudoNoPass" => array(
+          "JenkinsSudoNoPass" => array(
+            "programDataFolder" => "/opt/jenkins-plugs", // command and app dir name
+            "programNameMachine" => "jenkins-plugins", // command and app dir name
+            "programNameFriendly" => "Jenk Sudo NP", // 12 chars
+            "programNameInstaller" => "Jenkins Passwordless Sudo",
+          )
+        )
+      );
     }
 
     public function helpDefinition() {

@@ -13,12 +13,25 @@ class JenkinsPluginsInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "JenkinsPlugins" =>  array_merge(parent::defaultActionsAvailable(), array("install") ) );
+      return array( "JenkinsPlugins" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
       return array("jenkinsplugins"=>"JenkinsPlugins", "jenkins-plugins"=>"JenkinsPlugins",
         "jenkins-plugs"=>"JenkinsPlugins");
+    }
+
+    public function autoPilotVariables() {
+      return array(
+        "JenkinsPlugins" => array(
+          "JenkinsPlugins" => array(
+            "programDataFolder" => "/opt/jenkins-plugs", // command and app dir name
+            "programNameMachine" => "jenkins-plugins", // command and app dir name
+            "programNameFriendly" => "Jenkins Plugins!", // 12 chars
+            "programNameInstaller" => "Jenks Plugs!",
+          )
+        )
+      );
     }
 
     public function helpDefinition() {
