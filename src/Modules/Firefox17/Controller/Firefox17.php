@@ -10,9 +10,10 @@ class Firefox17 extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        $thisModel = new \Model\Firefox17();
+        $thisModel = new \Model\Firefox17($pageVars["route"]["extraParams"]);
 
         if ($action=="install") {
+          $this->content["params"] = $thisModel->params;
           $this->content["appName"] = $thisModel->autopilotDefiner;
           $this->content["appInstallResult"] = $thisModel->askInstall();
           return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }

@@ -4,9 +4,9 @@ Namespace Model;
 
 class SeleniumServer extends BaseLinuxApp {
 
-  public function __construct() {
+  public function __construct($params) {
 
-    parent::__construct();
+    parent::__construct($params);
     $this->autopilotDefiner = "SeleniumServer";
     $this->installCommands = array(
       "cd /tmp" ,

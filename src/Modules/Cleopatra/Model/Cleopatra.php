@@ -4,8 +4,8 @@ Namespace Model;
 
 class Cleopatra extends BasePHPApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "Cleopatra";
     $this->fileSources = array(
       array(

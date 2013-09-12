@@ -4,8 +4,8 @@ Namespace Model;
 
 class DeveloperTools extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "DeveloperTools";
     $this->installCommands = array( "apt-get install -y geany bluefish kompozer emma" );
     $this->uninstallCommands = array( "apt-get remove -y geany bluefish kompozer emma" );

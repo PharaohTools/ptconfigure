@@ -10,10 +10,11 @@ class Generator extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        $generatorModel = new \Model\Generator();
+        $thisModel = new \Model\Generator($pageVars["route"]["extraParams"]);
 
         if ($action=="create") {
-          $this->content["genCreateResult"] = $generatorModel->askWhetherToCreateAutoPilot();
+          $this->content["params"] = $thisModel->params;
+          $this->content["genCreateResult"] = $thisModel->askWhetherToCreateAutoPilot();
           return array ("type"=>"view", "view"=>"generator", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Project Action";

@@ -4,12 +4,12 @@ Namespace Model;
 
 class JRush extends BasePHPApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "JRush";
     $this->fileSources = array(
       array(
-        "https://phpengine:b33byp455@bitbucket.org/phpengine/jrush.git",
+        "https://github.com/phpengine/jrush.git",
         "jrush",
         null // can be null for none
       )

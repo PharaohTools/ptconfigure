@@ -4,8 +4,8 @@ Namespace Model;
 
 class GitTools extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "GitTools";
     $this->installCommands = array("apt-get install -y git git-core gitk git-cola");
     $this->uninstallCommands = array("apt-get remove -y git git-core gitk git-cola");

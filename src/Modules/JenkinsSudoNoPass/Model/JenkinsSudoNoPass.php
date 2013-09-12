@@ -4,8 +4,8 @@ Namespace Model;
 
 class JenkinsSudoNoPass extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "JenkinsSudoNoPass";
     $this->installCommands = array(
         'echo "The following will be written to /etc/sudoers" ',

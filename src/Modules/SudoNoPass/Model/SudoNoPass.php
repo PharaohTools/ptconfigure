@@ -4,8 +4,8 @@ Namespace Model;
 
 class SudoNoPass extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "SudoNoPass";
     $this->installCommands = array();
     $this->uninstallCommands = array( "" );

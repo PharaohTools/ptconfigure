@@ -4,8 +4,8 @@ Namespace Model;
 
 class RubyRVM extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "RubyRVM";
     $this->installCommands = array(
       "apt-get install -y libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 ".

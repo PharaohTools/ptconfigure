@@ -4,6 +4,8 @@ Namespace Model;
 
 class Base {
 
+    public $params ;
+
     public $autopilotDefiner ;
     public $programNameFriendly;
     public $programNameInstaller;
@@ -18,7 +20,12 @@ class Base {
     protected $programExecutorFolder;
     protected $programExecutorTargetPath;
     protected $extraCommandsArray;
-    protected $tempDir = '/tmp';
+    protected $tempDir;
+
+    public function __construct($params) {
+      $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
+      $this->setCmdLineParams($params);
+    }
 
     protected function setAutoPilotVariables($autoPilot) {
         foreach ( $autoPilot as $step ) { // this should only happen once
@@ -56,6 +63,17 @@ class Base {
     protected function executeAndLoad($command) {
         $outputText = shell_exec($command);
         return $outputText;
+    }
+
+    protected function setCmdLineParams($params) {
+      $cmdParams = array();
+      foreach ($params as $param) {
+        if ( substr($param, 0, 2)=="--" && strpos($param, '=') != null ) {
+          $equalsPos = strpos($param, "=") ;
+          $paramKey = substr($param, 2, $equalsPos-2) ;
+          $paramValue = substr($param, $equalsPos+1, strlen($param)) ;
+          $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); } }
+      $this->params = $cmdParams;
     }
 
     protected function askYesOrNo($question) {

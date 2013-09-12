@@ -4,8 +4,8 @@ Namespace Model;
 
 class Parallax extends BasePHPApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "Parallax";
     $this->fileSources = array(
       array(

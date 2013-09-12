@@ -4,9 +4,8 @@ Namespace Model;
 
 class Java extends BaseLinuxApp {
 
-  public function __construct() {
-
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "Java";
     $this->installCommands = array(
       "git clone https://bitbucket.org/phpengine/cleopatra-oraclejava7jdk /tmp/oraclejdk" ,
