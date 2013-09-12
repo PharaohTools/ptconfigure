@@ -4,8 +4,8 @@ Namespace Model;
 
 class Firefox17 extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "Firefox17";
     $this->installCommands = array(
       "cd /tmp" ,

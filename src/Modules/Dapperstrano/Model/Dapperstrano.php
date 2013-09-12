@@ -4,8 +4,8 @@ Namespace Model;
 
 class Dapperstrano extends BasePHPApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "Dapperstrano";
     $this->fileSources = array(
       array(

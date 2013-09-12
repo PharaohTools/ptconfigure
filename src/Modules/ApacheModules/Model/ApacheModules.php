@@ -4,8 +4,8 @@ Namespace Model;
 
 class ApacheModules extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "ApacheModules";
     $this->installCommands = array(
         "apt-get clean", "apt-get update",

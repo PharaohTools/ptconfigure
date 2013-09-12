@@ -4,8 +4,8 @@ Namespace Model;
 
 class PHPModules extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "PHPModules";
     $this->installCommands = array( "apt-get install -y php5-gd php5-imagick php5-curl php5-mysql" );
     $this->uninstallCommands = array( "apt-get remove -y php5-gd php5-imagick php5-curl php5-mysql" );

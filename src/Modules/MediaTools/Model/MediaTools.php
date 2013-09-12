@@ -4,8 +4,8 @@ Namespace Model;
 
 class MediaTools extends BaseLinuxApp {
 
-  public function __construct() {
-    parent::__construct();
+  public function __construct($params) {
+    parent::__construct($params);
     $this->autopilotDefiner = "MediaTools";
     $this->installCommands = array( "apt-get install -y vlc" );
     $this->uninstallCommands = array( "apt-get remove -y vlc" );

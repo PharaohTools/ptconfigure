@@ -3,7 +3,10 @@
 Namespace Core;
 
 $bootStrap = new BootStrap();
-$bootStrap->main($argv);
+
+$argv_or_null = (isset($argv)) ? $argv : null ;
+$bootStrapParams = (isset($_ENV['cleo_bootstrap'])) ? unserialize($_ENV['cleo_bootstrap']) : $argv_or_null ;
+$bootStrap->main($bootStrapParams);
 
 class BootStrap {
 
@@ -13,11 +16,11 @@ class BootStrap {
         $autoLoader->launch();
     }
 
-    public function main($argv) {
-        $routeObject = new \Core\Router();
-        $route = $routeObject->run($argv);
-        $emptyPageVars = array("messages"=>array(), "route"=>$route);
-        $this->executeControl($route["control"], $emptyPageVars);
+    public function main($argv_or_null) {
+      $routeObject = new \Core\Router();
+      $route = $routeObject->run($argv_or_null);
+      $emptyPageVars = array("messages"=>array(), "route"=>$route);
+      $this->executeControl($route["control"], $emptyPageVars);
     }
 
     private function executeControl($controlToExecute, $pageVars=null) {

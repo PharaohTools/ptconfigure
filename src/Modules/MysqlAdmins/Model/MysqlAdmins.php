@@ -10,8 +10,8 @@ class MysqlAdmins extends BaseLinuxApp {
     private $mysqlRootPass;
     private $dbHost;
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct($params) {
+        parent::__construct($params);
         $this->autopilotDefiner = "MysqlAdmins";
         $this->installCommands = array();
         $this->uninstallCommands = array( "" );

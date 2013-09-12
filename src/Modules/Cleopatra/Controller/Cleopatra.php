@@ -10,9 +10,10 @@ class Cleopatra extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        $thisModel = new \Model\Cleopatra();
+        $thisModel = new \Model\Cleopatra($pageVars["route"]["extraParams"]);
 
         if ($action=="install") {
+          $this->content["params"] = $thisModel->params;
           $this->content["appName"] = $thisModel->autopilotDefiner;
           $this->content["appInstallResult"] = $thisModel->askInstall();
           return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
