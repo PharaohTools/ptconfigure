@@ -42,7 +42,7 @@ class GitToolsInfo extends Base {
   GitTools, gittools, git-tools
 
         - install
-        Installs the latest version of Developer Tools
+        Installs the latest version of Git Tools
         example: cleopatra gittools install
 
 HELPDATA;
