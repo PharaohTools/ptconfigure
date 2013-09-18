@@ -102,7 +102,7 @@ class InvokeSSH extends Base {
             else {
                 $server["ssh2Object"] = $attempt ;
                 echo $this->changeBashPromptToDapperstrano($server["ssh2Object"]);
-                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Dapperstrano Remote SSH on ...'.$server["target"].'"', true ) ; } }
+                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Cleopatra Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
     }
 
