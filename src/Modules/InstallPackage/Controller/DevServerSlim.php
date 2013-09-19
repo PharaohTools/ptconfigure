@@ -20,7 +20,6 @@ class DevServerSlim extends Base {
         "PHPCS" ,
         "PHPMD" ,
         "Java" ,
-        "RubyRVM" ,
         "DeveloperTools" ,
         "SudoNoPass" ,
         "MediaTools" ,
