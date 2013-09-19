@@ -65,6 +65,7 @@ class Router {
     }
 
     private function setRouteExtraParams() {
+        $this->route["extraParams"] = array();
         $numberOfExtraParams = count($this->bootstrapParams)-3;
         for ($i=3; $i<($numberOfExtraParams+3); $i++) {
             $this->route["extraParams"][] = $this->bootstrapParams[$i] ;}
