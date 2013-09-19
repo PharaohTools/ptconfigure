@@ -6,7 +6,7 @@ class PostInputInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "HTTP Post Input Interface";
+    public $name = "HTTP Post/Get Input Interface";
 
     public function __construct() {
       parent::__construct();

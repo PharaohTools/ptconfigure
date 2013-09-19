@@ -6,7 +6,7 @@ class GitToolsInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "GitTools";
+    public $name = "Git Tools - Tools for working with Git SCM";
 
     public function __construct() {
       parent::__construct();

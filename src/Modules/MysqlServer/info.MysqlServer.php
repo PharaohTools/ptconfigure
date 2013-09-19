@@ -6,7 +6,7 @@ class MysqlServerInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "MysqlServer";
+  public $name = "Mysql Server - The Mysql RDBMS Server";
 
   public function __construct() {
     parent::__construct();

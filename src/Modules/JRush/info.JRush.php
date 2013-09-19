@@ -6,7 +6,7 @@ class JRushInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "JRush";
+    public $name = "JRush - The Joomla command line utility from Golden Contact";
 
     public function __construct() {
       parent::__construct();

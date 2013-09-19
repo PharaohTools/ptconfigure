@@ -6,7 +6,7 @@ class AutopilotInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Cleopatra Autopilot - User Defined Installs";
+    public $name = "Cleopatra Autopilot - User Defined Installations";
 
     public function __construct() {
       parent::__construct();

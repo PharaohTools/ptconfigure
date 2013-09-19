@@ -6,7 +6,7 @@ class IntelliJInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "IntelliJ";
+    public $name = "IntelliJ - A great IDE from JetBrains";
 
     public function __construct() {
       parent::__construct();

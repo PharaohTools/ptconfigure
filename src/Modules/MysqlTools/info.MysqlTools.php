@@ -6,7 +6,7 @@ class MysqlToolsInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "MysqlTools";
+  public $name = "Mysql Tools - For administering and developing with Mysql";
 
   public function __construct() {
     parent::__construct();

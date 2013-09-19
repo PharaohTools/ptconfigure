@@ -6,7 +6,7 @@ class ApacheModulesInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Apache Modules";
+    public $name = "Apache Modules - Commonly used modules for Apache";
 
     public function __construct() {
       parent::__construct();

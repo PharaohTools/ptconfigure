@@ -6,7 +6,7 @@ class JenkinsInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Jenkins";
+    public $name = "Jenkins - The Java Build Server";
 
     public function __construct() {
       parent::__construct();

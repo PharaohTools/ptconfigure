@@ -6,7 +6,7 @@ class CleopatraInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Cleopatra";
+    public $name = "Cleopatra - Upgrade or Re-install Cleopatra";
 
     public function __construct() {
       parent::__construct();

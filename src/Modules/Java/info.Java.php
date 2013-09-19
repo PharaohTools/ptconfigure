@@ -6,7 +6,7 @@ class JavaInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Java";
+    public $name = "Java JDK 1.7";
 
     public function __construct() {
       parent::__construct();
