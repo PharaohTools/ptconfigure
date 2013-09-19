@@ -72,7 +72,6 @@ COMPLETION;
   private function performLinuxAppInstall() {
     $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToInstallLinuxAppToScreen();
-    var_dump("di", $doInstall);
     if (!$doInstall) { return false; }
     return $this->install();
   }
@@ -141,7 +140,6 @@ COMPLETION;
         = $autoPilot->{$this->autopilotDefiner."InstallUserName"}; }
     else {
       $question = "Enter User To Install As:";
-      var_dump($this->params);
       $input = (isset($this->params["install-user-name"])) ? $this->params["install-user-name"] : self::askForInput($question);
       $this->installUserName = $input; }
   }
