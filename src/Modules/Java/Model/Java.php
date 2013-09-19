@@ -26,7 +26,7 @@ class Java extends BaseLinuxApp {
       'sudo update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
       '. /etc/profile' );
     $this->uninstallCommands = array( "" );
-    $this->programDataFolder = "";
+    $this->programDataFolder = "/var/lib/jvm/jdk1.7";
     $this->programNameMachine = "java"; // command and app dir name
     $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
     $this->programNameInstaller = "The Oracle Java JDK 1.7";

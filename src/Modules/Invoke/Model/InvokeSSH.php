@@ -86,9 +86,18 @@ class InvokeSSH extends Base {
     private function loadServerData($autoPilot=null) {
         $srvAvail = (isset($autoPilot["sshInvokeServers"]) && is_array($autoPilot["sshInvokeServers"]) &&
             count($autoPilot["sshInvokeServers"]) > 0);
+        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
         if ($srvAvail == true) {
             $this->servers = $autoPilot["sshInvokeServers"]; }
+        else if (count($allProjectEnvs) > 0) {
+          var_dump($allProjectEnvs) ;
+            $question = 'Use Environments Configured in Project?';
+            $useProjEnvs = self::askYesOrNo($question, true);
+            if ($useProjEnvs == true ) {
+                $this->servers = new \ArrayObject($allProjectEnvs) ;
+                return; } }
         else {
+          echo "asking\n";
             $this->askForServerInfo(); }
     }
 
