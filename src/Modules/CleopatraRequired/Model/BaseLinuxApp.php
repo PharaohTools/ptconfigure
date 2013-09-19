@@ -202,19 +202,20 @@ COMPLETION;
   }
 
   private function changePermissions($autoPilot, $target=null){
-    $command = "chmod -R 775 $target";
-    self::executeAndOutput($command);
+    if ($target != null) {
+      $command = "chmod -R 775 $target";
+      self::executeAndOutput($command); }
   }
 
   private function deleteExecutorIfExists(){
-    $command = 'rm -f '.$this->programExecutorFolder.'/'.$this->programNameMachine;
+    $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
     self::executeAndOutput($command, "Program Executor Deleted if existed");
     return true;
   }
 
   private function saveExecutorFile(){
     $this->populateExecutorFile();
-    $executorPath = $this->programExecutorFolder.'/'.$this->programNameMachine;
+    $executorPath = $this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
     file_put_contents($executorPath, $this->bootStrapData);
     $this->changePermissions(null, $executorPath);
   }

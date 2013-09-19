@@ -73,7 +73,9 @@ class Cleofy extends Base {
       $this->environments[$i]["****CURRENT_ENVIRONMENT_NAME****"] = self::askForInput("Value for: Name", true);
       $this->environments[$i]["****CURRENT_ENVIRONMENT_TEMP_DIR****"] = self::askForInput("Value for: Temp Dir", true);
       $this->environments[$i]["****CURRENT_ENVIRONMENT_NUMBER_REVISIONS****"] = self::askForInput("Value for: Number Revisions", true);
-      $this->environments[$i]["****CURRENT_ENVIRONMENT_SERVERS_ARRAY_TEXT****"] = $this->getServerArrayText($this->getServers());
+      $serversGot = $this->getServers();
+      $this->environments[$i]["****CURRENT_ENVIRONMENT_SERVERS_ARRAY_TEXT****"] = $this->getServerArrayText($serversGot);
+      $this->environments[$i]["server_array"] = $serversGot;
       foreach ($this->environmentSpecificReplacements as $replacementQuestion) {
         $this->environments[$i][$replacementQuestion] = self::askForInput("Value for: ".$replacementQuestion); }
       foreach ($this->crossEnvironmentReplacements as $replacementQuestion) {
