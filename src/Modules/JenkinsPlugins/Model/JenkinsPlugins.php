@@ -12,7 +12,7 @@ class JenkinsPlugins extends BaseLinuxApp {
         "git clone https://github.com/phpengine/jenkins-php-plugins jplugins",
         "rm -rf ****PROGDIR****",
         "mkdir -p ****PROGDIR****",
-        "mv /tmp/jplugins/jenkins ****PROGDIR****",
+        "mv /tmp/jplugins/* ****PROGDIR****",
         "chmod -R 775 ****PROGDIR****/*",
         "chown -R jenkins ****PROGDIR****",
         "rm -rf /tmp/jplugins",
