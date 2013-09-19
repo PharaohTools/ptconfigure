@@ -42,9 +42,8 @@ class Java extends BaseLinuxApp {
     else {
       if (isset($this->params["yes"]) && $this->params["yes"]==true) {
         return; }
-      else {
-        $question = "Enter Java Install Directory (no trailing slash):";
-        $this->programDataFolder = self::askForInput($question, true); } }
+      $question = "Enter Java Install Directory (no trailing slash):";
+      $this->programDataFolder = self::askForInput($question, true); }
   }
 
 }

@@ -72,6 +72,7 @@ COMPLETION;
   private function performLinuxAppInstall() {
     $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToInstallLinuxAppToScreen();
+    var_dump("di", $doInstall);
     if (!$doInstall) { return false; }
     return $this->install();
   }
@@ -95,7 +96,6 @@ COMPLETION;
   }
 
   public function install($autoPilot = null) {
-    ob_start();
     $this->showTitle();
     $this->executePreInstallFunctions($autoPilot);
     $this->doInstallCommand();
@@ -104,7 +104,7 @@ COMPLETION;
       $this->changePermissions($this->programDataFolder); }
     $this->extraCommands();
     $this->showCompletion();
-    return ob_get_clean();
+    return true;
   }
 
   public function unInstall($autoPilot = null) {
@@ -141,6 +141,7 @@ COMPLETION;
         = $autoPilot->{$this->autopilotDefiner."InstallUserName"}; }
     else {
       $question = "Enter User To Install As:";
+      var_dump($this->params);
       $input = (isset($this->params["install-user-name"])) ? $this->params["install-user-name"] : self::askForInput($question);
       $this->installUserName = $input; }
   }
