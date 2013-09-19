@@ -8,8 +8,7 @@ class InvokeSSH extends Base {
     private $sshCommands;
 
     public function runAutoPilotInstall($autoPilot){
-      var_dump($autoPilot["InvokeSSH"]);
-        // @todo this shouldnt be called as it is
+        // @todo this shouldnt be called as it is, it probably shouldnt need the key here?
         $this->runAutoPilotInvokeSSHData($autoPilot["InvokeSSH"]);
         $this->runAutoPilotInvokeSSHScript($autoPilot["InvokeSSH"]);
         return true;
