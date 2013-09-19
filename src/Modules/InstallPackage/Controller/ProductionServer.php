@@ -6,7 +6,7 @@ class ProductionServer extends Base {
 
     public function execute($pageVars) {
 
-      $this->content["package-friendly"] = "Development Server";
+      $this->content["package-friendly"] = "Production Server";
 
       $this->registeredModels = array (
         "Cleopatra" ,

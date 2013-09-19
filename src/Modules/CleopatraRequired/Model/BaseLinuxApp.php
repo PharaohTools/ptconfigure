@@ -141,7 +141,8 @@ COMPLETION;
         = $autoPilot->{$this->autopilotDefiner."InstallUserName"}; }
     else {
       $question = "Enter User To Install As:";
-      $this->installUserName = self::askForInput($question, true); }
+      $input = (isset($this->params["install-user-name"])) ? $this->params["install-user-name"] : self::askForInput($question);
+      $this->installUserName = $input; }
   }
 
   protected function askForInstallUserHomeDir($autoPilot=null){
@@ -151,7 +152,8 @@ COMPLETION;
         = $autoPilot->{$this->autopilotDefiner."InstallUserHomeDir"}; }
     else {
       $question = "Enter Install User Home Dir:";
-      $this->installUserHomeDir = self::askForInput($question, true); }
+      $input = (isset($this->params["install-user-home"])) ? $this->params["install-user-home"] : self::askForInput($question);
+      $this->installUserHomeDir = $input; }
   }
 
   protected function askForInstallDirectory($autoPilot=null){
@@ -161,7 +163,8 @@ COMPLETION;
         = $autoPilot->{$this->autopilotDefiner."InstallDirectory"}; }
     else {
       $question = "Enter Install Directory:";
-      $this->programDataFolder = self::askForInput($question, true); }
+      $input = (isset($this->params["install-directory"])) ? $this->params["install-directory"] : self::askForInput($question);
+      $this->programDataFolder = $input; }
   }
 
   private function executePreInstallFunctions($autoPilot){
