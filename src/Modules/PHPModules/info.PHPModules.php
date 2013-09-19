@@ -6,7 +6,7 @@ class PHPModulesInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "PHPModules";
+  public $name = "PHP Modules - Commonly used PHP Modules";
 
   public function __construct() {
     parent::__construct();

@@ -6,7 +6,7 @@ class JenkinsPluginsInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "JenkinsPlugins";
+    public $name = "Jenkins PHP Plugins - Common Plugins for Jenkins PHP Builds";
 
     public function __construct() {
       parent::__construct();

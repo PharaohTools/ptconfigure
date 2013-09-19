@@ -6,7 +6,7 @@ class DeveloperToolsInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "DeveloperTools";
+    public $name = "Developer Tools - IDE's and other tools for Developers";
 
     public function __construct() {
       parent::__construct();

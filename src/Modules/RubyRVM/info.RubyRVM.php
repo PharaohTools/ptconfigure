@@ -6,7 +6,7 @@ class RubyRVMInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "RubyRVM";
+  public $name = "Ruby RVM - The Ruby version manager";
 
   public function __construct() {
     parent::__construct();

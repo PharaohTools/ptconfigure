@@ -6,7 +6,7 @@ class CleofyInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Cleopatra Cleofyer - Create some standard autopilots for your project";
+    public $name = "Cleopatra Cleofyer - Creates default autopilots for your project";
 
     public function __construct() {
       parent::__construct();

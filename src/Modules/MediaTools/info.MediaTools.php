@@ -6,7 +6,7 @@ class MediaToolsInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "MediaTools";
+  public $name = "Media Tools - Tools to help view and manage Media files";
 
   public function __construct() {
     parent::__construct();

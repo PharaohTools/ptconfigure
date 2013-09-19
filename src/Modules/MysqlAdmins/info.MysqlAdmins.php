@@ -6,7 +6,7 @@ class MysqlAdminsInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "MysqlAdmins";
+  public $name = "Mysql Admins - Install administrative users for Mysql";
 
   public function __construct() {
     parent::__construct();

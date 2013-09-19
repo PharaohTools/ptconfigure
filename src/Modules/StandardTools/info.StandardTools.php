@@ -6,7 +6,7 @@ class StandardToolsInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "StandardTools";
+  public $name = "Standard Tools for any Installation";
 
   public function __construct() {
     parent::__construct();

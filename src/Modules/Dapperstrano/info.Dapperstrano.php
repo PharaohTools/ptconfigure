@@ -6,7 +6,7 @@ class DapperstranoInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Dapperstrano";
+    public $name = "Dapperstrano - The PHP Automated Website Deployment tool";
 
     public function __construct() {
       parent::__construct();

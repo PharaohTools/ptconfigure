@@ -6,7 +6,7 @@ class PHPMDInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "PHPMD";
+    public $name = "PHP Mess Detector - The static analysis tool";
 
     public function __construct() {
       parent::__construct();

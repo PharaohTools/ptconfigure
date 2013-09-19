@@ -6,7 +6,7 @@ class JenkinsSudoNoPassInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "JenkinsSudoNoPass";
+    public $name = "Configure Passwordless Sudo for your Jenkins user";
 
     public function __construct() {
       parent::__construct();

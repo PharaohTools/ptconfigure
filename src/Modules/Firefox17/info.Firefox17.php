@@ -6,7 +6,7 @@ class Firefox17Info extends Base {
 
     public $hidden = false;
 
-    public $name = "Firefox17";
+    public $name = "Firefox 17 - A version of Firefox highly tested with Selenium Server";
 
     public function __construct() {
       parent::__construct();

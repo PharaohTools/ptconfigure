@@ -6,7 +6,7 @@ class GeneratorInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Dapperstrano Autopilot Generator";
+    public $name = "Dapperstrano Autopilot Generator - Generate Autopilot files interactively";
 
     public function __construct() {
       parent::__construct();

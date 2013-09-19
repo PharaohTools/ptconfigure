@@ -6,7 +6,7 @@ class PHPUnitInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "PHPUnit";
+    public $name = "PHP Unit - The PHP Implementation of the XUnit Unit Testing standard";
 
     public function __construct() {
       parent::__construct();

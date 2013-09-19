@@ -6,7 +6,7 @@ class ParallaxInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Parallax";
+    public $name = "Parallax - The parallel execution tool from Golden Contact";
 
     public function __construct() {
       parent::__construct();

@@ -6,7 +6,7 @@ class SudoNoPassInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "SudoNoPass";
+    public $name = "Configure Passwordless Sudo for any User";
 
     public function __construct() {
       parent::__construct();

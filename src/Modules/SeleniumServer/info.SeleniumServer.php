@@ -6,7 +6,7 @@ class SeleniumServerInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "SeleniumServer";
+  public $name = "The Selenium Web Browser controlling server";
 
   public function __construct() {
     parent::__construct();

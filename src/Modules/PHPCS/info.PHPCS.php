@@ -6,7 +6,7 @@ class PHPCSInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "PHPCS";
+    public $name = "PHP Code Sniffer - The static code analysis tool";
 
     public function __construct() {
       parent::__construct();

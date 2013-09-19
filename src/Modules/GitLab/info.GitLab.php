@@ -6,7 +6,7 @@ class GitLabInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "GitLab";
+    public $name = "Git Lab - The Git SCM Management Web Application";
 
     public function __construct() {
       parent::__construct();
