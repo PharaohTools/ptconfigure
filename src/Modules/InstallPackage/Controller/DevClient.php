@@ -39,7 +39,7 @@ class DevClient extends Base {
 
       $this->checkForRegisteredModels();
 
-      $this->executeMyRegisteredModels();
+      $this->executeMyRegisteredModels($pageVars["route"]["extraParams"]);
 
       return array ("type"=>"view", "view"=>"installPackage", "pageVars"=>$this->content);
 

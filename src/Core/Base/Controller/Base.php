@@ -38,24 +38,19 @@ class Base {
     echo "All expected Models found"."\n\n";
   }
 
-  protected function executeMyRegisteredModels() {
+  protected function executeMyRegisteredModels($params = null) {
     foreach ($this->registeredModels as $modelClassNameOrArray) {
       if ( is_array($modelClassNameOrArray) ) {
         $currentKeys = array_keys($modelClassNameOrArray) ;
         $currentKey = $currentKeys[0] ;
-        $fullClassName = '\Model\\'.$currentKey;
-        $currentModel = new $fullClassName();
-        $miniRay = array();
-        $miniRay["appName"] = $currentModel->programNameInstaller;
-        $miniRay["installResult"] = $currentModel->askInstall();
-        $this->content["results"][] = $miniRay ;}
+        $fullClassName = '\Model\\'.$currentKey;}
       else {
-        $fullClassName = '\Model\\'.$modelClassNameOrArray;
-        $currentModel = new $fullClassName();
-        $miniRay = array();
-        $miniRay["appName"] = $currentModel->programNameInstaller;
-        $miniRay["installResult"] = $currentModel->askInstall();
-        $this->content["results"][] = $miniRay ; } }
+        $fullClassName = '\Model\\'.$modelClassNameOrArray; }
+      $currentModel = new $fullClassName($params);
+      $miniRay = array();
+      $miniRay["appName"] = $currentModel->programNameInstaller;
+      $miniRay["installResult"] = $currentModel->askInstall();
+      $this->content["results"][] = $miniRay ; }
   }
 
   protected function executeMyRegisteredModelsAutopilot($autoPilot) {

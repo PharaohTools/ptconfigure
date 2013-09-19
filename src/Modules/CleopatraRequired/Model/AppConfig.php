@@ -6,7 +6,7 @@ class AppConfig {
 
 
     private static function checkIsDHProject() {
-        return file_exists('bbsettings');
+        return file_exists('dhproj');
     }
 
     public static function setProjectVariable($variable, $value, $listAdd=null) {
@@ -21,22 +21,21 @@ class AppConfig {
         $value = null;
         if (self::checkIsDHProject()) {
             $appConfigArray = self::loadDHProjectFile();
-            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ;
-            self::saveDHProjectFile($appConfigArray); }
+            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ; }
         return $value;
     }
 
     private static function loadDHProjectFile() {
-        $appConfigArrayJSON = file_get_contents('bbsettings');
-        $decoded = json_decode($appConfigArrayJSON);
-        $appConfigArray = (is_array($decoded)) ? $decoded : array() ;
+        $appConfigArraySeialized = file_get_contents('dhproj');
+        $decoded = unserialize($appConfigArraySeialized);
+        $appConfigArray = (is_object($decoded)) ? $decoded : array() ;
         return new \ArrayObject($appConfigArray);
     }
 
     private static function saveDHProjectFile($appConfigArray) {
         $appConfigObject = new \ArrayObject($appConfigArray);
-        $appConfigObjectJSON = json_encode($appConfigObject);
-        file_put_contents('bbsettings', $appConfigObjectJSON);
+        $appConfigObjectSeialized = serialize($appConfigObject);
+        file_put_contents('dhproj', $appConfigObjectSeialized);
     }
 
 }
