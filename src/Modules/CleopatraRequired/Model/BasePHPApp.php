@@ -149,14 +149,14 @@ COMPLETION;
   private function askForProgramDataFolder() {
     $question = 'What is the program data directory?';
     $question .= ' Found "/opt/'.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
-    $input = ($this->params["yes"]==true) ? "/opt/$this->programNameMachine" : self::askForInput($question);
+    $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/opt/$this->programNameMachine" : self::askForInput($question);
     return ($input=="") ? "/opt/$this->programNameMachine" : $input ;
   }
 
   private function askForProgramExecutorFolder(){
     $question = 'What is the program executor directory?';
     $question .= ' Found "/usr/bin" - use this? (Enter nothing for yes, No Trailing Slash)';
-    $input = ($this->params["yes"]==true) ? "/usr/bin" : self::askForInput($question);
+    $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/usr/bin" : self::askForInput($question);
     return ($input=="") ? "/usr/bin" : $input ;
   }
 
