@@ -1,5 +1,3 @@
-
-
 Cleopatra by Golden Contact Computing
 -------------------
 
