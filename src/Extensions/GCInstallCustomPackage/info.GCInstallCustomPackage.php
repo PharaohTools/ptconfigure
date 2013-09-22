@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class InstallPackageInfo extends Base {
+class GCInstallCustomPackageInfo extends Base {
 
     public $hidden = false;
 
