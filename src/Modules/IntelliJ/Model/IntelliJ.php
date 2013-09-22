@@ -13,6 +13,7 @@ class IntelliJ extends BaseLinuxApp {
       "rm -rf ****PROGDIR****",
       "mkdir -p ****PROGDIR****",
       "mv /tmp/intellij/* ****PROGDIR****",
+      "chmod -R 777 ****PROGDIR****",
       "rm -rf /tmp/intellij" );
     $this->uninstallCommands = array(
       "rm -rf ****PROGDIR****",
