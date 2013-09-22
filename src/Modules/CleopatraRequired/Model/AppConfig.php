@@ -15,7 +15,7 @@ class AppConfig {
         if (self::checkSettingsExistOrCreateIt()) {
             $appConfigArray = self::loadDHProjectFile();
             if ( $listAdd == true && $listAddKey==null ) {
-                if (!in_array($value, $appConfigArray[$variable])) {
+                if (is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
                     $appConfigArray[$variable][] = $value ; } }
             else if ( $listAdd == true && $listAddKey!=null ) {
                 $appConfigArray[$variable][$listAddKey] = $value ; }
