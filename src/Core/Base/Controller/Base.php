@@ -25,6 +25,12 @@ class Base {
       $this->content["appInstallResult"] = $thisModel->askInstall();
       return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
+    if ($action=="uninstall" && !in_array($action, $ignored_actions)) {
+      $this->content["params"] = $thisModel->params;
+      $this->content["appName"] = $thisModel->autopilotDefiner;
+      $this->content["appInstallResult"] = $thisModel->askUninstall();
+      return array ("type"=>"view", "view"=>"appUninstall", "pageVars"=>$this->content); }
+
     if ($action=="status" && !in_array($action, $ignored_actions)) {
       $this->content["params"] = $thisModel->params;
       $this->content["appName"] = $thisModel->autopilotDefiner;
