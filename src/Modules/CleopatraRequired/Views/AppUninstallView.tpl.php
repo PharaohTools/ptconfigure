@@ -1,4 +1,4 @@
-Single App Installer:
+Single App Uninstaller:
 --------------------------------------------
 
 <?php echo $pageVars["appName"] ; ?>: <?php
