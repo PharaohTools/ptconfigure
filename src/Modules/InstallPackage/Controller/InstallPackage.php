@@ -16,10 +16,6 @@ class InstallPackage extends Base {
       $actionsToClasses = array(
         "dev-client" => "DevClient",
         "devclient" => "DevClient",
-        "dev-server-slim" => "DevServerSlim",
-        "devserverslim" => "DevServerSlim",
-        "devserverslimnosudo" => "DevServerSlimNoSudo",
-        "dev-server-slim-nosudo" => "DevServerSlimNoSudo",
         "dev-server" => "DevServer",
         "devserver" => "DevServer",
         "test-server" => "TestServer",
