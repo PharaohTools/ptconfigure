@@ -90,7 +90,6 @@ class InvokeSSH extends Base {
         if ($srvAvail == true) {
             $this->servers = $autoPilot["sshInvokeServers"]; }
         else if (count($allProjectEnvs) > 0) {
-          var_dump($allProjectEnvs) ;
             $question = 'Use Environments Configured in Project?';
             $useProjEnvs = self::askYesOrNo($question, true);
             if ($useProjEnvs == true ) {
