@@ -145,6 +145,10 @@ class Base {
         return $inputLine;
     }
 
-
+    protected function findStatusByDirectory($inputLine) {
+        $inputLine = str_replace("\n", "", $inputLine);
+        $inputLine = str_replace("\r", "", $inputLine);
+        return $inputLine;
+    }
 
 }

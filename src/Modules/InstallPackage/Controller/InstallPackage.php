@@ -6,9 +6,8 @@ class InstallPackage extends Base {
 
     public function execute($pageVars) {
 
-      $isHelp = parent::checkForHelp($pageVars) ;
-      if ( is_array($isHelp) ) {
-        return $isHelp; }
+      $isDefaultAction = parent::checkDefaultActions($pageVars) ;
+      if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];

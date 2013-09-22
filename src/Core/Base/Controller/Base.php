@@ -10,14 +10,27 @@ class Base {
   public function __construct() {
     $this->content = array(); }
 
-  public function checkForHelp($pageVars) {
+  public function checkDefaultActions($pageVars, $ignored_actions=array(), $thisModel=null) {
     $this->content["route"] = $pageVars["route"];
     $this->content["messages"] = $pageVars["messages"];
     $action = $pageVars["route"]["action"];
-    if ($action=="help") {
+    if ($action=="help" && !in_array($action, $ignored_actions)) {
       $helpModel = new \Model\Help();
       $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
       return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
+
+    if ($action=="install" && !in_array($action, $ignored_actions)) {
+      $this->content["params"] = $thisModel->params;
+      $this->content["appName"] = $thisModel->autopilotDefiner;
+      $this->content["appInstallResult"] = $thisModel->askInstall();
+      return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
+
+    if ($action=="status" && !in_array($action, $ignored_actions)) {
+      $this->content["params"] = $thisModel->params;
+      $this->content["appName"] = $thisModel->autopilotDefiner;
+      $this->content["appStatusResult"] = $thisModel->askStatus();
+      return array ("type"=>"view", "view"=>"appStatus", "pageVars"=>$this->content); }
+
     return false;
   }
 
