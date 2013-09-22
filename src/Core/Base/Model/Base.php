@@ -151,4 +151,22 @@ class Base {
         return $inputLine;
     }
 
+    protected function setInstallFlagStatus($bool) {
+        if ($bool) {
+            AppConfig::setProjectVariable("installed-apps", $this->programNameMachine, true); }
+        else {
+            AppConfig::deleteProjectVariable("installed-apps", "any", $this->programNameMachine); }
+    }
+
+    public function askStatus() {
+        return $this->getInstallFlagStatus($this->programNameMachine) ;
+    }
+
+    protected function getInstallFlagStatus($programNameMachine) {
+        $installedApps = AppConfig::getProjectVariable("installed-apps");
+        if (is_array($installedApps) && in_array($programNameMachine, $installedApps)) {
+            return true ; }
+        return false ;
+    }
+
 }

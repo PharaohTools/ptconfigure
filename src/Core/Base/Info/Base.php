@@ -12,7 +12,7 @@ class Base {
     }
 
     public function routesAvailable() {
-      return array("help");
+      return array("help", "status", "install", "uninstall");
     }
 
     public function routeAliases() {
