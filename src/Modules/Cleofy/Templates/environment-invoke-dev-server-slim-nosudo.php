@@ -42,7 +42,7 @@ class AutoPilotConfigured extends AutoPilot {
 //
   private function setSSHData() {
     $this->steps[0]["InvokeSSH"]["sshInvokeSSHDataData"] = <<<"SSHDATA"
-sudo cleopatra install-package dev-server-slim-nosudo-n --yes=true
+sudo cleopatra install-package dev-server-slim-nosudo --yes=true
 SSHDATA;
   }
 
