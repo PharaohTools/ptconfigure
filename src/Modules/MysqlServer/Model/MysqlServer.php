@@ -24,8 +24,8 @@ class MysqlServer extends BaseLinuxApp {
     private function getNewRootPass() {
         if (isset($this->params["mysql-root-pass"])) {
             $newRootPass = $this->params["mysql-root-pass"] ; }
-        else if (AppConfig::getProjectVariable("mysql_default_root_pass") != "") {
-            $newRootPass = AppConfig::getProjectVariable("mysql_default_root_pass") ; }
+        else if (AppConfig::getProjectVariable("mysql-default-root-pass") != "") {
+            $newRootPass = AppConfig::getProjectVariable("mysql-default-root-pass") ; }
         else {
             $newRootPass = "cleopatra" ; }
         return $newRootPass;
