@@ -5,20 +5,21 @@ Namespace Controller ;
 class Invoke extends Base {
 
     public function execute($pageVars) {
-        $isHelp = parent::checkForHelp($pageVars) ;
-        if ( is_array($isHelp) ) {
-          return $isHelp; }
+
+        $thisModel = new \Model\DeveloperTools($pageVars["route"]["extraParams"]);
+        $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
+        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
         $action = $pageVars["route"]["action"];
 
         if ($action=="cli") {
 
-            $invSSHModel = new \Model\InvokeSSH();
+            $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
             $this->content["shlResult"] = $invSSHModel->askWhetherToInvokeSSHShell();
             return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
 
         if ($action=="script") {
 
-            $invSSHModel = new \Model\InvokeSSH();
+            $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
             $this->content["shlResult"] = $invSSHModel->askWhetherToInvokeSSHScript($pageVars["route"]["extraParams"]);
 
             return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
@@ -34,7 +35,7 @@ class Invoke extends Base {
 
                 if ( $autoPilot!==null ) {
 
-                    $invSSHModel = new \Model\InvokeSSH();
+                    $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
                     $this->content["invSshScriptResult"] = $invSSHModel->runAutoPilotInvokeSSHScript($autoPilot);
                     if ($autoPilot["sshInvokeSSHDataExecute"] && $this->content["invSshScriptResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Invoke SSH Script Broken";
