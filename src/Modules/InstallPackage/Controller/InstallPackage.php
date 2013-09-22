@@ -18,6 +18,8 @@ class InstallPackage extends Base {
         "devclient" => "DevClient",
         "dev-server-slim" => "DevServerSlim",
         "devserverslim" => "DevServerSlim",
+        "devserverslimnosudo" => "DevServerSlim",
+        "dev-server-slim-nosudo" => "DevServerSlim",
         "dev-server" => "DevServer",
         "devserver" => "DevServer",
         "test-server" => "TestServer",
