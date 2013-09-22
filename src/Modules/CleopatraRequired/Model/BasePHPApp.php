@@ -114,6 +114,7 @@ COMPLETION;
     $this->deleteInstallationFiles();
     $this->changePermissions();
     $this->extraCommands();
+    $this->setInstallFlagStatus(true) ;
     $this->showCompletion();
   }
 
@@ -125,6 +126,7 @@ COMPLETION;
     $this->programExecutorFolder = $this->askForProgramExecutorFolder();
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->deleteExecutorIfExists();
+    $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
   }
 
@@ -168,7 +170,7 @@ COMPLETION;
     $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
 set_include_path('" . $pathStr . "'.get_include_path() );
-require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
+require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTargetPath."');\n
 ?>";
   }
 
@@ -185,12 +187,13 @@ require('".$this->programDataFolder."/".$this->programExecutorTargetPath."');\n
   }
 
   private function copyFilesToProgramDataFolder(){
-    $command = 'cp -r '.$this->tempDir.'/'.$this->programNameMachine.'/* '.$this->programDataFolder;
+    $command = 'cp -r '.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine.
+        DIRECTORY_SEPARATOR.'* '.$this->programDataFolder;
     return self::executeAndOutput($command, "Program Data folder populated");
   }
 
   private function deleteExecutorIfExists(){
-    $command = 'rm -f '.$this->programExecutorFolder.'/'.$this->programNameMachine;
+    $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
     self::executeAndOutput($command, "Program Executor Deleted if existed");
     return true;
   }

@@ -50,12 +50,9 @@ COMPLETION;
     return $this->askWhetherToInstallLinuxApp();
   }
 
-  /*
-   * @todo
   public function askUnInstall() {
-    return $this->askWhetherToUnInstallPHPApp();
+    return $this->askWhetherToUnInstallLinuxApp();
   }
-  */
 
   public function runAutoPilotInstall($autoPilot) {
     return $this->runAutoPilotLinuxAppInstall($autoPilot);
@@ -65,7 +62,7 @@ COMPLETION;
     return $this->runAutoPilotLinuxAppUnInstall($autoPilot);
   }
 
-  public function askWhetherUnInstallLinuxApp() {
+  public function askWhetherToUnInstallLinuxApp() {
     return $this->performLinuxAppUnInstall();
   }
 
@@ -102,6 +99,7 @@ COMPLETION;
     if ($this->programDataFolder) {
       $this->changePermissions($this->programDataFolder); }
     $this->extraCommands();
+    $this->setInstallFlagStatus(true) ;
     $this->showCompletion();
     return true;
   }
@@ -112,6 +110,7 @@ COMPLETION;
     $this->doUnInstallCommand();
     $this->executePostUninstallFunctions($autoPilot);
     $this->extraCommands();
+    $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
   }
 
@@ -129,7 +128,7 @@ COMPLETION;
   }
 
   private function askWhetherToUnInstallLinuxAppToScreen(){
-    $question = "Un Install ".$this->programNameInstaller."?";
+    $question = "Uninstall ".$this->programNameInstaller."?";
     return self::askYesOrNo($question);
   }
 
