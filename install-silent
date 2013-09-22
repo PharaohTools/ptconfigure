@@ -45,7 +45,7 @@ class Installer {
     }
 
     private function askForProgramDataFolder() {
-        $this->programDataFolder = "/opt/".$this->programNameMachine ;
+        $this->programDataFolder = DIRECTORY_SEPARATOR."opt".DIRECTORY_SEPARATOR.$this->programNameMachine.DIRECTORY_SEPARATOR.$this->programNameMachine ;
     }
 
     private function askForProgramExecutorFolder(){
@@ -76,13 +76,13 @@ class Installer {
     }
 
     private function deleteInstallationFiles(){
-        $command = 'rm -rf '.$this->startDirectory.'/'.$this->programNameMachine;
+        $command = 'rm -rf '.$this->startDirectory.DIRECTORY_SEPARATOR.$this->programNameMachine;
         self::executeAndOutput($command);
     }
 
     private function saveExecutorFile(){
         $this->populateExecutorFile();
-        return file_put_contents($this->programExecutorFolder.'/'.$this->programNameMachine, $this->bootStrapData);
+        return file_put_contents($this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine, $this->bootStrapData);
     }
 
     private function changePermissions(){
@@ -126,9 +126,9 @@ COMPLETION;
     }
 
     private function populateExecutorFile() {
-        $this->bootStrapData = "#!/usr/bin/php\n
+        $this->bootStrapData = "#!".DIRECTORY_SEPARATOR."usr".DIRECTORY_SEPARATOR."bin".DIRECTORY_SEPARATOR."php\n
 <?php\n
-require('$this->programDataFolder/src/Bootstrap.php');\n
+require('".$this->programDataFolder.DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."Bootstrap.php"."');\n
 ?>";
     }
 
