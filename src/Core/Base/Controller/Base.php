@@ -72,12 +72,12 @@ class Base {
       $this->content["results"][] = $miniRay ; }
   }
 
-  protected function executeMyRegisteredModelsAutopilot($autoPilot) {
+  protected function executeMyRegisteredModelsAutopilot($autoPilot, $params = null) {
     foreach ($autoPilot->steps as $modelArray) {
         $currentKeys = array_keys($modelArray) ;
         $currentKey = $currentKeys[0] ;
         $fullClassName = '\Model\\'.$currentKey;
-        $currentModel = new $fullClassName();
+        $currentModel = new $fullClassName($params);
         $miniRay = array();
         $miniRay["appName"] = $currentModel->programNameInstaller;
         $miniRay["installResult"] = $currentModel->runAutoPilotInstall($modelArray);

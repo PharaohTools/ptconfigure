@@ -13,7 +13,7 @@ class CleofyInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("create", "standard") ) );
+      return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard") ) );
     }
 
     public function routeAliases() {
@@ -32,8 +32,9 @@ class CleofyInfo extends Base {
         List all of the autopilot files in your build/config/cleopatra/autopilots
         example: cleopatra cleofy list
 
-        - create
-        Create a set of autopilots to manage
+        - standard
+        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        your project.
         example: cleopatra cleofy create
 
 HELPDATA;
