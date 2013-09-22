@@ -46,9 +46,11 @@ class Installer {
 
     private function askForProgramDataFolder() {
         $question = 'What is the program data directory?';
-        $question .= ' Found "/opt/'.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
+        $question .= ' Found '.DIRECTORY_SEPARATOR.'opt'.DIRECTORY_SEPARATOR.$this->programNameMachine.
+            DIRECTORY_SEPARATOR.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
         $input = self::askForInput($question);
-        $this->programDataFolder = ($input=="") ? "/opt/$this->programNameMachine" : $input ;
+        $this->programDataFolder = ($input=="") ? DIRECTORY_SEPARATOR.'opt'.DIRECTORY_SEPARATOR.$this->programNameMachine.
+            DIRECTORY_SEPARATOR.$this->programNameMachine : $input ;
     }
 
     private function askForProgramExecutorFolder(){
