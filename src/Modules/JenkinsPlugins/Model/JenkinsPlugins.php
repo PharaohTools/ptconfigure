@@ -19,7 +19,7 @@ class JenkinsPlugins extends BaseLinuxApp {
         "service jenkins restart"
     );
     $this->uninstallCommands = array(
-        "rm -rf ****PROGDIR****/*",
+        "rm -rf ****PROGDIR****".DIRECTORY_SEPARATOR."*",
         "service jenkins restart"
     );
     $this->programDataFolder = "/var/lib/jenkins/plugins"; // command and app dir name

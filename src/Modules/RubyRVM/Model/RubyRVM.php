@@ -19,7 +19,9 @@ class RubyRVM extends BaseLinuxApp {
       "chmod u+x /tmp/rubyinstall.sh ",
       "su ****INSTALL USER NAME**** -c'/tmp/rubyinstall.sh' ",
       "rm /tmp/rubyinstall.sh " );
-    $this->uninstallCommands = array( "" );
+    $this->uninstallCommands = array(
+        "cd ****INSTALL USER HOME DIR****/",
+        "rm -rf .rvm" );
     $this->programDataFolder = "";
     $this->programNameMachine = "ruby"; // command and app dir name
     $this->programNameFriendly = " !Ruby RVM!!"; // 12 chars
