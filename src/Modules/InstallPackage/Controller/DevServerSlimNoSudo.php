@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class DevServerSlim extends Base {
+class DevServerSlimNoSudo extends Base {
 
     public function execute($pageVars) {
 
