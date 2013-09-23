@@ -119,18 +119,21 @@ class CukeConf extends Base {
     }
 
     private function createCukeFile() {
-        $tmpDir = $this->baseTempDir.'/cukefile';
+        $tmpDir = $this->baseTempDir.DIRECTORY_SEPARATOR.'cukefile';
         if (!file_exists($tmpDir)) { mkdir ($tmpDir, 0777, true); }
         return file_put_contents($tmpDir.'/env.rb', $this->cukeFileData);
     }
 
     private function removeOldCukeFile(){
-        $command = 'rm build/tests/features/support/env.rb';
+        $command = 'rm build'.DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'features'.DIRECTORY_SEPARATOR.
+          'support'.DIRECTORY_SEPARATOR.'env.rb';
         self::executeAndOutput($command);
     }
 
     private function moveCukeFile(){
-        $command = 'mv '.$this->baseTempDir.'/cukefile/env.rb build/tests/features/support/env.rb';
+        $command = 'mv '.$this->baseTempDir.DIRECTORY_SEPARATOR.'cukefile'.DIRECTORY_SEPARATOR.'env.rb build' .
+          DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'features'.DIRECTORY_SEPARATOR.'support'.DIRECTORY_SEPARATOR.
+          'env.rb';
         self::executeAndOutput($command);
     }
 

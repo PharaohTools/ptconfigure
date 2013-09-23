@@ -20,8 +20,7 @@ class AppConfig {
         $value = null;
         if (self::checkIsProject()) {
             $appConfigArray = self::loadProjectFile();
-            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ;
-            self::saveProjectFile($appConfigArray); }
+            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ; }
         return $value;
     }
 

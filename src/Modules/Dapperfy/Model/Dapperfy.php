@@ -63,32 +63,28 @@ class Dapperfy extends Base {
       $more_servers = true;
       while ($more_servers == true) {
         if (count($this->environments)==0) {
-          echo "Environment Number $i: \n";
-          $this->environments[$i]["****CURRENT_ENVIRONMENT_NAME****"] = self::askForInput("Value for: Name", true);
-          $this->environments[$i]["****CURRENT_ENVIRONMENT_TEMP_DIR****"] = self::askForInput("Value for: Temp Dir", true);
-          $this->environments[$i]["****CURRENT_ENVIRONMENT_NUMBER_REVISIONS****"] = self::askForInput("Value for: Number Revisions", true);
-          $this->environments[$i]["****CURRENT_ENVIRONMENT_SERVERS_ARRAY_TEXT****"] = $this->getServerArrayText($this->getServers());
-          foreach ($this->environmentSpecificReplacements as $replacementQuestion) {
-            $this->environments[$i][$replacementQuestion] = self::askForInput("Value for: ".$replacementQuestion); }
-          foreach ($this->crossEnvironmentReplacements as $replacementQuestion) {
-            $this->environments[$i][$replacementQuestion] = $crossEnvironmentValues[$replacementQuestion]; }}
+          $this->populateAnEnvironment($i, $crossEnvironmentValues);}
         else {
           $question = 'Do you want to add another environment?';
           $add_another_server = self::askYesOrNo($question);
           if ($add_another_server == true) {
-            echo "Environment Number $i: \n";
-            $this->environments[$i]["****CURRENT_ENVIRONMENT_NAME****"] = self::askForInput("Value for: Name", true);
-            $this->environments[$i]["****CURRENT_ENVIRONMENT_TEMP_DIR****"] = self::askForInput("Value for: Temp Dir", true);
-            $this->environments[$i]["****CURRENT_ENVIRONMENT_NUMBER_REVISIONS****"] = self::askForInput("Value for: Number Revisions", true);
-            $this->environments[$i]["****CURRENT_ENVIRONMENT_SERVERS_ARRAY_TEXT****"] = $this->getServerArrayText($this->getServers());
-            foreach ($this->environmentSpecificReplacements as $replacementQuestion) {
-              $this->environments[$i][$replacementQuestion] = self::askForInput("Value for: ".$replacementQuestion); }
-            foreach ($this->crossEnvironmentReplacements as $replacementQuestion) {
-              $this->environments[$i][$replacementQuestion] = $crossEnvironmentValues[$replacementQuestion]; }}
+            $this->populateAnEnvironment($i, $crossEnvironmentValues); }
           else {
             $more_servers = false; } }
         $i++; }
 
+    }
+
+    private function populateAnEnvironment($i, $crossEnvironmentValues) {
+      echo "Environment Number $i: \n";
+      $this->environments[$i]["****CURRENT_ENVIRONMENT_NAME****"] = self::askForInput("Value for: Name", true);
+      $this->environments[$i]["****CURRENT_ENVIRONMENT_TEMP_DIR****"] = self::askForInput("Value for: Temp Dir", true);
+      $this->environments[$i]["****CURRENT_ENVIRONMENT_NUMBER_REVISIONS****"] = self::askForInput("Value for: Number Revisions", true);
+      $this->environments[$i]["****CURRENT_ENVIRONMENT_SERVERS_ARRAY_TEXT****"] = $this->getServerArrayText($this->getServers());
+      foreach ($this->environmentSpecificReplacements as $replacementQuestion) {
+        $this->environments[$i][$replacementQuestion] = self::askForInput("Value for: ".$replacementQuestion); }
+      foreach ($this->crossEnvironmentReplacements as $replacementQuestion) {
+        $this->environments[$i][$replacementQuestion] = $crossEnvironmentValues[$replacementQuestion]; }
     }
 
     public function getServers() {
