@@ -37,8 +37,8 @@ class Autopilot extends Base {
     private function loadAutoPilot($autoPilotFileName){
         $autoPilotFileName = escapeshellcmd($autoPilotFileName);
         $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
-        $defaultFolderToCheck = str_replace("src/Controller",
-          "build/config/dapperstrano", dirname(__FILE__));
+        $defaultFolderToCheck = getcwd().DIRECTORY_SEPARATOR."build".DIRECTORY_SEPARATOR."config" .
+          DIRECTORY_SEPARATOR."dapperstrano".DIRECTORY_SEPARATOR."autopilots";
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
         if (file_exists($defaultName)) {
           include_once($defaultName); }

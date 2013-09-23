@@ -94,12 +94,13 @@ class Generator extends Base {
               $miniRay[$autoVarTitle][$autoVariableDetailName][] = $tinierArray;
               $keepGoingQuestion = 'Add Another Array Entry? (Y/N)';
               $keepGoingResult = self::askForInput($keepGoingQuestion, true);
-              $keepGoing = ($keepGoingResult == "Y" || $keepGoingResult == "y") ? true : false ; } } }
+              $keepGoing = ($keepGoingResult == "Y" || $keepGoingResult == "y") ? true : false ; } }
+          else { // if the module provided us a string value
+            $miniRay[$autoVarTitle][$autoVariableDetailName][] = $autoVariableDetailType; } }
         $i++;
         if (count($autoVariableDetails)==$i) {
           $i=0;
-          $this->allEntries[] = $miniRay; }
-      }
+          $this->allEntries[] = $miniRay; } }
     }
 
     public function askWhetherToDoExecuteVarInAuto() {

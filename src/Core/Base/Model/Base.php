@@ -9,7 +9,7 @@ class Base {
 
     public function __construct() {
       $tempDirInConfig = \Model\AppConfig::getAppVariable("temp-directory") ;
-      $tempDirInConfig = (substr($tempDirInConfig, -1, 1) == "/") ?
+      $tempDirInConfig = (substr($tempDirInConfig, -1, 1) == DIRECTORY_SEPARATOR) ?
         substr($tempDirInConfig, 0, strlen($tempDirInConfig)-1) : $tempDirInConfig ;
       $this->baseTempDir = ($tempDirInConfig == null ) ? "/tmp/dapperstrano" : $tempDirInConfig ;
     }

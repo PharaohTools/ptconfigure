@@ -23,6 +23,10 @@ class Project extends Base {
             $this->content["projectResult"] = $projectModel->askWhetherToInstallBuildInProject();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
 
+        if ($action=="new-defaults") {
+            $this->content["projectResult"] = $projectModel->askWhetherToInstallBuildInProject();
+            return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
+
         $this->content["messages"][] = "Invalid Project Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
