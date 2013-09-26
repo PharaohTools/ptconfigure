@@ -28,7 +28,7 @@ class AutoPilotConfigured extends AutoPilot {
           "sshInvokeSSHDataExecute" => true,
           "sshInvokeSSHDataData" => "",
           "sshInvokeServers" => array(
-              ****CURRENT_ENVIRONMENT_SERVERS_ARRAY_TEXT****
+              ****gen_srv_array_text****
             ),
         ) , ) ,
         );
@@ -43,15 +43,15 @@ class AutoPilotConfigured extends AutoPilot {
   private function setSSHData() {
     $timeDrop = time();
     $this->steps[0]["InvokeSSH"]["sshInvokeSSHDataData"] = <<<"SSHDATA"
-cd ****CURRENT_ENVIRONMENT_TEMP_DIR****
-git clone -b ****gitCheckoutProjectCustomBranch**** --no-checkout --depth 1 ****gitCheckoutProjectOriginRepo**** dapper$timeDrop
+cd ****gen_env_tmp_dir****
+git clone -b ****dap_git_custom_branch**** --no-checkout --depth 1 ****dap_git_repo_url**** dapper$timeDrop
 cd dapper$timeDrop
-git show HEAD:build/config/dapperstrano/autopilots/****CURRENT_ENVIRONMENT_NAME****-install-code-data.php > ****CURRENT_ENVIRONMENT_TEMP_DIR********CURRENT_ENVIRONMENT_NAME****-install-code-data.php
-rm -rf ****CURRENT_ENVIRONMENT_TEMP_DIR****dapper$timeDrop
-cd ****CURRENT_ENVIRONMENT_TEMP_DIR****
-sudo dapperstrano autopilot execute ****CURRENT_ENVIRONMENT_NAME****-install-code-data.php
-sudo chown -R www-data ****projectContainerDirectory****current/src
-sudo rm ****CURRENT_ENVIRONMENT_NAME****-install-code-data.php
+git show HEAD:build/config/dapperstrano/autopilots/****gen_env_name****-install-code-data.php > ****gen_env_tmp_dir********gen_env_name****-install-code-data.php
+rm -rf ****gen_env_tmp_dir****dapper$timeDrop
+cd ****gen_env_tmp_dir****
+sudo dapperstrano autopilot execute ****gen_env_name****-install-code-data.php
+sudo chown -R www-data ****dap_proj_cont_dir****current/src
+sudo rm ****gen_env_name****-install-code-data.php
 SSHDATA;
   }
 

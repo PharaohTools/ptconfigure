@@ -14,7 +14,7 @@ class AutoPilotConfigured extends AutoPilot {
     public $steps ;
 
     public function __construct() {
-	    $this->setSteps();
+	      $this->setSteps();
         $this->setRevisionFolderName();
         $this->calculateVHostDocRoot();
         $this->setVHostTemplate();
@@ -51,36 +51,6 @@ class AutoPilotConfigured extends AutoPilot {
                     "virtualHostEditorAdditionSymLinkDirectory" => "/etc/apache2/sites-enabled",
                     "virtualHostEditorAdditionApacheCommand" => "apache2",
           ) , ) ,
-          array ( "DBConfigure" => array(
-                    "dbResetExecute" => true,
-                    "dbResetPlatform" => "****dap_db_platform****",
-          ) , ) ,
-          array ( "DBConfigure" => array(
-                    "dbConfigureExecute" => true,
-                    "dbConfigureDBHost" => "****dap_db_ip_address****",
-                    "dbConfigureDBUser" => "****dap_db_app_user_name****",
-                    "dbConfigureDBPass" => "****dap_db_app_user_pass***",
-                    "dbConfigureDBName" => "****dap_db_name***",
-                    "dbConfigurePlatform" => "****dap_db_platform****",
-          ) , ) ,
-          array ( "DBInstall" => array(
-                    "dbDropExecute" => true,
-                    "dbDropDBHost" => "****dap_db_ip_address****",
-                    "dbDropDBName" => "****dap_db_name***",
-                    "dbDropDBRootUser" => "****dbRootUserName****",
-                    "dbDropDBRootPass" => "****dbRootUserPass****",
-                    "dbDropUserExecute" => true,
-                    "dbDropDBUser" => "****dap_db_app_user_name****",
-          ) , ) ,
-          array ( "DBInstall" => array(
-                    "dbInstallExecute" => true,
-                    "dbInstallDBHost" => "****dap_db_ip_address****",
-                    "dbInstallDBUser" => "****dap_db_app_user_name****",
-                    "dbInstallDBPass" => "****dap_db_app_user_pass***",
-                    "dbInstallDBName" => "****dap_db_name***",
-                    "dbInstallDBRootUser" => "****dbRootUserName****",
-                    "dbInstallDBRootPass" => "****dbRootUserPass****",
-          ) , ) ,
           array ( "Version" => array(
                     "versionExecute" => true,
                     "versionAppRootDirectory" => "****dap_proj_cont_dir****",
@@ -100,8 +70,8 @@ class AutoPilotConfigured extends AutoPilot {
  // This function will set the vhost template for your Virtual Host
  // You need to call this from your constructor
  private function calculateVHostDocRoot() {
-    $this->steps[3]["VHostEditor"]["virtualHostEditorAdditionDocRoot"]
-         = "****dap_proj_cont_dir****".$this->steps[1]["CheckoutGit"]["gitCheckoutCustomCloneFolder"];
+   $this->steps[3]["VHostEditor"]["virtualHostEditorAdditionDocRoot"]
+       = "****dap_proj_cont_dir****".$this->steps[1]["CheckoutGit"]["gitCheckoutCustomCloneFolder"];
  }
 
  // This function will set the vhost template for your Virtual Host

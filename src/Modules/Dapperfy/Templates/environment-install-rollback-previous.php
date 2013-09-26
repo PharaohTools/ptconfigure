@@ -24,9 +24,9 @@ class AutoPilotConfigured extends AutoPilot {
 	      array(
           array ( "Version" => array(
                     "versionExecute" => true,
-                    "versionAppRootDirectory" => "****projectContainerDirectory****",
+                    "versionAppRootDirectory" => "****dap_proj_cont_dir****",
                     "versionArrayPointToRollback" => "1",
-                    "versionLimit" => "****CURRENT_ENVIRONMENT_NUMBER_REVISIONS****",
+                    "versionLimit" => "****dap_version_num_revisions****",
           ) , ) ,
 	      );
 
