@@ -62,9 +62,11 @@ class ApacheControl extends Base {
     private function askForApacheCtl($type) {
       if (!in_array($type, array("start", "stop", "restart"))) {
         return false; }
-      $question = 'Do you want to Start, Restart or Stop Apache?';
-      $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ;
-      return true ;
+      if (isset($this->params["yes"]) && $this->params["yes"]==true) {
+          return true ;
+      }
+      $question = 'Do you want to'.$type.' Apache?';
+      return self::askYesOrNo($question);
     }
 
     private function askForApacheCommand() {
