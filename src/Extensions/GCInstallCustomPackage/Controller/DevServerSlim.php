@@ -29,7 +29,7 @@ class DevServerSlim extends Base {
 
       $this->executeMyRegisteredModels($pageVars["route"]["extraParams"]);
 
-      return array ("type"=>"view", "view"=>"installPackage", "pageVars"=>$this->content);
+      return array ("type"=>"view", "view"=>"GCInstallCustomPackage", "pageVars"=>$this->content);
 
     }
 
