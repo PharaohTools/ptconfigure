@@ -13,12 +13,12 @@ class GCInstallCustomPackageInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "InstallPackage" =>  array_merge(parent::routesAvailable(), array(
-        "production-server-slim", "prod-server-slim" ) ) );
+      return array( "GCInstallCustomPackage" =>  array_merge(parent::routesAvailable(), array(
+        "production-server-slim", "prod-server-slim", "dev-server-slim" ) ) );
     }
 
     public function routeAliases() {
-      return array("install-pack-custom"=>"InstallPackage", "install-package-custom"=>"InstallPackage");
+      return array("install-pack-custom"=>"GCInstallCustomPackage", "install-package-custom"=>"GCInstallCustomPackage");
     }
 
     public function helpDefinition() {
