@@ -31,7 +31,7 @@ class Router {
     }
 
     private function getDefaultRoute() {
-        return array( "control" => "Index" , "action" => "index" );
+        return array( "control" => "Index" , "action" => "index", "extraParams" => array() );
     }
 
     private function parseControllerAliases() {
