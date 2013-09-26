@@ -72,6 +72,8 @@ class EnvironmentConfig extends Base {
         $more_envs = true;
         while ($more_envs == true) {
             if (count($this->environments)==0) {
+                if ($envSuffix[0] != "any-app") {
+                    $this->populateAnEnvironment($i, "any-app"); }
                 $this->populateAnEnvironment($i, $envSuffix[0]);}
             else {
                 $question = 'Do you want to add another environment?';
