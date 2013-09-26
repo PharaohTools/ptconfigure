@@ -28,7 +28,7 @@ class AutoPilotConfigured extends AutoPilot {
             "sshInvokeSSHDataExecute" => true,
             "sshInvokeSSHDataData" => "",
             "sshInvokeServers" => array(
-              ****CURRENT_ENVIRONMENT_SERVERS_ARRAY_TEXT****
+              ****gen_srv_array_text****
             ),
           ) , ) ,
         );
