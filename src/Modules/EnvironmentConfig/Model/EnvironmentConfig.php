@@ -67,22 +67,21 @@ class EnvironmentConfig extends Base {
                   "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
                   $this->populateAnEnvironment($i, $curEnvGroup) ; }
               $i++; } } }
-      else {
         $i = 0;
         $more_envs = true;
         while ($more_envs == true) {
             if (count($this->environments)==0) {
-                if ($envSuffix[0] != "any-app") {
-                    $this->populateAnEnvironment($i, "any-app"); }
+                if ($envSuffix[0] != "any-app") { $this->populateAnEnvironment($i, "any-app"); }
                 $this->populateAnEnvironment($i, $envSuffix[0]);}
             else {
                 $question = 'Do you want to add another environment?';
                 $add_another_env = self::askYesOrNo($question);
                 if ($add_another_env == true) {
-                    $this->populateAnEnvironment($i, $envSuffix[0]); }
+                    if ($envSuffix[0] != "any-app") { $this->populateAnEnvironment($i, "any-app"); }
+                    $this->populateAnEnvironment($i, $envSuffix[0]);}
                 else {
                     $more_envs = false; } }
-            $i++; } }
+            $i++; }
     }
 
     private function populateAnEnvironment($i, $appEnvType) {
