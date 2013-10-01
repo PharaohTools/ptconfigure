@@ -51,8 +51,8 @@ class AutoPilotConfigured extends AutoPilot {
                         "dbConfigureExecute" => true,
                         "dbConfigureDBHost" => "****dap_db_ip_address****",
                         "dbConfigureDBUser" => "****dap_db_app_user_name****",
-                        "dbConfigureDBPass" => "****dap_db_app_user_pass***",
-                        "dbConfigureDBName" => "****dap_db_name***",
+                        "dbConfigureDBPass" => "****dap_db_app_user_pass****",
+                        "dbConfigureDBName" => "****dap_db_name****",
                         "dbConfigurePlatform" => "****dap_db_platform****",
               ) , ) ,
 	      );
