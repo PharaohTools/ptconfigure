@@ -13,8 +13,12 @@ class EnvironmentConfig extends Base {
         $environmentConfigModel = new \Model\EnvironmentConfig();
 
         if ($action=="configure" || $action=="config") {
-          $this->content["result"] = $environmentConfigModel->askWhetherToEnvironmentConfig();
-          return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
+            $this->content["result"] = $environmentConfigModel->askWhetherToEnvironmentConfig();
+            return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
+
+        if ($action=="list") {
+            $this->content["result"] = $environmentConfigModel->askWhetherToListConfig();
+            return array ("type"=>"view", "view"=>"environmentConfigList", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Project Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
