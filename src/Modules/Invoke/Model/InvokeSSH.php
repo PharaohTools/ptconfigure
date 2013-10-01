@@ -22,7 +22,8 @@ class InvokeSSH extends Base {
     }
 
     public function runAutoPilotInvokeSSHData($autoPilot) {
-        if ( !isset($autoPilot["sshInvokeSSHDataExecute"]) || $autoPilot["sshInvokeSSHDataExecute"] !== true ) { return false; }
+        if ( !isset($autoPilot["sshInvokeSSHDataExecute"]) || $autoPilot["sshInvokeSSHDataExecute"] !== true ) {
+            return false; }
         $this->populateServers($autoPilot);
         $this->sshCommands = explode("\n", $autoPilot["sshInvokeSSHDataData"] ) ;
         foreach ($this->sshCommands as $sshCommand) {
@@ -34,7 +35,8 @@ class InvokeSSH extends Base {
     }
 
     public function runAutoPilotInvokeSSHScript($autoPilot) {
-        if ( !isset($autoPilot["sshInvokeSSHScriptExecute"]) || $autoPilot["sshInvokeSSHScriptExecute"] !== true ) { return false; }
+        if ( !isset($autoPilot["sshInvokeSSHScriptExecute"]) || $autoPilot["sshInvokeSSHScriptExecute"] !== true ) {
+            return false; }
         $this->populateServers($autoPilot);
         $this->sshCommands = explode("\n", file_get_contents($autoPilot["sshInvokeSSHScriptFile"]) ) ;
         foreach ($this->sshCommands as $sshCommand) {
@@ -109,6 +111,12 @@ class InvokeSSH extends Base {
         $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
         require_once($ssh2File) ;
         $ssh = new \Net_SSH2($server["target"]);
+        // if pword starts with a / we assume it is a path and load a keyfile
+        if (substr($server["pword"], 0, 1)=="/") {
+            $keyObject = new \Crypt_RSA();
+            $keyObject->loadKey(file_get_contents($server["pword"]));
+            $ssh->login($server["user"], $keyObject);
+            return $ssh; }
         if ($ssh->login($server["user"], $server["pword"]) == true) {
             return $ssh; }
         return null;
