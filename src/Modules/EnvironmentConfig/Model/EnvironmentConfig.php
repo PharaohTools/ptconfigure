@@ -120,7 +120,7 @@ class EnvironmentConfig extends Base {
       return $servers;
     }
 
-    private function writeEnvsToProjectFile() {
+    public function writeEnvsToProjectFile() {
         \Model\AppConfig::setProjectVariable("environments", $this->environments);
     }
 
