@@ -9,8 +9,7 @@ class Cleofy extends Base {
     public function execute($pageVars) {
 
         $action = $pageVars["route"]["action"];
-        $params = $pageVars["route"]["extraParams"];
-        $thisModel = new \Model\Cleofy($params);
+        $thisModel = $this->getModelAndCheckDependencies("Cleofy", $pageVars) ;
 
         $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }

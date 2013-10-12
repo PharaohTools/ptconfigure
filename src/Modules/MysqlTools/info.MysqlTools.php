@@ -35,7 +35,8 @@ class MysqlToolsInfo extends Base {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install some tools to help with MySQL Server
+  This command allows you to install some tools to help with MySQL Server. Installs the MySQL
+  Workbench GUI and also the mytop Command Line Tool.
 
   MysqlTools, mysql-tools, mysqltools
 

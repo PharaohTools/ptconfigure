@@ -8,7 +8,7 @@ class AutopilotExecutor extends Base {
       $params = $pageVars["route"]["extraParams"];
       $this->content["package-friendly"] = "Autopilot";
       $this->registeredModels = $autopilot->steps ;
-      $this->checkForRegisteredModels();
+      $this->checkForRegisteredModels($params);
       $this->executeMyRegisteredModelsAutopilot($autopilot, $params);
       return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
