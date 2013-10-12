@@ -2,11 +2,12 @@
 
 Namespace Controller ;
 
-class Cleopatra extends Base {
+class StateDetection extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = $this->getModelAndCheckDependencies("Cleopatra", $pageVars) ;
+        $thisModel = new \Model\StateDetection($pageVars["route"]["extraParams"]);
+
         $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 

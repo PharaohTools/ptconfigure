@@ -2,11 +2,11 @@
 
 Namespace Controller ;
 
-class Cleopatra extends Base {
+class ApacheServer extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = $this->getModelAndCheckDependencies("Cleopatra", $pageVars) ;
+        $thisModel = $this->getModelAndCheckDependencies("ApacheServer", $pageVars) ;
         $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 

@@ -16,7 +16,15 @@ class Base {
     }
 
     public function routeAliases() {
-      return array();
+        return array();
+    }
+
+    public function dependencies() {
+        return array();
+    }
+
+    public function groups() {
+        return array();
     }
 
     public function helpDefinition() {

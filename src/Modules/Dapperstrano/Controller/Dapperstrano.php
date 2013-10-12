@@ -6,7 +6,7 @@ class Dapperstrano extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = new \Model\Dapperstrano($pageVars["route"]["extraParams"]);
+        $thisModel = $this->getModelAndCheckDependencies("Dapperstrano", $pageVars) ;
         $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
