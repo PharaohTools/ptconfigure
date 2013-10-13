@@ -9,20 +9,28 @@
     <file path="/info.NodeJS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381331761368" ignored="false" />
     <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/dapperstrano-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381588491824" ignored="false" />
     <file path="/dapperstrano-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381588491824" ignored="false" />
-    <file path="/cleopatra-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381589203094" ignored="false" />
+    <file path="/cleopatra-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381622464924" ignored="false" />
     <file path="/ApacheInstall.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381609270126" ignored="false" />
     <file path="/SystemDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381608482810" ignored="false" />
-    <file path="/SystemDetectionFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381605579863" ignored="false" />
+    <file path="/SystemDetectionFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381623501608" ignored="false" />
     <file path="/AutoLoad.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381605304661" ignored="false" />
     <file path="/ApacheInstallUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381601934137" ignored="false" />
     <file path="/ApacheInstallCentos32.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381604616503" ignored="false" />
-    <file path="/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381616290890" ignored="false" />
+    <file path="/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381666018493" ignored="false" />
     <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Core/Base/Info/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381609530398" ignored="false" />
     <file path="/info.ApacheServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381610718726" ignored="false" />
     <file path="/CleofyUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381610829779" ignored="false" />
     <file path="/DapperstranoAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381611087123" ignored="false" />
     <file path="/Cleopatra.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381612354758" ignored="false" />
     <file path="/BaseModelFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381616633117" ignored="false" />
+    <file path="/ApacheModulesUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381622717664" ignored="false" />
+    <file path="/ApacheModules.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381670666165" ignored="false" />
+    <file path="/StateDetectionHTMLView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624109416" ignored="false" />
+    <file path="/StateDetectionView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381623952657" ignored="false" />
+    <file path="/StateDetectionJSONView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624002851" ignored="false" />
+    <file path="/info.SystemDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624419982" ignored="false" />
+    <file path="/README.md" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381625486084" ignored="false" />
+    <file path="/Index.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381668607053" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,64 +91,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Cleofy.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Cleofy/Controller/Cleofy.php">
+      <file leaf-file-name="ApacheModulesUbuntu.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModulesUbuntu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="37" selection-start="199" selection-end="270" vertical-scroll-proportion="-6.875">
+            <state line="33" column="40" selection-start="1034" selection-end="1034" vertical-scroll-proportion="-20.625">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cleopatra.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Cleopatra/Model/Cleopatra.php">
+      <file leaf-file-name="SystemDetectionFactory.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="31" selection-start="68" selection-end="68" vertical-scroll-proportion="-3.125">
+            <state line="23" column="47" selection-start="963" selection-end="963" vertical-scroll-proportion="-4.5416665">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseModelFactory.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseModelFactory.php">
+      <file leaf-file-name="ApacheModules.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Controller/ApacheModules.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="53" selection-start="151" selection-end="151" vertical-scroll-proportion="-4.375">
+            <state line="11" column="29" selection-start="316" selection-end="316" vertical-scroll-proportion="0.33811477">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CleopatraAllLinux.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Cleopatra/Model/CleopatraAllLinux.php">
+      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Index/Controller/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="38" selection-start="63" selection-end="63" vertical-scroll-proportion="-2.5">
+            <state line="7" column="31" selection-start="131" selection-end="131" vertical-scroll-proportion="-4.375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasePHPApp.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BasePHPApp.php">
+      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="27" selection-start="52" selection-end="52" vertical-scroll-proportion="-2.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="58" selection-start="2908" selection-end="2908" vertical-scroll-proportion="-14.875">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cleopatra-incomplete-modules" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="17" column="23" selection-start="575" selection-end="575" vertical-scroll-proportion="-10.625">
               <folding />
             </state>
           </provider>
@@ -149,25 +139,34 @@
       <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="6" selection-start="31" selection-end="31" vertical-scroll-proportion="88.416664">
+            <state line="69" column="31" selection-start="2270" selection-end="2270" vertical-scroll-proportion="-13.458333">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseLinuxApp.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseLinuxApp.php">
+      <file leaf-file-name="SystemDetection.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="118.541664">
+            <state line="72" column="56" selection-start="2760" selection-end="2760" vertical-scroll-proportion="-10.333333">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DapperstranoAllLinux.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Dapperstrano/Model/DapperstranoAllLinux.php">
+      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="47" selection-start="72" selection-end="364" vertical-scroll-proportion="-2.5">
+            <state line="97" column="0" selection-start="4533" selection-end="4533" vertical-scroll-proportion="-13.041667">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="104" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -183,22 +182,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerCentos32.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Model/CleofyUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheServer/info.ApacheServer.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Model/Cleofy.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServer.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Dapperstrano/Model/DapperstranoAllLinux.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Dapperstrano/Model/Dapperstrano.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Dapperstrano/Controller/Dapperstrano.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Controller/Cleofy.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Cleopatra/Controller/Cleopatra.php" />
-        <option value="$PROJECT_DIR$/src/Core/Base/Model/BaseModelFactory.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Cleopatra/Model/Cleopatra.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Cleopatra/Model/CleopatraAllLinux.php" />
         <option value="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseModelFactory.php" />
+        <option value="$PROJECT_DIR$/cleopatra-incomplete-modules" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModulesUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModules.php" />
+        <option value="$PROJECT_DIR$/src/Modules/StateDetection/Views/StateDetectionView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Modules/StateDetection/Views/StateDetectionJSONView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Modules/StateDetection/Views/StateDetectionHTMLView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Controller/SystemDetection.php" />
+        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/info.SystemDetection.php" />
+        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php" />
+        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php" />
         <option value="$PROJECT_DIR$/src/Core/Base/Controller/Base.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Index/Model/Index.php" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheModules/Controller/ApacheModules.php" />
       </list>
     </option>
   </component>
@@ -351,11 +350,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SystemDetection" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
+              <option name="myItemId" value="Index" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -377,7 +372,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="StateDetection" />
+              <option name="myItemId" value="Index" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Index" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -429,6 +454,172 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ApacheModules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ApacheModules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ApacheModules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -447,13 +638,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Modules/StateDetection/Views" />
+      <recent name="$PROJECT_DIR$/src/Modules/ApacheModules/Model" />
       <recent name="$PROJECT_DIR$/src/Modules/Cleopatra/Model" />
       <recent name="$PROJECT_DIR$/src/Modules/Dapperstrano/Model" />
       <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/ApacheInstall/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/SystemDetection/Model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Modules/SystemDetection" />
       <recent name="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model" />
       <recent name="$PROJECT_DIR$/src/Modules/ApacheInstall/Model" />
       <recent name="$PROJECT_DIR$/spare" />
@@ -526,7 +718,7 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1368" height="721" extended-state="6" />
+    <frame x="-1" y="24" width="1368" height="721" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -543,7 +735,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24696049" sideWeight="0.6719577" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19148937" sideWeight="0.6719577" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -618,114 +810,114 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Modules/Cleofy/Model/Cleofy.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Views/AppUninstallHTMLView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="30" selection-start="39" selection-end="216" vertical-scroll-proportion="0.27663934">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerUbuntu.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Controller/SystemDetection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="50" selection-start="72" selection-end="351" vertical-scroll-proportion="0.3852459">
+        <state line="15" column="66" selection-start="528" selection-end="528" vertical-scroll-proportion="-9.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheServer/info.ApacheServer.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Views/SystemDetectionView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="5" selection-start="506" selection-end="506" vertical-scroll-proportion="0.5840164">
+        <state line="0" column="0" selection-start="0" selection-end="18" vertical-scroll-proportion="-0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Dapperstrano/Model/Dapperstrano.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Views/SystemDetectionJSONView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="16" selection-start="65" selection-end="247" vertical-scroll-proportion="-3.75">
+        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.030737706">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Dapperstrano/Controller/Dapperstrano.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Views/SystemDetectionHTMLView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="86" selection-start="116" selection-end="193" vertical-scroll-proportion="-5.0">
+        <state line="23" column="15" selection-start="274" selection-end="274" vertical-scroll-proportion="0.70696723">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Dapperstrano/Model/DapperstranoAllLinux.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/info.SystemDetection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="47" selection-start="72" selection-end="364" vertical-scroll-proportion="-2.5">
+        <state line="15" column="94" selection-start="379" selection-end="379" vertical-scroll-proportion="-6.7916665">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Cleopatra/Model/CleopatraAllLinux.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="38" selection-start="63" selection-end="63" vertical-scroll-proportion="-2.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseLinuxApp.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="118.541664">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BasePHPApp.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="27" selection-start="52" selection-end="52" vertical-scroll-proportion="-2.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Cleopatra/Controller/Cleopatra.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="67" selection-start="172" selection-end="172" vertical-scroll-proportion="0.24590164">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Cleofy/Controller/Cleofy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="37" selection-start="199" selection-end="270" vertical-scroll-proportion="-6.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Cleopatra/Model/Cleopatra.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="31" selection-start="68" selection-end="68" vertical-scroll-proportion="-3.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseModelFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="53" selection-start="151" selection-end="151" vertical-scroll-proportion="-4.375">
+        <state line="72" column="56" selection-start="2760" selection-end="2760" vertical-scroll-proportion="-10.333333">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="31" selection-end="31" vertical-scroll-proportion="88.416664">
+        <state line="69" column="31" selection-start="2270" selection-end="2270" vertical-scroll-proportion="-13.458333">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="58" selection-start="2908" selection-end="2908" vertical-scroll-proportion="-14.875">
+        <state line="97" column="0" selection-start="4533" selection-end="4533" vertical-scroll-proportion="-13.041667">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="3" column="104" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="23" selection-start="575" selection-end="575" vertical-scroll-proportion="-10.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Index/Controller/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="31" selection-start="131" selection-end="131" vertical-scroll-proportion="-4.375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModulesUbuntu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="40" selection-start="1034" selection-end="1034" vertical-scroll-proportion="-20.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModules.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="72" selection-end="72" vertical-scroll-proportion="0.15368852">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="47" selection-start="963" selection-end="963" vertical-scroll-proportion="-4.5416665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Controller/ApacheModules.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="29" selection-start="316" selection-end="316" vertical-scroll-proportion="0.33811477">
           <folding />
         </state>
       </provider>
