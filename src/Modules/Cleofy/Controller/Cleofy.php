@@ -8,12 +8,11 @@ class Cleofy extends Base {
 
     public function execute($pageVars) {
 
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+
         $action = $pageVars["route"]["action"];
-        $thisModel = $this->getModelAndCheckDependencies("Cleofy", $pageVars) ;
-
-        $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
-        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
-
         if ($action=="standard") {
           $this->content["genCreateResult"] = $thisModel->askWhetherToCleofy();
           return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
@@ -24,8 +23,6 @@ class Cleofy extends Base {
           return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content);
         }
 
-        $this->content["messages"][] = "Invalid Project Action";
-        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 
     public function injectCleofyAction($action, $modelName) {

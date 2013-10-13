@@ -10,6 +10,11 @@ class Base {
   public function __construct() {
     $this->content = array(); }
 
+  public function execute($pageVars) {
+    $defaultExecution = $this->defaultExecution($pageVars) ;
+    if (is_array($defaultExecution)) { return $defaultExecution ; }
+  }
+
   public function checkDefaultActions($pageVars, $ignored_actions=array(), $thisModel=null) {
     $this->content["route"] = $pageVars["route"];
     $this->content["messages"] = $pageVars["messages"];
@@ -45,7 +50,7 @@ class Base {
     return false;
   }
 
-  protected function checkForRegisteredModels($params, $modelOverrides) {
+  protected function checkForRegisteredModels($params, $modelOverrides = null) {
     $modelsToCheck = (isset($modelOverrides)) ? $modelOverrides : $this->registeredModels ;
     $errors = array();
     foreach ($modelsToCheck as $modelClassNameOrArray) {
@@ -65,7 +70,7 @@ class Base {
             $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system: \n"; } } }
     if ( count($errors) > 0 ) {
       return $errors; }
-    echo "All expected and compatible Models found"."\n\n";
+    echo "All required Modules found, all with compatible Models"."\n";
     return true ;
   }
 
@@ -77,7 +82,8 @@ class Base {
         $fullClassName = '\Model\\'.$currentKey;}
       else {
         $fullClassName = '\Model\\'.$modelClassNameOrArray; }
-      $currentModel = new $fullClassName($params);
+      $currentModelFactory = new $fullClassName();
+      $currentModel = new $currentModelFactory->getModel($params);
       $miniRay = array();
       $miniRay["appName"] = $currentModel->programNameInstaller;
       $miniRay["installResult"] = $currentModel->askInstall();
@@ -96,14 +102,29 @@ class Base {
         $this->content["results"][] = $miniRay ; }
   }
 
-  protected function getModelAndCheckDependencies($module, $pageVars) {
-    $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
-    $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
-    $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
-    if ($dependencyCheck === true) {
-        $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, "Installer", $pageVars["route"]["extraParams"]);
-        return $thisModel; }
-    return $dependencyCheck ;
-  }
+    protected function getModelAndCheckDependencies($module, $pageVars) {
+        $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
+        $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
+        $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
+        if ($dependencyCheck === true) {
+            $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, "Installer", $pageVars["route"]["extraParams"]);
+            return $thisModel; }
+        return $dependencyCheck ;
+    }
+
+    protected function failDependencies($pageVars, $content, $errors) {
+        $this->content = array_merge($pageVars, $content) ;
+        foreach($errors as $error) { $this->content["messages"][] = $error ; }
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+    }
+
+    protected function defaultExecution($pageVars) {
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+        return null ;
+    }
 
 }

@@ -13,7 +13,7 @@ class SystemDetectionInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "SystemDetection" =>  array_merge(parent::routesAvailable(), array("detect") ) );
+      return array( "SystemDetection" =>  array_merge(array("detect", "help") ) );
     }
 
     public function routeAliases() {

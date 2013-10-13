@@ -3,6 +3,8 @@ Cleopatra Modules to be created
 
 System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class in Core which detects the running OS and looks in the module for a model which Reports itself as matching The combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE
 ^ Need to update all modules to follow this pattern, currently upto dapperstrano
+- some controllers need a double check autopilot, cleofy, env conf, generator, index, installpackage, invoke
+- need to fix system-detection install
 State Detection - Allow the pyramid application to detect information regarding software and configuration install current state
 Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter - actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more than an exit code we'll need to stop spawning 
 

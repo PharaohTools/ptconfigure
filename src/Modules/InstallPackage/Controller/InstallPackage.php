@@ -34,9 +34,6 @@ class InstallPackage extends Base {
         $installPackageController = new $className();
         return $installPackageController->execute($pageVars); }
 
-      $this->content["messages"][] = "Invalid Action - Package does not Exist";
-      return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
-
     }
 
 }
