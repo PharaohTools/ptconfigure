@@ -62,12 +62,23 @@ class SystemDetection {
         if ($this->os = "Linux") {
             if (in_array($this->distro, array("Ubuntu")) ) {
                 exec("lsb_release -a 2> /dev/null", $output_array);
-                $this->version = substr($output_array[2], 9) ; } }
+                $this->version = substr($output_array[2], 9) ; }
+            if (in_array($this->distro, array("CentOS")) ) {
+                exec("cat /etc-centos", $output_array);
+                $this->version = substr($output_array[0], 15, 3) ; } }
     }
 
     private function setArchitecture() {
         if ($this->os = "Linux") {
             if (in_array($this->distro, array("Ubuntu")) ) {
+                $output = exec("arch");
+                if (strpos($output, "x86_64") !== false ) {
+                    $this->architecture = "64" ; }
+                if (strpos($output, "i386") !== false ) {
+                    $this->architecture = "32" ; }
+                if (strpos($output, "i686") !== false ) {
+                    $this->architecture = "32" ; } }
+            if (in_array($this->distro, array("CentOS")) ) {
                 $output = exec("arch");
                 if (strpos($output, "x86_64") !== false ) {
                     $this->architecture = "64" ; }
