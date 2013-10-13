@@ -8,7 +8,7 @@ class ApacheModules extends Base {
 
         $thisModel = $this->getModelAndCheckDependencies("ApacheModules", $pageVars) ;
         if (!is_object($thisModel)) {
-            $this->content["messages"][] = array_merge($thisModel, $this->content["messages"] ) ;
+            $this->content["messages"][] = $thisModel ;
             return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); }
 
         $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
