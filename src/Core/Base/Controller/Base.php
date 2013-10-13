@@ -50,18 +50,26 @@ class Base {
     return false;
   }
 
-  protected function checkForRegisteredModels($params, $modelOverrides = null) {
+  public function checkForRegisteredModels($params, $modelOverrides = null) {
     $modelsToCheck = (isset($modelOverrides)) ? $modelOverrides : $this->registeredModels ;
     $errors = array();
     foreach ($modelsToCheck as $modelClassNameOrArray) {
-      if ( is_array($modelClassNameOrArray) ) {
-        $currentKeys = array_keys($modelClassNameOrArray) ;
-        $currentKey = $currentKeys[0] ;
-        $fullClassName = '\Model\\'.$currentKey;
-        $moduleModelFactory = new $fullClassName($params);
-        $compatibleObject = $moduleModelFactory::getModel($params) ;
-        if ( !is_object($compatibleObject) ) {
-          $errors[] = "Module $currentKey Does not have compatible models for this system: \n"; } }
+      if ( is_array($modelClassNameOrArray) && array_key_exists("command", $modelClassNameOrArray) ) {
+            $currentKey = $modelClassNameOrArray["command"] ;
+            $fullClassName = '\Model\\'.$currentKey;
+            if (class_exists($fullClassName)) {
+                $moduleModelFactory = new $fullClassName($params);
+                $compatibleObject = $moduleModelFactory::getModel($params) ;
+                if ( !is_object($compatibleObject) ) {
+                    $errors[] = $currentKey ; } } }
+      else if ( is_array($modelClassNameOrArray) ) {
+            $currentKeys = array_keys($modelClassNameOrArray) ;
+            $currentKey = $currentKeys[0] ;
+            $fullClassName = '\Model\\'.$currentKey;
+            $moduleModelFactory = new $fullClassName($params);
+            $compatibleObject = $moduleModelFactory::getModel($params) ;
+            if ( !is_object($compatibleObject) ) {
+                $errors[] = "Module $currentKey Does not have compatible models for this system: \n"; } }
       else {
         $fullClassName = '\Model\\'.$modelClassNameOrArray;
         $moduleModelFactory = new $fullClassName($params);

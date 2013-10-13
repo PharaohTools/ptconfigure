@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class GitLab extends BaseLinuxApp {
+class GitLabUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
