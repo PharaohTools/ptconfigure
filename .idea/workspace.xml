@@ -12,7 +12,7 @@
     <file path="/cleopatra-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381687364995" ignored="false" />
     <file path="/ApacheInstall.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381609270126" ignored="false" />
     <file path="/SystemDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690616680" ignored="false" />
-    <file path="/SystemDetectionFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690710660" ignored="false" />
+    <file path="/SystemDetectionFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381691938097" ignored="false" />
     <file path="/AutoLoad.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381605304661" ignored="false" />
     <file path="/ApacheInstallUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381601934137" ignored="false" />
     <file path="/ApacheInstallCentos32.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381604616503" ignored="false" />
@@ -101,7 +101,7 @@
     <file path="/GitLabUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690191022" ignored="false" />
     <file path="/IndexAllOS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381691502355" ignored="false" />
     <file path="/info.Index.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690508484" ignored="false" />
-    <file path="/SystemDetectionAllOS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690628967" ignored="false" />
+    <file path="/SystemDetectionAllOS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381691832475" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,10 +171,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndexAllOS.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="IndexAllOS.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/IndexAllOS.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="83" selection-start="1541" selection-end="1541" vertical-scroll-proportion="0.61988306">
+            <state line="40" column="83" selection-start="1541" selection-end="1541" vertical-scroll-proportion="-13.25">
               <folding />
             </state>
           </provider>
@@ -210,7 +210,16 @@
       <file leaf-file-name="SystemDetectionAllOS.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="26" selection-start="51" selection-end="51" vertical-scroll-proportion="-2.5">
+            <state line="25" column="87" selection-start="840" selection-end="840" vertical-scroll-proportion="-15.625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SystemDetectionFactory.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="0" selection-start="843" selection-end="843" vertical-scroll-proportion="0.6315789">
               <folding />
             </state>
           </provider>
@@ -238,10 +247,10 @@
         <option value="$PROJECT_DIR$/src/Modules/Index/info.Index.php" />
         <option value="$PROJECT_DIR$/src/Modules/Index/Model/Index.php" />
         <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php" />
         <option value="$PROJECT_DIR$/src/Core/Base/Controller/Base.php" />
         <option value="$PROJECT_DIR$/src/Modules/Index/Model/IndexAllOS.php" />
+        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php" />
+        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php" />
       </list>
     </option>
   </component>
@@ -645,7 +654,7 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1368" height="721" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -661,7 +670,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30471125" sideWeight="0.59611994" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30471125" sideWeight="0.59611994" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -785,13 +794,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="51" selection-start="967" selection-end="967" vertical-scroll-proportion="0.76666665">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="47" selection-start="72" selection-end="72" vertical-scroll-proportion="0.12295082">
@@ -802,13 +804,6 @@
     <entry file="file://$PROJECT_DIR$/src/Modules/PHPModules/Model/PHPModulesUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="45" selection-start="70" selection-end="393" vertical-scroll-proportion="0.43032786">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="26" selection-start="51" selection-end="51" vertical-scroll-proportion="-2.5">
           <folding />
         </state>
       </provider>
@@ -843,7 +838,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/IndexAllOS.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="83" selection-start="1541" selection-end="1541" vertical-scroll-proportion="0.61988306">
+        <state line="40" column="83" selection-start="1541" selection-end="1541" vertical-scroll-proportion="-13.25">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="87" selection-start="840" selection-end="840" vertical-scroll-proportion="-15.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="843" selection-end="843" vertical-scroll-proportion="0.6315789">
           <folding />
         </state>
       </provider>
