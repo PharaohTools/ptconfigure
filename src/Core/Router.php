@@ -40,7 +40,8 @@ class Router {
     }
 
     private function getDefaultRoute() {
-      return array( "control" => "Index" , "action" => "index", "extraParams" => array() );
+      $this->setDefaultRouteExtraParams() ;
+      return array( "control" => "Index" , "action" => "index", "extraParams" => $this->route["extraParams"] );
     }
 
     private function parseControllerAliases() {
@@ -68,6 +69,13 @@ class Router {
         $this->route["extraParams"] = array();
         $numberOfExtraParams = count($this->bootstrapParams)-3;
         for ($i=3; $i<($numberOfExtraParams+3); $i++) {
+            $this->route["extraParams"][] = $this->bootstrapParams[$i] ;}
+    }
+
+    private function setDefaultRouteExtraParams() {
+        $this->route["extraParams"] = array();
+        $numberOfExtraParams = count($this->bootstrapParams)-1;
+        for ($i=1; $i<($numberOfExtraParams+1); $i++) {
             $this->route["extraParams"][] = $this->bootstrapParams[$i] ;}
     }
 
