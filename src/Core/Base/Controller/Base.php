@@ -55,13 +55,16 @@ class Base {
         $moduleModelFactory = new $fullClassName($params);
         $compatibleObject = $moduleModelFactory::getModel($params) ;
         if ( !is_object($compatibleObject) ) {
-          echo "Module $currentKey Does not have compatible models for this system: \n"; } }
+          echo "Module $currentKey Does not have compatible models for this system: \n";
+          $failures = true ; } }
       else {
         $fullClassName = '\Model\\'.$modelClassNameOrArray;
         $moduleModelFactory = new $fullClassName($params);
         $compatibleObject = $moduleModelFactory::getModel($params) ;
         if ( !is_object($compatibleObject) ) {
-            echo "Module $modelClassNameOrArray Does not have compatible models for this system: \n"; } } }
+            echo "Module $modelClassNameOrArray Does not have compatible models for this system: \n";
+            $failures = true ; } } }
+    if (isset($failures) && $failures == true) { die() ; }
     echo "All expected and compatible Models found"."\n\n";
   }
 
