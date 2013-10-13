@@ -22,6 +22,7 @@ class SystemDetectionFactory {
 
     public static function getCompatibleModelFromAllInGroup($models) {
         $system = new \Model\SystemDetection();
+        var_dump($system);
         foreach($models as $model) {
             if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
@@ -40,8 +41,8 @@ class SystemDetectionFactory {
             ) {
                 // if just the distro match, we still return it but with a "might not work as expected"
                 // warning during expected models phase
-                $message ="Cleopatra Warning!: Model ".get_class($model)." may not work as expected, since it
-                    doesn't specify exact OS version match";
+                $message ="Cleopatra Warning!: Model ".get_class($model)." may not work as expected, since it " .
+                    "doesn't specify exact OS version match";
                 error_log($message);
                 return $model; }
             else if (
@@ -51,8 +52,8 @@ class SystemDetectionFactory {
             ) {
                 // if the OS matches, we still return it but with an extra high level warning
                 // during expected models phase
-                $message = "Cleopatra Urgent Warning!: Model ".get_class($model)." may not work as expected, since
-                    it doesn't specify matching OS version or distro match";
+                $message = "Cleopatra Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
+                    "it doesn't specify matching OS version or distro match";
                 error_log($message);
                 return $model; } }
         return null ;

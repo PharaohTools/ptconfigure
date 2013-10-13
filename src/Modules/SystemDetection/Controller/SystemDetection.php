@@ -13,7 +13,7 @@ class SystemDetection extends Base {
 
         if ($pageVars["route"]["action"]=="detect") {
             $this->content["result"] = $thisModel;
-            return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"systemDetection", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
