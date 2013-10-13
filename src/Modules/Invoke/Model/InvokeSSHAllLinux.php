@@ -2,13 +2,23 @@
 
 Namespace Model;
 
-class InvokeSSH extends Base {
+class InvokeSSHAllLinux extends Base {
+
+    // Compatibility
+    public $os = array("Linux") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
+    public $architectures = array("any") ;
+
+    // Model Group
+    public $modelGroup = array("Installer") ;
 
     private $servers = array();
     private $sshCommands;
 
     public function runAutoPilotInstall($autoPilot){
-        // @todo this shouldnt be called as it is, it probably shouldnt need the key here?
+        // @todo this shouldnt be called as it is, it probably shouldn't need the key here?
         $this->runAutoPilotInvokeSSHData($autoPilot["InvokeSSH"]);
         $this->runAutoPilotInvokeSSHScript($autoPilot["InvokeSSH"]);
         return true;

@@ -6,21 +6,20 @@ class Invoke extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
-        $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
-        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+
         $action = $pageVars["route"]["action"];
 
         if ($action=="cli") {
 
-            $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
-            $this->content["shlResult"] = $invSSHModel->askWhetherToInvokeSSHShell();
+            $this->content["shlResult"] = $thisModel->askWhetherToInvokeSSHShell();
             return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
 
         if ($action=="script") {
 
-            $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
-            $this->content["shlResult"] = $invSSHModel->askWhetherToInvokeSSHScript($pageVars["route"]["extraParams"]);
+            $this->content["shlResult"] = $thisModel->askWhetherToInvokeSSHScript($pageVars["route"]["extraParams"]);
 
             return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
 
@@ -35,13 +34,12 @@ class Invoke extends Base {
 
                 if ( $autoPilot!==null ) {
 
-                    $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
-                    $this->content["invSshScriptResult"] = $invSSHModel->runAutoPilotInvokeSSHScript($autoPilot);
+                    $this->content["invSshScriptResult"] = $thisModel->runAutoPilotInvokeSSHScript($autoPilot);
                     if ($autoPilot["sshInvokeSSHDataExecute"] && $this->content["invSshScriptResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Invoke SSH Script Broken";
                         return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content);  }
 
-                    $this->content["invSshDataResult"] = $invSSHModel->runAutoPilotInvokeSSHData($autoPilot);
+                    $this->content["invSshDataResult"] = $thisModel->runAutoPilotInvokeSSHData($autoPilot);
                     if ($autoPilot["sshInvokeSSHDataExecute"] && $this->content["invSshDataResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Invoke SSH Data Broken";
                         return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content);  } }

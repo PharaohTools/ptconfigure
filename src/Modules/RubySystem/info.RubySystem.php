@@ -6,7 +6,7 @@ class RubySystemInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "Ruby RVM - The Ruby version manager";
+  public $name = "Ruby RVM System wide - The Ruby version manager system wide version";
 
   public function __construct() {
     parent::__construct();
@@ -37,7 +37,7 @@ class RubySystemInfo extends Base {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install Ruby RVM.
+  This command allows you to install Ruby RVM, the system wide version.
 
   RubySystem, rubysystem, ruby-system, rubysys
 

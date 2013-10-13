@@ -6,12 +6,11 @@ class Autopilot extends Base {
 
     public function execute($pageVars) {
 
-      $isDefaultAction = parent::checkDefaultActions($pageVars, array("install", "status")) ;
-      if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
-      $this->content["route"] = $pageVars["route"];
-      $this->content["messages"] = $pageVars["messages"];
-      $action = $pageVars["route"]["action"];
+        $action = $pageVars["route"]["action"];
 
       if ($action=="install" || $action=="execute") {
         $autoPilotFileName= (isset($pageVars["route"]["extraParams"][0]))

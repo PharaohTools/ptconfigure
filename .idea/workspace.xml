@@ -4,19 +4,19 @@
     <list default="true" id="3daef38a-5e1d-4147-a27a-f7058f1030ae" name="Default" comment="" />
     <ignored path="cleopatra.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/a.dummy" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381611971520" ignored="false" />
-    <file path="/MysqlTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381331661478" ignored="false" />
+    <file path="/a.dummy" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381681831514" ignored="false" />
+    <file path="/MysqlTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678288112" ignored="false" />
     <file path="/info.NodeJS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381331761368" ignored="false" />
     <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/dapperstrano-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381588491824" ignored="false" />
     <file path="/dapperstrano-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381588491824" ignored="false" />
-    <file path="/cleopatra-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381622464924" ignored="false" />
+    <file path="/cleopatra-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381687364995" ignored="false" />
     <file path="/ApacheInstall.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381609270126" ignored="false" />
     <file path="/SystemDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381608482810" ignored="false" />
     <file path="/SystemDetectionFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381623501608" ignored="false" />
     <file path="/AutoLoad.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381605304661" ignored="false" />
     <file path="/ApacheInstallUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381601934137" ignored="false" />
     <file path="/ApacheInstallCentos32.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381604616503" ignored="false" />
-    <file path="/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381666018493" ignored="false" />
+    <file path="/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381680966360" ignored="false" />
     <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Core/Base/Info/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381609530398" ignored="false" />
     <file path="/info.ApacheServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381610718726" ignored="false" />
     <file path="/CleofyUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381610829779" ignored="false" />
@@ -24,13 +24,77 @@
     <file path="/Cleopatra.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381612354758" ignored="false" />
     <file path="/BaseModelFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381616633117" ignored="false" />
     <file path="/ApacheModulesUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381622717664" ignored="false" />
-    <file path="/ApacheModules.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381670666165" ignored="false" />
+    <file path="/ApacheModules.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381671145178" ignored="false" />
     <file path="/StateDetectionHTMLView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624109416" ignored="false" />
     <file path="/StateDetectionView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381623952657" ignored="false" />
     <file path="/StateDetectionJSONView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624002851" ignored="false" />
     <file path="/info.SystemDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624419982" ignored="false" />
     <file path="/README.md" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381625486084" ignored="false" />
     <file path="/Index.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381668607053" ignored="false" />
+    <file path="/DeveloperTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381672931746" ignored="false" />
+    <file path="/DeveloperToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381671982029" ignored="false" />
+    <file path="/EnvironmentConfig.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381672132669" ignored="false" />
+    <file path="/Dapperstrano.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381674047484" ignored="false" />
+    <file path="/Cleofy.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381675584667" ignored="false" />
+    <file path="/Firefox14.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676168209" ignored="false" />
+    <file path="/Firefox17Ubuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676229633" ignored="false" />
+    <file path="/GitBucketUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676312353" ignored="false" />
+    <file path="/GitBucket.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676346174" ignored="false" />
+    <file path="/GitLab.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676424580" ignored="false" />
+    <file path="/GitTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676523312" ignored="false" />
+    <file path="/IntelliJ.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676702999" ignored="false" />
+    <file path="/Java.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677096579" ignored="false" />
+    <file path="/JavaUbuntu64.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677152281" ignored="false" />
+    <file path="/Jenkins.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677233654" ignored="false" />
+    <file path="/JenkinsPlugins.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677267746" ignored="false" />
+    <file path="/JenkinsSudoNoPassUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677351697" ignored="false" />
+    <file path="/JenkinsPluginsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677360912" ignored="false" />
+    <file path="/JenkinsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677372549" ignored="false" />
+    <file path="/JenkinsSudoNoPass.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677628243" ignored="false" />
+    <file path="/JRushUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677801064" ignored="false" />
+    <file path="/JRush.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677749663" ignored="false" />
+    <file path="/LigHTTPDServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677892102" ignored="false" />
+    <file path="/LigHTTPDServerUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677925555" ignored="false" />
+    <file path="/MediaToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677986603" ignored="false" />
+    <file path="/MediaTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677995740" ignored="false" />
+    <file path="/MysqlAdminsAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678077990" ignored="false" />
+    <file path="/MysqlAdmins.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678085035" ignored="false" />
+    <file path="/MysqlServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678191740" ignored="false" />
+    <file path="/MysqlServerUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678212079" ignored="false" />
+    <file path="/MysqlToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678282074" ignored="false" />
+    <file path="/NodeJSUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678346012" ignored="false" />
+    <file path="/NodeJS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678360489" ignored="false" />
+    <file path="/ParallaxUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678469480" ignored="false" />
+    <file path="/Parallax.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678479443" ignored="false" />
+    <file path="/PHPCSUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678730987" ignored="false" />
+    <file path="/PHPCS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678609652" ignored="false" />
+    <file path="/PHPMDUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678659821" ignored="false" />
+    <file path="/PHPMD.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678668344" ignored="false" />
+    <file path="/PHPModulesUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678813395" ignored="false" />
+    <file path="/PHPUnit.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678989218" ignored="false" />
+    <file path="/PHPUnitAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678975944" ignored="false" />
+    <file path="/PythonUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679026550" ignored="false" />
+    <file path="/Python.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679075741" ignored="false" />
+    <file path="/RubyRVMUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679111025" ignored="false" />
+    <file path="/RubyRVM.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679135494" ignored="false" />
+    <file path="/RubySystem.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679242751" ignored="false" />
+    <file path="/SeleniumServerAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679326974" ignored="false" />
+    <file path="/SeleniumServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679373250" ignored="false" />
+    <file path="/RubySystemUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679390896" ignored="false" />
+    <file path="/StandardTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679456759" ignored="false" />
+    <file path="/StandardToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679498704" ignored="false" />
+    <file path="/StateDetectionUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679681572" ignored="false" />
+    <file path="/StateDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679688804" ignored="false" />
+    <file path="/SudoNoPassUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679742397" ignored="false" />
+    <file path="/SudoNoPass.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679779075" ignored="false" />
+    <file path="/UbuntuCompilerUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679839025" ignored="false" />
+    <file path="/UbuntuCompiler.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381680230378" ignored="false" />
+    <file path="/GeneratorUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381680528982" ignored="false" />
+    <file path="/Generator.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381680474852" ignored="false" />
+    <file path="/IntelliJUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381681293858" ignored="false" />
+    <file path="/Invoke.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381681803608" ignored="false" />
+    <file path="/InvokeSSH.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381681823370" ignored="false" />
+    <file path="/PHPModules.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381687056082" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,82 +155,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ApacheModulesUbuntu.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModulesUbuntu.php">
+      <file leaf-file-name="PHPModules.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/PHPModules/Model/PHPModules.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="40" selection-start="1034" selection-end="1034" vertical-scroll-proportion="-20.625">
+            <state line="4" column="43" selection-start="68" selection-end="68" vertical-scroll-proportion="-2.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SystemDetectionFactory.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
+      <file leaf-file-name="info.RubySystem.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/RubySystem/info.RubySystem.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="47" selection-start="963" selection-end="963" vertical-scroll-proportion="-4.5416665">
+            <state line="39" column="50" selection-start="1157" selection-end="1157" vertical-scroll-proportion="-7.125">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApacheModules.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Controller/ApacheModules.php">
+      <file leaf-file-name="info.UbuntuCompiler.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Modules/UbuntuCompiler/info.UbuntuCompiler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="29" selection-start="316" selection-end="316" vertical-scroll-proportion="0.33811477">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Index/Controller/Index.php">
+      <file leaf-file-name="PHPModulesUbuntu.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/PHPModules/Model/PHPModulesUbuntu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="31" selection-start="131" selection-end="131" vertical-scroll-proportion="-4.375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/Index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="23" selection-start="575" selection-end="575" vertical-scroll-proportion="-10.625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="31" selection-start="2270" selection-end="2270" vertical-scroll-proportion="-13.458333">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SystemDetection.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="56" selection-start="2760" selection-end="2760" vertical-scroll-proportion="-10.333333">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="0" selection-start="4533" selection-end="4533" vertical-scroll-proportion="-13.041667">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="104" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -182,22 +201,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseModelFactory.php" />
-        <option value="$PROJECT_DIR$/cleopatra-incomplete-modules" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModulesUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModules.php" />
-        <option value="$PROJECT_DIR$/src/Modules/StateDetection/Views/StateDetectionView.tpl.php" />
-        <option value="$PROJECT_DIR$/src/Modules/StateDetection/Views/StateDetectionJSONView.tpl.php" />
-        <option value="$PROJECT_DIR$/src/Modules/StateDetection/Views/StateDetectionHTMLView.tpl.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Controller/SystemDetection.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/info.SystemDetection.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php" />
+        <option value="$PROJECT_DIR$/src/Modules/EnvironmentConfig/Controller/EnvironmentConfig.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Generator/Controller/Generator.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Generator/Model/Generator.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Generator/Model/GeneratorUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/InstallPackage/Controller/DevClient.php" />
+        <option value="$PROJECT_DIR$/src/Modules/InstallPackage/Controller/InstallPackage.php" />
+        <option value="$PROJECT_DIR$/src/Modules/IntelliJ/Model/IntelliJUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Invoke/Controller/Invoke.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Invoke/Model/Invoke.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeSSH.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeSSHAllLinux.php" />
         <option value="$PROJECT_DIR$/src/Core/Base/Controller/Base.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Index/Model/Index.php" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheModules/Controller/ApacheModules.php" />
+        <option value="$PROJECT_DIR$/src/Modules/PHPModules/Model/PHPModules.php" />
+        <option value="$PROJECT_DIR$/src/Modules/RubySystem/info.RubySystem.php" />
+        <option value="$PROJECT_DIR$/cleopatra-incomplete-modules" />
+        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/info.SystemDetection.php" />
       </list>
     </option>
   </component>
@@ -283,26 +302,8 @@
               <option name="myItemId" value="Modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SystemDetection" />
+              <option name="myItemId" value="UbuntuCompiler" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -324,11 +325,99 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SystemDetection" />
+              <option name="myItemId" value="UbuntuCompiler" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SystemDetection" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="InstallPackage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="InstallPackage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -424,107 +513,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ApacheModules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ApacheModules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ApacheModules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
+              <option name="myItemId" value="GitLab" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -638,11 +627,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Modules/StateDetection/Views" />
-      <recent name="$PROJECT_DIR$/src/Modules/ApacheModules/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/Cleopatra/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/Dapperstrano/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Model" />
+      <recent name="$PROJECT_DIR$/src/Modules/Invoke/Model" />
+      <recent name="$PROJECT_DIR$/src/Modules/Generator/Model" />
+      <recent name="$PROJECT_DIR$/src/Modules/UbuntuCompiler/Model" />
+      <recent name="$PROJECT_DIR$/src/Modules/SudoNoPass/Model" />
+      <recent name="$PROJECT_DIR$/src/Modules/StateDetection/Model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Modules/SystemDetection" />
@@ -718,7 +707,7 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="1368" height="721" extended-state="7" />
+    <frame x="-1" y="24" width="1368" height="721" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -735,7 +724,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19148937" sideWeight="0.6719577" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2712766" sideWeight="0.6719577" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -810,114 +799,114 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Views/AppUninstallHTMLView.tpl.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/InstallPackage/Controller/DevClient.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="39" column="34" selection-start="849" selection-end="849" vertical-scroll-proportion="-13.458333">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Controller/SystemDetection.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/IntelliJ/Model/IntelliJUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="66" selection-start="528" selection-end="528" vertical-scroll-proportion="-9.375">
+        <state line="4" column="20" selection-start="45" selection-end="45" vertical-scroll-proportion="-2.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Views/SystemDetectionView.tpl.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Controller/Invoke.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="18" vertical-scroll-proportion="-0.0">
+        <state line="35" column="0" selection-start="1295" selection-end="1295" vertical-scroll-proportion="-21.875">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Views/SystemDetectionJSONView.tpl.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/Invoke.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.030737706">
+        <state line="5" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="-3.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Views/SystemDetectionHTMLView.tpl.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/GitBucket/Model/GitBucketUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="15" selection-start="274" selection-end="274" vertical-scroll-proportion="0.70696723">
+        <state line="8" column="35" selection-start="69" selection-end="392" vertical-scroll-proportion="-5.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/info.SystemDetection.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeSSHAllLinux.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="94" selection-start="379" selection-end="379" vertical-scroll-proportion="-6.7916665">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="56" selection-start="2760" selection-end="2760" vertical-scroll-proportion="-10.333333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="31" selection-start="2270" selection-end="2270" vertical-scroll-proportion="-13.458333">
+        <state line="9" column="32" selection-start="191" selection-end="191" vertical-scroll-proportion="56.291668">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="0" selection-start="4533" selection-end="4533" vertical-scroll-proportion="-13.041667">
+        <state line="72" column="22" selection-start="3428" selection-end="3428" vertical-scroll-proportion="-32.166668">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/src/Modules/PHPModules/Model/PHPModulesUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="104" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/Index.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/PHPModules/Model/PHPModules.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="23" selection-start="575" selection-end="575" vertical-scroll-proportion="-10.625">
+        <state line="4" column="43" selection-start="68" selection-end="68" vertical-scroll-proportion="-2.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Index/Controller/Index.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/RubySystem/info.RubySystem.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="31" selection-start="131" selection-end="131" vertical-scroll-proportion="-4.375">
+        <state line="39" column="50" selection-start="1157" selection-end="1157" vertical-scroll-proportion="-7.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModulesUbuntu.php">
+    <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="40" selection-start="1034" selection-end="1034" vertical-scroll-proportion="-20.625">
+        <state line="6" column="39" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Model/ApacheModules.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/info.SystemDetection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="72" selection-end="72" vertical-scroll-proportion="0.15368852">
+        <state line="15" column="54" selection-start="339" selection-end="339" vertical-scroll-proportion="-9.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/UbuntuCompiler/Controller/UbuntuCompiler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="47" selection-start="963" selection-end="963" vertical-scroll-proportion="-4.5416665">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheModules/Controller/ApacheModules.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/UbuntuCompiler/Model/UbuntuCompiler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="29" selection-start="316" selection-end="316" vertical-scroll-proportion="0.33811477">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/UbuntuCompiler/Model/UbuntuCompilerUbuntu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/UbuntuCompiler/info.UbuntuCompiler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
