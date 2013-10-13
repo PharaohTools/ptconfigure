@@ -64,7 +64,7 @@ class SystemDetection {
                 exec("lsb_release -a 2> /dev/null", $output_array);
                 $this->version = substr($output_array[2], 9) ; }
             if (in_array($this->distro, array("CentOS")) ) {
-                exec("cat /etc-centos", $output_array);
+                exec("cat /etc/centos-release", $output_array);
                 $this->version = substr($output_array[0], 15, 3) ; } }
     }
 
