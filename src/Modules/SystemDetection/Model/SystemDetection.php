@@ -70,15 +70,7 @@ class SystemDetection {
 
     private function setArchitecture() {
         if ($this->os = "Linux") {
-            if (in_array($this->distro, array("Ubuntu")) ) {
-                $output = exec("arch");
-                if (strpos($output, "x86_64") !== false ) {
-                    $this->architecture = "64" ; }
-                if (strpos($output, "i386") !== false ) {
-                    $this->architecture = "32" ; }
-                if (strpos($output, "i686") !== false ) {
-                    $this->architecture = "32" ; } }
-            if (in_array($this->distro, array("CentOS")) ) {
+            if (in_array($this->distro, array("Ubuntu", "CentOS")) ) {
                 $output = exec("arch");
                 if (strpos($output, "x86_64") !== false ) {
                     $this->architecture = "64" ; }
