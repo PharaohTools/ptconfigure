@@ -47,6 +47,7 @@ class Base {
 
   protected function checkForRegisteredModels($params, $modelOverrides) {
     $modelsToCheck = (isset($modelOverrides)) ? $modelOverrides : $this->registeredModels ;
+    $errors = array();
     foreach ($modelsToCheck as $modelClassNameOrArray) {
       if ( is_array($modelClassNameOrArray) ) {
         $currentKeys = array_keys($modelClassNameOrArray) ;
@@ -55,17 +56,17 @@ class Base {
         $moduleModelFactory = new $fullClassName($params);
         $compatibleObject = $moduleModelFactory::getModel($params) ;
         if ( !is_object($compatibleObject) ) {
-          echo "Module $currentKey Does not have compatible models for this system: \n";
-          $failures = true ; } }
+          $errors[] = "Module $currentKey Does not have compatible models for this system: \n"; } }
       else {
         $fullClassName = '\Model\\'.$modelClassNameOrArray;
         $moduleModelFactory = new $fullClassName($params);
         $compatibleObject = $moduleModelFactory::getModel($params) ;
         if ( !is_object($compatibleObject) ) {
-            echo "Module $modelClassNameOrArray Does not have compatible models for this system: \n";
-            $failures = true ; } } }
-    if (isset($failures) && $failures == true) { die() ; }
+            $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system: \n"; } } }
+    if ( count($errors) > 0 ) {
+      return $errors; }
     echo "All expected and compatible Models found"."\n\n";
+    return true ;
   }
 
   protected function executeMyRegisteredModels($params = null) {
@@ -95,13 +96,14 @@ class Base {
         $this->content["results"][] = $miniRay ; }
   }
 
-
   protected function getModelAndCheckDependencies($module, $pageVars) {
     $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
     $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
-    $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
-    $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, "Installer", $pageVars["route"]["extraParams"]);
-    return $thisModel;
+    $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
+    if ($dependencyCheck === true) {
+        $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, "Installer", $pageVars["route"]["extraParams"]);
+        return $thisModel; }
+    return $dependencyCheck ;
   }
 
 }
