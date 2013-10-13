@@ -6,7 +6,8 @@ Installation
 -----------------
 To install cleopatra cli on your machine do the following. If you already have php5 and git installed skip line 1:
 
-sudo apt-get install php5 git
+# CentOS do this            | # Ubuntu do this
+sudo yum install php5 git   | sudo apt-get install php5 git
 
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
 
@@ -63,9 +64,7 @@ available actions too.
 You can also use these out of the box groups of packages...
 
 cleopatra InstallPackage dev-client - Install preconfigured software/config for a dev client (Your Workstation)
-
 cleopatra InstallPackage dev-server - Install preconfigured software/config for a dev server (Team Playaround Box)
-
 cleopatra InstallPackage test-server - Install preconfigured software/config for a Build/Testing server
 cleopatra InstallPackage git-server - Install preconfigured software/config for a Git SCM server
 cleopatra InstallPackage production - Install preconfigured software/config for a Production server (Public Server)

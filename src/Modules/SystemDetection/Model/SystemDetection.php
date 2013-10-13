@@ -37,8 +37,8 @@ class SystemDetection {
         //declare Linux distros(extensible list).
         $distros = array(
             "Arch" => "arch-release",
-            'Redhat' => 'redhat-release',
             'CentOS' => 'centos-release',
+            'Redhat' => 'redhat-release',
             "Ubuntu" => "lsb-release",
             "Debian" => "debian_version",
             "Fedora" => "fedora-release",);
