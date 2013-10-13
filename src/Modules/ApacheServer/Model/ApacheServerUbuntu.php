@@ -9,7 +9,7 @@ class ApacheServerUbuntu extends BaseLinuxApp {
   public $linuxType = array("Debian") ;
   public $distros = array("Ubuntu") ;
   public $versions = array("12.04", "12.10") ;
-  public $architectures = array("64") ;
+  public $architectures = array("any") ;
 
   // Model Group
   public $modelGroup = array("Installer") ;

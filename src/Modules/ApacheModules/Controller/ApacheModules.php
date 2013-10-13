@@ -6,8 +6,7 @@ class ApacheModules extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = new \Model\ApacheModules($pageVars["route"]["extraParams"]);
-
+        $thisModel = $this->getModelAndCheckDependencies("ApacheModules", $pageVars) ;
         $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
