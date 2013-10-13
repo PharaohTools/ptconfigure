@@ -37,11 +37,11 @@ class SystemDetection {
         //declare Linux distros(extensible list).
         $distros = array(
             "Arch" => "arch-release",
+            'Redhat' => 'redhat-release',
+            'CentOS' => 'centos-release',
             "Ubuntu" => "lsb-release",
             "Debian" => "debian_version",
-            "Fedora" => "fedora-release",
-            'Redhat' => 'redhat-release',
-            'CentOS' => 'centos-release');
+            "Fedora" => "fedora-release",);
         //Get everything from /etc directory.
         $etcList = scandir('/etc');
         $OSDistro = "";
