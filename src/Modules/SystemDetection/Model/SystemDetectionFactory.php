@@ -19,8 +19,8 @@ class SystemDetectionFactory {
         return $groupModels;
     }
 
-
     public static function getCompatibleModelFromAllInGroup($models) {
+        include_once("SystemDetectionAllOS.php");
         $system = new \Model\SystemDetectionAllOS();
         foreach($models as $model) {
             if (
