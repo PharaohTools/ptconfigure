@@ -22,7 +22,6 @@ class SystemDetectionFactory {
 
     public static function getCompatibleModelFromAllInGroup($models) {
         $system = new \Model\SystemDetection();
-        var_dump($system);
         foreach($models as $model) {
             if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
