@@ -42,7 +42,8 @@ class CleofyUbuntu extends Base {
     }
 
     public function getEnvironments() {
-        $environmentConfigModel = new EnvironmentConfig($this->params);
+        $environmentConfigModelFactory = new EnvironmentConfig();
+        $environmentConfigModel = $environmentConfigModelFactory->getModel($this->params);
         $environmentConfigModel->askWhetherToEnvironmentConfig($this->environmentReplacements) ;
         $this->environments = $environmentConfigModel->environments ;
     }
