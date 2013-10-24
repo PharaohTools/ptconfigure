@@ -8,10 +8,6 @@ class BaseLinuxApp extends Base {
   protected $uninstallCommands;
   protected $installUserName;
   protected $installUserHomeDir;
-  protected $registeredPreInstallFunctions;
-  protected $registeredPreUnInstallFunctions;
-  protected $registeredPostInstallFunctions;
-  protected $registeredPostUnInstallFunctions;
   protected $programExecutorCommand;
 
   public function __construct($params) {
@@ -21,25 +17,6 @@ class BaseLinuxApp extends Base {
 
   public function initialize() {
     $this->populateTitle();
-  }
-
-  private function populateTitle() {
-    $this->titleData = <<<TITLE
-*******************************
-*   Golden Contact Computing  *
-*         $this->programNameFriendly        *
-*******************************
-
-TITLE;
-  }
-
-  private function populateCompletion() {
-    $this->completionData = <<<COMPLETION
-... All done!
-*******************************
-Thanks for installing , visit www.gcsoftshop.co.uk for more
-
-COMPLETION;
   }
 
   public function askWhetherToInstallLinuxApp() {
@@ -165,38 +142,6 @@ COMPLETION;
       $this->programDataFolder = $input; }
   }
 
-  private function executePreInstallFunctions($autoPilot){
-    if (isset($this->registeredPreInstallFunctions) &&
-      is_array($this->registeredPreInstallFunctions) &&
-      count($this->registeredPreInstallFunctions) >0) {
-      foreach ($this->registeredPreInstallFunctions as $func) {
-        $this->$func($autoPilot); } }
-  }
-
-  private function executePostInstallFunctions($autoPilot){
-    if (isset($this->registeredPostInstallFunctions) &&
-      is_array($this->registeredPostInstallFunctions) &&
-      count($this->registeredPostInstallFunctions) >0) {
-      foreach ($this->registeredPostInstallFunctions as $func) {
-        $this->$func($autoPilot); } }
-  }
-
-  private function executePreUnInstallFunctions($autoPilot){
-    if (isset($this->registeredPreUnInstallFunctions) &&
-      is_array($this->registeredPreUnInstallFunctions) &&
-      count($this->registeredPreUnInstallFunctions) >0) {
-      foreach ($this->registeredPreUnInstallFunctions as $func) {
-        $this->$func($autoPilot); } }
-  }
-
-  private function executePostUnInstallFunctions($autoPilot){
-    if (isset($this->registeredPostUnInstallFunctions) &&
-      is_array($this->registeredPostUnInstallFunctions) &&
-      count($this->registeredPostUnInstallFunctions) >0) {
-      foreach ($this->registeredPostUnInstallFunctions as $func) {
-        $this->$func($autoPilot); } }
-  }
-
   private function doInstallCommand(){
     self::swapCommandArrayPlaceHolders($this->installCommands);
     self::executeAsShell($this->installCommands);
@@ -208,13 +153,13 @@ COMPLETION;
       self::executeAndOutput($command); }
   }
 
-  private function deleteExecutorIfExists(){
+  protected function deleteExecutorIfExists(){
     $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
     self::executeAndOutput($command, "Program Executor Deleted if existed");
     return true;
   }
 
-  private function saveExecutorFile(){
+  protected function saveExecutorFile(){
     $this->populateExecutorFile();
     $executorPath = $this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
     file_put_contents($executorPath, $this->bootStrapData);
@@ -231,33 +176,6 @@ exec('".$this->programExecutorCommand."');\n
   private function doUnInstallCommand(){
     self::swapCommandArrayPlaceHolders($this->uninstallCommands);
     self::executeAsShell($this->uninstallCommands);
-  }
-
-  private function extraCommands(){
-    self::swapCommandArrayPlaceHolders($this->extraCommandsArray);
-    self::executeAsShell($this->extraCommandsArray);
-  }
-
-  private function swapCommandArrayPlaceHolders(&$commandArray) {
-    $this->swapCommandDirs($commandArray);
-    $this->swapInstallUserDetails($commandArray);
-  }
-
-  private function swapCommandDirs(&$commandArray) {
-    if (is_array($commandArray) && count($commandArray)>0) {
-      foreach ($commandArray as &$comm) {
-        $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);
-        $comm = str_replace("****PROG EXECUTOR****", $this->programDataFolder,
-          $comm); } }
-  }
-
-  private function swapInstallUserDetails(&$commandArray) {
-    if (is_array($commandArray) && count($commandArray)>0) {
-      foreach ($commandArray as &$comm) {
-        $comm = str_replace("****INSTALL USER NAME****", $this->installUserName,
-          $comm);
-        $comm = str_replace("****INSTALL USER HOME DIR****",
-          $this->installUserHomeDir, $comm); } }
   }
 
 }
