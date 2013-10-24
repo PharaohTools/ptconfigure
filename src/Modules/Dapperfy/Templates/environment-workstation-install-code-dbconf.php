@@ -85,9 +85,9 @@ class AutoPilotConfigured extends AutoPilot {
  	 ServerAdmin webmaster@localhost
  	 ServerName ****SERVER NAME****
  	 DocumentRoot ****WEB ROOT****src
-   # SSLEngine on
- 	 # SSLCertificateFile /etc/apache2/ssl/ssl.crt
-   # SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
+     SSLEngine on
+     SSLCertificateFile /etc/ssl/certs/snakeoil.crt
+     SSLCertificateKeyFile /etc/ssl/private/snakeoil.key
    # SSLCertificateChainFile /etc/apache2/ssl/bundle.crt
  	 <Directory ****WEB ROOT****src>
  		 Options Indexes FollowSymLinks MultiViews
