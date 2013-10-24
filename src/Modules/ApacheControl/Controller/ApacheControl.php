@@ -5,8 +5,9 @@ Namespace Controller ;
 class ApacheControl extends Base {
 
     public function execute($pageVars) {
-        $this->content["route"] = $pageVars["route"];
-        $this->content["messages"] = $pageVars["messages"];
+        $isHelp = parent::checkForHelp($pageVars) ;
+        if ( is_array($isHelp) ) {
+            return $isHelp; }
         $action = $pageVars["route"]["action"];
 
         if ($action=="start") {
@@ -24,7 +25,7 @@ class ApacheControl extends Base {
             $this->content["ApacheControlResult"] = $ApacheControlModel->askWhetherToRestartApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid VHost Creator Action";
+        $this->content["messages"][] = "Invalid Apache Control Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 
