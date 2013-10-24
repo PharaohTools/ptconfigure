@@ -9,6 +9,8 @@ class SystemDetectionAllOS extends Base {
     public $distro ; // = array("any", "Ubuntu", "Arch", "Debian", "Fedora", "CentOS") ; @todo add suse, mandriva
     public $version ; // = array("any", "11.04", "11.10", "12.04", "13.04") ; @todo win7, win2003, etc
     public $architecture ; // = array("any", "32", "64" ;
+    public $hostName ; // = array("any", "32", "64" ;
+    public $ipAddresses = array();
 
     public function __construct() {
         $this->setOperatingSystem();
@@ -16,6 +18,8 @@ class SystemDetectionAllOS extends Base {
         $this->setLinuxType();
         $this->setVersion();
         $this->setArchitecture();
+        $this->setHostname();
+        $this->setIPAddresses();
     }
 
     private function setOperatingSystem() {
@@ -78,6 +82,31 @@ class SystemDetectionAllOS extends Base {
                     $this->architecture = "32" ; }
                 if (strpos($output, "i686") !== false ) {
                     $this->architecture = "32" ; } } }
+    }
+
+    private function setHostname() {
+        if ($this->os = "Linux") {
+            exec("hostname", $output_array);
+            $this->hostName = $output_array[0] ; }
+    }
+
+    private function setIPAddresses() {
+        if ($this->os == "Linux") {
+            $ifComm = "sudo ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
+            exec($ifComm, $outputArray);
+            foreach($outputArray as $outputLine ) {
+                $this->ipAddresses[] = $outputLine ; } }
+        if ($this->os == "FreeBSD" || $this->os == "OpenBSD") {
+            $ifComm = "sudo ifconfig  | grep -E 'inet.[0-9]' | grep -v '127.0.0.1' | awk '{ print $2}'" ;
+            exec($ifComm, $outputArray);
+            foreach($outputArray as $outputLine ) {
+                $this->ipAddresses[] = $outputLine ; } }
+        if ($this->os == "Solaris") {
+            $ifComm = "sudo ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
+            exec($ifComm, $outputArray);
+            foreach($outputArray as $outputLine ) {
+                $this->ipAddresses[] = $outputLine ; } }
+
     }
 
 }
