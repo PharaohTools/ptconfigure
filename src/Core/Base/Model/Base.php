@@ -12,6 +12,8 @@ class Base {
       $tempDirInConfig = (substr($tempDirInConfig, -1, 1) == DIRECTORY_SEPARATOR) ?
         substr($tempDirInConfig, 0, strlen($tempDirInConfig)-1) : $tempDirInConfig ;
       $this->baseTempDir = ($tempDirInConfig == null ) ? "/tmp/dapperstrano" : $tempDirInConfig ;
+      if (!file_exists($this->baseTempDir)) {
+          mkdir($this->baseTempDir, 0777, true) ; }
     }
 
     protected function executeAndOutput($command, $message=null) {
