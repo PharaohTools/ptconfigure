@@ -21,25 +21,6 @@ class BasePHPApp extends Base {
       $this->tempDir);
   }
 
-  private function populateTitle() {
-    $this->titleData = <<<TITLE
-*******************************
-*   Golden Contact Computing  *
-*         $this->programNameFriendly        *
-*******************************
-
-TITLE;
-  }
-
-  private function populateCompletion() {
-    $this->completionData = <<<COMPLETION
-... All done!
-*******************************
-Thanks for installing , visit www.gcsoftshop.co.uk for more
-
-COMPLETION;
-  }
-
   public function askWhetherToInstallPHPApp() {
     return $this->performPHPAppInstall();
   }
@@ -104,6 +85,7 @@ COMPLETION;
     $this->programExecutorFolder = ($autoPilot)
       ? $autoPilot->{$this->autopilotDefiner."ExecutorDirectory"}
       : $this->askForProgramExecutorFolder();
+    $this->executePreInstallFunctions($autoPilot) ;
     $this->doGitCommandWithErrorCheck();
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->makeProgramDataFolderIfNeeded();
@@ -114,6 +96,7 @@ COMPLETION;
     $this->deleteInstallationFiles();
     $this->changePermissions();
     $this->extraCommands();
+    $this->executePostInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(true) ;
     $this->showCompletion();
   }
@@ -124,8 +107,11 @@ COMPLETION;
       ? $autoPilot->{$this->autopilotDefiner}
       : $this->askForProgramDataFolder();
     $this->programExecutorFolder = $this->askForProgramExecutorFolder();
+    $this->executePreUnInstallFunctions($autoPilot) ;
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->deleteExecutorIfExists();
+    $this->extraCommands();
+    $this->executePostUnInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
   }
@@ -234,16 +220,6 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
       if ($fileSource[1] != null) { $command .= DIRECTORY_SEPARATOR.$fileSource[1];}
       echo $command;
       $data .= self::executeAndLoad($command); }
-    return $data;
-  }
-
-  private function extraCommands(){
-    $data = "";
-    if (is_array($this->extraCommandsArray)
-      && count($this->extraCommandsArray)>0 ) {
-      foreach ($this->extraCommandsArray as $command) {
-        str_replace("****PROGDIR****", $this->programDataFolder, $command);
-        $data .= self::executeAndLoad($command); } }
     return $data;
   }
 
