@@ -63,6 +63,70 @@ class InvokeSSH extends Base {
         echo "Shell Completed";
         return true;
     }
+//
+//    public function performInvokeSSHShell() {
+//        if ($this->askForSSHShellExecute() != true) { return false; }
+//        $this->populateServers();
+//        $commandExecution = true;
+//        $serializedSshArray = $this->getSerializedSshArray() ;
+//        echo "Opening CLI...\n"  ;
+//        while ($commandExecution == true) {
+//            $command = $this->askForACommand();
+//            if ( $command == false) {
+//                $commandExecution = false; }
+//            else {
+//                $this->executeOneCommandInput($this->servers, $command); } }
+//        echo "Shell Completed";
+//        return true;
+//    }
+//
+//    private function getSerializedSshArray(){
+//        $serializedSshArray = array();
+//        foreach ($this->servers as &$server) {
+//            $serialized = serialize($server) ;
+//            file_put_contents("/tmp/serialized{$server["target"]}", $serialized) ;
+//            $serializedSshArray[] = "/tmp/serialized{$server["target"]}" ; }
+//        return $serializedSshArray ;
+//    }
+//
+//    private function executeOneCommandInput($servers, $command) {
+//        $allPlxOuts = array();
+//        $tempScript = $this->makeCommandFile($command);
+//        foreach ($servers as $server) {
+//            $outfile = $this->getFileToWrite("final");
+//            $cmd = 'dapperstrano invoke script execute --ssh-script="sh ' . $tempScript . '" --output-file="'
+//                . $outfile .'" --ssh-user="'.$server["user"].'" --ssh-pword="'.$server["pword"]
+//                .'" --ssh-target="'.$server["target"] . '" > /dev/null &';
+//            echo $cmd ;
+//            system($cmd, $plxExit);
+//            $allPlxOuts[] = array($tempScript, $outfile); }
+//        $copyPlxOuts = $allPlxOuts;
+//        $fileData = "";
+//        $ignores = array();
+//        sleep(3);
+//
+//        $commandResults = array();
+//        while (count($commandResults) < count($allPlxOuts)) {
+//            for ($i=0; $i<count($copyPlxOuts); $i++) {
+//                if (in_array($i, $ignores)) {
+//                    continue; }
+//                $fileToScan = $copyPlxOuts[$i][1];
+//                $file = new \SplFileObject($fileToScan);
+//                $file->seek(1);
+//                $completionStatus = substr($file->current(), 10, 1);
+//                if ($completionStatus=="1") {
+//                    $file->seek(0);
+//                    echo "Completed task: ".substr($file->current(), 9);
+//                    $file->seek(2);
+//                    $exitStatus = substr($file->current(), 13, 1);
+//                    $commandResults[] = $exitStatus;
+//                    $fileData .= file_get_contents($fileToScan);
+//                    $ignores[] = $i; } }
+//            echo ".";
+//            sleep(3); }
+//        $anyFailures = in_array("1", $commandResults);
+//        return array ($fileData, $anyFailures);
+//    }
 
     public function performInvokeSSHScript($params=null){
         if ($this->askForSSHScriptExecute() != true) { return false; }
@@ -89,6 +153,11 @@ class InvokeSSH extends Base {
             count($autoPilot["sshInvokeServers"]) > 0);
         if ($srvAvail == true) {
             $this->servers = $autoPilot["sshInvokeServers"]; }
+        else if ( isset($this->params["ssh-script"]) && isset($this->params["ssh-user"]) &&
+                isset($this->params["ssh-pword"]) && isset($this->params["ssh-target"]) ) {
+            $this->servers = array();
+            $this->servers[] = array("target" => $this->params["ssh-target"], "user" => $this->params["ssh-user"],
+                "pword" => $this->params["ssh-pword"]); }
         else {
             $this->askForServerInfo(); }
     }
@@ -111,13 +180,17 @@ class InvokeSSH extends Base {
         $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
         require_once($ssh2File) ;
         $ssh = new \Net_SSH2($server["target"]);
-        // if pword starts with a / we assume it is a path and load a keyfile
-        if (substr($server["pword"], 0, 1)=="/") {
+        // if pword starts with a / and is an existing file we assume it is a path and load a keyfile
+        if (substr($server["pword"], 0, 1)=="/" && file_exists($server["pword"])) {
+            $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
+            $cryptRsaFile = $srcFolder."/Libraries/seclib/Crypt/RSA.php" ;
+            require_once($cryptRsaFile) ;
             $keyObject = new \Crypt_RSA();
-            $keyObject->loadKey(file_get_contents($server["pword"]));
-            $ssh->login($server["user"], $keyObject);
-            return $ssh; }
-        if ($ssh->login($server["user"], $server["pword"]) == true) {
+            $keyObject->loadKey( file_get_contents($server["pword"]), CRYPT_RSA_PRIVATE_FORMAT_PKCS1);
+            // this uses openssh style key @todo should also check for an ssh2 key if this fails
+            $didItLogin = $ssh->login($server["user"], $keyObject);
+            return ($didItLogin==true) ? $ssh : null ; }
+        else if ($ssh->login($server["user"], $server["pword"]) == true) {
             return $ssh; }
         return null;
     }
@@ -197,6 +270,20 @@ QUESTION;
         $sshObject->write("$command\n") ;
         $returnVar .= $sshObject->read("DAPPERSTRANOPROMPT") ;
         return str_replace("DAPPERSTRANOPROMPT", "", $returnVar) ;
+    }
+
+    /*@todo remove these two functions if they dont get used in invoke, they are from parallax*/
+    private function makeCommandFile($command) {
+        $random = $this->baseTempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
+        file_put_contents($random.'-dapper-invoke-temp.sh', $command);
+        return $random.'-dapper-invoke-temp.sh';
+    }
+
+    private function getFileToWrite($file_type) {
+        $random = $this->baseTempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
+        if ($file_type == "temp") { return $random.'temp.txt'; }
+        if ($file_type == "final") { return $random.'final.txt'; }
+        else { return null ; }
     }
 
 }
