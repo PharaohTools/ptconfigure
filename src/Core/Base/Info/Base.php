@@ -19,6 +19,14 @@ class Base {
       return array();
     }
 
+    public function dependencies() {
+        return array();
+    }
+
+    public function groups() {
+        return array();
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   There is no help defined for this module
