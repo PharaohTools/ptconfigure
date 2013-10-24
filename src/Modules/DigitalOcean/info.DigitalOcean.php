@@ -14,7 +14,7 @@ class DigitalOceanInfo extends Base {
 
     public function routesAvailable() {
       return array( "DigitalOcean" => array_merge(parent::routesAvailable(), array("save-ssh-key",
-          "destroy-all-droplets", "overwrite-new", "overwrite-current") ) );
+          "destroy-all-droplets", "overwrite-new", "overwrite-current", "list") ) );
     }
 
     public function routeAliases() {
@@ -32,6 +32,10 @@ class DigitalOceanInfo extends Base {
         Will let you save a local ssh key to your Digital Ocean account, so you can ssh in to your nodes
         securely and without a password
         example: dapperstrano digital-ocean save-ssh-key
+
+        - list
+        Will display data about your digital ocean account
+        example: dapperstrano digital-ocean list
 
 HELPDATA;
       return $help ;

@@ -2,55 +2,108 @@
 
 Namespace Model;
 
-class DigitalOceanSshKey extends BaseDigitalOcean {
+class DigitalOceanOverwriteNew extends BaseDigitalOcean {
 
     public function runAutoPilot($autoPilot){
-        $this->runAutoPilotSaveSshKey($autoPilot);
+        $this->runAutoPilotOverwriteNew($autoPilot);
         return true;
     }
 
-    public function askWhetherToSaveSshKey($params=null) {
-        return $this->performDigitalOceanSaveSshKey($params);
+    public function askWhetherToSaveOverwriteNew($params=null) {
+        return $this->performDigitalOceanOverwriteNew($params);
     }
 
-    public function runAutoPilotSaveSshKey($autoPilot) {
+    public function runAutoPilotOverwriteNew($autoPilot) {
         if ( !isset($autoPilot["digitalOceanSshKeyExecute"]) || $autoPilot["digitalOceanSshKeyExecute"] !== true ) {
             return false; }
         $this->apiKey = $this->askForDigitalOceanAPIKey();
         $this->clientId = $this->askForDigitalOceanClientID();
     }
 
-    public function performDigitalOceanSaveSshKey($params=null){
-        if ($this->askForSSHKeyExecute() != true) { return false; }
+    public function performDigitalOceanOverwriteNew($params=null){
+        if ($this->askForOverwriteExecute() != true) { return false; }
         $this->apiKey = $this->askForDigitalOceanAPIKey();
         $this->clientId = $this->askForDigitalOceanClientID();
-        $fileLocation = $this->askForSSHKeyPublicFileLocation();
-        $fileData = file_get_contents($fileLocation);
-        $keyName = $this->askForSSHKeyNameForDigitalOcean();
-        return $this->saveSshKeyToDigitalOcean($fileData, $keyName);
+        $environments = \Model\AppConfig::getProjectVariable("environments");
+        $serverPrefix = $this->getServerPrefix();
+        foreach ($environments as $environment) {
+            $envName = $environment["any-app"]["gen_env_name"];
+            $question = 'Overwrite current server details for '.$envName.' with new Digital Ocean Servers?';
+            $overwriteThisEnvironment = self::askYesOrNo($question);
+            if ($overwriteThisEnvironment == true) {
+                $sCount = 0;
+                foreach ($environment["servers"] as $server) {
+                    $serverData = array();
+                    $serverData["prefix"] = $serverPrefix ;
+                    $serverData["envName"] = $envName;
+                    $serverData["sCount"] = $sCount;
+                    $serverData["imageID"] = $this->getServerGroupImageID();
+                    $serverData["sizeID"] = $this->getServerGroupSizeID();
+                    $serverData["regionID"] = $this->getServerGroupRegionID();
+                    $newDigitalOceanServer = $this->getNewServerFromDigitalOcean($serverData) ;
+                    $sCount++; } } }
+        $envConfig = new EnvironmentConfig();
+        $envConfig->environments = $environments ;
+        $envConfig->writeEnvsToProjectFile();
+        return $envConfig->environments ;
     }
 
-    private function askForSSHKeyExecute(){
-        $question = 'Save local SSH Public Key file to Digital Ocean?';
+    private function askForOverwriteExecute(){
+        $question = 'Overwrite current server details with new Digital Ocean Servers?';
         return self::askYesOrNo($question);
     }
 
-    private function askForSSHKeyPublicFileLocation(){
-        $question = 'Enter Location of ssh public key file to upload';
+    private function getServerPrefix(){
+        $question = 'Enter Prefix for all Servers (None is fine)';
+        return self::askForInput($question);
+    }
+
+    private function getServerGroupImageID(){
+        $question = 'Enter Image ID for this Server Group';
         return self::askForInput($question, true);
     }
 
-    private function askForSSHKeyNameForDigitalOcean(){
-        $question = 'Enter name to store ssh key under on Digital Ocean';
+    private function getServerGroupSizeID(){
+        $question = 'Enter size ID for this Server Group';
         return self::askForInput($question, true);
     }
 
-    public function saveSshKeyToDigitalOcean($keyData, $keyName){
-        $callVars = array();
-        $callVars["ssh_public_key"] = $keyData;
-        $callVars["ssh_key_name"] = $keyName;
-        $curlUrl = "https://api.digitalocean.com/ssh_keys/new" ;
+    private function getServerGroupRegionID(){
+        $question = 'Enter Region ID for this Server Group';
+        return self::askForInput($question, true);
+    }
+
+    private function getNewServerFromDigitalOcean($serverData){
+        $callVars = (array) $this->getNewServerCallVarsFromData($serverData) ;
+        $curlUrl = "https://api.digitalocean.com/droplets/new" ;
         return $this->digitalOceanCall($callVars, $curlUrl);
+    }
+
+    private function getNewServerCallVarsFromData($serverData){
+        # name=[droplet_name]
+        # size_id=[size_id]
+        # image_id=[image_id]
+        # region_id=[region_id]
+        # ssh_key_ids=[ssh_key_id1],[ssh_key_id2]
+        $callVars = array() ;
+        $callVars["name"] = $serverData["prefix"].'-'.$serverData["envName"].'-'.$serverData["sCount"];
+        $callVars["size_id"] = $serverData["sizeID"];
+        $callVars["image_id"] = $serverData["imageID"];
+        $callVars["region_id"] = $serverData["regionID"];
+        $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
+        $curlUrl = "https://api.digitalocean.com/droplets/new" ;
+        return $this->digitalOceanCall($callVars, $curlUrl);
+    }
+
+    private function getAllSshKeyIdsString(){
+        $curlUrl = "https://api.digitalocean.com/ssh_keys" ;
+        $sshKeysObject =  $this->digitalOceanCall(array(), $curlUrl);
+        $keysString = "";
+        for ($i=0; $i<count($sshKeysObject->ssh_keys); $i++) {
+            $keysString .= "{$sshKeysObject->ssh_keys[$i]->id}" ;
+            if ($i < (count($sshKeysObject->ssh_keys)) ) {
+                $keysString .= "," ; } }
+        return $keysString;
     }
 
 }
