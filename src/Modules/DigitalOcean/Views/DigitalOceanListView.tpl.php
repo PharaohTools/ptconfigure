@@ -9,9 +9,9 @@ if (is_object($pageVars["digiOceanResult"]) || is_array($pageVars["digiOceanResu
         echo $arrayObjectKey.": ".$val."\n"; } }
 
 else {
-    echo "There was a problem."; }
+    echo "There was a problem listing Data"; }
 
 ?>
 
 ------------------------------
-Digital Ocean API Finished
+Digital Ocean Listing Finished

@@ -47,8 +47,9 @@ class DigitalOceanSshKey extends BaseDigitalOcean {
 
     public function saveSshKeyToDigitalOcean($keyData, $keyName){
         $callVars = array();
+        $keyData = str_replace("\n", "", $keyData);
         $callVars["ssh_pub_key"] = urlencode($keyData);
-        $callVars["ssh_key_name"] = $keyName;
+        $callVars["name"] = $keyName;
         $curlUrl = "https://api.digitalocean.com/ssh_keys/new" ;
         return $this->digitalOceanCall($callVars, $curlUrl);
     }

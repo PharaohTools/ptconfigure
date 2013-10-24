@@ -7,32 +7,38 @@ class BaseDigitalOcean extends Base {
     protected $clientId;
     protected $apiKey;
 
-    public function runAutoPilot($autoPilot){
-        $this->runAutoPilotSaveSshKey($autoPilot);
-        return true;
-    }
-
     protected function askForDigitalOceanAPIKey(){
+        $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-api-key") ;
+        if ($papyrusVar != null) {
+            $question = 'Use saved Digital Ocean API Key?';
+            if (self::askYesOrNo($question, true) == true) {
+                return $papyrusVar ; } }
         $question = 'Enter Digital Ocean API Key';
         return self::askForInput($question, true);
     }
 
     protected function askForDigitalOceanClientID(){
+        $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-client-id") ;
+        if ($papyrusVar != null) {
+            $question = 'Use saved Digital Ocean Client ID?';
+            if (self::askYesOrNo($question, true) == true) {
+                return $papyrusVar ; } }
         $question = 'Enter Digital Ocean Client ID';
         return self::askForInput($question, true);
     }
 
-    protected function digitalOceanCall($curlParams, $curlUrl){
+    protected function digitalOceanCall(Array $curlParams, $curlUrl){
         $curlParams["client_id"] = $this->clientId ;
         $curlParams["api_key"] = $this->apiKey;
-        // $postQuery = http_build_query($curlParams);
+        \Model\AppConfig::setProjectVariable("digital-ocean-client-id", $this->clientId) ;
+        \Model\AppConfig::setProjectVariable("digital-ocean-api-key", $this->apiKey) ;
         $postQuery = "";
         $i = 0;
         foreach ($curlParams as $curlParamKey => $curlParamValue) {
             $postQuery .= ($i==0) ? "" : '&' ;
             $postQuery .= $curlParamKey."=".$curlParamValue;
             $i++; }
-        echo $curlUrl.'?'.$postQuery;
+        // echo $curlUrl.'?'.$postQuery ;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $curlUrl.'?'.$postQuery);
         // receive server response ...
