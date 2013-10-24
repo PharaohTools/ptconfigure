@@ -15,18 +15,21 @@ class ApacheControl extends Base {
 
     public function askWhetherToStartApache() {
       if ( !$this->askForApacheCtl("start") ) { return false; }
+      $this->apacheCommand = $this->askForApacheCommand();
       $this->startApache();
       return true;
     }
 
     public function askWhetherToStopApache() {
       if ( !$this->askForApacheCtl("stop") ) { return false; }
-      $this->restartApache();
+      $this->apacheCommand = $this->askForApacheCommand();
+      $this->stopApache();
       return true;
     }
 
     public function askWhetherToRestartApache() {
       if ( !$this->askForApacheCtl("restart") ) { return false; }
+      $this->apacheCommand = $this->askForApacheCommand();
       $this->restartApache();
       return true;
     }
@@ -65,7 +68,7 @@ class ApacheControl extends Base {
       if (isset($this->params["yes"]) && $this->params["yes"]==true) {
           return true ;
       }
-      $question = 'Do you want to'.$type.' Apache?';
+      $question = 'Do you want to '.ucfirst($type).' Apache?';
       return self::askYesOrNo($question);
     }
 
@@ -103,6 +106,11 @@ class ApacheControl extends Base {
         return self::executeAndOutput($command);
     }
 
+    private function reloadApache(){
+        echo "Reloading Apache Configuration...\n";
+        $command = "sudo service $this->apacheCommand reload";
+        return self::executeAndOutput($command);
+    }
 
     private function startApache(){
         echo "Starting Apache...\n";

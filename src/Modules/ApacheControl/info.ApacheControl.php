@@ -17,7 +17,8 @@ class ApacheControlInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("apachecontrol"=>"ApacheControl", "apachectl"=>"ApacheControl");
+      return array("apachecontrol"=>"ApacheControl", "apachectl"=>"ApacheControl", "apache-control"=>"ApacheControl",
+          "apache-ctl"=>"ApacheControl");
     }
 
     public function autoPilotVariables() {
@@ -53,6 +54,10 @@ class ApacheControlInfo extends Base {
           - restart
           Restart the Apache server
           example: dapperstrano apachecontrol restart
+
+          - reload
+          Reloads the Apache server configuration without restarting
+          example: dapperstrano apachecontrol reload
 
 HELPDATA;
       return $help ;
