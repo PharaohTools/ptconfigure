@@ -1,0 +1,23 @@
+Dapperstrano Incomplete Modules
+-------------------------------------
+
+get system detection from cleo
+
+lighttpd control
+lighttpd vhc
+nginx control
+nginx vhc
+zend server control
+zend server vhc
+
+database should be split into
+ - db configure (which only does string changes in files so should also allow for postgres)
+ - db install (for different rdbms's, currently mysql, but postgressql, oracle, mongo)
+
+AWS
+Parallel SSH
+CVS
+SVN
+Mercurial
+
+Checkout should become Git
