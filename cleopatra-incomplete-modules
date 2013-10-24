@@ -1,38 +1,39 @@
 Cleopatra Modules to be created
 ---------------------------------------
 
-System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class in Core which detects the running OS and looks in the module for a model which Reports itself as matching The combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE
-^ Need to update all modules to follow this pattern, currently upto dapperstrano
-- some controllers need a double check autopilot, cleofy, env conf, generator, index, installpackage, invoke
-- need to fix system-detection install
-State Detection - Allow the pyramid application to detect information regarding software and configuration install current state
-Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter - actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more than an exit code we'll need to stop spawning 
+System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class
+in Core which detects the running OS and looks in the module for a model which Reports itself as matching The
+combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE FULY
+- Add other data like hostname, ip addresses to this
+
+State Detection - Allow the pyramid application to detect information regarding software and configuration install
+current state
+- Its already providing a default status for anything that was installed via cleo
+- Need the apt module, then the apt module can save both calling module and apt-program, so don't uninstall both
+- all modules when installing if they are a dependency, should also save themselves as such
+- this way a dependency will probably be an apt or a module
+
+Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter
+- actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more
+  than an exit code we'll need to stop spawning
+- If the above are working, is there any benefit to not spawning?
 
 
 
 Installers
 ----------------
 Pear
-apt-get install
+apt-get install - Needed for State Detection
 apt-get update
-
-
 
 C Compiler
 ---------------
 UbuntuCompiler - STARTED, EMPTY
 
- 
-
-PHP Software
-----------------
-
-
 Security
 ----------------
 Suhosin -
 Firewall Software
-
 
 Web Servers
 ----------------
@@ -42,12 +43,10 @@ LightHttpd Install
 LightHttpd Service Control
 Zend Server
 
-
 Git Servers-
 ----------------
 GitLab (Started, but to be completed)
 Gitbucket
-
 
 Databases-
 ----------------
@@ -57,34 +56,27 @@ Mongo - Install and Configure Mongo Nosql Server
 Hadoop - Install and Configure Hadoop Server
 Cassandra - Install and Configure Cassandra NOSQL Server
 
-
 DataStores
 ----------------
 Memcache
 Memcached
 Redis
 
-
 HTTP Caches
 ----------------
 Varnish
-
 
 OP Code Caches
 ----------------
 APC
 XCache
 
-
 -------------------------------------------------------------------------------
 To add to MediaTools
-
 https://help.ubuntu.com/community/RestrictedFormats/PlayingDVDs
-
 sudo apt-get install libdvdread4
 sudo /usr/share/doc/libdvdread4/install-css.sh
 -------------------------------------------------------------------------------
-
 
 Server Monitoring-
 ----------------
@@ -92,7 +84,6 @@ Nagios - Install and Configure Nagios
 Zenoss - Install and Configure Zenoss
 NewRelic - Install and Configure NewRelic
 TraceAlytics - Install and Configure TraceAlytics
-
 
 Testing tools
 ----------------
@@ -104,11 +95,9 @@ Cucumber Gem
 Capybara Gem
 Calabash Gem
 
-
 FTP Servers
 -------------------
 vsftpd
-
 
 Servlet Containers
 -------------------
