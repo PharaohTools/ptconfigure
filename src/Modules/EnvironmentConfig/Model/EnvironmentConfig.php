@@ -41,47 +41,65 @@ class EnvironmentConfig extends Base {
 
     public function doQuestions() {
       $envSuffix = array_keys($this->environmentReplacements);
-      $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
-      if (count($allProjectEnvs) > 0) {
+      $useExisting = $this->checkIfPossibleToUseExistingSettings() ;
+      if ( $useExisting !== false ) { $this->askForExistingOrNew($useExisting); }
+      $this->addMoreEnvironments($envSuffix) ;
+    }
+
+    private function askForExistingOrNew($allProjectEnvs) {
         $question = 'Use existing environment settings?';
         $useProjEnvs = self::askYesOrNo($question, true);
-        if ($useProjEnvs == true ) {
-          $this->environments = $allProjectEnvs;
-          $i = 0;
-          foreach ($this->environments as $oneEnvironment) {
-              $curEnvGroupRay = array_keys($this->environmentReplacements) ;
-              $curEnvGroup = $curEnvGroupRay[0] ;
-              $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?
-                  $oneEnvironment["any-app"]["gen_env_name"] : "*unknown*" ;
-              $q  = "Do you want to modify entries applicable to any app in " ;
-              $q .= "environment $envName" ;
-              if (self::askYesOrNo($q)==true) {
-                  $this->populateAnEnvironment($i, "any-app" ) ; }
-              if ( isset($oneEnvironment[$curEnvGroup]) ) {
-                  $q  = "Do you want to modify entries for group $curEnvGroup in " ;
-                  $q .= "environment $envName" ;
-                  if (self::askYesOrNo($q)==true) {
-                      $this->populateAnEnvironment($i, $curEnvGroup) ; } }
-              else {
-                  echo "Settings for ".$curEnvGroup." not setup for environment " .
-                  "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
-                  $this->populateAnEnvironment($i, $curEnvGroup) ; }
-              $i++; } } }
+        if ($useProjEnvs == true ) { $this->modifyExistingEnvironments($allProjectEnvs); }
+    }
+
+    private function checkIfPossibleToUseExistingSettings() {
+        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+        return ( count($allProjectEnvs) > 0 ) ? $allProjectEnvs : false ;
+    }
+
+    private function modifyExistingEnvironments($allProjectEnvs){
+        $this->environments = $allProjectEnvs;
         $i = 0;
+        foreach ($this->environments as $oneEnvironment) {
+            $curEnvGroupRay = array_keys($this->environmentReplacements) ;
+            $curEnvGroup = $curEnvGroupRay[0] ;
+            $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ? $oneEnvironment["any-app"]["gen_env_name"] : "*unknown*" ;
+            $q  = "Do you want to modify entries applicable to any app in " ;
+            $q .= "environment $envName" ;
+            if (self::askYesOrNo($q)==true) {
+                $this->populateAnEnvironment($i, "any-app" ) ; }
+            if ( isset($oneEnvironment[$curEnvGroup]) ) {
+                $q  = "Do you want to modify entries for group $curEnvGroup in " ;
+                $q .= "environment $envName" ;
+                if (self::askYesOrNo($q)==true) {
+                    $this->populateAnEnvironment($i, $curEnvGroup) ; } }
+            else {
+                echo "Settings for ".$curEnvGroup." not setup for environment " .
+                    "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
+                $this->populateAnEnvironment($i, $curEnvGroup) ; }
+            $i++; }
+    }
+
+    private function addMoreEnvironments($envSuffix) {
         $more_envs = true;
         while ($more_envs == true) {
             if (count($this->environments)==0) {
-                if ($envSuffix[0] != "any-app") { $this->populateAnEnvironment($i, "any-app"); }
-                $this->populateAnEnvironment($i, $envSuffix[0]);}
+                $this->initPopulateEnvironment($envSuffix); }
             else {
                 $question = 'Do you want to add another environment?';
                 $add_another_env = self::askYesOrNo($question);
                 if ($add_another_env == true) {
-                    if ($envSuffix[0] != "any-app") { $this->populateAnEnvironment($i, "any-app"); }
-                    $this->populateAnEnvironment($i, $envSuffix[0]);}
+                    $this->initPopulateEnvironment($envSuffix); }
                 else {
                     $more_envs = false; } }
-            $i++; }
+        }
+
+    }
+
+    private function initPopulateEnvironment($envSuffix) {
+        $curCount = count($this->environments) ;
+        if ($envSuffix[0] != "any-app") { $this->populateAnEnvironment($curCount, "any-app"); }
+        $this->populateAnEnvironment($curCount, $envSuffix[0]);
     }
 
     private function populateAnEnvironment($i, $appEnvType) {
