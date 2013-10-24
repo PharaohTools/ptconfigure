@@ -6,7 +6,7 @@ class SystemDetection extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = new \Model\SystemDetection($pageVars["route"]["extraParams"]);
+        $thisModel = new \Model\SystemDetectionAllOS($pageVars["route"]["extraParams"]);
 
         $isDefaultAction = parent::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
