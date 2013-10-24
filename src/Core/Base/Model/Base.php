@@ -10,6 +10,14 @@ class Base {
     public $programNameFriendly;
     public $programNameInstaller;
 
+    protected $installUserName;
+    protected $installUserHomeDir;
+
+    protected $registeredPreInstallFunctions;
+    protected $registeredPreUnInstallFunctions;
+    protected $registeredPostInstallFunctions;
+    protected $registeredPostUnInstallFunctions;
+
     protected $programNameMachine ;
     protected $programDataFolder;
     protected $startDirectory;
@@ -25,6 +33,25 @@ class Base {
     public function __construct($params) {
       $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
       $this->setCmdLineParams($params);
+    }
+
+    protected function populateTitle() {
+        $this->titleData = <<<TITLE
+*******************************
+*   Golden Contact Computing  *
+*         $this->programNameFriendly        *
+*******************************
+
+TITLE;
+    }
+
+    protected function populateCompletion() {
+        $this->completionData = <<<COMPLETION
+... All done!
+*******************************
+Thanks for installing , visit www.gcsoftshop.co.uk for more
+
+COMPLETION;
     }
 
     protected function setAutoPilotVariables($autoPilot) {
@@ -167,6 +194,64 @@ class Base {
         if (is_array($installedApps) && in_array($programNameMachine, $installedApps)) {
             return true ; }
         return false ;
+    }
+
+    protected function extraCommands(){
+        self::swapCommandArrayPlaceHolders($this->extraCommandsArray);
+        self::executeAsShell($this->extraCommandsArray);
+    }
+
+    protected function swapCommandArrayPlaceHolders(&$commandArray) {
+        $this->swapCommandDirs($commandArray);
+        $this->swapInstallUserDetails($commandArray);
+    }
+
+    protected function swapCommandDirs(&$commandArray) {
+        if (is_array($commandArray) && count($commandArray)>0) {
+            foreach ($commandArray as &$comm) {
+                $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);
+                $comm = str_replace("****PROG EXECUTOR****", $this->programExecutorTargetPath, $comm); } }
+    }
+
+    protected function swapInstallUserDetails(&$commandArray) {
+        if (is_array($commandArray) && count($commandArray)>0) {
+            foreach ($commandArray as &$comm) {
+                $comm = str_replace("****INSTALL USER NAME****", $this->installUserName,
+                    $comm);
+                $comm = str_replace("****INSTALL USER HOME DIR****",
+                    $this->installUserHomeDir, $comm); } }
+    }
+
+    protected function executePreInstallFunctions($autoPilot){
+        if (isset($this->registeredPreInstallFunctions) &&
+            is_array($this->registeredPreInstallFunctions) &&
+            count($this->registeredPreInstallFunctions) >0) {
+            foreach ($this->registeredPreInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
+    }
+
+    protected function executePostInstallFunctions($autoPilot){
+        if (isset($this->registeredPostInstallFunctions) &&
+            is_array($this->registeredPostInstallFunctions) &&
+            count($this->registeredPostInstallFunctions) >0) {
+            foreach ($this->registeredPostInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
+    }
+
+    protected function executePreUnInstallFunctions($autoPilot){
+        if (isset($this->registeredPreUnInstallFunctions) &&
+            is_array($this->registeredPreUnInstallFunctions) &&
+            count($this->registeredPreUnInstallFunctions) >0) {
+            foreach ($this->registeredPreUnInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
+    }
+
+    protected function executePostUnInstallFunctions($autoPilot){
+        if (isset($this->registeredPostUnInstallFunctions) &&
+            is_array($this->registeredPostUnInstallFunctions) &&
+            count($this->registeredPostUnInstallFunctions) >0) {
+            foreach ($this->registeredPostUnInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
     }
 
 }
