@@ -79,11 +79,13 @@ class HostEditor extends Base {
     }
 
     private function askForHostEntryToScreen(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to add a hosts file entry?';
         return self::askYesOrNo($question);
     }
 
     private function askForHostDeletionToScreen(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to remove a hosts file entry?';
         return self::askYesOrNo($question);
     }

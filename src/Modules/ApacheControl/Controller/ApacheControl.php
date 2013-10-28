@@ -11,17 +11,17 @@ class ApacheControl extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action=="start") {
-            $ApacheControlModel = new \Model\ApacheControl();
+            $ApacheControlModel = new \Model\ApacheControl($pageVars["route"]["extraParams"]);
             $this->content["ApacheControlResult"] = $ApacheControlModel->askWhetherToStartApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         if ($action=="stop") {
-            $ApacheControlModel = new \Model\ApacheControl();
+            $ApacheControlModel = new \Model\ApacheControl($pageVars["route"]["extraParams"]);
             $this->content["ApacheControlResult"] = $ApacheControlModel->askWhetherToStopApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         else if ($action=="restart") {
-            $ApacheControlModel = new \Model\ApacheControl();
+            $ApacheControlModel = new \Model\ApacheControl($pageVars["route"]["extraParams"]);
             $this->content["ApacheControlResult"] = $ApacheControlModel->askWhetherToRestartApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 

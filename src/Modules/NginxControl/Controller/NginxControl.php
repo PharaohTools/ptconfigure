@@ -10,19 +10,9 @@ class NginxControl extends Base {
             return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        if ($action=="start") {
-            $NginxControlModel = new \Model\NginxControl();
-            $this->content["NginxControlResult"] = $NginxControlModel->askWhetherToStartNginx();
-            return array ("type"=>"view", "view"=>"NginxControl", "pageVars"=>$this->content); }
-
-        if ($action=="stop") {
-            $NginxControlModel = new \Model\NginxControl();
-            $this->content["NginxControlResult"] = $NginxControlModel->askWhetherToStopNginx();
-            return array ("type"=>"view", "view"=>"NginxControl", "pageVars"=>$this->content); }
-
-        else if ($action=="restart") {
-            $NginxControlModel = new \Model\NginxControl();
-            $this->content["NginxControlResult"] = $NginxControlModel->askWhetherToRestartNginx();
+        if (in_array($action, array("start", "stop", "restart"))) {
+            $NginxControlModel = new \Model\NginxControl($pageVars["route"]["extraParams"]);
+            $this->content["NginxControlResult"] = $NginxControlModel->askWhetherToCtlNginx($action);
             return array ("type"=>"view", "view"=>"NginxControl", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Nginx Control Action";

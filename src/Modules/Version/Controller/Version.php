@@ -10,21 +10,15 @@ class Version extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        if ($action=="latest") {
+        $versionModel = new \Model\Version($pageVars["route"]["extraParams"]);
 
-            $versionModel = new \Model\Version();
+        if ($action=="latest") {
             $this->content["versioningResult"] = $versionModel->askWhetherToVersionLatest($pageVars["route"]["extraParams"]);
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
-
         if ($action=="rollback") {
-
-            $versionModel = new \Model\Version();
             $this->content["versioningResult"] = $versionModel->askWhetherToVersionRollback($pageVars["route"]["extraParams"]);
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
-
         if ($action=="specific") {
-
-            $versionModel = new \Model\Version();
             $this->content["versioningResult"] = $versionModel->askWhetherToVersionSpecific($pageVars["route"]["extraParams"]);
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
 
@@ -32,10 +26,9 @@ class Version extends Base {
 
             $autoPilotType= (isset($pageVars["route"]["extraParams"][0])) ? $pageVars["route"]["extraParams"][0] : null;
             if (isset($autoPilotType) && strlen($autoPilotType)>0 ) {
-                $autoPilotFile = getcwd().'/'.escapeshellcmd($autoPilotType);
+                $autoPilotFile = getcwd().DIRECTORY_SEPARATOR.escapeshellcmd($autoPilotType);
                 $autoPilot = $this->loadAutoPilot($autoPilotFile);
                 if ( $autoPilot!==null ) {
-                    $versionModel = new \Model\Version();
                     $this->content["versioningResult"] = $versionModel->runAutoPilotVersion($autoPilot);
                     if ($autoPilot["sshVersionExecute"] && $this->content["versionResult"] != "1") {
                         $this->content["autoPilotErrors"]="Auto Pilot Version Script Broken";

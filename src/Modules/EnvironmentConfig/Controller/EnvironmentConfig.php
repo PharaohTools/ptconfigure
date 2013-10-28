@@ -10,7 +10,7 @@ class EnvironmentConfig extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        $environmentConfigModel = new \Model\EnvironmentConfig();
+        $environmentConfigModel = new \Model\EnvironmentConfig($pageVars["route"]["extraParams"]);
 
         if ($action=="configure" || $action=="config") {
             $this->content["result"] = $environmentConfigModel->askWhetherToEnvironmentConfig();

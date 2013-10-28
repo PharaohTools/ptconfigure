@@ -12,7 +12,7 @@ class Dapperfy extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        $dapperfyModel = new \Model\Dapperfy();
+        $dapperfyModel = new \Model\Dapperfy($pageVars["route"]["extraParams"]);
 
         if ($action=="standard") {
           $this->content["genCreateResult"] = $dapperfyModel->askWhetherToDapperfy();

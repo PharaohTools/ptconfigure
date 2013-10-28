@@ -29,6 +29,7 @@ class DigitalOceanList extends BaseDigitalOcean {
     }
 
     private function askForListExecute(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'List Data?';
         return self::askYesOrNo($question);
     }

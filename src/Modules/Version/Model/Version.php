@@ -48,6 +48,7 @@ class Version extends Base {
     }
 
     private function askForSymLinkChange(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to change the version that *current* points to?';
         return self::askYesOrNo($question);
     }

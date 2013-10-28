@@ -17,9 +17,9 @@ class EnvironmentConfig extends Base {
     }
 
     public function askToScreenWhetherToEnvironmentConfig() {
-      $question = 'Configure Environments Here?';
-      return (isset($this->params["yes"]) && $this->params["yes"]==true) ?
-          true : self::askYesOrNo($question, true);
+      if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
+      $question = 'Configure Environments Here?' ;
+      return self::askYesOrNo($question, true) ;
     }
 
     public function setEnvironmentReplacements($overrideReplacements) {

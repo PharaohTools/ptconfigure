@@ -16,8 +16,9 @@ class Dapperfy extends Base {
     }
 
     public function askToScreenWhetherToDapperfy() {
-      $question = 'Dapperfy This?';
-      return self::askYesOrNo($question, true);
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
+        $question = 'Dapperfy This?';
+        return self::askYesOrNo($question, true);
     }
 
     public function setEnvironmentReplacements() {

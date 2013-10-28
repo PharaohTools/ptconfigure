@@ -17,6 +17,7 @@ class Generator extends Base {
     }
 
     public function askWhetherToDoNewAuto() {
+      if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
       $question = 'Create Autopilot File?';
       return self::askYesOrNo($question, true);
     }

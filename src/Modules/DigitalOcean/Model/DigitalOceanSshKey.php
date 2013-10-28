@@ -31,6 +31,7 @@ class DigitalOceanSshKey extends BaseDigitalOcean {
     }
 
     private function askForSSHKeyExecute(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Save local SSH Public Key file to Digital Ocean?';
         return self::askYesOrNo($question);
     }
