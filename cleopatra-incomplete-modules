@@ -26,27 +26,33 @@ Pear
 apt-get install - Needed for State Detection
 apt-get update
 
+
 C Compiler
 ---------------
 UbuntuCompiler - STARTED, EMPTY
+
 
 Security
 ----------------
 Suhosin -
 Firewall Software
 
+
 Web Servers
 ----------------
-Nginx Install
-Nginx Service Control
-LightHttpd Install
-LightHttpd Service Control
+Nginx Install - done
+Nginx Service Control - DONE DAPPERSTRANO
+LightHttpd Install  - done
+LightHttpd Service Control - DONE DAPPERSTRANO
 Zend Server
+PHP VM
+
 
 Git Servers-
 ----------------
 GitLab (Started, but to be completed)
 Gitbucket
+
 
 Databases-
 ----------------
@@ -56,27 +62,34 @@ Mongo - Install and Configure Mongo Nosql Server
 Hadoop - Install and Configure Hadoop Server
 Cassandra - Install and Configure Cassandra NOSQL Server
 
+
 DataStores
 ----------------
 Memcache
 Memcached
 Redis
 
+
 HTTP Caches
 ----------------
 Varnish
+
 
 OP Code Caches
 ----------------
 APC
 XCache
 
+
 -------------------------------------------------------------------------------
 To add to MediaTools
 https://help.ubuntu.com/community/RestrictedFormats/PlayingDVDs
 sudo apt-get install libdvdread4
 sudo /usr/share/doc/libdvdread4/install-css.sh
+
+DONE
 -------------------------------------------------------------------------------
+
 
 Server Monitoring-
 ----------------
@@ -85,19 +98,23 @@ Zenoss - Install and Configure Zenoss
 NewRelic - Install and Configure NewRelic
 TraceAlytics - Install and Configure TraceAlytics
 
+
 Testing tools
 ----------------
 PHPSpec
 Storyplayer
 Hardy CSS Regression
-Mink/Behat
-Cucumber Gem
-Capybara Gem
-Calabash Gem
+Mink/Behat  - done
+Ruby BDD
+- Cucumber Gem
+- Capybara Gem
+- Calabash Gem
+
 
 FTP Servers
 -------------------
 vsftpd
+
 
 Servlet Containers
 -------------------
@@ -105,3 +122,9 @@ Tomcat Install
 Tomcat Configure
 Jetty Install
 Jetty Configure
+
+
+PHPConf
+ApacheConf
+
+Templating Module
