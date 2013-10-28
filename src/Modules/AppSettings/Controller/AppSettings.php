@@ -10,7 +10,7 @@ class AppSettings extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        $appSettingsModel = new \Model\AppSettings();
+        $appSettingsModel = new \Model\AppSettings($pageVars["route"]["extraParams"]);
 
         if ($action=="set") {
           $this->content["configResult"] = $appSettingsModel->askWhetherToSetConfig();

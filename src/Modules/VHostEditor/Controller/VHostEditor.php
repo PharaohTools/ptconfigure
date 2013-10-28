@@ -9,18 +9,17 @@ class VHostEditor extends Base {
         $this->content["messages"] = $pageVars["messages"];
         $action = $pageVars["route"]["action"];
 
+        $VhostEditorModel = new \Model\VHostEditor($pageVars["route"]["extraParams"]);
+
         if ($action=="list") {
-            $VhostEditorModel = new \Model\VHostEditor();
             $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToListVHost();
             return array ("type"=>"view", "view"=>"VhostEditor", "pageVars"=>$this->content); }
 
         if ($action=="add") {
-            $VhostEditorModel = new \Model\VHostEditor();
             $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToCreateVHost();
             return array ("type"=>"view", "view"=>"VhostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="rm") {
-            $VhostEditorModel = new \Model\VHostEditor();
             $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToDeleteVHost();
             return array ("type"=>"view", "view"=>"VhostEditor", "pageVars"=>$this->content); }
 

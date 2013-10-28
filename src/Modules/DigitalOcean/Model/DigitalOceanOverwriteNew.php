@@ -49,6 +49,7 @@ class DigitalOceanOverwriteNew extends BaseDigitalOcean {
     }
 
     private function askForOverwriteExecute(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Overwrite current server details with new Digital Ocean Servers?';
         return self::askYesOrNo($question);
     }

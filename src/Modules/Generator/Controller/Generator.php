@@ -10,7 +10,7 @@ class Generator extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
-        $generatorModel = new \Model\Generator();
+        $generatorModel = new \Model\Generator($pageVars["route"]["extraParams"]);
 
         if ($action=="create") {
           $this->content["genCreateResult"] = $generatorModel->askWhetherToCreateAutoPilot();

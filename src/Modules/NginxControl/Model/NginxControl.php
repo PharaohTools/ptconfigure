@@ -12,22 +12,10 @@ class NginxControl extends Base {
     private $vHostEnabledDir;
     private $vHostDir = '/etc/nginx2/sites-available' ; // no trailing slash
 
-    public function askWhetherToStartNginx() {
-      if ( !$this->askForNginxCtl("start") ) { return false; }
-      $this->startNginx();
-      return true;
-    }
-
-    public function askWhetherToStopNginx() {
-      if ( !$this->askForNginxCtl("stop") ) { return false; }
-      $this->stopNginx();
-      return true;
-    }
-
-    public function askWhetherToRestartNginx() {
-      if ( !$this->askForNginxCtl("restart") ) { return false; }
-      $this->restartNginx();
-      return true;
+    public function askWhetherToCtlNginx($ctl) {
+        if ( !$this->askForNginxCtl($ctl) ) { return false; }
+        $this->{$ctl."Nginx"}();
+        return true;
     }
 
     public function runAutoPilot($autoPilot) {
@@ -59,11 +47,8 @@ class NginxControl extends Base {
     }
 
     private function askForNginxCtl($type) {
-      if (!in_array($type, array("start", "stop", "restart"))) {
-        return false; }
-      if (isset($this->params["yes"]) && $this->params["yes"]==true) {
-          return true ;
-      }
+      if (!in_array($type, array("start", "stop", "restart"))) { return false; }
+      if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
       $question = 'Do you want to '.ucfirst($type).' Nginx?';
       return self::askYesOrNo($question);
     }

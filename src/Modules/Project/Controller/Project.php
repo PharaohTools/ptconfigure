@@ -9,7 +9,7 @@ class Project extends Base {
         if ( is_array($isHelp) ) {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
-        $projectModel = new \Model\Project();
+        $projectModel = new \Model\Project($pageVars["route"]["extraParams"]);
 
         if ($action=="container") {
             $this->content["projectResult"] = $projectModel->askWhetherToInitializeProjectContainer();

@@ -7,7 +7,7 @@ class InvokeSSH extends Base {
     private $servers = array();
     private $sshCommands;
 
-    public function runAutoPilot($autoPilot){
+    public function runAutoPilot($autoPilot) {
         $this->runAutoPilotInvokeSSHData($autoPilot);
         $this->runAutoPilotInvokeSSHScript($autoPilot);
         return true;
@@ -63,6 +63,7 @@ class InvokeSSH extends Base {
         echo "Shell Completed";
         return true;
     }
+
 //
 //    public function performInvokeSSHShell() {
 //        if ($this->askForSSHShellExecute() != true) { return false; }
@@ -196,11 +197,13 @@ class InvokeSSH extends Base {
     }
 
     private function askForSSHShellExecute(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Invoke SSH Shell on Server group?';
         return self::askYesOrNo($question);
     }
 
     private function askForSSHScriptExecute(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Invoke SSH Script on Server group?';
         return self::askYesOrNo($question);
     }

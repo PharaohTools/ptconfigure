@@ -100,21 +100,25 @@ class Project extends Base  {
     }
 
     private function askForProjModifyToScreen() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to Modify Project Settings?';
         return self::askYesOrNo($question);
     }
 
     private function askForProjInitToScreen() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to initialize this as a dapperstrano project?';
         return self::askYesOrNo($question);
     }
 
     private function askForProjContainerModifyToScreen() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to Modify Project Container Settings?';
         return self::askYesOrNo($question);
     }
 
     private function askForProjContainerInitToScreen() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to initialize this as a dapperstrano project Container?';
         return self::askYesOrNo($question);
     }
@@ -134,6 +138,7 @@ class Project extends Base  {
     }
 
     private function askForProjBuildInstallToScreen() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to install the Jenkins build for this project?';
         return self::askYesOrNo($question);
     }

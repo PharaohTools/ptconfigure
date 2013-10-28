@@ -66,8 +66,7 @@ class ApacheControl extends Base {
       if (!in_array($type, array("start", "stop", "restart"))) {
         return false; }
       if (isset($this->params["yes"]) && $this->params["yes"]==true) {
-          return true ;
-      }
+          return true ; }
       $question = 'Do you want to '.ucfirst($type).' Apache?';
       return self::askYesOrNo($question);
     }
@@ -75,11 +74,22 @@ class ApacheControl extends Base {
     private function askForApacheCommand() {
       $linuxTypeFromConfig = \Model\AppConfig::getAppVariable("linux-type") ;
       if ( in_array($linuxTypeFromConfig, array("debian", "redhat") ) ) {
-        $input = ($linuxTypeFromConfig == "debian") ? "apache2" : "httpd" ; }
+          $input = ($linuxTypeFromConfig == "debian") ? "apache2" : "httpd" ; }
+      else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+          $isDebian = $this->detectDebianApacheVHostFolderExistence();
+          $input = ($isDebian) ? "apache2" : "httpd" ; }
       else {
-        $question = 'What is the apache service name?';
-        $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ; }
+          $question = 'What is the apache service name?';
+          $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ; }
       return $input ;
+    }
+
+    private function detectDebianApacheVHostFolderExistence(){
+        return file_exists("/etc/apache2/sites-available");
+    }
+
+    private function detectRHVHostFolderExistence(){
+        return file_exists("/etc/httpd/vhosts.d");
     }
 
     private function enableVHost($vHostEditorAdditionSymLinkDirectory=null){

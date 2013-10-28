@@ -46,7 +46,9 @@ class CheckoutGit extends Base {
         return true;
     }
 
-    private function askWhetherToDownload(){
+    private function askWhetherToDownload() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) {
+            return true ; }
         $question = 'Perform a clone/download of files?';
         return self::askYesOrNo($question);
     }
@@ -89,8 +91,8 @@ class CheckoutGit extends Base {
     }
 
     private function changeToProjectDirectory(){
-        if (file_exists(getcwd().'/'.$this->projectDirectory)) {
-            chdir(getcwd().'/'.$this->projectDirectory); }
+        if (file_exists(getcwd().DIRECTORY_SEPARATOR.$this->projectDirectory)) {
+            chdir(getcwd().DIRECTORY_SEPARATOR.$this->projectDirectory); }
          else {
              echo "Could not navigate to: ".getcwd().'/'.$this->projectDirectory."\n"; }
         echo "Now in: ".getcwd()."\n\n";
@@ -102,7 +104,7 @@ class CheckoutGit extends Base {
     }
 
     private function changeNewProjectPermissions(){
-        $command  = 'sudo chmod -R 755 '.getcwd().'/'.$this->projectDirectory;
+        $command  = 'sudo chmod -R 755 '.getcwd().DIRECTORY_SEPARATOR.$this->projectDirectory;
         self::executeAndOutput($command, "Changing Folder Permissions...");
     }
 

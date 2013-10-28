@@ -12,13 +12,13 @@ class Invoke extends Base {
 
         if ($action=="cli") {
 
-            $invSSHModel = new \Model\InvokeSSH();
+            $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
             $this->content["shlResult"] = $invSSHModel->askWhetherToInvokeSSHShell();
             return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
 
         if ($action=="script") {
 
-            $invSSHModel = new \Model\InvokeSSH();
+            $invSSHModel = new \Model\InvokeSSH($pageVars["route"]["extraParams"]);
             $this->content["shlResult"] = $invSSHModel->askWhetherToInvokeSSHScript($pageVars["route"]["extraParams"]);
 
             return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }

@@ -64,6 +64,8 @@ class AppSettings extends Base  {
     }
 
     private function askForConfAppSettingsToScreen() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) {
+            return true ; }
         $question = 'Do you want to Configure Application Settings?';
         return self::askYesOrNo($question);
     }

@@ -10,13 +10,13 @@ class HostEditor extends Base {
           return $isHelp; }
         $action = $pageVars["route"]["action"];
 
+        $hostEditorModel = new \Model\HostEditor($pageVars["route"]["extraParams"]);
+
         if ($action=="add") {
-            $hostEditorModel = new \Model\HostEditor();
             $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostEntry();
             return array ("type"=>"view", "view"=>"hostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="rm") {
-            $hostEditorModel = new \Model\HostEditor();
             $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostRemoval();
             return array ("type"=>"view", "view"=>"hostEditor", "pageVars"=>$this->content); }
 

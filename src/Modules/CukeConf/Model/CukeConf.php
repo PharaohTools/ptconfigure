@@ -79,11 +79,15 @@ class CukeConf extends Base {
     }
 
     private function askForCukeModToScreen(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) {
+            return true ; }
         $question = 'Do you want to modify cucumber features URI?';
         return self::askYesOrNo($question);
     }
 
     private function askForCukeResetToScreen(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) {
+            return true ; }
         $question = 'Do you want to reset cucumber features?';
         return self::askYesOrNo($question);
     }

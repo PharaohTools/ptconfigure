@@ -13,12 +13,12 @@ class CukeConf extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action=="configure" || $action== "config" || $action== "conf") {
-            $cukeConfModel = new \Model\CukeConf();
+            $cukeConfModel = new \Model\CukeConf($pageVars["route"]["extraParams"]);
             $this->content["cukeConfResult"] = $cukeConfModel->askWhetherToCreateCuke();
             return array ("type"=>"view", "view"=>"cukeConf", "pageVars"=>$this->content); }
 
         else if ($action=="reset") {
-            $cukeConfModel = new \Model\CukeConf();
+            $cukeConfModel = new \Model\CukeConf($pageVars["route"]["extraParams"]);
             $this->content["cukeConfResult"] = $cukeConfModel->askWhetherToResetCuke();
             return array ("type"=>"view", "view"=>"cukeConf", "pageVars"=>$this->content); }
 

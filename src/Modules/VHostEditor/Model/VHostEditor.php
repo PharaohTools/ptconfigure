@@ -118,21 +118,29 @@ class VhostEditor extends Base {
     }
 
     private function askForVHostEntry() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to add a VHost?';
         return self::askYesOrNo($question);
     }
 
     private function askForVHostDeletion() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to delete VHost/s?';
         return self::askYesOrNo($question);
     }
 
     private function askForEnableVHost() {
+        if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            if ($this->detectApacheVHostFolderExistence()) {
+                return true ; } }
         $question = 'Do you want to enable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
     }
 
     private function askForDisableVHost() {
+        if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            if ($this->detectApacheVHostFolderExistence()) {
+                return true ; } }
         $question = 'Do you want to disable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
     }
