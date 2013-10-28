@@ -3,15 +3,18 @@ Dapperstrano Incomplete Modules
 
 get system detection from cleo
 
-lighttpd control
+lighttpd control - done
 lighttpd vhc
-nginx control
+nginx control - done
 nginx vhc
+
+phpvm control
+phpvm vhc
 zend server control
 zend server vhc
 
 database should be split into
- - db configure (which only does string changes in files so should also allow for postgres)
+ - db configure (which only does string changes in files so should also allow for postgres or others)
  - db install (for different rdbms's, currently mysql, but postgressql, oracle, mongo)
 
 AWS
