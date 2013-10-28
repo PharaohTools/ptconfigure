@@ -21,6 +21,10 @@ class PHPConfInfo extends Base {
             "phpconf"=>"PHPConf");
     }
 
+//    public function dependencies() {
+//        return array( "PHPConf" =>  array_merge(parent::dependencies(), array("Templating") ) );
+//    }
+
     public function autoPilotVariables() {
       return array(
         "PHPConf" => array(
