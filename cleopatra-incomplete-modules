@@ -34,7 +34,7 @@ UbuntuCompiler - STARTED, EMPTY
 
 Security
 ----------------
-Suhosin -
+Suhosin
 Firewall Software
 
 
@@ -124,7 +124,24 @@ Jetty Install
 Jetty Configure
 
 
-PHPConf
-ApacheConf
+Configurers
+-------------------
+depend on templating module DONE
+PHPConf - have a template file of the .ini, and an array with the php.ini defaults. Allow params to be overridden
+    Send the template file, target location
+    50% DONE, other template vars
+ApacheConf - have a template file of the .conf, and an array with the apache defaults. Allow params to be overridden
+    50% DONE, other template vars
+
 
 Templating Module
+-------------------
+    Should accept
+    - A template file location to read
+    - An array, object or key/value file of replacements
+    - a target path/name for file
+    - a owner for target file (optional)
+    - a group for target file (optional)
+    - a permission for target file (optional)
+
+    DONE
