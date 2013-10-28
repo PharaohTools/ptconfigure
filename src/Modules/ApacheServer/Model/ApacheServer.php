@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class ApacheServer {
+class ApacheServer extends BaseModelFactory {
 
 }
