@@ -17,8 +17,8 @@ class PHPAPCUbuntu extends BaseLinuxApp {
   public function __construct($params) {
     parent::__construct($params);
     $this->autopilotDefiner = "PHPAPC";
-    $this->installCommands = array( "apt-get install -y php5-apc" );
-    $this->uninstallCommands = array( "apt-get remove -y php5-apc" );
+    $this->installCommands = array( "apt-get install -y php-apc" );
+    $this->uninstallCommands = array( "apt-get remove -y php-apc" );
     $this->programDataFolder = "/opt/PHPAPC"; // command and app dir name
     $this->programNameMachine = "phpapc"; // command and app dir name
     $this->programNameFriendly = "PHP APC!"; // 12 chars
