@@ -63,6 +63,7 @@ class Base {
                 if ( !is_object($compatibleObject) ) {
                     $errors[] = $currentKey ; } } }
       else if ( is_array($modelClassNameOrArray) ) {
+          var_dump($modelClassNameOrArray) ;
             $currentKeys = array_keys($modelClassNameOrArray) ;
             $currentKey = $currentKeys[0] ;
             $fullClassName = '\Model\\'.$currentKey;
