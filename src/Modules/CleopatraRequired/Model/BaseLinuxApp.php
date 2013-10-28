@@ -54,8 +54,7 @@ class BaseLinuxApp extends Base {
     $doUnInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToUnInstallLinuxAppToScreen();
     if (!$doUnInstall) { return false; }
-    $this->unInstall();
-    return true;
+    return $this->unInstall();
   }
   public function runAutoPilotLinuxAppInstall($autoPilot){
     $this->setAutoPilotVariables($autoPilot);
@@ -89,6 +88,7 @@ class BaseLinuxApp extends Base {
     $this->extraCommands();
     $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
+    return true;
   }
 
   private function showTitle() {
