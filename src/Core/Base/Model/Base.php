@@ -7,13 +7,14 @@ class Base {
     protected $params ;
     protected $baseTempDir ;
 
-    public function __construct() {
+    public function __construct($params = null) {
       $tempDirInConfig = \Model\AppConfig::getAppVariable("temp-directory") ;
       $tempDirInConfig = (substr($tempDirInConfig, -1, 1) == DIRECTORY_SEPARATOR) ?
-        substr($tempDirInConfig, 0, strlen($tempDirInConfig)-1) : $tempDirInConfig ;
+          substr($tempDirInConfig, 0, strlen($tempDirInConfig)-1) : $tempDirInConfig ;
       $this->baseTempDir = ($tempDirInConfig == null ) ? "/tmp/dapperstrano" : $tempDirInConfig ;
       if (!file_exists($this->baseTempDir)) {
           mkdir($this->baseTempDir, 0777, true) ; }
+      if (isset($params)) { $this->setCmdLineParams($params) ; }
     }
 
     protected function executeAndOutput($command, $message=null) {
