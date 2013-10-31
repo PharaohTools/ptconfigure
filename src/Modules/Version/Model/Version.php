@@ -8,7 +8,8 @@ class Version extends Base {
     private $appVersion ;
 
     public function runAutopilot($autpoilot){
-      $this->runAutoPilotVersion($autpoilot);
+        $this->runAutoPilotVersion($autpoilot);
+        return true;
     }
 
     public function askWhetherToVersionSpecific($params){
