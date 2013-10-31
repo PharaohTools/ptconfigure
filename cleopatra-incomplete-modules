@@ -19,12 +19,17 @@ Inter module Compatibility- one model/module should be able to call another with
 - If the above are working, is there any benefit to not spawning?
 
 
+Cleopatra
+----------------
+Cleofy should be Updated to use the Templating module
 
-Installers
+
+Package Managers
 ----------------
 Pear
 apt-get install - Needed for State Detection
 apt-get update
+Gem (RubyGems), extend a PackageManager module that apt-get and yum can also use to store dependencies
 
 
 C Compiler
