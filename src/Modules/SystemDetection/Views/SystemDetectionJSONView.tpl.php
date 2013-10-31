@@ -1,8 +1,5 @@
 <?php
 
-var_dump($pageVars["result"]) ;
-die();
-
 $json = array (
      "Operating System: " => $pageVars["result"]->os ,
      "Linux Type: " => $pageVars["result"]->linuxType ,
