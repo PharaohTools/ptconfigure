@@ -42,6 +42,7 @@ class AutoPilotConfigured extends AutoPilot {
 //
   private function setSSHData() {
     $this->steps[0]["InvokeSSH"]["sshInvokeSSHDataData"] = <<<"SSHDATA"
+sudo apt-get install -y php5 git
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
 sudo cleopatra dapperstrano install --yes=true
 SSHDATA;
