@@ -61,7 +61,7 @@ class Router {
 
     private function setRouteAction() {
         $actionSet = isset($this->bootstrapParams[2]) ;
-        $correctAct = in_array( $this->bootstrapParams[2], $this->availableRoutes[$this->bootstrapParams[1]] ) ;
+        $correctAct = ($actionSet) ? in_array( $this->bootstrapParams[2], $this->availableRoutes[$this->bootstrapParams[1]] ) : false ;
         ($actionSet && $correctAct) ? $this->route["action"] = $this->bootstrapParams[2] : $this->route = $this->getDefaultRoute();
     }
 
