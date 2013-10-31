@@ -103,7 +103,6 @@ class Base {
         $currentKeys = array_keys($modelArray) ;
         $currentKey = $currentKeys[0] ;
         $fullClassName = '\Model\\'.$currentKey;
-        echo $fullClassName ;
         $modelFactory = new $fullClassName($params);
         $currentModel = $modelFactory->getModel($params);
         $miniRay = array();
