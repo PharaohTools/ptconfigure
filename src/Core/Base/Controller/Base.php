@@ -63,7 +63,6 @@ class Base {
                 if ( !is_object($compatibleObject) ) {
                     $errors[] = $currentKey ; } } }
       else if ( is_array($modelClassNameOrArray) ) {
-          var_dump($modelClassNameOrArray) ;
             $currentKeys = array_keys($modelClassNameOrArray) ;
             $currentKey = $currentKeys[0] ;
             $fullClassName = '\Model\\'.$currentKey;
@@ -104,7 +103,9 @@ class Base {
         $currentKeys = array_keys($modelArray) ;
         $currentKey = $currentKeys[0] ;
         $fullClassName = '\Model\\'.$currentKey;
-        $currentModel = new $fullClassName($params);
+        echo $fullClassName ;
+        $modelFactory = new $fullClassName($params);
+        $currentModel = $modelFactory->getModel($params);
         $miniRay = array();
         $miniRay["appName"] = $currentModel->programNameInstaller;
         $miniRay["installResult"] = $currentModel->runAutoPilotInstall($modelArray);
