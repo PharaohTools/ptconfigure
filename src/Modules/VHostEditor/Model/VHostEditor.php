@@ -281,11 +281,11 @@ class VhostEditor extends Base {
 
     private function enableVHost($vHostEditorAdditionSymLinkDirectory=null){
         $command = 'a2ensite '.$this->url;
-        self::executeAndOutput($command, "a2ensite $this->url done");
-        $vHostEnabledDir = (isset($vHostEditorAdditionSymLinkDirectory)) ?
-            $vHostEditorAdditionSymLinkDirectory : str_replace("sites-available", "sites-enabled", $this->vHostDir );
-        $command = 'sudo ln -s '.$this->vHostDir.'/'.$this->url.' '.$vHostEnabledDir.'/'.$this->url;
-        return self::executeAndOutput($command, "VHost Enabled/Symlink Created if not done by a2ensite");
+        return self::executeAndOutput($command, "a2ensite $this->url done");
+//        $vHostEnabledDir = (isset($vHostEditorAdditionSymLinkDirectory)) ?
+//            $vHostEditorAdditionSymLinkDirectory : str_replace("sites-available", "sites-enabled", $this->vHostDir );
+//        $command = 'sudo ln -s '.$this->vHostDir.'/'.$this->url.' '.$vHostEnabledDir.'/'.$this->url;
+//        return self::executeAndOutput($command, "VHost Enabled/Symlink Created if not done by a2ensite");
     }
 
     private function disableVHost(){
