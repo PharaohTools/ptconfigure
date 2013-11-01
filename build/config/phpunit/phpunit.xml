@@ -1,0 +1,13 @@
+<phpunit>
+    <filter>
+        <blacklist>
+            <directory suffix=".php">../../../src/Views</directory>
+        </blacklist>
+        <whitelist>
+            <exclude>
+                <directory suffix=".php">../../tests/phpunit</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
+
