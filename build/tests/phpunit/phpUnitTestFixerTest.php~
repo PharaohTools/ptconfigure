@@ -1,0 +1,14 @@
+<?php
+
+$dir = '/var/www/ebayFun/ebaycodepractice/build/tests/phpunit/';
+
+fix($dir);
+
+function fix($dir) {
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::CHILD_FIRST);
+    foreach ($iterator as $path) {
+      if ($path->isFile()) {
+	 $newFullPath = str_replace('.php', 'Test.php', $path);
+         rename($path,$newFullPath);
+         echo "$path\n"; } }
+}

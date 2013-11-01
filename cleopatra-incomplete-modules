@@ -1,0 +1,152 @@
+Cleopatra Modules to be created
+---------------------------------------
+
+System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class
+in Core which detects the running OS and looks in the module for a model which Reports itself as matching The
+combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE FULY
+- Add other data like hostname, ip addresses to this
+
+State Detection - Allow the pyramid application to detect information regarding software and configuration install
+current state
+- Its already providing a default status for anything that was installed via cleo
+- Need the apt module, then the apt module can save both calling module and apt-program, so don't uninstall both
+- all modules when installing if they are a dependency, should also save themselves as such
+- this way a dependency will probably be an apt or a module
+
+Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter
+- actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more
+  than an exit code we'll need to stop spawning
+- If the above are working, is there any benefit to not spawning?
+
+
+Cleopatra
+----------------
+Cleofy should be Updated to use the Templating module
+
+
+Package Managers
+----------------
+Pear
+apt-get install - Needed for State Detection
+apt-get update
+Gem (RubyGems), extend a PackageManager module that apt-get and yum can also use to store dependencies
+
+
+C Compiler
+---------------
+UbuntuCompiler - STARTED, EMPTY
+
+
+Security
+----------------
+Suhosin
+Firewall Software
+
+
+Web Servers
+----------------
+Nginx Install - done
+Nginx Service Control - DONE DAPPERSTRANO
+LightHttpd Install  - done
+LightHttpd Service Control - DONE DAPPERSTRANO
+Zend Server
+PHP VM
+
+
+Git Servers-
+----------------
+GitLab (Started, but to be completed)
+Gitbucket
+
+
+Databases-
+----------------
+Oracle - Install and Configure Oracle RDBMS Server
+Postgres - Install and Configure PostgresSQL Server
+Mongo - Install and Configure Mongo Nosql Server
+Hadoop - Install and Configure Hadoop Server
+Cassandra - Install and Configure Cassandra NOSQL Server
+
+
+DataStores
+----------------
+Memcache
+Memcached
+Redis
+
+
+HTTP Caches
+----------------
+Varnish
+
+
+OP Code Caches
+----------------
+APC - done
+XCache
+
+
+-------------------------------------------------------------------------------
+To add to MediaTools
+https://help.ubuntu.com/community/RestrictedFormats/PlayingDVDs
+sudo apt-get install libdvdread4
+sudo /usr/share/doc/libdvdread4/install-css.sh
+
+DONE
+-------------------------------------------------------------------------------
+
+
+Server Monitoring-
+----------------
+Nagios - Install and Configure Nagios
+Zenoss - Install and Configure Zenoss
+NewRelic - Install and Configure NewRelic
+TraceAlytics - Install and Configure TraceAlytics
+
+
+Testing tools
+----------------
+PHPSpec
+Storyplayer
+Hardy CSS Regression
+Mink/Behat  - done
+Ruby BDD
+- Cucumber Gem
+- Capybara Gem
+- Calabash Gem
+
+
+FTP Servers
+-------------------
+vsftpd
+
+
+Servlet Containers
+-------------------
+Tomcat Install
+Tomcat Configure
+Jetty Install
+Jetty Configure
+
+
+Configurers
+-------------------
+depend on templating module DONE
+PHPConf - have a template file of the .ini, and an array with the php.ini defaults. Allow params to be overridden
+    Send the template file, target location
+    50% DONE, other template vars
+ApacheConf - have a template file of the .conf, and an array with the apache defaults. Allow params to be overridden
+    50% DONE, other template vars
+
+
+Templating Module
+-------------------
+    Should accept
+    - A template file location to read
+    - An array, object or key/value file of replacements
+    - a target path/name for file
+    - a owner for target file (optional)
+    - a group for target file (optional)
+    - a permission for target file (optional)
+
+    DONE
