@@ -131,7 +131,7 @@ class VhostEditor extends Base {
 
     private function askForEnableVHost() {
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-            if ($this->detectApacheVHostFolderExistence()) {
+            if ($this->detectDebianApacheVHostFolderExistence()) {
                 return true ; } }
         $question = 'Do you want to enable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
@@ -139,7 +139,7 @@ class VhostEditor extends Base {
 
     private function askForDisableVHost() {
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-            if ($this->detectApacheVHostFolderExistence()) {
+            if ($this->detectDebianApacheVHostFolderExistence()) {
                 return true ; } }
         $question = 'Do you want to disable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
@@ -165,10 +165,13 @@ class VhostEditor extends Base {
     private function askForApacheCommand() {
         $linuxTypeFromConfig = \Model\AppConfig::getAppVariable("linux-type") ;
         if ( in_array($linuxTypeFromConfig, array("debian", "redhat") ) ) {
-          $input = ($linuxTypeFromConfig == "debian") ? "apache2" : "httpd" ; }
+            $input = ($linuxTypeFromConfig == "debian") ? "apache2" : "httpd" ; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $isDebian = $this->detectDebianApacheVHostFolderExistence();
+            $input = ($isDebian) ? "apache2" : "httpd" ; }
         else {
-          $question = 'What is the service name of apache?';
-          $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ; }
+            $question = 'What is the apache service name?';
+            $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ; }
         return $input ;
     }
 
@@ -185,7 +188,7 @@ class VhostEditor extends Base {
 
     private function askForVHostDirectory(){
         $question = 'What is your VHost directory?';
-        if ($this->detectApacheVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - Enter nothing to use this';
+        if ($this->detectDebianApacheVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - Enter nothing to use this';
             $input = self::askForInput($question);
             return ($input=="") ? $this->vHostDir : $input ;  }
         if ($this->detectRHVHostFolderExistence()) { $question .= ' Found "/etc/httpd/vhosts.d" - Enter nothing to use this';
@@ -214,7 +217,7 @@ class VhostEditor extends Base {
         }
     }
 
-    private function detectApacheVHostFolderExistence(){
+    private function detectDebianApacheVHostFolderExistence(){
         return file_exists("/etc/apache2/sites-available");
     }
 
