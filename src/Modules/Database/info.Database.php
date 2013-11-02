@@ -58,7 +58,7 @@ class DatabaseInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Databasing Functions.
+  This command is part of Default Modules and handles Databasing Functions.
 
   Database, database, db
 

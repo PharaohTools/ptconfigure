@@ -65,7 +65,7 @@ HELPDATA
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles SSH Connection Functions.
+  This command is part of Default Modules and handles SSH Connection Functions.
 
   Invoke, invoke, inv
 

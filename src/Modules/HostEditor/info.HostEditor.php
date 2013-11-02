@@ -37,7 +37,7 @@ class HostEditorInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Host File Management Functions.
+  This command is part of Default Modules and handles Host File Management Functions.
 
   HostEditor, hosteditor, he, hostEditor
 

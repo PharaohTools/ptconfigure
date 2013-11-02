@@ -47,7 +47,7 @@ class VHostEditorInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Apache VHosts Functions.
+  This command is part of Default Modules and handles Apache VHosts Functions.
 
   VHostEditor, vhosteditor, vhc, vhosted
 

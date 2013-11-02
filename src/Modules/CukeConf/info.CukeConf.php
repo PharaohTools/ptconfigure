@@ -34,7 +34,7 @@ class CukeConfInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and provides you  with a method by which you can configure Cucumber configurations
+  This command is part of Default Modules and provides you  with a method by which you can configure Cucumber configurations
 
   CukeConf, cukeConf, cukeconf, cuke
 

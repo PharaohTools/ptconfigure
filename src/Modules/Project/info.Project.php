@@ -40,7 +40,7 @@ class ProjectInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Project initialisation functions, like configuring a project, or a project
+  This command is part of Default Modules and handles Project initialisation functions, like configuring a project, or a project
   container and also installing Jenkins build files into a running Jenkins instance.
 
   Project, project, proj

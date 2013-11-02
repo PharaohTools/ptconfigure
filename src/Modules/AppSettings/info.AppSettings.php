@@ -26,7 +26,7 @@ class AppSettingsInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and provides you  with a method by which you can configure Application Settings.
+  This command is part of Default Modules and provides you  with a method by which you can configure Application Settings.
   You can configure default application settings, ie: mysql admin user, host, pass
 
   AppSettings, appsettings
