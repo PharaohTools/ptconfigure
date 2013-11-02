@@ -35,7 +35,7 @@ class VersionInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Application Versioning, allowing for rollbacks and the like.
+  This command is part of Default Modules and handles Application Versioning, allowing for rollbacks and the like.
 
   Version, version, vrs
 

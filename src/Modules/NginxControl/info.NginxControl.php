@@ -39,7 +39,7 @@ class NginxControlInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Nginx Server Control Functions.
+  This command is part of Default Modules and handles Nginx Server Control Functions.
 
   NginxControl, nginxcontrol, nginxctl
 

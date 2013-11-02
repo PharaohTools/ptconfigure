@@ -22,7 +22,7 @@ class IndexInfo {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core - its the default route and only used for help and as an Intro really...
+  This command is part of Default Modules - its the default route and only used for help and as an Intro really...
 HELPDATA;
       return $help ;
     }

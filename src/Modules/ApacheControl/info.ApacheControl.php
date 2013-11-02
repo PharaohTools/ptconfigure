@@ -39,7 +39,7 @@ class ApacheControlInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Apache Server Control Functions.
+  This command is part of Default Modules and handles Apache Server Control Functions.
 
   ApacheControl, apachecontrol, apachectl
 

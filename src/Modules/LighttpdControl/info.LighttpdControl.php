@@ -39,7 +39,7 @@ class LighttpdControlInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and handles Lighttpd Server Control Functions.
+  This command is part of Default Modules and handles Lighttpd Server Control Functions.
 
   LighttpdControl, lighttpdcontrol, lighttpdctl
 

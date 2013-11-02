@@ -22,7 +22,7 @@ class GeneratorInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and provides you with a method by which you can
+  This command is part of Default Modules and provides you with a method by which you can
   create Autopilot files from the command line.
   You can configure default application settings, ie: mysql admin user, host, pass
 
