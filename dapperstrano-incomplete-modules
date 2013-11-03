@@ -6,8 +6,11 @@ get system detection from cleo
 
 lighttpd control - done
 lighttpd vhc
+ - add enable/disable vhost
 nginx control - done
-nginx vhc
+nginx vhc - done
+ - add enable/disable srv blk - done
+ - add guess - done
 
 phpvm control
 phpvm vhc
@@ -24,7 +27,8 @@ CVS
 SVN
 Mercurial
 
-Checkout should become Git
+Checkout should become Git  - DONE
 
-VHC need to add --guess parameter
+VHC need to add --guess parameter - done
 VHC needs to become Apache-VHC, so that we can make the LigHTTPD and Nginx modules, and deploy to those nice n easy
+ - add enable/disable vhost
