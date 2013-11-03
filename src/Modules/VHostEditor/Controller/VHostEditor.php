@@ -19,8 +19,16 @@ class VHostEditor extends Base {
             $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToCreateVHost();
             return array ("type"=>"view", "view"=>"VhostEditor", "pageVars"=>$this->content); }
 
-        else if ($action=="rm") {
+        else if ($action=="remove" || $action=="rm") {
             $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToDeleteVHost();
+            return array ("type"=>"view", "view"=>"VhostEditor", "pageVars"=>$this->content); }
+
+        else if ($action=="enable" || $action=="en") {
+            $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToEnableVHost();
+            return array ("type"=>"view", "view"=>"VhostEditor", "pageVars"=>$this->content); }
+
+        else if ($action=="disable" || $action=="dis") {
+            $this->content["VhostEditorResult"] = $VhostEditorModel->askWhetherToDisableVHost();
             return array ("type"=>"view", "view"=>"VhostEditor", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid VHost Creator Action";
