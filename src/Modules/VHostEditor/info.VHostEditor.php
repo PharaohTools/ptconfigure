@@ -13,7 +13,8 @@ class VHostEditorInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "VHostEditor" => array_merge(parent::routesAvailable(), array("add", "rm", "list") ) );
+      return array( "VHostEditor" => array_merge(parent::routesAvailable(), array("add", "rm", "remove", "list",
+          "enable", "en", "disable", "dis") ) );
     }
 
     public function routeAliases() {
@@ -62,6 +63,14 @@ class VHostEditorInfo extends Base {
           - list
           List current Virtual Hosts
           example: dapperstrano vhc list
+
+          - enable
+          enable a Server Block
+          example: dapperstrano vhc enable
+
+          - disable
+          disable a Server Block
+          example: dapperstrano vhc disable
 
 HELPDATA;
       return $help ;

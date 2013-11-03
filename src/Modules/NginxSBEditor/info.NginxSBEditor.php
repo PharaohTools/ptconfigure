@@ -13,7 +13,8 @@ class NginxSBEditorInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "NginxSBEditor" => array_merge(parent::routesAvailable(), array("add", "rm", "list") ) );
+      return array( "NginxSBEditor" => array_merge(parent::routesAvailable(), array("add", "rm", "remove", "list",
+          "enable", "en", "disable", "dis") ) );
     }
 
     public function routeAliases() {
@@ -62,6 +63,14 @@ class NginxSBEditorInfo extends Base {
           - list
           List current Server Blocks
           example: dapperstrano nginxsbe list
+
+          - enable
+          enable a Server Block
+          example: dapperstrano nginxsbe enable
+
+          - disable
+          disable a Server Block
+          example: dapperstrano nginxsbe disable
 
 HELPDATA;
       return $help ;

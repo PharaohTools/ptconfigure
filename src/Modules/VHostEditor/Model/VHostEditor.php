@@ -16,7 +16,8 @@ class VhostEditor extends Base {
     private $vHostTemplateDir;
     private $vHostDefaultTemplates;
 
-    public function __construct() {
+    public function __construct($params) {
+      parent::__construct($params);
       $this->setVHostDefaultTemplates();
     }
 
@@ -30,6 +31,14 @@ class VhostEditor extends Base {
 
     public function askWhetherToDeleteVHost() {
         return $this->performVHostDeletion();
+    }
+
+    public function askWhetherToEnableVHost() {
+        return $this->performVHostEnable();
+    }
+
+    public function askWhetherToDisableVHost() {
+        return $this->performVHostDisable();
     }
 
     private function performVHostListing() {
@@ -70,6 +79,27 @@ class VhostEditor extends Base {
             $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
             $this->disableVHost(); }
         $this->attemptVHostDeletion();
+        $this->apacheCommand = $this->askForApacheCommand();
+        $this->restartApache();
+        return true;
+    }
+
+    private function performVHostEnable() {
+        if ( $this->askForEnableVHost() ) {
+            $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
+            $urlRay = $this->selectVHostInProjectOrFS() ;
+            $this->url = $urlRay[0] ;
+            $this->enableVHost(); }
+        $this->apacheCommand = $this->askForApacheCommand();
+        $this->restartApache();
+        return true;
+    }
+
+    private function performVHostDisable(){
+        if ( $this->askForDisableVHost() ) {
+            $this->vHostEnabledDir = $this->askForVHostEnabledDirectory();
+            $this->vHostForDeletion = $this->selectVHostInProjectOrFS();
+            $this->disableVHost(); }
         $this->apacheCommand = $this->askForApacheCommand();
         $this->restartApache();
         return true;
@@ -132,7 +162,9 @@ class VhostEditor extends Base {
     private function askForEnableVHost() {
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
-                return true ; } }
+                echo "You have a sites available dir, guessing you need to enable a Virtual Host.\n" ;
+                return true ; }
+            else { echo "You don't have a sites available dir, guessing you don't need to enable a Virtual Host.\n"; } }
         $question = 'Do you want to enable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
     }
@@ -140,7 +172,9 @@ class VhostEditor extends Base {
     private function askForDisableVHost() {
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
-                return true ; } }
+                echo "You have a sites available dir, guessing you need to disable a Virtual Host.\n" ;
+                return true ; }
+            else { echo "You don't have a sites available dir, guessing you don't need to disable a Virtual Host.\n"; } }
         $question = 'Do you want to disable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
     }
@@ -182,6 +216,8 @@ class VhostEditor extends Base {
     }
 
     private function checkVHostOkay(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) {
+            echo $this->vHostTemplate."\n\nAssuming Okay due to yes parameter"; }
         $question = 'Please check VHost: '.$this->vHostTemplate."\n\nIs this Okay?";
         return self::askYesOrNo($question);
     }
@@ -198,8 +234,12 @@ class VhostEditor extends Base {
     }
 
     private function askForVHostEnabledDirectory(){
-        $question = 'What is your Enabled/Available/Symlink VHost directory?';
-        if ($this->detectVHostEnabledFolderExistence()) { $question .= ' Found "/etc/apache2/sites-enabled" - Enter nothing to use this';
+        $question = 'What is your Enabled Symlink Virtual Host directory?';
+        if ($this->detectVHostEnabledFolderExistence()) {
+            if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                echo "Guessing /etc/apache2/sites-enabled \n";
+                return "/etc/apache2/sites-enabled" ; }
+            $question .= ' Found "/etc/apache2/sites-enabled" - Enter nothing to use this';
             $input = self::askForInput($question);
             return ($input=="") ? $this->vHostDir : $input ;  }
         return self::askForInput($question, true);
@@ -285,25 +325,28 @@ class VhostEditor extends Base {
     private function enableVHost($vHostEditorAdditionSymLinkDirectory=null){
         $command = 'a2ensite '.$this->url;
         return self::executeAndOutput($command, "a2ensite $this->url done");
-//        $vHostEnabledDir = (isset($vHostEditorAdditionSymLinkDirectory)) ?
-//            $vHostEditorAdditionSymLinkDirectory : str_replace("sites-available", "sites-enabled", $this->vHostDir );
-//        $command = 'sudo ln -s '.$this->vHostDir.'/'.$this->url.' '.$vHostEnabledDir.'/'.$this->url;
-//        return self::executeAndOutput($command, "VHost Enabled/Symlink Created if not done by a2ensite");
     }
 
     private function disableVHost(){
         foreach ($this->vHostForDeletion as $vHost) {
             $command = 'a2dissite '.$vHost;
-            self::executeAndOutput($command, "a2dissite $vHost done");
-            $command = 'sudo rm -f '.$this->vHostEnabledDir.'/'.$vHost;
-            self::executeAndOutput($command, "VHost $vHost Disabled  if existed"); }
+            self::executeAndOutput($command, "a2dissite $vHost done"); }
         return true;
     }
 
     private function restartApache(){
-        echo "Restarting Apache...\n";
-        $command = "sudo service $this->apacheCommand restart";
-        return self::executeAndOutput($command);
+        if ( (isset($autoPilot) && $autoPilot==true)  ||
+            (isset($this->params["yes"]) && $this->params["yes"]==true) ) {
+            $doRestart = true ; }
+        else {
+            $question = 'Do you want to restart Apache?';
+            $doRestart = self::askYesOrNo($question); }
+        if ($doRestart == true) {
+            echo "Restarting Apache...\n";
+            $command = "sudo service $this->apacheCommand restart";
+            self::executeAndOutput($command); }
+        else {
+            echo "Not Restarting Apache...\n"; }
     }
 
     private function checkIsDHProject() {
@@ -340,12 +383,14 @@ class VhostEditor extends Base {
         echo $question;
     }
 
-    private function selectVHostInProjectOrFS(){
+    private function selectVHostInProjectOrFS() {
+        if (isset($this->params["site"])) {
+            return array($this->params["site"]) ; }
         $projResults = ($this->checkIsDHProject())
           ? \Model\AppConfig::getProjectVariable("virtual-hosts")
           : array() ;
         $otherResults = scandir($this->vHostDir);
-        $question = "Please Choose VHost for Deletion:\n";
+        $question = "Please Choose VHost:\n";
         $i1 = $i2 = 0;
         $availableVHosts = array();
         if (count($projResults)>0) {

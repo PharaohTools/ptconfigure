@@ -15,12 +15,20 @@ class NginxSBEditor extends Base {
             $this->content["NginxSBEditorResult"] = $NginxSBEditorModel->askWhetherToListServerBlock();
             return array ("type"=>"view", "view"=>"NginxSBEditor", "pageVars"=>$this->content); }
 
-        if ($action=="add") {
+        else if ($action=="add") {
             $this->content["NginxSBEditorResult"] = $NginxSBEditorModel->askWhetherToCreateServerBlock();
             return array ("type"=>"view", "view"=>"NginxSBEditor", "pageVars"=>$this->content); }
 
-        else if ($action=="rm") {
+        else if ($action=="remove" || $action=="rm") {
             $this->content["NginxSBEditorResult"] = $NginxSBEditorModel->askWhetherToDeleteServerBlock();
+            return array ("type"=>"view", "view"=>"NginxSBEditor", "pageVars"=>$this->content); }
+
+        else if ($action=="enable" || $action=="en") {
+            $this->content["NginxSBEditorResult"] = $NginxSBEditorModel->askWhetherToEnableServerBlock();
+            return array ("type"=>"view", "view"=>"NginxSBEditor", "pageVars"=>$this->content); }
+
+        else if ($action=="disable" || $action=="dis") {
+            $this->content["NginxSBEditorResult"] = $NginxSBEditorModel->askWhetherToDisableServerBlock();
             return array ("type"=>"view", "view"=>"NginxSBEditor", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid ServerBlock Creator Action";

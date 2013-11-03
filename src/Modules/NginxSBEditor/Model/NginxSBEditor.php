@@ -16,8 +16,9 @@ class NginxSBEditor extends Base {
     private $ServerBlockTemplateDir;
     private $ServerBlockDefaultTemplates;
 
-    public function __construct() {
-      $this->setServerBlockDefaultTemplates();
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->setServerBlockDefaultTemplates();
     }
 
     public function askWhetherToListServerBlock() {
@@ -30,6 +31,14 @@ class NginxSBEditor extends Base {
 
     public function askWhetherToDeleteServerBlock() {
         return $this->performServerBlockDeletion();
+    }
+
+    public function askWhetherToEnableServerBlock() {
+        return $this->performServerBlockEnable();
+    }
+
+    public function askWhetherToDisableServerBlock() {
+        return $this->performServerBlockDisable();
     }
 
     private function performServerBlockListing() {
@@ -53,7 +62,6 @@ class NginxSBEditor extends Base {
         if ( $this->askForEnableServerBlock() ) {
             $this->ServerBlockEnabledDir = $this->askForServerBlockEnabledDirectory();
             $this->enableServerBlock(); }
-        $this->NginxCommand = $this->askForNginxCommand();
         $this->restartNginx();
         return true;
     }
@@ -64,12 +72,30 @@ class NginxSBEditor extends Base {
         $this->ServerBlockDir = $this->askForServerBlockDirectory();
         $this->ServerBlockForDeletion = $this->selectServerBlockInProjectOrFS();
         if ( self::areYouSure("Definitely delete ServerBlock?") == false ) {
-          return false; }
+            return false; }
         if ( $this->askForDisableServerBlock() ) {
             $this->ServerBlockEnabledDir = $this->askForServerBlockEnabledDirectory();
             $this->disableServerBlock(); }
         $this->attemptServerBlockDeletion();
-        $this->NginxCommand = $this->askForNginxCommand();
+        $this->restartNginx();
+        return true;
+    }
+
+    private function performServerBlockEnable() {
+        if ( $this->askForEnableServerBlock() ) {
+            $this->ServerBlockEnabledDir = $this->askForServerBlockEnabledDirectory();
+            $urlRay = $this->selectServerBlockInProjectOrFS() ;
+            $this->url = $urlRay[0] ;
+            $this->enableServerBlock(); }
+        $this->restartNginx();
+        return true;
+    }
+
+    private function performServerBlockDisable(){
+        if ( $this->askForDisableServerBlock() ) {
+            $this->ServerBlockEnabledDir = $this->askForServerBlockEnabledDirectory();
+            $this->ServerBlockForDeletion = $this->selectServerBlockInProjectOrFS();
+            $this->disableServerBlock(); }
         $this->restartNginx();
         return true;
     }
@@ -97,7 +123,7 @@ class NginxSBEditor extends Base {
         $this->attemptServerBlockWrite($autoPilot["serverBlockEditorAdditionFileSuffix"]);
         if ( $autoPilot["serverBlockEditorAdditionServerBlockEnable"]==true ) {
             $this->enableServerBlock($autoPilot["serverBlockEditorAdditionSymLinkDirectory"]); }
-        $this->restartNginx();
+        $this->restartNginx($autoPilot["serverBlockEditorAdditionRestartNginx"]);
         return true;
     }
 
@@ -110,7 +136,7 @@ class NginxSBEditor extends Base {
         if ( $autoPilot["serverBlockEditorDeletionServerBlockDisable"]==true ) {
             $this->disableServerBlock($autoPilot["serverBlockEditorDeletionSymLinkDirectory"]); }
         $this->attemptServerBlockDeletion();
-        $this->restartNginx();
+        $this->restartNginx($autoPilot["serverBlockEditorAdditionRestartNginx"]);
         return true;
     }
 
@@ -127,14 +153,14 @@ class NginxSBEditor extends Base {
     }
 
     private function askForEnableServerBlock() {
-        if (isset($this->params["guess"]) && $this->params["guess"]==true) {  return true ; }
-        $question = 'Do you want to enable this ServerBlock?';
+        if (isset($this->params["guess"]) && $this->params["guess"]==true) { return true ; }
+        $question = 'Do you want to enable a ServerBlock?';
         return self::askYesOrNo($question);
     }
 
     private function askForDisableServerBlock() {
         if (isset($this->params["guess"]) && $this->params["guess"]==true) { return true ; }
-        $question = 'Do you want to disable this ServerBlock?';
+        $question = 'Do you want to disable a ServerBlock?';
         return self::askYesOrNo($question);
     }
 
@@ -145,6 +171,7 @@ class NginxSBEditor extends Base {
     }
 
     private function askForHostURL() {
+        if (isset($this->params["site"])) { return $this->params["site"] ; }
         $question = 'What URL do you want to add as server name?';
         return self::askForInput($question, true);
     }
@@ -162,17 +189,37 @@ class NginxSBEditor extends Base {
 
     private function askForServerBlockDirectory(){
         $question = 'What is your ServerBlock directory?';
-        if ($this->detectNginxServerBlockFolderExistence()) { $question .= ' Found "/etc/nginx/sites-available" - Enter nothing to use this';
+        if ($this->detectNginxServerBlockFolderExistence()) {
+            if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                echo 'Guessed "/etc/nginx/sites-available" - Using this'."\n";
+                return "/etc/nginx/sites-available" ; }
+            $question .= ' Found "/etc/nginx/sites-available" - Enter nothing to use this';
             $input = self::askForInput($question);
             return ($input=="") ? $this->ServerBlockDir : $input ;  }
         return self::askForInput($question, true);
     }
 
     private function askForServerBlockEnabledDirectory(){
-        $question = 'What is your Enabled/Available/Symlink ServerBlock directory?';
-        if ($this->detectServerBlockEnabledFolderExistence()) { $question .= ' Found "/etc/nginx/sites-enabled" - Enter nothing to use this';
+        $question = 'What is your Enabled Symlink ServerBlock directory?';
+        if ($this->detectServerBlockEnabledFolderExistence()) {
+            if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                echo 'Guessed "/etc/nginx/sites-enabled" - Using this'."\n";
+                return "/etc/nginx/sites-enabled" ; }
+            $question .= ' Found "/etc/nginx/sites-enabled" - Enter nothing to use this';
             $input = self::askForInput($question);
             return ($input=="") ? $this->ServerBlockDir : $input ;  }
+        return self::askForInput($question, true);
+    }
+
+    private function askForServerBlockAvailableDirectory(){
+        $question = 'What is your Available ServerBlock directory?';
+        if ($this->detectNginxServerBlockFolderExistence()) {
+            if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                echo 'Guessed "/etc/nginx/sites-available" - Using this'."\n";
+                return "/etc/nginx/sites-available" ; }
+            $question .= ' Found "/etc/nginx/sites-available" - Enter nothing to use this';
+            $input = self::askForInput($question);
+            return ($input=="") ? "/etc/nginx/sites-available" : $input ;  }
         return self::askForInput($question, true);
     }
 
@@ -249,22 +296,38 @@ class NginxSBEditor extends Base {
             \Model\AppConfig::setProjectVariable("server-blocks", $allProjectServerBlocks); }
     }
 
-    private function enableServerBlock($NginxSBEditorAdditionSymLinkDirectory=null){
-        $command = 'nginx_ensite '.$this->url;
-        return self::executeAndOutput($command, "a2ensite $this->url done");
+    private function enableServerBlock($NginxSBEditorAdditionSymLinkDirectory=null) {
+        $srvBlockAvailDir = (isset($NginxSBEditorAdditionSymLinkDirectory)) ?
+            $NginxSBEditorAdditionSymLinkDirectory : str_replace("sites-enabled", "sites-available", $this->ServerBlockEnabledDir );
+        if (file_exists($this->ServerBlockEnabledDir.DIRECTORY_SEPARATOR.$this->url)) {
+            echo "Symlink already exists\n" ;
+            self::executeAndOutput("sudo rm $this->ServerBlockEnabledDir".DIRECTORY_SEPARATOR.$this->url, "Existing Symlink deleted"); }
+        $command = 'sudo ln -s ' .$srvBlockAvailDir.DIRECTORY_SEPARATOR.$this->url  .
+            ' ' .$this->ServerBlockEnabledDir.DIRECTORY_SEPARATOR.$this->url;
+        return self::executeAndOutput($command, "Server Block Enabled Symlink Created");
     }
 
     private function disableServerBlock(){
+        $srvAvailDir = str_replace("sites-available", "sites-enabled", $this->ServerBlockEnabledDir ) ;
         foreach ($this->ServerBlockForDeletion as $ServerBlock) {
-            $command = 'nginx_dissite '.$ServerBlock;
-            self::executeAndOutput($command, "nginx_dissite $ServerBlock done"); }
+            $command = 'sudo rm -f '.$srvAvailDir.DIRECTORY_SEPARATOR.$ServerBlock;
+            self::executeAndOutput($command, "Server Block $ServerBlock Disabled  if existed");  }
         return true;
     }
 
-    private function restartNginx(){
-        echo "Restarting Nginx...\n";
-        $command = "sudo service nginx restart";
-        return self::executeAndOutput($command);
+    private function restartNginx($autoPilot = null ){
+        if ( (isset($autoPilot) && $autoPilot==true)  ||
+             (isset($this->params["yes"]) && $this->params["yes"]==true) ) {
+            $doRestart = true ; }
+        else {
+            $question = 'Do you want to restart Nginx?';
+            $doRestart = self::askYesOrNo($question); }
+        if ($doRestart == true) {
+            echo "Restarting Nginx...\n";
+            $command = "sudo service nginx restart";
+            self::executeAndOutput($command); }
+        else {
+            echo "Not Restarting Nginx...\n"; }
     }
 
     private function checkIsDHProject() {
@@ -302,11 +365,13 @@ class NginxSBEditor extends Base {
     }
 
     private function selectServerBlockInProjectOrFS(){
+        if (isset($this->params["site"])) {
+            return array($this->params["site"]) ; }
         $projResults = ($this->checkIsDHProject())
           ? \Model\AppConfig::getProjectVariable("server-blocks")
           : array() ;
         $otherResults = scandir($this->ServerBlockDir);
-        $question = "Please Choose ServerBlock for Deletion:\n";
+        $question = "Please Choose ServerBlock:\n";
         $i1 = $i2 = 0;
         $availableServerBlocks = array();
         if (count($projResults)>0) {
@@ -379,6 +444,17 @@ server {
 
         # Make site accessible from http://localhost/
         server_name ****SERVER NAME**** ;
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
 }
 
 TEMPLATE1;
@@ -393,6 +469,17 @@ server {
 
         # Make site accessible from http://localhost/
         server_name ****SERVER NAME**** ;
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
 }
 TEMPLATE2;
 
@@ -407,6 +494,17 @@ server {
 
         # Make site accessible from http://localhost/
         server_name ****SERVER NAME**** ;
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
 }
 TEMPLATE3;
 
@@ -420,6 +518,17 @@ server {
 
         # Make site accessible from http://localhost/
         server_name ****SERVER NAME**** ;
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
 }
 TEMPLATE4;
 
@@ -433,6 +542,17 @@ server {
 
         # Make site accessible from http://localhost/
         server_name ****SERVER NAME**** ;
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
 }
 TEMPLATE5;
 
