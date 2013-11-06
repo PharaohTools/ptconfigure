@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "projectContainerInitExecute" => true,
                     "projectContainerDirectory" => "****dap_proj_cont_dir****",
           ) , ) ,
-          array ( "CheckoutGit" => array(
+          array ( "Git" => array(
                     "gitCheckoutExecute" => true,
                     "gitCheckoutProjectOriginRepo" => "****dap_git_repo_url****",
                     "gitCheckoutCustomCloneFolder" => "",
@@ -69,13 +69,16 @@ class AutoPilotConfigured extends AutoPilot {
                     "versionArrayPointToRollback" => "0",
                     "versionLimit" => "****dap_version_num_revisions****",
           ) , ) ,
+              array ( "ApacheControl" => array(
+                  "apacheCtlRestartExecute" => true,
+              ) , ) ,
 	      );
 
 	  }
 
 
  private function setRevisionFolderName() {
-   $this->steps[1]["CheckoutGit"]["gitCheckoutCustomCloneFolder"] = time() ;
+   $this->steps[1]["Git"]["gitCheckoutCustomCloneFolder"] = time() ;
  }
 
 
@@ -83,7 +86,7 @@ class AutoPilotConfigured extends AutoPilot {
  // You need to call this from your constructor
  private function calculateVHostDocRoot() {
     $this->steps[3]["VHostEditor"]["virtualHostEditorAdditionDocRoot"]
-        = "****dap_proj_cont_dir****".$this->steps[1]["CheckoutGit"]["gitCheckoutCustomCloneFolder"];
+        = "****dap_proj_cont_dir****".$this->steps[1]["Git"]["gitCheckoutCustomCloneFolder"];
  }
 
  // This function will set the vhost template for your Virtual Host

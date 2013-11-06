@@ -79,6 +79,9 @@ class AutoPilotConfigured extends AutoPilot {
                     "versionArrayPointToRollback" => "0",
                     "versionLimit" => "****dap_version_num_revisions****",
               ) , ) ,
+              array ( "ApacheControl" => array(
+                  "apacheCtlRestartExecute" => true,
+              ) , ) ,
 	      );
 
 	  }

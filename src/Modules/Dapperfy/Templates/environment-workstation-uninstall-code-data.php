@@ -22,7 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
 
 	    $this->steps =
 	      array(
-              array ( "CheckoutGit" => array(
+              array ( "Git" => array(
                   "gitDeletorExecute" => true,
                   "gitDeletorCustomFolder" => "****dap_proj_cont_dir****"
               ), ) ,
@@ -47,6 +47,9 @@ class AutoPilotConfigured extends AutoPilot {
                   "dbDropDBRootPass" => "****dap_db_admin_user_pass****",
                   "dbDropUserExecute" => true,
                   "dbDropDBUser" => "****dap_db_app_user_name****",
+              ) , ) ,
+              array ( "ApacheControl" => array(
+                  "apacheCtlRestartExecute" => true,
               ) , ) ,
 	      );
 

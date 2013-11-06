@@ -42,10 +42,10 @@ class ApacheControl extends Base {
     }
 
     public function runAutoPilotApacheCtlStart($autoPilot){
-      if ( !isset($autoPilot["apacheCtlStartExecute"]) ||
-        $autoPilot["apacheCtlStartExecute"] == false ) { return false; }
-      $this->startApache();
-      return true;
+        if ( !isset($autoPilot["apacheCtlStartExecute"]) ||
+            $autoPilot["apacheCtlStartExecute"] == false ) { return false; }
+        $this->startApache();
+        return true;
     }
 
     public function runAutoPilotApacheCtlRestart($autoPilot){

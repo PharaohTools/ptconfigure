@@ -60,7 +60,7 @@ class AppConfig {
 
     private static function saveProjectFile($appConfigArray) {
         $appConfigSerialized = serialize($appConfigArray);
-        file_put_contents('papyrusfile', $appConfigSerialized);
+        file_put_contents(getcwd().DIRECTORY_SEPARATOR.'papyrusfile', $appConfigSerialized);
         chmod('papyrusfile', 0777);
     }
 

@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
 
 	    $this->steps =
 	      array(
-              array ( "CheckoutGit" => array(
+              array ( "Git" => array(
                   "gitDeletorExecute" => true,
                   "gitDeletorCustomFolder" => "****dap_proj_cont_dir****"
               ), ) ,
@@ -39,6 +39,9 @@ class AutoPilotConfigured extends AutoPilot {
                   "virtualHostEditorDeletionVHostDisable" => false,
                   "virtualHostEditorDeletionSymLinkDirectory" => "/etc/apache2/sites-enabled",
                   "virtualHostEditorDeletionApacheCommand" => "apache2",
+              ) , ) ,
+              array ( "ApacheControl" => array(
+                  "apacheCtlRestartExecute" => true,
               ) , ) ,
 	      );
 

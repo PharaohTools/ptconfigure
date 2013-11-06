@@ -55,6 +55,9 @@ class AutoPilotConfigured extends AutoPilot {
                         "dbConfigureDBName" => "****dap_db_name****",
                         "dbConfigurePlatform" => "****dap_db_platform****",
               ) , ) ,
+            array ( "ApacheControl" => array(
+                "apacheCtlRestartExecute" => true,
+            ) , ) ,
 	      );
 
 	  }

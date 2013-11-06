@@ -43,6 +43,9 @@ class AutoPilotConfigured extends AutoPilot {
                     "virtualHostEditorAdditionSymLinkDirectory" => "/etc/apache2/sites-enabled",
                     "virtualHostEditorAdditionApacheCommand" => "apache2",
           ) , ) ,
+              array ( "ApacheControl" => array(
+                  "apacheCtlRestartExecute" => true,
+              ) , ) ,
 	      );
 
 	}
