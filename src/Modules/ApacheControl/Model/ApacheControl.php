@@ -44,6 +44,8 @@ class ApacheControl extends Base {
     public function runAutoPilotApacheCtlStart($autoPilot){
         if ( !isset($autoPilot["apacheCtlStartExecute"]) ||
             $autoPilot["apacheCtlStartExecute"] == false ) { return false; }
+        $this->params["guess"] = true ;
+        $this->apacheCommand = $this->askForApacheCommand();
         $this->startApache();
         return true;
     }
@@ -51,6 +53,8 @@ class ApacheControl extends Base {
     public function runAutoPilotApacheCtlRestart($autoPilot){
       if ( !isset($autoPilot["apacheCtlRestartExecute"]) ||
         $autoPilot["apacheCtlRestartExecute"] == false ) { return false; }
+        $this->params["guess"] = true ;
+        $this->apacheCommand = $this->askForApacheCommand();
       $this->restartApache();
       return true;
     }
@@ -58,6 +62,8 @@ class ApacheControl extends Base {
     public function runAutoPilotApacheCtlStop($autoPilot){
       if ( !isset($autoPilot["apacheCtlStopExecute"]) ||
         $autoPilot["apacheCtlStopExecute"] == false ) { return false; }
+        $this->params["guess"] = true ;
+        $this->apacheCommand = $this->askForApacheCommand();
       $this->stopApache();
       return true;
     }
