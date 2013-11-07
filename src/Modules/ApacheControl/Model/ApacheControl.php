@@ -94,28 +94,6 @@ class ApacheControl extends Base {
         return file_exists("/etc/apache2/sites-available");
     }
 
-    private function detectRHVHostFolderExistence(){
-        return file_exists("/etc/httpd/vhosts.d");
-    }
-
-    private function enableVHost($vHostEditorAdditionSymLinkDirectory=null){
-        $command = 'a2ensite '.$this->url;
-        self::executeAndOutput($command, "a2ensite $this->url done");
-        $vHostEnabledDir = (isset($vHostEditorAdditionSymLinkDirectory)) ?
-            $vHostEditorAdditionSymLinkDirectory : str_replace("sites-available", "sites-enabled", $this->vHostDir );
-        $command = 'sudo ln -s '.$this->vHostDir.'/'.$this->url.' '.$vHostEnabledDir.'/'.$this->url;
-        return self::executeAndOutput($command, "VHost Enabled/Symlink Created if not done by a2ensite");
-    }
-
-    private function disableVHost(){
-        foreach ($this->vHostForDeletion as $vHost) {
-            $command = 'a2dissite '.$vHost;
-            self::executeAndOutput($command, "a2dissite $vHost done");
-            $command = 'sudo rm -f '.$this->vHostEnabledDir.'/'.$vHost;
-            self::executeAndOutput($command, "VHost $vHost Disabled  if existed"); }
-        return true;
-    }
-
     private function restartApache(){
         echo "Restarting Apache...\n";
         $command = "sudo service $this->apacheCommand restart";
