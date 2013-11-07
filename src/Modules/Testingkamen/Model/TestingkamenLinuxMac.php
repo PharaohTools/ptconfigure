@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class TestingkamenAllLinuxMac extends BasePHPApp {
+class TestingkamenLinuxMac extends BasePHPApp {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
