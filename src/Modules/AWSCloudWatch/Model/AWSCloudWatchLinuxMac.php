@@ -23,8 +23,9 @@ class AWSCloudWatchLinuxMac extends BaseLinuxApp {
           "mkdir -p ****PROGDIR****",
           "mv /tmp/aws-cloudwatch/* ****PROGDIR****",
           "rm -rf /tmp/aws-cloudwatch/",
-          "cd ****PROGDIR****",
-          "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &" );
+          // "cd ****PROGDIR****",
+          // "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &"
+        );
         $this->uninstallCommands = array("rm -rf ****PROGDIR****");
         $this->programDataFolder = "/opt/aws-cloudwatch"; // command and app dir name
         $this->programNameMachine = "aws-cloudwatch"; // command and app dir name
