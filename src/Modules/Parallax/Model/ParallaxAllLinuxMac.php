@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ParallaxAllLinux extends BasePHPApp {
+class ParallaxAllLinuxMac extends BasePHPApp {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
