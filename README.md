@@ -4,10 +4,8 @@ Golden Contact Computing - Cleopatra Tool
 
 Installation
 -----------------
-To install cleopatra cli on your machine do the following. If you already have php5 and git installed skip line 1:
-
-  CentOS do this              | Ubuntu do this
-  sudo yum install php5 git   | sudo apt-get install php5 git
+On your Mac, Linux, Unix or Windows Machine, you'll need to install Git and PHP5. If you dont have either, google
+them they are easy to install. To install cleopatra cli on your machine do the following at the command line.
 
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
 
@@ -20,16 +18,16 @@ git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install (
 
 About:
 -----------------
-Systems Automation in PHP for Linux - think Chef, Puppet, and now Cleopatra. Set up your Dev client, Dev server, Git
-Server, Testing Server or Prod Server in minutes - or silently.
 
-This tools is for provisioning software and configurations to your boxes
+Server, Testing Server or Prod Server in minutes, silently, with an Operating System agnostic method of ensuring
+environment stability.
 
-Can be used to set up a Development Client, Development Server, Testing Server, or Production Server in minutes
+This tool is for provisioning software and configurations to your boxes. You can set up complex provisions to your
+systems with one or two PHP files, or quickly set up cloud friendly deployment patterns.
 
-You can set up complex provisions to your systems with one or two PHP files.
-
-
+Cleopatra is extremely extendable, you can pretty easily write your own module that will configure your prod servers
+the way that you want them - and then use that as you will get the same automation benefits along with the security
+and infrastructure benefits of doing it correctly for your own setup
 
 Usage:
 -----------------

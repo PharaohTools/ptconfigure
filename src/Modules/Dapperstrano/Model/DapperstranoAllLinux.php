@@ -5,8 +5,8 @@ Namespace Model;
 class DapperstranoAllLinux extends BasePHPApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian", "Redhat") ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
     public $architectures = array("any") ;
