@@ -23,8 +23,9 @@ class AWSCloudFormationLinuxMac extends BaseLinuxApp {
           "mkdir -p ****PROGDIR****",
           "mv /tmp/aws-cloudformation/* ****PROGDIR****",
           "rm -rf /tmp/aws-cloudformation/",
-          "cd ****PROGDIR****",
-          "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &" );
+          // "cd ****PROGDIR****",
+          // "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &"
+        );
         $this->uninstallCommands = array("rm -rf ****PROGDIR****");
         $this->programDataFolder = "/opt/aws-cloudformation"; // command and app dir name
         $this->programNameMachine = "aws-cloudformation"; // command and app dir name
