@@ -29,12 +29,9 @@ class BasePHPApp extends Base {
     return $this->askWhetherToInstallPHPApp();
   }
 
-  /*
-   * @todo
   public function askUnInstall() {
-    return $this->askWhetherToUnInstallPHPApp();
+    return $this->askWhetherToUninstallPHPApp();
   }
-  */
 
   public function runAutoPilotInstall($autoPilot) {
     return $this->runAutoPilotPHPAppInstall($autoPilot);
@@ -44,7 +41,7 @@ class BasePHPApp extends Base {
     return $this->runAutoPilotPHPAppUnInstall($autoPilot);
   }
 
-  public function askWhetherUnInstallPHPApp() {
+  public function askWhetherToUninstallPHPApp() {
     return $this->performPHPAppUnInstall();
   }
 
