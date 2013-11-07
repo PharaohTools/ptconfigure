@@ -6,7 +6,7 @@ class AWSCloudWatchInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "The Selenium Web Browser controlling server";
+  public $name = "The AWS CloudWatch CLI Tools";
 
   public function __construct() {
     parent::__construct();
@@ -17,8 +17,8 @@ class AWSCloudWatchInfo extends Base {
   }
 
   public function routeAliases() {
-    return array("selenium-server"=>"AWSCloudWatch", "selenium"=>"AWSCloudWatch",
-      "selenium-srv"=>"AWSCloudWatch", "seleniumserver"=>"AWSCloudWatch");
+    return array("awscloudwatch"=>"AWSCloudWatch", "aws-cloud-watch"=>"AWSCloudWatch",
+      "aws-cloud-watch"=>"AWSCloudWatch", "aws-cloud-watch"=>"AWSCloudWatch");
   }
 
   public function autoPilotVariables() {
@@ -27,8 +27,8 @@ class AWSCloudWatchInfo extends Base {
         "AWSCloudWatch" => array(
           "programDataFolder" => "/opt/AWSCloudWatch", // command and app dir name
           "programNameMachine" => "seleniumserver", // command and app dir name
-          "programNameFriendly" => "Selenium Srv", // 12 chars
-          "programNameInstaller" => "Selenium Server",
+          "programNameFriendly" => "AWSCloudWatch Srv", // 12 chars
+          "programNameInstaller" => "AWSCloudWatch Server",
         ),
       )
     );
@@ -45,7 +45,7 @@ class AWSCloudWatchInfo extends Base {
 
         - install
         Installs AWSCloudWatch. Note, you'll also need Java installed
-        as it is a prerequisite for Selenium
+        as it is a prerequisite for AWSCloudWatch
         example: cleopatra selenium install
 
 HELPDATA;
