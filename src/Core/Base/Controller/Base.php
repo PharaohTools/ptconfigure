@@ -19,33 +19,23 @@ class Base {
     $this->content["route"] = $pageVars["route"];
     $this->content["messages"] = $pageVars["messages"];
     $action = $pageVars["route"]["action"];
+
     if ($action=="help" && !in_array($action, $ignored_actions)) {
-      $helpModel = new \Model\Help();
-      $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
-      return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
+        $helpModel = new \Model\Help();
+        $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
+        return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
     if (isset($thisModel)) {
-        if ($action=="install" && !in_array($action, $ignored_actions)) {
+        if ($action=="install" || $action=="uninstall" || $action=="status" && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
-            $this->content["appInstallResult"] = $thisModel->askInstall();
-            return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
+            $newAction = ucfirst($action) ;
+            $this->content["appInstallResult"] = $thisModel->{"ask".$newAction}();
+            return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); } }
 
-        if ($action=="uninstall" && !in_array($action, $ignored_actions)) {
-            $this->content["params"] = $thisModel->params;
-            $this->content["appName"] = $thisModel->autopilotDefiner;
-            $this->content["appInstallResult"] = $thisModel->askUninstall();
-            return array ("type"=>"view", "view"=>"appUninstall", "pageVars"=>$this->content); }
-
-        if ($action=="status" && !in_array($action, $ignored_actions)) {
-            $this->content["params"] = $thisModel->params;
-            $this->content["appName"] = $thisModel->autopilotDefiner;
-            $this->content["appStatusResult"] = $thisModel->askStatus();
-            return array ("type"=>"view", "view"=>"appStatus", "pageVars"=>$this->content); } }
-
-     else if (!isset($thisModel)) {
-         $this->content["messages"][] = "Required Model Missing. Cannot Continue.";
-         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); }
+    else if (!isset($thisModel)) {
+        $this->content["messages"][] = "Required Model Missing. Cannot Continue.";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); }
 
     return false;
   }
