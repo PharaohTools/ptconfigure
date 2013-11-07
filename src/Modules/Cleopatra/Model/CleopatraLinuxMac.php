@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class CleopatraAllLinux extends BasePHPApp {
+class CleopatraAllLinuxAndMac extends BasePHPApp {
 
     // Compatibility
     public $os = array("Linux") ;
