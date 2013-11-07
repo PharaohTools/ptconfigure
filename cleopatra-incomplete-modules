@@ -24,6 +24,7 @@ Cleopatra
 Cleofy should be Updated to use the Templating module
 
 
+
 Package Managers
 ----------------
 Pear
@@ -32,15 +33,18 @@ apt-get update
 Gem (RubyGems), extend a PackageManager module that apt-get and yum can also use to store dependencies
 
 
+
 C Compiler
 ---------------
 UbuntuCompiler - STARTED, EMPTY
+
 
 
 Security
 ----------------
 Suhosin
 Firewall Software
+
 
 
 Web Servers
@@ -53,10 +57,12 @@ Zend Server
 PHP VM
 
 
+
 Git Servers-
 ----------------
 GitLab (Started, but to be completed)
 Gitbucket
+
 
 
 Databases-
@@ -68,6 +74,7 @@ Hadoop - Install and Configure Hadoop Server
 Cassandra - Install and Configure Cassandra NOSQL Server
 
 
+
 DataStores
 ----------------
 Memcache
@@ -75,15 +82,18 @@ Memcached
 Redis
 
 
+
 HTTP Caches
 ----------------
 Varnish
+
 
 
 OP Code Caches
 ----------------
 APC - done
 XCache
+
 
 
 -------------------------------------------------------------------------------
@@ -104,21 +114,30 @@ NewRelic - Install and Configure NewRelic
 TraceAlytics - Install and Configure TraceAlytics
 
 
+
 Testing tools
 ----------------
 PHPSpec
 Storyplayer
 Hardy CSS Regression
 Mink/Behat  - done
-Ruby BDD
+Ruby BDD Suite
 - Cucumber Gem
 - Capybara Gem
 - Calabash Gem
+
+Webpagetest
+Skipfish
+Loadrunner
+Jmeter
+
+
 
 
 FTP Servers
 -------------------
 vsftpd
+
 
 
 Servlet Containers
@@ -129,6 +148,7 @@ Jetty Install
 Jetty Configure
 
 
+
 Configurers
 -------------------
 depend on templating module DONE
@@ -137,6 +157,7 @@ PHPConf - have a template file of the .ini, and an array with the php.ini defaul
     50% DONE, other template vars
 ApacheConf - have a template file of the .conf, and an array with the apache defaults. Allow params to be overridden
     50% DONE, other template vars
+
 
 
 Templating Module
