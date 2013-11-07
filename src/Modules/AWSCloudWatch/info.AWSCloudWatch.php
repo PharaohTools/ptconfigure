@@ -17,8 +17,7 @@ class AWSCloudWatchInfo extends Base {
   }
 
   public function routeAliases() {
-    return array("awscloudwatch"=>"AWSCloudWatch", "aws-cloud-watch"=>"AWSCloudWatch",
-      "aws-cloud-watch"=>"AWSCloudWatch", "aws-cloud-watch"=>"AWSCloudWatch");
+    return array("awscloudwatch"=>"AWSCloudWatch", "aws-cloud-watch"=>"AWSCloudWatch", "aws-cloudwatch"=>"AWSCloudWatch");
   }
 
   public function autoPilotVariables() {
