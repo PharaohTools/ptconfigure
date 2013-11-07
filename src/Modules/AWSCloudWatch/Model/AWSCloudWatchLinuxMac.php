@@ -19,7 +19,7 @@ class AWSCloudWatchLinuxMac extends BaseLinuxApp {
         $this->autopilotDefiner = "AWSCloudWatch";
         $this->installCommands = array(
           "cd /tmp" ,
-          "git clone https://github.com/phpengine/aws-cloudwatch aws-cloudwatch",
+          "git clone https://github.com/phpengine/cleopatra-aws-cloudwatch aws-cloudwatch",
           "mkdir -p ****PROGDIR****",
           "mv /tmp/aws-cloudwatch/* ****PROGDIR****",
           "rm -rf /tmp/aws-cloudwatch/",
