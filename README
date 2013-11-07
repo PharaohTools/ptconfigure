@@ -20,7 +20,15 @@ dapperstrano autopilot execute *autopilot-file*
 Installation
 -----------------
 
-To install dapperstrano cli on your machine do the following. If you already have php5 and git installed skip line 1:
+The preferred way to install any of the Pharoah apps (including this) is through cleopatra. If you install cleopatra
+on your machine (http://github.com/phpengine/cleopatra), then you can install dapperstrano using the following:
+
+sudo cleopatra dapperstrano install --yes=true
+
+You can omit the --yes=true to pick your own installation directory. To install dapperstrano cli on your machine
+without cleopatra, do the following. You'll need to already have php5 and git installed.
+
+To install dapperstrano cli on your machine without cleopatra do the following:
 
 sudo apt-get install php5 git
 
