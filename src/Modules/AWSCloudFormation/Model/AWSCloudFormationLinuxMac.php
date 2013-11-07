@@ -19,7 +19,7 @@ class AWSCloudFormationLinuxMac extends BaseLinuxApp {
         $this->autopilotDefiner = "AWSCloudFormation";
         $this->installCommands = array(
           "cd /tmp" ,
-          "git clone https://github.com/phpengine/aws-cloudformation aws-cloudformation",
+          "git clone https://github.com/phpengine/cleopatra-aws-cloudformation aws-cloudformation",
           "mkdir -p ****PROGDIR****",
           "mv /tmp/aws-cloudformation/* ****PROGDIR****",
           "rm -rf /tmp/aws-cloudformation/",
