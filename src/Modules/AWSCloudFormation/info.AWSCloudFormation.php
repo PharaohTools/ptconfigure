@@ -17,8 +17,7 @@ class AWSCloudFormationInfo extends Base {
   }
 
   public function routeAliases() {
-    return array("awscloudformation"=>"AWSCloudFormation", "aws-cloud-formation"=>"AWSCloudFormation",
-      "aws-cloud-formation"=>"AWSCloudFormation", "aws-cloud-formation"=>"AWSCloudFormation");
+    return array("awscloudformation"=>"AWSCloudFormation", "aws-cloud-formation"=>"AWSCloudFormation", "aws-cloudformation"=>"AWSCloudFormation");
   }
 
   public function autoPilotVariables() {
