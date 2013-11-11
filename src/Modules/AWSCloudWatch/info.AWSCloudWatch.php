@@ -25,7 +25,7 @@ class AWSCloudWatchInfo extends Base {
       "AWSCloudWatch" => array(
         "AWSCloudWatch" => array(
           "programDataFolder" => "/opt/AWSCloudWatch", // command and app dir name
-          "programNameMachine" => "seleniumserver", // command and app dir name
+          "programNameMachine" => "aws-cloud-watch", // command and app dir name
           "programNameFriendly" => "AWSCloudWatch Srv", // 12 chars
           "programNameInstaller" => "AWSCloudWatch Server",
         ),
@@ -40,12 +40,12 @@ class AWSCloudWatchInfo extends Base {
   installing on every box we have, client or server. These include curl,
   vim, drush and zip.
 
-  AWSCloudWatch, selenium-server, selenium, selenium-srv, seleniumserver
+  AWSCloudWatch, aws-cloud-watch, aws-cloudwatch
 
         - install
         Installs AWSCloudWatch. Note, you'll also need Java installed
         as it is a prerequisite for AWSCloudWatch
-        example: cleopatra selenium install
+        example: cleopatra aws-cloudwatch install
 
 HELPDATA;
     return $help ;

@@ -17,7 +17,8 @@ class AWSCloudFormationInfo extends Base {
   }
 
   public function routeAliases() {
-    return array("awscloudformation"=>"AWSCloudFormation", "aws-cloud-formation"=>"AWSCloudFormation", "aws-cloudformation"=>"AWSCloudFormation");
+    return array("awscloudformation"=>"AWSCloudFormation", "aws-cloud-formation"=>"AWSCloudFormation",
+        "aws-cloudformation"=>"AWSCloudFormation");
   }
 
   public function autoPilotVariables() {
@@ -25,7 +26,7 @@ class AWSCloudFormationInfo extends Base {
       "AWSCloudFormation" => array(
         "AWSCloudFormation" => array(
           "programDataFolder" => "/opt/AWSCloudFormation", // command and app dir name
-          "programNameMachine" => "seleniumserver", // command and app dir name
+          "programNameMachine" => "aws-cloud-formation", // command and app dir name
           "programNameFriendly" => "AWSCloudFormation Srv", // 12 chars
           "programNameInstaller" => "AWSCloudFormation Server",
         ),
@@ -35,17 +36,15 @@ class AWSCloudFormationInfo extends Base {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install a few GC recommended Standard Tools
-  for productivity in your system.  The kinds of tools we found ourselves
-  installing on every box we have, client or server. These include curl,
-  vim, drush and zip.
+  This command allows you to install a The AWS Cloud Formation Command
+  Line Tools. This tool is provided by
 
-  AWSCloudFormation, selenium-server, selenium, selenium-srv, seleniumserver
+  AWSCloudFormation, aws-cloud-formation, aws-cloudformation
 
         - install
         Installs AWSCloudFormation. Note, you'll also need Java installed
-        as it is a prerequisite for AWSCloudFormation
-        example: cleopatra selenium install
+        as it is a prerequisite for AWSCloudFormation.
+        example: cleopatra aws-cloud-formation install
 
 HELPDATA;
     return $help ;

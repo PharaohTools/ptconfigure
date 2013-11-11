@@ -38,4 +38,14 @@ class AWSCloudFormationLinuxMac extends BaseLinuxApp {
         $this->initialize();
       }
 
+      private function getAwsCfHome() {
+          if (isset($_ENV["AWS_CLOUDWATCH_HOME"])) {
+
+          }
+          else {
+
+          }
+
+      }
+
 }
