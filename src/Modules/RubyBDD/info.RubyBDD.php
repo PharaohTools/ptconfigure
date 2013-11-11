@@ -6,7 +6,7 @@ class RubyBDDInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "Ruby RVM - The Ruby version manager";
+  public $name = "Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs";
 
   public function __construct() {
     parent::__construct();
@@ -17,7 +17,7 @@ class RubyBDDInfo extends Base {
   }
 
   public function routeAliases() {
-    return array("rubyrvm"=>"RubyBDD", "rubyRVM"=>"RubyBDD", "ruby-rvm"=>"RubyBDD");
+    return array("rubybdd"=>"RubyBDD", "ruby-bdd"=>"RubyBDD");
   }
 
   public function autoPilotVariables() {
@@ -25,9 +25,9 @@ class RubyBDDInfo extends Base {
       "RubyBDD" => array(
         "RubyBDD" => array(
           "programDataFolder" => "/opt/RubyBDD", // command and app dir name
-          "programNameMachine" => "rubyrvm", // command and app dir name
-          "programNameFriendly" => "Ruby RVM!", // 12 chars
-          "programNameInstaller" => "Ruby RVM - Ruby Version Manager",
+          "programNameMachine" => "rubyrdd", // command and app dir name
+          "programNameFriendly" => "Ruby BDD!", // 12 chars
+          "programNameInstaller" => "Ruby BDD Suite Gems",
           "installUserName" => "string",
           "installUserHomeDir" => "string",
         ),
@@ -39,16 +39,11 @@ class RubyBDDInfo extends Base {
     $help = <<<"HELPDATA"
   This command allows you to install Ruby RVM.
 
-  RubyBDD, rubyrvm, ruby-rvm, rubyRVM
+  RubyBDD, rubybdd, ruby-bdd
 
         - install
-        Installs Ruby RVM
-        example: cleopatra ruby-rvm install
-
-  Ruby is installed the recommended per-user way. To use ruby after the install
-  first run "source ~/.rvm/scripts/rvm" to get access to the Ruby install for
-  your user, then "rvm install 1.9.3" (to install, specify version as needed)
-  then "rvm use 1.9.3" (to select your default version for the session)
+        Installs Ruby BDD Gems
+        example: cleopatra ruby-bdd install
 
 HELPDATA;
     return $help ;
