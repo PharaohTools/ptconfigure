@@ -128,8 +128,7 @@ class VhostEditor extends Base {
         $this->attemptVHostWrite($autoPilot["virtualHostEditorAdditionFileSuffix"]);
         if ( $autoPilot["virtualHostEditorAdditionVHostEnable"]==true ) {
             $this->enableVHost($autoPilot["virtualHostEditorAdditionSymLinkDirectory"]); }
-        $this->apacheCommand = $autoPilot["virtualHostEditorAdditionApacheCommand"];
-        $this->restartApache();
+        // $this->apacheCommand = $autoPilot["virtualHostEditorAdditionApacheCommand"];
         return true;
     }
 
@@ -142,8 +141,7 @@ class VhostEditor extends Base {
         if ( $autoPilot["virtualHostEditorDeletionVHostDisable"]==true ) {
             $this->disableVHost($autoPilot["virtualHostEditorDeletionSymLinkDirectory"]); }
         $this->attemptVHostDeletion();
-        $this->apacheCommand = $autoPilot["virtualHostEditorDeletionApacheCommand"];
-        $this->restartApache();
+        // $this->apacheCommand = $autoPilot["virtualHostEditorDeletionApacheCommand"];
         return true;
     }
 
