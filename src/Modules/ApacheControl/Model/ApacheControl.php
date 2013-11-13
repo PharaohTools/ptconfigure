@@ -69,10 +69,8 @@ class ApacheControl extends Base {
     }
 
     private function askForApacheCtl($type) {
-      if (!in_array($type, array("start", "stop", "restart"))) {
-        return false; }
-      if (isset($this->params["yes"]) && $this->params["yes"]==true) {
-          return true ; }
+      if (!in_array($type, array("start", "stop", "restart"))) { return false; }
+      if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
       $question = 'Do you want to '.ucfirst($type).' Apache?';
       return self::askYesOrNo($question);
     }
