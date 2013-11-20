@@ -4,8 +4,9 @@ Namespace Model;
 
 class AppConfig {
 
-    private static function checkSettingsExistOrCreateIt() {
-        if (!file_exists('papyrusfile')) { touch('papyrusfile'); }
+    private static function checkSettingsExistOrCreateIt($pfile = null) {
+        $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
+        if (!file_exists($pfile)) { touch($pfile); }
         return true;
     }
 
@@ -52,18 +53,20 @@ class AppConfig {
         return $value;
     }
 
-    private static function loadProjectFile() {
-        if (file_exists('papyrusfile')) {
-            $appConfigArraySerialized = file_get_contents('papyrusfile');
+    public static function loadProjectFile($pfile = null) {
+        $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
+        if (file_exists($pfile)) {
+            $appConfigArraySerialized = file_get_contents($pfile);
             $decoded = unserialize($appConfigArraySerialized);
             return $decoded ; }
         return array();
     }
 
-    private static function saveProjectFile($appConfigArray) {
+    public static function saveProjectFile($appConfigArray, $pfile = null) {
+        $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
         $appConfigSerialized = serialize($appConfigArray);
-        file_put_contents('papyrusfile', $appConfigSerialized);
-        chmod('papyrusfile', 0777);
+        file_put_contents($pfile, $appConfigSerialized);
+        chmod($pfile, 0777);
     }
 
     public static function setAppVariable($variable, $value, $listAdd=null) {
