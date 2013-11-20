@@ -42,7 +42,7 @@ class SystemDetectionFactory {
                 // warning during expected models phase
                 $message ="Cleopatra Warning!: Model ".get_class($model)." may not work as expected, since it " .
                     "doesn't specify exact OS version match";
-                error_log($message);
+                // error_log($message);
                 return $model; }
             else if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
@@ -53,7 +53,7 @@ class SystemDetectionFactory {
                 // during expected models phase
                 $message = "Cleopatra Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
                     "it doesn't specify matching OS version or distro match";
-                error_log($message);
+                // error_log($message);
                 return $model; } }
         return null ;
     }
