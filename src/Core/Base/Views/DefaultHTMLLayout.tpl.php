@@ -1,10 +1,15 @@
+<html>
+    <head>
+        <title>Papyrus Editor</title>
+    </head>
+    <body>
 
-******************************
-GC Cleopatra
-******************************
+    <h1>
+        GC Cleopatra
+    </h1>
 
-<?php echo $this->renderMessages($pageVars); ?>
-<?php echo $templateData; ?>
+    <?php echo $this->renderMessages($pageVars); ?>
+    <?php echo $templateData; ?>
 
-******************************
-
+    </body>
+</html>
