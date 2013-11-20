@@ -107,7 +107,6 @@ class Base {
         $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
         if ($dependencyCheck === true) {
             $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, $modelGroup, $pageVars["route"]["extraParams"]);
-            var_dump($modelGroup) ;
             return $thisModel; }
         return $dependencyCheck ;
     }

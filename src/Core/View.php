@@ -5,8 +5,12 @@ Namespace Core;
 class View {
 
   public function executeView($view, Array $viewVars) {
-    if (isset($viewVars["params"]["output-format"]) && $viewVars["params"]["output-format"] != "cli") {
-      $viewVars["layout"] = "blank" ; }
+    if (isset($viewVars["params"]["output-format"]) && $viewVars["params"]["output-format"] == "HTML") {
+        echo "yeah yeah";
+          $viewVars["layout"] = "DefaultHTML" ; }
+    else if (isset($viewVars["params"]["output-format"]) && $viewVars["params"]["output-format"] != "cli"
+             && $viewVars["params"]["output-format"] != "HTML") {
+          $viewVars["layout"] = "blank" ; }
     else {
       $viewVars["layout"] = (isset($viewVars["layout"])) ? $viewVars["layout"] : "default" ; }
     $templateData = $this->loadTemplate ($view, $viewVars) ;
