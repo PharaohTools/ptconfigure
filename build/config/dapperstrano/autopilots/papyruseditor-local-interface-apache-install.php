@@ -58,17 +58,18 @@ class AutoPilotConfigured extends AutoPilot {
   <<<'TEMPLATE'
  NameVirtualHost ****IP ADDRESS****:80
  <VirtualHost ****IP ADDRESS****:80>
-   ServerAdmin webmaster@localhost
- 	ServerName ****SERVER NAME****
- 	DocumentRoot ****WEB ROOT****
- 	<Directory ****WEB ROOT****>
+     ServerAdmin webmaster@localhost
+ 	 ServerName ****SERVER NAME****
+ 	 DocumentRoot ****WEB ROOT****
+ 	 <Directory ****WEB ROOT****>
  		Options Indexes FollowSymLinks MultiViews
  		AllowOverride All
  		Order allow,deny
  		allow from all
- 	</Directory>
-   ErrorLog /var/log/apache2/error.log
-   CustomLog /var/log/apache2/access.log combined
+ 	 </Directory>
+ 	 DirectoryIndex Interface.php
+     ErrorLog /var/log/apache2/error.log
+     CustomLog /var/log/apache2/access.log combined
  </VirtualHost>
 TEMPLATE;
 }
