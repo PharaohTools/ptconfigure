@@ -68,7 +68,7 @@ class Base {
             $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system: \n"; } } }
     if ( count($errors) > 0 ) {
       return $errors; }
-    echo "All required Modules found, all with compatible Models"."\n";
+    // echo "All required Modules found, all with compatible Models"."\n";
     return true ;
   }
 
