@@ -101,12 +101,13 @@ class Base {
         $this->content["results"][] = $miniRay ; }
   }
 
-    protected function getModelAndCheckDependencies($module, $pageVars) {
+    protected function getModelAndCheckDependencies($module, $pageVars, $modelGroup="Installer") {
         $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
         $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
         $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
         if ($dependencyCheck === true) {
-            $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, "Installer", $pageVars["route"]["extraParams"]);
+            $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, $modelGroup, $pageVars["route"]["extraParams"]);
+            var_dump($modelGroup) ;
             return $thisModel; }
         return $dependencyCheck ;
     }
