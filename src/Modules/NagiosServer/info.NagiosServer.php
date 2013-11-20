@@ -2,32 +2,32 @@
 
 Namespace Info;
 
-class NginxServerInfo extends Base {
+class NagiosServerInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Nginx Server - Install or remove the Nginx Server";
+    public $name = "Nagios Server - Install or remove the Nagios Server";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "NginxServer" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "NagiosServer" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
-      return array("nginx-server"=>"NginxServer", "nginxserver"=>"NginxServer");
+      return array("nagios-server"=>"NagiosServer", "nagiosserver"=>"NagiosServer");
     }
 
     public function autoPilotVariables() {
       return array(
-        "NginxServer" => array(
-          "NginxServer" => array(
-            "programDataFolder" => "/opt/nginx/", // command and app dir name
-            "programNameMachine" => "nginxserver", // command and app dir name
-            "programNameFriendly" => "Nginx Serv.", // 12 chars
-            "programNameInstaller" => "Nginx Server",
+        "NagiosServer" => array(
+          "NagiosServer" => array(
+            "programDataFolder" => "/opt/nagios/", // command and app dir name
+            "programNameMachine" => "nagiosserver", // command and app dir name
+            "programNameFriendly" => "Nagios Serv.", // 12 chars
+            "programNameInstaller" => "Nagios Server",
           )
         )
       );
@@ -35,14 +35,13 @@ class NginxServerInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and provides you  with a method by which you can configure Application Settings.
-  You can configure default application settings, ie: mysql admin user, host, pass
+  This command is part of Core and provides you with a method by which you can install Nagios.
 
-  NginxServer, nginx-server, nginxserver
+  NagiosServer, nagios-server, nagiosserver
 
         - install
-        Installs Nginx HTTP Server
-        example: cleopatra nginx-server install
+        Installs Nagios Network Monitoring Server
+        example: cleopatra nagios-server install
 
 HELPDATA;
       return $help ;
