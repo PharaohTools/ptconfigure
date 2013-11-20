@@ -26,4 +26,16 @@ class PapyrusEditorUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
+    public function getPapyrus() {
+        $pfile = $_REQUEST["papyrus_location"] ;
+        $current = \Model\AppConfig::loadProjectFile($pfile) ;
+        return $current ;
+    }
+
+    public function parseRequested() {
+        $pfile = $_REQUEST["papyrus_location"] ;
+        $current = \Model\AppConfig::loadProjectFile($pfile) ;
+        return $current ;
+    }
+
 }
