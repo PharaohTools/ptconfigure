@@ -23,10 +23,6 @@ class AutoPilotConfigured extends AutoPilot {
 
 	    $this->steps =
 	      array(
-              array ( "Git" => array(
-                  "gitDeletorExecute" => true,
-                  "gitDeletorCustomFolder" => "/opt/cleopatra/cleopatra/src/Modules/PapyrusEditor/"
-              ), ) ,
               array ( "HostEditor" => array(
                   "hostEditorDeletionExecute" => true,
                   "hostEditorDeletionIP" => "127.0.0.1",
