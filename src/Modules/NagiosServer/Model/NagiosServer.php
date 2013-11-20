@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class NginxServer extends BaseModelFactory {
+class NagiosServer extends BaseModelFactory {
 
 }

@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class NginxServer extends Base {
+class NagiosServer extends Base {
 
 }
