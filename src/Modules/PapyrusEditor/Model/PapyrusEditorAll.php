@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class PapyrusEditorUbuntu extends BaseLinuxApp {
+class PapyrusEditorAll extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -17,8 +17,8 @@ class PapyrusEditorUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "PapyrusEditor";
-        $this->installCommands = array( "apt-get install -y php-apc" );
-        $this->uninstallCommands = array( "apt-get remove -y php-apc" );
+        $this->installCommands = array( "" );
+        $this->uninstallCommands = array( "" );
         $this->programDataFolder = "/opt/PapyrusEditor"; // command and app dir name
         $this->programNameMachine = "papyruseditor"; // command and app dir name
         $this->programNameFriendly = "Papyrus Editor!"; // 12 chars
@@ -32,10 +32,25 @@ class PapyrusEditorUbuntu extends BaseLinuxApp {
         return $current ;
     }
 
-    public function parseRequested() {
-        $pfile = $_REQUEST["papyrus_location"] ;
+    public function savePapyrus() {
+        $config = $this->parseRequest() ;
+        $pfile = $_REQUEST["papyrus_save_location"] ;
+        \Model\AppConfig::saveProjectFile($config, $pfile) ;
         $current = \Model\AppConfig::loadProjectFile($pfile) ;
         return $current ;
+    }
+
+    private function parseRequest() {
+        $parsed = $_REQUEST ;
+        unset($parsed["papyrus_location"]);
+        unset($parsed["control"]);
+        unset($parsed["papyrus_save_location"]);
+        unset($parsed["doSave"]);
+        unset($parsed["action"]);
+        unset($parsed["control"]);
+        unset($parsed["output-format"]);
+
+        return $parsed ;
     }
 
 }

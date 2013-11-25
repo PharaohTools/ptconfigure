@@ -5,21 +5,18 @@
 
         echo '<form method="POST" action="/">' ;
 
-        if (!isset($_REQUEST["papyrus_location"])) {
-            echo '<p> Enter Papyrus file location </p>  <input name="papyrus_location" type="text"> </input>' ;
+        if (!isset($_REQUEST["doLoad"]) && !isset($_REQUEST["doSave"])) {
+            echo '<p> Enter Papyrus file location </p>   <input size="60" name="papyrus_location" type="text"> </input>' ;
 
+            echo '  <input type="hidden" name="doLoad" value="on" />' ;
             echo '  <input type="submit" value="Load this file" />' ;
         }
 
-        else if (isset($_REQUEST["dosave"]) && $_REQUEST["dosave"]=="on") {
-            var_dump($_REQUEST) ;
-        }
+        else if (isset($_REQUEST["doLoad"]) && $_REQUEST["doLoad"]=="on") {
 
-        else if (isset($_REQUEST["papyrus_location"])) {
-
-            echo '<p>  File at location '.$_REQUEST["papyrus_location"].': </p> ' ;
-
-            echo '<input type="hidden" name="papyrus_location" value="'.$_REQUEST["papyrus_location"].'" />' ;
+            echo '<p> Papyrus File load location: '.$_REQUEST["papyrus_location"].' </p> ' ;
+            $p_save_loc = (isset($_REQUEST["papyrus_save_location"])) ? $_REQUEST["papyrus_save_location"] : null ;
+            echo '<p> Papyrus File save location: <input size="60" type="text" name="papyrus_save_location" value="'.$p_save_loc.'" /> </p>' ;
 
             foreach ($pageVars["current_papyrus"] as $papy_key => $papy_val) {
                 echo '<div>' ;
@@ -32,33 +29,35 @@
                              foreach ($papy_subval as $papy_subsubkey => $papy_subsubval) {
                                  echo '  <p>--'.$papy_subsubkey.'</p>' ;
                                  if (is_array($papy_subsubval)) {
+                                     // $akey = array_keys($papy_subsubval) ;
+                                     // if (is_numeric($akey[0])) { echo "foff;"; }
                                      foreach ($papy_subsubval as $papy_subsubsubkey => $papy_subsubsubval) {
                                          if (is_array($papy_subsubsubval)) {
-                                                 foreach ($papy_subsubsubval as $papy_subsubsubsubkey => $papy_subsubsubsubval) {
-                                                     echo '  <p>---'.$papy_subsubsubsubkey.'' ;
-                                                     echo '  <input name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']['.$papy_subsubsubkey.']['.$papy_subsubsubsubkey.'" value="'.$papy_subsubsubsubval.'" /> </p>' ; } }
+                                             foreach ($papy_subsubsubval as $papy_subsubsubsubkey => $papy_subsubsubsubval) {
+                                                 echo '  <p>---'.$papy_subsubsubsubkey.'' ;
+                                                 echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']['.$papy_subsubsubkey.']['.$papy_subsubsubsubkey.']" value="'.$papy_subsubsubsubval.'" /> </p>' ; } }
                                          else {
                                              echo '  <p>---'.$papy_subsubsubkey.'' ;
-                                             echo '  <input name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']['.$papy_subsubsubkey.']" value="'.$papy_subsubsubval.'" /> </p>' ; } } }
+                                             echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']['.$papy_subsubsubkey.']" value="'.$papy_subsubsubval.'" /> </p>' ; } }
+                                     $i++; }
                                  else {
                                      echo '  <p>--'.$papy_subsubkey.'</p>' ;
-                                     echo '  <input name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']" value="'.$papy_subsubval.'" /> </p>' ; } } }
+                                     echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']" value="'.$papy_subsubval.'" /> </p>' ; } } }
                          else {
                              echo '  <p>--'.$papy_subkey.'</p>' ;
-                             echo '  <input name="'.$papy_key.'['.$papy_subkey.']" value="'.$papy_subval.'" />' ; } } }
+                             echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']" value="'.$papy_subval.'" />' ; } } }
                 else {
                     echo '  <p>--'.$papy_key.'</p>' ;
-                    echo '  <input name="'.$papy_key.'" value="'.$papy_val.'" />' ; }
+                    echo '   <input size="60" name="'.$papy_key.'" value="'.$papy_val.'" />' ; }
 
                 echo '</div>' ; }
 
-            echo '  <input type="hidden" name="dosave" value="on" />' ;
+            echo '  <input type="hidden" name="doSave" value="on" />' ;
             echo '  <input type="submit" value="Save this file" />' ;
         }
 
-        echo '</form>' ;
-
-
-        function spitray() {
-
+        else if (isset($_REQUEST["doSave"]) && $_REQUEST["doSave"]=="on") {
+            var_dump($_REQUEST) ;
         }
+
+        echo '</form>' ;
