@@ -5,13 +5,18 @@ Namespace Core;
 class View {
 
   public function executeView($view, Array $viewVars) {
-    if (isset($viewVars["params"]["output-format"]) && $viewVars["params"]["output-format"] == "HTML") {
-          $viewVars["layout"] = "DefaultHTML" ; }
-    else if (isset($viewVars["params"]["output-format"]) && $viewVars["params"]["output-format"] != "cli"
-             && $viewVars["params"]["output-format"] != "HTML") {
-          $viewVars["layout"] = "blank" ; }
-    else {
-      $viewVars["layout"] = (isset($viewVars["layout"])) ? $viewVars["layout"] : "default" ; }
+      $vvLayoutCond1 = (isset($viewVars["params"]["output-format"])
+          && $viewVars["params"]["output-format"] == "HTML") ;
+      $vvLayoutCond2 = (isset($viewVars["params"]["output-format"])
+          && $viewVars["params"]["output-format"] != "cli"
+          && $viewVars["params"]["output-format"] != "HTML") ;
+    if (!isset($viewVars["layout"])) {
+        if ($vvLayoutCond1) {
+            $viewVars["layout"] = "DefaultHTML" ; }
+        else if ($vvLayoutCond2) {
+            $viewVars["layout"] = "blank" ; }
+        else {
+            $viewVars["layout"] = "default" ; } }
     $templateData = $this->loadTemplate ($view, $viewVars) ;
     $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
     $this->renderAll($data) ;
