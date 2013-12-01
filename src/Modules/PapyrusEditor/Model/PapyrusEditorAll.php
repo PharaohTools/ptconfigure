@@ -27,7 +27,11 @@ class PapyrusEditorAll extends BaseLinuxApp {
     }
 
     public function getPapyrus() {
-        $pfile = $_REQUEST["papyrus_location"] ;
+        $isDefault = (isset($_REQUEST["papyrus_default_location"]) && $_REQUEST["papyrus_default_location"] != "none") ;
+        if ($isDefault) {
+            $pfile = $_REQUEST["papyrus_location"] = $_REQUEST["papyrus_default_location"] ; }
+        else {
+            $pfile = $_REQUEST["papyrus_location"] ; }
         $current = \Model\AppConfig::loadProjectFile($pfile) ;
         return $current ;
     }
@@ -43,13 +47,13 @@ class PapyrusEditorAll extends BaseLinuxApp {
     private function parseRequest() {
         $parsed = $_REQUEST ;
         unset($parsed["papyrus_location"]);
+        unset($parsed["papyrus_default_location"]);
         unset($parsed["control"]);
         unset($parsed["papyrus_save_location"]);
         unset($parsed["doSave"]);
         unset($parsed["action"]);
         unset($parsed["control"]);
         unset($parsed["output-format"]);
-
         return $parsed ;
     }
 

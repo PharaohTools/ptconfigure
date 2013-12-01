@@ -20,6 +20,7 @@ class PapyrusEditor extends Base {
                 $this->content["current_papyrus"] = $thisModel->getPapyrus(); }
             if ($_REQUEST["doSave"] == "on") {
                 $this->content["saved_papyrus"] = $thisModel->savePapyrus(); }
+            $this->content["layout"] = "PapyrusEditorHTML" ;
             return array ("type"=>"view", "view"=>"papyrusEditor", "pageVars"=>$this->content); }
 
         if ($action=="help") {

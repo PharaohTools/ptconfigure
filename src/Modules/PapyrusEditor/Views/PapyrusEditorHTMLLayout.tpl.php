@@ -1,38 +1,60 @@
 <html>
-<head>
-    <title>Papyrus Editor</title>
 
-    <style>
+    <head>
 
-        html {
-            font-family: Impact,Verdana,Arial;
-        }
+        <title>Papyrus Editor</title>
 
-        h1 {
-            font-family: arial;
-            text-align: center;
-        }
+        <style>
 
-        h2 {
-            font-family: arial;
-            text-align: center;
-        }
+            html {
+                font-family: Impact,Verdana,Arial;
+            }
 
-        p {
-            font-family: arial;
-            text-align: center;
-        }
+            h1 {
+                font-family: arial;
+                text-align: center;
+            }
 
-    </style>
-</head>
-<body>
+            h2 {
+                font-family: arial;
+                text-align: center;
+            }
 
-<h1>
-    GC Cleopatra
-</h1>
+            p {
+                font-family: arial;
+                text-align: center;
+            }
 
-<?php echo $this->renderMessages($pageVars); ?>
-<?php echo $templateData; ?>
+            div.innerPage {
+                font-family: arial;
+                text-align: center;
+                max-width: 70%;
+                margin: 0 auto;
+            }
 
-</body>
+            div.fullPage {
+                width: 100%;
+                display: block;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="fullPage">
+
+            <div class="innerPage">
+
+                <h1> GC Cleopatra </h1>
+                <?php echo $this->renderMessages($pageVars); ?>
+                <?php echo $templateData; ?>
+
+            </div>
+
+         </div>
+
+    </body>
+
 </html>
