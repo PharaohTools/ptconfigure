@@ -1,15 +1,24 @@
 
-        <h1>Papyrus File Editor</h1>
+        <h2>Papyrus File Editor</h2>
 
         <?php
 
         echo '<form method="POST" action="/">' ;
 
         if (!isset($_REQUEST["doLoad"]) && !isset($_REQUEST["doSave"])) {
-            echo '<p> Enter Papyrus file location </p>   <input size="60" name="papyrus_location" type="text"> </input>' ;
-
-            echo '  <input type="hidden" name="doLoad" value="on" />' ;
-            echo '  <input type="submit" value="Load this file" />' ;
+            echo ' <p> Enter Papyrus file location </p>' ;
+            echo ' <p><input size="60" name="papyrus_location" type="text" /> </p>' ;
+            echo ' <p> ... or use a default template ... </p>' ;
+            echo ' <p>' ;
+            echo ' <select name="papyrus_default_location">' ;
+            $templateDirectory = __FILE__ . "/../Templates/"  ;
+            echo '   <option value="none" selected="selected">None</option>' ;
+            echo '   <option value="'.$templateDirectory.'default-joomla">Default Joomla</option>' ;
+            echo '   <option value="'.$templateDirectory.'default-php">Default PHP</option>' ;
+            echo ' </select>' ;
+            echo ' </p>' ;
+            echo ' <input type="hidden" name="doLoad" value="on" />' ;
+            echo ' <input type="submit" value="Load this file" />' ;
         }
 
         else if (isset($_REQUEST["doLoad"]) && $_REQUEST["doLoad"]=="on") {
