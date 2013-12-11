@@ -13,7 +13,7 @@ class PythonInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Python" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "Python" =>  array_merge(parent::routesAvailable(), array() ) );
     }
 
     public function routeAliases() {
