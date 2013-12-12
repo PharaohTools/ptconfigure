@@ -13,6 +13,12 @@ class Cleofy extends Base {
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
         $action = $pageVars["route"]["action"];
+
+        if ($action=="help") {
+            $helpModel = new \Model\Help();
+            $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
+            return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
+
         if ($action=="standard") {
           $this->content["genCreateResult"] = $thisModel->askWhetherToCleofy();
           return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
