@@ -1,16 +1,17 @@
 Dapperstrano Incomplete Modules
--------------------------------------
+-------------------------------------        #
 
+Not Done
+-----------
+AWS
+Parallel SSH
+CVS
+SVN
+Mercurial
+Plain Copy - instead of SCM. This is so that you can asset build, etc on one box, then you can just
+  copy the built version (SCP probably) to your target machine.
 update
-get system detection from cleo
-
-lighttpd control - done
-lighttpd vhc
- - add enable/disable vhost
-nginx control - done
-nginx vhc - done
- - add enable/disable srv blk - done
- - add guess - done
+get system detection from cleo - this is part of composerising pyramid
 
 phpvm control
 phpvm vhc
@@ -19,16 +20,19 @@ zend server vhc
 
 database should be split into
  - db configure (which only does string changes in files so should also allow for postgres or others)
- - db install (for different rdbms's, currently mysql, but postgressql, oracle, mongo)
+ - db install (for different RDBMS's, currently mysql, but postgressql, oracle, mongo)
 
-AWS
-Parallel SSH
-CVS
-SVN
-Mercurial
-
-Checkout should become Git  - DONE
-
-VHC need to add --guess parameter - done
 VHC needs to become Apache-VHC, so that we can make the LigHTTPD and Nginx modules, and deploy to those nice n easy
  - add enable/disable vhost
+
+Done
+-----------
+lighttpd control - done
+lighttpd vhc
+ - add enable/disable vhost
+nginx control - done
+nginx vhc - done
+ - add enable/disable srv blk - done
+ - add guess - done
+Checkout should become Git  - DONE
+VHC need to add --guess parameter - done
