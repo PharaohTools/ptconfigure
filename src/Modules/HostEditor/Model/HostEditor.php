@@ -91,11 +91,14 @@ class HostEditor extends Base {
     }
 
     private function askForIPEntryToScreen(){
+        if (isset($this->params["host-ip"])) { return $this->params["host-ip"] ; }
         $question = 'Do you want a non-default IP? Enter for 127.0.0.1';
         return self::askForInput($question);
     }
 
     private function askForHostfileUri(){
+        if (isset($this->params["host-name"])) { return $this->params["host-name"] ; }
+        if (isset($this->params["hostname"])) { return $this->params["hostname"] ; }
         $question = 'What URI do you want to affect to the hostfile?';
         return self::askForInput($question, true);
     }
