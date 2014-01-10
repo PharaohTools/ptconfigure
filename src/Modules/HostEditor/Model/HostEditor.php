@@ -108,7 +108,8 @@ class HostEditor extends Base {
         $this->hostFileData = self::executeAndLoad($command);
     }
 
-    private function checkHostFileOkay(){
+    private function checkHostFileOkay() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Please check host file: '.$this->hostFileData."\n\nIs this Okay? ";
         return self::askYesOrNo($question);
     }
