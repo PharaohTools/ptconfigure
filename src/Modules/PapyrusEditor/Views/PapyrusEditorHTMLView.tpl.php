@@ -11,10 +11,11 @@
             echo ' <p> ... or use a default template ... </p>' ;
             echo ' <p>' ;
             echo ' <select name="papyrus_default_location">' ;
-            $templateDirectory = __FILE__ . "/../Templates/"  ;
+            $templateDirectory = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR ."Templates".DIRECTORY_SEPARATOR  ;
             echo '   <option value="none" selected="selected">None</option>' ;
             echo '   <option value="'.$templateDirectory.'default-joomla">Default Joomla</option>' ;
             echo '   <option value="'.$templateDirectory.'default-php">Default PHP</option>' ;
+            echo '   <option value="'.$templateDirectory.'default-html">Default HTML</option>' ;
             echo ' </select>' ;
             echo ' </p>' ;
             echo ' <input type="hidden" name="doLoad" value="on" />' ;
