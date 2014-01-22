@@ -14,7 +14,8 @@ class SystemDetectionFactory {
         $allModelsOfModule = \Core\AutoLoader::getAllModelsOfModule($module, $modelParams);
         $groupModels = array() ;
         foreach ($allModelsOfModule as $modelOfModule) {
-            if (isset($modelOfModule->modelGroup) && in_array($modelGroup, $modelOfModule->modelGroup)) {
+            if ( (isset($modelOfModule->modelGroup) && in_array($modelGroup, $modelOfModule->modelGroup) ) ||
+                 (isset($modelOfModule->modelGroup) && in_array("any", $modelOfModule->modelGroup) ) ) {
                 $groupModels[] = $modelOfModule ; } }
         return $groupModels;
     }
