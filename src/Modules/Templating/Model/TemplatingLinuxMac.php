@@ -2,17 +2,17 @@
 
 Namespace Model;
 
-class TemplatingUbuntu extends BaseLinuxApp {
+class TemplatingLinuxMac extends BaseTemplater {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $os = array("Linux", "Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("any") ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -32,11 +32,17 @@ class TemplatingUbuntu extends BaseLinuxApp {
      * @param $replacements an array of replacements
      * @param $targetLocation a file path string to put the end file
      * @param $perms string
+     * @param $owner string
+     * @param $group string
+     *
+     * @todo the recursive mkdir should specify perms, owner and group
      */
     public function template($original, $replacements, $targetLocation, $perms = null, $owner = null, $group = null) {
         $fData = (is_file($original)) ? file_get_contents($original) : $original ;
         foreach ($replacements as $replaceKey => $replaceValue) {
             $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
+        if (!file_exists(dirname($targetLocation))) {
+            mkdir(dirname($targetLocation), 0775, true) ;}
         file_put_contents($targetLocation, $fData) ;
         if ($perms != null) { exec("chmod $perms $targetLocation"); }
         if ($owner != null) { exec("chown $owner $targetLocation"); }
