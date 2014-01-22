@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BehatAllLinux extends BasePHPApp {
+class BehatAllLinux extends BaseComposerApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -17,22 +17,16 @@ class BehatAllLinux extends BasePHPApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Behat";
-        $this->fileSources = array(
-          array(
-            "https://github.com/Behat/Behat",
-            "behat",
-            null // can be null for none
-          )
-        );
-        $this->extraCommandsArray = array(
-            "cd ****PROGDIR****/behat",
-            "curl -s http://getcomposer.org/installer | php" ,
-            "php composer.phar install" );
         $this->programNameMachine = "behat"; // command and app dir name
         $this->programNameFriendly = " Behat "; // 12 chars
         $this->programNameInstaller = "Behat";
         $this->programExecutorTargetPath = 'behat/bin/behat';
         $this->initialize();
+    }
+
+    protected function copyComposerJsonToProgramDataFolder($originalTemplate) {
+        $originalTemplate = __DIR__."/../Templates/composer.json" ;
+        parent::copyComposerJsonToProgramDataFolder($originalTemplate);
     }
 
 }
