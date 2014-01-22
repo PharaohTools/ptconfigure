@@ -16,7 +16,7 @@ class BasePHPApp extends Base {
     $this->populateTitle();
   }
 
-  private function populateStartDirectory() {
+  protected function populateStartDirectory() {
     $this->startDirectory = str_replace("/$this->programNameMachine", "",
       $this->tempDir);
   }
@@ -45,7 +45,7 @@ class BasePHPApp extends Base {
     return $this->performPHPAppUnInstall();
   }
 
-  private function performPHPAppInstall() {
+  protected function performPHPAppInstall() {
     $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToInstallPHPAppToScreen();
     if (!$doInstall) { return false; }
@@ -53,7 +53,7 @@ class BasePHPApp extends Base {
     return true;
   }
 
-  private function performPHPAppUnInstall() {
+  protected function performPHPAppUnInstall() {
     $doUnInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToUnInstallPHPAppToScreen();
     if (!$doUnInstall) { return false; }
@@ -113,39 +113,39 @@ class BasePHPApp extends Base {
     $this->showCompletion();
   }
 
-  private function showTitle() {
+  protected function showTitle() {
     print $this->titleData ;
   }
 
-  private function showCompletion() {
+  protected function showCompletion() {
     print $this->completionData ;
   }
 
-  private function askWhetherToInstallPHPAppToScreen(){
+  protected function askWhetherToInstallPHPAppToScreen(){
     $question = "Install ".$this->programNameInstaller." ?";
     return self::askYesOrNo($question);
   }
 
-  private function askWhetherToUnInstallPHPAppToScreen(){
+  protected function askWhetherToUnInstallPHPAppToScreen(){
     $question = "Un Install ".$this->programNameInstaller." ?";
     return self::askYesOrNo($question);
   }
 
-  private function askForProgramDataFolder() {
+  protected function askForProgramDataFolder() {
     $question = 'What is the program data directory?';
     $question .= ' Found "/opt/'.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
     $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/opt/$this->programNameMachine" : self::askForInput($question);
     return ($input=="") ? "/opt/$this->programNameMachine" : $input ;
   }
 
-  private function askForProgramExecutorFolder(){
+  protected function askForProgramExecutorFolder(){
     $question = 'What is the program executor directory?';
     $question .= ' Found "/usr/bin" - use this? (Enter nothing for yes, No Trailing Slash)';
     $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/usr/bin" : self::askForInput($question);
     return ($input=="") ? "/usr/bin" : $input ;
   }
 
-  private function populateExecutorFile() {
+  protected function populateExecutorFile() {
     $arrayOfPaths = scandir($this->programDataFolder);
     $pathStr = "" ;
     foreach ($arrayOfPaths as $path) {
@@ -157,55 +157,55 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
 ?>";
   }
 
-  private function deleteProgramDataFolderAsRootIfExists(){
+  protected function deleteProgramDataFolderAsRootIfExists(){
     if ( is_dir($this->programDataFolder)) {
       $command = 'rm -rf '.$this->programDataFolder;
       self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
     return true;
   }
 
-  private function makeProgramDataFolderIfNeeded(){
+  protected function makeProgramDataFolderIfNeeded(){
     if (!file_exists($this->programDataFolder)) {
       mkdir($this->programDataFolder,  0777, true); }
   }
 
-  private function copyFilesToProgramDataFolder(){
+  protected function copyFilesToProgramDataFolder(){
     $command = 'cp -r '.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine.
         DIRECTORY_SEPARATOR.'* '.$this->programDataFolder;
     return self::executeAndOutput($command, "Program Data folder populated");
   }
 
-  private function deleteExecutorIfExists(){
+  protected function deleteExecutorIfExists(){
     $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
     self::executeAndOutput($command, "Program Executor Deleted if existed");
     return true;
   }
 
-  private function deleteInstallationFiles(){
+  protected function deleteInstallationFiles(){
     $command = 'rm -rf '.$this->tempDir.'/'.$this->programNameMachine;
     self::executeAndOutput($command);
   }
 
-  private function saveExecutorFile(){
+  protected function saveExecutorFile(){
     $this->populateExecutorFile();
     return file_put_contents($this->programExecutorFolder.'/'.$this->programNameMachine, $this->bootStrapData);
   }
 
-  private function changePermissions(){
+  protected function changePermissions(){
     $command = "chmod -R 775 $this->programDataFolder";
     self::executeAndOutput($command);
     $command = "chmod 775 $this->programExecutorFolder/$this->programNameMachine";
     self::executeAndOutput($command);
   }
 
-  private function doGitCommandWithErrorCheck(){
+  protected function doGitCommandWithErrorCheck(){
     $data = $this->doGitCommand();
     print $data;
     if ( substr($data, 0, 5) == "error" ) { return false; }
     return true;
   }
 
-  private function doGitCommand(){
+  protected function doGitCommand(){
     $data = "";
     foreach ($this->fileSources as $fileSource) {
       $command  = 'git clone ';
