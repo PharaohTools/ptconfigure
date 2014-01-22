@@ -42,6 +42,12 @@ class MinkAllLinux extends BasePHPApp {
             "cp $templateComposerJson ****PROGDIR****/mink/composer.json",
             "curl -s http://getcomposer.org/installer | php" ,
             "php composer.phar install" );
+        // if composer already there, don't download it
+        if (file_exists($this->programDataFolder.DIRECTORY_SEPARATOR.'composer.phar')) {
+            unset($this->extraCommandsArray[3]); }
+        // if no composer.lock don't do the
+        if (!file_exists($this->programDataFolder)) {
+            unset($this->extraCommandsArray[0]); }
     }
 
 }
