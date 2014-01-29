@@ -35,7 +35,7 @@ class PhlagrantInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update Phlagrant.
+  This command allows you to install or update Phlagrant.
 
   Phlagrant, phlagrant
 
