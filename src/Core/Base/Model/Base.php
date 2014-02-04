@@ -4,60 +4,114 @@ Namespace Model;
 
 class Base {
 
-    protected $params ;
-    protected $baseTempDir ;
+    public $params ;
 
-    public function __construct($params = null) {
-      $tempDirInConfig = \Model\AppConfig::getAppVariable("temp-directory") ;
-      $tempDirInConfig = (substr($tempDirInConfig, -1, 1) == DIRECTORY_SEPARATOR) ?
-          substr($tempDirInConfig, 0, strlen($tempDirInConfig)-1) : $tempDirInConfig ;
-      $this->baseTempDir = ($tempDirInConfig == null ) ? "/tmp/dapperstrano" : $tempDirInConfig ;
-      if (!file_exists($this->baseTempDir)) {
-          mkdir($this->baseTempDir, 0777, true) ; }
-      if (isset($params)) { $this->setCmdLineParams($params) ; }
+    public $autopilotDefiner ;
+    public $programNameFriendly;
+    public $programNameInstaller;
+
+    protected $installUserName;
+    protected $installUserHomeDir;
+
+    protected $registeredPreInstallFunctions;
+    protected $registeredPreUnInstallFunctions;
+    protected $registeredPostInstallFunctions;
+    protected $registeredPostUnInstallFunctions;
+
+    protected $programNameMachine ;
+    protected $programDataFolder;
+    protected $startDirectory;
+    protected $titleData;
+    protected $completionData;
+    protected $bootStrapData;
+    protected $extraBootStrap;
+    protected $programExecutorFolder;
+    protected $programExecutorTargetPath;
+    protected $extraCommandsArray;
+    protected $tempDir;
+
+    public function __construct($params) {
+      $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
+      $this->setCmdLineParams($params);
+    }
+
+    protected function populateTitle() {
+        $this->titleData = <<<TITLE
+*******************************
+*   Golden Contact Computing  *
+*         $this->programNameFriendly        *
+*******************************
+
+TITLE;
+    }
+
+    protected function populateCompletion() {
+        $this->completionData = <<<COMPLETION
+... All done!
+*******************************
+Thanks for installing , visit www.gcsoftshop.co.uk for more
+
+COMPLETION;
+    }
+
+    protected function setAutoPilotVariables($autoPilot) {
+        foreach ( $autoPilot as $step ) { // this should only happen once
+            $keys = array_keys($step);
+            foreach ($keys as $property) {
+                $this->$property = $step[$property] ; } }
+    }
+
+    protected function executeAsShell($multiLineCommand, $message=null) {
+        $tempFile = $this->tempDir."/cleopatra-temp-script-".mt_rand(100, 99999999999).".sh";
+        echo "Creating $tempFile\n";
+        $fileVar = "";
+        if (is_array($multiLineCommand) && count($multiLineCommand)>0) {
+            foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; } }
+        file_put_contents($tempFile, $fileVar);
+        echo "chmod 755 $tempFile 2>/dev/null\n";
+        shell_exec("chmod 755 $tempFile 2>/dev/null");
+        echo "Changing $tempFile Permissions\n";
+        echo "Executing $tempFile\n";
+        $outputText = shell_exec($tempFile);
+        if ($message !== null) { $outputText .= "$message\n"; }
+        echo $outputText;
+        shell_exec("rm $tempFile");
+        echo "Temp File $tempFile Removed\n";
     }
 
     protected function executeAndOutput($command, $message=null) {
-        $outputArray = array();
-        exec($command, $outputArray);
-        $outputText = "";
-        foreach ($outputArray as $outputValue) {
-            $outputText .= "$outputValue\n"; }
+        $outputText = shell_exec($command);
         if ($message !== null) {
-            $outputText .= "$message\n"; }
+          $outputText .= "$message\n"; }
         print $outputText;
         return true;
     }
 
     protected function executeAndLoad($command) {
-        $outputArray = array();
-        exec($command, $outputArray);
-        $outputText = "";
-        foreach ($outputArray as $outputValue) {
-            $outputText .= "$outputValue\n"; }
+        $outputText = shell_exec($command);
         return $outputText;
     }
 
     protected function setCmdLineParams($params) {
-        $cmdParams = array();
-        foreach ($params as $param) {
-            if ( substr($param, 0, 2)=="--" && strpos($param, '=') != null ) {
-                $equalsPos = strpos($param, "=") ;
-                $paramKey = substr($param, 2, $equalsPos-2) ;
-                $paramValue = substr($param, $equalsPos+1, strlen($param)) ;
-                $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); } }
-        $this->params = $cmdParams;
+      $cmdParams = array();
+      foreach ($params as $param) {
+        if ( substr($param, 0, 2)=="--" && strpos($param, '=') != null ) {
+          $equalsPos = strpos($param, "=") ;
+          $paramKey = substr($param, 2, $equalsPos-2) ;
+          $paramValue = substr($param, $equalsPos+1, strlen($param)) ;
+          $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); } }
+      $this->params = $cmdParams;
     }
 
     protected function askYesOrNo($question) {
-        print "$question (Y/N)\n";
+        print "$question (Y/N) \n";
         $fp = fopen('php://stdin', 'r');
         $last_line = false;
         while (!$last_line) {
             $inputChar = fgetc($fp);
             $yesOrNo = ($inputChar=="y"||$inputChar=="Y") ? true : false;
             $last_line = true; }
-        return (isset($yesOrNo)) ? $yesOrNo : false;
+        return $yesOrNo;
     }
 
     protected function areYouSure($question) {
@@ -67,8 +121,8 @@ class Base {
         while (!$last_line) {
             $inputChar = fgetc($fp);
             $yesOrNo = ($inputChar=="y"||$inputChar=="Y") ? true : false;
-          $last_line = true; }
-      return (isset($yesOrNo)) ? $yesOrNo : false;
+            $last_line = true; }
+        return $yesOrNo;
     }
 
     protected function askForDigit($question) {
@@ -81,36 +135,20 @@ class Base {
             if (in_array($inputChar, array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")) ) { $last_line = true; }
             else { echo "You must enter a single digit. Please try again\n"; continue; }
         $i++; }
-        return (isset($inputChar)) ? $inputChar : false;
+        return $inputChar;
     }
 
     protected function askForInput($question, $required=null) {
-      $fp = fopen('php://stdin', 'r');
-      $last_line = false;
-      while (!$last_line) {
-        print "$question\n";
-        $inputLine = fgets($fp, 1024);
-        if ($required != null && ($inputLine=="" || $inputLine=="\n" || $inputLine=="\r" ) ) {
-          print "You must enter a value. Please try again.\n"; }
-        else {$last_line = true;} }
-      $inputLine = $this->stripNewLines($inputLine);
-      return $inputLine;
-    }
-
-    protected function askForInteger($question, $required=null) {
-      $fp = fopen('php://stdin', 'r');
-      $last_line = false;
-      while (!$last_line) {
-        print "$question\n";
-        $inputLine = fgets($fp, 1024);
-        $inputLine = str_replace( "\n", "", $inputLine);
-        if ($required != null && ($inputLine=="" || $inputLine=="\n" || $inputLine=="\r" ) ) {
-          print "You must enter a value. Please try again.\n"; }
-        else if ( !is_numeric($inputLine) ) {
-          print "You must enter an Integer value. Please try again.\n"; }
-        else {$last_line = true;} }
-      $inputLine = $this->stripNewLines($inputLine);
-      return $inputLine;
+        $fp = fopen('php://stdin', 'r');
+        $last_line = false;
+        while (!$last_line) {
+            print "$question\n";
+            $inputLine = fgets($fp, 1024);
+            if ($required && strlen($inputLine)==0 ) {
+                print "You must enter a value. Please try again.\n"; }
+            else {$last_line = true;} }
+        $inputLine = $this->stripNewLines($inputLine);
+        return $inputLine;
     }
 
     protected function askForArrayOption($question, $options, $required=null) {
@@ -125,7 +163,7 @@ class Base {
                 print "Enter one of the given options. Please try again.\n"; }
             else {$last_line = true; } }
         $inputLine = $this->stripNewLines($inputLine);
-        return (isset($options[$inputLine])) ? $options[$inputLine] : "" ;
+        return (isset($options[$inputLine])) ? $options[$inputLine] : null ;
     }
 
     protected function stripNewLines($inputLine) {
@@ -134,6 +172,86 @@ class Base {
         return $inputLine;
     }
 
+    protected function findStatusByDirectory($inputLine) {
+        $inputLine = str_replace("\n", "", $inputLine);
+        $inputLine = str_replace("\r", "", $inputLine);
+        return $inputLine;
+    }
 
+    protected function setInstallFlagStatus($bool) {
+        if ($bool) {
+            AppConfig::setProjectVariable("installed-apps", $this->programNameMachine, true); }
+        else {
+            AppConfig::deleteProjectVariable("installed-apps", "any", $this->programNameMachine); }
+    }
+
+    public function askStatus() {
+        return $this->getInstallFlagStatus($this->programNameMachine) ;
+    }
+
+    protected function getInstallFlagStatus($programNameMachine) {
+        $installedApps = AppConfig::getProjectVariable("installed-apps");
+        if (is_array($installedApps) && in_array($programNameMachine, $installedApps)) {
+            return true ; }
+        return false ;
+    }
+
+    protected function extraCommands(){
+        self::swapCommandArrayPlaceHolders($this->extraCommandsArray);
+        self::executeAsShell($this->extraCommandsArray);
+    }
+
+    protected function swapCommandArrayPlaceHolders(&$commandArray) {
+        $this->swapCommandDirs($commandArray);
+        $this->swapInstallUserDetails($commandArray);
+    }
+
+    protected function swapCommandDirs(&$commandArray) {
+        if (is_array($commandArray) && count($commandArray)>0) {
+            foreach ($commandArray as &$comm) {
+                $comm = str_replace("****PROGDIR****", $this->programDataFolder, $comm);
+                $comm = str_replace("****PROG EXECUTOR****", $this->programExecutorTargetPath, $comm); } }
+    }
+
+    protected function swapInstallUserDetails(&$commandArray) {
+        if (is_array($commandArray) && count($commandArray)>0) {
+            foreach ($commandArray as &$comm) {
+                $comm = str_replace("****INSTALL USER NAME****", $this->installUserName,
+                    $comm);
+                $comm = str_replace("****INSTALL USER HOME DIR****",
+                    $this->installUserHomeDir, $comm); } }
+    }
+
+    protected function executePreInstallFunctions($autoPilot){
+        if (isset($this->registeredPreInstallFunctions) &&
+            is_array($this->registeredPreInstallFunctions) &&
+            count($this->registeredPreInstallFunctions) >0) {
+            foreach ($this->registeredPreInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
+    }
+
+    protected function executePostInstallFunctions($autoPilot){
+        if (isset($this->registeredPostInstallFunctions) &&
+            is_array($this->registeredPostInstallFunctions) &&
+            count($this->registeredPostInstallFunctions) >0) {
+            foreach ($this->registeredPostInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
+    }
+
+    protected function executePreUnInstallFunctions($autoPilot){
+        if (isset($this->registeredPreUnInstallFunctions) &&
+            is_array($this->registeredPreUnInstallFunctions) &&
+            count($this->registeredPreUnInstallFunctions) >0) {
+            foreach ($this->registeredPreUnInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
+    }
+
+    protected function executePostUnInstallFunctions($autoPilot){
+        if (isset($this->registeredPostUnInstallFunctions) &&
+            is_array($this->registeredPostUnInstallFunctions) &&
+            count($this->registeredPostUnInstallFunctions) >0) {
+            foreach ($this->registeredPostUnInstallFunctions as $func) {
+                $this->$func($autoPilot); } }
+    }
 
 }

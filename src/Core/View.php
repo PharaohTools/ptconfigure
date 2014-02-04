@@ -5,10 +5,18 @@ Namespace Core;
 class View {
 
   public function executeView($view, Array $viewVars) {
-    if (isset($viewVars["output-format"]) && $viewVars["output-format"] != "cli") {
-      $viewVars["layout"] = "blank" ; }
-    else {
-      $viewVars["layout"] = (isset($viewVars["layout"])) ? $viewVars["layout"] : "default" ; }
+      $vvLayoutCond1 = (isset($viewVars["params"]["output-format"])
+          && $viewVars["params"]["output-format"] == "HTML") ;
+      $vvLayoutCond2 = (isset($viewVars["params"]["output-format"])
+          && $viewVars["params"]["output-format"] != "cli"
+          && $viewVars["params"]["output-format"] != "HTML") ;
+    if (!isset($viewVars["layout"])) {
+        if ($vvLayoutCond1) {
+            $viewVars["layout"] = "DefaultHTML" ; }
+        else if ($vvLayoutCond2) {
+            $viewVars["layout"] = "blank" ; }
+        else {
+            $viewVars["layout"] = "default" ; } }
     $templateData = $this->loadTemplate ($view, $viewVars) ;
     $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
     $this->renderAll($data) ;
@@ -26,8 +34,8 @@ class View {
   private function loadTemplate ($view, Array $pageVars) {
     ob_start();
     $outputFormat = "" ;
-    if (isset($pageVars["output-format"])) {
-      $outputFormat = strtoupper($pageVars["output-format"]); }
+    if (isset($pageVars["params"]["output-format"])) {
+      $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
     $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
     if ($this->loadViewFile($viewFileName, $pageVars) == true) {
       return ob_get_clean(); }
