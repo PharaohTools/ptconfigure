@@ -117,13 +117,7 @@ class Base {
         $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
         $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
         if ($dependencyCheck === true) {
-            if (method_exists($myInfo, "modelGroups")) {
-                $modelGroups = $myInfo->modelGroups();
-                $action = $modelGroups[$pageVars["route"]["action"]] ; }
-            // @todo do i need this line, its from merging cores
-            // $modelType = (isset($action)) ? $action : "any" ;
             $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, $moduleType, $pageVars["route"]["extraParams"]);
-            var_dump($thisModel) ;
             return $thisModel; }
         return $dependencyCheck ;
     }
