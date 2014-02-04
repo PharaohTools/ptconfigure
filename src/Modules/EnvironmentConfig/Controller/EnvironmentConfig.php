@@ -5,19 +5,25 @@ Namespace Controller ;
 class EnvironmentConfig extends Base {
 
     public function execute($pageVars) {
-        $isHelp = parent::checkForHelp($pageVars) ;
-        if ( is_array($isHelp) ) {
-          return $isHelp; }
+
         $action = $pageVars["route"]["action"];
 
-        $environmentConfigModel = new \Model\EnvironmentConfig($pageVars["route"]["extraParams"]);
-
         if ($action=="configure" || $action=="config") {
-            $this->content["result"] = $environmentConfigModel->askWhetherToEnvironmentConfig();
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Configuration") ;
+            // if we don't have an object, its an array of errors
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+            if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+            $this->content["result"] = $thisModel->askWhetherToEnvironmentConfig();
             return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
 
         if ($action=="list") {
-            $this->content["result"] = $environmentConfigModel->askWhetherToListConfig();
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Listing") ;
+            // if we don't have an object, its an array of errors
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+            if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+            $this->content["result"] = $thisModel->askWhetherToEnvironmentConfig();
             return array ("type"=>"view", "view"=>"environmentConfigList", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Project Action";

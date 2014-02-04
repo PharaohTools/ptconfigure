@@ -5,9 +5,12 @@ Namespace Controller ;
 class HostEditor extends Base {
 
     public function execute($pageVars) {
-        $isHelp = parent::checkForHelp($pageVars) ;
-        if ( is_array($isHelp) ) {
-          return $isHelp; }
+
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
         $action = $pageVars["route"]["action"];
 
         $hostEditorModel = new \Model\HostEditor($pageVars["route"]["extraParams"]);

@@ -2,7 +2,17 @@
 
 Namespace Model;
 
-class DigitalOceanList extends BaseDigitalOcean {
+class DigitalOceanList extends BaseDigitalOceanAllOS {
+
+    // Compatibility
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
+    public $architectures = array("any") ;
+
+    // Model Group
+    public $modelGroup = array("Listing") ;
 
     public function runAutoPilot($autoPilot){
         $this->runAutoPilotSaveSshKey($autoPilot);

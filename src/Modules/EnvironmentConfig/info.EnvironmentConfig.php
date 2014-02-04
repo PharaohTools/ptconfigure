@@ -13,7 +13,7 @@ class EnvironmentConfigInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "EnvironmentConfig" =>  array_merge(parent::routesAvailable(), array("configure") ) );
+      return array( "EnvironmentConfig" =>  array_merge(parent::routesAvailable(), array("configure", "config", "list") ) );
     }
 
     public function routeAliases() {

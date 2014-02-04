@@ -5,15 +5,17 @@ Namespace Controller ;
 class LighttpdControl extends Base {
 
     public function execute($pageVars) {
-        $isHelp = parent::checkForHelp($pageVars) ;
-        if ( is_array($isHelp) ) {
-            return $isHelp; }
+
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+
         $action = $pageVars["route"]["action"];
 
-        $LighttpdControlModel = new \Model\LighttpdControl($pageVars["route"]["extraParams"]);
-
         if (in_array($action, array("start", "stop", "restart"))) {
-            $this->content["LighttpdControlResult"] = $LighttpdControlModel->askWhetherToCtlLighttpd($action);
+            $this->content["LighttpdControlResult"] = $thisModel->askWhetherToCtlLighttpd($action);
             return array ("type"=>"view", "view"=>"LighttpdControl", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Lighttpd Control Action";

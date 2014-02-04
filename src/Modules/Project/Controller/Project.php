@@ -5,26 +5,29 @@ Namespace Controller ;
 class Project extends Base {
 
     public function execute($pageVars) {
-        $isHelp = parent::checkForHelp($pageVars) ;
-        if ( is_array($isHelp) ) {
-          return $isHelp; }
+
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+
         $action = $pageVars["route"]["action"];
-        $projectModel = new \Model\Project($pageVars["route"]["extraParams"]);
 
         if ($action=="container") {
-            $this->content["projectResult"] = $projectModel->askWhetherToInitializeProjectContainer();
+            $this->content["projectResult"] = $thisModel->askWhetherToInitializeProjectContainer();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
 
         if ($action=="init") {
-            $this->content["projectResult"] = $projectModel->askWhetherToInitializeProject();
+            $this->content["projectResult"] = $thisModel->askWhetherToInitializeProject();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
 
         if ($action=="build-install") {
-            $this->content["projectResult"] = $projectModel->askWhetherToInstallBuildInProject();
+            $this->content["projectResult"] = $thisModel->askWhetherToInstallBuildInProject();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
 
         if ($action=="new-defaults") {
-            $this->content["projectResult"] = $projectModel->askWhetherToInstallBuildInProject();
+            $this->content["projectResult"] = $thisModel->askWhetherToInstallBuildInProject();
             return array ("type"=>"view", "view"=>"project", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Project Action";

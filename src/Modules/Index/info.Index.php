@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class IndexInfo {
+class IndexInfo extends Base {
 
     public $hidden = true;
 

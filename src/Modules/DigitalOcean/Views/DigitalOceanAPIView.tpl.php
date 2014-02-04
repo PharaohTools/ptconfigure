@@ -7,7 +7,6 @@ if (is_object($pageVars["digiOceanResult"]) || is_array($pageVars["digiOceanResu
         var_dump($arrayObjectValue);
         $val = ob_get_clean();
         echo $arrayObjectKey.": ".$val."\n"; } }
-
 else {
     echo "There was a problem."; }
 

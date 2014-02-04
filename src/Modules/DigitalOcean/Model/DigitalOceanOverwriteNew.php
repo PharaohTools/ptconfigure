@@ -2,7 +2,17 @@
 
 Namespace Model;
 
-class DigitalOceanOverwriteNew extends BaseDigitalOcean {
+class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
+
+    // Compatibility
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
+    public $architectures = array("any") ;
+
+    // Model Group
+    public $modelGroup = array("OverwriteNew") ;
 
     public function runAutoPilot($autoPilot){
         $this->runAutoPilotOverwriteNew($autoPilot);
