@@ -12,7 +12,8 @@ class Base {
     }
 
     public function routesAvailable() {
-      return array("help", "status", "install", "uninstall");
+      return array("help", "status", "install", "uninstall", "initialize", "init", "execute");
+      // @todo some app settings class should contain this instead
     }
 
     public function routeAliases() {

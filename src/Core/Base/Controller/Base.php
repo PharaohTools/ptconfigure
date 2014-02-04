@@ -26,16 +26,27 @@ class Base {
         return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
     if (isset($thisModel)) {
+        // @todo child controllers should specify this
         if ($action=="install" || $action=="uninstall" || $action=="status" && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $newAction = ucfirst($action) ;
             $this->content["appInstallResult"] = $thisModel->{"ask".$newAction}();
-            return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); } }
+            return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
+        if (in_array($action, array("init", "initialize")) && !in_array($action, $ignored_actions)) {
+            $this->content["params"] = $thisModel->params;
+            $this->content["appName"] = $thisModel->autopilotDefiner;
+            $this->content["appInstallResult"] = $thisModel->askInit();
+            return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
+        if (in_array($action, array("exec", "execute")) && !in_array($action, $ignored_actions)) {
+            $this->content["params"] = $thisModel->params;
+            $this->content["appName"] = $thisModel->autopilotDefiner;
+            $this->content["appInstallResult"] = $thisModel->askExec();
+            return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); } }
 
-    else if (!isset($thisModel)) {
-        $this->content["messages"][] = "Required Model Missing. Cannot Continue.";
-        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); }
+     else if (!isset($thisModel)) {
+         $this->content["messages"][] = "Required Model Missing. Cannot Continue.";
+         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); }
 
     return false;
   }
@@ -101,12 +112,18 @@ class Base {
         $this->content["results"][] = $miniRay ; }
   }
 
-    protected function getModelAndCheckDependencies($module, $pageVars, $modelGroup="Installer") {
+  protected function getModelAndCheckDependencies($module, $pageVars, $moduleType="Installer") {
         $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
         $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
         $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
         if ($dependencyCheck === true) {
-            $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, $modelGroup, $pageVars["route"]["extraParams"]);
+            if (method_exists($myInfo, "modelGroups")) {
+                $modelGroups = $myInfo->modelGroups();
+                $action = $modelGroups[$pageVars["route"]["action"]] ; }
+            // @todo do i need this line, its from merging cores
+            // $modelType = (isset($action)) ? $action : "any" ;
+            $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, $moduleType, $pageVars["route"]["extraParams"]);
+            var_dump($thisModel) ;
             return $thisModel; }
         return $dependencyCheck ;
     }
