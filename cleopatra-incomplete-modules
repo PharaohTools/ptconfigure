@@ -1,11 +1,5 @@
 Cleopatra Modules to be created
 ---------------------------------------
-
-System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class
-in Core which detects the running OS and looks in the module for a model which Reports itself as matching The
-combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE FULY
-- Add other data like hostname, ip addresses to this
-
 State Detection - Allow the pyramid application to detect information regarding software and configuration install
 current state
 - Its already providing a default status for anything that was installed via cleo
@@ -49,10 +43,6 @@ Firewall Software
 
 Web Servers
 ----------------
-Nginx Install - done
-Nginx Service Control - DONE DAPPERSTRANO
-LightHttpd Install  - done
-LightHttpd Service Control - DONE DAPPERSTRANO
 Zend Server
 PHP VM
 
@@ -91,19 +81,8 @@ Varnish
 
 OP Code Caches
 ----------------
-APC - done
 XCache
 
-
-
--------------------------------------------------------------------------------
-To add to MediaTools
-https://help.ubuntu.com/community/RestrictedFormats/PlayingDVDs
-sudo apt-get install libdvdread4
-sudo /usr/share/doc/libdvdread4/install-css.sh
-
-DONE
--------------------------------------------------------------------------------
 
 
 Server Monitoring-
@@ -160,20 +139,6 @@ ApacheConf - have a template file of the .conf, and an array with the apache def
 
 
 
-Templating Module
--------------------
-    Should accept
-    - A template file location to read
-    - An array, object or key/value file of replacements
-    - a target path/name for file
-    - a owner for target file (optional)
-    - a group for target file (optional)
-    - a permission for target file (optional)
-
-    DONE
-
-
-
 Terminator Module
 -------------------
 http://software.jessies.org/downloads/mac/terminator.zip
@@ -189,3 +154,107 @@ OpenOffice
 -------------------
 mac
 http://downloads.sourceforge.net/project/openofficeorg.mirror/4.0.1/binaries/en-US/Apache_OpenOffice_4.0.1_MacOS_x86_install_en-US.dmg?r=http%3A%2F%2Fwww.openoffice.org%2Fdownload%2F&ts=1383924817&use_mirror=freefr
+
+
+phpDocumentor
+phpDocumentor (also known as phpdoc and phpdocu) is a documentation tool for your PHP source code. It has an innumerable amount of features, including the ability to output in HTML, PDF, CHM and XML DocBook formats, and has both a Web-based and command-line interface as well as source-code highlighting. To learn more about phpDocumentor, check out the online manual.
+
+PHP DOX
+An AJAX-powered PHP documentation search engine that enables you to search titles from all PHP documentation pages.
+
+
+PHP Code Beautifier
+
+PHP_Beautifier
+PHP Beautifier is a PEAR package for automatically formatting and “beautifying” PHP 4 and PHP 5 source code.
+
+PHPCodeBeautifier
+PHPCodeBeautifier is a tool that saves you from hours of reformatting code to suit your own way of presenting it. A GUI version allows you to process files visually; a command-line version can be batched or integrated with other tools (like CVS, SubVersion, IDE, etc.); and there is also an integrated tool of PHPEdit.
+
+Phing
+Phing is a popular project version-control system for PHP. It is a useful tool for organizing and maintaining different builds of your project.
+
+phpMyAdmin
+If you’re working with PHP, there’s a big chance you’re set up in a LAMP configuration. phpMyAdmin is Web-based tool for managing, building, importing, exporting and exploring MySQL databases.
+
+Minify!
+Minify is a PHP 5 app that can combine multiple CSS or JavaScript files, compress their content (i.e. remove unnecessary white space and comments) and serve the results with HTTP encoding (via Gzip/deflate) and headers that allow optimal client-side caching. This will help you follow several of Yahoo!’s Rules for High Performance Websites.
+
+PECL
+PECL is a directory of all known PHP extensions and a hosting facility for downloading and developing PHP extensions.
+
+NetBeans
+A dedicated PHP coding environment and complete integration with web standards. The NetBeans PHP editor is dynamically integrated with NetBeans HTML, JavaScript and CSS editing features such as syntax highlighting and the JavaScript debugger. NetBeans IDE 6.5 fully supports iterative development, so testing PHP projects follows the classic patterns familiar to web developers.
+
+PHP-GTK
+PHP-GTK is a PHP extension for the GTK+ toolkit (a robust toolkit for developing GUIs). It is a suite of useful OOP functions and classes to help you rapidly build cross-platform, client-side GUI’s for your application.
+
+PHPSpec
+PHPSpec is a simple and intuitive PHP framework. It follows the Behavior-Driven Development principle and therefore allows you to write behavior-oriented code, oftentimes in plain English.
+
+IDE's
+--------
+
+PHPEclipse
+PHPEclipse is a popular PHP source-code editor that is open source and runs on all the major operating systems, such as Windows, Linux and Mac OS. It has all the features you’d expect from a PHP source-code editor, such as code-folding, syntax highlighting, hover-over tool tips and support for XDebug and DBG.
+
+PhpED
+PhpED is an excellent IDE for Windows users. It is one of the most robust and feature-packed IDEs currently out on the market and has useful features such as a built-in source-code profiler to find bottlenecks in your PHP source code and excellent integration with third-party apps and services just as front-end code validation.
+
+phpDesigner
+phpDesigner is a lightweight PHP editor/IDE that also handles front-end code and markup remarkably well. Check out the phpDesigner online tutorials, as well as screencasts on phpDesigner to help you learn more about the IDE.
+
+Zend Studio
+Zend Studio is an excellent PHP IDE for Eclipse. It’ll help you develop, deploy and manage Rich Internet Applications (RIAs) in an intuitive interface.
+
+Aptana PHP
+Aptana PHP is an open-source IDE extension/plug-in to be used in conjunction with Aptana Studio. To learn more, be sure to check out the online documentation about Aptana PHP.
+
+PHPEdit
+PHPEdit is an excellent PHP editor/IDE with a ton of useful features and a very intuitive user interface. To learn more about why PHPEdit is a good IDE, read the 10 reasons to use PHPEdit and view the introductory screencast about PHPEdit.
+
+
+
+
+
+
+DONE
+-----------
+
+System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class
+in Core which detects the running OS and looks in the module for a model which Reports itself as matching The
+combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE FULY
+- Add other data like hostname, ip addresses to this
+
+
+OP Code Caches
+----------------
+APC - done
+-------------------------------------------------------------------------------
+To add to MediaTools
+https://help.ubuntu.com/community/RestrictedFormats/PlayingDVDs
+sudo apt-get install libdvdread4
+sudo /usr/share/doc/libdvdread4/install-css.sh
+
+DONE
+-------------------------------------------------------------------------------
+
+Templating Module
+-------------------
+    Should accept
+    - A template file location to read
+    - An array, object or key/value file of replacements
+    - a target path/name for file
+    - a owner for target file (optional)
+    - a group for target file (optional)
+    - a permission for target file (optional)
+
+    DONE
+
+
+Web Servers
+----------------
+Nginx Install - done
+Nginx Service Control - DONE DAPPERSTRANO
+LightHttpd Install  - done
+LightHttpd Service Control - DONE DAPPERSTRANO
