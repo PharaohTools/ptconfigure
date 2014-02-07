@@ -136,7 +136,17 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function hostFileDataAdd($ipEntry, $uri){
-        $this->hostFileData .= "$ipEntry          $uri";
+        $hostFileLines = explode("\n", $this->hostFileData) ;
+        $newHostFileData = "";
+        foreach ($hostFileLines as $line) {
+            $ipOccurs = substr_count($line, $ipEntry) ;
+            $uriOccurs = substr_count($line, $uri) ;
+            $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
+            if ( $bothOccur )  {
+                return; }
+            else {
+                $newHostFileData .= $line."\n"; } }
+        $this->hostFileData .= "$ipEntry          $uri\n";
         $this->writeHostFileEntryToProjectFile();
     }
 
@@ -154,22 +164,26 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function writeHostFileEntryToProjectFile(){
-        if ($this->checkIsDHProject()){
-            \Model\AppConfig::setProjectVariable("host-entries", array("$this->uri" => "$this->ipAddress") );  }
+        if ($this->checkIsPharoahProject()){
+            $appSettingsFactory = new \AppSettings();
+            $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
+            $appConfig::setProjectVariable("host-entries", array("$this->uri" => "$this->ipAddress") );  }
     }
 
     private function deleteHostFileEntryFromProjectFile(){
-        if ($this->checkIsDHProject()) {
-            $allHostFileEntries = \Model\AppConfig::getProjectVariable("host-entries");
+        if ($this->checkIsPharoahProject()) {
+            $appSettingsFactory = new \AppSettings();
+            $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
+            $allHostFileEntries = $appConfig::getProjectVariable("host-entries");
             if ($allHostFileEntries instanceof \stdClass) { $allHostFileEntries = new \ArrayObject($allHostFileEntries); }
             for ($i = 0; $i<=count($allHostFileEntries) ; $i++ ) {
                 if (isset($allHostFileEntries[$i]) && array_key_exists($allHostFileEntries[$i], $this->uri)) {
                     unset($allHostFileEntries[$i]); } }
-            \Model\AppConfig::setProjectVariable("host-entries", $allHostFileEntries); }
+            $appConfig::setProjectVariable("host-entries", $allHostFileEntries); }
     }
 
-    private function checkIsDHProject() {
-        return file_exists('dhproj');
+    private function checkIsPharoahProject() {
+        return file_exists('papyrusfile');
     }
 
 }
