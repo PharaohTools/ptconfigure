@@ -92,7 +92,7 @@ COMPLETION;
         return $outputText;
     }
 
-    protected function setCmdLineParams($params) {
+    protected function setCmdLineParams($params = array()) {
       $cmdParams = array();
       foreach ($params as $param) {
         if ( substr($param, 0, 2)=="--" && strpos($param, '=') != null ) {

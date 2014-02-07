@@ -13,7 +13,7 @@ class Base {
 
     public function routesAvailable() {
       return array("help", "status", "install", "uninstall", "initialize", "init", "execute");
-      // @todo some app settings class should contain this instead, so an individual pharoah app can specify those
+      // @todo some app settings class should contain this instead, so an individual pyramid app can specify those
     }
 
     public function routeAliases() {
