@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class Dapperfy extends Base {
+class DapperfyAllOS extends Base {
 
     // Compatibility
     public $os = array("any") ;
@@ -53,7 +53,8 @@ class Dapperfy extends Base {
     }
 
     public function getEnvironments() {
-        $environmentConfigModel = new EnvironmentConfig();
+        $environmentConfigModelFactory = new EnvironmentConfig() ;
+        $environmentConfigModel = $environmentConfigModelFactory->getModel($this->params) ;
         $environmentConfigModel->askWhetherToEnvironmentConfig($this->environmentReplacements) ;
         $this->environments = $environmentConfigModel->environments ;
     }

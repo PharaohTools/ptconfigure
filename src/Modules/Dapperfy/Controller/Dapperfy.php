@@ -16,10 +16,8 @@ class Dapperfy extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        $dapperfyModel = new \Model\Dapperfy($pageVars["route"]["extraParams"]);
-
         if ($action=="standard") {
-          $this->content["genCreateResult"] = $dapperfyModel->askWhetherToDapperfy();
+          $this->content["genCreateResult"] = $thisModel->askWhetherToDapperfy();
           return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
         else if (in_array($action, array_keys($this->injectedActions))) {

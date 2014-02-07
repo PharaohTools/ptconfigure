@@ -20,6 +20,10 @@ class DapperfyInfo extends Base {
       return array("dapperfy"=>"Dapperfy");
     }
 
+    public function dependencies() {
+        return array("EnvironmentConfig");
+    }
+
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of a default Module Core and provides you with a method by which you can
@@ -33,11 +37,11 @@ class DapperfyInfo extends Base {
         List all of the autopilot files in your build/config/dapperstrano/autopilots
         example: dapperstrano dapperfy list
 
-        - create
-        Create a set of autopilots to manage
-        example: dapperstrano dapperfy create
+        - standard
+        Create a standard set of autopilots to manage
+        example: dapperstrano dapperfy standard
 
-        The start of the command will be dapperstrano autopilot execute :
+        The start of the command will be dapperstrano autopilot execute *filename*
 
 
 HELPDATA;
