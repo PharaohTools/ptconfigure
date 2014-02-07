@@ -32,6 +32,7 @@ class DBConfigureAllOS extends Base {
     public function runAutoPilot($autoPilot){
         $this->runAutoPilotDBReset($autoPilot);
         $this->runAutoPilotDBConfiguration($autoPilot);
+        echo "dave wins\n" ;
         return true;
     }
 

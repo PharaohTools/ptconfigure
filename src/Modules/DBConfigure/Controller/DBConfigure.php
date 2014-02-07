@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Database extends Base {
+class DBConfigure extends Base {
 
     public function execute($pageVars) {
 

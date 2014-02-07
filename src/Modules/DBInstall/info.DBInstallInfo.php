@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class DatabaseInfo extends Base {
+class DBInstallInfo extends Base {
 
     public $hidden = false;
 
