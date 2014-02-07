@@ -6,11 +6,11 @@ class Autopilot extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
-        // if we don't have an object, its an array of errors
-        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
-        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+//        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+//        // if we don't have an object, its an array of errors
+//        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+//        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+//        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
       $this->content["route"] = $pageVars["route"];
       $this->content["messages"] = $pageVars["messages"];
@@ -38,12 +38,15 @@ class Autopilot extends Base {
 
     private function loadAutoPilot($autoPilotFileName){
         $autoPilotFileName = escapeshellcmd($autoPilotFileName);
-        $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
+        $autoPilotFilePath = getcwd().DIRECTORY_SEPARATOR.$autoPilotFileName;
         $defaultFolderToCheck = getcwd().DIRECTORY_SEPARATOR."build".DIRECTORY_SEPARATOR."config" .
           DIRECTORY_SEPARATOR."dapperstrano".DIRECTORY_SEPARATOR."autopilots";
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
+        $defaultNameNoExt = $defaultFolderToCheck.'/'.$autoPilotFileName ;
         if (file_exists($defaultName)) {
-          include_once($defaultName); }
+            include_once($defaultName); }
+        else if (file_exists($defaultNameNoExt)) {
+            include_once($defaultNameNoExt); }
         else if (file_exists("autopilot-".$defaultName)) {
           include_once("autopilot-".$defaultName); }
         else if (file_exists($autoPilotFilePath)) {
