@@ -12,7 +12,7 @@ class IndexAllOS extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
     public function findModuleNames($params) {
         if (isset($this->params["compatible-only"]) && $this->params["compatible-only"]=="true") {

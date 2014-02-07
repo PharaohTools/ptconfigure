@@ -12,7 +12,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
     private $vHostTemplate;
     private $docRoot;

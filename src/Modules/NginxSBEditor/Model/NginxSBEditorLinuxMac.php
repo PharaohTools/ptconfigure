@@ -12,7 +12,7 @@ class NginxSBEditorLinuxMac extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
     private $ServerBlockTemplate;
     private $docRoot;
