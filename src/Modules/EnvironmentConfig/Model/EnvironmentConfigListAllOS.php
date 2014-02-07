@@ -51,7 +51,9 @@ class EnvironmentConfigListAllOS extends Base {
 
     public function doQuestions() {
       $envSuffix = array_keys($this->environmentReplacements);
-      $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+      $appConfFactory = new AppSettings();
+      $appConfModel = $appConfFactory->getModel($this->params, "AppConfig") ;
+      $allProjectEnvs = $appConfModel::getProjectVariable("environments");
       if (count($allProjectEnvs) > 0) {
         $question = 'Use existing environment settings?';
         $useProjEnvs = self::askYesOrNo($question, true);
