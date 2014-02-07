@@ -15,18 +15,19 @@ class ApacheControl extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action=="start") {
-            $ApacheControlModel = new \Model\ApacheControl($pageVars["route"]["extraParams"]);
-            $this->content["ApacheControlResult"] = $ApacheControlModel->askWhetherToStartApache();
+            $this->content["ApacheControlResult"] = $thisModel->askWhetherToStartApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
-        if ($action=="stop") {
-            $ApacheControlModel = new \Model\ApacheControl($pageVars["route"]["extraParams"]);
-            $this->content["ApacheControlResult"] = $ApacheControlModel->askWhetherToStopApache();
+        else if ($action=="stop") {
+            $this->content["ApacheControlResult"] = $thisModel->askWhetherToStopApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         else if ($action=="restart") {
-            $ApacheControlModel = new \Model\ApacheControl($pageVars["route"]["extraParams"]);
-            $this->content["ApacheControlResult"] = $ApacheControlModel->askWhetherToRestartApache();
+            $this->content["ApacheControlResult"] = $thisModel->askWhetherToRestartApache();
+            return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
+
+        else if ($action=="reload") {
+            $this->content["ApacheControlResult"] = $thisModel->askWhetherToReloadApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Apache Control Action";
