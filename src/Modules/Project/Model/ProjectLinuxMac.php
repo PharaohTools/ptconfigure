@@ -154,8 +154,8 @@ class ProjectLinuxMac extends Base  {
     }
 
     private function projectInitialize() {
-        if ($this->checkIsDHProject() == false) {
-            $command = 'touch dhproj';
+        if ($this->checkIsPharoahProject() == false) {
+            $command = 'touch papyrusfile';
             self::executeAndOutput($command, "Project file created"); }
     }
 
@@ -172,16 +172,12 @@ class ProjectLinuxMac extends Base  {
         self::executeAndOutput($command, "Project Container file created");
     }
 
-    public static function checkIsDHProject($dir = null) {
+    public static function checkIsPharoahProject($dir = null) {
         if ($dir == null) {
-          return file_exists('dhproj'); }
+          return file_exists('papyrusfile'); }
         else {
-          return file_exists($dir.'/dhproj'); }
+          return file_exists($dir.DIRECTORY_SEPARATOR.'papyrusfile'); }
     }
-
-//    private function checkIsDHProjectContainer() {
-//        return file_exists('dhprojc');
-//    }
 
     private function selectJenkinsFolderInProject(){
         $results = scandir(getcwd().'/'."build/config/jenkins");
