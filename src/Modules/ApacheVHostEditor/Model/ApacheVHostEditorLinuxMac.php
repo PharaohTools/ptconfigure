@@ -128,10 +128,11 @@ class ApacheVHostEditorLinuxMac extends Base {
         $this->docRoot = $autoPilot["virtualHostEditorAdditionDocRoot"];
         $this->url = $autoPilot["virtualHostEditorAdditionURL"];
         $this->vHostIp = $autoPilot["virtualHostEditorAdditionIp"];
-        if ($autoPilot["virtualHostEditorAdditionTemplateData"] != null) {
+        if ( !in_array($autoPilot["virtualHostEditorAdditionTemplateData"], array("", null))) {
             echo "Using autopilot vhost\n";
             $this->vHostTemplate = $autoPilot["virtualHostEditorAdditionTemplateData"]; }
-        else { echo "Using default vhost\n";
+        else {
+            echo "Using default vhost\n";
             $this->setVhostDefaultTemplate(); }
         $this->processVHost();
         $this->vHostDir = $autoPilot["virtualHostEditorAdditionDirectory"];
@@ -299,13 +300,14 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function createVHost() {
-        $tmpDir = $this->baseTempDir.'/vhosttemp/';
+        $tmpDir = $this->baseTempDir.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR;
         if (!file_exists($tmpDir)) {mkdir ($tmpDir, 0777, true);}
         return file_put_contents($tmpDir.'/'.$this->url, $this->vHostTemplate);
     }
 
     private function moveVHostAsRoot($virtualHostEditorAdditionFileSuffix=null){
-        $command = 'sudo mv '.$this->baseTempDir.'/vhosttemp/'.$this->url.' '.$this->vHostDir.'/'.$this->url.$virtualHostEditorAdditionFileSuffix;
+        $command = 'sudo mv '.$this->baseTempDir.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR.$this->url.' '.
+            $this->vHostDir.'/'.$this->url.$virtualHostEditorAdditionFileSuffix;
         return self::executeAndOutput($command);
     }
 
