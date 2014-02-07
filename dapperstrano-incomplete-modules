@@ -18,13 +18,6 @@ phpvm vhc
 zend server control
 zend server vhc
 
-database should be split into
- - db configure (which only does string changes in files so should also allow for
-   postgres or others)
- - db install (for different RDBMS's, currently mysql, but postgresql, oracle,
-   mongo)
-
-
 
 Not Done
 -----------
@@ -102,3 +95,11 @@ Checkout should become Git  - DONE
 VHC need to add --guess parameter - done
 VHC needs to become Apache-VHC, so that we can make the LigHTTPD and Nginx modules, and deploy to those nice n easy
  - add enable/disable vhost
+
+database should be split into
+ - db configure (which only does string changes in files so should also allow for
+   postgres or others)
+ - db install (for different RDBMS's, currently mysql, but postgresql, oracle,
+   mongo)
+
+   DONE
