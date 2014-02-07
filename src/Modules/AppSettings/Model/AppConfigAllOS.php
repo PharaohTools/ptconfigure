@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class AppConfigAllOS {
+class AppConfigAllOS extends Base {
 
     // Compatibility
     public $os = array("any") ;
@@ -12,7 +12,7 @@ class AppConfigAllOS {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("AppConfig") ;
 
     private static function checkSettingsExistOrCreateIt() {
         if (!file_exists('papyrusfile')) { touch('papyrusfile'); }
