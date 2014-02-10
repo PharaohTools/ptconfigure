@@ -93,14 +93,17 @@ COMPLETION;
     }
 
     protected function setCmdLineParams($params) {
-      $cmdParams = array();
-      foreach ($params as $param) {
-        if ( substr($param, 0, 2)=="--" && strpos($param, '=') != null ) {
-          $equalsPos = strpos($param, "=") ;
-          $paramKey = substr($param, 2, $equalsPos-2) ;
-          $paramValue = substr($param, $equalsPos+1, strlen($param)) ;
-          $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); } }
-      $this->params = $cmdParams;
+        $cmdParams = array();
+        foreach ($params as $paramKey => $paramValue) {
+            if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
+                $equalsPos = strpos($paramValue, "=") ;
+                $paramKey = substr($paramValue, 2, $equalsPos-2) ;
+                $paramValue = substr($paramValue, $equalsPos+1, strlen($paramValue)) ; }
+            else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') == false ) {
+                $paramKey = substr($paramValue, 2) ;
+                $paramValue = true ; }
+            $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); }
+        $this->params = (is_array($this->params)) ? array_merge($this->params, $cmdParams) : $cmdParams;
     }
 
     protected function askYesOrNo($question) {
