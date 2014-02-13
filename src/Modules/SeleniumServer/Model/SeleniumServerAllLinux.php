@@ -12,7 +12,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
     // @todo parameterise the selenium version
     // @todo ensure wget is installed
