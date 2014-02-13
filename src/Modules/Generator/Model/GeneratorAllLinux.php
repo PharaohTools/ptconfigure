@@ -12,7 +12,7 @@ class GeneratorAllLinux extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
     private $fileName;
     private $allEntries;

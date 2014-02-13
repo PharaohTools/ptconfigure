@@ -12,7 +12,7 @@ class IndexAllOS extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
     public function findModuleNames($params) {
         if (isset($this->params["compatible-only"]) && $this->params["compatible-only"]=="true") {
@@ -24,14 +24,14 @@ class IndexAllOS extends Base {
 
     private function findAllModuleNames() {
         $allInfoObjects = \Core\AutoLoader::getInfoObjects() ;
-        $moduleNames = array();
+        $moduleNames = array() ;
         foreach ($allInfoObjects as $infoObject) {
             $array_keys = array_keys($infoObject->routesAvailable()) ;
-            $miniRay = array();
-            $miniRay["command"] = $array_keys[0];
+            $miniRay = array() ;
+            $miniRay["command"] = $array_keys[0] ;
             $miniRay["name"] = $infoObject->name ;
             $miniRay["hidden"] = $infoObject->hidden ;
-            $moduleNames[] = $miniRay; }
+            $moduleNames[] = $miniRay ; }
         return $moduleNames;
     }
 

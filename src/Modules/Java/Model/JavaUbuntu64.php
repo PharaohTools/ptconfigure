@@ -12,7 +12,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
     public $architectures = array("64") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
   public function __construct($params) {
     parent::__construct($params);

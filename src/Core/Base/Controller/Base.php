@@ -112,7 +112,7 @@ class Base {
         $this->content["results"][] = $miniRay ; }
   }
 
-  protected function getModelAndCheckDependencies($module, $pageVars, $moduleType="Installer") {
+  protected function getModelAndCheckDependencies($module, $pageVars, $moduleType="Default") {
         $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
         $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
         $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;

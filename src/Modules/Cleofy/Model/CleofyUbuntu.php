@@ -12,7 +12,7 @@ class CleofyUbuntu extends Base {
     public $architectures = array("64") ;
 
     // Model Group
-    public $modelGroup = array("Installer") ;
+    public $modelGroup = array("Default") ;
 
     private $environments ;
     private $environmentReplacements ;
