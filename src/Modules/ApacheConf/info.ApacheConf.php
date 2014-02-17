@@ -6,7 +6,7 @@ class ApacheConfInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "PHP Conf - Install a PHP Configuration";
+    public $name = "Apache Conf - Install a Apache Configuration";
 
     public function __construct() {
       parent::__construct();
@@ -17,7 +17,7 @@ class ApacheConfInfo extends Base {
     }
 
     public function routeAliases() {
-        return array("php-configuration"=>"ApacheConf", "php-configure"=>"ApacheConf", "php-conf"=>"ApacheConf",
+        return array("apache-configuration"=>"ApacheConf", "apache-configure"=>"ApacheConf", "apache-conf"=>"ApacheConf",
             "apacheconf"=>"ApacheConf");
     }
 
@@ -27,8 +27,8 @@ class ApacheConfInfo extends Base {
           "ApacheConf" => array(
             "programDataFolder" => "/etc/apacheconf/", // command and app dir name
             "programNameMachine" => "apacheconf", // command and app dir name
-            "programNameFriendly" => "PHP Conf.", // 12 chars
-            "programNameInstaller" => "PHP Conf",
+            "programNameFriendly" => "Apache Conf.", // 12 chars
+            "programNameInstaller" => "Apache Conf",
           )
         )
       );
@@ -38,10 +38,10 @@ class ApacheConfInfo extends Base {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can install Apache HTTP Server
 
-  ApacheConf, php-configure, php-configuration, php-conf, apacheconf
+  ApacheConf, apache-configure, apache-configuration, apache-conf, apacheconf
 
         - install
-        Installs a configuration for PHP
+        Installs a configuration for Apache
         example: cleopatra apacheconf install
 
 HELPDATA;
