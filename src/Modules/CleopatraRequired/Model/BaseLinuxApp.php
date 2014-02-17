@@ -43,19 +43,20 @@ class BaseLinuxApp extends Base {
     return $this->performLinuxAppUnInstall();
   }
 
-  private function performLinuxAppInstall() {
+  protected function performLinuxAppInstall() {
     $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToInstallLinuxAppToScreen();
     if (!$doInstall) { return false; }
     return $this->install();
   }
 
-  private function performLinuxAppUnInstall() {
+  protected function performLinuxAppUnInstall() {
     $doUnInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToUnInstallLinuxAppToScreen();
     if (!$doUnInstall) { return false; }
     return $this->unInstall();
   }
+
   public function runAutoPilotLinuxAppInstall($autoPilot){
     $this->setAutoPilotVariables($autoPilot);
     $this->install($autoPilot);
