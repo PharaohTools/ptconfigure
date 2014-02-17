@@ -92,6 +92,13 @@ COMPLETION;
         return $outputText;
     }
 
+    public static function executeAndGetReturnCode($command) {
+        $output = '';
+        $retVal = null;
+        exec($command, $output, $retVal);
+        return $retVal;
+    }
+
     protected function setCmdLineParams($params) {
         $cmdParams = array();
         foreach ($params as $paramKey => $paramValue) {
@@ -256,5 +263,22 @@ COMPLETION;
             foreach ($this->registeredPostUnInstallFunctions as $func) {
                 $this->$func($autoPilot); } }
     }
+
+    public function askAction($action) {
+        return $this->askWhetherToDoAction($action);
+    }
+
+    protected function askWhetherToPerformActionToScreen($action){
+        $question = "Perform ".$this->programNameInstaller." $action?";
+        return self::askYesOrNo($question);
+    }
+
+    protected function performAction($action) {
+        $doAction = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
+            true : $this->askWhetherToPerformActionToScreen($action);
+        if (!$doAction) { return false; }
+        return $this->installAction($action);
+    }
+
 
 }
