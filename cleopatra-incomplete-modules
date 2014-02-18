@@ -7,11 +7,6 @@ current state
 - all modules when installing if they are a dependency, should also save themselves as such
 - this way a dependency will probably be an apt or a module
 
-Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter
-- actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more
-  than an exit code we'll need to stop spawning
-- If the above are working, is there any benefit to not spawning?
-
 
 Cleopatra
 ----------------
@@ -43,7 +38,7 @@ Firewall Software
 
 Web Servers
 ----------------
-Zend Server
+Zend Server  - HAVE APPROACHED ZEND TO DO THIS
 PHP VM
 
 
@@ -99,11 +94,6 @@ Testing tools
 PHPSpec
 Storyplayer
 Hardy CSS Regression
-Mink/Behat  - done
-Ruby BDD Suite
-- Cucumber Gem
-- Capybara Gem
-- Calabash Gem
 
 Webpagetest
 Skipfish
@@ -258,3 +248,25 @@ Nginx Install - done
 Nginx Service Control - DONE DAPPERSTRANO
 LightHttpd Install  - done
 LightHttpd Service Control - DONE DAPPERSTRANO
+
+
+Testing tools
+----------------
+Mink/Behat  - done
+Ruby BDD Suite
+- Cucumber Gem
+- Capybara Gem
+- Calabash Gem
+
+DONE
+-----------------
+Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter
+- actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more
+  than an exit code we'll need to stop spawning
+- If the above are working, is there any benefit to not spawning?
+THIS IS DONE BY USING THE FACTORY TO GET MODELS/MODEL GROUPS FROM MODULES
+
+To do this, create a protected (maybe static as its called from another module) method in the autopilot, use
+system-detection-factory to return a compatible model, Then add a step to the AutopilotMethod Module with your
+method name, and the method/class should be able to set its own parameters with a private property or something
+-----------------
