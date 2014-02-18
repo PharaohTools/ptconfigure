@@ -280,5 +280,23 @@ COMPLETION;
         return $this->installAction($action);
     }
 
+    // @todo refactor this 14 lines of ugliness
+    protected function askWhetherToDoAction($action) {
+        if ( isset($this->actionsToMethods)) {
+            if (method_exists($this, $this->actionsToMethods[$action])) {
+                $return = $this->{$this->actionsToMethods[$action]}() ;
+                return $return ; }
+            else {
+                $consoleFactory = new \Model\Console();
+                $console = $consoleFactory->getModel($this->params);
+                $console->log("No method {$this->actionsToMethods[$action]} in model ".get_class($this)) ;
+                return false; } }
+        else {
+            $consoleFactory = new \Model\Console();
+            $console = $consoleFactory->getModel($this->params);
+            $console->log('No property $actionsToMethods in model '.get_class($this)) ;
+            return false; }
+    }
+
 
 }
