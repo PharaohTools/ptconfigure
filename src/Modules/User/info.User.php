@@ -38,8 +38,7 @@ class UserInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install the latest available User in the Ubuntu
-  repositories.
+  This command allows you to modify create or modify users
 
   User, user
 
