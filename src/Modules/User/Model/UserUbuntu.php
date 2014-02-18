@@ -35,24 +35,6 @@ class UserUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    // @todo refactor this 14 lines of ugliness
-    public function askWhetherToDoAction($action) {
-        if ( isset($this->actionsToMethods)) {
-            if (method_exists($this, $this->actionsToMethods[$action])) {
-                $return = $this->{$this->actionsToMethods[$action]}() ;
-                return $return ; }
-            else {
-                $consoleFactory = new \Model\Console();
-                $console = $consoleFactory->getModel($this->params);
-                $console->log("No method {$this->actionsToMethods[$action]} in model ".get_class($this)) ;
-                return false; } }
-        else {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log('No property $actionsToMethods in model '.get_class($this)) ;
-            return false; }
-    }
-
     protected function performUserCreate() {
         $this->setUser();
         return $this->create();
