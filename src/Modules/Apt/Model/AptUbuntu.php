@@ -13,13 +13,7 @@ class AptUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $aptName ;
-    protected $actionsToMethods =
-        array(
-            "install" => "performAptCreate",
-            "remove" => "performAptRemove",
-            "exists" => "performAptExistenceCheck",
-        ) ;
+    protected $packagerName = "apt";
 
     public function __construct($params) {
         parent::__construct($params);
@@ -29,22 +23,6 @@ class AptUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "!Apt!!"; // 12 chars
         $this->programNameInstaller = "Apt";
         $this->initialize();
-    }
-
-    protected function performAptCreate() {
-        $this->setApt();
-        return $this->create();
-    }
-
-    protected function performAptSetPassword() {
-        $this->setApt();
-        $this->setPassword();
-    }
-
-    protected function performAptRemove() {
-        $this->setApt();
-        $result = $this->remove();
-        return $result ;
     }
 
     public function isInstalled($packageName) {
@@ -65,7 +43,7 @@ class AptUbuntu extends BaseLinuxApp {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndGetReturnCode("sudo apt-get remove -y $packageName");
+        $returnCode = $this->executeAndOutput("sudo apt-get remove -y $packageName");
         if ($returnCode !== 0) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
@@ -74,17 +52,14 @@ class AptUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    private function getPackageName($packageName = null) {
-        if (isset($packageName)) {  }
-        else if (isset($this->params["package-name"])) {
-            $packageName = $this->params["package-name"]; }
-        else if (isset($this->params["package-name"])) {
-            $packageName = $this->params["package-name"]; }
-        else if (isset($autopilot["package-name"])) {
-            $packageName = $autopilot["package-name"]; }
-        else {
-            $packageName = self::askForInput("Enter Package Name:", true); }
-        return $packageName ;
+    public function update($autopilot = null) {
+        $returnCode = $this->executeAndOutput("sudo apt-get update -y");
+        if ($returnCode !== 0) {
+            $consoleFactory = new \Model\Console();
+            $console = $consoleFactory->getModel($this->params);
+            $console->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            return false ; }
+        return true ;
     }
 
 }
