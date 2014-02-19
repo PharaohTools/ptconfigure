@@ -1,4 +1,4 @@
-Gem Modifications:
+Pear Modifications:
 --------------------------------------------
 
 <?php echo $pageVars["appName"] ; ?>: <?php
@@ -9,4 +9,4 @@ Gem Modifications:
 ?>
 
 ------------------------------
-Gem Mods Finished
+Pear Mods Finished

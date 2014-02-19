@@ -2,39 +2,39 @@
 
 Namespace Info;
 
-class GemInfo extends Base {
+class PearInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Add, Remove or Modify Gems";
+    public $name = "Add, Remove or Modify Pears";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-        // return array( "Gem" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "Gem" =>  array_merge(
+        // return array( "Pear" =>  array_merge(parent::routesAvailable(), array() ) );
+        return array( "Pear" =>  array_merge(
             array("help", "status", "create", "remove", "set-password", "exists", "show-groups", "add-to-group", "remove-from-group")
         ) );
     }
 
     public function routeAliases() {
-        return array("gem"=>"Gem");
+        return array("pear"=>"Pear");
     }
 
     public function packagerName() {
-        return "Gem";
+        return "Pear";
     }
 
     public function autoPilotVariables() {
       return array(
-        "Gem" => array(
-          "Gem" => array(
+        "Pear" => array(
+          "Pear" => array(
             "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "gem", // command and app dir name
-            "programNameFriendly" => "    Gem    ", // 12 chars
-            "programNameInstaller" => "Gem",
+            "programNameMachine" => "pear", // command and app dir name
+            "programNameFriendly" => "    Pear    ", // 12 chars
+            "programNameInstaller" => "Pear",
           )
         )
       );
@@ -42,37 +42,37 @@ class GemInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify gems
+  This command allows you to modify create or modify pears
 
-  Gem, gem
+  Pear, pear
 
         - create
-        Create a new system gem, overwriting if it exists
-        example: cleopatra gem create --gemname="somename"
+        Create a new system pear, overwriting if it exists
+        example: cleopatra pear create --pearname="somename"
 
         - remove
-        Remove a system gem
-        example: cleopatra gem remove --gemname="somename"
+        Remove a system pear
+        example: cleopatra pear remove --pearname="somename"
 
         - set-password
-        Set the password of a system gem
-        example: cleopatra gem set-password --gemname="somename" --new-password="somepassword"
+        Set the password of a system pear
+        example: cleopatra pear set-password --pearname="somename" --new-password="somepassword"
 
         - exists
-        Check the existence of a gem
-        example: cleopatra gem exists --gemname="somename"
+        Check the existence of a pear
+        example: cleopatra pear exists --pearname="somename"
 
         - show-groups
-        Show groups to which a gem belongs
-        example: cleopatra gem show-groups --gemname="somename"
+        Show groups to which a pear belongs
+        example: cleopatra pear show-groups --pearname="somename"
 
         - add-to-group
-        Add gem to a group
-        example: cleopatra gem add-to-group --gemname="somename" --groupname="somegroupname"
+        Add pear to a group
+        example: cleopatra pear add-to-group --pearname="somename" --groupname="somegroupname"
 
         - remove-from-group
-        Remove gem from a group
-        example: cleopatra gem remove-from-group --gemname="somename" --groupname="somegroupname"
+        Remove pear from a group
+        example: cleopatra pear remove-from-group --pearname="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;

@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Gem extends BaseModelFactory {
+class Pear extends BaseModelFactory {
 
 }

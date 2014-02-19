@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Gem extends Base {
+class Pear extends Base {
 
     public function execute($pageVars) {
 
@@ -20,7 +20,7 @@ class Gem extends Base {
         if (in_array($action, array("pkg-install", "pkg-remove", "pkg-ensure") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"gem", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"pear", "pageVars"=>$this->content); }
 
     }
 
