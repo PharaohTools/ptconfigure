@@ -84,7 +84,7 @@ COMPLETION;
         if ($message !== null) {
           $outputText .= "$message\n"; }
         print $outputText;
-        return true;
+        return $outputText;
     }
 
     protected function executeAndLoad($command) {
