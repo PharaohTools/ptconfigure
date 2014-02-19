@@ -92,20 +92,20 @@ class BaseLinuxApp extends Base {
     return true;
   }
 
-  private function showTitle() {
+  protected function showTitle() {
     print $this->titleData ;
   }
 
-  private function showCompletion() {
+  protected function showCompletion() {
     print $this->completionData ;
   }
 
-  private function askWhetherToInstallLinuxAppToScreen(){
+  protected function askWhetherToInstallLinuxAppToScreen(){
     $question = "Install ".$this->programNameInstaller."?";
     return self::askYesOrNo($question);
   }
 
-  private function askWhetherToUnInstallLinuxAppToScreen(){
+  protected function askWhetherToUnInstallLinuxAppToScreen(){
     $question = "Uninstall ".$this->programNameInstaller."?";
     return self::askYesOrNo($question);
   }
@@ -143,12 +143,12 @@ class BaseLinuxApp extends Base {
       $this->programDataFolder = $input; }
   }
 
-  private function doInstallCommand(){
+  protected function doInstallCommand(){
     self::swapCommandArrayPlaceHolders($this->installCommands);
     self::executeAsShell($this->installCommands);
   }
 
-  private function changePermissions($autoPilot, $target=null){
+  protected function changePermissions($autoPilot, $target=null){
     if ($target != null) {
       $command = "chmod -R 775 $target";
       self::executeAndOutput($command); }
@@ -167,14 +167,14 @@ class BaseLinuxApp extends Base {
     $this->changePermissions(null, $executorPath);
   }
 
-  private function populateExecutorFile() {
+  protected function populateExecutorFile() {
     $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
 exec('".$this->programExecutorCommand."');\n
 ?>";
   }
 
-  private function doUnInstallCommand(){
+  protected function doUnInstallCommand(){
     self::swapCommandArrayPlaceHolders($this->uninstallCommands);
     self::executeAsShell($this->uninstallCommands);
   }
