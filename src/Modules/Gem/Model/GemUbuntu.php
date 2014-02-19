@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class GemUbuntu extends BaseLinuxApp {
+class GemUbuntu extends BasePackager {
 
     // Compatibility
     public $os = array("Linux") ;
