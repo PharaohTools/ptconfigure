@@ -104,66 +104,48 @@ class FileUbuntu extends BaseLinuxApp {
         return $this;
     }
 
-    public function contains($needle)
-    {
+    public function contains($needle) {
         if ($needle instanceof RegExp) {
-            return preg_match($needle->regexp, $this->read());
-        } else {
-            return strstr($this->read(), $needle);
-        }
+            return preg_match($needle->regexp, $this->read()); }
+        else {
+            return strstr($this->read(), $needle); }
     }
 
-    public function append($newContent)
-    {
+    public function append($newContent) {
         $this->write($this->read() . $newContent);
     }
 
-    public function chmod($string)
-    {
+    public function chmod($string) {
         chmod($this->fileName, $string);
     }
 
-    public function findString($needle)
-    {
+    public function findString($needle) {
         if ($needle instanceof RegExp) {
             preg_match_all($needle->regexp, $this->read(), $m);
             if (isset($m[1])) {
-                return $m[1];
-            }
+                return $m[1]; }
             if (isset($m[0])) {
-                return $m[0];
-            }
-        } else {
+                return $m[0]; } }
+        else {
             if (strstr($this->read(), $needle)) {
-                return $needle;
-            };
-        }
+                return $needle; } }
         return null;
     }
 
-    public function shouldHaveLines($lines)
-    {
+    public function shouldHaveLines($lines) {
         if(!$this->contains($lines)) {
-            $this->append($lines);
-        }
+            $this->append($lines); }
     }
 
-    public function shouldHaveLine($string)
-    {
+    public function shouldHaveLine($string) {
         if (!($string instanceof RegExp)) {
-            $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m");
-        } else {
-            $searchString = $string;
-        }
-
+            $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
+        else {
+            $searchString = $string; }
         if(substr($searchString, -1, 1) != "\n") {
-            $searchString .= "\n";
-        }
-
+            $searchString .= "\n"; }
         if (!$this->findString($searchString)) {
-            $this->append($string . "\n");
-        }
-
+            $this->append($string . "\n"); }
         return $this;
     }
 
