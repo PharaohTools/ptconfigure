@@ -88,21 +88,23 @@ class PackageManagerUbuntu extends BaseLinuxApp {
     public function installOSPackage($autopilot = null) {
         $packager = $this->getPackager();
         if (is_array($this->packageName)) {
+            $returns = array() ;
             foreach($this->packageName as $onePackage) {
-                $packager->installPackage($onePackage); } }
+                $returns[] = $packager->installPackage($onePackage); }
+            return (in_array(false, $returns)) ? false : true ; }
         else {
-            $packager->installPackage($this->packageName); }
-        return true ;
+            return $packager->installPackage($this->packageName); }
     }
 
     public function removeOSPackage($autopilot = null) {
         $packager = $this->getPackager();
         if (is_array($this->packageName)) {
+            $returns = array() ;
             foreach($this->packageName as $onePackage) {
-                $packager->removePackage($onePackage); } }
+                $returns[] = $packager->removePackage($onePackage); }
+            return (in_array(false, $returns)) ? false : true ; }
         else {
-            $packager->removePackage($this->packageName); }
-        return true ;
+            return $packager->removePackage($this->packageName); }
     }
 
     public function ensureInstalled() {
@@ -127,10 +129,12 @@ class PackageManagerUbuntu extends BaseLinuxApp {
             if ( method_exists($infoObject, "packagerName") ) {
                 $allPackagers[] = $infoObject->packagerName(); } }
         foreach($allPackagers as $onePackager) {
-            $className = '\Model\\'.$onePackager ;
-            $pkgrFactory = new $className();
-            $pkgr = $pkgrFactory->getModel($this->params);
-            return $pkgr ; }
+            if ( ((isset($this->params["packager-name"])) && $this->params["packager-name"] == strtolower($onePackager)) ||
+                 ((isset($this->params["packagername"])) && $this->params["packagername"] == strtolower($onePackager))) {
+                    $className = '\Model\\'.$onePackager ;
+                    $pkgrFactory = new $className();
+                    $pkgr = $pkgrFactory->getModel($this->params);
+                    return $pkgr ; } }
         return false ;
     }
 
