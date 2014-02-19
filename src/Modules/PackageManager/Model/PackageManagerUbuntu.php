@@ -14,6 +14,7 @@ class PackageManagerUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
     protected $packageName ;
+    protected $packagerName ;
     protected $actionsToMethods =
         array(
             "pkg-install" => "performPackageInstall",
@@ -106,6 +107,10 @@ class PackageManagerUbuntu extends BaseLinuxApp {
 
     public function ensureInstalled() {
         if ($this->isInstalled()==false) { $this->installOSPackage($autopilot = null); }
+        else {
+            $consoleFactory = new \Model\Console();
+            $console = $consoleFactory->getModel($this->params);
+            $console->log("Package {$this->packageName} from the Packager {$this->packagerName} is already installed"); }
         return $this;
     }
 
