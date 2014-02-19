@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class GemUbuntu extends BaseLinuxApp {
+class PearUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,48 +13,48 @@ class GemUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $gemName ;
+    protected $pearName ;
     protected $actionsToMethods =
         array(
-            "install" => "performGemCreate",
-            "remove" => "performGemRemove",
-            "exists" => "performGemExistenceCheck",
+            "install" => "performPearCreate",
+            "remove" => "performPearRemove",
+            "exists" => "performPearExistenceCheck",
         ) ;
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "Gem";
+        $this->autopilotDefiner = "Pear";
         $this->programDataFolder = "";
-        $this->programNameMachine = "gem"; // command and app dir name
-        $this->programNameFriendly = "!Gem!!"; // 12 chars
-        $this->programNameInstaller = "Gem";
+        $this->programNameMachine = "pear"; // command and app dir name
+        $this->programNameFriendly = "!Pear!!"; // 12 chars
+        $this->programNameInstaller = "Pear";
         $this->initialize();
     }
 
-    protected function performGemCreate() {
-        $this->setGem();
+    protected function performPearCreate() {
+        $this->setPear();
         return $this->create();
     }
 
-    protected function performGemExists() {
-        $this->setGem();
+    protected function performPearExists() {
+        $this->setPear();
         $this->setPassword();
     }
 
-    protected function performGemRemove() {
-        $this->setGem();
+    protected function performPearRemove() {
+        $this->setPear();
         $result = $this->remove();
         return $result ;
     }
 
     public function isInstalled($packageName) {
-        $out = $this->executeAndLoad("sudo gem list {$packageName} -i") ;
+        $out = $this->executeAndLoad("sudo pear list {$packageName} -i") ;
         return (strpos($out, "true") != false) ? true : false ;
     }
 
     public function installPackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput("sudo gem install -y $packageName");
+        $returnCode = $this->executeAndOutput("sudo pear install -y $packageName");
         if ($returnCode !== 0) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
@@ -65,7 +65,7 @@ class GemUbuntu extends BaseLinuxApp {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndGetReturnCode("sudo gem-get remove -y $packageName");
+        $returnCode = $this->executeAndGetReturnCode("sudo pear remove -y $packageName");
         if ($returnCode !== 0) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
