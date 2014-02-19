@@ -39,7 +39,7 @@ Firewall Software
 Web Servers
 ----------------
 Zend Server  - HAVE APPROACHED ZEND TO DO THIS
-PHP VM
+PHP VM  - GET FACEBOOK TO DO THIS
 
 
 
@@ -250,14 +250,6 @@ LightHttpd Install  - done
 LightHttpd Service Control - DONE DAPPERSTRANO
 
 
-Testing tools
-----------------
-Mink/Behat  - done
-Ruby BDD Suite
-- Cucumber Gem
-- Capybara Gem
-- Calabash Gem
-
 DONE
 -----------------
 Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter
@@ -270,3 +262,11 @@ To do this, create a protected (maybe static as its called from another module) 
 system-detection-factory to return a compatible model, Then add a step to the AutopilotMethod Module with your
 method name, and the method/class should be able to set its own parameters with a private property or something
 -----------------
+
+Testing tools
+----------------
+Mink/Behat  - done
+Ruby BDD Suite
+- Cucumber Gem
+- Capybara Gem
+- Calabash Gem
