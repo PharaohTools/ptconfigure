@@ -13,7 +13,7 @@ class PackageManagerInfo extends Base {
   }
 
   public function routesAvailable() {
-    return array( "PackageManager" =>  array_merge(parent::routesAvailable(), array("install") ) );
+    return array( "PackageManager" =>  array_merge(parent::routesAvailable(), array("pkg-ensure", "pkg-install", "pkg-remove") ) );
   }
 
   public function routeAliases() {
@@ -40,9 +40,17 @@ class PackageManagerInfo extends Base {
 
   PackageManager, package-manager, packagemanager, package-mgr, pkgmgr
 
-        - install
-        Installs Ruby a System Wide version of Ruby for you
-        example: cleopatra package-manager install --package-name="mysql" --package-version="50"
+        - pkg-install
+        Installs a Package through a Package Manager
+        example: cleopatra package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
+
+        - pkg-ensure
+        Installs a Package through a Package Manager
+        example: cleopatra package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
+
+        - pkg-remove
+        Removes a Package through a Package Manager
+        example: cleopatra package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
 
   A package manager wrapper that will allow you to install packages on any system
 
