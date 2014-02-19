@@ -2,35 +2,35 @@
 
 Namespace Info;
 
-class UserInfo extends Base {
+class FileInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Add, Remove or Modify Users";
+    public $name = "Add, Remove or Modify Files";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-        // return array( "User" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "User" =>  array_merge(
+        // return array( "File" =>  array_merge(parent::routesAvailable(), array() ) );
+        return array( "File" =>  array_merge(
             array("help", "status", "create", "remove", "set-password", "exists", "show-groups", "add-to-group", "remove-from-group")
         ) );
     }
 
     public function routeAliases() {
-      return array("user"=>"User");
+      return array("file"=>"File");
     }
 
     public function autoPilotVariables() {
       return array(
-        "User" => array(
-          "User" => array(
+        "File" => array(
+          "File" => array(
             "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "user", // command and app dir name
-            "programNameFriendly" => "    User    ", // 12 chars
-            "programNameInstaller" => "User",
+            "programNameMachine" => "file", // command and app dir name
+            "programNameFriendly" => "    File    ", // 12 chars
+            "programNameInstaller" => "File",
           )
         )
       );
@@ -38,37 +38,37 @@ class UserInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify users
+  This command allows you to modify create or modify files
 
-  User, user
+  File, file
 
         - create
-        Create a new system user, overwriting if it exists
-        example: cleopatra user create --username="somename"
+        Create a new system file, overwriting if it exists
+        example: cleopatra file create --filename="somename"
 
         - remove
-        Remove a system user
-        example: cleopatra user remove --username="somename"
+        Remove a system file
+        example: cleopatra file remove --filename="somename"
 
         - set-password
-        Set the password of a system user
-        example: cleopatra user set-password --username="somename" --new-password="somepassword"
+        Set the password of a system file
+        example: cleopatra file set-password --filename="somename" --new-password="somepassword"
 
         - exists
-        Check the existence of a user
-        example: cleopatra user exists --username="somename"
+        Check the existence of a file
+        example: cleopatra file exists --filename="somename"
 
         - show-groups
-        Show groups to which a user belongs
-        example: cleopatra user show-groups --username="somename"
+        Show groups to which a file belongs
+        example: cleopatra file show-groups --filename="somename"
 
         - add-to-group
-        Add user to a group
-        example: cleopatra user add-to-group --username="somename" --groupname="somegroupname"
+        Add file to a group
+        example: cleopatra file add-to-group --filename="somename" --groupname="somegroupname"
 
         - remove-from-group
-        Remove user from a group
-        example: cleopatra user remove-from-group --username="somename" --groupname="somegroupname"
+        Remove file from a group
+        example: cleopatra file remove-from-group --filename="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;

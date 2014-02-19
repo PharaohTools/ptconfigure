@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class UserUbuntu extends BaseLinuxApp {
+class FileUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,203 +13,159 @@ class UserUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $userName ;
+    protected $fileName ;
     protected $actionsToMethods =
         array(
-            "create" => "performUserCreate",
-            "remove" => "performUserRemove",
-            "set-password" => "performUserSetPassword",
-            "show-groups" => "performShowGroups",
-            "add-to-group" => "performUserAddToGroup",
-            "remove-from-group" => "performUserRemoveFromGroup",
-            "exists" => "performUserExistenceCheck",
+            // "create" => "performFileCreate",
         ) ;
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "User";
+        $this->autopilotDefiner = "File";
         $this->programDataFolder = "";
-        $this->programNameMachine = "user"; // command and app dir name
-        $this->programNameFriendly = "!User!!"; // 12 chars
-        $this->programNameInstaller = "User";
+        $this->programNameMachine = "file"; // command and app dir name
+        $this->programNameFriendly = "!File!!"; // 12 chars
+        $this->programNameInstaller = "File";
         $this->initialize();
     }
 
-    protected function performUserCreate() {
-        $this->setUser();
-        return $this->create();
-    }
-
-    protected function performUserSetPassword() {
-        $this->setUser();
-        $this->setPassword();
-    }
-
-    protected function performUserRemove() {
-        $this->setUser();
-        $result = $this->remove();
-        return $result ;
-    }
-
-    protected function performShowGroups() {
-        $this->setUser();
-        $result = $this->getGroups();
-        return $result ;
-    }
-
-    protected function performUserAddToGroup() {
-        $this->setUser();
-        $result = $this->addToGroup();
-        return $result ;
-    }
-
-    protected function performUserRemoveFromGroup() {
-        $this->setUser();
-        $result = $this->removeFromGroup();
-        return $result ;
-    }
-
-    protected function performUserExistenceCheck() {
-        $this->setUser();
+//    protected function performFileRead() {
+//        $this->setFile();
+//        return $this->create();
+//    }
+//
+//    protected function performFileSetPassword() {
+//        $this->setFile();
+//        $this->setPassword();
+//    }
+//
+//    protected function performFileRemove() {
+//        $this->setFile();
+//        $result = $this->remove();
+//        return $result ;
+//    }
+//
+//    protected function performShowGroups() {
+//        $this->setFile();
+//        $result = $this->getGroups();
+//        return $result ;
+//    }
+//
+//    protected function performFileAddToGroup() {
+//        $this->setFile();
+//        $result = $this->addToGroup();
+//        return $result ;
+//    }
+//
+//    protected function performFileRemoveFromGroup() {
+//        $this->setFile();
+//        $result = $this->removeFromGroup();
+//        return $result ;
+//    }
+//
+    protected function performFileExistenceCheck() {
+        $this->setFile();
         return $this->exists();
     }
 
-    public function setUser($userName = null) {
-        if (isset($userName)) {
-            $this->userName = $userName; }
-        else if (isset($this->params["username"])) {
-            $this->userName = $this->params["username"]; }
-        else if (isset($autopilot["username"])) {
-            $this->userName = $autopilot["username"]; }
+    public function setFile($fileName = null) {
+        if (isset($fileName)) {
+            $this->fileName = $fileName; }
+        else if (isset($this->params["filename"])) {
+            $this->fileName = $this->params["filename"]; }
+        else if (isset($autopilot["filename"])) {
+            $this->fileName = $autopilot["filename"]; }
         else {
-            $this->userName = self::askForInput("Enter Username:", true); }
+            $this->fileName = self::askForInput("Enter Filename:", true); }
     }
 
-    public function setPassword($autopilot = null) {
-        if (isset($this->params["new-password"])) {
-            $pword = $this->params["new-password"]; }
-        else if (isset($autopilot["new-password"])) {
-            $pword = $autopilot["new-password"]; }
-        else {
-            $pword = self::askForInput("Enter New Password:", true); }
-        $command = 'sudo echo "'.$this->userName.':'.$pword.'"|chpasswd' ;
-        $this->executeAndOutput($command) ;
-    }
-
-    public function getHome() {
-        $command = "sudo -u {$this->userName} echo \$HOME" ;
-        $home = $this->executeAndLoad($command) ;
-        return trim($home);
-    }
-
-    public function hasSshKey() {
-        $key = $this->getPrivateKeyFilename();
-        return file_exists($key) ;
-    }
-
-    public function giveSshKey($autopilot = null, $force = false) {
-        $key = $this->getPrivateKeyFilename();
-        if (is_null($autopilot) && $this->hasSshKey() && $force == false) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("User has SSH Key already and force not specified") ; }
-        else {
-            $command = "sudo -u {$this->userName} ssh-keygen -t rsa -N '' -f " . escapeshellarg($key);
-            $this->executeAndOutput($command) ; }
-    }
-
-    public function getPrivateKeyFilename() {
-        return "{$this->getHome()}/.ssh/id_rsa";
-    }
-
-    public function getPublicKeyFilename() {
-        return "{$this->getHome()}/.ssh/id_rsa.pub";
-    }
-
-    public function getPublicKey() {
-        return file_get_contents($this->getPublicKeyFilename());
-    }
-
-    public function ensurePresent() {
-        if(!$this->exists()) { $this->create(); }
-        return $this;
+    public function read() {
+        return file_get_contents($this->fileName);
     }
 
     public function exists() {
-        $retCode = $this->executeAndGetReturnCode("id {$this->userName} >/dev/null 2>&1") ;
-        return ($retCode == 0) ? true : false ;
+        return file_exists($this->fileName);
     }
 
-    public function create() {
-        $retCode = $this->executeAndGetReturnCode("useradd {$this->userName} -m") ;
-        if ($retCode == 1) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("User Add command did not execute correctly") ;
-            return false ; }
-        return true ;
-    }
-
-    public function remove($autopilot = null) {
-        $command = "userdel {$this->userName}" ;
-        $command .= (isset($this->params["user-force"]) || isset($autopilot["user-force"])) ? " --force" : "" ;
-        $command .= (isset($this->params["remove"]) || isset($autopilot["remove"])) ? " --remove" : "" ;
-        $retCode = $this->executeAndGetReturnCode($command) ;
-        if ($retCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("User Delete command did not execute correctly") ;
-            return false ; }
-        return true ;
-    }
-
-    public function ensureInGroup($groupName) {
-        if(!$this->inGroup($groupName)) {
-            $this->addToGroup($groupName); }
+    public function write($content) {
+        file_put_contents($this->fileName, $content);
         return $this;
     }
 
-    public function inGroup($groupName) {
-        $groups = $this->getGroups();
-        return in_array($groupName, $groups);
+    public function replaceIfPresent($needle, $newNeedle) {
+        if ($this->contains($needle)) {
+            $content = $this->read();
+            if ($needle instanceof RegExp) {
+                $newContent = preg_replace($needle->regexp, $newNeedle, $content);
+            } else {
+                $newContent = str_replace($needle, $newNeedle, $content); }
+            $this->write($newContent);
+        }
+        return $this;
     }
 
-    public function getGroups() {
-        return $this->executeAndLoad("id -Gn {$this->userName}") ;
+    public function contains($needle)
+    {
+        if ($needle instanceof RegExp) {
+            return preg_match($needle->regexp, $this->read());
+        } else {
+            return strstr($this->read(), $needle);
+        }
     }
 
-    private function addToGroup($autopilot = null, $groupName = null) {
-        if (isset($groupName) ) { }
-        else if (isset($this->params["group-name"])) {
-            $groupName = $this->params["group-name"]; }
-        else if (isset($autopilot["group-name"])) {
-            $groupName = $autopilot["group-name"]; }
-        else {
-            $groupName = self::askForInput("Enter New Password:", true); }
-        $returnCode = $this->executeAndGetReturnCode("usermod -aG {$groupName} {$this->userName}");
-        if ($returnCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Adding User {$this->userName} to the Group {$groupName} did not execute correctly") ;
-            return false ; }
-        return true ;
+    public function append($newContent)
+    {
+        $this->write($this->read() . $newContent);
     }
 
-    private function removeFromGroup($autopilot = null, $groupName = null) {
-        if (isset($groupName) ) { }
-        else if (isset($this->params["group-name"])) {
-            $groupName = $this->params["group-name"]; }
-        else if (isset($autopilot["group-name"])) {
-            $groupName = $autopilot["group-name"]; }
-        else {
-            $groupName = self::askForInput("Enter New Password:", true); }
-        $returnCode = $this->executeAndGetReturnCode("deluser {$this->userName} {$groupName}");
-        if ($returnCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Removing User {$this->userName} from the Group {$groupName} did not execute correctly") ;
-            return false ; }
-        return true ;
+    public function chmod($string)
+    {
+        chmod($this->fileName, $string);
     }
+
+    public function findString($needle)
+    {
+        if ($needle instanceof RegExp) {
+            preg_match_all($needle->regexp, $this->read(), $m);
+            if (isset($m[1])) {
+                return $m[1];
+            }
+            if (isset($m[0])) {
+                return $m[0];
+            }
+        } else {
+            if (strstr($this->read(), $needle)) {
+                return $needle;
+            };
+        }
+        return null;
+    }
+
+    public function shouldHaveLines($lines)
+    {
+        if(!$this->contains($lines)) {
+            $this->append($lines);
+        }
+    }
+
+    public function shouldHaveLine($string)
+    {
+        if (!($string instanceof RegExp)) {
+            $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m");
+        } else {
+            $searchString = $string;
+        }
+
+        if(substr($searchString, -1, 1) != "\n") {
+            $searchString .= "\n";
+        }
+
+        if (!$this->findString($searchString)) {
+            $this->append($string . "\n");
+        }
+
+        return $this;
+    }
+
 
 }

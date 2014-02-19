@@ -1,4 +1,4 @@
-User Modifications:
+File Modifications:
 --------------------------------------------
 
 <?php echo $pageVars["appName"] ; ?>: <?php
@@ -9,4 +9,4 @@ User Modifications:
 ?>
 
 ------------------------------
-User Mods Finished
+File Mods Finished

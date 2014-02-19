@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class User extends Base {
+class File extends Base {
 
     public function execute($pageVars) {
 
@@ -20,7 +20,7 @@ class User extends Base {
         if (in_array($action, array() )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"user", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"file", "pageVars"=>$this->content); }
 
     }
 

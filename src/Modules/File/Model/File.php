@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class User extends BaseModelFactory {
+class File extends BaseModelFactory {
 
 }
