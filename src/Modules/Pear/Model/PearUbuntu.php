@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PearUbuntu extends BaseLinuxApp {
+class PearUbuntu extends BasePackager {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,13 +13,7 @@ class PearUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $pearName ;
-    protected $actionsToMethods =
-        array(
-            "install" => "performPearCreate",
-            "remove" => "performPearRemove",
-            "exists" => "performPearExistenceCheck",
-        ) ;
+    protected $packagerName = "pear";
 
     public function __construct($params) {
         parent::__construct($params);
@@ -31,22 +25,6 @@ class PearUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    protected function performPearCreate() {
-        $this->setPear();
-        return $this->create();
-    }
-
-    protected function performPearExists() {
-        $this->setPear();
-        $this->setPassword();
-    }
-
-    protected function performPearRemove() {
-        $this->setPear();
-        $result = $this->remove();
-        return $result ;
-    }
-
     public function isInstalled($packageName) {
         $out = $this->executeAndLoad("sudo pear list {$packageName} -i") ;
         return (strpos($out, "true") != false) ? true : false ;
@@ -54,8 +32,8 @@ class PearUbuntu extends BaseLinuxApp {
 
     public function installPackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput("sudo pear install -y $packageName");
-        if ($returnCode !== 0) {
+        $out = $this->executeAndOutput("sudo pear install -f $packageName");
+        if (!is_int(strpos($out, "install ok"))) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
@@ -65,26 +43,13 @@ class PearUbuntu extends BaseLinuxApp {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndGetReturnCode("sudo pear remove -y $packageName");
-        if ($returnCode !== 0) {
+        $out = $this->executeAndOutput("sudo pear uninstall $packageName");
+        if (!is_int(strpos($out, "uninstall ok"))) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
         return true ;
-    }
-
-    private function getPackageName($packageName = null) {
-        if (isset($packageName)) {  }
-        else if (isset($this->params["package-name"])) {
-            $packageName = $this->params["package-name"]; }
-        else if (isset($this->params["package-name"])) {
-            $packageName = $this->params["package-name"]; }
-        else if (isset($autopilot["package-name"])) {
-            $packageName = $autopilot["package-name"]; }
-        else {
-            $packageName = self::askForInput("Enter Package Name:", true); }
-        return $packageName ;
     }
 
 }
