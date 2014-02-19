@@ -17,7 +17,7 @@ class Service extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("change", "remove", "set-password", "exists", "show-groups", "add-to-group", "remove-from-group") )) {
+        if (in_array($action, array("start", "stop", "restart", "ensure-running", "run-at-reboots") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"service", "pageVars"=>$this->content); }

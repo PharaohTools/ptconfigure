@@ -14,7 +14,7 @@ class ServiceInfo extends Base {
 
     public function routesAvailable() {
         // return array( "Service" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "Service" => array("help", "status", "change", "show") );
+        return array( "Service" => array("help", "status", "start", "stop", "restart", "ensure-running", "run-at-reboots") );
     }
 
     public function routeAliases() {
@@ -38,15 +38,28 @@ class ServiceInfo extends Base {
       $help = <<<"HELPDATA"
   This command allows you to view or modify service
 
-  Service, service
+  Service, service     restart", "ensure-running", "
 
-        - change
-        Change the system service
-        example: cleopatra service change --service="my-laptop"
+        - start
+        Start a system service
+        example: cleopatra service start --service-name="apache2"
 
-        - show
-        Show the system service
-        example: cleopatra service show
+        - stop
+        Stop a system service
+        example: cleopatra service restart --service-name="apache2"
+
+        - restart
+        Restart a system service
+        example: cleopatra service restart --service-name="apache2"
+
+        - ensure-running
+        Ensure a system service is running. If it is already running, dont attempt to start it
+        If it is not running, start it
+        example: cleopatra service ensure-running --service-name="apache2"
+
+        - run-at-reboots
+        Ensure a system service will auto start on reboots.
+        example: cleopatra service run-at-reboots --service-name="apache2"
 
 HELPDATA;
       return $help ;
