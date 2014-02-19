@@ -16,7 +16,7 @@ class AptUbuntu extends BaseLinuxApp {
     protected $aptName ;
     protected $actionsToMethods =
         array(
-            "ins" => "performAptCreate",
+            "install" => "performAptCreate",
             "remove" => "performAptRemove",
             "exists" => "performAptExistenceCheck",
         ) ;
