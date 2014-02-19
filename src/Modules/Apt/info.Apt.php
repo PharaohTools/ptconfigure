@@ -15,7 +15,7 @@ class AptInfo extends Base {
     public function routesAvailable() {
         // return array( "Apt" =>  array_merge(parent::routesAvailable(), array() ) );
         return array( "Apt" =>  array_merge(
-            array("help", "status", "create", "remove", "set-password", "exists", "show-groups", "add-to-group", "remove-from-group")
+            array("help", "status", "pkg-install", "pkg-ensure", "pkg-remove", "update")
         ) );
     }
 

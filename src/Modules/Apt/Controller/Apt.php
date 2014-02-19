@@ -17,7 +17,7 @@ class Apt extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("pkg-install", "pkg-remove", "pkg-ensure") )) {
+        if (in_array($action, array("pkg-install", "pkg-remove", "pkg-ensure", "update") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"apt", "pageVars"=>$this->content); }
