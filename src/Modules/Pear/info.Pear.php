@@ -6,7 +6,7 @@ class PearInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Add, Remove or Modify Pears";
+    public $name = "Pear Package Manager";
 
     public function __construct() {
       parent::__construct();
