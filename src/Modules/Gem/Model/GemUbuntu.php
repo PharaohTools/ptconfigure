@@ -13,13 +13,7 @@ class GemUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $gemName ;
-    protected $actionsToMethods =
-        array(
-            "install" => "performGemCreate",
-            "remove" => "performGemRemove",
-            "exists" => "performGemExistenceCheck",
-        ) ;
+    protected $packagerName = "gem";
 
     public function __construct($params) {
         parent::__construct($params);
@@ -29,22 +23,6 @@ class GemUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "!Gem!!"; // 12 chars
         $this->programNameInstaller = "Gem";
         $this->initialize();
-    }
-
-    protected function performGemCreate() {
-        $this->setGem();
-        return $this->create();
-    }
-
-    protected function performGemExists() {
-        $this->setGem();
-        $this->setPassword();
-    }
-
-    protected function performGemRemove() {
-        $this->setGem();
-        $result = $this->remove();
-        return $result ;
     }
 
     public function isInstalled($packageName) {
@@ -65,26 +43,13 @@ class GemUbuntu extends BaseLinuxApp {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndGetReturnCode("sudo gem remove -y $packageName");
+        $returnCode = $this->executeAndOutput("sudo gem remove -y $packageName");
         if ($returnCode !== 0) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
         return true ;
-    }
-
-    private function getPackageName($packageName = null) {
-        if (isset($packageName)) {  }
-        else if (isset($this->params["package-name"])) {
-            $packageName = $this->params["package-name"]; }
-        else if (isset($this->params["package-name"])) {
-            $packageName = $this->params["package-name"]; }
-        else if (isset($autopilot["package-name"])) {
-            $packageName = $autopilot["package-name"]; }
-        else {
-            $packageName = self::askForInput("Enter Package Name:", true); }
-        return $packageName ;
     }
 
 }
