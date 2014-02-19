@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class AptUbuntu extends BaseLinuxApp {
+class AptUbuntu extends BasePackager {
 
     // Compatibility
     public $os = array("Linux") ;
