@@ -32,8 +32,9 @@ class AptUbuntu extends BasePackager {
 
     public function installPackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput("sudo apt-get install -y $packageName");
-        if ($returnCode !== 0) {
+        $out = $this->executeAndOutput("sudo apt-get install -y $packageName");
+        if (strpos($out, "ldconfig deferred processing now taking place") != false ||
+            strpos($out, "is already the newest version.") != false) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
@@ -43,8 +44,9 @@ class AptUbuntu extends BasePackager {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput("sudo apt-get remove -y $packageName");
-        if ($returnCode !== 0) {
+        $out = $this->executeAndOutput("sudo apt-get remove -y $packageName");
+        if (strpos($out, "The following packages will be REMOVED") != false ||
+            strpos($out, "is not installed, so not removed") != false) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
@@ -53,8 +55,8 @@ class AptUbuntu extends BasePackager {
     }
 
     public function update($autopilot = null) {
-        $returnCode = $this->executeAndOutput("sudo apt-get update -y");
-        if ($returnCode !== 0) {
+        $out = $this->executeAndOutput("sudo apt-get update -y");
+        if (strpos($out, "Done") != false) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
