@@ -283,7 +283,7 @@ COMPLETION;
     // @todo refactor this 14 lines of ugliness
     protected function askWhetherToDoAction($action) {
         if ( isset($this->actionsToMethods)) {
-            if (method_exists($this, $this->actionsToMethods[$action])) {
+            if (isset($this->actionsToMethods[$action]) && method_exists($this, $this->actionsToMethods[$action])) {
                 $return = $this->{$this->actionsToMethods[$action]}() ;
                 return $return ; }
             else {
