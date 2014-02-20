@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class ConsoleUbuntu extends BaseLinuxApp {
+class ConsoleAll extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("12.04", "12.10") ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
