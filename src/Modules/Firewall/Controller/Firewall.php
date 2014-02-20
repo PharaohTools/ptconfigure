@@ -17,7 +17,12 @@ class Firewall extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("install", "enable", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset") )) {
+        if (in_array($action, array("install") )) {
+            $this->content["result"] = $thisModel->askInstall();
+            $this->content["appName"] = $thisModel->programNameInstaller ;
+            return array ("type"=>"view", "view"=>"firewall", "pageVars"=>$this->content); }
+
+        if (in_array($action, array("enable", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"firewall", "pageVars"=>$this->content); }
