@@ -15,7 +15,7 @@ class FirewallInfo extends Base {
     public function routesAvailable() {
         // return array( "Firewall" =>  array_merge(parent::routesAvailable(), array() ) );
         return array( "Firewall" =>  array_merge(
-            array("help", "status", "enable", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset")
+            array("help", "status", "install", "enable", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset")
         ) );
     }
 

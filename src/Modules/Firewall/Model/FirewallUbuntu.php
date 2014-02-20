@@ -30,6 +30,8 @@ class FirewallUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Firewall";
+        $this->installCommands = array("apt-get install -y ufw");
+        $this->uninstallCommands = array("apt-get remove -y ufw");
         $this->programDataFolder = "";
         $this->programNameMachine = "firewall"; // command and app dir name
         $this->programNameFriendly = "!Firewall!!"; // 12 chars
