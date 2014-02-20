@@ -6,9 +6,9 @@ class FirewallCentos extends FirewallUbuntu {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $linuxType = array("Redhat") ;
+    public $distros = array("Centos") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
