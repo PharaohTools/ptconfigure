@@ -15,11 +15,7 @@ class PapyrusEditor extends Base {
             // if we don't have an object, its an array of errors
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $this->content["params"] = $thisModel->params;
-            // @todo the following lines are ugly, put into a seperate method, and
-            if ($_REQUEST["doLoad"] == "on") {
-                $this->content["current_papyrus"] = $thisModel->getPapyrus(); }
-            if ($_REQUEST["doSave"] == "on") {
-                $this->content["saved_papyrus"] = $thisModel->savePapyrus(); }
+            $this->setLoadOrSave($thisModel) ;
             $this->content["layout"] = "PapyrusEditorHTML" ;
             return array ("type"=>"view", "view"=>"papyrusEditor", "pageVars"=>$this->content); }
 
@@ -29,6 +25,11 @@ class PapyrusEditor extends Base {
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
         return null ;
+    }
+
+    private function setLoadOrSave(&$thisModel) {
+        if ($_REQUEST["doLoad"] == "on") { $this->content["current_papyrus"] = $thisModel->getPapyrus(); }
+        if ($_REQUEST["doSave"] == "on") { $this->content["saved_papyrus"] = $thisModel->savePapyrus(); }
     }
 
 }
