@@ -53,8 +53,10 @@ class EnvironmentConfigAllLinux extends Base {
       $envSuffix = array_keys($this->environmentReplacements);
       $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
       if (count($allProjectEnvs) > 0) {
-        $question = 'Use existing environment settings?';
-        $useProjEnvs = self::askYesOrNo($question, true);
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { $useProjEnvs = true ; }
+        else {
+            $question = 'Use existing environment settings?';
+            $useProjEnvs = self::askYesOrNo($question, true); }
         if ($useProjEnvs == true ) {
           $this->environments = $allProjectEnvs;
           $i = 0;
@@ -65,8 +67,11 @@ class EnvironmentConfigAllLinux extends Base {
                   $oneEnvironment["any-app"]["gen_env_name"] : "*unknown*" ;
               $q  = "Do you want to modify entries applicable to any app in " ;
               $q .= "environment $envName" ;
+              if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                  continue ; }
               if (self::askYesOrNo($q)==true) {
-                  $this->populateAnEnvironment($i, "any-app" ) ; }
+                  $this->populateAnEnvironment($i, "any-app" ) ;
+                  continue ; }
               if ( isset($oneEnvironment[$curEnvGroup]) ) {
                   $q  = "Do you want to modify entries for group $curEnvGroup in " ;
                   $q .= "environment $envName" ;
