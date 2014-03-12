@@ -29,40 +29,6 @@ class FileUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-//    protected function performFileRead() {
-//        $this->setFile();
-//        return $this->create();
-//    }
-//
-//    protected function performFileSetPassword() {
-//        $this->setFile();
-//        $this->setPassword();
-//    }
-//
-//    protected function performFileRemove() {
-//        $this->setFile();
-//        $result = $this->remove();
-//        return $result ;
-//    }
-//
-//    protected function performShowGroups() {
-//        $this->setFile();
-//        $result = $this->getGroups();
-//        return $result ;
-//    }
-//
-//    protected function performFileAddToGroup() {
-//        $this->setFile();
-//        $result = $this->addToGroup();
-//        return $result ;
-//    }
-//
-//    protected function performFileRemoveFromGroup() {
-//        $this->setFile();
-//        $result = $this->removeFromGroup();
-//        return $result ;
-//    }
-//
     protected function performFileExistenceCheck() {
         $this->setFile();
         return $this->exists();
@@ -96,8 +62,8 @@ class FileUbuntu extends BaseLinuxApp {
         if ($this->contains($needle)) {
             $content = $this->read();
             if ($needle instanceof RegExp) {
-                $newContent = preg_replace($needle->regexp, $newNeedle, $content);
-            } else {
+                $newContent = preg_replace($needle->regexp, $newNeedle, $content); }
+            else {
                 $newContent = str_replace($needle, $newNeedle, $content); }
             $this->write($newContent);
         }
@@ -142,12 +108,11 @@ class FileUbuntu extends BaseLinuxApp {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
-        if(substr($searchString, -1, 1) != "\n") {
+        if (substr($searchString, -1, 1) != "\n") {
             $searchString .= "\n"; }
         if (!$this->findString($searchString)) {
             $this->append($string . "\n"); }
         return $this;
     }
-
 
 }
