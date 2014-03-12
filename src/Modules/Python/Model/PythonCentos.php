@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class PythonUbuntu extends BaseLinuxApp {
+class PythonCentos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $linuxType = array("Redhat") ;
+    public $distros = array("any") ;
+    public $versions = array("5.8") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -17,8 +17,8 @@ class PythonUbuntu extends BaseLinuxApp {
   public function __construct($params) {
     parent::__construct($params);
     $this->autopilotDefiner = "Python";
-    $this->installCommands = array("apt-get install -y python python-docutils");
-    $this->uninstallCommands = array("apt-get remove -y python python-docutils");
+    $this->installCommands = array("yum install -y python python-docutils");
+    $this->uninstallCommands = array("yum remove -y python python-docutils");
     $this->programDataFolder = "";
     $this->programNameMachine = "python"; // command and app dir name
     $this->programNameFriendly = "!Python!!"; // 12 chars
