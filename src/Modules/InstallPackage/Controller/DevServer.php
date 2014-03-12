@@ -37,7 +37,7 @@ class DevServer extends Base {
         "MediaTools" ,
       );
 
-      $this->checkForRegisteredModels();
+      $this->checkForRegisteredModels($pageVars["route"]["extraParams"]);
 
       $this->executeMyRegisteredModels($pageVars["route"]["extraParams"]);
 

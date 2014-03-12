@@ -34,7 +34,7 @@ class JenkinsBuildServer extends Base {
         "SudoNoPass"
       );
 
-      $this->checkForRegisteredModels();
+      $this->checkForRegisteredModels($pageVars["route"]["extraParams"]);
 
       $this->executeMyRegisteredModels($pageVars["route"]["extraParams"]);
 
