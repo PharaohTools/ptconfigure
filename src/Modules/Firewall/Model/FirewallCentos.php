@@ -7,7 +7,7 @@ class FirewallCentos extends FirewallUbuntu {
     // Compatibility
     public $os = array("Linux") ;
     public $linuxType = array("Redhat") ;
-    public $distros = array("Centos") ;
+    public $distros = array("any") ;
     public $versions = array("any") ;
     public $architectures = array("any") ;
 
@@ -28,6 +28,18 @@ class FirewallCentos extends FirewallUbuntu {
         ) ;
 
     public function __construct($params) {
+        parent::__construct($params);
+        $this->autopilotDefiner = "Firewall";
+        $this->installCommands = array("yum install -y ufw");
+        $this->uninstallCommands = array("yum remove -y ufw");
+        $this->programDataFolder = "";
+        $this->programNameMachine = "firewall"; // command and app dir name
+        $this->programNameFriendly = "!Firewall!!"; // 12 chars
+        $this->programNameInstaller = "Firewall";
+        $this->initialize();
+    }
+
+    public function getUfw($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Firewall";
         $this->installCommands = array("yum install -y ufw");
