@@ -39,16 +39,7 @@ class FirewallCentos extends FirewallUbuntu {
         $this->initialize();
     }
 
-    public function getUfw($params) {
-        parent::__construct($params);
-        $this->autopilotDefiner = "Firewall";
-        $this->installCommands = array("yum install -y ufw");
-        $this->uninstallCommands = array("yum remove -y ufw");
-        $this->programDataFolder = "";
-        $this->programNameMachine = "firewall"; // command and app dir name
-        $this->programNameFriendly = "!Firewall!!"; // 12 chars
-        $this->programNameInstaller = "Firewall";
-        $this->initialize();
+    protected function getUfw() {
     }
 
 }
