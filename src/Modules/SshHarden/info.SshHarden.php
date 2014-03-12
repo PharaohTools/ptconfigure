@@ -6,7 +6,7 @@ class SshHardenInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Apply securiy functions to the SSH accounts of the machine";
+    public $name = "Apply security functions to the SSH accounts/setup of the machine";
 
     public function __construct() {
       parent::__construct();
