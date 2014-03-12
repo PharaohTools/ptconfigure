@@ -39,7 +39,7 @@ class CleofyInfo extends Base {
         - standard
         Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
         your project.
-        example: cleopatra cleofy create
+        example: cleopatra cleofy standard
 
 HELPDATA;
       return $help ;
