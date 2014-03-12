@@ -20,7 +20,11 @@ class SshHardenInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("sshharden"=>"SshHarden", "ssh-harden"=>"SshHarden");
+        return array("sshharden"=>"SshHarden", "ssh-harden"=>"SshHarden");
+    }
+
+    public function dependencies() {
+        return array("Service");
     }
 
     public function autoPilotVariables() {

@@ -14,19 +14,23 @@ class SshHardenUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
     protected $sshhardenName ;
-    protected $actionsToMethods =
-        array(
-            "securify" => "performSshHardenSecurify",
-        ) ;
+    protected $actionsToMethods = array("securify" => "askSecurify") ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "SshHarden";
         $this->programDataFolder = "";
         $this->programNameMachine = "sshharden"; // command and app dir name
-        $this->programNameFriendly = "!SshHarden!!"; // 12 chars
-        $this->programNameInstaller = "SshHarden";
+        $this->programNameFriendly = "!Ssh Harden!"; // 12 chars
+        $this->programNameInstaller = "Ssh Hardening";
         $this->initialize();
+    }
+
+    protected function askSecurify() {
+        $doSecurify = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
+            true : $this->askWhetherToInstallLinuxAppToScreen();
+        if ($doSecurify == true) { return $this->securify(); }
+        return false ;
     }
 
     protected function performSshHardenSecurify() {
@@ -34,9 +38,10 @@ class SshHardenUbuntu extends BaseLinuxApp {
     }
 
     public function securify() {
-        $this->shouldNotAllowRoot();
-        $this->shouldNotAllowPlainTextPasswords();
-        return true;
+        $this->shouldNotAllowRoot() ;
+        $this->shouldNotAllowPlainTextPasswords() ;
+        $this->restartService() ;
+        return true ;
     }
 
     private function shouldNotAllowRoot() {
@@ -59,6 +64,9 @@ class SshHardenUbuntu extends BaseLinuxApp {
         $consoleFactory = new \Model\Console();
         $console = $consoleFactory->getModel($this->params);
         $console->log("/etc/ssh/sshd_config modified to disallow password based ssh login") ;
+    }
+
+    private function restartService() {
         $serviceFactory = new \Model\Service();
         $service = $serviceFactory->getModel($this->params);
         $service->setService("ssh") ;
