@@ -41,7 +41,7 @@ class FirewallInfo extends Base {
   This command allows you to modify create or modify firewalls
 
   Firewall, firewall
-         disable allow deny reject", "limit", "delete", "insert", "reset"
+
         - enable
         Enable system firewall
         example: cleopatra firewall enable
