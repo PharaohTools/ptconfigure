@@ -38,7 +38,7 @@ class ServiceInfo extends Base {
       $help = <<<"HELPDATA"
   This command allows you to view or modify service
 
-  Service, service     restart", "ensure-running", "
+  Service, service
 
         - start
         Start a system service
