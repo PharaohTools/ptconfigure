@@ -14,16 +14,17 @@ class SVNUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-  public function __construct($params) {
-    parent::__construct($params);
-    $this->autopilotDefiner = "SVN";
-    $this->installCommands = array("apt-get install subversion -y --force-yes ");
-    $this->uninstallCommands = array("apt-get remove subversion -y --force-yes ");
-    $this->programDataFolder = "";
-    $this->programNameMachine = "svn"; // command and app dir name
-    $this->programNameFriendly = "!Subversion!"; // 12 chars
-    $this->programNameInstaller = "SVN";
-    $this->initialize();
-  }
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->autopilotDefiner = "SVN";
+        $this->installCommands = array("apt-get install subversion -y --force-yes ");
+        $this->uninstallCommands = array("apt-get remove subversion -y --force-yes ");
+        $this->programDataFolder = "";
+        $this->programNameMachine = "svn"; // command and app dir name
+        $this->programNameFriendly = "!Subversion!"; // 12 chars
+        $this->programNameInstaller = "SVN";
+        $this->statusCommand = "svn --version";
+        $this->initialize();
+    }
 
 }

@@ -23,7 +23,8 @@ class NodeJSUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "nodejs"; // command and app dir name
         $this->programNameFriendly = "Node JS!"; // 12 chars
         $this->programNameInstaller = "Node JS";
+        $this->statusCommand = "sudo node -v" ;
         $this->initialize();
-      }
+    }
 
 }

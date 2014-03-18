@@ -38,4 +38,35 @@ class AWSCloudWatchLinuxMac extends BaseLinuxApp {
         $this->initialize();
       }
 
+    public function askStatus() {
+        $cmd = $this->getCWHome().DIRECTORY_SEPARATOR."bin".DIRECTORY_SEPARATOR."mon-cmd" ;
+        if (file_exists($cmd)) {
+            $this->ensureCFHomeExists() ;
+            $this->ensureJavaHomeExists() ;
+            if ($this->executeAndGetReturnCode($cmd)==0) { return true ; } }
+        return false ;
+    }
+
+    protected function getCWHome() {
+        /* @todo
+        if (isset($papyrus_value_for_awscf_progdir)) { }
+        else { * */
+        /* } * */
+        return "/opt/cloudwatch" ;
+    }
+
+    protected function ensureCFHomeExists() {
+        if (strlen(getenv("AWS_CLOUDWATCH_HOME")>0)) { return ; }
+        else { putenv("AWS_CLOUDWATCH_HOME={$this->getCWHome()}"); }
+    }
+
+    protected function ensureJavaHomeExists() {
+        if (strlen(getenv("JAVA_HOME")>0)) { return ; }
+        else {
+            $fullOut = $this->executeAndLoad("ls -lah /etc/alternatives/java") ;
+            $start = strpos($fullOut, ' -> ') + 4 ;
+            $javaExec = substr($fullOut, $start) ;
+            $javaHome = substr($javaExec, 0, strlen($javaExec)-10) ;
+            putenv("JAVA_HOME=$javaHome"); }
+    }
 }

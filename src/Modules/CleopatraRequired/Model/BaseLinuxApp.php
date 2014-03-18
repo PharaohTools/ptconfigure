@@ -68,6 +68,17 @@ class BaseLinuxApp extends Base {
     return true;
   }
 
+  public function ensureInstalled($autoPilot = null){
+      $consoleFactory = new \Model\Console();
+      $console = $consoleFactory->getModel($this->params);
+      if ($this->askStatus() == true) {
+          $console->log("Not installing as already installed") ; }
+      else {
+          $console->log("Installing as not installed") ; }
+      $this->install($autoPilot);
+      return true;
+  }
+
   public function install($autoPilot = null) {
     $this->showTitle();
     $this->executePreInstallFunctions($autoPilot);
@@ -175,8 +186,8 @@ exec('".$this->programExecutorCommand."');\n
   }
 
   protected function doUnInstallCommand(){
-    self::swapCommandArrayPlaceHolders($this->uninstallCommands);
-    self::executeAsShell($this->uninstallCommands);
+      self::swapCommandArrayPlaceHolders($this->uninstallCommands);
+      self::executeAsShell($this->uninstallCommands);
   }
 
 }

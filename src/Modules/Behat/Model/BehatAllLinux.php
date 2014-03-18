@@ -24,9 +24,4 @@ class BehatAllLinux extends BaseComposerApp {
         $this->initialize();
     }
 
-    protected function copyComposerJsonToProgramDataFolder($originalTemplate) {
-        $originalTemplate = __DIR__."/../Templates/composer.json" ;
-        parent::copyComposerJsonToProgramDataFolder($originalTemplate);
-    }
-
 }

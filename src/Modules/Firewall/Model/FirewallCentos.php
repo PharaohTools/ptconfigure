@@ -13,23 +13,12 @@ class FirewallCentos extends FirewallUbuntu {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $firewallRule ;
-    protected $actionsToMethods =
-        array(
-            "enable" => "performFirewallEnable",
-            "disable" => "performFirewallDisable",
-            "allow" => "performFirewallAllow",
-            "deny" => "performFirewallDeny",
-            "reject" => "performFirewallReject",
-            "limit" => "performFirewallLimit",
-            "delete" => "performFirewallDelete",
-            "insert" => "performFirewallInsert",
-            "reset" => "performFirewallReset",
-        ) ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Firewall";
+        $this->actionsToMethods = $this->setActionsToMethods() ;
+        $this->registeredPreInstallFunctions = array("ensurePython") ;
         $this->installCommands = array(
             "cd /usr/local/src",
             "wget https://launchpad.net/ufw/0.33/0.33/+download/ufw-0.33.tar.gz",
@@ -41,7 +30,7 @@ class FirewallCentos extends FirewallUbuntu {
         $this->uninstallCommands = array("yum remove -y ufw");
         $this->programDataFolder = "";
         $this->programNameMachine = "firewall"; // command and app dir name
-        $this->programNameFriendly = "!Firewall!!"; // 12 chars
+        $this->programNameFriendly = "! Firewall !"; // 12 chars
         $this->programNameInstaller = "Firewall";
         $this->initialize();
     }

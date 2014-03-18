@@ -14,28 +14,19 @@ class FirewallUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
     protected $firewallRule ;
-    protected $actionsToMethods =
-        array(
-            "enable" => "performFirewallEnable",
-            "disable" => "performFirewallDisable",
-            "allow" => "performFirewallAllow",
-            "deny" => "performFirewallDeny",
-            "reject" => "performFirewallReject",
-            "limit" => "performFirewallLimit",
-            "delete" => "performFirewallDelete",
-            "insert" => "performFirewallInsert",
-            "reset" => "performFirewallReset",
-        ) ;
+    protected $actionsToMethods ;
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "Firewall";
-        $this->installCommands = array("apt-get install -y ufw");
-        $this->uninstallCommands = array("apt-get remove -y ufw");
-        $this->programDataFolder = "";
-        $this->programNameMachine = "firewall"; // command and app dir name
-        $this->programNameFriendly = "!Firewall!!"; // 12 chars
-        $this->programNameInstaller = "Firewall";
+        $this->actionsToMethods = $this->setActionsToMethods() ;
+        $this->autopilotDefiner = "Firewall" ;
+        $this->installCommands = array("apt-get install -y ufw") ;
+        $this->uninstallCommands = array("apt-get remove -y ufw") ;
+        $this->programDataFolder = "" ;
+        $this->programNameMachine = "firewall" ; // command and app dir name
+        $this->programNameFriendly = "!Firewall!!" ; // 12 chars
+        $this->programNameInstaller = "Firewall" ;
+        $this->statusCommand = "command -v ufw" ;
         $this->initialize();
     }
 
@@ -187,6 +178,26 @@ class FirewallUbuntu extends BaseLinuxApp {
             $console->log("Firewall Reset command did not execute correctly") ;
             return false ; }
         return true ;
+    }
+
+    protected function setActionsToMethods() {
+        return array(
+            "enable" => "performFirewallEnable",
+            "disable" => "performFirewallDisable",
+            "allow" => "performFirewallAllow",
+            "deny" => "performFirewallDeny",
+            "reject" => "performFirewallReject",
+            "limit" => "performFirewallLimit",
+            "delete" => "performFirewallDelete",
+            "insert" => "performFirewallInsert",
+            "reset" => "performFirewallReset",
+        ) ;
+    }
+
+    protected function ensurePython() {
+        $pythonFactory = new \Model\Python();
+        $python = $pythonFactory->getModel($this->params);
+        $python->log("Firewall Reset command did not execute correctly") ;
     }
 
 }

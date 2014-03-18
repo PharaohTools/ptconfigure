@@ -23,6 +23,7 @@ class ApacheServerUbuntu extends BaseLinuxApp {
     $this->programNameMachine = "apacheserver"; // command and app dir name
     $this->programNameFriendly = "Apache Server!"; // 12 chars
     $this->programNameInstaller = "Apache Server";
+    $this->statusCommand = "apache2 -v" ;
     $this->initialize();
   }
 
