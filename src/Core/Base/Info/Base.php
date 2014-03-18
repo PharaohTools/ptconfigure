@@ -13,7 +13,7 @@ class Base {
 
     public function routesAvailable() {
       return array("help", "status", "install", "uninstall", "initialize", "init", "execute");
-      // @todo some app settings class should contain this instead
+      // @todo some app settings class should contain this instead so cleo, tkmn etc can set their own
     }
 
     public function routeAliases() {
