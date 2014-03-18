@@ -17,10 +17,16 @@ class Firewall extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("install") )) {
+        if ($action=="install") {
             $this->content["result"] = $thisModel->askInstall();
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"firewall", "pageVars"=>$this->content); }
+
+        if ($action=="status") {
+            $this->content["params"] = $thisModel->params;
+            $this->content["appName"] = $thisModel->programNameInstaller;
+            $this->content["appStatusResult"] = $thisModel->askStatus();
+            return array ("type"=>"view", "view"=>"appStatus", "pageVars"=>$this->content); }
 
         if (in_array($action, array("enable", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset") )) {
             $this->content["result"] = $thisModel->askAction($action);
