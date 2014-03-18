@@ -17,7 +17,8 @@ class DeveloperToolsInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("devtools"=>"DeveloperTools", "dev-tools"=>"DeveloperTools");
+      return array("devtools"=>"DeveloperTools", "dev-tools"=>"DeveloperTools", "developer-tools"=>"DeveloperTools",
+          "developertools"=>"DeveloperTools");
     }
 
     public function autoPilotVariables() {
