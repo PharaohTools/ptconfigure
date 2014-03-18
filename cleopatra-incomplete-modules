@@ -1,4 +1,6 @@
 Cleopatra Modules to be created
+
+IN PROGRESS
 ---------------------------------------
 State Detection - Allow the pyramid application to detect information regarding software and configuration install
 current state
@@ -6,33 +8,116 @@ current state
 - Need the apt module, then the apt module can save both calling module and apt-program, so don't uninstall both
 - all modules when installing if they are a dependency, should also save themselves as such
 - this way a dependency will probably be an apt or a module
+- PART DONE - all models have a default askStatus method. linux apps extend to execute an FS command. you can provide
+  the statusCommand parameter to check with a command you provide for a 0 or non 0 exit code. you can also provide
+  statusCommandExpects otherwise it will try to run the "command programNameMachine" to
+
+Update InstallCommands to accept functions as well as
+
+Modules correctly reporting status
+----------------------
+WAIT - SshHarden - Apply security functions to the SSH accounts/setup of the machine
+WAIT - Gem - Ruby Gems Package Manager
+WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
+WAIT - GitLab - Git Lab - The Git SCM Management Web Application
+WAIT - Jenkins - Jenkins - The Java Build Server ITS A JAVA PROGRAM NOT SURE HOW TO DO INST CHECK YET
+WAIT - NodeJS - Node JS - The Server Side Javascript Engine  (looks like it shoul work but node not instaqlled to check)
+WAIT - Pear - Pear Package Manager
+WAIT - RubyRVM - Ruby RVM - The Ruby version manager
+DONE - AWSCloudFormation - The AWS CloudFormation CLI Tools
+DONE - AWSCloudWatch - The AWS CloudWatch CLI Tools
+DONE - ApacheModules - Apache Modules - Commonly used modules for Apache
+DONE - ApacheServer - Apache Server - Install or remove the Apache Server
+DONE - Apt - Add, Remove or Modify Apts
+DONE - Behat - Behat - The PHP BDD Testing Suite
+DONE - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra
+DONE - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool
+DONE - DeveloperTools - Developer Tools - IDE's and other tools for Developers
+DONE - Firefox14 - Firefox 14 - A version of Firefox highly tested with Selenium Server
+DONE - Firefox17 - Firefox 17 - A version of Firefox highly tested with Selenium Server
+DONE - Firewall - Add, Remove or Modify Firewalls
+DONE - GitTools - Git Tools - Tools for working with Git SCM
+DONE - IntelliJ - IntelliJ - A great IDE from JetBrains
+DONE - JRush - JRush - The Joomla command line utility from Golden Contact
+DONE - Java - Java JDK 1.7
+DONE - PHPAPC - PHP APC - Commonly used PHP APC
+DONE - PHPCS - PHP Code Sniffer - The static code analysis tool
+DONE - PHPConf - PHP Conf - Install a PHP Configuration
+DONE - PHPMD - PHP Mess Detector - The static analysis tool
+DONE - PHPModules - PHP Modules - Commonly used PHP Modules
+DONE - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
+DONE - MysqlServer - Mysql Server - The Mysql RDBMS Server
+DONE - MysqlTools - Mysql Tools - For administering and developing with Mysql
+DONE - NagiosServer - Nagios Server - Install or remove the Nagios Server
+DONE - NginxServer - Nginx Server - Install or remove the Nginx Server
+DONE - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
+DONE - SVN - SVN - The Source Control Manager
+DONE - SeleniumServer - The Selenium Web Browser controlling server
+DONE - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
+DONE - MediaTools - Media Tools - Tools to help view and manage Media files
+DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
+DONE - UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
+DONE - Parallax - Parallax - The parallel execution tool from Golden Contact
+DONE - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP
+DONE - Python - Python - The programming language
+DONE - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
+DONE - StandardTools - Standard Tools for any Installation
+NA   - Autopilot - Cleopatra Autopilot - User Defined Installations
+NA   - ApacheConf - Apache Conf - Install a Apache Configuration
+NA   - Cleofy - Cleopatra Cleofyer - Creates default autopilots for your project
+NA   - EnvironmentConfig - Environment Configuration - Configure Environments for a project
+NA   - File - Add, Remove or Modify Files
+NA   - Generator - Dapperstrano Autopilot Generator - Generate Autopilot files interactively
+NA   - Hostname - View or Modify Hostname
+NA   - InstallPackage - Cleopatra Predefined Installers
+NA   - Invoke - SSH Invocation Functions
+NA   - JenkinsPlugins - Jenkins PHP Plugins - Common Plugins for Jenkins PHP Builds
+NA   - JenkinsSudoNoPass - Configure Passwordless Sudo for your Jenkins user
+NA   - MysqlAdmins - Mysql Admins - Install administrative users for Mysql
+NA   - PackageManager - Native Package Manager Wrapper - Install OS neutral packages
+NA   - PapyrusEditor - Papyrus Editor Web Interface
+NA   - Port - Test a Port to see if its responding
+NA   - PostInput - HTTP Post/Get Input Interface
+NA   - Service - View or Modify Service
+NA   - SudoNoPass - Configure Passwordless Sudo for any User
+NA   - SystemDetection - System Detection - Detect the Running Operating System
+NA   - Templating - Templating
+NA   - User - Add, Remove or Modify Users
+
+
+Autopilot Definer
+---------------
+Set this in the Parent constructor of Models.This removes a line from all default models constructors. it should
+always be the module name for a default model. This also removes confusion for a non default model it should be
+Module::ModelGroup
 
 
 Cleopatra
 ----------------
-Cleofy should be Updated to use the Templating module
+Cleofy should be Updated to use the Templating module  DONE
 
 
 
 Package Managers
 ----------------
-Pear
-apt-get install - Needed for State Detection
-apt-get update
-Gem (RubyGems), extend a PackageManager module that apt-get and yum can also use to store dependencies
+Pear DONE
+apt-get install DONE
+apt-get update DONE
+Gem (RubyGems), extend a PackageManager module that apt-get and yum can also use to store dependencies DONE
 
 
 
 C Compiler
 ---------------
-UbuntuCompiler - STARTED, EMPTY
+UbuntuCompiler - HALF DONE
 
 
 
 Security
 ----------------
 Suhosin
-Firewall Software
+Firewall Software DONE
+
 
 
 
