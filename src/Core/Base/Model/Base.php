@@ -29,6 +29,8 @@ class Base {
     protected $programExecutorTargetPath;
     protected $extraCommandsArray;
     protected $tempDir;
+    protected $statusCommand;
+    protected $statusCommandExpects;
 
     public function __construct($params) {
       $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
@@ -188,6 +190,7 @@ COMPLETION;
         return $inputLine;
     }
 
+    // @todo update this method to use model factory
     protected function setInstallFlagStatus($bool) {
         if ($bool) {
             AppConfig::setProjectVariable("installed-apps", $this->programNameMachine, true); }
@@ -196,9 +199,32 @@ COMPLETION;
     }
 
     public function askStatus() {
-        return $this->getInstallFlagStatus($this->programNameMachine) ;
+        // @todo also use install flag status from methods setInstallFlagStatus getInstallFlagStatus
+        if (isset($this->statusCommand) && !is_null($this->statusCommand) &&
+            isset($this->statusCommandExpects) && !is_null($this->statusCommandExpects)) {
+            $status = ($this->executeAndLoad("$this->statusCommand &") == $this->statusCommandExpects) ? true : false ; }
+        else if (isset($this->statusCommand) && !is_null($this->statusCommand)) {
+            $status = ($this->executeAndGetReturnCode("$this->statusCommand") == 0) ? true : false ; }
+        else {
+            $status = ($this->executeAndGetReturnCode("command -v $this->programNameMachine") == 0) ? true : false ; }
+        return $status ;
     }
 
+    protected function askStatusByArray($commsToCheck) {
+        $consoleFactory = new \Model\Console();
+        $console = $consoleFactory->getModel($this->params);
+        $passing = true ;
+        foreach ($commsToCheck as $commToCheck) {
+            $outs = $this->executeAndLoad("command -v $commToCheck") ;
+            if ( !strstr($outs, $commToCheck) ) {
+                $console->log("No command '{$commToCheck}' found") ;
+                $passing = false ; }
+            else {
+                $console->log("Command '{$commToCheck}' found") ; } }
+        return $passing ;
+    }
+
+    // @todo fix this to use the model factory
     protected function getInstallFlagStatus($programNameMachine) {
         $installedApps = AppConfig::getProjectVariable("installed-apps");
         if (is_array($installedApps) && in_array($programNameMachine, $installedApps)) {

@@ -15,6 +15,15 @@ class Base {
     if (is_array($defaultExecution)) { return $defaultExecution ; }
   }
 
+  protected function defaultExecution($pageVars) {
+      $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+      // if we don't have an object, its an array of errors
+      if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+      $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+      if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+      return null ;
+  }
+
   public function checkDefaultActions($pageVars, $ignored_actions=array(), $thisModel=null) {
     $this->content["route"] = $pageVars["route"];
     $this->content["messages"] = $pageVars["messages"];
@@ -27,11 +36,17 @@ class Base {
 
     if (isset($thisModel)) {
         // @todo child controllers should specify this
-        if ($action=="install" || $action=="uninstall" || $action=="status" && !in_array($action, $ignored_actions)) {
+        if ($action=="install" || $action=="uninstall" && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $newAction = ucfirst($action) ;
             $this->content["appInstallResult"] = $thisModel->{"ask".$newAction}();
+            return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
+        if ($action=="status" && !in_array($action, $ignored_actions)) {
+            $this->content["params"] = $thisModel->params;
+            $this->content["appName"] = $thisModel->autopilotDefiner;
+            $newAction = ucfirst($action) ;
+            $this->content["appStatusResult"] = $thisModel->{"ask".$newAction}();
             return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
         if (in_array($action, array("init", "initialize")) && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
@@ -51,6 +66,7 @@ class Base {
     return false;
   }
 
+    // @todo this method is too long
   public function checkForRegisteredModels($params, $modelOverrides = null) {
     $modelsToCheck = (isset($modelOverrides)) ? $modelOverrides : $this->registeredModels ;
     $errors = array();
@@ -120,21 +136,12 @@ class Base {
             $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, $moduleType, $pageVars["route"]["extraParams"]);
             return $thisModel; }
         return $dependencyCheck ;
-    }
+  }
 
-    protected function failDependencies($pageVars, $content, $errors) {
+  protected function failDependencies($pageVars, $content, $errors) {
         $this->content = array_merge($pageVars, $content) ;
         foreach($errors as $error) { $this->content["messages"][] = $error ; }
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
-    }
-
-    protected function defaultExecution($pageVars) {
-        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
-        // if we don't have an object, its an array of errors
-        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
-        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
-        return null ;
-    }
+  }
 
 }
