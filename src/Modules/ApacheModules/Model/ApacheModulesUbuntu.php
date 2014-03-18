@@ -48,4 +48,32 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
     $this->initialize();
   }
 
+    public function askStatus() {
+        $modsTextCmd = 'apachectl -t -D DUMP_MODULES';
+        $modsText = $this->executeAndLoad($modsTextCmd) ;
+
+        $modsToCheck = array(
+            "http_module",
+            "deflate_module",
+            "php5_module",
+            "proxy_module",
+            "proxy_html_module",
+            "proxy_http_module",
+            "rewrite_module",
+            "ssl_module"
+        ) ;
+
+        $consoleFactory = new \Model\Console();
+        $console = $consoleFactory->getModel($this->params);
+        $passing = true ;
+
+        foreach ($modsToCheck as $modToCheck) {
+            if (!strstr($modsText, $modToCheck)) {
+                $console->log("Apache Module {$modToCheck} does not exist.") ;
+                $passing = false ; } }
+
+        return $passing ;
+
+    }
+
 }

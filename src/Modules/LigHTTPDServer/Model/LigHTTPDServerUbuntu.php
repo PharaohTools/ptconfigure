@@ -14,16 +14,17 @@ class LigHTTPDServerUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-  public function __construct($params) {
-    parent::__construct($params);
-    $this->autopilotDefiner = "LigHTTPDServer";
-    $this->installCommands = array("apt-get install -y lighttpd");
-    $this->uninstallCommands = array("apt-get remove -y lighttpd");
-    $this->programDataFolder = "/opt/LigHTTPDServer"; // command and app dir name
-    $this->programNameMachine = "lighttpdserver"; // command and app dir name
-    $this->programNameFriendly = "LigHTTPD Server!"; // 12 chars
-    $this->programNameInstaller = "LigHTTPD Server";
-    $this->initialize();
-  }
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->autopilotDefiner = "LigHTTPDServer";
+        $this->installCommands = array("apt-get install -y lighttpd");
+        $this->uninstallCommands = array("apt-get remove -y lighttpd");
+        $this->programDataFolder = "/opt/LigHTTPDServer"; // command and app dir name
+        $this->programNameMachine = "lighttpdserver"; // command and app dir name
+        $this->programNameFriendly = "LigHTTPD Server!"; // 12 chars
+        $this->programNameInstaller = "LigHTTPD Server";
+        $this->statusCommand = "sudo lighttpd -v" ;
+        $this->initialize();
+    }
 
 }

@@ -22,6 +22,7 @@ class AptUbuntu extends BasePackager {
         $this->programNameMachine = "apt"; // command and app dir name
         $this->programNameFriendly = "!Apt!!"; // 12 chars
         $this->programNameInstaller = "Apt";
+        $this->statusCommand = "apt-get" ;
         $this->initialize();
     }
 

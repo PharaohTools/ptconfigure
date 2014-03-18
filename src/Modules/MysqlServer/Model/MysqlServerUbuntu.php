@@ -29,6 +29,7 @@ class MysqlServerUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "mysqlserver"; // command and app dir name
         $this->programNameFriendly = "MySQL Server!"; // 12 chars
         $this->programNameInstaller = "MySQL Server";
+        $this->statusCommand = "sudo mysql --version" ;
         $this->initialize();
     }
 

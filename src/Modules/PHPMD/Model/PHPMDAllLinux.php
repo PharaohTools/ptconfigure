@@ -28,6 +28,7 @@ class PHPMDAllLinux extends BasePHPApp {
     $this->programNameFriendly = "PHP Mess Dt."; // 12 chars
     $this->programNameInstaller = "PHP Mess Detector";
     $this->programExecutorTargetPath = 'phpmd/Executioner.php';
+    $this->statusCommand = "phpmd --version" ;
     $this->initialize();
 
   }
