@@ -17,7 +17,7 @@ class NagiosServerInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("nagios-server"=>"NagiosServer", "nagiosserver"=>"NagiosServer");
+      return array("nagios-server"=>"NagiosServer", "nagiosserver"=>"NagiosServer", "nagios"=>"NagiosServer");
     }
 
     public function autoPilotVariables() {
@@ -37,7 +37,7 @@ class NagiosServerInfo extends Base {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you with a method by which you can install Nagios.
 
-  NagiosServer, nagios-server, nagiosserver
+  NagiosServer, nagios-server, nagiosserver, nagios
 
         - install
         Installs Nagios Network Monitoring Server
