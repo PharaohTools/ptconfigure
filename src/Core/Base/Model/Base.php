@@ -34,6 +34,7 @@ class Base {
 
     public function __construct($params) {
       $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
+      $this->autopilotDefiner = $this->getModuleName() ;
       $this->setCmdLineParams($params);
     }
 
@@ -193,9 +194,9 @@ COMPLETION;
     // @todo update this method to use model factory
     protected function setInstallFlagStatus($bool) {
         if ($bool) {
-            AppConfig::setProjectVariable("installed-apps", $this->programNameMachine, true); }
+            AppConfig::setProjectVariable("installed-modules", $this->getModuleName(), true); }
         else {
-            AppConfig::deleteProjectVariable("installed-apps", "any", $this->programNameMachine); }
+            AppConfig::deleteProjectVariable("installed-modules", "any", $this->programNameMachine); }
     }
 
     public function askStatus() {
@@ -226,7 +227,7 @@ COMPLETION;
 
     // @todo fix this to use the model factory
     protected function getInstallFlagStatus($programNameMachine) {
-        $installedApps = AppConfig::getProjectVariable("installed-apps");
+        $installedApps = AppConfig::getProjectVariable("installed-modules");
         if (is_array($installedApps) && in_array($programNameMachine, $installedApps)) {
             return true ; }
         return false ;
@@ -319,6 +320,16 @@ COMPLETION;
         else {
             $console->log('No property $actionsToMethods in model '.get_class($this)) ;
             return false; }
+    }
+
+    public function getModuleName() {
+        $reflector = new \ReflectionClass(get_class($this));
+        $fileName = $reflector->getFileName();
+        $end = strpos($fileName, DIRECTORY_SEPARATOR.'Model'.DIRECTORY_SEPARATOR) ;
+        $beforeModel = substr($fileName, 0, $end) ;
+        $start = strrpos($beforeModel, DIRECTORY_SEPARATOR) ;
+        $moduleName = substr($beforeModel, $start+1) ;
+        return $moduleName ;
     }
 
 }
