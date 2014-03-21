@@ -155,8 +155,21 @@ class BaseLinuxApp extends Base {
   }
 
   protected function doInstallCommand(){
-    self::swapCommandArrayPlaceHolders($this->installCommands);
-    self::executeAsShell($this->installCommands);
+      self::swapCommandArrayPlaceHolders($this->installCommands);
+      foreach ($this->installCommands as $installCommand) {
+        if (is_array($installCommand)) {
+            if ( array_key_exists("method", $installCommand)) {
+                call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
+            else if ( array_key_exists("command", $installCommand)) {
+                // @todo confirm this works then remove comment
+                // if its a string turn it into an array then parse it
+                if (!is_array($installCommand["command"])) {
+                    $installCommand["command"] = array($installCommand["command"]); }
+                $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
+                self::executeAsShell($installCommand["command"]) ; } }
+        else {
+            // @todo this should be deprecated, all modules is_string
+            self::executeAndLoad($installCommand) ; } }
   }
 
   protected function changePermissions($autoPilot, $target=null){
