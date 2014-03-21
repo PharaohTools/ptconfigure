@@ -18,34 +18,34 @@ class AWSCloudFormationLinuxMac extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "AWSCloudFormation";
         $this->installCommands = array(
-          "cd /tmp" ,
-          "git clone https://github.com/phpengine/cleopatra-aws-cloudformation aws-cloudformation",
-          "mkdir -p ****PROGDIR****",
-          "mv /tmp/aws-cloudformation/* ****PROGDIR****",
-          "rm -rf /tmp/aws-cloudformation/",
-          // "cd ****PROGDIR****",
-          // "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &"
+            array("command"=> array(
+                "cd /tmp" ,
+                "git clone https://github.com/phpengine/cleopatra-aws-cloudformation aws-cloudformation",
+                "mkdir -p ****PROGDIR****",
+                "mv /tmp/aws-cloudformation/* ****PROGDIR****",
+                "rm -rf /tmp/aws-cloudformation/" ) ),
+            array("method"=> array($this, "deleteExecutorIfExists", array() )),
+            array("method"=> array($this, "saveExecutorFile", array() )),
         );
-        $this->uninstallCommands = array("rm -rf ****PROGDIR****");
+        $this->uninstallCommands = array("command"=> "rm -rf ****PROGDIR****");
         $this->programDataFolder = "/opt/aws-cloudformation"; // command and app dir name
         $this->programNameMachine = "aws-cloudformation"; // command and app dir name
-        $this->programNameFriendly = "AWS Cld Formation"; // 12 chars
+        $this->programNameFriendly = "AWS CloudFn!"; // 12 chars
         $this->programNameInstaller = "AWSCloudFormation";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "";
         $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/bin/aws-cloudformation.jar';
-        $this->registeredPostInstallFunctions = array("deleteExecutorIfExists", "saveExecutorFile");
         $this->initialize();
-      }
+    }
 
-      public function askStatus() {
-          $cmd = $this->getCFHome().DIRECTORY_SEPARATOR."bin".DIRECTORY_SEPARATOR."cfn-cmd" ;
-          if (file_exists($cmd)) {
-              $this->ensureCFHomeExists() ;
-              $this->ensureJavaHomeExists() ;
-              if ($this->executeAndGetReturnCode($cmd)==0) { return true ; } }
-          return false ;
-      }
+    public function askStatus() {
+        $cmd = $this->getCFHome().DIRECTORY_SEPARATOR."bin".DIRECTORY_SEPARATOR."cfn-cmd" ;
+        if (file_exists($cmd)) {
+            $this->ensureCFHomeExists() ;
+            $this->ensureJavaHomeExists() ;
+            if ($this->executeAndGetReturnCode($cmd)==0) { return true ; } }
+        return false ;
+    }
 
     protected function getCFHome() {
         /* @todo

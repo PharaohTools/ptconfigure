@@ -16,14 +16,18 @@ class ApacheConfUbuntu extends BaseTemplater {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "ApacheConf";
-        $this->installCommands = array();
+        $this->installCommands = array(
+            array("function"=> array("object" => $this, "method" => "setDefaultReplacements", "params" => array()) ),
+            array("function"=> array("object" => $this, "method" => "setOverrideReplacements", "params" => array()) ),
+            array("function"=> array("object" => $this, "method" => "setTemplateFile", "params" => array()) ),
+            array("function"=> array("object" => $this, "method" => "setTemplate", "params" => array()) ),
+        );
         $this->uninstallCommands = array();
         $this->programDataFolder = "/opt/ApacheConf"; // command and app dir name
         $this->programNameMachine = "apacheconf"; // command and app dir name
         $this->programNameFriendly = "Apache Conf!"; // 12 chars
         $this->programNameInstaller = "Apache Conf";
-        $this->targetLocation = "/etc/apache2/apache2.conf" ;
+        $this->targetLocation = "/etc/apache2/apache2.confydent" ;
         $this->registeredPreInstallFunctions = array("setDefaultReplacements", "setOverrideReplacements", "setTemplateFile", "setTemplate") ;
         $this->initialize();
     }
