@@ -15,6 +15,8 @@ class PackageManagerUbuntu extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
     protected $packageName ;
     protected $packagerName ;
+    protected $moduleName ;
+    protected $requestingModule ;
     protected $actionsToMethods =
         array(
             "pkg-install" => "performPackageInstall",
@@ -31,27 +33,31 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    protected function performPackageInstall() {
-        $this->setPackage();
-        $this->setPackager();
-        return $this->installOSPackage();
+    public function performPackageInstall($packagerName, $packageName, $module) {
+        $this->setPackage($packageName);
+        $this->setPackager($packagerName);
+        $this->setModule($module);
+        return $this->installPackages();
     }
 
-    protected function performPackageEnsure() {
-        $this->setPackage();
-        $this->setPackager();
+    public function performPackageEnsure($packagerName, $packageName, $module) {
+        $this->setPackage($packageName);
+        $this->setPackager($packagerName);
+        $this->setModule($module);
         return $this->ensureInstalled();
     }
 
-    protected function performPackageRemove() {
-        $this->setPackage();
-        $this->setPackager();
-        return $this->removeOSPackage();
+    public function performPackageRemove($packagerName, $packageName, $module) {
+        $this->setPackage($packageName);
+        $this->setPackager($packagerName);
+        $this->setModule($module);
+        return $this->removePackages();
     }
 
-    protected function performPackageExistenceCheck() {
-        $this->setPackage();
-        $this->setPackager();
+    public function performPackageExistenceCheck($packagerName, $packageName, $module) {
+        $this->setPackage($packageName);
+        $this->setPackager($packagerName);
+        $this->setModule($module);
         return $this->isInstalled();
     }
 
@@ -85,31 +91,43 @@ class PackageManagerUbuntu extends BaseLinuxApp {
             $this->packagerName = self::askForInput("Enter Packager Name:", true); }
     }
 
-    public function installOSPackage($autopilot = null) {
-        $packager = $this->getPackager();
-        if (is_array($this->packageName)) {
-            $returns = array() ;
-            foreach($this->packageName as $onePackage) {
-                $returns[] = $packager->installPackage($onePackage); }
-            return (in_array(false, $returns)) ? false : true ; }
+    public function setModule($moduleName = null) {
+        if (isset($moduleName) && is_string($moduleName)) {
+            $this->moduleName = $moduleName; }
+        else if (isset($moduleName) && is_object($moduleName)) {
+            $this->moduleName = $moduleName->getModuleName(); }
+        else if (isset($this->params["force-modulename"])) {
+            $this->moduleName = $this->params["force-modulename"]; }
+        else if (isset($this->params["force-module-name"])) {
+            $this->moduleName = $this->params["force-module-name"]; }
         else {
-            return $packager->installPackage($this->packageName); }
+            $this->moduleName = "NoModuleAssociated" ; }
     }
 
-    public function removeOSPackage($autopilot = null) {
+    protected function installPackages($autopilot = null) {
         $packager = $this->getPackager();
-        if (is_array($this->packageName)) {
-            $returns = array() ;
-            foreach($this->packageName as $onePackage) {
-                $returns[] = $packager->removePackage($onePackage); }
-            return (in_array(false, $returns)) ? false : true ; }
-        else {
-            return $packager->removePackage($this->packageName); }
+        if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
+        $returns = array() ;
+        foreach($this->packageName as $onePackage) {
+            $result = $packager->installPackage($onePackage) ;
+            if ($result == true) { $this->setPackageStatusInPapyrus($onePackage, true) ; } ;
+            $returns[] = $result ; }
+        return (in_array(false, $returns)) ? false : true ;
+    }
+
+    protected function removePackages($autopilot = null) {
+        $packager = $this->getPackager();
+        if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
+        $returns = array() ;
+        foreach($this->packageName as $onePackage) { $returns[] = $packager->removePackage($onePackage); }
+        return (in_array(false, $returns)) ? false : true ;
     }
 
     public function ensureInstalled() {
-        if ($this->isInstalled()==false) { $this->installOSPackage($autopilot = null); }
+        if ($this->isInstalled()==false) { $this->installPackages($autopilot = null); }
         else {
+            // @todo need to write to papyrus
+            $this->setPackageStatusInPapyrus($this->packageName, true);
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("Package {$this->packageName} from the Packager {$this->packagerName} is already installed"); }
@@ -122,20 +140,51 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         return false;
     }
 
-    public function getPackager() {
+    protected function getPackager() {
         $infoObjects = \Core\AutoLoader::getInfoObjects();
         $allPackagers = array();
         foreach($infoObjects as $infoObject) {
             if ( method_exists($infoObject, "packagerName") ) {
                 $allPackagers[] = $infoObject->packagerName(); } }
         foreach($allPackagers as $onePackager) {
-            if ( ((isset($this->params["packager-name"])) && $this->params["packager-name"] == strtolower($onePackager)) ||
-                 ((isset($this->params["packagername"])) && $this->params["packagername"] == strtolower($onePackager))) {
-                    $className = '\Model\\'.$onePackager ;
-                    $pkgrFactory = new $className();
-                    $pkgr = $pkgrFactory->getModel($this->params);
-                    return $pkgr ; } }
+            if ( (isset($this->packagerName) && $this->packagerName == $onePackager) ) {
+                $className = '\Model\\'.$onePackager ;
+                $pkgrFactory = new $className();
+                $pkgr = $pkgrFactory->getModel($this->params);
+                return $pkgr ; } }
         return false ;
+    }
+
+    public function setPackageStatusInPapyrus($packageName, $bool) {
+        if ($bool == true) {
+            if (is_array($packageName)) {
+                foreach ($packageName as $onePackageName) { $this->addPackageToPapyrus($onePackageName) ; } }
+            else { $this->addPackageToPapyrus($packageName) ; } }
+        else {
+            if (is_array($packageName)) {
+                foreach ($packageName as $onePackageName) { $this->removePackageFromPapyrus($onePackageName) ; } }
+            else {
+                $this->removePackageFromPapyrus($packageName) ; } }
+    }
+
+    protected function addPackageToPapyrus($packageName) {
+        //@todo check this works then remove comments
+        // get in memory version of the installed-packages section of the papyrus
+        $installedPackages = \Model\AppConfig::getAppVariable("installed-packages") ;
+        // set the following multi dimensional array to it ["Module"]["Packager"]["Package"]
+        $installedPackages[$this->moduleName][$this->packagerName][$packageName] = true ;
+        // again set the installed-packages section of the papyrus
+        \Model\AppConfig::setAppVariable("installed-packages", $installedPackages) ;
+    }
+
+    protected function removePackageFromPapyrus($packageName) {
+        //@todo check this works then remove comments
+        // get in memory version of the installed-packages section of the papyrus
+        $installedPackages = \Model\AppConfig::getAppVariable("installed-packages") ;
+        // remove the following multi dimensional array from it ["Module"]["Packager"]["Package"]
+        unset($installedPackages[$this->moduleName][$this->packagerName][$packageName]) ;
+        // again set the installed-packages section of the papyrus
+        \Model\AppConfig::setAppVariable("installed-packages", $installedPackages) ;
     }
 
 }
