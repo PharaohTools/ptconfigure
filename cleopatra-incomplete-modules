@@ -12,7 +12,29 @@ current state
   the statusCommand parameter to check with a command you provide for a 0 or non 0 exit code. you can also provide
   statusCommandExpects otherwise it will try to run the "command programNameMachine" to
 
-Update InstallCommands to accept functions as well as
+There are lots of runAutopilot methods missing. Is there a cleaner way to do this by just having autopilot variables
+assigned to parameters at the beginning. So, then you provide Module, Controller, Action, Parameters as each step.
+This means that all run
+
+Update InstallCommands to accept functions as well as string commands - DONE
+You can now pass a string as before which will always be run as bash (to allow modules that haven't been updated yet to work)
+or you can pass an array of instantiated object, methodname and parameters, or an array with a single bash string as its
+value, or an array with an array, of bash strings as its value. An array of bash strings will be executed as seperate
+lines in a single bash script.
+    "a command string",
+    array("command"=> "a command string" ),
+    array("method"=> array("object" => $this, "method" => "setDefaultReplacements", "params" => array()) ),
+
+
+Update all modules to execute their steps using command or method arrays. Deprecate bash strings
+Remove registered pre/post install functions, replace with function steps in installCommands
+Remove extraCommands from base
+Remove the swapPlaceholders when possible. currently its used because the value is not set in the constructor before its
+used.
+Go through all modules updating bash lines (even in arrays) for code dependencies
+
+Update base app to only create executors when
+
 
 Modules correctly reporting status
 ----------------------
@@ -24,65 +46,76 @@ WAIT - Jenkins - Jenkins - The Java Build Server ITS A JAVA PROGRAM NOT SURE HOW
 WAIT - NodeJS - Node JS - The Server Side Javascript Engine  (looks like it shoul work but node not instaqlled to check)
 WAIT - Pear - Pear Package Manager
 WAIT - RubyRVM - Ruby RVM - The Ruby version manager
+
+Modules correctly using command/method calls instead of bash string
+----------------------
 DONE - AWSCloudFormation - The AWS CloudFormation CLI Tools
 DONE - AWSCloudWatch - The AWS CloudWatch CLI Tools
+DONE - ApacheConf - Apache Conf - Install a Apache Configuration
 DONE - ApacheModules - Apache Modules - Commonly used modules for Apache
-DONE - ApacheServer - Apache Server - Install or remove the Apache Server
-DONE - Apt - Add, Remove or Modify Apts
-DONE - Behat - Behat - The PHP BDD Testing Suite
-DONE - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra
-DONE - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool
-DONE - DeveloperTools - Developer Tools - IDE's and other tools for Developers
-DONE - Firefox14 - Firefox 14 - A version of Firefox highly tested with Selenium Server
-DONE - Firefox17 - Firefox 17 - A version of Firefox highly tested with Selenium Server
-DONE - Firewall - Add, Remove or Modify Firewalls
-DONE - GitTools - Git Tools - Tools for working with Git SCM
-DONE - IntelliJ - IntelliJ - A great IDE from JetBrains
-DONE - JRush - JRush - The Joomla command line utility from Golden Contact
-DONE - Java - Java JDK 1.7
-DONE - PHPAPC - PHP APC - Commonly used PHP APC
-DONE - PHPCS - PHP Code Sniffer - The static code analysis tool
-DONE - PHPConf - PHP Conf - Install a PHP Configuration
-DONE - PHPMD - PHP Mess Detector - The static analysis tool
-DONE - PHPModules - PHP Modules - Commonly used PHP Modules
-DONE - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
-DONE - MysqlServer - Mysql Server - The Mysql RDBMS Server
-DONE - MysqlTools - Mysql Tools - For administering and developing with Mysql
-DONE - NagiosServer - Nagios Server - Install or remove the Nagios Server
-DONE - NginxServer - Nginx Server - Install or remove the Nginx Server
-DONE - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
-DONE - SVN - SVN - The Source Control Manager
-DONE - SeleniumServer - The Selenium Web Browser controlling server
-DONE - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
-DONE - MediaTools - Media Tools - Tools to help view and manage Media files
-DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
-DONE - UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
-DONE - Parallax - Parallax - The parallel execution tool from Golden Contact
-DONE - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP
-DONE - Python - Python - The programming language
-DONE - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
-DONE - StandardTools - Standard Tools for any Installation
-NA   - Autopilot - Cleopatra Autopilot - User Defined Installations
-NA   - ApacheConf - Apache Conf - Install a Apache Configuration
-NA   - Cleofy - Cleopatra Cleofyer - Creates default autopilots for your project
-NA   - EnvironmentConfig - Environment Configuration - Configure Environments for a project
-NA   - File - Add, Remove or Modify Files
-NA   - Generator - Dapperstrano Autopilot Generator - Generate Autopilot files interactively
-NA   - Hostname - View or Modify Hostname
-NA   - InstallPackage - Cleopatra Predefined Installers
-NA   - Invoke - SSH Invocation Functions
-NA   - JenkinsPlugins - Jenkins PHP Plugins - Common Plugins for Jenkins PHP Builds
-NA   - JenkinsSudoNoPass - Configure Passwordless Sudo for your Jenkins user
-NA   - MysqlAdmins - Mysql Admins - Install administrative users for Mysql
-NA   - PackageManager - Native Package Manager Wrapper - Install OS neutral packages
-NA   - PapyrusEditor - Papyrus Editor Web Interface
-NA   - Port - Test a Port to see if its responding
-NA   - PostInput - HTTP Post/Get Input Interface
-NA   - Service - View or Modify Service
-NA   - SudoNoPass - Configure Passwordless Sudo for any User
-NA   - SystemDetection - System Detection - Detect the Running Operating System
-NA   - Templating - Templating
-NA   - User - Add, Remove or Modify Users
+WAITING - ApacheServer - Apache Server - Install or remove the Apache Server
+WAITING - Apt - Add, Remove or Modify Apts
+WAITING - Autopilot - Cleopatra Autopilot - User Defined Installations
+WAITING - Behat - Behat - The PHP BDD Testing Suite
+WAITING - Cleofy - Cleopatra Cleofyer - Creates default autopilots for your project
+WAITING - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra
+WAITING - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool
+WAITING - DeveloperTools - Developer Tools - IDE's and other tools for Developers
+WAITING - EnvironmentConfig - Environment Configuration - Configure Environments for a project
+WAITING - File - Add, Remove or Modify Files
+WAITING - Firefox14 - Firefox 14 - A version of Firefox highly tested with Selenium Server
+WAITING - Firefox17 - Firefox 17 - A version of Firefox highly tested with Selenium Server
+WAITING - Firewall - Add, Remove or Modify Firewalls
+WAITING - Gem - Ruby Gems Package Manager
+WAITING - Generator - Dapperstrano Autopilot Generator - Generate Autopilot files interactively
+WAITING - GitBucket - Git Bucket - The Git SCM Management Web Application
+WAITING - GitLab - Git Lab - The Git SCM Management Web Application
+WAITING - GitTools - Git Tools - Tools for working with Git SCM
+WAITING - Hostname - View or Modify Hostname
+WAITING - InstallPackage - Cleopatra Predefined Installers
+WAITING - IntelliJ - IntelliJ - A great IDE from JetBrains
+WAITING - Invoke - SSH Invocation Functions
+WAITING - JRush - JRush - The Joomla command line utility from Golden Contact
+WAITING - Java - Java JDK 1.7
+WAITING - Jenkins - Jenkins - The Java Build Server
+WAITING - JenkinsPlugins - Jenkins PHP Plugins - Common Plugins for Jenkins PHP Builds
+WAITING - JenkinsSudoNoPass - Configure Passwordless Sudo for your Jenkins user
+WAITING - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
+WAITING - MediaTools - Media Tools - Tools to help view and manage Media files
+WAITING - MysqlAdmins - Mysql Admins - Install administrative users for Mysql
+WAITING - MysqlServer - Mysql Server - The Mysql RDBMS Server
+WAITING - MysqlTools - Mysql Tools - For administering and developing with Mysql
+WAITING - NagiosServer - Nagios Server - Install or remove the Nagios Server
+WAITING - NginxServer - Nginx Server - Install or remove the Nginx Server
+WAITING - NodeJS - Node JS - The Server Side Javascript Engine
+WAITING - PHPAPC - PHP APC - Commonly used PHP APC
+WAITING - PHPCS - PHP Code Sniffer - The static code analysis tool
+WAITING - PHPConf - PHP Conf - Install a PHP Configuration
+WAITING - PHPMD - PHP Mess Detector - The static analysis tool
+WAITING - PHPModules - PHP Modules - Commonly used PHP Modules
+WAITING - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
+WAITING - PackageManager - Native Package Manager Wrapper - Install OS neutral packages
+WAITING - PapyrusEditor - Papyrus Editor Web Interface
+WAITING - Parallax - Parallax - The parallel execution tool from Golden Contact
+WAITING - Pear - Pear Package Manager
+WAITING - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP
+WAITING - Port - Test a Port to see if its responding
+WAITING - PostInput - HTTP Post/Get Input Interface
+WAITING - Python - Python - The programming language
+WAITING - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
+WAITING - RubyRVM - Ruby RVM - The Ruby version manager
+WAITING - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
+WAITING - SVN - SVN - The Source Control Manager
+WAITING - SeleniumServer - The Selenium Web Browser controlling server
+WAITING - Service - View or Modify Service
+WAITING - SshHarden - Apply security functions to the SSH accounts/setup of the machine
+WAITING - StandardTools - Standard Tools for any Installation
+WAITING - SudoNoPass - Configure Passwordless Sudo for any User
+WAITING - SystemDetection - System Detection - Detect the Running Operating System
+WAITING - Templating - Templating
+WAITING - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
+WAITING - UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
+WAITING - User - Add, Remove or Modify Users
 
 
 Autopilot Definer
