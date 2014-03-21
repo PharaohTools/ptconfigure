@@ -13,7 +13,7 @@ class AptUbuntu extends BasePackager {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $packagerName = "apt";
+    protected $packagerName = "Apt";
 
     public function __construct($params) {
         parent::__construct($params);
