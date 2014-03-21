@@ -18,13 +18,14 @@ class AWSCloudWatchLinuxMac extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "AWSCloudWatch";
         $this->installCommands = array(
-          "cd /tmp" ,
-          "git clone https://github.com/phpengine/cleopatra-aws-cloudwatch aws-cloudwatch",
-          "mkdir -p ****PROGDIR****",
-          "mv /tmp/aws-cloudwatch/* ****PROGDIR****",
-          "rm -rf /tmp/aws-cloudwatch/",
-          // "cd ****PROGDIR****",
-          // "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &"
+            array("command"=> array(
+                "cd /tmp" ,
+                "git clone https://github.com/phpengine/cleopatra-aws-cloudwatch aws-cloudwatch",
+                "mkdir -p ****PROGDIR****",
+                "mv /tmp/aws-cloudwatch/* ****PROGDIR****",
+                "rm -rf /tmp/aws-cloudwatch/" ) ),
+            array("method"=> array($this, "deleteExecutorIfExists", array() )),
+            array("method"=> array($this, "saveExecutorFile", array() )),
         );
         $this->uninstallCommands = array("rm -rf ****PROGDIR****");
         $this->programDataFolder = "/opt/aws-cloudwatch"; // command and app dir name
@@ -34,7 +35,6 @@ class AWSCloudWatchLinuxMac extends BaseLinuxApp {
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "";
         $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/bin/aws-cloudwatch.jar';
-        $this->registeredPostInstallFunctions = array("deleteExecutorIfExists", "saveExecutorFile");
         $this->initialize();
       }
 
