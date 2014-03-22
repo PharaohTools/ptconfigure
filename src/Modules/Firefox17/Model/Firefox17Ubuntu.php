@@ -18,15 +18,21 @@ class Firefox17Ubuntu extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "Firefox17";
     $this->installCommands = array(
-      "cd /tmp" ,
-      "git clone https://github.com/phpengine/cleopatra-firefox17 firefox17",
-      "rm -rf ****PROGDIR****",
-      "mkdir -p ****PROGDIR****",
-      "mv /tmp/firefox17/* ****PROGDIR****",
-      "rm -rf /tmp/firefox17" );
+        array( "command" =>
+            "cd /tmp" ,
+            "git clone https://github.com/phpengine/cleopatra-firefox17 firefox17",
+            "rm -rf ****PROGDIR****",
+            "mkdir -p ****PROGDIR****",
+            "mv /tmp/firefox17/* ****PROGDIR****",
+            "rm -rf /tmp/firefox17" ),
+        array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
+        array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
+    );
     $this->uninstallCommands = array(
-      "rm -rf ****PROGDIR****",
-      "rm -rf ****PROG EXECUTOR****", );
+        array( "command" =>
+            "rm -rf ****PROGDIR****",
+            "rm -rf ****PROG EXECUTOR****", )
+    );
     $this->programDataFolder = "/opt/firefox17"; // command and app dir name
     $this->programNameMachine = "firefox17"; // command and app dir name
     $this->programNameFriendly = " Firefox 17 "; // 12 chars
@@ -34,8 +40,6 @@ class Firefox17Ubuntu extends BaseLinuxApp {
     $this->programExecutorFolder = "/usr/bin";
     $this->programExecutorTargetPath = "firefox-bin";
     $this->programExecutorCommand = $this->programDataFolder.'/'.$this->programExecutorTargetPath;
-    $this->registeredPostInstallFunctions = array("deleteExecutorIfExists",
-      "saveExecutorFile");
     $this->initialize();
   }
 
