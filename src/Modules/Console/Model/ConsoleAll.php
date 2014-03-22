@@ -20,13 +20,14 @@ class ConsoleAll extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Console";
-        $this->installCommands = array();
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "setLogMessage", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "log", "params" => array()) ),);
         $this->uninstallCommands = array();
         $this->programDataFolder = "/opt/Console"; // command and app dir name
         $this->programNameMachine = "console"; // command and app dir name
         $this->programNameFriendly = "  Console!  "; // 12 chars
         $this->programNameInstaller = "Console";
-        $this->registeredPostInstallFunctions = array("setLogMessage", "log");
         $this->initialize();
     }
 
