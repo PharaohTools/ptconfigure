@@ -17,8 +17,8 @@ class PapyrusEditorAll extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "PapyrusEditor";
-        $this->installCommands = array("");
-        $this->uninstallCommands = array("");
+        $this->installCommands = array();
+        $this->uninstallCommands = array();
         $this->programDataFolder = "/opt/PapyrusEditor"; // command and app dir name
         $this->programNameMachine = "papyruseditor"; // command and app dir name
         $this->programNameFriendly = "Papyrus Editor!"; // 12 chars

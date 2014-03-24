@@ -17,9 +17,13 @@ class MediaToolsUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "MediaTools";
-        $this->installCommands = array( "apt-get install -y vlc libdvdread4",
-            "sh /usr/share/doc/libdvdread4/install-css.sh" );
-        $this->uninstallCommands = array( "apt-get remove -y vlc libdvdread4" );
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("vlc", "libdvdread4"))) ),
+            array("command"=> "sh /usr/share/doc/libdvdread4/install-css.sh")
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "vlc", "libdvdread4")) ),
+        );
         $this->programDataFolder = "/opt/MediaTools"; // command and app dir name
         $this->programNameMachine = "mediatools"; // command and app dir name
         $this->programNameFriendly = "Media Tools!"; // 12 chars

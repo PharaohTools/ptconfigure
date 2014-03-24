@@ -23,35 +23,45 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "MysqlAdmins";
-        $this->installCommands = array("");
-        $this->uninstallCommands = array( "" );
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "askForMysqlRootUserName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlRootPass", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminUserName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminPass", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlHost", "params" => array()) ),
+            array("command"=> $this->getInstallCommands() ),
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "askForMysqlRootUserName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlRootPass", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminUserName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminPass", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMysqlHost", "params" => array()) ),
+            array("command"=> $this->getInstallCommands() ),
+        );
         $this->programDataFolder = "";
         $this->programNameMachine = "mysqladmins"; // command and app dir name
         $this->programNameFriendly = "MySQL Admins!"; // 12 chars
         $this->programNameInstaller = "Admin User for MySQL";
-        $this->registeredPreInstallFunctions = array("askForMysqlRootUserName",
-            "askForMysqlRootPass", "askForMysqlNewAdminUserName", "askForMysqlNewAdminPass",
-            "askForMysqlHost", "setInstallCommandsWithNewVars");
-        $this->registeredPreUnInstallFunctions = array("askForMysqlRootUserName",
-            "askForMysqlRootPass", "askForMysqlNewAdminUserName", "askForMysqlNewAdminPass",
-            "askForMysqlHost", "setInstallCommandsWithNewVars");
+        $this->registeredPreInstallFunctions = array();
+        $this->registeredPreUnInstallFunctions = array();
         $this->initialize();
     }
 
-    protected function setInstallCommandsWithNewVars() {
+    protected function getInstallCommands() {
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->mysqlRootUser.' ';
         if (strlen($this->mysqlRootPass) > 0) {$command .= '-p'.$this->mysqlRootPass.' '; }
         $command .= ' < /tmp/mysql-adminshcript.sql' ;
         $sqlCommand = 'GRANT ALL PRIVILEGES ON *.* TO \''.$this->mysqlNewAdminUser.'\'@\''.$this->dbHost.'\' ';
         $sqlCommand .= 'IDENTIFIED BY \''.$this->mysqlNewAdminPass.'\' WITH GRANT OPTION;';
-        $this->installCommands = array(
+        return array(
             'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
             $command,
             'rm /tmp/mysql-adminshcript.sql'
         );
     }
 
-    protected function askForMysqlNewAdminUserName($autoPilot=null){
+    public function askForMysqlNewAdminUserName($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlNewAdminUser"} ) {
             $this->mysqlNewAdminUser = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminUser"}; }
@@ -60,7 +70,7 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             $this->mysqlNewAdminUser = self::askForInput($question, true); }
     }
 
-    protected function askForMysqlNewAdminPass($autoPilot=null){
+    public function askForMysqlNewAdminPass($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlNewAdminPass"} ) {
             $this->mysqlNewAdminPass = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminPass"}; }
@@ -69,7 +79,7 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             $this->mysqlNewAdminPass = self::askForInput($question, true); }
     }
 
-    protected function askForMysqlRootUserName($autoPilot=null){
+    public function askForMysqlRootUserName($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlRootUser"} ) {
             $this->mysqlRootUser = $autoPilot->{$this->autopilotDefiner."MysqlRootUser"}; }
@@ -78,7 +88,7 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             $this->mysqlRootUser = self::askForInput($question, true); }
     }
 
-    protected function askForMysqlRootPass($autoPilot=null){
+    public function askForMysqlRootPass($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlRootPass"} ) {
             $this->mysqlRootPass = $autoPilot->{$this->autopilotDefiner."MysqlRootPass"}; }
@@ -87,7 +97,7 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             $this->mysqlRootPass = self::askForInput($question, true); }
     }
 
-    protected function askForMysqlHost($autoPilot=null){
+    public function askForMysqlHost($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlHost"} ) {
             $this->dbHost = $autoPilot->{$this->autopilotDefiner."MysqlHost"}; }

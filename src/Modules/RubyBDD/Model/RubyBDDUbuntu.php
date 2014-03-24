@@ -18,19 +18,23 @@ class RubyBDDUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "RubyBDD";
         $this->installCommands = array(
-            "gem install cucumber" ,
-            "gem install capybara",
-            "gem install calabash" );
+            array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForInstallUserHomeDir", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "cucumber")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "capybara")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "calabash")) ),
+        );
         $this->uninstallCommands = array(
-            "gem uninstall cucumber" ,
-            "gem uninstall capybara",
-            "gem uninstall calabash" );
+            array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForInstallUserHomeDir", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "cucumber")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "capybara")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "calabash")) ),
+        );
         $this->programDataFolder = "";
         $this->programNameMachine = "ruby"; // command and app dir name
         $this->programNameFriendly = " !Ruby BDD!!"; // 12 chars
         $this->programNameInstaller = "Ruby BDD";
-        $this->registeredPreInstallFunctions = array("askForInstallUserName", "askForInstallUserHomeDir");
-        $this->registeredPreUnInstallFunctions = array("askForInstallUserName", "askForInstallUserHomeDir");
         $this->initialize();
     }
 

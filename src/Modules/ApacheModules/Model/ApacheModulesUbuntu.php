@@ -18,25 +18,25 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "ApacheModules";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAddDeps", "params" => array("libxml2-dev")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libxml2-dev")) ),
             array("command"=> "a2enmod rewrite" ),
             array("command"=> "a2enmod deflate" ),
             array("command"=> "a2enmod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageAddDeps", "params" => array("libapache2-mod-proxy-html")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
             array("command"=> "a2enmod proxy" ),
             array("command"=> "a2enmod proxy_http" ),
-            array("method"=> array("object" => $this, "method" => "packageAddDeps", "params" => array("libapache2-mod-php5")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-php5")) ),
             array("command"=> "a2enmod php5" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemoveDeps", "params" => array("libxml2-dev")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libxml2-dev")) ),
             array("command"=> "a2dismod rewrite" ),
             array("command"=> "a2dismod deflate" ),
             array("command"=> "a2dismod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageRemoveDeps", "params" => array("libapache2-mod-proxy-html")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
             array("command"=> "a2dismod proxy" ),
             array("command"=> "a2dismod proxy_http" ),
-            array("method"=> array("object" => $this, "method" => "packageRemoveDeps", "params" => array("libapache2-mod-php5")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-php5")) ),
             array("command"=> "a2dismod php5" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->programDataFolder = "/opt/ApacheModules"; // command and app dir name
@@ -59,18 +59,6 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
                 $console->log("Apache Module {$modToCheck} does not exist.") ;
                 $passing = false ; } }
         return $passing ;
-    }
-
-    public function packageAddDeps($package) {
-        $packageFactory = new PackageManager();
-        $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageEnsure("Apt", $package, $this);
-    }
-
-    public function packageRemoveDeps($package) {
-        $packageFactory = new PackageManager();
-        $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageRemove("Apt", $package, $this);
     }
 
     public function apacheRestart() {

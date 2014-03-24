@@ -21,27 +21,29 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "SeleniumServer";
         $this->installCommands = array(
-          "cd /tmp" ,
-          "mkdir -p /tmp/selenium" ,
-          "cd /tmp/selenium" ,
-          "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar",
-          "mkdir -p ****PROGDIR****",
-          "mv /tmp/selenium/* ****PROGDIR****",
-          "rm -rf /tmp/selenium/",
-          "cd ****PROGDIR****",
-          "mv selenium-server-standalone-2.39.0.jar selenium-server.jar",
-          "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &" );
-        $this->uninstallCommands = array("rm -rf ****PROGDIR****");
+            array("command"=> array(
+                "cd /tmp" ,
+                "mkdir -p /tmp/selenium" ,
+                "cd /tmp/selenium" ,
+                "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar",
+                "mkdir -p ****PROGDIR****",
+                "mv /tmp/selenium/* ****PROGDIR****",
+                "rm -rf /tmp/selenium/",
+                "cd ****PROGDIR****",
+                "mv selenium-server-standalone-2.39.0.jar selenium-server.jar",
+                "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &") ) ,
+            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
+        );
+        $this->uninstallCommands = array(
+            array("command"=> array("rm -rf ****PROGDIR****")));
         $this->programDataFolder = "/opt/selenium"; // command and app dir name
         $this->programNameMachine = "selenium"; // command and app dir name
         $this->programNameFriendly = "Selenium Srv"; // 12 chars
         $this->programNameInstaller = "Selenium Server";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "firefox-bin";
-        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder .
-          '/selenium-server.jar';
-        $this->registeredPostInstallFunctions = array("deleteExecutorIfExists",
-          "saveExecutorFile");
+        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/selenium-server.jar';
         $this->initialize();
       }
 

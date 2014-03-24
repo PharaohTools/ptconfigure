@@ -17,8 +17,12 @@ class NginxServerUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "NginxServer";
-        $this->installCommands = array("apt-get install -y nginx");
-        $this->uninstallCommands = array("apt-get remove -y nginx");
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "nginx")) ),
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "nginx")) ),
+        );
         $this->programDataFolder = "/opt/NginxServer"; // command and app dir name
         $this->programNameMachine = "nginxserver"; // command and app dir name
         $this->programNameFriendly = "Nginx Server!"; // 12 chars

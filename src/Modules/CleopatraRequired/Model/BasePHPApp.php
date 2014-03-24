@@ -92,7 +92,6 @@ class BasePHPApp extends Base {
     $this->saveExecutorFile();
     $this->deleteInstallationFiles();
     $this->changePermissions();
-    $this->extraCommands();
     $this->executePostInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(true) ;
     $this->showCompletion();
@@ -107,7 +106,6 @@ class BasePHPApp extends Base {
     $this->executePreUnInstallFunctions($autoPilot) ;
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->deleteExecutorIfExists();
-    $this->extraCommands();
     $this->executePostUnInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(false) ;
     $this->showCompletion();

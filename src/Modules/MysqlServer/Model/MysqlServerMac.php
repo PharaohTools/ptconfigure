@@ -2,6 +2,7 @@
 
 Namespace Model;
 
+//@todo mysql server mac model isnt finished
 class MysqlServerMac extends BaseLinuxApp {
 
     // Compatibility
@@ -17,19 +18,10 @@ class MysqlServerMac extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $newRootPass = $this->getNewRootPass();
         $this->autopilotDefiner = "MysqlServer";
         $this->installCommands = array(
-            // First thing, lets download the dmg
-            "",
-            // package install the dmg
-            "",
-            // add dir to path
-            'echo "/usr/local/mysql/bin" >> /etc/paths',
-            // update the root password
-            "mysqladmin -uroot password $newRootPass",
-            // remove the dmg
-            "rm /tmp/"
+            array("method"=> array("object" => $this, "method" => "askForMysqlHost", "params" => array()) ),
+            array("command"=> $this->getInstallCommands() ),
         );
         $this->uninstallCommands = array(
             ""
@@ -49,6 +41,22 @@ class MysqlServerMac extends BaseLinuxApp {
         else {
             $newRootPass = "cleopatra" ; }
         return $newRootPass;
+    }
+
+    public function getInstallCommands() {
+
+        $newRootPass = $this->getNewRootPass();
+        return array(
+            // First thing, lets download the dmg
+            "",
+            // package install the dmg
+            "",
+            // add dir to path
+            'echo "/usr/local/mysql/bin" >> /etc/paths',
+            // update the root password
+            "mysqladmin -uroot password $newRootPass",
+            // remove the dmg
+            "rm /tmp/") ;
     }
 
 }
