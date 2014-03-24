@@ -17,8 +17,12 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "PHPModules";
-        $this->installCommands = array( "apt-get install -y php5-gd php5-imagick php5-curl php5-mysql" );
-        $this->uninstallCommands = array( "apt-get remove -y php5-gd php5-imagick php5-curl php5-mysql" );
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-gd", "php5-imagick", "php5-curl", "php5-mysql"))) ),
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("php5-gd", "php5-imagick", "php5-curl", "php5-mysql"))) ),
+        );
         $this->programDataFolder = "/opt/PHPModules"; // command and app dir name
         $this->programNameMachine = "phpmodules"; // command and app dir name
         $this->programNameFriendly = "PHP Mods!"; // 12 chars

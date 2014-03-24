@@ -194,10 +194,10 @@ class FirewallUbuntu extends BaseLinuxApp {
         ) ;
     }
 
-    protected function ensurePython() {
-        $pythonFactory = new \Model\Python();
-        $python = $pythonFactory->getModel($this->params);
-        $python->log("Firewall Reset command did not execute correctly") ;
+    public function ensurePython() {
+        $pythonFactory = new Python();
+        $pythonModel = $pythonFactory->getModel($this->params) ;
+        $pythonModel->ensureInstalled();
     }
 
 }

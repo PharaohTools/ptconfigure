@@ -17,8 +17,12 @@ class LigHTTPDServerUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "LigHTTPDServer";
-        $this->installCommands = array("apt-get install -y lighttpd");
-        $this->uninstallCommands = array("apt-get remove -y lighttpd");
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "lighttpd")) ),
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "lighttpd")) ),
+        );
         $this->programDataFolder = "/opt/LigHTTPDServer"; // command and app dir name
         $this->programNameMachine = "lighttpdserver"; // command and app dir name
         $this->programNameFriendly = "LigHTTPD Server!"; // 12 chars

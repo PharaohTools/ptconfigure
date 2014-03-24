@@ -2,6 +2,7 @@
 
 Namespace Model;
 
+//@todo finish off the template vars
 class PHPConfUbuntu extends BaseTemplater {
 
     // Compatibility
@@ -17,14 +18,18 @@ class PHPConfUbuntu extends BaseTemplater {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "PHPConf";
-        $this->installCommands = array();
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "setDefaultReplacements", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "setOverrideReplacements", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "setTemplateFile", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "setTemplate", "params" => array()) ),
+        );
         $this->uninstallCommands = array();
         $this->programDataFolder = "/opt/PHPConf"; // command and app dir name
         $this->programNameMachine = "phpconf"; // command and app dir name
         $this->programNameFriendly = "PHP Conf!"; // 12 chars
         $this->programNameInstaller = "PHP Conf";
         $this->targetLocation = "/etc/php5/apache2/php.ini" ;
-        $this->registeredPreInstallFunctions = array("setDefaultReplacements", "setOverrideReplacements", "setTemplateFile", "setTemplate") ;
         $this->initialize();
     }
 

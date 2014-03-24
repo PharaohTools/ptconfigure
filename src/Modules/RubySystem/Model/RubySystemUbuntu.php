@@ -18,9 +18,11 @@ class RubySystemUbuntu extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "RubySystem";
     $this->installCommands = array(
-      "apt-get install -y ruby" );
+        array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array( "Apt", array("ruby") ) ) ),
+    );
     $this->uninstallCommands = array(
-      "apt-get remove -y ruby" );
+        array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array( "Apt", array("ruby") ) ) ),
+    );
     $this->programDataFolder = "/opt/rubysystem";
     $this->programNameMachine = "ruby"; // command and app dir name
     $this->programNameFriendly = "Ruby System!"; // 12 chars

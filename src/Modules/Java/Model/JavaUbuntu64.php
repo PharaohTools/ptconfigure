@@ -18,24 +18,27 @@ class JavaUbuntu64 extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "Java";
     $this->installCommands = array(
-      "git clone https://bitbucket.org/phpengine/cleopatra-oraclejava7jdk /tmp/oraclejdk" ,
-      "mkdir -p ****PROGDIR****" ,
-      "cp -r /tmp/oraclejdk/* ****PROGDIR****" ,
-      "rm -rf /tmp/oraclejdk" ,
-      "cd ****PROGDIR****",
-      "chmod a+x ****PROGDIR****",
-      'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/profile',
-      'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
-      'echo \'export JAVA_HOME\' >> /etc/profile',
-      'echo \'export PATH\' >> /etc/profile',
-      'sudo update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
-      'sudo update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
-      'sudo update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
-      'sudo update-alternatives --set java ****PROGDIR****/bin/java ',
-      'sudo update-alternatives --set javac ****PROGDIR****/bin/javac ',
-      'sudo update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
-      '. /etc/profile' );
-    $this->uninstallCommands = array( "" );
+        array("command" => array(
+            "git clone https://bitbucket.org/phpengine/cleopatra-oraclejava7jdk /tmp/oraclejdk" ,
+            "mkdir -p ****PROGDIR****" ,
+            "cp -r /tmp/oraclejdk/* ****PROGDIR****" ,
+            "rm -rf /tmp/oraclejdk" ,
+            "cd ****PROGDIR****",
+            "chmod a+x ****PROGDIR****",
+            'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/profile',
+            'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
+            'echo \'export JAVA_HOME\' >> /etc/profile',
+            'echo \'export PATH\' >> /etc/profile',
+            'sudo update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
+            'sudo update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
+            'sudo update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
+            'sudo update-alternatives --set java ****PROGDIR****/bin/java ',
+            'sudo update-alternatives --set javac ****PROGDIR****/bin/javac ',
+            'sudo update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
+            '. /etc/profile' ) )
+        );
+    //@todo uninstall commands of java
+    $this->uninstallCommands = array();
     $this->programDataFolder = "/var/lib/jvm/jdk1.7";
     $this->programNameMachine = "java"; // command and app dir name
     $this->programNameFriendly = "!!Java JDK!!"; // 12 chars

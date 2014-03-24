@@ -17,8 +17,12 @@ class GitToolsUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "GitTools";
-        $this->installCommands = array("apt-get install -y git git-core gitk git-cola");
-        $this->uninstallCommands = array("apt-get remove -y git git-core gitk git-cola");
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "git", "git-core", "gitk", "git-cola")) )
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "git", "git-core", "gitk", "git-cola")) )
+        );
         $this->programDataFolder = "";
         $this->programNameMachine = "gittools"; // command and app dir name
         $this->programNameFriendly = "!Git Tools!!"; // 12 chars

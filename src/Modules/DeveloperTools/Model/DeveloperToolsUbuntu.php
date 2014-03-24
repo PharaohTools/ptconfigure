@@ -18,10 +18,10 @@ class DeveloperToolsUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "DeveloperTools";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAddDeps", "params" => array("geany", "bluefish", "kompozer")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("geany", "bluefish", "kompozer"))) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemoveDeps", "params" => array("geany", "bluefish", "kompozer")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("geany", "bluefish", "kompozer"))) ),
         );
         $this->programDataFolder = "/opt/DeveloperTools"; // command and app dir name
         $this->programNameMachine = "developertools"; // command and app dir name
@@ -34,15 +34,4 @@ class DeveloperToolsUbuntu extends BaseLinuxApp {
       return $this->askStatusByArray(array( "geany", "bluefish", "kompozer" )) ;
     }
 
-    public function packageAddDeps($package) {
-        $packageFactory = new PackageManager();
-        $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageEnsure("Apt", $package, $this);
-    }
-
-    public function packageRemoveDeps($package) {
-        $packageFactory = new PackageManager();
-        $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageRemove("Apt", $package, $this);
-    }
 }

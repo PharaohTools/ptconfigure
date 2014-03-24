@@ -86,7 +86,6 @@ class BaseLinuxApp extends Base {
     $this->executePostInstallFunctions($autoPilot);
     if ($this->programDataFolder) {
       $this->changePermissions($this->programDataFolder); }
-    $this->extraCommands();
     $this->setInstallFlagStatus(true) ;
     $this->showCompletion();
     return true;
@@ -97,7 +96,6 @@ class BaseLinuxApp extends Base {
     $this->executePreUnInstallFunctions($autoPilot);
     $this->doUnInstallCommand();
     $this->executePostUninstallFunctions($autoPilot);
-    $this->extraCommands();
     $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
     return true;

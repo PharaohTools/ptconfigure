@@ -14,30 +14,40 @@ class IntelliJUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-  public function __construct($params) {
-    parent::__construct($params);
-    $this->autopilotDefiner = "IntelliJ";
-    $this->installCommands = array(
-      "cd /tmp" ,
-      "git clone https://github.com/phpengine/cleopatra-intellij intellij",
-      "rm -rf ****PROGDIR****",
-      "mkdir -p ****PROGDIR****",
-      "mv /tmp/intellij/* ****PROGDIR****",
-      "chmod -R 777 ****PROGDIR****",
-      "rm -rf /tmp/intellij" );
-    $this->uninstallCommands = array(
-      "rm -rf ****PROGDIR****",
-      "rm -rf ****PROG EXECUTOR****", );
-    $this->programDataFolder = "/opt/intellij"; // command and app dir name
-    $this->programNameMachine = "intellij"; // command and app dir name
-    $this->programNameFriendly = "Intelli J 12"; // 12 chars
-    $this->programNameInstaller = "Intelli J 12";
-    $this->programExecutorFolder = "/usr/bin";
-    $this->programExecutorTargetPath = "intellij.sh";
-    $this->programExecutorCommand = $this->programDataFolder.'/'.$this->programExecutorTargetPath;
-    $this->registeredPostInstallFunctions = array("deleteExecutorIfExists",
-      "saveExecutorFile");
-    $this->initialize();
-  }
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->autopilotDefiner = "IntelliJ";
+        $this->installCommands = array (
+            array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
+            array("command" => array(
+                    "cd /tmp" ,
+                    "git clone https://github.com/phpengine/cleopatra-intellij intellij",
+                    "rm -rf ****PROGDIR****",
+                    "mkdir -p ****PROGDIR****",
+                    "mv /tmp/intellij/* ****PROGDIR****",
+                    "chmod -R 777 ****PROGDIR****",
+                    "rm -rf /tmp/intellij" ) ),
+            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
+        );
+        $this->uninstallCommands = array(
+            array("command" => array(
+                    "rm -rf ****PROGDIR****",
+                    "rm -rf ****PROG EXECUTOR****" ) )
+            );
+        $this->programDataFolder = "/opt/intellij"; // command and app dir name
+        $this->programNameMachine = "intellij"; // command and app dir name
+        $this->programNameFriendly = "Intelli J 12"; // 12 chars
+        $this->programNameInstaller = "Intelli J 12";
+        $this->programExecutorFolder = "/usr/bin";
+        $this->programExecutorTargetPath = "intellij.sh";
+        $this->programExecutorCommand = $this->programDataFolder.'/'.$this->programExecutorTargetPath;
+        $this->initialize();
+    }
+
+    // todo intellij should ensure java
+    public function ensureJava() {
+
+    }
 
 }
