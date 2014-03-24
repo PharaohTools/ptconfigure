@@ -27,7 +27,6 @@ class Base {
     protected $extraBootStrap;
     protected $programExecutorFolder;
     protected $programExecutorTargetPath;
-    protected $extraCommandsArray;
     protected $tempDir;
     protected $statusCommand;
     protected $statusCommandExpects;
@@ -233,11 +232,6 @@ COMPLETION;
         return false ;
     }
 
-    protected function extraCommands(){
-        self::swapCommandArrayPlaceHolders($this->extraCommandsArray);
-        self::executeAsShell($this->extraCommandsArray);
-    }
-
     protected function swapCommandArrayPlaceHolders(&$commandArray) {
         $this->swapCommandDirs($commandArray);
         $this->swapInstallUserDetails($commandArray);
@@ -330,6 +324,18 @@ COMPLETION;
         $start = strrpos($beforeModel, DIRECTORY_SEPARATOR) ;
         $moduleName = substr($beforeModel, $start+1) ;
         return $moduleName ;
+    }
+
+    public function packageAdd($packager, $package) {
+        $packageFactory = new PackageManager();
+        $packageManager = $packageFactory->getModel($this->params) ;
+        $packageManager->performPackageEnsure($packager, $package, $this);
+    }
+
+    public function packageRemove($packager, $package) {
+        $packageFactory = new PackageManager();
+        $packageManager = $packageFactory->getModel($this->params) ;
+        $packageManager->performPackageRemove($packager, $package, $this);
     }
 
 }
