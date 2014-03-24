@@ -4,7 +4,7 @@ Namespace Info;
 
 class ConsoleInfo extends Base {
 
-    public $hidden = true;
+    public $hidden = false;
 
     public $name = "Console - Output errors to the console";
 
@@ -35,7 +35,7 @@ class ConsoleInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part provides you with a way to output to the Console log
+  This command provides you with a way to output to the Console log
 
   Console, console
 
