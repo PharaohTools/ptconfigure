@@ -18,7 +18,6 @@ class BaseComposerApp extends BasePHPApp {
     $this->programExecutorFolder = ($autoPilot)
       ? $autoPilot->{$this->autopilotDefiner."ExecutorDirectory"}
       : $this->askForProgramExecutorFolder();
-    $this->executePreInstallFunctions($autoPilot) ;
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->makeProgramDataFolderIfNeeded();
     $this->copyComposerJsonToProgramDataFolder();
@@ -28,7 +27,6 @@ class BaseComposerApp extends BasePHPApp {
     $this->saveExecutorFile();
     $this->deleteInstallationFiles();
     $this->changePermissions();
-    $this->executePostInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(true) ;
     $this->showCompletion();
   }
@@ -39,10 +37,8 @@ class BaseComposerApp extends BasePHPApp {
       ? $autoPilot->{$this->autopilotDefiner}
       : $this->askForProgramDataFolder();
     $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-    $this->executePreUnInstallFunctions($autoPilot) ;
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->deleteExecutorIfExists();
-    $this->executePostUnInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
   }
