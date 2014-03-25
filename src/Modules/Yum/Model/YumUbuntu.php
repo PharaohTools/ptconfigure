@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class AptUbuntu extends BasePackager {
+class YumUbuntu extends BasePackager {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,16 +13,16 @@ class AptUbuntu extends BasePackager {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $packagerName = "Apt";
+    protected $packagerName = "Yum";
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "Apt";
+        $this->autopilotDefiner = "Yum";
         $this->programDataFolder = "";
         $this->programNameMachine = "apt"; // command and app dir name
-        $this->programNameFriendly = "!Apt!!"; // 12 chars
-        $this->programNameInstaller = "Apt";
-        $this->statusCommand = "apt-get" ;
+        $this->programNameFriendly = "!Yum!!"; // 12 chars
+        $this->programNameInstaller = "Yum";
+        $this->statusCommand = "yum" ;
         $this->initialize();
     }
 
