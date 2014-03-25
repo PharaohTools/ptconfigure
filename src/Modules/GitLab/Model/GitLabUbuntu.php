@@ -18,6 +18,7 @@ class GitLabUbuntu extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "GitLab";
     $this->installCommands = array(
+        array ("command" => array(
       "apt-get install -y build-essential zlib1g-dev libyaml-dev ".
         "libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev" .
         "curl git-core openssh-server redis-server checkinstall libxml2-dev" .
@@ -220,15 +221,12 @@ class GitLabUbuntu extends BaseLinuxApp {
 
 
 
-    );
-    $this->uninstallCommands = array(
-      "apt-get remove -y python python-docutils"
-    );
+    )));
+    $this->uninstallCommands = array(    );
     $this->programDataFolder = "";
     $this->programNameMachine = "gitlab"; // command and app dir name
     $this->programNameFriendly = "!Git Lab!!"; // 12 chars
     $this->programNameInstaller = "Git Lab";
-    $this->registeredPreInstallFunctions = array("executeDependencies");
     $this->initialize();
   }
 
