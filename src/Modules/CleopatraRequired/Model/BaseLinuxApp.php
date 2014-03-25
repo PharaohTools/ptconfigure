@@ -81,9 +81,7 @@ class BaseLinuxApp extends Base {
 
   public function install($autoPilot = null) {
     $this->showTitle();
-    $this->executePreInstallFunctions($autoPilot);
     $this->doInstallCommand();
-    $this->executePostInstallFunctions($autoPilot);
     if ($this->programDataFolder) {
       $this->changePermissions($this->programDataFolder); }
     $this->setInstallFlagStatus(true) ;
@@ -93,9 +91,7 @@ class BaseLinuxApp extends Base {
 
   public function unInstall($autoPilot = null) {
     $this->showTitle();
-    $this->executePreUnInstallFunctions($autoPilot);
     $this->doUnInstallCommand();
-    $this->executePostUninstallFunctions($autoPilot);
     $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
     return true;
@@ -152,23 +148,27 @@ class BaseLinuxApp extends Base {
       $this->programDataFolder = $input; }
   }
 
-  protected function doInstallCommand(){
-      self::swapCommandArrayPlaceHolders($this->installCommands);
-      foreach ($this->installCommands as $installCommand) {
-        if (is_array($installCommand)) {
+    protected function doInstallCommand(){
+        self::swapCommandArrayPlaceHolders($this->installCommands);
+        foreach ($this->installCommands as $installCommand) {
             if ( array_key_exists("method", $installCommand)) {
                 call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
             else if ( array_key_exists("command", $installCommand)) {
-                // @todo confirm this works then remove comment
-                // if its a string turn it into an array then parse it
-                if (!is_array($installCommand["command"])) {
-                    $installCommand["command"] = array($installCommand["command"]); }
+                if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
                 self::executeAsShell($installCommand["command"]) ; } }
-        else {
-            // @todo this should be deprecated, all modules is_string
-            self::executeAndLoad($installCommand) ; } }
-  }
+    }
+
+    protected function doUnInstallCommand(){
+        self::swapCommandArrayPlaceHolders($this->uninstallCommands);
+        foreach ($this->uninstallCommands as $uninstallCommand) {
+            if ( array_key_exists("method", $uninstallCommand)) {
+                call_user_func_array(array($uninstallCommand["method"]["object"], $uninstallCommand["method"]["method"]), $uninstallCommand["method"]["params"]); }
+            else if ( array_key_exists("command", $uninstallCommand)) {
+                if (!is_array($uninstallCommand["command"])) { $uninstallCommand["command"] = array($uninstallCommand["command"]); }
+                $this->swapCommandArrayPlaceHolders($uninstallCommand["command"]) ;
+                self::executeAsShell($uninstallCommand["command"]) ; } }
+    }
 
   protected function changePermissions($autoPilot, $target=null){
     if ($target != null) {
@@ -194,11 +194,6 @@ class BaseLinuxApp extends Base {
 <?php\n
 exec('".$this->programExecutorCommand."');\n
 ?>";
-  }
-
-  protected function doUnInstallCommand(){
-      self::swapCommandArrayPlaceHolders($this->uninstallCommands);
-      self::executeAsShell($this->uninstallCommands);
   }
 
 }
