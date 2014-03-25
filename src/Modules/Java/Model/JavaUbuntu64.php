@@ -18,6 +18,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "Java";
     $this->installCommands = array(
+        array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),
         array("command" => array(
             "git clone https://bitbucket.org/phpengine/cleopatra-oraclejava7jdk /tmp/oraclejdk" ,
             "mkdir -p ****PROGDIR****" ,
@@ -38,13 +39,12 @@ class JavaUbuntu64 extends BaseLinuxApp {
             '. /etc/profile' ) )
         );
     //@todo uninstall commands of java
-    $this->uninstallCommands = array();
+    $this->uninstallCommands = array(
+        array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),);
     $this->programDataFolder = "/var/lib/jvm/jdk1.7";
     $this->programNameMachine = "java"; // command and app dir name
     $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
     $this->programNameInstaller = "The Oracle Java JDK 1.7";
-    $this->registeredPreInstallFunctions = array("askForJavaInstallDirectory");
-    $this->registeredPreUnInstallFunctions = array("askForJavaInstallDirectory");
     $this->initialize();
   }
 
