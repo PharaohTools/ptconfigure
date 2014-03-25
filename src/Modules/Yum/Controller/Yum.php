@@ -20,7 +20,7 @@ class Yum extends Base {
         if (in_array($action, array("pkg-install", "pkg-remove", "pkg-ensure", "update") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"apt", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"yum", "pageVars"=>$this->content); }
 
     }
 

@@ -19,7 +19,7 @@ class YumUbuntu extends BasePackager {
         parent::__construct($params);
         $this->autopilotDefiner = "Yum";
         $this->programDataFolder = "";
-        $this->programNameMachine = "apt"; // command and app dir name
+        $this->programNameMachine = "yum"; // command and app dir name
         $this->programNameFriendly = "!Yum!!"; // 12 chars
         $this->programNameInstaller = "Yum";
         $this->statusCommand = "yum" ;
@@ -30,7 +30,7 @@ class YumUbuntu extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad("sudo apt-cache policy {$package}") ;
+            $out = $this->executeAndLoad("sudo yum-cache policy {$package}") ;
             if (strpos($out, "Installed: (none)") != false) { $passing = false ; } }
         return $passing ;
     }
@@ -41,7 +41,7 @@ class YumUbuntu extends BasePackager {
         $consoleFactory = new \Model\Console();
         $console = $consoleFactory->getModel($this->params);
         foreach ($packageName as $package) {
-            $out = $this->executeAndOutput("sudo apt-get install $packageName -y --force-yes");
+            $out = $this->executeAndOutput("sudo yum-get install $packageName -y --force-yes");
             if (strpos($out, "ldconfig deferred processing now taking place") != false) {
                 $console->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
                 return false ; }
@@ -55,7 +55,7 @@ class YumUbuntu extends BasePackager {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo apt-get remove -y $packageName");
+        $out = $this->executeAndOutput("sudo yum-get remove -y $packageName");
         $consoleFactory = new \Model\Console();
         $console = $consoleFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -70,7 +70,7 @@ class YumUbuntu extends BasePackager {
     }
 
     public function update($autopilot = null) {
-        $out = $this->executeAndOutput("sudo apt-get update -y");
+        $out = $this->executeAndOutput("sudo yum-get update -y");
         if (strpos($out, "Done") != false) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);

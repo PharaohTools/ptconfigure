@@ -6,7 +6,7 @@ class YumInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Add, Remove or Modify Yums";
+    public $name = "Add, Remove or Modify Yum Packages";
 
     public function __construct() {
       parent::__construct();
@@ -20,7 +20,7 @@ class YumInfo extends Base {
     }
 
     public function routeAliases() {
-        return array("apt"=>"Yum");
+        return array("yum"=>"Yum");
     }
 
     public function packagerName() {
@@ -32,7 +32,7 @@ class YumInfo extends Base {
         "Yum" => array(
           "Yum" => array(
             "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "apt", // command and app dir name
+            "programNameMachine" => "yum", // command and app dir name
             "programNameFriendly" => "    Yum    ", // 12 chars
             "programNameInstaller" => "Yum",
           )
@@ -42,37 +42,37 @@ class YumInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify apts
+  This command allows you to modify create or modify yums
 
-  Yum, apt
+  Yum, yum
 
         - create
-        Create a new system apt, overwriting if it exists
-        example: cleopatra apt create --aptname="somename"
+        Create a new system yum, overwriting if it exists
+        example: cleopatra yum create --yumname="somename"
 
         - remove
-        Remove a system apt
-        example: cleopatra apt remove --aptname="somename"
+        Remove a system yum
+        example: cleopatra yum remove --yumname="somename"
 
         - set-password
-        Set the password of a system apt
-        example: cleopatra apt set-password --aptname="somename" --new-password="somepassword"
+        Set the password of a system yum
+        example: cleopatra yum set-password --yumname="somename" --new-password="somepassword"
 
         - exists
-        Check the existence of a apt
-        example: cleopatra apt exists --aptname="somename"
+        Check the existence of a yum
+        example: cleopatra yum exists --yumname="somename"
 
         - show-groups
-        Show groups to which a apt belongs
-        example: cleopatra apt show-groups --aptname="somename"
+        Show groups to which a yum belongs
+        example: cleopatra yum show-groups --yumname="somename"
 
         - add-to-group
-        Add apt to a group
-        example: cleopatra apt add-to-group --aptname="somename" --groupname="somegroupname"
+        Add yum to a group
+        example: cleopatra yum add-to-group --yumname="somename" --groupname="somegroupname"
 
         - remove-from-group
-        Remove apt from a group
-        example: cleopatra apt remove-from-group --aptname="somename" --groupname="somegroupname"
+        Remove yum from a group
+        example: cleopatra yum remove-from-group --yumname="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;
