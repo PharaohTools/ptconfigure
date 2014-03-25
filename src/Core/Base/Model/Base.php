@@ -13,11 +13,6 @@ class Base {
     protected $installUserName;
     protected $installUserHomeDir;
 
-    protected $registeredPreInstallFunctions;
-    protected $registeredPreUnInstallFunctions;
-    protected $registeredPostInstallFunctions;
-    protected $registeredPostUnInstallFunctions;
-
     protected $programNameMachine ;
     protected $programDataFolder;
     protected $startDirectory;
@@ -251,38 +246,6 @@ COMPLETION;
                     $comm);
                 $comm = str_replace("****INSTALL USER HOME DIR****",
                     $this->installUserHomeDir, $comm); } }
-    }
-
-    protected function executePreInstallFunctions($autoPilot){
-        if (isset($this->registeredPreInstallFunctions) &&
-            is_array($this->registeredPreInstallFunctions) &&
-            count($this->registeredPreInstallFunctions) >0) {
-            foreach ($this->registeredPreInstallFunctions as $func) {
-                $this->$func($autoPilot); } }
-    }
-
-    protected function executePostInstallFunctions($autoPilot){
-        if (isset($this->registeredPostInstallFunctions) &&
-            is_array($this->registeredPostInstallFunctions) &&
-            count($this->registeredPostInstallFunctions) >0) {
-            foreach ($this->registeredPostInstallFunctions as $func) {
-                $this->$func($autoPilot); } }
-    }
-
-    protected function executePreUnInstallFunctions($autoPilot){
-        if (isset($this->registeredPreUnInstallFunctions) &&
-            is_array($this->registeredPreUnInstallFunctions) &&
-            count($this->registeredPreUnInstallFunctions) >0) {
-            foreach ($this->registeredPreUnInstallFunctions as $func) {
-                $this->$func($autoPilot); } }
-    }
-
-    protected function executePostUnInstallFunctions($autoPilot){
-        if (isset($this->registeredPostUnInstallFunctions) &&
-            is_array($this->registeredPostUnInstallFunctions) &&
-            count($this->registeredPostUnInstallFunctions) >0) {
-            foreach ($this->registeredPostUnInstallFunctions as $func) {
-                $this->$func($autoPilot); } }
     }
 
     public function askAction($action) {
