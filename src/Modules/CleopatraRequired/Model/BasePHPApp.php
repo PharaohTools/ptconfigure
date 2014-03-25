@@ -82,7 +82,6 @@ class BasePHPApp extends Base {
     $this->programExecutorFolder = ($autoPilot)
       ? $autoPilot->{$this->autopilotDefiner."ExecutorDirectory"}
       : $this->askForProgramExecutorFolder();
-    $this->executePreInstallFunctions($autoPilot) ;
     $this->doGitCommandWithErrorCheck();
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->makeProgramDataFolderIfNeeded();
@@ -92,7 +91,6 @@ class BasePHPApp extends Base {
     $this->saveExecutorFile();
     $this->deleteInstallationFiles();
     $this->changePermissions();
-    $this->executePostInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(true) ;
     $this->showCompletion();
   }
@@ -103,10 +101,8 @@ class BasePHPApp extends Base {
       ? $autoPilot->{$this->autopilotDefiner}
       : $this->askForProgramDataFolder();
     $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-    $this->executePreUnInstallFunctions($autoPilot) ;
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->deleteExecutorIfExists();
-    $this->executePostUnInstallFunctions($autoPilot) ;
     $this->setInstallFlagStatus(false) ;
     $this->showCompletion();
   }
