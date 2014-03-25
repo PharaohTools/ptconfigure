@@ -43,8 +43,6 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
         $this->programNameMachine = "mysqladmins"; // command and app dir name
         $this->programNameFriendly = "MySQL Admins!"; // 12 chars
         $this->programNameInstaller = "Admin User for MySQL";
-        $this->registeredPreInstallFunctions = array();
-        $this->registeredPreUnInstallFunctions = array();
         $this->initialize();
     }
 
