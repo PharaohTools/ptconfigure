@@ -18,12 +18,10 @@ class MysqlToolsUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "MysqlTools";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "mysql-workbench")) ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "mytop")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("mysql-workbench", "mytop"))) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "mysql-workbench")) ),
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "mytop")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("mysql-workbench", "mytop"))) ),
         );
         $this->programDataFolder = "/opt/MysqlTools"; // command and app dir name
         $this->programNameMachine = "mysqltools"; // command and app dir name
