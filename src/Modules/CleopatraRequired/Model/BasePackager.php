@@ -5,7 +5,7 @@ Namespace Model;
 class BasePackager extends BaseLinuxApp {
 
     protected $packageName ;
-    protected $actionsToMethods =
+    public $actionsToMethods =
         array(
             "pkg-install" => "performInstall",
             "pkg-remove" => "performRemove",
