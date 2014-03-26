@@ -55,7 +55,7 @@ class AptUbuntu extends BasePackager {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo apt-get remove -y $packageName");
+        $out = $this->executeAndOutput("sudo apt-get remove $packageName -y --force-yes");
         $consoleFactory = new \Model\Console();
         $console = $consoleFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
