@@ -15,7 +15,7 @@ class PearInfo extends Base {
     public function routesAvailable() {
         // return array( "Pear" =>  array_merge(parent::routesAvailable(), array() ) );
         return array( "Pear" =>  array_merge(
-            array("help", "status", "create", "remove", "set-password", "exists", "show-groups", "add-to-group", "remove-from-group")
+            array("help", "pkg-install", "pkg-exists", "pkg-remove", "channel-discover", "channel-delete")
         ) );
     }
 
