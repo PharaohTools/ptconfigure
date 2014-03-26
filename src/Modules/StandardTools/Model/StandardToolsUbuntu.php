@@ -21,7 +21,8 @@ class StandardToolsUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array( "Apt", array("curl", "vim", "drush", "zip") ) ) ),
         ) ;
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array( "Apt", array("curl", "vim", "drush", "zip") ) ) ),) ;
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array( "Apt", array("curl", "vim", "drush", "zip") ) ) ),
+        ) ;
         $this->programDataFolder = "/opt/StandardTools" ; // command and app dir name
         $this->programNameMachine = "standardtools" ; // command and app dir name
         $this->programNameFriendly = "Std. Tools!!" ; // 12 chars
