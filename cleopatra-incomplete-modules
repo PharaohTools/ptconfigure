@@ -2,39 +2,17 @@ Cleopatra Modules to be created
 
 IN PROGRESS
 ---------------------------------------
-State Detection - Allow the pyramid application to detect information regarding software and configuration install
-current state
-- Its already providing a default status for anything that was installed via cleo
-- Need the apt module, then the apt module can save both calling module and apt-program, so don't uninstall both
-- all modules when installing if they are a dependency, should also save themselves as such
-- this way a dependency will probably be an apt or a module
-- PART DONE - all models have a default askStatus method. linux apps extend to execute an FS command. you can provide
-  the statusCommand parameter to check with a command you provide for a 0 or non 0 exit code. you can also provide
-  statusCommandExpects otherwise it will try to run the "command programNameMachine" to
+You cannot call a module NoModuleAssociated as PackageManager uses that to store packages in cleovars that were installed
+from cli not module
 
 There are lots of runAutopilot methods missing. Is there a cleaner way to do this by just having autopilot variables
-assigned to parameters at the beginning. So, then you provide Module(Controller), Action, available Parameters as each step.
-This means that all runAutoPilot methods can be removed. each of the info files has an autoPilotVariables() method.
+assigned to parameters at the beginning. So, then you provide Module(Controller), Action, available Parameters as each
+step. This means that all runAutoPilot methods can be removed. each of the info files has an autoPilotVariables() method.
 They can now all be removed, replaced with "exposedParams" or something. This way, each action can be listed with the
 parameters it accepts. It also means that the generator will be much easier to work
 
-Update InstallCommands to accept functions as well as string commands - DONE
-You can now pass a string as before which will always be run as bash (to allow modules that haven't been updated yet to work)
-or you can pass an array of instantiated object, methodname and parameters, or an array with a single bash string as its
-value, or an array with an array, of bash strings as its value. An array of bash strings will be executed as seperate
-lines in a single bash script.
-    "a command string",
-    array("command"=> "a command string" ),
-    array("method"=> array("object" => $this, "method" => "setDefaultReplacements", "params" => array()) ),
-
-
-Update all modules to execute their steps using command or method arrays. DONE
-Deprecate bash strings DONE
-Remove registered pre/post install functions, replace with function steps in installCommands
-Remove extraCommands from all DONE
 Remove the swapPlaceholders when possible. currently its used because the value is not set in the constructor before its
-used.
-Go through all modules updating bash lines (even in arrays) for code dependencies
+used. Go through all modules updating bash lines (even in arrays) for code dependencies
 
 Update base app to only create executors when the programExecutorTargetPath is set
 
@@ -46,9 +24,379 @@ WAIT - Gem - Ruby Gems Package Manager
 WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
 WAIT - GitLab - Git Lab - The Git SCM Management Web Application
 WAIT - Jenkins - Jenkins - The Java Build Server ITS A JAVA PROGRAM NOT SURE HOW TO DO INST CHECK YET
-WAIT - NodeJS - Node JS - The Server Side Javascript Engine  (looks like it shoul work but node not instaqlled to check)
+WAIT - NodeJS - Node JS - The Server Side Javascript Engine  (looks like it should work but node not installed to check)
 WAIT - Pear - Pear Package Manager
 WAIT - RubyRVM - Ruby RVM - The Ruby version manager
+
+
+Autopilot Definer
+---------------
+Set this in the Parent constructor of Models. This removes a line from all default models constructors. it should
+always be the module name for a default model. This also removes confusion for a non default model it should be
+Module::ModelGroup.
+NO - Just replace the whole autopilot thang with setting parameters on a model (Including the Action, so there is no
+need for a runAutoPilot method) before executing it. Need to make sure we
+
+
+Git Servers-
+----------------
+GitLab (Started, but to be completed)
+
+
+
+
+
+
+NOT STARTED
+----------------
+
+
+Web Servers
+----------------
+Zend Server  - HAVE APPROACHED ZEND TO DO THIS
+PHP VM  - GET FACEBOOK TO DO THIS
+
+
+
+Git Servers-
+----------------
+Gitbucket
+
+
+
+Databases-
+----------------
+Oracle - Install and Configure Oracle RDBMS Server
+Postgres - Install and Configure PostgresSQL Server
+Mongo - Install and Configure Mongo Nosql Server
+Hadoop - Install and Configure Hadoop Server
+Cassandra - Install and Configure Cassandra NOSQL Server
+
+
+
+DataStores
+----------------
+Memcache
+Memcached
+Redis
+
+
+
+HTTP Caches
+----------------
+Varnish
+
+
+
+OP Code Caches
+----------------
+XCache
+
+
+
+Server Monitoring-
+----------------
+Nagios - Install and Configure Nagios
+Zenoss - Install and Configure Zenoss
+NewRelic - Install and Configure NewRelic
+TraceAlytics - Install and Configure TraceAlytics
+
+
+
+Testing tools
+----------------
+PHPSpec
+Storyplayer
+Hardy CSS Regression
+Webpagetest
+Skipfish
+Loadrunner
+Jmeter
+
+
+
+
+FTP Servers
+-------------------
+vsftpd
+
+
+
+Configurers
+-------------------
+depend on templating module DONE
+PHPConf - have a template file of the .ini, and an array with the php.ini defaults. Allow params to be overridden
+    Send the template file, target location
+    50% DONE, other template vars
+ApacheConf - have a template file of the .conf, and an array with the apache defaults. Allow params to be overridden
+    50% DONE, other template vars
+
+
+
+Terminator Module
+-------------------
+http://software.jessies.org/downloads/mac/terminator.zip
+http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.deb
+http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.deb
+http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.rpm
+http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.rpm
+http://software.jessies.org/downloads/windows/terminator.msi
+
+
+phpDocumentor
+phpDocumentor (also known as phpdoc and phpdocu) is a documentation tool for your PHP source code. It has an innumerable
+amount of features, including the ability to output in HTML, PDF, CHM and XML DocBook formats, and has both a Web-based
+and command-line interface as well as source-code highlighting. To learn more about phpDocumentor, check out the
+online manual.
+- pear channel-discover pear.phpdoc.org
+- pear install phpdoc/phpDocumentor
+10 Minutes
+
+PHP Code Beautifier
+PHP_Beautifier
+PHP Beautifier is a PEAR package for automatically formatting and “beautifying” PHP 4 and PHP 5 source code.
+pear install PHP_Beautifier
+10 Minutes
+
+Phing
+Phing is a popular project version-control system for PHP. It is a useful tool for organizing and maintaining different
+builds of your project.
+Windows and Linux, 2 hours
+
+phpMyAdmin
+If you’re working with PHP, there’s a big chance you’re set up in a LAMP configuration. phpMyAdmin is Web-based tool for
+managing, building, importing, exporting and exploring MySQL databases.
+ensure mysql
+inst mysql admins
+dapper phpmyadmin
+Windows and Linux, 6 hours
+
+PECL
+PECL is a directory of all known PHP extensions and a hosting facility for downloading and developing PHP extensions.
+As a Package Manager
+2 hours
+
+PHP-GTK
+PHP-GTK is a PHP extension for the GTK+ toolkit (a robust toolkit for developing GUIs). It is a suite of useful OOP
+functions and classes to help you rapidly build cross-platform, client-side GUI’s for your application.
+1 Hour if PECL or PEAR
+
+PHPSpec
+PHPSpec is a simple and intuitive PHP framework. It follows the Behavior-Driven Development principle and therefore
+allows you to write behavior-oriented code, oftentimes in plain English.
+
+
+
+IDE's
+--------
+
+NetBeans
+A dedicated PHP coding environment and complete integration with web standards. The NetBeans PHP editor is dynamically
+integrated with NetBeans HTML, JavaScript and CSS editing features such as syntax highlighting and the JavaScript
+debugger. NetBeans IDE 6.5 fully supports iterative development, so testing PHP projects follows the classic patterns
+familiar to web developers.
+Similar to intellij, 6 hours
+
+
+
+
+
+
+WAIT UNTIL LATER
+-----------------------
+
+
+C Compiler
+---------------
+UbuntuCompiler - HALF DONE
+This should also be just "compiler" by the way. it would be great to compile multiple os'es the same way but i don't
+think i know that one well enough to do it.
+
+
+Git Servers-
+----------------
+Gitbucket
+
+
+OpenOffice
+-------------------
+mac
+http://downloads.sourceforge.net/project/openofficeorg.mirror/4.0.1/binaries/en-US/Apache_OpenOffice_4.0.1_MacOS_x86_install_en-US.dmg?r=http%3A%2F%2Fwww.openoffice.org%2Fdownload%2F&ts=1383924817&use_mirror=freefr
+
+
+Servlet Containers
+-------------------
+Tomcat Install
+Tomcat Configure
+Jetty Install
+Jetty Configure
+
+PHP APPS
+--------
+PHP DOX
+An AJAX-powered PHP documentation search engine that enables you to search titles from all PHP documentation pages.
+
+PHPCodeBeautifier
+PHPCodeBeautifier is a tool that saves you from hours of reformatting code to suit your own way of presenting it. A GUI
+version allows you to process files visually; a command-line version can be batched or integrated with other tools
+(like CVS, SubVersion, IDE, etc.); and there is also an integrated tool of PHPEdit.
+http://www.waterproof.fr/download/phpCodeBeautifier/phpCB-1.0.1-linux.tgz
+Windows and Linux, 2 hours
+
+Minify!
+Minify is a PHP 5 app that can combine multiple CSS or JavaScript files, compress their content (i.e. remove unnecessary
+ white space and comments) and serve the results with HTTP encoding (via Gzip/deflate) and headers that allow optimal
+ client-side caching. This will help you follow several of Yahoo!’s Rules for High Performance Websites.
+
+
+IDE's
+--------
+PHPEclipse
+PHPEclipse is a popular PHP source-code editor that is open source and runs on all the major operating systems, such as
+Windows, Linux and Mac OS. It has all the features you’d expect from a PHP source-code editor, such as code-folding,
+syntax highlighting, hover-over tool tips and support for XDebug and DBG.
+
+PhpED
+PhpED is an excellent IDE for Windows users. It is one of the most robust and feature-packed IDEs currently out on the
+market and has useful features such as a built-in source-code profiler to find bottlenecks in your PHP source code and
+excellent integration with third-party apps and services just as front-end code validation.
+
+phpDesigner
+phpDesigner is a lightweight PHP editor/IDE that also handles front-end code and markup remarkably well. Check out the
+phpDesigner online tutorials, as well as screencasts on phpDesigner to help you learn more about the IDE.
+
+Zend Studio
+Zend Studio is an excellent PHP IDE for Eclipse. It’ll help you develop, deploy and manage Rich Internet Applications
+(RIAs) in an intuitive interface.
+
+Aptana PHP
+Aptana PHP is an open-source IDE extension/plug-in to be used in conjunction with Aptana Studio. To learn more, be sure
+to check out the online documentation about Aptana PHP.
+
+PHPEdit
+PHPEdit is an excellent PHP editor/IDE with a ton of useful features and a very intuitive user interface. To learn more
+about why PHPEdit is a good IDE, read the 10 reasons to use PHPEdit and view the introductory screencast about PHPEdit.
+
+
+
+
+
+
+DONE
+-----------
+
+Security
+----------------
+Firewall Software DONE
+
+Security
+----------------
+Suhosin - PECL INSTALL/REMOVE SUHOSIN
+
+
+State Detection - Allow the pyramid application to detect information regarding software and configuration install
+current state
+- Its already providing a default status for anything that was installed via cleo DONE
+- Need the apt module, then the apt module can save both calling module and apt-program, so don't uninstall both
+- all modules when installing if they are a dependency, should also save themselves as such DONE
+- this way a dependency will probably be an apt or a module DONE
+- DONE - all models have a default askStatus method. linux apps extend to execute an FS command. you can provide
+  the statusCommand parameter to check with a command you provide for a 0 or non 0 exit code. you can also provide
+  statusCommandExpects otherwise it will try to run the "command programNameMachine" to
+
+System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class
+in Core which detects the running OS and looks in the module for a model which Reports itself as matching The
+combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE FULY
+- Add other data like hostname, ip addresses to this
+
+
+OP Code Caches
+----------------
+APC - done
+-------------------------------------------------------------------------------
+To add to MediaTools
+https://help.ubuntu.com/community/RestrictedFormats/PlayingDVDs
+sudo apt-get install libdvdread4
+sudo /usr/share/doc/libdvdread4/install-css.sh
+
+DONE
+-------------------------------------------------------------------------------
+
+Templating Module
+-------------------
+    Should accept
+    - A template file location to read
+    - An array, object or key/value file of replacements
+    - a target path/name for file
+    - a owner for target file (optional)
+    - a group for target file (optional)
+    - a permission for target file (optional)
+
+    DONE
+
+
+Web Servers
+----------------
+Nginx Install - done
+Nginx Service Control - DONE DAPPERSTRANO
+LightHttpd Install  - done
+LightHttpd Service Control - DONE DAPPERSTRANO
+
+
+DONE
+-----------------
+Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter
+- actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more
+  than an exit code we'll need to stop spawning
+- If the above are working, is there any benefit to not spawning?
+THIS IS DONE BY USING THE FACTORY TO GET MODELS/MODEL GROUPS FROM MODULES
+
+To do this, create a protected (maybe static as its called from another module) method in the autopilot, use
+system-detection-factory to return a compatible model, Then add a step to the AutopilotMethod Module with your
+method name, and the method/class should be able to set its own parameters with a private property or something
+-----------------
+
+Testing tools
+----------------
+Mink/Behat  - done
+Ruby BDD Suite
+- Cucumber Gem
+- Capybara Gem
+- Calabash Gem
+
+
+Update InstallCommands to accept functions as well as string commands - DONE
+you can pass an array of instantiated object, methodname and parameters, or an array with a single bash string as its
+value, or an array with an array, of bash strings as its value. An array of bash strings will be executed as seperate
+lines in a single bash script.
+    "a command string",
+    array("command"=> "a command string" ),
+    array("method"=> array("object" => $this, "method" => "setDefaultReplacements", "params" => array()) ),
+You canNOT now pass a string as before which will always be run as bash (to allow modules that haven't been updated
+yet to work) all modules are updated
+
+Update all modules to execute their steps using command or method arrays. DONE
+Deprecate bash strings DONE
+Remove registered pre/post install functions, replace with function steps in installCommands DONE
+Remove extraCommands from all DONE
+
+
+
+Package Managers
+----------------
+Pear DONE
+apt-get install DONE
+apt-get update DONE
+Gem (RubyGems), extend a PackageManager module that apt-get and yum can also use to store dependencies DONE
+
+
+
+
+Cleopatra
+----------------
+Cleofy should be Updated to use the Templating module  DONE
+
+
 
 Modules correctly using command/method calls instead of bash string
 ----------------------
@@ -120,276 +468,3 @@ DONE - Templating - Templating
 DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
 DONE - UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
 DONE - User - Add, Remove or Modify Users
-
-
-Autopilot Definer
----------------
-Set this in the Parent constructor of Models.This removes a line from all default models constructors. it should
-always be the module name for a default model. This also removes confusion for a non default model it should be
-Module::ModelGroup.
-NO - Just replace the whole autopilot thang with setting parameters on a model (Including the Action, so there is no
-need for a runAutoPilot method) before executing it.
-
-
-Cleopatra
-----------------
-Cleofy should be Updated to use the Templating module  DONE
-
-
-
-Package Managers
-----------------
-Pear DONE
-apt-get install DONE
-apt-get update DONE
-Gem (RubyGems), extend a PackageManager module that apt-get and yum can also use to store dependencies DONE
-
-
-
-C Compiler
----------------
-UbuntuCompiler - HALF DONE
-
-
-
-Security
-----------------
-Suhosin
-Firewall Software DONE
-
-
-
-
-Web Servers
-----------------
-Zend Server  - HAVE APPROACHED ZEND TO DO THIS
-PHP VM  - GET FACEBOOK TO DO THIS
-
-
-
-Git Servers-
-----------------
-GitLab (Started, but to be completed)
-Gitbucket
-
-
-
-Databases-
-----------------
-Oracle - Install and Configure Oracle RDBMS Server
-Postgres - Install and Configure PostgresSQL Server
-Mongo - Install and Configure Mongo Nosql Server
-Hadoop - Install and Configure Hadoop Server
-Cassandra - Install and Configure Cassandra NOSQL Server
-
-
-
-DataStores
-----------------
-Memcache
-Memcached
-Redis
-
-
-
-HTTP Caches
-----------------
-Varnish
-
-
-
-OP Code Caches
-----------------
-XCache
-
-
-
-Server Monitoring-
-----------------
-Nagios - Install and Configure Nagios
-Zenoss - Install and Configure Zenoss
-NewRelic - Install and Configure NewRelic
-TraceAlytics - Install and Configure TraceAlytics
-
-
-
-Testing tools
-----------------
-PHPSpec
-Storyplayer
-Hardy CSS Regression
-Webpagetest
-Skipfish
-Loadrunner
-Jmeter
-
-
-
-
-FTP Servers
--------------------
-vsftpd
-
-
-
-Servlet Containers
--------------------
-Tomcat Install
-Tomcat Configure
-Jetty Install
-Jetty Configure
-
-
-
-Configurers
--------------------
-depend on templating module DONE
-PHPConf - have a template file of the .ini, and an array with the php.ini defaults. Allow params to be overridden
-    Send the template file, target location
-    50% DONE, other template vars
-ApacheConf - have a template file of the .conf, and an array with the apache defaults. Allow params to be overridden
-    50% DONE, other template vars
-
-
-
-Terminator Module
--------------------
-http://software.jessies.org/downloads/mac/terminator.zip
-http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.deb
-http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.deb
-http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.rpm
-http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.rpm
-http://software.jessies.org/downloads/windows/terminator.msi
-
-
-
-OpenOffice
--------------------
-mac
-http://downloads.sourceforge.net/project/openofficeorg.mirror/4.0.1/binaries/en-US/Apache_OpenOffice_4.0.1_MacOS_x86_install_en-US.dmg?r=http%3A%2F%2Fwww.openoffice.org%2Fdownload%2F&ts=1383924817&use_mirror=freefr
-
-
-phpDocumentor
-phpDocumentor (also known as phpdoc and phpdocu) is a documentation tool for your PHP source code. It has an innumerable amount of features, including the ability to output in HTML, PDF, CHM and XML DocBook formats, and has both a Web-based and command-line interface as well as source-code highlighting. To learn more about phpDocumentor, check out the online manual.
-
-PHP DOX
-An AJAX-powered PHP documentation search engine that enables you to search titles from all PHP documentation pages.
-
-
-PHP Code Beautifier
-
-PHP_Beautifier
-PHP Beautifier is a PEAR package for automatically formatting and “beautifying” PHP 4 and PHP 5 source code.
-
-PHPCodeBeautifier
-PHPCodeBeautifier is a tool that saves you from hours of reformatting code to suit your own way of presenting it. A GUI version allows you to process files visually; a command-line version can be batched or integrated with other tools (like CVS, SubVersion, IDE, etc.); and there is also an integrated tool of PHPEdit.
-
-Phing
-Phing is a popular project version-control system for PHP. It is a useful tool for organizing and maintaining different builds of your project.
-
-phpMyAdmin
-If you’re working with PHP, there’s a big chance you’re set up in a LAMP configuration. phpMyAdmin is Web-based tool for managing, building, importing, exporting and exploring MySQL databases.
-
-Minify!
-Minify is a PHP 5 app that can combine multiple CSS or JavaScript files, compress their content (i.e. remove unnecessary white space and comments) and serve the results with HTTP encoding (via Gzip/deflate) and headers that allow optimal client-side caching. This will help you follow several of Yahoo!’s Rules for High Performance Websites.
-
-PECL
-PECL is a directory of all known PHP extensions and a hosting facility for downloading and developing PHP extensions.
-
-NetBeans
-A dedicated PHP coding environment and complete integration with web standards. The NetBeans PHP editor is dynamically integrated with NetBeans HTML, JavaScript and CSS editing features such as syntax highlighting and the JavaScript debugger. NetBeans IDE 6.5 fully supports iterative development, so testing PHP projects follows the classic patterns familiar to web developers.
-
-PHP-GTK
-PHP-GTK is a PHP extension for the GTK+ toolkit (a robust toolkit for developing GUIs). It is a suite of useful OOP functions and classes to help you rapidly build cross-platform, client-side GUI’s for your application.
-
-PHPSpec
-PHPSpec is a simple and intuitive PHP framework. It follows the Behavior-Driven Development principle and therefore allows you to write behavior-oriented code, oftentimes in plain English.
-
-IDE's
---------
-
-PHPEclipse
-PHPEclipse is a popular PHP source-code editor that is open source and runs on all the major operating systems, such as Windows, Linux and Mac OS. It has all the features you’d expect from a PHP source-code editor, such as code-folding, syntax highlighting, hover-over tool tips and support for XDebug and DBG.
-
-PhpED
-PhpED is an excellent IDE for Windows users. It is one of the most robust and feature-packed IDEs currently out on the market and has useful features such as a built-in source-code profiler to find bottlenecks in your PHP source code and excellent integration with third-party apps and services just as front-end code validation.
-
-phpDesigner
-phpDesigner is a lightweight PHP editor/IDE that also handles front-end code and markup remarkably well. Check out the phpDesigner online tutorials, as well as screencasts on phpDesigner to help you learn more about the IDE.
-
-Zend Studio
-Zend Studio is an excellent PHP IDE for Eclipse. It’ll help you develop, deploy and manage Rich Internet Applications (RIAs) in an intuitive interface.
-
-Aptana PHP
-Aptana PHP is an open-source IDE extension/plug-in to be used in conjunction with Aptana Studio. To learn more, be sure to check out the online documentation about Aptana PHP.
-
-PHPEdit
-PHPEdit is an excellent PHP editor/IDE with a ton of useful features and a very intuitive user interface. To learn more about why PHPEdit is a good IDE, read the 10 reasons to use PHPEdit and view the introductory screencast about PHPEdit.
-
-
-
-
-
-
-DONE
------------
-
-System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class
-in Core which detects the running OS and looks in the module for a model which Reports itself as matching The
-combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE FULY
-- Add other data like hostname, ip addresses to this
-
-
-OP Code Caches
-----------------
-APC - done
--------------------------------------------------------------------------------
-To add to MediaTools
-https://help.ubuntu.com/community/RestrictedFormats/PlayingDVDs
-sudo apt-get install libdvdread4
-sudo /usr/share/doc/libdvdread4/install-css.sh
-
-DONE
--------------------------------------------------------------------------------
-
-Templating Module
--------------------
-    Should accept
-    - A template file location to read
-    - An array, object or key/value file of replacements
-    - a target path/name for file
-    - a owner for target file (optional)
-    - a group for target file (optional)
-    - a permission for target file (optional)
-
-    DONE
-
-
-Web Servers
-----------------
-Nginx Install - done
-Nginx Service Control - DONE DAPPERSTRANO
-LightHttpd Install  - done
-LightHttpd Service Control - DONE DAPPERSTRANO
-
-
-DONE
------------------
-Inter module Compatibility- one model/module should be able to call another without using a line of bash with parameter
-- actually is there any benefit to this? are we looking for an exit code? If we want information returned that's more
-  than an exit code we'll need to stop spawning
-- If the above are working, is there any benefit to not spawning?
-THIS IS DONE BY USING THE FACTORY TO GET MODELS/MODEL GROUPS FROM MODULES
-
-To do this, create a protected (maybe static as its called from another module) method in the autopilot, use
-system-detection-factory to return a compatible model, Then add a step to the AutopilotMethod Module with your
-method name, and the method/class should be able to set its own parameters with a private property or something
------------------
-
-Testing tools
-----------------
-Mink/Behat  - done
-Ruby BDD Suite
-- Cucumber Gem
-- Capybara Gem
-- Calabash Gem
