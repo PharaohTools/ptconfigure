@@ -18,90 +18,94 @@ class GitLabUbuntu extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "GitLab";
     $this->installCommands = array(
-        array ("command" => array(
-      "apt-get install -y build-essential zlib1g-dev libyaml-dev ".
-        "libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev" .
-        "curl git-core openssh-server redis-server checkinstall libxml2-dev" .
-        "libxslt-dev libcurl4-openssl-dev libicu-dev",
-      "apt-get install -y python python-docutils",
+        array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array(
+            "build-essential", "zlib1g-dev", "libyaml-dev", "libssl-dev", "libgdbm-dev", "libreadline-dev",
+            "libncurses5-dev", "libffi-dev", "curl", "git-core", "openssh-server", "redis-server", "checkinstall",
+            "libxml2-dev", "libxslt-dev", "libcurl4-openssl-dev", "libicu-dev" ))) ),
+        array("method"=> array("object" => $this, "method" => "module", "params" => array("Python", "ensureInstalled", "2.7" )) ),
+        array("method"=> array("object" => $this, "method" => "module", "params" => array("GitTools", "ensureInstalled")) ),
+        array("method"=> array("object" => $this, "method" => "module", "params" => array("User", "ensureInstalled")) ),
+        array("command" => array(
+//      "apt-get install -y build-essential zlib1g-dev libyaml-dev ".
+//        "libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev" .
+//        "curl git-core openssh-server redis-server checkinstall libxml2-dev" .
+//        "libxslt-dev libcurl4-openssl-dev libicu-dev",
+//      "apt-get install -y python python-docutils",
+//
+//      # Fork Cleopatra To
+//      "apt-get install -y git git-core gitk git-cola",
+//
+//      # Fork Cleopatra To install git tools
+//      "cleopatra gittools install --yes=true",
 
-      # Fork Cleopatra To
-      "apt-get install -y git git-core gitk git-cola",
 
-      # Fork Cleopatra To install git tools
-      "cleopatra gittools install --yes=true",
-
-
+        array("method"=> array("object" => $this, "method" => "module", "params" => array("User")) ),
       // make a git user
-      "adduser --disabled-login --gecos 'GitLab' git",
+      //"adduser --disabled-login --gecos 'GitLab' git",
 
+        array("method"=> array("object" => $this, "method" => "module", "params" => array("RubySystem", "uninstall")) ),
+        array("method"=> array("object" => $this, "method" => "module", "params" => array("RubySystem", "install", "2.0")) ),
+        array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "bundler --no-ri --no-rdoc")) ),
       # Ruby
-      "sudo apt-get remove -y ruby1.8",
-      "mkdir /tmp/ruby && cd /tmp/ruby",
-      "curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | tar xz",
-      "cd ruby-2.0.0-p247",
-      "./configure",
-      "make",
-      "make install",
-      "gem install bundler --no-ri --no-rdoc",
+//      "sudo apt-get remove -y ruby1.8",
+//      "mkdir /tmp/ruby && cd /tmp/ruby",
+//      "curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | tar xz",
+//      "cd ruby-2.0.0-p247",
+//      "./configure",
+//      "make",
+//      "make install",
+//      "gem install bundler --no-ri --no-rdoc",
 
 
       // set up gitlab shell
-      # Go to home directory
-      "cd /home/git",
-      # Clone gitlab shell
-      "su git -c'git clone https://github.com/gitlabhq/gitlab-shell.git' ",
-      "cd gitlab-shell",
-      # switch to right version
-      "su git -c'git checkout v1.7.1'",
-      "su git -c'cp config.yml.example config.yml'",
-      # Edit config and replace gitlab_url
-      # with something like 'http://domain.com/'
-      "su git -c'editor config.yml'",
-      # Do setup
-      "sudo -u git -H ./bin/install",
+
+        array("command" => array("dapperstrano autopilot execute ".__FILE__."../../Templates/dapper-gitlab-shell.php")),
+//      # Go to home directory
+//      "cd /home/git",
+//      # Clone gitlab shell
+//      "su git -c'git clone https://github.com/gitlabhq/gitlab-shell.git' ",
+//      "cd gitlab-shell",
+//      # switch to right version
+//      "su git -c'git checkout v1.7.1'",
+
+      array("method"=> array("object" => $this, "method" => "module", "params" => array("Templating", "install", __FILE__."../../Templates/dapper-gitlab-shell.php")) ),
+//      "su git -c'cp config.yml.example config.yml'",
+//      # Edit config and replace gitlab_url
+//      # with something like 'http://domain.com/'
+//      "su git -c'editor config.yml'",
+//      # Do setup
+//      "sudo -u git -H ./bin/install",
+
+
 
       "cd /home/git",
-
-
-
       # Clone GitLab repository
       "sudo -u git -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab",
-
       # Go to gitlab dir
       "cd /home/git/gitlab",
-
       # Checkout to stable release
       "sudo -u git -H git checkout 6-1-stable",
-
-      # We'll install GitLab into home directory of the user "git"
-      "cd /home/git",
-
-      # Clone the Source
-      # Clone GitLab repository
-            "su -c 'git clone https://github.com/gitlabhq/gitlabhq.git gitlab'",
-
-      # Go to gitlab dir
-            "cd /home/git/gitlab",
-
-      # Checkout to stable release
-            "su -c 'git checkout 6-1-stable'",
-
       # Configure it
-            "su -c'cd /home/git/gitlab'",
+      "su -c'cd /home/git/gitlab'",
 
+      array("module"=> array("params" => array("Templating", "install", __FILE__."../../Templates/dapper-gitlab-shell.php")) ),
       # Copy the example GitLab config
-            "su -c'git -H cp config/gitlab.yml.example config/gitlab.yml'",
-
+      "su -c'git -H cp config/gitlab.yml.example config/gitlab.yml'",
       # Make sure to change "localhost" to the fully-qualified domain name of your
       # host serving GitLab where necessary
-            "su -c'git -H editor config/gitlab.yml'",
+      "su -c'git -H editor config/gitlab.yml'",
 
+
+      array("command" => array(
+          "chown -R git log/",
+          "chown -R git tmp/",
+          "chmod -R u+rwX  log/",
+          "chmod -R u+rwX  tmp/" )),
       # Make sure GitLab can write to the log/ and tmp/ directories
-      "chown -R git log/",
-      "chown -R git tmp/",
-      "chmod -R u+rwX  log/",
-      "chmod -R u+rwX  tmp/",
+//      "chown -R git log/",
+//      "chown -R git tmp/",
+//      "chmod -R u+rwX  log/",
+//      "chmod -R u+rwX  tmp/",
 
       # Create directory for satellites
       "su -c'git -H mkdir /home/git/gitlab-satellites'",
@@ -196,19 +200,14 @@ class GitLabUbuntu extends BaseLinuxApp {
 
       #If all items are green, then congratulations on successfully installing GitLab! However there are still a few steps left.
       #7. Nginx
-
       #Note: Nginx is the officially supported web server for GitLab. If you cannot or do not want to use Nginx as your web server, have a look at the #GitLab recipes.
       #Installation
-
       "apt-get install -y nginx",
-
       #Site Configuration
 
       #Download an example site config:
-
       "cp lib/support/nginx/gitlab /etc/nginx/sites-available/gitlab",
       "ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab",
-
       # Make sure to edit the config file to match your setup:
 
       # Change YOUR_SERVER_FQDN to the fully-qualified
@@ -216,10 +215,7 @@ class GitLabUbuntu extends BaseLinuxApp {
       "editor /etc/nginx/sites-available/gitlab",
 
       #Restart
-
       "service nginx restart"
-
-
 
     )));
     $this->uninstallCommands = array(    );
