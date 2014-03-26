@@ -18,10 +18,10 @@ class PythonUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "Python";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "python", "python-docutils")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("python", "python-docutils"))) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "python", "python-docutils")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("python", "python-docutils"))) ),
         );
         $this->programDataFolder = "";
         $this->programNameMachine = "python"; // command and app dir name
