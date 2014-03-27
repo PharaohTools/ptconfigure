@@ -80,11 +80,13 @@ class BaseLinuxApp extends Base {
   }
 
   public function install($autoPilot = null) {
+    if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
     $this->showTitle();
     $this->doInstallCommand();
     if ($this->programDataFolder) {
       $this->changePermissions($this->programDataFolder); }
     $this->setInstallFlagStatus(true) ;
+    if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
     $this->showCompletion();
     return true;
   }
