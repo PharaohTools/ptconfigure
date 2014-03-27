@@ -42,6 +42,14 @@ class Base {
 TITLE;
     }
 
+    protected function populateTinyTitle() {
+        $this->titleData = "$this->programNameInstaller Starting\n";
+    }
+
+    protected function populateTinyCompletion() {
+        $this->completionData = "$this->programNameInstaller Complete\n";
+    }
+
     protected function populateCompletion() {
         $this->completionData = <<<COMPLETION
 ... All done!
