@@ -115,19 +115,6 @@ class Base {
       $this->content["results"][] = $miniRay ; }
   }
 
-  protected function executeMyRegisteredModelsAutopilot($autoPilot, $params = null) {
-    foreach ($autoPilot->steps as $modelArray) {
-        $currentKeys = array_keys($modelArray) ;
-        $currentKey = $currentKeys[0] ;
-        $fullClassName = '\Model\\'.$currentKey;
-        $modelFactory = new $fullClassName($params);
-        $currentModel = $modelFactory->getModel($params);
-        $miniRay = array();
-        $miniRay["appName"] = $currentModel->programNameInstaller;
-        $miniRay["installResult"] = $currentModel->runAutoPilotInstall($modelArray);
-        $this->content["results"][] = $miniRay ; }
-  }
-
   protected function getModelAndCheckDependencies($module, $pageVars, $moduleType="Default") {
         $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
         $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
