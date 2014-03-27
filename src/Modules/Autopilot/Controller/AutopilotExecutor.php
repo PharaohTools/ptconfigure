@@ -2,7 +2,6 @@
 
 Namespace Controller ;
 
-use Core\BootStrap;
 use Core\View;
 
 class AutopilotExecutor extends Base {
@@ -24,8 +23,6 @@ class AutopilotExecutor extends Base {
             $currentActions = array_keys($modelArray[$currentControl]) ;
             $currentAction = $currentActions[0] ;
             $modParams = $modelArray[$currentControl][$currentAction] ;
-            $modParams["hide-title"] = "yes";
-            $modParams["hide-completion"] = "yes";
             $modParams = $this->formatParams($modParams) ;
             $params = array() ;
             $params["route"] =
@@ -43,6 +40,8 @@ class AutopilotExecutor extends Base {
         foreach($params as $origParamKey => $origParamVal) {
             $newParams[] = '--'.$origParamKey.'='.$origParamVal ; }
         $newParams[] = '--yes' ;
+        $newParams[] = "--hide-title=yes";
+        $newParams[] = "--hide-completion=yes";
         return $newParams ;
     }
 
