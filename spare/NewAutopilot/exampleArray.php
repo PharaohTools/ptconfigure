@@ -15,7 +15,7 @@ class AutoPilotConfigured extends AutoPilot {
 
   public function __construct() {
     $this->setSteps();
-    $this->setSSHData();
+    // $this->setSSHData();
   }
 
   /* Steps */
@@ -24,13 +24,14 @@ class AutoPilotConfigured extends AutoPilot {
     $this->steps =
       array(
         array ( "Console" => array( "log" =>
-          "console-log-message" => "Send this to the console",
+          array( "console-log-message" => "Send this to the console"),
         ) ),
-        array ( "InvokeSSH" =>
-		array( "ssh-data" =>
-			array( "ssh-invoke-ssh-data" => "",
-			       "ssh-invoke-servers" => array( array("target" => "1.2.3.4", "user" => "user", "pword" => "pass", ), )
-        ) )
+        array ( "Console" => array( "log" =>
+          array( "console-log-message" => "Send this too"),
+        ) ),
+        array ( "Console" => array( "log" =>
+          array( "console-log-message" => "then Send this there"),
+        ) ),
       );
 
     }

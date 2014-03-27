@@ -15,7 +15,7 @@ class AutoPilotConfigured extends AutoPilot {
 
   public function __construct() {
     $this->setSteps();
-    $this->setSSHData();
+    // $this->setSSHData();
   }
 
   /* Steps */
@@ -24,14 +24,16 @@ class AutoPilotConfigured extends AutoPilot {
     $this->steps =
       array(
         array ( "Console" => array( "log" =>
-          "console-log-message" => "Send this to the console",
+          array( "console-log-message" => "Send this to the console"),
         ) ),
-        array ( "InvokeSSH" => array( "ssh-data" =>
-          "ssh-invoke-ssh-data" => "",
-          "ssh-invoke-servers" => array(
-              				array("target" => "1.2.3.4", "user" => "user", "pword" => "pass", ),
-          			)
-        ) )
+      array(
+        array ( "Console" => array( "log" =>
+          array( "console-log-message" => "Send this too"),
+        ) ),
+      array(
+        array ( "Console" => array( "log" =>
+          array( "console-log-message" => "then Send this there"),
+        ) ),
       );
 
     }
@@ -42,7 +44,7 @@ class AutoPilotConfigured extends AutoPilot {
 // you need in it. Call this in your constructor
 //
   private function setSSHData() {
-    $this->steps[1]["InvokeSSH"]["ssh-invoke-ssh-data"] = <<<"SSHDATA"
+    $this->steps[1]["InvokeSSH"][0]["ssh-invoke-ssh-data"] = <<<"SSHDATA"
 cd /tmp/
 echo bumface
 SSHDATA;
