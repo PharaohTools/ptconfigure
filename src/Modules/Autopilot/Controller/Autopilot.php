@@ -25,6 +25,12 @@ class Autopilot extends Base {
             $this->content["messages"][] = "Auto Pilot couldn't load"; } }
         else {
           $this->content["messages"][] = "Auto Pilot not defined"; } }
+
+      else if ($action=="help") {
+            $helpModel = new \Model\Help();
+            $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
+            return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
+
       else {
         $this->content["messages"][] = "Invalid Action - Action does not Exist for Autopilot"; }
 
