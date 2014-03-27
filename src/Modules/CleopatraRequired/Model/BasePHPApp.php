@@ -75,6 +75,7 @@ class BasePHPApp extends Base {
   }
 
   public function install($autoPilot = null) {
+    if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
     $this->showTitle();
     $this->programDataFolder = ($autoPilot)
       ? $autoPilot->{$this->autopilotDefiner."InstallDirectory"}
@@ -92,6 +93,7 @@ class BasePHPApp extends Base {
     $this->deleteInstallationFiles();
     $this->changePermissions();
     $this->setInstallFlagStatus(true) ;
+    if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
     $this->showCompletion();
   }
 
