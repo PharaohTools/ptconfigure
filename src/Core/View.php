@@ -22,7 +22,7 @@ class View {
     $this->renderAll($data) ;
   }
 
-  private function loadLayout ($layout, $templateData, Array $pageVars) {
+  public function loadLayout ($layout, $templateData, Array $pageVars) {
     ob_start();
     $viewFileName = ucfirst($layout)."Layout.tpl.php";
     if ($this->loadViewFile($viewFileName, $pageVars, $templateData) == true) {
@@ -31,7 +31,7 @@ class View {
       die ("View Layout Not Found\n"); }
   }
 
-  private function loadTemplate ($view, Array $pageVars) {
+  public function loadTemplate ($view, Array $pageVars) {
     ob_start();
     $outputFormat = "" ;
     if (isset($pageVars["params"]["output-format"])) {
@@ -56,7 +56,7 @@ class View {
     return $outVar;
   }
 
-  private function loadViewFile($viewFileName, $pageVars, $templateData=null) {
+  public function loadViewFile($viewFileName, $pageVars, $templateData=null) {
     $allModuleParentDirectories = array("Extensions", "Modules", "Core");
     foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
       $modulesParentDirFullPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
