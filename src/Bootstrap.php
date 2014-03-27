@@ -23,7 +23,7 @@ class BootStrap {
       $this->executeControl($route["control"], $emptyPageVars);
     }
 
-    private function executeControl($controlToExecute, $pageVars=null) {
+    public function executeControl($controlToExecute, $pageVars=null) {
         $control = new \Core\Control();
         $controlResult = $control->executeControl($controlToExecute, $pageVars);
         try {
