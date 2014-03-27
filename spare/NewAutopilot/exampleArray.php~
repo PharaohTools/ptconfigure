@@ -26,11 +26,9 @@ class AutoPilotConfigured extends AutoPilot {
         array ( "Console" => array( "log" =>
           array( "console-log-message" => "Send this to the console"),
         ) ),
-      array(
         array ( "Console" => array( "log" =>
           array( "console-log-message" => "Send this too"),
         ) ),
-      array(
         array ( "Console" => array( "log" =>
           array( "console-log-message" => "then Send this there"),
         ) ),
