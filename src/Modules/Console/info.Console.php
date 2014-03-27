@@ -13,7 +13,7 @@ class ConsoleInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Console" =>  array_merge( array("log") ) );
+      return array( "Console" =>  array_merge( array("help", "log") ) );
     }
 
     public function routeAliases() {
@@ -23,12 +23,12 @@ class ConsoleInfo extends Base {
     public function autoPilotVariables() {
       return array(
         "Console" => array(
-          "Console" => array(
-            "programDataFolder" => "/etc/console/", // command and app dir name
-            "programNameMachine" => "console", // command and app dir name
-            "programNameFriendly" => "Console", // 12 chars
-            "programNameInstaller" => "Console",
-          )
+            "log" => array(
+                "console-log-message" => "The message that you would like to be output to the log" ) ,
+            "log-and-error" => array(
+                "console-log-message" => "The message that you would like to be output to the log" ,
+                "error-level" => "The kind of error to raise. Used with log-and-error. Defaults to low if not provided."
+                . "Values can be high, medium or low" ) ,
         )
       );
     }
