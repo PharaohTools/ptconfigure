@@ -13,197 +13,150 @@ class BoxManagerUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $packageName ;
-    protected $packagerName ;
-    protected $moduleName ;
+    protected $environmentName ;
+    protected $providerName ;
+    protected $boxAmount ;
     protected $requestingModule ;
     protected $actionsToMethods =
         array(
-            "box-install" => "performPackageInstall",
-            "box-ensure" => "performPackageEnsure",
-            "box-remove" => "performPackageRemove",
+            "box-add" => "performBoxAdd",
+            "box-destroy" => "performBoxDestroy",
+            "box-remove" => "performBoxRemove",
         ) ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "BoxManager";
-        $this->programNameMachine = "packagemanager"; // command and app dir name
-        $this->programNameFriendly = "Package Mgr!"; // 12 chars
-        $this->programNameInstaller = "Package Manager";
+        $this->programNameMachine = "boxmanager"; // command and app dir name
+        $this->programNameFriendly = "Box Mgr!"; // 12 chars
+        $this->programNameInstaller = "Box Manager";
         $this->initialize();
     }
 
-    public function performPackageInstall($packagerName, $packageName, $module) {
-        $this->setPackage($packageName);
-        $this->setPackager($packagerName);
-        $this->setModule($module);
-        return $this->installPackages();
+    public function performBoxAdd($providerName, $environmentName) {
+        $this->setEnvironment($environmentName);
+        $this->setProvider($providerName);
+        return $this->installBoxes();
     }
 
-    public function performPackageEnsure($packagerName, $packageName, $module) {
-        $this->setPackage($packageName);
-        $this->setPackager($packagerName);
-        $this->setModule($module);
-        return $this->ensureInstalled();
+//    public function performBoxEnsure($providerName, $environmentName) {
+//        $this->setEnvironment($environmentName);
+//        $this->setProvider($providerName);
+//        return $this->ensureInstalled();
+//    }
+
+    public function performBoxRemove($providerName, $environmentName) {
+        $this->setEnvironment($environmentName);
+        $this->setProvider($providerName);
+        return $this->removeBoxes();
     }
 
-    public function performPackageRemove($packagerName, $packageName, $module) {
-        $this->setPackage($packageName);
-        $this->setPackager($packagerName);
-        $this->setModule($module);
-        return $this->removePackages();
-    }
+//    public function performBoxExistenceCheck($providerName, $environmentName) {
+//        $this->setEnvironment($environmentName);
+//        $this->setProvider($providerName);
+//        return $this->isInstalled();
+//    }
 
-    public function performPackageExistenceCheck($packagerName, $packageName, $module) {
-        $this->setPackage($packageName);
-        $this->setPackager($packagerName);
-        $this->setModule($module);
-        return $this->isInstalled();
-    }
-
-    public function setPackage($packageName = null) {
-        if (isset($packageName)) {
-            $this->packageName = $packageName; }
-        else if (isset($this->params["packagename"])) {
-            $this->packageName = $this->params["packagename"]; }
-        else if (isset($this->params["package-name"])) {
-            $this->packageName = $this->params["package-name"]; }
-        else if (isset($autopilot["packagename"])) {
-            $this->packageName = $autopilot["packagename"]; }
-        else if (isset($autopilot["package-name"])) {
-            $this->packageName = $autopilot["package-name"]; }
+    public function setEnvironment($environmentName = null) {
+        if (isset($environmentName)) {
+            $this->environmentName = $environmentName; }
+        else if (isset($this->params["environmentname"])) {
+            $this->environmentName = $this->params["environmentname"]; }
+        else if (isset($this->params["environment-name"])) {
+            $this->environmentName = $this->params["environment-name"]; }
         else {
-            $this->packageName = self::askForInput("Enter Package Name:", true); }
+            $this->environmentName = self::askForInput("Enter Environment Name:", true); }
     }
 
-    public function setPackager($packagerName = null) {
-        if (isset($packagerName)) {
-            $this->packagerName = $packagerName; }
-        else if (isset($this->params["packagername"])) {
-            $this->packagerName = $this->params["packagername"]; }
-        else if (isset($this->params["packager-name"])) {
-            $this->packagerName = $this->params["packager-name"]; }
-        else if (isset($autopilot["packagername"])) {
-            $this->packagerName = $autopilot["packagername"]; }
-        else if (isset($autopilot["packager-name"])) {
-            $this->packagerName = $autopilot["packager-name"]; }
+    public function setProvider($providerName = null) {
+        if (isset($providerName)) {
+            $this->providerName = $providerName; }
+        else if (isset($this->params["providername"])) {
+            $this->providerName = $this->params["providername"]; }
+        else if (isset($this->params["provider-name"])) {
+            $this->providerName = $this->params["provider-name"]; }
         else {
-            $this->packagerName = self::askForInput("Enter Packager Name:", true); }
+            $this->providerName = self::askForInput("Enter Provider Name:", true); }
     }
 
-    public function setModule($moduleName = null) {
-        if (isset($moduleName) && is_string($moduleName)) {
-            $this->moduleName = $moduleName; }
-        else if (isset($moduleName) && is_object($moduleName)) {
-            $this->moduleName = $moduleName->getModuleName(); }
-        else if (isset($this->params["force-modulename"])) {
-            $this->moduleName = $this->params["force-modulename"]; }
-        else if (isset($this->params["force-module-name"])) {
-            $this->moduleName = $this->params["force-module-name"]; }
+    public function setBoxAmount($boxAmount = null) {
+        if (isset($boxAmount)) {
+            $this->boxAmount = $boxAmount; }
+        else if (isset($this->params["boxamount"])) {
+            $this->boxAmount = $this->params["boxamount"]; }
+        else if (isset($this->params["box-amount"])) {
+            $this->boxAmount = $this->params["box-amount"]; }
         else {
-            $this->moduleName = "NoModuleAssociated" ; }
+            $this->boxAmount = self::askForInput("Enter Box Amount:", true); }
     }
 
-    protected function installPackages() {
-        $packager = $this->getPackager();
-        if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
+    protected function addBox() {
+        $provider = $this->getProvider();
+        $consoleFactory = new \Model\Console();
+        $console = $consoleFactory->getModel($this->params);
         $returns = array() ;
-        foreach($this->packageName as $onePackage) {
-            $result = $packager->installPackage($onePackage) ;
-            if ($result == true) { $this->setPackageStatusInCleovars($onePackage, true) ; } ;
+        foreach($this->boxAmount as $oneBox) {
+            $console->log("Adding Box $oneBox") ;
+            $result = $provider->addBox($oneBox) ;
+            if ($result == true) { $this->setEnvironmentStatusInCleovars($oneBox, true) ; } ;
             $returns[] = $result ; }
         return (in_array(false, $returns)) ? false : true ;
     }
 
-    protected function removePackages() {
-        $packager = $this->getPackager();
-        if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
+    protected function removeBoxes() {
+        $provider = $this->getProvider();
+        if (!is_array($this->environmentName)) { $this->environmentName = array($this->environmentName); }
         $returns = array() ;
         $consoleFactory = new \Model\Console();
         $console = $consoleFactory->getModel($this->params);
-        foreach($this->packageName as $onePackage) {
-            $packageIsRequired = $this->packageIsRequired($onePackage) ;
-            if ($packageIsRequired) {
-                $moduleString = implode(', ', $packageIsRequired) ;
-                $console->log("Not removing Package $onePackage, it's required by these Modules: $moduleString") ; }
+        foreach($this->environmentName as $oneBox) {
+            $environmentIsRequired = $this->environmentIsRequired($oneBox) ;
+            if ($environmentIsRequired) {
+                $moduleString = implode(', ', $environmentIsRequired) ;
+                $console->log("Not removing Box $oneBox, it's required by these Modules: $moduleString") ; }
             else {
-                $console->log("Removing Package $onePackage") ;
-                $returns[] = $packager->removePackage($onePackage) ; } }
+                $console->log("Removing Box $oneBox") ;
+                $returns[] = $provider->removeBox($oneBox) ; } }
         return (in_array(false, $returns)) ? false : true ;
     }
 
-    public function ensureInstalled() {
-        if ($this->isInstalled()==false) { $this->installPackages($autopilot = null); }
-        else {
-            $this->setPackageStatusInCleovars($this->packageName, true);
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            if (is_array($this->packageName) ) {
-                $lText  = "Packages ".implode(", ", $this->packageName) ;
-                $lText .= " from the Packager {$this->packagerName} are already installed" ; }
-            else {
-                $lText = "Package {$this->packageName} from the Packager {$this->packagerName} is already installed" ; }
-            $console->log($lText);
-        }
-        return $this;
-    }
-
-    public function isInstalled() {
-        $packager = $this->getPackager() ;
-        if ($packager->isInstalled($this->packageName)) { return true ; }
-        return false;
-    }
-
-    public function packageIsRequired($packageName) {
-        $installedPackages = \Model\AppConfig::getAppVariable("installed-packages") ;
-        $modsWithPackages = array_keys($installedPackages);
-        $modsRequiring = array() ;
-        foreach ($modsWithPackages as $modWithPackages) {
-            if ($installedPackages[$modWithPackages][$this->packagerName][$packageName] == true) {
-                 $modsRequiring[] = $modWithPackages ; } }
-        $finalModsRequiring = array() ;
-        foreach ($modsRequiring as $modRequiring) {
-            if ($modRequiring != $this->moduleName) { $finalModsRequiring[] = $modRequiring ; } }
-        return (count($finalModsRequiring)>0) ? $finalModsRequiring : false ;
-    }
-
-    protected function getPackager() {
+    protected function getProvider() {
         $infoObjects = \Core\AutoLoader::getInfoObjects();
-        $allPackagers = array();
+        $allProviders = array();
         foreach($infoObjects as $infoObject) {
-            if ( method_exists($infoObject, "packagerName") ) {
-                $allPackagers[] = $infoObject->packagerName(); } }
-        foreach($allPackagers as $onePackager) {
-            if ( (isset($this->packagerName) && $this->packagerName == $onePackager) ) {
-                $className = '\Model\\'.$onePackager ;
-                $boxrFactory = new $className();
-                $boxr = $boxrFactory->getModel($this->params);
-                return $boxr ; } }
+            if ( method_exists($infoObject, "boxProviderName") ) {
+                $allProviders[] = $infoObject->boxProviderName(); } }
+        foreach($allProviders as $oneProvider) {
+            if ( (isset($this->providerName) && $this->providerName == $oneProvider) ) {
+                $className = '\Model\\'.$oneProvider ;
+                $providerFactory = new $className();
+                $provider = $providerFactory->getModel($this->params, "BoxAdd");
+                return $provider ; } }
         return false ;
     }
 
-    public function setPackageStatusInCleovars($packageName, $bool) {
+    public function setEnvironmentStatusInCleovars($environmentName, $bool) {
         if ($bool == true) {
-            if (is_array($packageName)) {
-                foreach ($packageName as $onePackageName) { $this->addPackageToCleovars($onePackageName) ; } }
-            else { $this->addPackageToCleovars($packageName) ; } }
+            if (is_array($environmentName)) {
+                foreach ($environmentName as $oneBoxName) { $this->addBoxToCleovars($oneBoxName) ; } }
+            else { $this->addBoxToCleovars($environmentName) ; } }
         else {
-            if (is_array($packageName)) {
-                foreach ($packageName as $onePackageName) { $this->removePackageFromCleovars($onePackageName) ; } }
+            if (is_array($environmentName)) {
+                foreach ($environmentName as $oneBoxName) { $this->removeBoxFromCleovars($oneBoxName) ; } }
             else {
-                $this->removePackageFromCleovars($packageName) ; } }
+                $this->removeBoxFromCleovars($environmentName) ; } }
     }
 
-    protected function addPackageToCleovars($packageName) {
-        $installedPackages = \Model\AppConfig::getAppVariable("installed-packages") ;
-        $installedPackages[$this->moduleName][$this->packagerName][$packageName] = true ;
-        \Model\AppConfig::setAppVariable("installed-packages", $installedPackages) ;
+    protected function addBoxToCleovars($environmentName) {
+        $installedBoxes = \Model\AppConfig::getAppVariable("installed-environments") ;
+        $installedBoxes[$this->moduleName][$this->providerName][$environmentName] = true ;
+        \Model\AppConfig::setAppVariable("installed-environments", $installedBoxes) ;
     }
 
-    protected function removePackageFromCleovars($packageName) {
-        $installedPackages = \Model\AppConfig::getAppVariable("installed-packages") ;
-        unset($installedPackages[$this->moduleName][$this->packagerName][$packageName]) ;
-        \Model\AppConfig::setAppVariable("installed-packages", $installedPackages) ;
+    protected function removeBoxFromCleovars($environmentName) {
+        $installedBoxes = \Model\AppConfig::getAppVariable("installed-environments") ;
+        unset($installedBoxes[$this->moduleName][$this->providerName][$environmentName]) ;
+        \Model\AppConfig::setAppVariable("installed-environments", $installedBoxes) ;
     }
 
 }
