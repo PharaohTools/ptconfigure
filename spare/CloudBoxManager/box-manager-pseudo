@@ -1,0 +1,99 @@
+boxes of type
+
+"droplets",
+"sizes",
+"images",
+"domains",
+"regions",
+"ssh_keys"
+
+tasks which should be easily completable
+--------------------
+ 
+create set number of boxes in empty environment
+  each box should state its
+	box_id/droplet/ec2id,
+	hw_spec_id/size/aws_size,
+	image_id/image_name,
+	*IF APPLICABLE - cloud_region_id*,
+	*IF APPLICABLE - ssh_key_id*,
+
+get info on boxes in current environment
+  each box should state its box_id/droplet/ec2id, hw_spec_id/size/aws_size, image_id/size, hw_spec_id/size, hw_spec_id/size,
+
+create set number of boxes in empty environment
+  each box should state its box_id/droplet/ec2id, hw_spec_id/size/aws_size, image_id/size, hw_spec_id/size, hw_spec_id/size,
+
+Environment to BM examples
+--------------------------
+
+example:
+jenkins environment
+create 1 box
+specify the following
+	hw_spec_id/size/aws_size,
+	image_id/image_name,
+	*IF APPLICABLE - network info, how many ports, etc*
+Save the following to papyrus
+	*above*
+	which ssh key/user to connect with primarily
+	public ip/dns of the box
+
+example:
+stage db slave environment
+add 20 boxes
+specify the following
+	cloudtype (aws, etc)
+	hw_spec_id/size/aws_size,
+	image_id/image_name,
+	*IF APPLICABLE - network info, how many ports, etc*
+Save the following to papyrus
+	*above*
+	box_id/droplet/ec2id
+	which ssh key/user to connect with primarily
+	public ip/dns of the box
+
+example:
+web node environment
+add 20 boxes
+specify the following
+	cloudtype (aws, etc)
+	hw_spec_id/size/aws_size,
+	image_id/image_name,
+	*IF APPLICABLE - network info, how many ports, etc*
+Save the following to papyrus
+	*above*
+	box_id/droplet/ec2id
+	which ssh key/user to connect with primarily
+	public ip/dns of the box
+
+
+
+Environment to BM examples
+--------------------------
+
+so, an example of scaler would actually be an update-environments. It should then scale itself.
+1) So, first we have the repo on Bastion/Dev, and update the papyrus.
+   modify environment web-nodes with environment-add-boxes
+   (At this point, the boxes exist, and the connection details are in papyrus of repo) so, we have say 30 boxes, 5 of which already being used.
+   So, we have 5 boxes on commit A.
+2) Then we cleofy/dapperfy to update the autopilots. Make a Scalerfy? Create new templates, where we can specify the environment name
+   of the web nodes, and load balancer
+3) We have to commit these changes in papyrus back to the repo. There should be some automatable cleo/dapper command for that. maybe
+   then update/git push to the repo.
+4) Now we have 5 boxes 1 commit behind and 25 empty.Then FROM a box with access to the others (Bastion) we git pull, then run the
+   autopilot perform-scaling/update-environments. This is an invoke auto
+   So, go onto Bastion, to run this autopilot. 
+   The autopilot will:
+   - Log into the nodes environment, and dapper install version 
+   - We have to update all boxes to commit B. The code will be the same, just papyrus different. All boxes require the new papyrus file though.
+   - VHost . We make a new Reverse Proxy VHost for the Load Balancer
+   - Module>ApacheCtl->Reload/restart. Use module not service so you dont supply a service name it'll find one itself
+
+environment-add-boxes
+environment-remove-boxes
+environment-destroy-all-boxes
+	
+
+sudo cleopatra box-manager box-add --environment-name=dev --provider-name=dev --box-amount=10
+
