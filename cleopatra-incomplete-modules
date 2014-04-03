@@ -5,17 +5,70 @@ IN PROGRESS
 You cannot call a module NoModuleAssociated as PackageManager uses that to store packages in cleovars that were installed
 from cli not module
 
+
+DONE
+SSH Private key encryption thing
+----------------------------------
+Any box requiring this should have an environment variable or file
+Encrypter like templater
+ssh-keygen DONE
+ssh-encrypt (encrypt/decrypt a private key) +
+(save decrypted private key somewhere) DECRYPT WILL DO THIS GIVEN A TARGET
+
+VERSIONING -
+Should be able to specify what version of packages are required
+
+BOX-MANAGER-SUPERCLASS
+BoxManager like packagemanager. This is barely started. write down a list of what this and scaler module needs.
+VERY IMPORTANT! Work out the interface for environment/box clouding, and smooth scaling. AWS and digital ocean
+minimum.
+
+30%/50% DONE
+
+contact sebastien bergmann and everzet to ask for their views on testing the app. Get a test framework plan at least.
+
+ALMOST DONE
+Just remove all references to autopilot. also remove method calls from install, baselinuxapp, basephpapp, all methods accepting
+autopilot or using autopilot parameters. make sure that everything that was covered by a runautopilot is now covered by a
+control action combo
 There are lots of runAutopilot methods missing. Is there a cleaner way to do this by just having autopilot variables
 assigned to parameters at the beginning. So, then you provide Module(Controller), Action, available Parameters as each
 step. This means that all runAutoPilot methods can be removed. each of the info files has an autoPilotVariables() method.
 They can now all be removed, replaced with "exposedParams" or something. This way, each action can be listed with the
-parameters it accepts. It also means that the generator will be much easier to work
+parameters it accepts. It also means that the generator will be much easier to work, with some js and httpPostInput,
+the generator can look great.
+
+Composerise core. As part of this, you can install a custom et of modules, including say cleo amd dapper in one.
+update dapper, parallax and tkmn to this core.
+
+do videos
+do docs
+
+we're ready
+
+MVP ABOVE HERE
+
+
+
+Configurers
+-------------------
+depend on templating module DONE
+PHPConf - have a template file of the .ini, and an array with the php.ini defaults. Allow params to be overridden
+    Send the template file, target location
+    50% DONE, other template vars
+ApacheConf - have a template file of the .conf, and an array with the apache defaults. Allow params to be overridden
+    50% DONE, other template vars
 
 Remove the swapPlaceholders when possible. currently its used because the value is not set in the constructor before its
 used. Go through all modules updating bash lines (even in arrays) for code dependencies
 
 Update base app to only create executors when the programExecutorTargetPath is set
 
+PHP Module to install multiple PHP versions, or change the installed version of PHP.
+Also, how does that work when executing an upgrade on PHP through a PHP script? crashy crashy?
+
+
+NEARLY MVP ABOVE HERE
 
 Modules correctly reporting status
 ----------------------
@@ -67,7 +120,6 @@ Gitbucket
 Databases-
 ----------------
 Oracle - Install and Configure Oracle RDBMS Server
-Postgres - Install and Configure PostgresSQL Server
 Mongo - Install and Configure Mongo Nosql Server
 Hadoop - Install and Configure Hadoop Server
 Cassandra - Install and Configure Cassandra NOSQL Server
@@ -120,16 +172,6 @@ FTP Servers
 -------------------
 vsftpd
 
-
-
-Configurers
--------------------
-depend on templating module DONE
-PHPConf - have a template file of the .ini, and an array with the php.ini defaults. Allow params to be overridden
-    Send the template file, target location
-    50% DONE, other template vars
-ApacheConf - have a template file of the .conf, and an array with the apache defaults. Allow params to be overridden
-    50% DONE, other template vars
 
 
 
@@ -284,6 +326,7 @@ about why PHPEdit is a good IDE, read the 10 reasons to use PHPEdit and view the
 
 DONE
 -----------
+Postgres - Install and Configure PostgresSQL Server DONE
 
 Security
 ----------------
