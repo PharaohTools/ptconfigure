@@ -137,6 +137,81 @@ class AWSEC2BoxAdd extends BaseAWSEC2AllOS {
     }
 
     private function getNewServerFromAWSEC2($serverData) {
+
+        $result = $client->runInstances(array(
+                'DryRun' => true || false,
+                // ImageId is required
+                'ImageId' => 'string',
+                // MinCount is required
+                'MinCount' => integer,
+                // MaxCount is required
+                'MaxCount' => integer,
+                'KeyName' => 'string',
+                'SecurityGroups' => array('string' ),
+                'SecurityGroupIds' => array('string' ),
+                'UserData' => 'string',
+                'InstanceType' => 'string',
+                'Placement' => array(
+                        'AvailabilityZone' => 'string',
+                        'GroupName' => 'string',
+                        'Tenancy' => 'string',
+                    ),
+                'KernelId' => 'string',
+                'RamdiskId' => 'string',
+                'BlockDeviceMappings' => array(
+                        array(
+                            'VirtualName' => 'string',
+                            'DeviceName' => 'string',
+                            'Ebs' => array(
+                                'SnapshotId' => 'string',
+                                'VolumeSize' => integer,
+                                'DeleteOnTermination' => true || false,
+                                'VolumeType' => 'string',
+                                'Iops' => integer,
+                            ),
+                            'NoDevice' => 'string',
+                        ),
+                        // ... repeated
+                    ),
+                'Monitoring' => array(
+                        // Enabled is required
+                        'Enabled' => true || false,
+                    ),
+                'SubnetId' => 'string',
+                'DisableApiTermination' => true || false,
+                'InstanceInitiatedShutdownBehavior' => 'string',
+                'PrivateIpAddress' => 'string',
+                'ClientToken' => 'string',
+                'AdditionalInfo' => 'string',
+                'NetworkInterfaces' => array(
+                        array(
+                            'NetworkInterfaceId' => 'string',
+                            'DeviceIndex' => integer,
+                            'SubnetId' => 'string',
+                            'Description' => 'string',
+                            'PrivateIpAddress' => 'string',
+                            'Groups' => array('string' ),
+                        'DeleteOnTermination' => true || false,
+                        'PrivateIpAddresses' => array(
+                            array(
+                                // PrivateIpAddress is required
+                                'PrivateIpAddress' => 'string',
+                                'Primary' => true || false,
+                            ),
+                            // ... repeated
+                        ),
+                        'SecondaryPrivateIpAddressCount' => integer,
+                        'AssociatePublicIpAddress' => true || false,
+                    ),
+                    // ... repeated
+                ),
+                'IamInstanceProfile' => array(
+                        'Arn' => 'string',
+                        'Name' => 'string',
+                    ),
+                'EbsOptimized' => true || false,
+            ));
+
         $callVars = array() ;
         $callVars["name"] = $serverData["name"];
         $callVars["size_id"] = $serverData["sizeID"];

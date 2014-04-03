@@ -71,6 +71,7 @@ class BaseAWSEC2AllOS extends Base {
     }
 
     protected function awsCall(Array $curlParams, $curlUrl){
+        $client = "" ;
         $curlParams["client_id"] = $this->clientId ;
         $curlParams["api_key"] = $this->apiKey;
         // @todo do we actually need to set this every time? highly unlikely
