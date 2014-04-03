@@ -38,13 +38,13 @@ class SshHardenUbuntu extends BaseLinuxApp {
     }
 
     public function securify() {
-        $this->shouldNotAllowRoot() ;
-        $this->shouldNotAllowPlainTextPasswords() ;
+        $this->doNotAllowRoot() ;
+        $this->doNotAllowPlainTextPasswords() ;
         $this->restartService() ;
         return true ;
     }
 
-    private function shouldNotAllowRoot() {
+    private function doNotAllowRoot() {
         $fileFactory = new \Model\File();
         $file = $fileFactory->getModel($this->params);
         $file->setFile('/etc/ssh/sshd_config') ;
@@ -55,7 +55,7 @@ class SshHardenUbuntu extends BaseLinuxApp {
         $console->log("/etc/ssh/sshd_config modified to disallow root ssh login") ;
     }
 
-    private function shouldNotAllowPlainTextPasswords() {
+    private function doNotAllowPlainTextPasswords() {
         $fileFactory = new \Model\File();
         $file = $fileFactory->getModel($this->params);
         $file->setFile('/etc/ssh/sshd_config') ;
@@ -66,6 +66,7 @@ class SshHardenUbuntu extends BaseLinuxApp {
         $console->log("/etc/ssh/sshd_config modified to disallow password based ssh login") ;
     }
 
+    // @todo will restarting ssh break it all?
     private function restartService() {
         $serviceFactory = new \Model\Service();
         $service = $serviceFactory->getModel($this->params);
