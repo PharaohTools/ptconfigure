@@ -35,25 +35,26 @@ class AptUbuntu extends BasePackager {
         return $passing ;
     }
 
-    public function installPackage($packageName, $autopilot = null) {
+    public function installPackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $consoleFactory = new \Model\Console();
         $console = $consoleFactory->getModel($this->params);
         foreach ($packageName as $package) {
-            $out = $this->executeAndOutput("sudo apt-get install $packageName -y --force-yes");
+            $out = $this->executeAndOutput("sudo apt-get install $package -y --force-yes");
             if (strpos($out, "ldconfig deferred processing now taking place") != false) {
-                $console->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
-                return false ; }
+                $console->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
             else if (strpos($out, "is already the newest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
-                $console->log($ltext) ;
+                $console->log($ltext) ; }
+            else if (strpos($out, "ldconfig deferred processing now taking place") == false) {
+                $console->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
                 return false ; } }
         return true ;
     }
 
-    public function removePackage($packageName, $autopilot = null) {
+    public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo apt-get remove $packageName -y --force-yes");
         $consoleFactory = new \Model\Console();
