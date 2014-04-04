@@ -17,7 +17,7 @@ class SshEncryptInfo extends Base {
   }
 
   public function routeAliases() {
-    return array("mysql-admins"=>"SshEncrypt", "mysqladmins"=>"SshEncrypt");
+    return array("mysql-admins"=>"SshEncrypt", "sshencrypt"=>"SshEncrypt");
   }
 
   public function autoPilotVariables() {
@@ -25,7 +25,7 @@ class SshEncryptInfo extends Base {
       "SshEncrypt" => array(
         "SshEncrypt" => array(
           "programDataFolder" => "/opt/SshEncrypt", // command and app dir name
-          "programNameMachine" => "mysqladmins", // command and app dir name
+          "programNameMachine" => "sshencrypt", // command and app dir name
           "programNameFriendly" => "Mysql Admins!", // 12 chars
           "programNameInstaller" => "Mysql Admins",
           "mysqlNewAdminUser" => "string",
@@ -43,7 +43,7 @@ class SshEncryptInfo extends Base {
   This command allows you to install admin users for MySQL so that MySQL can
   be managed without using the Root User.
 
-  SshEncrypt, mysql-admins, mysqladmins
+  SshEncrypt, mysql-admins, sshencrypt
 
         - install
         Installs Mysql Admin Users.
