@@ -14,95 +14,68 @@ class SshEncryptAllLinux extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $mysqlNewAdminUser;
-    private $mysqlNewAdminPass;
-    private $mysqlRootUser;
-    private $mysqlRootPass;
+    private $rawPrivKey;
+    private $rawPublicKey;
+    private $targetPrivateKey;
+    private $targetPublicKey;
     private $dbHost;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "SshEncrypt";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "askForMysqlRootUserName", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlRootPass", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminUserName", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminPass", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlHost", "params" => array()) ),
-            array("command"=> $this->getInstallCommands() ),
+            array("method"=> array("object" => $this, "method" => "askForRawPrivateKey", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForRawPublicKey", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForTargetPrivateKey", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForTargetPublicKey", "params" => array()) )
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "askForMysqlRootUserName", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlRootPass", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminUserName", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminPass", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForMysqlHost", "params" => array()) ),
-            array("command"=> $this->getInstallCommands() ),
+            array("method"=> array("object" => $this, "method" => "askForRawPrivateKey", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForRawPublicKey", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForTargetPrivateKey", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForTargetPublicKey", "params" => array()) )
         );
         $this->programDataFolder = "";
-        $this->programNameMachine = "mysqladmins"; // command and app dir name
-        $this->programNameFriendly = "MySQL Admins!"; // 12 chars
-        $this->programNameInstaller = "Admin User for MySQL";
+        $this->programNameMachine = "sshencrypt"; // command and app dir name
+        $this->programNameFriendly = "SSH Encrypt!"; // 12 chars
+        $this->programNameInstaller = "Encrypt an SSH Key Pair within a project";
         $this->initialize();
     }
 
-    protected function getInstallCommands() {
-        $command  = 'mysql -h'.$this->dbHost.' -u'.$this->mysqlRootUser.' ';
-        if (strlen($this->mysqlRootPass) > 0) {$command .= '-p'.$this->mysqlRootPass.' '; }
-        $command .= ' < /tmp/mysql-adminshcript.sql' ;
-        $sqlCommand = 'GRANT ALL PRIVILEGES ON *.* TO \''.$this->mysqlNewAdminUser.'\'@\''.$this->dbHost.'\' ';
-        $sqlCommand .= 'IDENTIFIED BY \''.$this->mysqlNewAdminPass.'\' WITH GRANT OPTION;';
-        return array(
-            'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
-            $command,
-            'rm /tmp/mysql-adminshcript.sql'
-        );
-    }
-
-    public function askForMysqlNewAdminUserName($autoPilot=null){
+    public function askForRawPrivateKey($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlNewAdminUser"} ) {
-            $this->mysqlNewAdminUser = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminUser"}; }
+            $this->rawPrivKey = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminUser"}; }
         else {
             $question = "Enter MySQL New Admin User:";
-            $this->mysqlNewAdminUser = self::askForInput($question, true); }
+            $this->rawPrivKey = self::askForInput($question, true); }
     }
 
-    public function askForMysqlNewAdminPass($autoPilot=null){
+    public function askForRawPublicKey($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlNewAdminPass"} ) {
-            $this->mysqlNewAdminPass = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminPass"}; }
+            $this->rawPublicKey = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminPass"}; }
         else {
             $question = "Enter MySQL New Admin Pass:";
-            $this->mysqlNewAdminPass = self::askForInput($question, true); }
+            $this->rawPublicKey = self::askForInput($question, true); }
     }
 
-    public function askForMysqlRootUserName($autoPilot=null){
+    public function askForTargetPrivateKey($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlRootUser"} ) {
-            $this->mysqlRootUser = $autoPilot->{$this->autopilotDefiner."MysqlRootUser"}; }
+            $this->targetPrivateKey = $autoPilot->{$this->autopilotDefiner."MysqlRootUser"}; }
         else {
             $question = "Enter MySQL Root User:";
-            $this->mysqlRootUser = self::askForInput($question, true); }
+            $this->targetPrivateKey = self::askForInput($question, true); }
     }
 
-    public function askForMysqlRootPass($autoPilot=null){
+    public function askForTargetPublicKey($autoPilot=null){
         if (isset($autoPilot) &&
             $autoPilot->{$this->autopilotDefiner."MysqlRootPass"} ) {
-            $this->mysqlRootPass = $autoPilot->{$this->autopilotDefiner."MysqlRootPass"}; }
+            $this->targetPublicKey = $autoPilot->{$this->autopilotDefiner."MysqlRootPass"}; }
         else {
             $question = "Enter MySQL Root Pass:";
-            $this->mysqlRootPass = self::askForInput($question, true); }
-    }
-
-    public function askForMysqlHost($autoPilot=null){
-        if (isset($autoPilot) &&
-            $autoPilot->{$this->autopilotDefiner."MysqlHost"} ) {
-            $this->dbHost = $autoPilot->{$this->autopilotDefiner."MysqlHost"}; }
-        else {
-            $question = 'Enter MySQL Host: Enter nothing for 127.0.0.1';
-            $input = self::askForInput($question) ;
-            $this->dbHost = ($input=="") ? '127.0.0.1' : $input ; }
+            $this->targetPublicKey = self::askForInput($question, true); }
     }
 
 }
