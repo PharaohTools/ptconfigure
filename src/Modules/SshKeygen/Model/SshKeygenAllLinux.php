@@ -27,6 +27,7 @@ class SshKeygenAllLinux extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForKeygenType", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForKeygenPath", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForKeygenComment", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "createDirectoryStructure", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doKeyGen", "params" => array()) ),
         );
         $this->uninstallCommands = array(
@@ -61,7 +62,9 @@ class SshKeygenAllLinux extends BaseLinuxApp {
             $this->keygenPath = $this->params["ssh-keygen-path"] ; }
         else {
             $question = "Enter path to store private key (public key will be same with .pub):";
-            $this->keygenPath = self::askForInput($question, true); }
+            $this->keygenPath = self::askForInput($question, true) ; }
+        if (substr($this->keygenPath, 0, 1) != '/') { // relative, so make it full path
+            $this->keygenPath = getcwd().'/'.$this->keygenPath ; }
     }
 
     public function askForKeygenComment() {
@@ -83,11 +86,16 @@ class SshKeygenAllLinux extends BaseLinuxApp {
             $console->log("Removing File at {$this->params["ssh-keygen-path"]}.pub in SSH Keygen") ; }
     }
 
+    public function createDirectoryStructure() {
+        if (!file_exists(dirname($this->keygenPath))) {
+            mkdir(dirname($this->keygenPath), 0775, true) ; }
+    }
+
     public function doKeyGen() {
-        $cmd  = "ssh-keygen -b ".$this->params["ssh-keygen-bits"].' ' ;
-        $cmd .= '-t '.$this->params["ssh-keygen-type"].' ' ;
-        $cmd .= '-f '.$this->params["ssh-keygen-path"].' ' ;
-        $cmd .= '-q -N "" -C"'.$this->params["ssh-keygen-comment"].'"' ;
+        $cmd  = "ssh-keygen -b ".$this->keygenBits.' ' ;
+        $cmd .= '-t '.$this->keygenType.' ' ;
+        $cmd .= '-f '.$this->keygenPath.' ' ;
+        $cmd .= '-q -N "" -C"'.$this->keygenComment.'"' ;
         $this->executeAndOutput($cmd) ;
     }
 
