@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class InvokeInfo extends Base {
+class InvokeInfo extends CleopatraBase {
 
     public $hidden = false;
 

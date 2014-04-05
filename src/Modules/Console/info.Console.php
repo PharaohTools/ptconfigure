@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ConsoleInfo extends Base {
+class ConsoleInfo extends CleopatraBase {
 
     public $hidden = false;
 

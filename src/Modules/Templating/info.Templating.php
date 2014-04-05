@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class TemplatingInfo extends Base {
+class TemplatingInfo extends CleopatraBase {
 
     public $hidden = false;
 

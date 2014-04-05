@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class AptInfo extends Base {
+class AptInfo extends CleopatraBase {
 
     public $hidden = false;
 

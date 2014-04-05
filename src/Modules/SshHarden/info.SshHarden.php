@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SshHardenInfo extends Base {
+class SshHardenInfo extends CleopatraBase {
 
     public $hidden = false;
 

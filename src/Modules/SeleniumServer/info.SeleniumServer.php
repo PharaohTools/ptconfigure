@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SeleniumServerInfo extends Base {
+class SeleniumServerInfo extends CleopatraBase {
 
   public $hidden = false;
 

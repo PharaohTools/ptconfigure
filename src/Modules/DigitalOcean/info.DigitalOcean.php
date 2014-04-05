@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class DigitalOceanInfo extends Base {
+class DigitalOceanInfo extends CleopatraBase {
 
     public $hidden = false;
 

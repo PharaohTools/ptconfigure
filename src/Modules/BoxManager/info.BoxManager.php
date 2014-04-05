@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class BoxManagerInfo extends Base {
+class BoxManagerInfo extends CleopatraBase {
 
   public $hidden = false;
 

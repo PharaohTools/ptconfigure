@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PapyrusEditorInfo extends Base {
+class PapyrusEditorInfo extends CleopatraBase {
 
     public $hidden = false;
 

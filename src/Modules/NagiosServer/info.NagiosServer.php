@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class NagiosServerInfo extends Base {
+class NagiosServerInfo extends CleopatraBase {
 
     public $hidden = false;
 

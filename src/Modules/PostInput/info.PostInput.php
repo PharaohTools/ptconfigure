@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PostInputInfo extends Base {
+class PostInputInfo extends CleopatraBase {
 
     public $hidden = false;
 

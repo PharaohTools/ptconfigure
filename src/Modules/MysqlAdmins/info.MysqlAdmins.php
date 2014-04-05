@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class MysqlAdminsInfo extends Base {
+class MysqlAdminsInfo extends CleopatraBase {
 
   public $hidden = false;
 

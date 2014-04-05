@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class GitLabInfo extends Base {
+class GitLabInfo extends CleopatraBase {
 
     public $hidden = false;
 

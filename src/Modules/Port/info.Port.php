@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PortInfo extends Base {
+class PortInfo extends CleopatraBase {
 
     public $hidden = false;
 

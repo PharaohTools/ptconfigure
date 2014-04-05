@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class StandardToolsInfo extends Base {
+class StandardToolsInfo extends CleopatraBase {
 
   public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class CleofyInfo extends Base {
+class CleofyInfo extends CleopatraBase {
 
     public $hidden = false;
 

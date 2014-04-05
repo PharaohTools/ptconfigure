@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JenkinsSudoNoPassInfo extends Base {
+class JenkinsSudoNoPassInfo extends CleopatraBase {
 
     public $hidden = false;
 

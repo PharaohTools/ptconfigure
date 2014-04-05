@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class UbuntuCompilerInfo extends Base {
+class UbuntuCompilerInfo extends CleopatraBase {
 
   public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class MediaToolsInfo extends Base {
+class MediaToolsInfo extends CleopatraBase {
 
   public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class Firefox14Info extends Base {
+class Firefox14Info extends CleopatraBase {
 
     public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ParallaxInfo extends Base {
+class ParallaxInfo extends CleopatraBase {
 
     public $hidden = false;
 

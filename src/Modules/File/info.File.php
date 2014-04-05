@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class FileInfo extends Base {
+class FileInfo extends CleopatraBase {
 
     public $hidden = false;
 

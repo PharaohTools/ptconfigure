@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class AutopilotInfo extends Base {
+class AutopilotInfo extends CleopatraBase {
 
     public $hidden = false;
 

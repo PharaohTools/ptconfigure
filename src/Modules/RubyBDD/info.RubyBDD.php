@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class RubyBDDInfo extends Base {
+class RubyBDDInfo extends CleopatraBase {
 
   public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class YumInfo extends Base {
+class YumInfo extends CleopatraBase {
 
     public $hidden = false;
 
