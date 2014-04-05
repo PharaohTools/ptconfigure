@@ -31,14 +31,6 @@ class BaseLinuxApp extends Base {
     return $this->askWhetherToUnInstallLinuxApp();
   }
 
-  public function runAutoPilotInstall($autoPilot) {
-    return $this->runAutoPilotLinuxAppInstall($autoPilot);
-  }
-
-  public function runAutoPilotUnInstall($autoPilot) {
-    return $this->runAutoPilotLinuxAppUnInstall($autoPilot);
-  }
-
   public function askWhetherToUnInstallLinuxApp() {
     return $this->performLinuxAppUnInstall();
   }
@@ -55,17 +47,6 @@ class BaseLinuxApp extends Base {
       true : $this->askWhetherToUnInstallLinuxAppToScreen();
     if (!$doUnInstall) { return false; }
     return $this->unInstall();
-  }
-
-  public function runAutoPilotLinuxAppInstall($autoPilot){
-    $this->setAutoPilotVariables($autoPilot);
-    $this->install($autoPilot);
-    return true;
-  }
-
-  public function runAutoPilotLinuxAppUnInstall($autoPilot){
-    $this->unInstall($autoPilot);
-    return true;
   }
 
   public function ensureInstalled($autoPilot = null){

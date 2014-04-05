@@ -68,10 +68,6 @@ class PackageManagerUbuntu extends BaseLinuxApp {
             $this->packageName = $this->params["packagename"]; }
         else if (isset($this->params["package-name"])) {
             $this->packageName = $this->params["package-name"]; }
-        else if (isset($autopilot["packagename"])) {
-            $this->packageName = $autopilot["packagename"]; }
-        else if (isset($autopilot["package-name"])) {
-            $this->packageName = $autopilot["package-name"]; }
         else {
             $this->packageName = self::askForInput("Enter Package Name:", true); }
     }
@@ -83,10 +79,6 @@ class PackageManagerUbuntu extends BaseLinuxApp {
             $this->packagerName = $this->params["packagername"]; }
         else if (isset($this->params["packager-name"])) {
             $this->packagerName = $this->params["packager-name"]; }
-        else if (isset($autopilot["packagername"])) {
-            $this->packagerName = $autopilot["packagername"]; }
-        else if (isset($autopilot["packager-name"])) {
-            $this->packagerName = $autopilot["packager-name"]; }
         else {
             $this->packagerName = self::askForInput("Enter Packager Name:", true); }
     }
@@ -133,7 +125,7 @@ class PackageManagerUbuntu extends BaseLinuxApp {
     }
 
     public function ensureInstalled() {
-        if ($this->isInstalled()==false) { $this->installPackages($autopilot = null); }
+        if ($this->isInstalled()==false) { $this->installPackages(); }
         else {
             $this->setPackageStatusInCleovars($this->packageName, true);
             $consoleFactory = new \Model\Console();

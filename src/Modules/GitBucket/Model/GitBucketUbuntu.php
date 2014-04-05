@@ -14,23 +14,24 @@ class GitBucketUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-  public function __construct($params) {
-    parent::__construct($params);
-    $this->autopilotDefiner = "GitBucket";
-    $this->installCommands = array(
-        array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
-    );
-    $this->uninstallCommands = array("apt-get remove -y python python-docutils");
-    $this->programDataFolder = "";
-    $this->programNameMachine = "gitlab"; // command and app dir name
-    $this->programNameFriendly = "!Git Lab!!"; // 12 chars
-    $this->programNameInstaller = "Git Lab";
-    $this->initialize();
-  }
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->autopilotDefiner = "GitBucket";
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),);
+        $this->programDataFolder = "";
+        $this->programNameMachine = "gitlab"; // command and app dir name
+        $this->programNameFriendly = "!Git Lab!!"; // 12 chars
+        $this->programNameInstaller = "Git Lab";
+        $this->initialize();
+    }
 
-  public function executeDependencies() {
-    $gitTools = new \Model\GitTools($this->params);
-    $gitTools->ensureInstalled();
-  }
+    public function executeDependencies() {
+        $gitTools = new \Model\GitTools($this->params);
+        $gitTools->ensureInstalled();
+    }
 
 }

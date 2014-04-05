@@ -14,20 +14,8 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
     // Model Group
     public $modelGroup = array("OverwriteNew") ;
 
-    public function runAutoPilot($autoPilot){
-        $this->runAutoPilotOverwriteNew($autoPilot);
-        return true;
-    }
-
     public function askWhetherToSaveOverwriteNew($params=null) {
         return $this->performDigitalOceanOverwriteNew($params);
-    }
-
-    public function runAutoPilotOverwriteNew($autoPilot) {
-        if ( !isset($autoPilot["digitalOceanSshKeyExecute"]) || $autoPilot["digitalOceanSshKeyExecute"] !== true ) {
-            return false; }
-        $this->apiKey = $this->askForDigitalOceanAPIKey();
-        $this->clientId = $this->askForDigitalOceanClientID();
     }
 
     public function performDigitalOceanOverwriteNew($params=null){

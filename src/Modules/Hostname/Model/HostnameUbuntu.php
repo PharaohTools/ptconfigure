@@ -42,8 +42,6 @@ class HostnameUbuntu extends BaseLinuxApp {
         if (isset($hostname)) { }
         else if (isset($this->params["hostname"])) {
             $hostname = $this->params["hostname"]; }
-        else if (isset($autopilot["host-name"])) {
-            $hostname = $autopilot["host-name"]; }
         else {
             $hostname = self::askForInput("Enter Hostname:", true); }
         $command = 'sudo dapperstrano he add --host-ip="127.0.0.1" --host-name="'.$hostname.'" --yes' ;
@@ -53,7 +51,7 @@ class HostnameUbuntu extends BaseLinuxApp {
             return false ; }
         $return = file_put_contents('/etc/host', $hostname) ;
         if ($return < 1) {
-            $console->log("Wrting hostname $hostname to /etc/host failed") ;
+            $console->log("Writing hostname $hostname to /etc/host failed") ;
             return false ; }
         return true ;
     }

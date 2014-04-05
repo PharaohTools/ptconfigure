@@ -79,17 +79,13 @@ class UserUbuntu extends BaseLinuxApp {
             $this->userName = $userName; }
         else if (isset($this->params["username"])) {
             $this->userName = $this->params["username"]; }
-        else if (isset($autopilot["username"])) {
-            $this->userName = $autopilot["username"]; }
         else {
             $this->userName = self::askForInput("Enter Username:", true); }
     }
 
-    public function setPassword($autopilot = null) {
+    public function setPassword() {
         if (isset($this->params["new-password"])) {
             $pword = $this->params["new-password"]; }
-        else if (isset($autopilot["new-password"])) {
-            $pword = $autopilot["new-password"]; }
         else {
             $pword = self::askForInput("Enter New Password:", true); }
         $command = 'sudo echo "'.$this->userName.':'.$pword.'"|chpasswd' ;
@@ -107,9 +103,9 @@ class UserUbuntu extends BaseLinuxApp {
         return file_exists($key) ;
     }
 
-    public function giveSshKey($autopilot = null, $force = false) {
+    public function giveSshKey($force = false) {
         $key = $this->getPrivateKeyFilename();
-        if (is_null($autopilot) && $this->hasSshKey() && $force == false) {
+        if ($this->hasSshKey() && $force == false) {
             $consoleFactory = new \Model\Console();
             $console = $consoleFactory->getModel($this->params);
             $console->log("User has SSH Key already and force not specified") ; }
@@ -178,12 +174,10 @@ class UserUbuntu extends BaseLinuxApp {
         return $this->executeAndLoad("id -Gn {$this->userName}") ;
     }
 
-    private function addToGroup($autopilot = null, $groupName = null) {
+    private function addToGroup($groupName = null) {
         if (isset($groupName) ) { }
         else if (isset($this->params["group-name"])) {
             $groupName = $this->params["group-name"]; }
-        else if (isset($autopilot["group-name"])) {
-            $groupName = $autopilot["group-name"]; }
         else {
             $groupName = self::askForInput("Enter New Password:", true); }
         $returnCode = $this->executeAndGetReturnCode("usermod -aG {$groupName} {$this->userName}");
@@ -195,12 +189,10 @@ class UserUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    private function removeFromGroup($autopilot = null, $groupName = null) {
+    private function removeFromGroup($groupName = null) {
         if (isset($groupName) ) { }
         else if (isset($this->params["group-name"])) {
             $groupName = $this->params["group-name"]; }
-        else if (isset($autopilot["group-name"])) {
-            $groupName = $autopilot["group-name"]; }
         else {
             $groupName = self::askForInput("Enter New Password:", true); }
         $returnCode = $this->executeAndGetReturnCode("deluser {$this->userName} {$groupName}");

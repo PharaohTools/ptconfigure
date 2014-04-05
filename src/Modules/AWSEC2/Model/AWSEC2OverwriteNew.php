@@ -14,20 +14,8 @@ class AWSEC2OverwriteNew extends BaseAWSEC2AllOS {
     // Model Group
     public $modelGroup = array("OverwriteNew") ;
 
-    public function runAutoPilot($autoPilot){
-        $this->runAutoPilotOverwriteNew($autoPilot);
-        return true;
-    }
-
     public function askWhetherToSaveOverwriteNew($params=null) {
         return $this->performAWSEC2OverwriteNew($params);
-    }
-
-    public function runAutoPilotOverwriteNew($autoPilot) {
-        if ( !isset($autoPilot["awsSshKeyExecute"]) || $autoPilot["awsSshKeyExecute"] !== true ) {
-            return false; }
-        $this->apiKey = $this->askForAWSEC2APIKey();
-        $this->clientId = $this->askForAWSEC2ClientID();
     }
 
     public function performAWSEC2OverwriteNew($params=null){

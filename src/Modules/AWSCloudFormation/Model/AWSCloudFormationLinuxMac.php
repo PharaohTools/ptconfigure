@@ -27,7 +27,10 @@ class AWSCloudFormationLinuxMac extends BaseLinuxApp {
             array("method"=> array($this, "deleteExecutorIfExists", array() )),
             array("method"=> array($this, "saveExecutorFile", array() )),
         );
-        $this->uninstallCommands = array("command"=> "rm -rf ****PROGDIR****");
+        $this->uninstallCommands = array(
+            array("method"=> array($this, "deleteExecutorIfExists", array() )),
+            array("command"=> "rm -rf ****PROGDIR****"),
+        );
         $this->programDataFolder = "/opt/aws-cloudformation"; // command and app dir name
         $this->programNameMachine = "aws-cloudformation"; // command and app dir name
         $this->programNameFriendly = "AWS CloudFn!"; // 12 chars

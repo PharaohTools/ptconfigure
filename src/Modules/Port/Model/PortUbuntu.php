@@ -38,10 +38,6 @@ class PortUbuntu extends BaseLinuxApp {
             $this->portNumber = $this->params["port-number"]; }
         else if (isset($this->params["port"])) {
             $this->portNumber = $this->params["port"]; }
-        else if (isset($autopilot["port-number"])) {
-            $this->portNumber = $autopilot["port-number"]; }
-        else if (isset($autopilot["port"])) {
-            $this->portNumber = $autopilot["port"]; }
         else {
             $this->portNumber = self::askForInput("Enter Port Number:", true); }
     }

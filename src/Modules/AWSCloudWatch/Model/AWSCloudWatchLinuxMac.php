@@ -27,7 +27,10 @@ class AWSCloudWatchLinuxMac extends BaseLinuxApp {
             array("method"=> array($this, "deleteExecutorIfExists", array() )),
             array("method"=> array($this, "saveExecutorFile", array() )),
         );
-        $this->uninstallCommands = array("rm -rf ****PROGDIR****");
+        $this->uninstallCommands = array(
+            array("command"=> array("rm -rf ****PROGDIR****")),
+            array("method"=> array($this, "deleteExecutorIfExists", array() )),
+        );
         $this->programDataFolder = "/opt/aws-cloudwatch"; // command and app dir name
         $this->programNameMachine = "aws-cloudwatch"; // command and app dir name
         $this->programNameFriendly = "AWS Cld Watch"; // 12 chars
