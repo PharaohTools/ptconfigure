@@ -13,7 +13,7 @@ class ApacheConfInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "ApacheConf" =>  array_merge(parent::routesAvailable(), array() ) );
+      return array( "ApacheConf" =>  array("install", "help") );
     }
 
     public function routeAliases() {
@@ -21,22 +21,17 @@ class ApacheConfInfo extends Base {
             "apacheconf"=>"ApacheConf");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "ApacheConf" => array(
-          "ApacheConf" => array(
-            "programDataFolder" => "/etc/apacheconf/", // command and app dir name
-            "programNameMachine" => "apacheconf", // command and app dir name
-            "programNameFriendly" => "Apache Conf.", // 12 chars
-            "programNameInstaller" => "Apache Conf",
-          )
-        )
-      );
+    // @todo structure of the exposedParams method
+    public function exposedParams() {
+        return array("install" => array(
+                        "template_*" => "", )
+            );
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and provides you  with a method by which you can install Apache HTTP Server
+  This module lets you install a configuration for Apache HTTP Server. The only commands available are this help
+  and install.
 
   ApacheConf, apache-configure, apache-configuration, apache-conf, apacheconf
 
