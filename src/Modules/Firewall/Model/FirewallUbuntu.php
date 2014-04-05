@@ -72,11 +72,9 @@ class FirewallUbuntu extends BaseLinuxApp {
         return $this->reset();
     }
 
-    public function setFirewallRule($autopilot = null) {
+    public function setFirewallRule() {
         if (isset($this->params["firewall-rule"])) {
             $firewallRule = $this->params["firewall-rule"]; }
-        else if (isset($autopilot["firewall-rule"])) {
-            $firewallRule = $autopilot["firewall-rule"]; }
         else {
             $firewallRule = self::askForInput("Enter Firewall Rule:", true); }
         $this->firewallRule = $firewallRule ;
@@ -93,7 +91,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function disable($autopilot = null) {
+    public function disable() {
         $out = $this->executeAndOutput("sudo ufw endisable");
         if (strpos($out, "disabled") != false ) {
             $consoleFactory = new \Model\Console();
@@ -103,7 +101,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function allow($autopilot = null) {
+    public function allow() {
         $out = $this->executeAndOutput("sudo ufw allow $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
@@ -114,7 +112,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function deny($autopilot = null) {
+    public function deny() {
         $out = $this->executeAndOutput("sudo ufw deny $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
@@ -125,7 +123,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function reject($autopilot = null) {
+    public function reject() {
         $out = $this->executeAndOutput("sudo ufw reject $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
@@ -136,7 +134,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function limit($autopilot = null) {
+    public function limit() {
         $out = $this->executeAndOutput("sudo ufw limit $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
@@ -148,7 +146,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
 
-    public function delete($autopilot = null) {
+    public function delete() {
         $out = $this->executeAndOutput("sudo ufw delete $this->firewallRule");
         if (strpos($out, "Could not delete non-existent rule") != false ||
             strpos($out, "Rule deleted") != false ) {
@@ -159,7 +157,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function insert($autopilot = null) {
+    public function insert() {
         $out = $this->executeAndOutput("sudo ufw insert $this->firewallRule");
         if (strpos($out, "Skipping inserting existing rule") != false ||
             strpos($out, "Rule inserted") != false ) {
@@ -170,7 +168,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function reset($autopilot = null) {
+    public function reset() {
         $out = $this->executeAndOutput("echo y | sudo ufw reset --force $this->firewallRule");
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
             $consoleFactory = new \Model\Console();

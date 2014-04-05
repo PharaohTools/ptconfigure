@@ -20,7 +20,8 @@ class ServiceUbuntu extends BaseLinuxApp {
             "stop" => "performServiceStop",
             "restart" => "performServiceRestart",
             "ensure-running" => "performServiceEnsureRunning",
-            "run-at-reboots" => "performServiceRunAtReboots", ) ;
+            "run-at-reboots" => "performServiceRunAtReboots"
+        ) ;
 
     public function __construct($params) {
         parent::__construct($params);

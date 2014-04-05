@@ -33,14 +33,6 @@ class BasePHPApp extends Base {
     return $this->askWhetherToUninstallPHPApp();
   }
 
-  public function runAutoPilotInstall($autoPilot) {
-    return $this->runAutoPilotPHPAppInstall($autoPilot);
-  }
-
-  public function runAutoPilotUnInstall($autoPilot) {
-    return $this->runAutoPilotPHPAppUnInstall($autoPilot);
-  }
-
   public function askWhetherToUninstallPHPApp() {
     return $this->performPHPAppUnInstall();
   }
@@ -58,19 +50,6 @@ class BasePHPApp extends Base {
       true : $this->askWhetherToUnInstallPHPAppToScreen();
     if (!$doUnInstall) { return false; }
     $this->unInstall();
-    return true;
-  }
-  public function runAutoPilotPHPAppInstall($autoPilot){
-    $doInstall = $autoPilot->{$this->autopilotDefiner."InstallExecute"};
-    if ($doInstall !== true) { return false; }
-    $this->install($autoPilot);
-    return true;
-  }
-
-  public function runAutoPilotPHPAppUnInstall($autoPilot){
-    $doUnInstall = $autoPilot->{$this->autopilotDefiner."UnInstallExecute"};
-    if ($doUnInstall !== true) { return false; }
-    $this->unInstall($autoPilot);
     return true;
   }
 
