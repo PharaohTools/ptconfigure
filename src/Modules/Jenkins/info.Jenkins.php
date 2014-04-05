@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JenkinsInfo extends Base {
+class JenkinsInfo extends CleopatraBase {
 
     public $hidden = false;
 

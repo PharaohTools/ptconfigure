@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JRushInfo extends Base {
+class JRushInfo extends CleopatraBase {
 
     public $hidden = false;
 

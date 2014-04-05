@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class LigHTTPDServerInfo extends Base {
+class LigHTTPDServerInfo extends CleopatraBase {
 
     public $hidden = false;
 

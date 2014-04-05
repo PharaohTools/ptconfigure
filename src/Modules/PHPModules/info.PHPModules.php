@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPModulesInfo extends Base {
+class PHPModulesInfo extends CleopatraBase {
 
   public $hidden = false;
 

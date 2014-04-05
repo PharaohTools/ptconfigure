@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PackageManagerInfo extends Base {
+class PackageManagerInfo extends CleopatraBase {
 
   public $hidden = false;
 

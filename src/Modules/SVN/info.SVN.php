@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SVNInfo extends Base {
+class SVNInfo extends CleopatraBase {
 
     public $hidden = false;
 

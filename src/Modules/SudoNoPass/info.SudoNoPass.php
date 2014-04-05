@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SudoNoPassInfo extends Base {
+class SudoNoPassInfo extends CleopatraBase {
 
     public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class FirewallInfo extends Base {
+class FirewallInfo extends CleopatraBase {
 
     public $hidden = false;
 

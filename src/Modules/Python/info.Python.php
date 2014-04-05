@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PythonInfo extends Base {
+class PythonInfo extends CleopatraBase {
 
     public $hidden = false;
 

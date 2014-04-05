@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class AWSCloudFormationInfo extends Base {
+class AWSCloudFormationInfo extends CleopatraBase {
 
   public $hidden = false;
 

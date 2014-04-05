@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class GemInfo extends Base {
+class GemInfo extends CleopatraBase {
 
     public $hidden = false;
 

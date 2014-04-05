@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class AWSEC2Info extends Base {
+class AWSEC2Info extends CleopatraBase {
 
     public $hidden = false;
 

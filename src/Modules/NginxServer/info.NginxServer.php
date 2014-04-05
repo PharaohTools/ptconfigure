@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class NginxServerInfo extends Base {
+class NginxServerInfo extends CleopatraBase {
 
     public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class DapperstranoInfo extends Base {
+class DapperstranoInfo extends CleopatraBase {
 
     public $hidden = false;
 

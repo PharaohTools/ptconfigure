@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class RubyRVMInfo extends Base {
+class RubyRVMInfo extends CleopatraBase {
 
   public $hidden = false;
 

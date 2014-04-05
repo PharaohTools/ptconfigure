@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class EnvironmentConfigInfo extends Base {
+class EnvironmentConfigInfo extends CleopatraBase {
 
     public $hidden = false;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPCSInfo extends Base {
+class PHPCSInfo extends CleopatraBase {
 
     public $hidden = false;
 

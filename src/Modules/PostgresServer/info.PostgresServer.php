@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PostgresServerInfo extends Base {
+class PostgresServerInfo extends CleopatraBase {
 
   public $hidden = false;
 
