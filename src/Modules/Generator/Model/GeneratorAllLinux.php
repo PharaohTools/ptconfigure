@@ -57,28 +57,28 @@ class GeneratorAllLinux extends Base {
           die(); }
       }
     }
-
-    private function populateEntryWithObject($infoObject) {
-      if (method_exists($infoObject, "autoPilotVariables")) {
-        $autoVars = $infoObject->autoPilotVariables() ;
-        if (is_array($autoVars) && count($autoVars) == 0) {
-          echo "No Autopilot Variables Available for this Model\n";
-          return; }
-        foreach ($autoVars as $autoVarTitle => $autoVarSpecDetails) {
-          foreach ($autoVarSpecDetails as $autoVariableName => $autoVariableDetails) {
-            $question = 'Include '.$autoVariableName.' Variable?';
-            $includeThis = self::askYesOrNo($question, true);
-            if ($includeThis==true) {
-              $this->populateEntryIntoProperty($autoVarTitle, $autoVariableName, $autoVariableDetails); } } } }
-      else {
-        echo "This Module does not expose an Autopilot Variables method\n"; }
-      if (method_exists($infoObject, "generatorCodeInjection")) {
-        $step = count ($this->allEntries) - 1 ;
-        $this->codeInjections[] = $infoObject->generatorCodeInjection($step) ;}
-      else {
-        echo "This Module does not expose a Code Injection method\n";}
-      return;
-    }
+//    @todo generator needs to be updated to new exposedParams, autopilo references removed
+//    private function populateEntryWithObject($infoObject) {
+//      if (method_exists($infoObject, "autoPilotVariables")) {
+//        $autoVars = $infoObject->autoPilotVariables() ;
+//        if (is_array($autoVars) && count($autoVars) == 0) {
+//          echo "No Autopilot Variables Available for this Model\n";
+//          return; }
+//        foreach ($autoVars as $autoVarTitle => $autoVarSpecDetails) {
+//          foreach ($autoVarSpecDetails as $autoVariableName => $autoVariableDetails) {
+//            $question = 'Include '.$autoVariableName.' Variable?';
+//            $includeThis = self::askYesOrNo($question, true);
+//            if ($includeThis==true) {
+//              $this->populateEntryIntoProperty($autoVarTitle, $autoVariableName, $autoVariableDetails); } } } }
+//      else {
+//        echo "This Module does not expose an Autopilot Variables method\n"; }
+//      if (method_exists($infoObject, "generatorCodeInjection")) {
+//        $step = count ($this->allEntries) - 1 ;
+//        $this->codeInjections[] = $infoObject->generatorCodeInjection($step) ;}
+//      else {
+//        echo "This Module does not expose a Code Injection method\n";}
+//      return;
+//    }
 
     private function populateEntryIntoProperty($autoVarTitle, $autoVariableName, $autoVariableDetails) {
       $miniRay = array();
