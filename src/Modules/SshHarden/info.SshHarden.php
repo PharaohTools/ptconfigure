@@ -27,19 +27,6 @@ class SshHardenInfo extends CleopatraBase {
         return array("Service");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "SshHarden" => array(
-          "SshHarden" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "sshharden", // command and app dir name
-            "programNameFriendly" => "    SshHarden    ", // 12 chars
-            "programNameInstaller" => "SshHarden",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to modify create or modify sshhardens

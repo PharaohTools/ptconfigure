@@ -21,19 +21,6 @@ class PHPModulesInfo extends CleopatraBase {
       "phpmodules"=>"PHPModules");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "PHPModules" => array(
-        "PHPModules" => array(
-          "programDataFolder" => "/opt/PHPModules", // command and app dir name
-          "programNameMachine" => "phpmodules", // command and app dir name
-          "programNameFriendly" => "PHP Modules!", // 12 chars
-          "programNameInstaller" => "PHP Modules",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install some common and helpful PHP Modules.

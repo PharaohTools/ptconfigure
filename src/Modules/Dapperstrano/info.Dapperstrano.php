@@ -20,19 +20,6 @@ class DapperstranoInfo extends CleopatraBase {
       return array("dapper"=>"Dapperstrano", "dapperstrano"=>"Dapperstrano");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Dapperstrano" => array(
-          "Dapperstrano" => array(
-            "programNameMachine" => "dapperstrano", // command and app dir name
-            "programNameFriendly" => "Dapperstrano",
-            "programNameInstaller" => "Dapperstrano - Update to latest version",
-            "programExecutorTargetPath" => 'dapperstrano/src/Bootstrap.php',
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to update Dapperstrano.

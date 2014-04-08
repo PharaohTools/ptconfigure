@@ -23,19 +23,6 @@ class UserInfo extends CleopatraBase {
       return array("user"=>"User");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "User" => array(
-          "User" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "user", // command and app dir name
-            "programNameFriendly" => "    User    ", // 12 chars
-            "programNameInstaller" => "User",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to modify create or modify users

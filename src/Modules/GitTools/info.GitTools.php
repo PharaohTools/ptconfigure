@@ -20,19 +20,6 @@ class GitToolsInfo extends CleopatraBase {
       return array("gittools"=>"GitTools", "git-tools"=>"GitTools");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "GitTools" => array(
-          "GitTools" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "gittools", // command and app dir name
-            "programNameFriendly" => "!Git Tools!!", // 12 chars
-            "programNameInstaller" => "Git Tools",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install Git and a set of common Git Tools. These include

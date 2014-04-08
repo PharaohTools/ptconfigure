@@ -20,19 +20,6 @@ class AWSCloudWatchInfo extends CleopatraBase {
     return array("awscloudwatch"=>"AWSCloudWatch", "aws-cloud-watch"=>"AWSCloudWatch", "aws-cloudwatch"=>"AWSCloudWatch");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "AWSCloudWatch" => array(
-        "AWSCloudWatch" => array(
-          "programDataFolder" => "/opt/AWSCloudWatch", // command and app dir name
-          "programNameMachine" => "aws-cloud-watch", // command and app dir name
-          "programNameFriendly" => "AWSCloudWatch Srv", // 12 chars
-          "programNameInstaller" => "AWSCloudWatch Server",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install a few GC recommended Standard Tools

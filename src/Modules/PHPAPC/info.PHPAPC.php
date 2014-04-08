@@ -20,19 +20,6 @@ class PHPAPCInfo extends CleopatraBase {
     return array("php-apc"=>"PHPAPC", "phpapc"=>"PHPAPC");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "PHPAPC" => array(
-        "PHPAPC" => array(
-          "programDataFolder" => "/opt/PHPAPC", // command and app dir name
-          "programNameMachine" => "phpapc", // command and app dir name
-          "programNameFriendly" => "PHP APC!", // 12 chars
-          "programNameInstaller" => "PHP APC",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install some common and helpful PHP APC.

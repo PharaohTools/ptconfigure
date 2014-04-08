@@ -20,19 +20,6 @@ class NodeJSInfo extends CleopatraBase {
     return array("node-js"=>"NodeJS", "nodejs"=>"NodeJS");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "NodeJS" => array(
-        "NodeJS" => array(
-          "programDataFolder" => "/opt/NodeJS", // command and app dir name
-          "programNameMachine" => "nodejs", // command and app dir name
-          "programNameFriendly" => "Node JS!", // 12 chars
-          "programNameInstaller" => "Node JS",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install Node JS, The Server Side JS Language

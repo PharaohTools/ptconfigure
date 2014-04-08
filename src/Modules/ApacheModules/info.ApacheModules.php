@@ -20,19 +20,6 @@ class ApacheModulesInfo extends CleopatraBase {
       return array("apache-modules"=>"ApacheModules", "apachemods"=>"ApacheModules", "apachemodules"=>"ApacheModules");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "ApacheModules" => array(
-          "ApacheModules" => array(
-            "programDataFolder" => "/var/lib/jenkins", // command and app dir name
-            "programNameMachine" => "jenkins", // command and app dir name
-            "programNameFriendly" => " ! Jenkins !", // 12 chars
-            "programNameInstaller" => "Jenkins",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can configure Application Settings.

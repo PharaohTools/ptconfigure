@@ -23,19 +23,6 @@ class FirewallInfo extends CleopatraBase {
       return array("firewall"=>"Firewall");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Firewall" => array(
-          "Firewall" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "firewall", // command and app dir name
-            "programNameFriendly" => "    Firewall    ", // 12 chars
-            "programNameInstaller" => "Firewall",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to modify create or modify firewalls

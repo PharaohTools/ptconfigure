@@ -20,21 +20,6 @@ class RubySystemInfo extends CleopatraBase {
     return array("rubysystem"=>"RubySystem", "ruby-system"=>"RubySystem", "rubysys"=>"RubySystem");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "RubySystem" => array(
-        "RubySystem" => array(
-          "programDataFolder" => "/opt/RubySystem", // command and app dir name
-          "programNameMachine" => "rubysystem", // command and app dir name
-          "programNameFriendly" => "Ruby RVM!", // 12 chars
-          "programNameInstaller" => "Ruby RVM - Ruby Version Manager",
-          "installUserName" => "string",
-          "installUserHomeDir" => "string",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install Ruby RVM, the system wide version.

@@ -21,19 +21,6 @@ class HostnameInfo extends CleopatraBase {
       return array("hostname"=>"Hostname");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Hostname" => array(
-          "Hostname" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "hostname", // command and app dir name
-            "programNameFriendly" => "    Hostname    ", // 12 chars
-            "programNameInstaller" => "Hostname",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to view or modify hostname

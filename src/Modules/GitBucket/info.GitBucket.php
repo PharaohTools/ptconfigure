@@ -20,19 +20,6 @@ class GitBucketInfo extends CleopatraBase {
       return array("gitbucket"=>"GitBucket", "git-bucket"=>"GitBucket");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "GitBucket" => array(
-          "GitBucket" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "gitbucket", // command and app dir name
-            "programNameFriendly" => "!Git Bucket!", // 12 chars
-            "programNameInstaller" => "Git Bucket",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install a full Git Bucket installation on to a server

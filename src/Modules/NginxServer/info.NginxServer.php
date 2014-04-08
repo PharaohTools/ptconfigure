@@ -20,19 +20,6 @@ class NginxServerInfo extends CleopatraBase {
       return array("nginx-server"=>"NginxServer", "nginxserver"=>"NginxServer");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "NginxServer" => array(
-          "NginxServer" => array(
-            "programDataFolder" => "/opt/nginx/", // command and app dir name
-            "programNameMachine" => "nginxserver", // command and app dir name
-            "programNameFriendly" => "Nginx Serv.", // 12 chars
-            "programNameInstaller" => "Nginx Server",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can configure Application Settings.

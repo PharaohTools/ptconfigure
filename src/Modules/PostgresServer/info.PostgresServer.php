@@ -20,19 +20,6 @@ class PostgresServerInfo extends CleopatraBase {
     return array("postgres-server"=>"PostgresServer", "postgresserver"=>"PostgresServer");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "PostgresServer" => array(
-        "PostgresServer" => array(
-          "programDataFolder" => "/opt/PostgresServer", // command and app dir name
-          "programNameMachine" => "postgresserver", // command and app dir name
-          "programNameFriendly" => "Postgres Server!", // 12 chars
-          "programNameInstaller" => "Postgres Server",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install the Postgres Server. Currently only

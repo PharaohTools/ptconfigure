@@ -20,10 +20,6 @@ class CleofyInfo extends CleopatraBase {
       return array("cleofy"=>"Cleofy");
     }
 
-    public function autoPilotVariables() {
-        return array();
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of a default Module Core and provides you with a method by which you can

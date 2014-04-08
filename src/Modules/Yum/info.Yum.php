@@ -13,10 +13,7 @@ class YumInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-        // return array( "Yum" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "Yum" =>  array_merge(
-            array("help", "status", "pkg-install", "pkg-ensure", "pkg-remove", "update")
-        ) );
+        return array( "Yum" => array("help", "status", "pkg-install", "pkg-ensure", "pkg-remove", "update") );
     }
 
     public function routeAliases() {
@@ -25,19 +22,6 @@ class YumInfo extends CleopatraBase {
 
     public function packagerName() {
         return "Yum";
-    }
-
-    public function autoPilotVariables() {
-      return array(
-        "Yum" => array(
-          "Yum" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "yum", // command and app dir name
-            "programNameFriendly" => "    Yum    ", // 12 chars
-            "programNameInstaller" => "Yum",
-          )
-        )
-      );
     }
 
     public function helpDefinition() {

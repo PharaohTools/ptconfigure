@@ -21,19 +21,6 @@ class AWSCloudFormationInfo extends CleopatraBase {
         "aws-cloudformation"=>"AWSCloudFormation");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "AWSCloudFormation" => array(
-        "AWSCloudFormation" => array(
-          "programDataFolder" => "/opt/AWSCloudFormation", // command and app dir name
-          "programNameMachine" => "aws-cloud-formation", // command and app dir name
-          "programNameFriendly" => "AWSCloudFormation Srv", // 12 chars
-          "programNameInstaller" => "AWSCloudFormation Server",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install a The AWS Cloud Formation Command

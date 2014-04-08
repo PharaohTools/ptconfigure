@@ -23,19 +23,6 @@ class FileInfo extends CleopatraBase {
       return array("file"=>"File");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "File" => array(
-          "File" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "file", // command and app dir name
-            "programNameFriendly" => "    File    ", // 12 chars
-            "programNameInstaller" => "File",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to modify create or modify files

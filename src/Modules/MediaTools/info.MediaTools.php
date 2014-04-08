@@ -20,19 +20,6 @@ class MediaToolsInfo extends CleopatraBase {
     return array("media-tools"=>"MediaTools", "mediatools"=>"MediaTools");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "MediaTools" => array(
-        "MediaTools" => array(
-          "programDataFolder" => "/opt/MediaTools", // command and app dir name
-          "programNameMachine" => "mediatools", // command and app dir name
-          "programNameFriendly" => "Media Tools!", // 12 chars
-          "programNameInstaller" => "Media Tools",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install a few GC recommended Media Tools

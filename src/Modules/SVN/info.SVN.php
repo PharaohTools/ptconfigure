@@ -20,19 +20,6 @@ class SVNInfo extends CleopatraBase {
       return array("svn"=>"SVN");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "SVN" => array(
-          "SVN" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "svn", // command and app dir name
-            "programNameFriendly" => "!SVN!!", // 12 chars
-            "programNameInstaller" => "SVN",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install the latest available SVN in the Ubuntu

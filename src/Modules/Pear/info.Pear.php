@@ -27,19 +27,6 @@ class PearInfo extends CleopatraBase {
         return "Pear";
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Pear" => array(
-          "Pear" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "pear", // command and app dir name
-            "programNameFriendly" => "    Pear    ", // 12 chars
-            "programNameInstaller" => "Pear",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to modify create or modify pears

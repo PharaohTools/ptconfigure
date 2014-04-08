@@ -20,19 +20,6 @@ class SystemDetectionInfo extends CleopatraBase {
       return array("system-detection"=>"SystemDetection", "systemdetection"=>"SystemDetection");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "SystemDetection" => array(
-          "SystemDetection" => array(
-            "programDataFolder" => "/etc/apache2/", // command and app dir name
-            "programNameMachine" => "systemdetection", // command and app dir name
-            "programNameFriendly" => "System Detect", // 12 chars
-            "programNameInstaller" => "System Detection",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This is a default Module and provides you with a method by which you can configure Application Settings.

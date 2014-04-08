@@ -20,22 +20,7 @@ class InvokeInfo extends CleopatraBase {
       return array("invoke" => "Invoke", "inv" => "Invoke");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "InvokeSSH" => array(
-          "sshInvokeSSHScriptExecute" => array(
-            "sshInvokeSSHScriptExecute" => "boolean",
-            "sshInvokeSSHScriptFile" => "string",
-            "sshInvokeServers" => "string-array", ) ,
-          "sshInvokeSSHDataExecute" => array(
-            "sshInvokeSSHDataExecute" => "boolean",
-            "sshInvokeSSHDataData" => "string",
-            "sshInvokeServers" => array("target", "user", "pword"), ) ,
-        ) ,
-      );
-    }
-
-  public function generatorCodeInjection($step=null) {
+    public function generatorCodeInjection($step=null) {
     $inject = <<<'HELPDATA'
       /*
       //
@@ -61,7 +46,6 @@ HELPDATA
     ;
     return $inject ;
   }
-
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"

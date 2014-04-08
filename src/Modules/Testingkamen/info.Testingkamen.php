@@ -20,19 +20,6 @@ class TestingkamenInfo extends CleopatraBase {
       return array("cleo"=>"Testingkamen", "testingkamen"=>"Testingkamen");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Testingkamen" => array(
-          "Testingkamen" => array(
-            "programNameMachine" => "testingkamen", // command and app dir name
-            "programNameFriendly" => " Testingkamen! ",
-            "programNameInstaller" => "Testingkamen - Update to latest version",
-            "programExecutorTargetPath" => 'testingkamen/src/Bootstrap.php',
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to update Testingkamen.

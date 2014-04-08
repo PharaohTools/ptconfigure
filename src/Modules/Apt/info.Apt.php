@@ -27,19 +27,6 @@ class AptInfo extends CleopatraBase {
         return "Apt";
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Apt" => array(
-          "Apt" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "apt", // command and app dir name
-            "programNameFriendly" => "    Apt    ", // 12 chars
-            "programNameInstaller" => "Apt",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to modify create or modify apts
