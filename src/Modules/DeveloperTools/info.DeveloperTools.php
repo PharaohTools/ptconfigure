@@ -21,19 +21,6 @@ class DeveloperToolsInfo extends CleopatraBase {
           "developertools"=>"DeveloperTools");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "DeveloperTools" => array(
-          "DeveloperTools" => array(
-            "programDataFolder" => "/opt/DeveloperTools", // command and app dir name
-            "programNameMachine" => "developertools", // command and app dir name
-            "programNameFriendly" => "Devel Tools!", // 12 chars
-            "programNameInstaller" => "Developer Tools",
-          ),
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install a set of Developer Tools. These include

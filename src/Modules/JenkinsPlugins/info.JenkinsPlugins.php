@@ -21,19 +21,6 @@ class JenkinsPluginsInfo extends CleopatraBase {
         "jenkins-plugs"=>"JenkinsPlugins");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "JenkinsPlugins" => array(
-          "JenkinsPlugins" => array(
-            "programDataFolder" => "/opt/jenkins-plugs", // command and app dir name
-            "programNameMachine" => "jenkins-plugins", // command and app dir name
-            "programNameFriendly" => "Jenkins Plugins!", // 12 chars
-            "programNameInstaller" => "Jenks Plugs!",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install a bunch of plugins that we recommend for

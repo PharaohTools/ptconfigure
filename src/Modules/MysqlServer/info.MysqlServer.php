@@ -20,19 +20,6 @@ class MysqlServerInfo extends CleopatraBase {
     return array("mysql-server"=>"MysqlServer", "mysqlserver"=>"MysqlServer");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "MysqlServer" => array(
-        "MysqlServer" => array(
-          "programDataFolder" => "/opt/MysqlServer", // command and app dir name
-          "programNameMachine" => "mysqlserver", // command and app dir name
-          "programNameFriendly" => "Mysql Server!", // 12 chars
-          "programNameInstaller" => "Mysql Server",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install the MySQL Server. Currently only

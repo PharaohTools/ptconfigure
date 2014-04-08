@@ -20,19 +20,6 @@ class NagiosServerInfo extends CleopatraBase {
       return array("nagios-server"=>"NagiosServer", "nagiosserver"=>"NagiosServer", "nagios"=>"NagiosServer");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "NagiosServer" => array(
-          "NagiosServer" => array(
-            "programDataFolder" => "/opt/nagios/", // command and app dir name
-            "programNameMachine" => "nagiosserver", // command and app dir name
-            "programNameFriendly" => "Nagios Serv.", // 12 chars
-            "programNameInstaller" => "Nagios Server",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you with a method by which you can install Nagios.

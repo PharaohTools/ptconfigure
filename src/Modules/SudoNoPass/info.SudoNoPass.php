@@ -21,20 +21,6 @@ class SudoNoPassInfo extends CleopatraBase {
         "sudo-passwordless"=>"SudoNoPass");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "SudoNoPass" => array(
-          "SudoNoPass" => array(
-            "programDataFolder" => "/opt/SudoNoPass", // command and app dir name
-            "programNameMachine" => "sudonopass", // command and app dir name
-            "programNameFriendly" => "SudoNoPass", // 12 chars
-            "programNameInstaller" => "Sudo capability with No Password for a user",
-            "installUserName" => "string"
-          ),
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to add an entry to the system sudo file that will

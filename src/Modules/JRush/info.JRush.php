@@ -20,19 +20,6 @@ class JRushInfo extends CleopatraBase {
       return array("jrush"=>"JRush", "Jrush"=>"JRush", "jRush"=>"JRush");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "JRush" => array(
-          "JRush" => array(
-            "programNameMachine" => "jrush", // command and app dir name
-            "programNameFriendly" => "JRush",
-            "programNameInstaller" => "JRush - The Joomla command line installer",
-            "programExecutorTargetPath" => 'jrush/src/Bootstrap.php',
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install or Update JRush.

@@ -21,19 +21,6 @@ class ServiceInfo extends CleopatraBase {
       return array("service"=>"Service");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Service" => array(
-          "Service" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "service", // command and app dir name
-            "programNameFriendly" => "    Service    ", // 12 chars
-            "programNameInstaller" => "Service",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to view or modify service

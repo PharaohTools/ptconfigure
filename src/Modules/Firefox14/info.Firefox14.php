@@ -20,19 +20,6 @@ class Firefox14Info extends CleopatraBase {
       return array("ff14"=>"Firefox14", "firefox14"=>"Firefox14");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Firefox14" => array(
-          "Firefox14" => array(
-            "programDataFolder" => "/opt/firefox14", // command and app dir name
-            "programNameMachine" => "firefox14", // command and app dir name
-            "programNameFriendly" => "Firefox 14", // 12 chars
-            "programNameInstaller" => "Firefox 14",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install Firefox14.

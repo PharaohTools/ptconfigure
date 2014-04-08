@@ -20,24 +20,6 @@ class SshKeygenInfo extends CleopatraBase {
     return array("sshkeygen"=>"SshKeygen", "ssh-keygen"=>"SshKeygen");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "SshKeygen" => array(
-        "SshKeygen" => array(
-          "programDataFolder" => "/opt/SshKeygen", // command and app dir name
-          "programNameMachine" => "mysqladmins", // command and app dir name
-          "programNameFriendly" => "Mysql Admins!", // 12 chars
-          "programNameInstaller" => "Mysql Admins",
-          "mysqlNewAdminUser" => "string",
-          "mysqlNewAdminPass" => "string",
-          "mysqlRootUser" => "string",
-          "mysqlRootPass" => "string",
-          "dbHost" => "string"
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install an SSH Key Pair.

@@ -20,19 +20,6 @@ class IntelliJInfo extends CleopatraBase {
       return array("intellij"=>"IntelliJ");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "IntelliJ" => array(
-          "IntelliJ" => array(
-            "programDataFolder" => "/opt/intellij", // command and app dir name
-            "programNameMachine" => "intellij", // command and app dir name
-            "programNameFriendly" => "Intelli J", // 12 chars
-            "programNameInstaller" => "IntelliJ !!",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install Intellij, the JetBrains IDE

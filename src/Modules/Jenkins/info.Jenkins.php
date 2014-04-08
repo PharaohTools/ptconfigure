@@ -20,19 +20,6 @@ class JenkinsInfo extends CleopatraBase {
       return array("jenkins"=>"Jenkins");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Jenkins" => array(
-          "Jenkins" => array(
-            "programDataFolder" => "/var/lib/jenkins", // command and app dir name
-            "programNameMachine" => "jenkins", // command and app dir name
-            "programNameFriendly" => "Jenkins", // 12 chars
-            "programNameInstaller" => "! Jenkins !!",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install Jenkins, the popular Build Server.

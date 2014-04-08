@@ -20,19 +20,6 @@ class JavaInfo extends CleopatraBase {
       return array("java"=>"Java", "java17"=>"Java");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Java" => array(
-          "Java" => array(
-            "programDataFolder" => "/opt/java", // command and app dir name
-            "programNameMachine" => "java", // command and app dir name
-            "programNameFriendly" => "    Java    ", // 12 chars
-            "programNameInstaller" => "Java !!",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install Java JDK 1.7 .

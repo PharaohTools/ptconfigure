@@ -20,19 +20,6 @@ class PHPCSInfo extends CleopatraBase {
       return array("phpcs"=>"PHPCS");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "PHPCS" => array(
-          "PHPCS" => array(
-            "programDataFolder" => "/opt/PHPCS", // command and app dir name
-            "programNameMachine" => "phpcs", // command and app dir name
-            "programNameFriendly" => "PHP C Sniff!", // 12 chars
-            "programNameInstaller" => "PHP Code Sniffer",
-          ),
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install PHPCS from a GC Repo.

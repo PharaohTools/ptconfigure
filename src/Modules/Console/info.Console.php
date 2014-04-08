@@ -20,7 +20,7 @@ class ConsoleInfo extends CleopatraBase {
         return array("console"=>"Console");
     }
 
-    public function autoPilotVariables() {
+    public function exposedParams() {
       return array(
         "Console" => array(
             "log" => array(

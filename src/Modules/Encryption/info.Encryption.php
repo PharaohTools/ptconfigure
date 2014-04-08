@@ -20,19 +20,6 @@ class EncryptionInfo extends CleopatraBase {
       return array("encryption"=>"Encryption", "encrypt"=>"Encryption");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Encryption" => array(
-          "Encryption" => array(
-            "programDataFolder" => "/opt/Encryption", // command and app dir name
-            "programNameMachine" => "encrypt", // command and app dir name
-            "programNameFriendly" => "Encryption", // 12 chars
-            "programNameInstaller" => "Encryption",
-          ),
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to encrypt or decrypt a file.

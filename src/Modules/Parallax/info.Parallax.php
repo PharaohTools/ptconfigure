@@ -20,19 +20,6 @@ class ParallaxInfo extends CleopatraBase {
       return array("parallax"=>"Parallax");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Parallax" => array(
-          "Parallax" => array(
-            "programNameMachine" => "parallax", // command and app dir name
-            "programNameFriendly" => " Parallax! ",
-            "programNameInstaller" => "Parallax - Update to latest version",
-            "programExecutorTargetPath" => 'parallax/src/Bootstrap.php',
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to update Parallax.

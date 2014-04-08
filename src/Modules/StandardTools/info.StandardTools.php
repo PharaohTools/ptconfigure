@@ -21,19 +21,6 @@ class StandardToolsInfo extends CleopatraBase {
       "stdtools"=>"StandardTools", "std-tools"=>"StandardTools");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "StandardTools" => array(
-        "StandardTools" => array(
-          "programDataFolder" => "/opt/StandardTools", // command and app dir name
-          "programNameMachine" => "standardtools", // command and app dir name
-          "programNameFriendly" => "StandardTools", // 12 chars
-          "programNameInstaller" => "Standard Tools",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install a few GC recommended Standard Tools

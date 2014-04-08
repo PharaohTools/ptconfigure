@@ -21,19 +21,6 @@ class BoxManagerInfo extends CleopatraBase {
         "boxmgr"=>"BoxManager");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "BoxManager" => array(
-        "BoxManager" => array(
-          "programDataFolder" => "/opt/BoxManager", // command and app dir name
-          "programNameMachine" => "environmentmanager", // command and app dir name
-          "programNameFriendly" => "Box Mgr.", // 12 chars
-          "programNameInstaller" => "Native Box Manager Wrapper",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to use a Box Management wrapper.

@@ -20,19 +20,6 @@ class LigHTTPDServerInfo extends CleopatraBase {
       return array("lighttpd-server"=>"LigHTTPDServer", "lighttpdserver"=>"LigHTTPDServer");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "LigHTTPDServer" => array(
-          "LigHTTPDServer" => array(
-            "programDataFolder" => "/opt/lighttpd/", // command and app dir name
-            "programNameMachine" => "lighttpdserver", // command and app dir name
-            "programNameFriendly" => "LigHTTPD Serv.", // 12 chars
-            "programNameInstaller" => "LigHTTPD Server",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can configure Application Settings.

@@ -20,19 +20,6 @@ class PhlagrantInfo extends CleopatraBase {
       return array("phlagrant"=>"Phlagrant");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Phlagrant" => array(
-          "Phlagrant" => array(
-            "programNameMachine" => "phlagrant", // command and app dir name
-            "programNameFriendly" => "Phlagrant",
-            "programNameInstaller" => "Phlagrant - Update to latest version",
-            "programExecutorTargetPath" => 'phlagrant/src/Bootstrap.php',
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install or update Phlagrant.

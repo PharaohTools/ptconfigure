@@ -20,19 +20,6 @@ class PythonInfo extends CleopatraBase {
       return array("python"=>"Python");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Python" => array(
-          "Python" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "python", // command and app dir name
-            "programNameFriendly" => "!Python!!", // 12 chars
-            "programNameInstaller" => "Python",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install the latest available Python in the Ubuntu

@@ -20,19 +20,6 @@ class MysqlToolsInfo extends CleopatraBase {
     return array("mysql-tools"=>"MysqlTools", "mysqltools"=>"MysqlTools");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "MysqlTools" => array(
-        "MysqlTools" => array(
-          "programDataFolder" => "/opt/MysqlTools", // command and app dir name
-          "programNameMachine" => "mysqltools", // command and app dir name
-          "programNameFriendly" => "Mysql Tools!", // 12 chars
-          "programNameInstaller" => "Mysql Tools",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install some tools to help with MySQL Server. Installs the MySQL

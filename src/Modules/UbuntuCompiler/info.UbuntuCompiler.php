@@ -20,19 +20,6 @@ class UbuntuCompilerInfo extends CleopatraBase {
     return array("ubuntu-compiler"=>"UbuntuCompiler", "ubuntucompiler"=>"UbuntuCompiler");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "UbuntuCompiler" => array(
-        "UbuntuCompiler" => array(
-          "programDataFolder" => "/opt/UbuntuCompiler", // command and app dir name
-          "programNameMachine" => "ubuntucompiler", // command and app dir name
-          "programNameFriendly" => "UbuntuCompiler", // 12 chars
-          "programNameInstaller" => "UbuntuCompiler",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install Node JS, The Server Side JS Language

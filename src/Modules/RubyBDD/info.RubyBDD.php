@@ -20,21 +20,6 @@ class RubyBDDInfo extends CleopatraBase {
     return array("rubybdd"=>"RubyBDD", "ruby-bdd"=>"RubyBDD");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "RubyBDD" => array(
-        "RubyBDD" => array(
-          "programDataFolder" => "/opt/RubyBDD", // command and app dir name
-          "programNameMachine" => "rubyrdd", // command and app dir name
-          "programNameFriendly" => "Ruby BDD!", // 12 chars
-          "programNameInstaller" => "Ruby BDD Suite Gems",
-          "installUserName" => "string",
-          "installUserHomeDir" => "string",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install Ruby RVM.

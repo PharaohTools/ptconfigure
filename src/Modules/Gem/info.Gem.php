@@ -27,19 +27,6 @@ class GemInfo extends CleopatraBase {
         return "Gem";
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Gem" => array(
-          "Gem" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "gem", // command and app dir name
-            "programNameFriendly" => "    Gem    ", // 12 chars
-            "programNameInstaller" => "Gem",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to modify create or modify gems

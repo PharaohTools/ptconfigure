@@ -20,20 +20,6 @@ class TemplatingInfo extends CleopatraBase {
       return array("templating"=>"Templating", "template"=>"Templating");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Templating" => array(
-          "Templating" => array(
-            "programDataFolder" => "/opt/Templating", // command and app dir name
-            "programNameMachine" => "templating", // command and app dir name
-            "programNameFriendly" => "Templating", // 12 chars
-            "programNameInstaller" => "Sudo capability with No Password for a user",
-            "installUserName" => "string"
-          ),
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install a templated file with new values.

@@ -20,19 +20,6 @@ class PHPUnitInfo extends CleopatraBase {
       return array("phpunit"=>"PHPUnit", "phpUnit"=>"PHPUnit", "php-unit"=>"PHPUnit");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "PHPUnit" => array(
-          "PHPUnit" => array(
-            "programDataFolder" => "/opt/PHPUnit", // command and app dir name
-            "programNameMachine" => "phpunit", // command and app dir name
-            "programNameFriendly" => "PHP Unit!", // 12 chars
-            "programNameInstaller" => "PHP Unit - PHP Testing Framework",
-          ),
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install PHPUnit from a GC Repo.

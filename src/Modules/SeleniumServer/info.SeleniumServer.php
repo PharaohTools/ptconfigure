@@ -21,19 +21,6 @@ class SeleniumServerInfo extends CleopatraBase {
       "selenium-srv"=>"SeleniumServer", "seleniumserver"=>"SeleniumServer");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "SeleniumServer" => array(
-        "SeleniumServer" => array(
-          "programDataFolder" => "/opt/SeleniumServer", // command and app dir name
-          "programNameMachine" => "seleniumserver", // command and app dir name
-          "programNameFriendly" => "Selenium Srv", // 12 chars
-          "programNameInstaller" => "Selenium Server",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install a few GC recommended Standard Tools

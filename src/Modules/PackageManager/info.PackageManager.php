@@ -21,19 +21,6 @@ class PackageManagerInfo extends CleopatraBase {
         "pkgmgr"=>"PackageManager");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "PackageManager" => array(
-        "PackageManager" => array(
-          "programDataFolder" => "/opt/PackageManager", // command and app dir name
-          "programNameMachine" => "packagemanager", // command and app dir name
-          "programNameFriendly" => "Package Mgr.", // 12 chars
-          "programNameInstaller" => "Native Package Manager Wrapper",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to use a Package Management wrapper.

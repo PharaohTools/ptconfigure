@@ -21,23 +21,6 @@ class PHPConfInfo extends CleopatraBase {
             "phpconf"=>"PHPConf");
     }
 
-//    public function dependencies() {
-//        return array( "PHPConf" =>  array_merge(parent::dependencies(), array("Templating") ) );
-//    }
-
-    public function autoPilotVariables() {
-      return array(
-        "PHPConf" => array(
-          "PHPConf" => array(
-            "programDataFolder" => "/etc/phpconf/", // command and app dir name
-            "programNameMachine" => "phpconf", // command and app dir name
-            "programNameFriendly" => "PHP Conf.", // 12 chars
-            "programNameInstaller" => "PHP Conf",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can install Apache HTTP Server

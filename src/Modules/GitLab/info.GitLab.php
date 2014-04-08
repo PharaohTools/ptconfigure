@@ -20,19 +20,6 @@ class GitLabInfo extends CleopatraBase {
       return array("gitlab"=>"GitLab", "git-lab"=>"GitLab");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "GitLab" => array(
-          "GitLab" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "gitlab", // command and app dir name
-            "programNameFriendly" => "!Git Lab!!", // 12 chars
-            "programNameInstaller" => "Git Lab",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install a full Git Lab installation on to a server

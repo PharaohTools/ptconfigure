@@ -20,24 +20,6 @@ class SshEncryptInfo extends CleopatraBase {
     return array("mysql-admins"=>"SshEncrypt", "sshencrypt"=>"SshEncrypt");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "SshEncrypt" => array(
-        "SshEncrypt" => array(
-          "programDataFolder" => "/opt/SshEncrypt", // command and app dir name
-          "programNameMachine" => "sshencrypt", // command and app dir name
-          "programNameFriendly" => "Mysql Admins!", // 12 chars
-          "programNameInstaller" => "Mysql Admins",
-          "mysqlNewAdminUser" => "string",
-          "mysqlNewAdminPass" => "string",
-          "mysqlRootUser" => "string",
-          "mysqlRootPass" => "string",
-          "dbHost" => "string"
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This command allows you to install admin users for MySQL so that MySQL can

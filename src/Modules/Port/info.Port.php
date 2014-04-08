@@ -21,52 +21,15 @@ class PortInfo extends CleopatraBase {
       return array("port"=>"Port");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Port" => array(
-          "Port" => array(
-            "programDataFolder" => "", // command and app dir name
-            "programNameMachine" => "port", // command and app dir name
-            "programNameFriendly" => "    Port    ", // 12 chars
-            "programNameInstaller" => "Port",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify ports
+  This command allows you to test the status of ports
 
   Port, port
 
-        - create
-        Create a new system port, overwriting if it exists
-        example: cleopatra port create --portname="somename"
-
-        - remove
-        Remove a system port
-        example: cleopatra port remove --portname="somename"
-
-        - set-password
-        Set the password of a system port
-        example: cleopatra port set-password --portname="somename" --new-password="somepassword"
-
-        - exists
-        Check the existence of a port
-        example: cleopatra port exists --portname="somename"
-
-        - show-groups
-        Show groups to which a port belongs
-        example: cleopatra port show-groups --portname="somename"
-
-        - add-to-group
-        Add port to a group
-        example: cleopatra port add-to-group --portname="somename" --groupname="somegroupname"
-
-        - remove-from-group
-        Remove port from a group
-        example: cleopatra port remove-from-group --portname="somename" --groupname="somegroupname"
+        - is-responding
+        Test if a port is responding
+        example: cleopatra port is-responding --port-number="25"
 
 HELPDATA;
       return $help ;

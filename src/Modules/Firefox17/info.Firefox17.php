@@ -20,19 +20,6 @@ class Firefox17Info extends CleopatraBase {
       return array("ff17"=>"Firefox17", "firefox17"=>"Firefox17");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Firefox17" => array(
-          "Firefox17" => array(
-            "programDataFolder" => "/opt/firefox17", // command and app dir name
-            "programNameMachine" => "firefox17", // command and app dir name
-            "programNameFriendly" => "Firefox 17", // 12 chars
-            "programNameInstaller" => "Firefox 17",
-          )
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install Firefox17.

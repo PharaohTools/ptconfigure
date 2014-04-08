@@ -13,24 +13,11 @@ class BehatInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Behat" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "Behat" =>  parent::routesAvailable() );
     }
 
     public function routeAliases() {
       return array("behat"=>"Behat");
-    }
-
-    public function autoPilotVariables() {
-      return array(
-        "Behat" => array(
-          "Behat" => array(
-            "programNameMachine" => "behat", // command and app dir name
-            "programNameFriendly" => "Behat",
-            "programNameInstaller" => "Behat - Update to latest version",
-            "programExecutorTargetPath" => 'behat/src/Bootstrap.php',
-          )
-        )
-      );
     }
 
     public function helpDefinition() {

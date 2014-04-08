@@ -16,21 +16,9 @@ class PHPMDInfo extends CleopatraBase {
       return array( "PHPMD" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
+    // @todo remove duplicate below
     public function routeAliases() {
       return array("phpmd"=>"PHPMD", "phpmd"=>"PHPMD", "php-md"=>"PHPMD");
-    }
-
-    public function autoPilotVariables() {
-      return array(
-        "PHPMD" => array(
-          "PHPMD" => array(
-            "programDataFolder" => "/opt/PHPMD", // command and app dir name
-            "programNameMachine" => "phpmd", // command and app dir name
-            "programNameFriendly" => "PHP MD!", // 12 chars
-            "programNameInstaller" => "PHP Mess Detector",
-          ),
-        )
-      );
     }
 
     public function helpDefinition() {
