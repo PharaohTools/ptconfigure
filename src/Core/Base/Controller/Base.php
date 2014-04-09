@@ -66,38 +66,48 @@ class Base {
     return false;
   }
 
-    // @todo this method is too long
-  public function checkForRegisteredModels($params, $modelOverrides = null) {
-    $modelsToCheck = (isset($modelOverrides)) ? $modelOverrides : $this->registeredModels ;
-    $errors = array();
-    foreach ($modelsToCheck as $modelClassNameOrArray) {
-      if ( is_array($modelClassNameOrArray) && array_key_exists("command", $modelClassNameOrArray) ) {
-            $currentKey = $modelClassNameOrArray["command"] ;
-            $fullClassName = '\Model\\'.$currentKey;
-            if (class_exists($fullClassName)) {
-                $moduleModelFactory = new $fullClassName($params);
-                $compatibleObject = $moduleModelFactory::getModel($params) ;
-                if ( !is_object($compatibleObject) ) {
-                    $errors[] = $currentKey ; } } }
-      else if ( is_array($modelClassNameOrArray) ) {
-            $currentKeys = array_keys($modelClassNameOrArray) ;
-            $currentKey = $currentKeys[0] ;
-            $fullClassName = '\Model\\'.$currentKey;
-            $moduleModelFactory = new $fullClassName($params);
-            $compatibleObject = $moduleModelFactory::getModel($params) ;
-            if ( !is_object($compatibleObject) ) {
-                $errors[] = "Module $currentKey Does not have compatible models for this system: \n"; } }
-      else {
-        $fullClassName = '\Model\\'.$modelClassNameOrArray;
-        $moduleModelFactory = new $fullClassName($params);
-        $compatibleObject = $moduleModelFactory::getModel($params) ;
-        if ( !is_object($compatibleObject) ) {
-            $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system: \n"; } } }
-    if ( count($errors) > 0 ) {
-      return $errors; }
-    // echo "All required Modules found, all with compatible Models"."\n";
-    return true ;
-  }
+    // @todo this method is too long IMPORTANT
+    public function checkForRegisteredModels($params, $modelOverrides = null) {
+        $modelsToCheck = (isset($modelOverrides)) ? $modelOverrides : $this->registeredModels ;
+        $errors = array();
+        foreach ($modelsToCheck as $modelClassNameOrArray) {
+            if ( is_array($modelClassNameOrArray) && array_key_exists("command", $modelClassNameOrArray) ) {
+                //@todo when does this happen?
+                $currentKey = $modelClassNameOrArray["command"] ;
+                $fullClassName = '\Model\\'.$currentKey;
+                if (class_exists($fullClassName)) {
+                    $moduleModelFactory = new $fullClassName($params);
+                    $compatibleObject = $moduleModelFactory::getModel($params) ;
+                    if ( !is_object($compatibleObject) ) {
+                        $errors[] = $currentKey ; } } }
+            else if ( is_array($modelClassNameOrArray) ) {
+                $currentKeys = array_keys($modelClassNameOrArray) ;
+                $currentKey = $currentKeys[0] ;
+                if (\Core\AutoLoader::moduleExists($currentKey) == false) {
+                    $errors[] = "Module $currentKey does not exist. Cannot continue without dependency."; }
+                else {
+                    $fullClassName = '\Model\\'.$currentKey;
+                    $moduleModelFactory = new $fullClassName($params);
+                    $compatibleObject = $moduleModelFactory::getModel($params) ;
+                    if ( !is_object($compatibleObject) ) {
+                        $errors[] = "Module $currentKey Does not have compatible models for this system\n"; } } }
+            else {
+                $fullClassName = '\Model\\'.$modelClassNameOrArray;
+                if (\Core\AutoLoader::moduleExists($modelClassNameOrArray) == false) {
+                    $errors[] = "Module $modelClassNameOrArray does not exist. Cannot continue without dependency."; }
+                else {
+                    $moduleModelFactory = new $fullClassName($params);
+                    $compatibleObject = $moduleModelFactory::getModel($params) ;
+                    if ( !is_object($compatibleObject) ) {
+                        $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system\n"; } } } }
+        if ( count($errors) > 0 ) {
+            $consoleFactory = new \Model\Console();
+            $console = $consoleFactory->getModel($params) ;
+            foreach ($errors as $error) { $console->log($error); }
+            return $errors; }
+        // echo "All required Modules found, all with compatible Models"."\n";
+        return true ;
+    }
 
   protected function executeMyRegisteredModels($params = null) {
     foreach ($this->registeredModels as $modelClassNameOrArray) {
