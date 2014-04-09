@@ -44,12 +44,14 @@ class Autopilot extends Base {
         $defaultFolderToCheck = str_replace("src/Controller",
           "build/config/cleopatra", dirname(__FILE__));
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
-        if (file_exists($defaultName)) {
+        if (file_exists($autoPilotFileName)) {
+            require_once($autoPilotFileName); }
+        else if (file_exists($defaultName)) {
           include_once($defaultName); }
         else if (file_exists("autopilot-".$defaultName)) {
           include_once("autopilot-".$defaultName); }
         else if (file_exists($autoPilotFilePath)) {
-          require_once($autoPilotFilePath); }
+            require_once($autoPilotFilePath); }
         $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
           new \Core\AutoPilotConfigured() : null ;
         return $autoPilot;
