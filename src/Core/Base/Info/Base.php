@@ -13,6 +13,7 @@ class Base {
 
     // CleopatraBase specifies these
     public function routesAvailable() {
+        return array();
     }
 
     public function routeAliases() {
