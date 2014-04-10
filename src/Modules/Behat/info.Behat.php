@@ -22,7 +22,7 @@ class BehatInfo extends CleopatraBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update Behat.
+  This command allows you to install Behat.
 
   Behat, behat
 
