@@ -297,12 +297,14 @@ COMPLETION;
         return $moduleName ;
     }
 
+    //@todo maybe this should be a helper
     public function packageAdd($packager, $package) {
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
         $packageManager->performPackageEnsure($packager, $package, $this);
     }
 
+    //@todo maybe this should be a helper
     public function packageRemove($packager, $package) {
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
