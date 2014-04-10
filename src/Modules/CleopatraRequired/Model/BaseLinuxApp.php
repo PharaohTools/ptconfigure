@@ -98,37 +98,22 @@ class BaseLinuxApp extends Base {
     return self::askYesOrNo($question);
   }
 
-  protected function askForInstallUserName($autoPilot=null){
-    if (isset($autoPilot) &&
-      $autoPilot->{$this->autopilotDefiner."InstallUserName"} ) {
-      $this->installUserName
-        = $autoPilot->{$this->autopilotDefiner."InstallUserName"}; }
-    else {
+  protected function askForInstallUserName() {
       $question = "Enter User To Install As:";
       $input = (isset($this->params["install-user-name"])) ? $this->params["install-user-name"] : self::askForInput($question);
-      $this->installUserName = $input; }
+      $this->installUserName = $input;
   }
 
-  protected function askForInstallUserHomeDir($autoPilot=null){
-    if (isset($autoPilot) &&
-      $autoPilot->{$this->autopilotDefiner."InstallUserHomeDir"} ) {
-      $this->installUserHomeDir
-        = $autoPilot->{$this->autopilotDefiner."InstallUserHomeDir"}; }
-    else {
+  protected function askForInstallUserHomeDir() {
       $question = "Enter Install User Home Dir:";
       $input = (isset($this->params["install-user-home"])) ? $this->params["install-user-home"] : self::askForInput($question);
-      $this->installUserHomeDir = $input; }
+      $this->installUserHomeDir = $input ;
   }
 
-  protected function askForInstallDirectory($autoPilot=null){
-    if (isset($autoPilot) &&
-      $autoPilot->{$this->autopilotDefiner."InstallDirectory"} ) {
-      $this->programDataFolder
-        = $autoPilot->{$this->autopilotDefiner."InstallDirectory"}; }
-    else {
+  protected function askForInstallDirectory(){
       $question = "Enter Install Directory:";
       $input = (isset($this->params["install-directory"])) ? $this->params["install-directory"] : self::askForInput($question);
-      $this->programDataFolder = $input; }
+      $this->programDataFolder = $input;
   }
 
     protected function doInstallCommand(){
