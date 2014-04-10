@@ -13,7 +13,7 @@ class ApacheModulesInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "ApacheModules" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "ApacheModules" =>  array_merge(parent::routesAvailable(), array("version") ) );
     }
 
     public function routeAliases() {
