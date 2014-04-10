@@ -30,8 +30,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
                 "mv /tmp/selenium/* ****PROGDIR****",
                 "rm -rf /tmp/selenium/",
                 "cd ****PROGDIR****",
-                "mv selenium-server-standalone-2.39.0.jar selenium-server.jar",
-                "java -jar selenium-server.jar >/dev/null 2>&1 </dev/null &") ) ,
+                "mv selenium-server-standalone-2.39.0.jar selenium-server.jar" ) ) ,
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
