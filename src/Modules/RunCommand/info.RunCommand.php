@@ -2,37 +2,33 @@
 
 Namespace Info;
 
-class JenkinsSudoNoPassInfo extends CleopatraBase {
+class RunCommandInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Configure Passwordless Sudo for your Jenkins user";
+    public $name = "Execute a Command";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "JenkinsSudoNoPass" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "RunCommand" =>  array("execute", "help") );
     }
 
     public function routeAliases() {
-      return array("jenkinssudonopass"=>"JenkinsSudoNoPass", "jenkins-sudo-nopass"=>"JenkinsSudoNoPass",
-        "jenkins-sudo-passwordless"=>"JenkinsSudoNoPass");
+      return array("runcommand"=>"RunCommand", "run-command"=>"RunCommand");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to add an entry to the system sudo file that will
-  allow your Jenkins user to have passwordless sudo. This is required for
-  quite a few of the Jenkins builds provided by Golden Contact, as Jenkins
-  will perform test execution, software installs and more, silently.
+  This allows you to execute an Operating System command. This would primarily be used in an Autopilot.
 
-  JenkinsSudoNoPass, jenkinssudonopass, jenkins-sudo-nopass, jenkins-sudo-passwordless
+  RunCommand, runcommand, run-command
 
-        - install
-        Installs the Jenkins sudo without password entry
-        example: cleopatra jenkins-sudo-nopass install
+        - execute
+        Execute a Command
+        example: cleopatra run-command --yes --command="ls -lah /tmp" --run-as-user="ubuntu" --background
 
 HELPDATA;
       return $help ;
