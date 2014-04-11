@@ -17,7 +17,7 @@ class SshEncryptInfo extends CleopatraBase {
   }
 
   public function routeAliases() {
-    return array("mysql-admins"=>"SshEncrypt", "sshencrypt"=>"SshEncrypt");
+    return array("ssh-encrypt"=>"SshEncrypt", "sshencrypt"=>"SshEncrypt");
   }
 
   public function helpDefinition() {
@@ -25,7 +25,7 @@ class SshEncryptInfo extends CleopatraBase {
   This command allows you to install admin users for MySQL so that MySQL can
   be managed without using the Root User.
 
-  SshEncrypt, mysql-admins, sshencrypt
+  SshEncrypt, ssh-encrypt, sshencrypt
 
         - install
         Installs Mysql Admin Users.
