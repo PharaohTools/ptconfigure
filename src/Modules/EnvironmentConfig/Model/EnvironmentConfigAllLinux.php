@@ -2,6 +2,7 @@
 
 Namespace Model;
 
+// @todo This class should become two, one for Configuring the Environments section and one for config papyrus general
 class EnvironmentConfigAllLinux extends Base {
 
     // Compatibility
