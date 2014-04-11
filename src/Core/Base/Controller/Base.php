@@ -26,7 +26,7 @@ class Base {
 
   public function checkDefaultActions($pageVars, $ignored_actions=array(), $thisModel=null) {
     $this->content["route"] = $pageVars["route"];
-    $this->content["messages"] = ($pageVars["messages"]) ? $pageVars["messages"] : null ;
+    $this->content["messages"] = (isset($pageVars["messages"])) ? $pageVars["messages"] : null ;
     $action = $pageVars["route"]["action"];
 
     if ($action=="help" && !in_array($action, $ignored_actions)) {
