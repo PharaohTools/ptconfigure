@@ -42,9 +42,9 @@ class RunCommandUbuntu extends BaseLinuxApp {
 
     protected function getCommandToRun() {
         $commandRay = array() ;
-        if (isset($this->runUser))  {
+        if (isset($this->runUser) && !is_null($this->runUser))  {
             $commandRay[] = "su ".$this->runUser ; }
-        if (isset($this->background))  {
+        if (isset($this->background) && !is_null($this->background))  {
             $commandRay[] = $this->command.' &' ; }
         else  {
             $commandRay[] = $this->command ; }
@@ -53,7 +53,12 @@ class RunCommandUbuntu extends BaseLinuxApp {
 
     public function askForUserName() {
         $question = "Enter User to run as:";
-        $this->runUser = (isset($this->params["run-as-user"])) ? $this->params["run-as-user"] : self::askForInput($question);
+        if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])>0) {
+            $this->runUser = $this->params["run-as-user"] ; }
+        else if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])==0) {
+            $this->runUser = null ; }
+        else {
+            $this->runUser = self::askForInput($question); }
     }
 
     public function askForCommand() {
@@ -63,7 +68,12 @@ class RunCommandUbuntu extends BaseLinuxApp {
 
     public function askForBackground() {
         $question = "Run in Background?";
-        $this->background = (isset($this->params["background"])) ? true : self::askYesOrNo($question);
+        if (isset($this->params["background"]) && strlen($this->params["background"])>0) {
+            $this->background = $this->params["background"] ; }
+        else if (isset($this->params["background"]) && strlen($this->params["background"])==0) {
+            $this->background = null ; }
+        else {
+            $this->background = self::askForInput($question); }
     }
 
 }
