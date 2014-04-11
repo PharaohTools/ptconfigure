@@ -89,4 +89,15 @@ class AutoLoader{
         return $modelsToReturn ;
     }
 
+    public static function moduleExists($module) {
+        $allModuleParentDirectories = array("Extensions", "Modules", "Core");
+        foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
+            $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
+            $modulesIndividualDirectories = scandir($currentModulesParentDir);
+            foreach ($modulesIndividualDirectories as $singleModuleDir) {
+                if ($singleModuleDir == $module) {
+                    return true; } } }
+        return false ;
+    }
+
 }
