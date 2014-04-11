@@ -13,7 +13,7 @@ class DapperstranoInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Dapperstrano" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "Dapperstrano" =>  parent::routesAvailable() );
     }
 
     public function routeAliases() {
@@ -29,6 +29,10 @@ class DapperstranoInfo extends CleopatraBase {
         - install
         Installs the latest version of dapperstrano
         example: cleopatra dapperstrano install
+
+        - ensure
+        Installs the latest version of dapperstrano, only if a version is not installed
+        example: cleopatra dapperstrano ensure
 
 HELPDATA;
       return $help ;
