@@ -53,6 +53,17 @@ class BasePHPApp extends Base {
     return true;
   }
 
+  public function ensureInstalled(){
+      $consoleFactory = new \Model\Console();
+      $console = $consoleFactory->getModel($this->params);
+      if ($this->askStatus() == true) {
+          $console->log("Not installing as already installed") ; }
+      else {
+          $console->log("Installing as not installed") ;
+          $this->install(); }
+      return true;
+  }
+
   public function install($autoPilot = null) {
     if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
     $this->showTitle();
