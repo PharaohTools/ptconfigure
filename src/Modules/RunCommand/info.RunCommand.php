@@ -13,7 +13,7 @@ class RunCommandInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "RunCommand" =>  array("execute", "help") );
+      return array( "RunCommand" =>  array("install", "help") );
     }
 
     public function routeAliases() {
