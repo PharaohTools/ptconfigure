@@ -39,23 +39,11 @@ class BoxManagerUbuntu extends BaseLinuxApp {
         return $this->installBoxes();
     }
 
-//    public function performBoxEnsure($providerName, $environmentName) {
-//        $this->setEnvironment($environmentName);
-//        $this->setProvider($providerName);
-//        return $this->ensureInstalled();
-//    }
-
     public function performBoxRemove($providerName, $environmentName) {
         $this->setEnvironment($environmentName);
         $this->setProvider($providerName);
         return $this->removeBoxes();
     }
-
-//    public function performBoxExistenceCheck($providerName, $environmentName) {
-//        $this->setEnvironment($environmentName);
-//        $this->setProvider($providerName);
-//        return $this->isInstalled();
-//    }
 
     public function setEnvironment($environmentName = null) {
         if (isset($environmentName)) {
@@ -87,7 +75,7 @@ class BoxManagerUbuntu extends BaseLinuxApp {
         else if (isset($this->params["box-amount"])) {
             $this->boxAmount = $this->params["box-amount"]; }
         else {
-            $this->boxAmount = self::askForInput("Enter Box Amount:", true); }
+            $this->boxAmount = self::askForInput("Enter number of Boxes:", true); }
     }
 
     protected function addBox() {
