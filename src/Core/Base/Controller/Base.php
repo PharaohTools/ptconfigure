@@ -42,6 +42,12 @@ class Base {
             $newAction = ucfirst($action) ;
             $this->content["appInstallResult"] = $thisModel->{"ask".$newAction}();
             return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
+        if ($action=="ensure" && !in_array($action, $ignored_actions)) {
+            $this->content["params"] = $thisModel->params;
+            $this->content["appName"] = $thisModel->autopilotDefiner;
+            $newAction = ucfirst($action) ;
+            $this->content["appInstallResult"] = $thisModel->ensureInstalled();
+            return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
         if ($action=="status" && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
