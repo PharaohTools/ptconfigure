@@ -12,7 +12,7 @@ class CleopatraBase extends Base {
     }
 
     public function routesAvailable() {
-      return array("help", "status", "install", "uninstall");
+      return array("help", "status", "install", "ensure", "uninstall");
     }
 
 }
