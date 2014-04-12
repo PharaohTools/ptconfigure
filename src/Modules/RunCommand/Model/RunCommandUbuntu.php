@@ -26,7 +26,7 @@ class RunCommandUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForUserName", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "askForCommand", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "askForBackground", "params" => array() ) ) ,
-            array("method"=> array("object" => $this, "method" => "setRunCommand", "params" => array() ) ) ,
+            array("method"=> array("object" => $this, "method" => "runCommand", "params" => array()) ),
         );
         $this->uninstallCommands = array();
         $this->programDataFolder = "";
@@ -36,19 +36,16 @@ class RunCommandUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function setRunCommand() {
-        $this->installCommands[] = array("command" => $this->getCommandToRun() ) ;
-    }
-
-    protected function getCommandToRun() {
+    protected function runCommand() {
         $commandRay = array() ;
+        $commandRay[] = "cd ".getcwd() ;
         if (isset($this->runUser) && !is_null($this->runUser))  {
             $commandRay[] = "su ".$this->runUser ; }
         if (isset($this->background) && !is_null($this->background))  {
             $commandRay[] = $this->command.' &' ; }
         else  {
             $commandRay[] = $this->command ; }
-        return $commandRay ;
+        $this->executeAsShell($commandRay) ;
     }
 
     public function askForUserName() {
