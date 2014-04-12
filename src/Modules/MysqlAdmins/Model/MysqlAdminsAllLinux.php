@@ -29,7 +29,7 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminUserName", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminPass", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForMysqlHost", "params" => array()) ),
-            array("command"=> $this->getInstallCommands() ),
+            array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "askForMysqlRootUserName", "params" => array()) ),
@@ -46,6 +46,23 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
         $this->initialize();
     }
 
+    protected function doInstallCommands() {
+        $command  = 'mysql -h'.$this->dbHost.' -u'.$this->mysqlRootUser.' ';
+        if (strlen($this->mysqlRootPass) > 0) {$command .= '-p'.$this->mysqlRootPass.' '; }
+        $command .= ' < /tmp/mysql-adminshcript.sql' ;
+        $sqlCommand = 'GRANT ALL PRIVILEGES ON *.* TO \''.$this->mysqlNewAdminUser.'\'@\''.$this->dbHost.'\' ';
+        $sqlCommand .= 'IDENTIFIED BY \''.$this->mysqlNewAdminPass.'\' WITH GRANT OPTION;';
+
+
+        $comms = array(
+            'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
+            $command,
+            'rm /tmp/mysql-adminshcript.sql'
+        );
+
+        $this->executeAsShell($comms) ;
+    }
+
     protected function getInstallCommands() {
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->mysqlRootUser.' ';
         if (strlen($this->mysqlRootPass) > 0) {$command .= '-p'.$this->mysqlRootPass.' '; }
@@ -59,46 +76,41 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
         );
     }
 
-    public function askForMysqlNewAdminUserName($autoPilot=null){
-        if (isset($autoPilot) &&
-            $autoPilot->{$this->autopilotDefiner."MysqlNewAdminUser"} ) {
-            $this->mysqlNewAdminUser = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminUser"}; }
+    public function askForMysqlNewAdminUserName() {
+        if (isset($this->params["new-user"])) {
+            $this->mysqlNewAdminUser = $this->params["new-user"]; }
         else {
             $question = "Enter MySQL New Admin User:";
             $this->mysqlNewAdminUser = self::askForInput($question, true); }
     }
 
-    public function askForMysqlNewAdminPass($autoPilot=null){
-        if (isset($autoPilot) &&
-            $autoPilot->{$this->autopilotDefiner."MysqlNewAdminPass"} ) {
-            $this->mysqlNewAdminPass = $autoPilot->{$this->autopilotDefiner."MysqlNewAdminPass"}; }
+    public function askForMysqlNewAdminPass() {
+        if (isset($this->params["new-pass"])) {
+            $this->mysqlNewAdminPass = $this->params["new-pass"]; }
         else {
             $question = "Enter MySQL New Admin Pass:";
             $this->mysqlNewAdminPass = self::askForInput($question, true); }
     }
 
-    public function askForMysqlRootUserName($autoPilot=null){
-        if (isset($autoPilot) &&
-            $autoPilot->{$this->autopilotDefiner."MysqlRootUser"} ) {
-            $this->mysqlRootUser = $autoPilot->{$this->autopilotDefiner."MysqlRootUser"}; }
+    public function askForMysqlRootUserName(){
+        if (isset($this->params["root-user"])) {
+            $this->mysqlRootUser = $this->params["root-user"]; }
         else {
             $question = "Enter MySQL Root User:";
             $this->mysqlRootUser = self::askForInput($question, true); }
     }
 
-    public function askForMysqlRootPass($autoPilot=null){
-        if (isset($autoPilot) &&
-            $autoPilot->{$this->autopilotDefiner."MysqlRootPass"} ) {
-            $this->mysqlRootPass = $autoPilot->{$this->autopilotDefiner."MysqlRootPass"}; }
+    public function askForMysqlRootPass(){
+        if (isset($this->params["root-pass"])) {
+            $this->mysqlRootPass = $this->params["root-pass"]; }
         else {
             $question = "Enter MySQL Root Pass:";
             $this->mysqlRootPass = self::askForInput($question, true); }
     }
 
-    public function askForMysqlHost($autoPilot=null){
-        if (isset($autoPilot) &&
-            $autoPilot->{$this->autopilotDefiner."MysqlHost"} ) {
-            $this->dbHost = $autoPilot->{$this->autopilotDefiner."MysqlHost"}; }
+    public function askForMysqlHost(){
+        if (isset($this->params["mysql-host"])) {
+            $this->dbHost = $this->params["mysql-host"]; }
         else {
             $question = 'Enter MySQL Host: Enter nothing for 127.0.0.1';
             $input = self::askForInput($question) ;
