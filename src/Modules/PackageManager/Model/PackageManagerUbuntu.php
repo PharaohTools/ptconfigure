@@ -33,28 +33,28 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function performPackageInstall($packagerName, $packageName, $module) {
+    public function performPackageInstall($packagerName=null, $packageName=null, $module=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
         return $this->installPackages();
     }
 
-    public function performPackageEnsure($packagerName, $packageName, $module) {
+    public function performPackageEnsure($packagerName=null, $packageName=null, $module=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
         return $this->ensureInstalled();
     }
 
-    public function performPackageRemove($packagerName, $packageName, $module) {
+    public function performPackageRemove($packagerName=null, $packageName=null, $module=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
         return $this->removePackages();
     }
 
-    public function performPackageExistenceCheck($packagerName, $packageName, $module) {
+    public function performPackageExistenceCheck($packagerName=null, $packageName=null, $module=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
