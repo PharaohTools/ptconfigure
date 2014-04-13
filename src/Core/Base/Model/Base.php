@@ -25,6 +25,7 @@ class Base {
     protected $tempDir;
     protected $statusCommand;
     protected $statusCommandExpects;
+    protected $versionCommand;
 
     public function __construct($params) {
       $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
@@ -309,6 +310,23 @@ COMPLETION;
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
         $packageManager->performPackageRemove($packager, $package, $this);
+    }
+
+    /*Versioning starts here*/
+    public function getInstalledVersion() {
+        return false;
+    }
+
+    public function getAvailableVersions() {
+        return false;
+    }
+
+    public function getRecommendedVersion() {
+        return false;
+    }
+
+    public function getLatestVersion() {
+        return false;
     }
 
 }
