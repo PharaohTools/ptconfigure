@@ -19,9 +19,10 @@ class CleopatraLinuxMac extends BasePHPApp {
         $this->autopilotDefiner = "Cleopatra";
         $this->fileSources = array(
           array(
-            "https://github.com/phpengine/cleopatra.git",
-            "cleopatra",
-            null // can be null for none
+              "https://phpengine@bitbucket.org/phpengine/dapperstrano.git",
+              //"https://github.com/phpengine/cleopatra.git",
+              "cleopatra",
+              null // can be null for none
           )
         );
         $this->programNameMachine = "cleopatra"; // command and app dir name
