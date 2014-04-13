@@ -49,7 +49,7 @@ class BaseComposerApp extends BasePHPApp {
   protected function copyComposerJsonToProgramDataFolder() {
       $templatorFactory = new \Model\Templating();
       $templator = $templatorFactory->getModel($this->params);
-      $original = "/opt/cleopatra/cleopatra/src/Modules/".$this->getMyModuleName()."/Templates/composer.json" ;
+      $original = "/opt/cleopatra/cleopatra/src/Modules/".$this->getModuleName()."/Templates/composer.json" ;
       $targetLocation = $this->programDataFolder.DIRECTORY_SEPARATOR.$this->programNameMachine.DIRECTORY_SEPARATOR."composer.json" ;
       $templator->template(
           $original,
