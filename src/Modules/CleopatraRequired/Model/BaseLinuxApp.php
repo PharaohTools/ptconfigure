@@ -164,4 +164,31 @@ exec('".$this->programExecutorCommand."');\n
 ?>";
   }
 
+    /*Versioning starts here*/
+
+    public function getInstalledVersion() {
+        if (isset($this->versionCommand)) {
+            return $this->executeAndLoad($this->versionCommand); }
+        else {
+            return false; }
+    }
+
+    public function getAvailableVersions() {
+        if (isset($this->availableVersions)) {
+            return $this->availableVersions ; }
+        else {
+            return false; }
+    }
+
+    public function getRecommendedVersion() {
+        return false;
+    }
+
+    public function getLatestVersion() {
+        return false;
+    }
+    /*
+    */
+
+
 }
