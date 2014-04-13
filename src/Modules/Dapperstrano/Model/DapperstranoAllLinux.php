@@ -19,9 +19,9 @@ class DapperstranoAllLinux extends BasePHPApp {
         $this->autopilotDefiner = "Dapperstrano";
         $this->fileSources = array(
           array(
-            "https://github.com/phpengine/dapperstrano.git",
-            "dapperstrano",
-            null // can be null for none
+              "https://phpengine@bitbucket.org/phpengine/dapperstrano.git",
+              "dapperstrano",
+              null // can be null for none
           )
         );
         $this->programNameMachine = "dapperstrano"; // command and app dir name

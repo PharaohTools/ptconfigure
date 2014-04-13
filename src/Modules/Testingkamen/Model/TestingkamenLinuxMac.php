@@ -19,9 +19,9 @@ class TestingkamenLinuxMac extends BasePHPApp {
         $this->autopilotDefiner = "Testingkamen";
         $this->fileSources = array(
           array(
-            "https://github.com/phpengine/testingkamen.git",
-            "testingkamen",
-            null // can be null for none
+              "https://phpengine@bitbucket.org/phpengine/testingkamen.git",
+              "testingkamen",
+              null // can be null for none
           )
         );
         $this->programNameMachine = "testingkamen"; // command and app dir name
