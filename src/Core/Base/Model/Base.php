@@ -25,7 +25,9 @@ class Base {
     protected $tempDir;
     protected $statusCommand;
     protected $statusCommandExpects;
-    protected $versionCommand;
+    protected $versionInstalledCommand;
+    protected $versionRecommendedCommand;
+    protected $versionLatestCommand;
 
     public function __construct($params) {
       $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
@@ -313,20 +315,70 @@ COMPLETION;
     }
 
     /*Versioning starts here*/
-    public function getInstalledVersion() {
-        return false;
+
+    public function findVersion() {
+        if (isset($this->params["version-type"])) {
+            if (in_array($this->params["version-type"], array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))){
+                return $this->getVersion($this->params["version-type"]); }
+            else {
+                return "Wrong Version Type"; } }
+        else {
+           return $this->getVersion(); }
     }
 
-    public function getAvailableVersions() {
-        return false;
+    public function getVersion($type = "Installed") {
+        if (in_array($type, array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))) {
+            $type = ucfirst($type) ;
+            $property = "version{$type}Command" ;
+            $trimmer = "{$property}Trimmer" ;
+            if (isset($this->$property) && method_exists($this, $trimmer)) {
+                $out = $this->executeAndLoad($this->$property);
+                return $this->$trimmer($out) ; }
+            else if (isset($this->$property)) {
+                return $this->executeAndLoad($this->$property); }
+            else {
+                return false; } }
+        else {
+            return false; }
     }
 
-    public function getRecommendedVersion() {
-        return false;
+    public function getVersionsAvailable() {
+        if (isset($this->versionsAvailable)) {
+            return $this->versionsAvailable ; }
+        else if (method_exists($this, "versionsAvailable")) {
+            return $this->versionsAvailable() ; }
+        else {
+            return false; }
     }
 
-    public function getLatestVersion() {
-        return false;
-    }
+//    public function getVersionInstalled() {
+//        if (isset($this->versionInstalledCommand)) {
+//            return $this->executeAndLoad($this->versionInstalledCommand); }
+//        else if (isset($this->versionInstalledCommand) && method_exists($this, "versionInstalledCommandTrimmer")) {
+//            $out = $this->executeAndLoad($this->versionInstalledCommand);
+//            return $this->versionInstalledCommandTrimmer($out) ; }
+//        else {
+//            return false; }
+//    }
+//
+//    public function getVersionRecommended() {
+//        if (isset($this->versionRecommendedCommand)) {
+//            return $this->executeAndLoad($this->versionRecommendedCommand); }
+//        else if (isset($this->versionRecommendedCommand) && method_exists($this, "versionRecommendedCommandTrimmer")) {
+//            $out = $this->executeAndLoad($this->versionRecommendedCommand);
+//            return $this->versionRecommendedCommandTrimmer($out) ; }
+//        else {
+//            return false; }
+//    }
+//
+//    public function getVersionLatest() {
+//        if (isset($this->versionLatestCommand)) {
+//            return $this->executeAndLoad($this->versionLatestCommand); }
+//        else if (isset($this->versionLatestCommand) && method_exists($this, "versionLatestCommandTrimmer")) {
+//            $out = $this->executeAndLoad($this->versionLatestCommand);
+//            return $this->versionLatestCommandTrimmer($out) ; }
+//        else {
+//            return false; }
+//    }
 
 }
