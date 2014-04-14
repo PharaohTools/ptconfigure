@@ -45,7 +45,6 @@ class Base {
         if ($action=="ensure" && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
-            $newAction = ucfirst($action) ;
             $this->content["appInstallResult"] = $thisModel->ensureInstalled();
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
         if ($action=="status" && !in_array($action, $ignored_actions)) {
@@ -63,7 +62,12 @@ class Base {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $this->content["appInstallResult"] = $thisModel->askExec();
-            return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); } }
+            return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
+        if (in_array($action, array("version")) && !in_array($action, $ignored_actions)) {
+            $this->content["params"] = $thisModel->params;
+            $this->content["appName"] = $thisModel->autopilotDefiner;
+            $this->content["appInstallResult"] = $thisModel->findVersion();
+            return array ("type"=>"view", "view"=>"appVersion", "pageVars"=>$this->content); } }
 
      else if (!isset($thisModel)) {
          $this->content["messages"][] = "Required Model Missing. Cannot Continue.";
