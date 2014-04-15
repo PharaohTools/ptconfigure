@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ApacheServerCentos32 extends BaseLinuxApp {
+class FirefoxCentos32 extends BaseLinuxApp {
 
   // Compatibility
   public $os = array("Linux") ;
@@ -16,13 +16,13 @@ class ApacheServerCentos32 extends BaseLinuxApp {
 
   public function __construct($params) {
     parent::__construct($params);
-    $this->autopilotDefiner = "ApacheServer";
+    $this->autopilotDefiner = "Firefox";
     $this->installCommands = array("yum install -y httpd");
     $this->uninstallCommands = array("yum remove -y httpd");
-    $this->programDataFolder = "/opt/ApacheServer"; // command and app dir name
-    $this->programNameMachine = "apacheserver"; // command and app dir name
-    $this->programNameFriendly = "Apache Server!"; // 12 chars
-    $this->programNameInstaller = "Apache Server";
+    $this->programDataFolder = "/opt/Firefox"; // command and app dir name
+    $this->programNameMachine = "firefox"; // command and app dir name
+    $this->programNameFriendly = "Firefox!"; // 12 chars
+    $this->programNameInstaller = "Firefox";
     $this->initialize();
   }
 

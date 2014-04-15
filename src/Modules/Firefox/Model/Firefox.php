@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class ApacheServer extends BaseModelFactory {
+class Firefox extends BaseModelFactory {
 
 }

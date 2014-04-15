@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class ApacheServer extends Base {
+class Firefox extends Base {
 
 }
