@@ -2,33 +2,34 @@
 
 Namespace Info;
 
-class ApacheServerInfo extends CleopatraBase {
+class FirefoxInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Apache Server - Install or remove the Apache Server";
+    public $name = "Firefox - Install or remove Firefox";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "ApacheServer" =>  array_merge(parent::routesAvailable(), array() ) );
+      return array( "Firefox" =>  array_merge(parent::routesAvailable(), array() ) );
     }
 
     public function routeAliases() {
-        return array("apache-server"=>"ApacheServer", "apacheserver"=>"ApacheServer");
+        return array("firefox"=>"Firefox");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and provides you  with a method by which you can install Apache HTTP Server
+  This command is part of Core and provides you  with a method by which you can install Firefox from your package
+  manager
 
-  ApacheServer, apache-server, apacheserver
+  Firefox, firefox
 
         - install
-        Installs Apache HTTP Server
-        example: cleopatra apacheserver install
+        Installs Firefox
+        example: cleopatra firefox install
 
 HELPDATA;
       return $help ;
