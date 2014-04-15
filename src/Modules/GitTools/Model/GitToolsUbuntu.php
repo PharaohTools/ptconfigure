@@ -18,10 +18,16 @@ class GitToolsUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "GitTools";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "git", "git-core", "gitk", "git-cola")) )
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "git")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "git-core")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "gitk")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "git-cola")) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "git", "git-core", "gitk", "git-cola")) )
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "git")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "git-core")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "gitk")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "git-cola")) ),
         );
         $this->programDataFolder = "";
         $this->programNameMachine = "gittools"; // command and app dir name
