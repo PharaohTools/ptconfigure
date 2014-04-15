@@ -17,6 +17,8 @@ class PackageManagerUbuntu extends BaseLinuxApp {
     protected $packagerName ;
     protected $moduleName ;
     protected $requestingModule ;
+    protected $version ;
+    protected $versionAccuracy ;
     protected $actionsToMethods =
         array(
             "pkg-install" => "performPackageInstall",
@@ -33,31 +35,39 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function performPackageInstall($packagerName=null, $packageName=null, $module=null) {
+    public function performPackageInstall($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
+        $this->setVersion($version) ;
+        $this->setVersionAccuracy($versionAccuracy) ;
         return $this->installPackages();
     }
 
-    public function performPackageEnsure($packagerName=null, $packageName=null, $module=null) {
+    public function performPackageEnsure($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
+        $this->setVersion($version) ;
+        $this->setVersionAccuracy($versionAccuracy) ;
         return $this->ensureInstalled();
     }
 
-    public function performPackageRemove($packagerName=null, $packageName=null, $module=null) {
+    public function performPackageRemove($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
+        $this->setVersion($version) ;
+        $this->setVersionAccuracy($versionAccuracy) ;
         return $this->removePackages();
     }
 
-    public function performPackageExistenceCheck($packagerName=null, $packageName=null, $module=null) {
+    public function performPackageExistenceCheck($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
         $this->setModule($module);
+        $this->setVersion($version) ;
+        $this->setVersionAccuracy($versionAccuracy) ;
         return $this->isInstalled();
     }
 
@@ -81,6 +91,20 @@ class PackageManagerUbuntu extends BaseLinuxApp {
             $this->packagerName = $this->params["packager-name"]; }
         else {
             $this->packagerName = self::askForInput("Enter Packager Name:", true); }
+    }
+
+    public function setVersion($version = null) {
+        if (isset($version)) {
+            $this->version = $version; }
+        else if (isset($this->params["version"])) {
+            $this->version = $this->params["version"]; }
+    }
+
+    public function setVersionAccuracy($versionAccuracy = null) {
+        if (isset($versionAccuracy)) {
+            $this->versionAccuracy = $versionAccuracy; }
+        else if (isset($this->params["version-accuracy"])) {
+            $this->versionAccuracy = $this->params["version-accuracy"]; }
     }
 
     public function setModule($moduleName = null) {
@@ -135,8 +159,7 @@ class PackageManagerUbuntu extends BaseLinuxApp {
                 $lText .= " from the Packager {$this->packagerName} are already installed" ; }
             else {
                 $lText = "Package {$this->packageName} from the Packager {$this->packagerName} is already installed" ; }
-            $console->log($lText);
-        }
+            $console->log($lText); }
         return $this;
     }
 
