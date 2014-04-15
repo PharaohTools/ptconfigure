@@ -5,6 +5,10 @@ IN PROGRESS
 You cannot call a module NoModuleAssociated as PackageManager uses that to store packages in cleovars that were installed
 from cli not module
 
+VERY IMPORTANT!!!
+MysqlAdmins and RunCommand both require a new way to call
+FIXED, If a command requires propertiers of an object, put it in a method and use executeAsShell
+
 
 DONE
 SSH Private key encryption thing
@@ -12,18 +16,35 @@ SSH Private key encryption thing
 Any box requiring this should have an environment variable or file
 Encrypter like templater
 ssh-keygen DONE
-ssh-encrypt (encrypt/decrypt a private key) +
+ssh-encrypt (encrypt/decrypt a private key) 75% DONE
 (save decrypted private key somewhere) DECRYPT WILL DO THIS GIVEN A TARGET
 
-VERSIONING -
+VERSIONING
 Should be able to specify what version of packages are required
 
 BOX-MANAGER-SUPERCLASS
 BoxManager like packagemanager. This is barely started. write down a list of what this and scaler module needs.
 VERY IMPORTANT! Work out the interface for environment/box clouding, and smooth scaling. AWS and digital ocean
-minimum.
-
-30%/50% DONE
+minimum. 50% DONE
+Boxify
+Should do these questions
+1) Do a Boxify?  DONE
+2) Edit Existing Enviroments?
+   - If Yes then foreach environment
+     - Remove Boxes
+         All
+         Individual By ID
+     - Add Boxes
+         How Many
+         Provider
+         Type
+         Key/Passwd ID
+3) Add New Environment?
+     - Add Boxes
+         How Many
+         Provider
+         Type
+         Key/Passwd ID
 
 contact sebastien bergmann and everzet to ask for their views on testing the app. Get a test framework plan at least.
 
@@ -38,6 +59,7 @@ They can now all be removed, replaced with "exposedParams" or something. This wa
 parameters it accepts. It also means that the generator will be much easier to work, with some js and httpPostInput,
 the generator can look great.
 
+
 Composerise core. As part of this, you can install a custom et of modules, including say cleo amd dapper in one.
 update dapper, parallax and tkmn to this core.
 
@@ -48,7 +70,14 @@ we're ready
 
 MVP ABOVE HERE
 
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
+Kind Of Important - will be luvvly
+-----------------------------------
+We should have some kind of waiter function for the build process and autopilots, so
+I change my jenkins-server autopilot, during the build this is noticed, and an invoke script,
+tied to the autopilot (use a naming convention by default/guess maybe?)
 
 Configurers
 -------------------
@@ -511,3 +540,84 @@ DONE - Templating - Templating
 DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
 DONE - UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
 DONE - User - Add, Remove or Modify Users
+
+
+
+
+Modules where runautopilot code changed for params
+OK - AWSCloudFormation - The AWS CloudFormation CLI Tools
+OK - AWSCloudWatch - The AWS CloudWatch CLI Tools
+OK - AWSEC2 - AWS EC2 Server Management Functions
+OK - ApacheConf - Apache Conf - Install a Apache Configuration
+OK - ApacheModules - Apache Modules - Commonly used modules for Apache
+OK - ApacheServer - Apache Server - Install or remove the Apache Server
+OK - Apt - Add, Remove or Modify Apts
+OK - Autopilot - Cleopatra Autopilot - User Defined Installations
+OK - Behat - Behat - The PHP BDD Testing Suite
+OK - BoxManager - Native Box Manager Wrapper - Install OS neutral environments
+OK - Cleofy - Cleopatra Cleofyer - Creates default autopilots for your project
+OK - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra
+OK - Console - Console - Output errors to the console
+OK - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool
+OK - DeveloperTools - Developer Tools - IDE's and other tools for Developers
+OK - DigitalOcean - Digital Ocean Server Management Functions
+OK - Encryption - Encryption or Decryption of files
+OK - EnvironmentConfig - Environment Configuration - Configure Environments for a project
+OK - File - Add, Remove or Modify Files
+OK - Firefox14 - Firefox 14 - A version of Firefox highly tested with Selenium Server
+OK - Firefox17 - Firefox 17 - A version of Firefox highly tested with Selenium Server
+OK - Firewall - Add, Remove or Modify Firewalls
+OK - Gem - Ruby Gems Package Manager
+OK - Generator - Dapperstrano Autopilot Generator - Generate Autopilot files interactively
+OK - GitBucket - Git Bucket - The Git SCM Management Web Application
+OK - GitLab - Git Lab - The Git SCM Management Web Application
+OK - GitTools - Git Tools - Tools for working with Git SCM
+OK - Hostname - View or Modify Hostname
+OK - InstallPackage - Cleopatra Predefined Installers
+OK - IntelliJ - IntelliJ - A great IDE from JetBrains
+OK - Invoke - SSH Invocation Functions
+OK - JRush - JRush - The Joomla command line utility from Golden Contact
+OK - Java - Java JDK 1.7
+OK - Jenkins - Jenkins - The Java Build Server
+OK - JenkinsPlugins - Jenkins PHP Plugins - Common Plugins for Jenkins PHP Builds
+OK - JenkinsSudoNoPass - Configure Passwordless Sudo for your Jenkins user
+OK - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
+OK - MediaTools - Media Tools - Tools to help view and manage Media files
+OK - MysqlAdmins - Mysql Admins - Install administrative users for Mysql
+OK - MysqlServer - Mysql Server - The Mysql RDBMS Server
+OK - MysqlTools - Mysql Tools - For administering and developing with Mysql
+OK - NagiosServer - Nagios Server - Install or remove the Nagios Server
+OK - NginxServer - Nginx Server - Install or remove the Nginx Server
+OK - NodeJS - Node JS - The Server Side Javascript Engine
+OK - PHPAPC - PHP APC - Commonly used PHP APC
+OK - PHPCS - PHP Code Sniffer - The static code analysis tool
+OK - PHPConf - PHP Conf - Install a PHP Configuration
+OK - PHPMD - PHP Mess Detector - The static analysis tool
+OK - PHPModules - PHP Modules - Commonly used PHP Modules
+OK - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
+OK - PackageManager - Native Package Manager Wrapper - Install OS neutral packages
+OK - PapyrusEditor - Papyrus Editor Web Interface
+OK - Parallax - Parallax - The parallel execution tool from Golden Contact
+OK - Pear - Pear Package Manager
+OK - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP
+OK - Port - Test a Port to see if its responding
+OK - PostInput - HTTP Post/Get Input Interface
+OK - PostgresServer - Postgres Server - The Postgres RDBMS Server
+OK - Python - Python - The programming language
+OK - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
+OK - RubyRVM - Ruby RVM - The Ruby version manager
+OK - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
+OK - SVN - SVN - The Source Control Manager
+OK - SeleniumServer - The Selenium Web Browser controlling server
+OK - Service - View or Modify Service
+OK - SshEncrypt - Mysql Admins - Install administrative users for Mysql
+OK - SshHarden - Apply security functions to the SSH accounts/setup of the machine
+OK - SshKeygen - SSH Keygen - Generate SSH Kay Pairs
+OK - StandardTools - Standard Tools for any Installation
+OK - SudoNoPass - Configure Passwordless Sudo for any User
+OK - SystemDetection - System Detection - Detect the Running Operating System
+OK - Templating - Templating
+OK - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
+OK - UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
+OK - User - Add, Remove or Modify Users
+OK - Yum - Add, Remove or Modify Yum Packages
