@@ -333,7 +333,7 @@ COMPLETION;
             $trimmer = "{$property}Trimmer" ;
             if (isset($this->$property) && method_exists($this, $trimmer)) {
                 $out = $this->executeAndLoad($this->$property);
-                return $this->$trimmer($out) ; }
+                return new SoftwareVersion($this->$trimmer($out)) ; }
             else if (isset($this->$property)) {
                 return $this->executeAndLoad($this->$property); }
             else {
@@ -350,35 +350,5 @@ COMPLETION;
         else {
             return false; }
     }
-
-//    public function getVersionInstalled() {
-//        if (isset($this->versionInstalledCommand)) {
-//            return $this->executeAndLoad($this->versionInstalledCommand); }
-//        else if (isset($this->versionInstalledCommand) && method_exists($this, "versionInstalledCommandTrimmer")) {
-//            $out = $this->executeAndLoad($this->versionInstalledCommand);
-//            return $this->versionInstalledCommandTrimmer($out) ; }
-//        else {
-//            return false; }
-//    }
-//
-//    public function getVersionRecommended() {
-//        if (isset($this->versionRecommendedCommand)) {
-//            return $this->executeAndLoad($this->versionRecommendedCommand); }
-//        else if (isset($this->versionRecommendedCommand) && method_exists($this, "versionRecommendedCommandTrimmer")) {
-//            $out = $this->executeAndLoad($this->versionRecommendedCommand);
-//            return $this->versionRecommendedCommandTrimmer($out) ; }
-//        else {
-//            return false; }
-//    }
-//
-//    public function getVersionLatest() {
-//        if (isset($this->versionLatestCommand)) {
-//            return $this->executeAndLoad($this->versionLatestCommand); }
-//        else if (isset($this->versionLatestCommand) && method_exists($this, "versionLatestCommandTrimmer")) {
-//            $out = $this->executeAndLoad($this->versionLatestCommand);
-//            return $this->versionLatestCommandTrimmer($out) ; }
-//        else {
-//            return false; }
-//    }
 
 }
