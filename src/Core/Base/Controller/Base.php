@@ -66,7 +66,7 @@ class Base {
         if (in_array($action, array("version")) && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
-            $this->content["appInstallResult"] = $thisModel->findVersion();
+            $this->content["versionResult"] = $thisModel->findVersion();
             return array ("type"=>"view", "view"=>"appVersion", "pageVars"=>$this->content); } }
 
      else if (!isset($thisModel)) {
