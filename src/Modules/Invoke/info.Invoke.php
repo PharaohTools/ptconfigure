@@ -13,39 +13,12 @@ class InvokeInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Invoke" => array_merge(parent::routesAvailable(), array("cli", "script", "autopilot") ) );
+      return array( "Invoke" => array_merge(parent::routesAvailable(), array("cli", "script", "data") ) );
     }
 
     public function routeAliases() {
       return array("invoke" => "Invoke", "inv" => "Invoke");
     }
-
-    public function generatorCodeInjection($step=null) {
-    $inject = <<<'HELPDATA'
-      /*
-      //
-      // This function will set the sshInvokeSSHDataData variable with the data that
-      // you need in it. Call this in your constructor
-      //
-      private function setSSHData() {
-        $step =
-HELPDATA
-    ;
-    $inject .= ' "'.$step.'";' ;
-    $inject .= <<<'HELPDATA'
-
-        $this->steps[$step]["InvokeSSH"]["sshInvokeSSHDataData"] = <<<"SSHDATA"
-script line 1
-script line 2
-script line 3
-SSHDATA
-;
-      }
-      */
-HELPDATA
-    ;
-    return $inject ;
-  }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
@@ -55,15 +28,15 @@ HELPDATA
 
         - cli
         Will ask you for details for servers, then open a shell for you to execute on multiple servers
-        example: cleopatra invoke shell
+        example: cleopatra invoke cli --environment-name=staging
 
         - script
         Will ask you for details for servers, then execute each line of a provided script file on the remote/s
-        example: cleopatra invoke script script-file
+        example: cleopatra invoke script --ssh-script="/var/www/project/script.sh" --environment-name=staging
 
-        - autopilot
-        execute each line of a script file, multiple script files, or php variable data on one or more remotes
-        example: cleopatra invoke autopilot autopilot-file
+        - data
+        Execute php variable data on one or more remotes
+        example: cleopatra invoke data --ssh-data="ls -lah" --environment-name=staging
 
 HELPDATA;
       return $help ;
