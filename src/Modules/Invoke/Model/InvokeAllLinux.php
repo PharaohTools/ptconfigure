@@ -21,8 +21,12 @@ class InvokeAllLinux extends Base {
         return $this->performInvokeSSHShell();
     }
 
-    public function askWhetherToInvokeSSHScript($params=null) {
-        return $this->performInvokeSSHScript($params);
+    public function askWhetherToInvokeSSHScript() {
+        return $this->performInvokeSSHScript();
+    }
+
+    public function askWhetherToInvokeSSHData() {
+        return $this->performInvokeSSHData();
     }
 
     public function performInvokeSSHShell() {
@@ -58,6 +62,7 @@ class InvokeAllLinux extends Base {
     }
 
     public function performInvokeSSHData(){
+        if ($this->askForSSHDataExecute() != true) { return false; }
         $data = $this->askForSSHData();
         $this->populateServers();
         $this->sshCommands = explode("\n", $data) ;
@@ -76,11 +81,13 @@ class InvokeAllLinux extends Base {
     }
 
     private function loadServerData() {
-        $srvAvail = (isset($autoPilot["sshInvokeServers"]) && is_array($autoPilot["sshInvokeServers"]) &&
-            count($autoPilot["sshInvokeServers"]) > 0);
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
-        if ($srvAvail == true) {
-            $this->servers = $autoPilot["sshInvokeServers"]; }
+        if (isset($this->params["servers"])) {
+            $this->servers = $this->params["servers"]; }
+        if (isset($this->params["environment-name"])) {
+            $names = $this->getEnvironmentNames($allProjectEnvs) ;
+            $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"];
+            var_dump($names, $this->servers) ; }
         else if (count($allProjectEnvs) > 0) {
             $question = 'Use Environments Configured in Project?';
             $useProjEnvs = self::askYesOrNo($question, true);
@@ -89,6 +96,14 @@ class InvokeAllLinux extends Base {
                 return; } }
         else {
             $this->askForServerInfo(); }
+    }
+
+    private function getEnvironmentNames($envs) {
+        $eNames = array() ;
+        foreach ($envs as $envKey => $env) {
+            $envName = $env["any-app"]["gen_env_name"] ;
+            $eNames[$envName] = $envKey ; }
+        return $eNames ;
     }
 
     private function loadSSHConnections() {
@@ -100,16 +115,19 @@ class InvokeAllLinux extends Base {
             else {
                 $server["ssh2Object"] = $attempt ;
                 echo $this->changeBashPromptToPharoah($server["ssh2Object"]);
-                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Cleopatra Remote SSH on ...'.$server["target"].'"', true ) ; } }
+                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharoah Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
     }
 
+    // @todo it currently looks for both pword and password lets stick to one
     private function attemptSSH2Connection($server) {
         $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
         $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
         require_once($ssh2File) ;
         $ssh = new \Net_SSH2($server["target"]);
-        if ($ssh->login($server["user"], $server["pword"]) == true) {
+        $pword = (isset($server["pword"])) ? $server["pword"] : false ;
+        $pword = (isset($server["password"])) ? $server["password"] : $pword ;
+        if ($ssh->login($server["user"], $pword) == true) {
             return $ssh; }
         return null;
     }
@@ -148,7 +166,7 @@ class InvokeAllLinux extends Base {
         $startQuestion = <<<QUESTION
 ***********************************
 *   Due to a software limitation, *
-*   The user that you user here   *
+*    The user that you use here   *
 *  will have their command prompt *
 *    changed to PHAROAHPROMPT     *
 *  ... I'm working on that one... *
