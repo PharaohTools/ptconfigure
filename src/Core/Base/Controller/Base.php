@@ -2,6 +2,8 @@
 
 Namespace Controller ;
 
+//@todo each app should have a base controller in required that has a base execute function, then we can just call parent
+// in each module controller instead of the thismodel everywhere in each module controller.
 class Base {
 
   public $content;
