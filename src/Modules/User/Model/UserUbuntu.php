@@ -106,9 +106,9 @@ class UserUbuntu extends BaseLinuxApp {
     public function giveSshKey($force = false) {
         $key = $this->getPrivateKeyFilename();
         if ($this->hasSshKey() && $force == false) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("User has SSH Key already and force not specified") ; }
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("User has SSH Key already and force not specified") ; }
         else {
             $command = "sudo -u {$this->userName} ssh-keygen -t rsa -N '' -f " . escapeshellarg($key);
             $this->executeAndOutput($command) ; }
@@ -139,9 +139,9 @@ class UserUbuntu extends BaseLinuxApp {
     public function create() {
         $retCode = $this->executeAndGetReturnCode("useradd {$this->userName} -m") ;
         if ($retCode == 1) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("User Add command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("User Add command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -152,9 +152,9 @@ class UserUbuntu extends BaseLinuxApp {
         $command .= (isset($this->params["remove"]) || isset($autopilot["remove"])) ? " --remove" : "" ;
         $retCode = $this->executeAndGetReturnCode($command) ;
         if ($retCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("User Delete command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("User Delete command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -182,9 +182,9 @@ class UserUbuntu extends BaseLinuxApp {
             $groupName = self::askForInput("Enter New Password:", true); }
         $returnCode = $this->executeAndGetReturnCode("usermod -aG {$groupName} {$this->userName}");
         if ($returnCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Adding User {$this->userName} to the Group {$groupName} did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Adding User {$this->userName} to the Group {$groupName} did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -197,9 +197,9 @@ class UserUbuntu extends BaseLinuxApp {
             $groupName = self::askForInput("Enter New Password:", true); }
         $returnCode = $this->executeAndGetReturnCode("deluser {$this->userName} {$groupName}");
         if ($returnCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Removing User {$this->userName} from the Group {$groupName} did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Removing User {$this->userName} from the Group {$groupName} did not execute correctly") ;
             return false ; }
         return true ;
     }

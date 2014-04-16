@@ -51,12 +51,12 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $modsToCheck = array( "http_module", "deflate_module", "php5_module", "proxy_module", "proxy_html_module",
             "proxy_http_module", "rewrite_module", "ssl_module" ) ;
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
         foreach ($modsToCheck as $modToCheck) {
             if (!strstr($modsText, $modToCheck)) {
-                $console->log("Apache Module {$modToCheck} does not exist.") ;
+                $logging->log("Apache Module {$modToCheck} does not exist.") ;
                 $passing = false ; } }
         return $passing ;
     }

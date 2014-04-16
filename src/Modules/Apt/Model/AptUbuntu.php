@@ -38,18 +38,18 @@ class AptUbuntu extends BasePackager {
     public function installPackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         foreach ($packageName as $package) {
             $out = $this->executeAndOutput("sudo apt-get install $package -y --force-yes");
             if (strpos($out, "ldconfig deferred processing now taking place") != false) {
-                $console->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
             else if (strpos($out, "is already the newest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
-                $console->log($ltext) ; }
+                $logging->log($ltext) ; }
             else if (strpos($out, "ldconfig deferred processing now taking place") == false) {
-                $console->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
                 return false ; } }
         return true ;
     }
@@ -57,15 +57,15 @@ class AptUbuntu extends BasePackager {
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo apt-get remove $packageName -y --force-yes");
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
-            $console->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}") ;
+            $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}") ;
             return false ; }
         else if ( strpos($out, "is not installed, so not removed") != false) {
             $ltext  = "Package {$packageName} from the Packager {$this->programNameInstaller} is " ;
             $ltext .= "not installed, so not removed." ;
-            $console->log($ltext) ;
+            $logging->log($ltext) ;
             return false ; }
         return true ;
     }
@@ -73,9 +73,9 @@ class AptUbuntu extends BasePackager {
     public function update($autopilot = null) {
         $out = $this->executeAndOutput("sudo apt-get update -y");
         if (strpos($out, "Done") != false) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
         return true ;
     }

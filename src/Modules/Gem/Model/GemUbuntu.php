@@ -34,9 +34,9 @@ class GemUbuntu extends BasePackager {
         $packageName = $this->getPackageName($packageName);
         $returnCode = $this->executeAndOutput("sudo gem install -y $packageName");
         if ($returnCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -45,9 +45,9 @@ class GemUbuntu extends BasePackager {
         $packageName = $this->getPackageName($packageName);
         $returnCode = $this->executeAndOutput("sudo gem remove -y $packageName");
         if ($returnCode !== 0) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
         return true ;
     }

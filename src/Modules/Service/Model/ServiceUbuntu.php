@@ -80,46 +80,46 @@ class ServiceUbuntu extends BaseLinuxApp {
     public function ensureRunning() {
         $status = $this->executeAndLoad("service {$this->serviceName} status 2> /dev/null");
         if(strpos($status, 'running') != false) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Service {$this->serviceName} is running...") ; }
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Service {$this->serviceName} is running...") ; }
         else {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Service {$this->serviceName} is not running...") ;
-            $console->log("Starting {$this->serviceName} service") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Service {$this->serviceName} is not running...") ;
+            $logging->log("Starting {$this->serviceName} service") ;
             $this->executeAndOutput("service {$this->serviceName} start"); }
         return true ;
     }
 
     public function runAtReboots() {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("Starting {$this->serviceName} service") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Starting {$this->serviceName} service") ;
         $this->executeAndOutput("update-rc.d {$this->serviceName} defaults");
         return true ;
     }
 
     public function start() {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("Starting {$this->serviceName} service") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Starting {$this->serviceName} service") ;
         $this->executeAndOutput("service {$this->serviceName} start");
         return true ;
     }
 
     public function stop() {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("Stopping {$this->serviceName} service") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Stopping {$this->serviceName} service") ;
         $this->executeAndOutput("service {$this->serviceName} stop");
         return true ;
     }
 
     public function restart() {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("Restarting {$this->serviceName} service") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Restarting {$this->serviceName} service") ;
         $this->executeAndOutput("service {$this->serviceName} restart");
         return true ;
     }

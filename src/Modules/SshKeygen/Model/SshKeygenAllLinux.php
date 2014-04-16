@@ -77,13 +77,13 @@ class SshKeygenAllLinux extends BaseLinuxApp {
     }
 
     public function removeKey() {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         if (file_exists($this->params["ssh-keygen-path"])) {
             unlink($this->params["ssh-keygen-path"]) ;
-            $console->log("Removing File at {$this->params["ssh-keygen-path"]} in SSH Keygen") ;
+            $logging->log("Removing File at {$this->params["ssh-keygen-path"]} in SSH Keygen") ;
             unlink($this->params["ssh-keygen-path"].".pub") ;
-            $console->log("Removing File at {$this->params["ssh-keygen-path"]}.pub in SSH Keygen") ; }
+            $logging->log("Removing File at {$this->params["ssh-keygen-path"]}.pub in SSH Keygen") ; }
     }
 
     public function createDirectoryStructure() {

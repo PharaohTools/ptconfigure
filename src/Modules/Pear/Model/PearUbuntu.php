@@ -44,9 +44,9 @@ class PearUbuntu extends BasePackager {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo pear install -f $packageName");
         if (!is_int(strpos($out, "install ok"))) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -55,9 +55,9 @@ class PearUbuntu extends BasePackager {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo pear uninstall $packageName");
         if (!is_int(strpos($out, "uninstall ok"))) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -65,16 +65,16 @@ class PearUbuntu extends BasePackager {
     public function channelDiscover() {
         $channel = $this->setChannel();
         $out = $this->executeAndLoad("sudo pear channel-discover $channel");
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         // var_dump($out, 'Channel "'.$channel.'" is already initialized') ;
         $initString = 'Channel "'.$channel.'" is already initialized'."\n" ;
         if ($out == $initString) {
-            $console->log("Not adding Channel $channel in Packager Pear as it is already initialized") ;
+            $logging->log("Not adding Channel $channel in Packager Pear as it is already initialized") ;
             return true ; }
         else if (strpos($out, "Adding Channel \"".$channel."\" succeeded") == false ||
             strpos($out, "Discovery of channel \"".$channel."\" succeeded") == false ) {
-            $console->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
+            $logging->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -82,14 +82,14 @@ class PearUbuntu extends BasePackager {
     public function channelDelete() {
         $channel = $this->setChannel();
         $out = $this->executeAndLoad("sudo pear channel-del $channel");
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         $initString = 'channel-delete: channel "'.$channel.'" does not exist'."\n" ;
         if ($out == $initString) {
-            $console->log("Not removing Channel $channel in Packager Pear as it is already initialized") ;
+            $logging->log("Not removing Channel $channel in Packager Pear as it is already initialized") ;
             return true ; }
         else if (strpos($out, "Channel \"".$channel."\" deleted") == false ) {
-            $console->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
+            $logging->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
             return false ; }
         return true ;
     }

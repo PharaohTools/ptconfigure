@@ -30,8 +30,8 @@ class AWSEC2BoxAdd extends BaseAWSEC2AllOS {
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 $environmentExists = true ; } }
 
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
 
         if (isset($environmentExists)) {
             foreach ($environments as $environment) {
@@ -62,7 +62,7 @@ class AWSEC2BoxAdd extends BaseAWSEC2AllOS {
 
                 return (isset($callsReturned)) ? $callsReturned : null ; }
         else {
-            $console->log("The environment $workingEnvironment does not exist.") ; }
+            $logging->log("The environment $workingEnvironment does not exist.") ; }
 
 //        $envConfig = new EnvironmentConfig();
 //        $envConfig->environments = $environments ;
@@ -220,9 +220,9 @@ class AWSEC2BoxAdd extends BaseAWSEC2AllOS {
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
         $curlUrl = "https://api.awsec2.com/droplets/new" ;
         $callOut = $this->awsCall($callVars, $curlUrl);
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("Request for {$callVars["name"]} complete") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Request for {$callVars["name"]} complete") ;
         return $callOut ;
     }
 

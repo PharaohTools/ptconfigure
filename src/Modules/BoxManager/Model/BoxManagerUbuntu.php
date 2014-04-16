@@ -80,11 +80,11 @@ class BoxManagerUbuntu extends BaseLinuxApp {
 
     protected function addBox() {
         $provider = $this->getProvider();
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         $returns = array() ;
         foreach($this->boxAmount as $oneBox) {
-            $console->log("Adding Box $oneBox") ;
+            $logging->log("Adding Box $oneBox") ;
             $result = $provider->addBox($oneBox) ;
             if ($result == true) { $this->setEnvironmentStatusInCleovars($oneBox, true) ; } ;
             $returns[] = $result ; }
@@ -95,15 +95,15 @@ class BoxManagerUbuntu extends BaseLinuxApp {
         $provider = $this->getProvider();
         if (!is_array($this->environmentName)) { $this->environmentName = array($this->environmentName); }
         $returns = array() ;
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         foreach($this->environmentName as $oneBox) {
             $environmentIsRequired = $this->environmentIsRequired($oneBox) ;
             if ($environmentIsRequired) {
                 $moduleString = implode(', ', $environmentIsRequired) ;
-                $console->log("Not removing Box $oneBox, it's required by these Modules: $moduleString") ; }
+                $logging->log("Not removing Box $oneBox, it's required by these Modules: $moduleString") ; }
             else {
-                $console->log("Removing Box $oneBox") ;
+                $logging->log("Removing Box $oneBox") ;
                 $returns[] = $provider->removeBox($oneBox) ; } }
         return (in_array(false, $returns)) ? false : true ;
     }

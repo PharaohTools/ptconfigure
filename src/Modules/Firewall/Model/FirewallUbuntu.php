@@ -84,9 +84,9 @@ class FirewallUbuntu extends BaseLinuxApp {
     public function enable() {
         $out = $this->executeAndOutput("sudo ufw enable");
         if (strpos($out, "enabled") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Enable command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Enable command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -94,9 +94,9 @@ class FirewallUbuntu extends BaseLinuxApp {
     public function disable() {
         $out = $this->executeAndOutput("sudo ufw endisable");
         if (strpos($out, "disabled") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Disable command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Disable command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -105,9 +105,9 @@ class FirewallUbuntu extends BaseLinuxApp {
         $out = $this->executeAndOutput("sudo ufw allow $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Allow command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Allow command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -116,9 +116,9 @@ class FirewallUbuntu extends BaseLinuxApp {
         $out = $this->executeAndOutput("sudo ufw deny $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Deny command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Deny command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -127,9 +127,9 @@ class FirewallUbuntu extends BaseLinuxApp {
         $out = $this->executeAndOutput("sudo ufw reject $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Reject command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Reject command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -138,9 +138,9 @@ class FirewallUbuntu extends BaseLinuxApp {
         $out = $this->executeAndOutput("sudo ufw limit $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Limit command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Limit command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -150,9 +150,9 @@ class FirewallUbuntu extends BaseLinuxApp {
         $out = $this->executeAndOutput("sudo ufw delete $this->firewallRule");
         if (strpos($out, "Could not delete non-existent rule") != false ||
             strpos($out, "Rule deleted") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Delete command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Delete command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -161,9 +161,9 @@ class FirewallUbuntu extends BaseLinuxApp {
         $out = $this->executeAndOutput("sudo ufw insert $this->firewallRule");
         if (strpos($out, "Skipping inserting existing rule") != false ||
             strpos($out, "Rule inserted") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Insert command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Insert command did not execute correctly") ;
             return false ; }
         return true ;
     }
@@ -171,9 +171,9 @@ class FirewallUbuntu extends BaseLinuxApp {
     public function reset() {
         $out = $this->executeAndOutput("echo y | sudo ufw reset --force $this->firewallRule");
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
-            $console->log("Firewall Reset command did not execute correctly") ;
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Reset command did not execute correctly") ;
             return false ; }
         return true ;
     }

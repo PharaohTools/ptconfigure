@@ -29,8 +29,8 @@ class AWSEC2BoxDestroy extends BaseAWSEC2AllOS {
             if (isset($environment["any-app"]["gen_env_name"]) && $environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 $environmentExists = true ; } }
 
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
 
         if (isset($environmentExists)) {
             for ($i = 0; $i<count($environments); $i++) {
@@ -62,7 +62,7 @@ class AWSEC2BoxDestroy extends BaseAWSEC2AllOS {
                             $responses = (isset($responses)) ? $responses : "anything else" ; } } } }
             return $responses ; }
         else {
-            $console->log("The environment $workingEnvironment does not exist.") ; }
+            $logging->log("The environment $workingEnvironment does not exist.") ; }
     }
 
     private function askForOverwriteExecute() {
@@ -83,9 +83,9 @@ class AWSEC2BoxDestroy extends BaseAWSEC2AllOS {
         $callVars["droplet_id"] = $serverData["dropletID"];
         $curlUrl = "https://api.awsec2.com/droplets/{$callVars["droplet_id"]}/destroy" ;
         $callOut = $this->awsCall($callVars, $curlUrl);
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
         return $callOut ;
     }
 

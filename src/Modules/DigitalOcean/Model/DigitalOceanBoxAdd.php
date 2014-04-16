@@ -19,7 +19,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     }
 
     public function addBox() {
-        if ($this->askForOverwriteExecute() != true) { return false; }
+        if ($this->askForBoxAddExecute() != true) { return false; }
         $this->apiKey = $this->askForDigitalOceanAPIKey();
         $this->clientId = $this->askForDigitalOceanClientID();
         $serverPrefix = $this->getServerPrefix();
@@ -30,8 +30,8 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 $environmentExists = true ; } }
 
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
 
         if (isset($environmentExists)) {
             foreach ($environments as $environment) {
@@ -62,15 +62,10 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
 
                 return (isset($callsReturned)) ? $callsReturned : null ; }
         else {
-            $console->log("The environment $workingEnvironment does not exist.") ; }
-
-//        $envConfig = new EnvironmentConfig();
-//        $envConfig->environments = $environments ;
-//        $envConfig->writeEnvsToProjectFile();
-//        return $envConfig->environments ;
+            $logging->log("The environment $workingEnvironment does not exist.") ; }
     }
 
-    private function askForOverwriteExecute() {
+    private function askForBoxAddExecute() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Add Digital Ocean Server Boxes?';
         return self::askYesOrNo($question);
@@ -145,9 +140,9 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
         $curlUrl = "https://api.digitalocean.com/droplets/new" ;
         $callOut = $this->digitalOceanCall($callVars, $curlUrl);
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("Request for {$callVars["name"]} complete") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Request for {$callVars["name"]} complete") ;
         return $callOut ;
     }
 

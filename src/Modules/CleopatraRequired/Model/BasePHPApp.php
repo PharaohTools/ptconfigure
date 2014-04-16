@@ -54,12 +54,12 @@ class BasePHPApp extends Base {
   }
 
   public function ensureInstalled(){
-      $consoleFactory = new \Model\Console();
-      $console = $consoleFactory->getModel($this->params);
+      $loggingFactory = new \Model\Console();
+      $logging = $loggingFactory->getModel($this->params);
       if ($this->askStatus() == true) {
-          $console->log("Not installing as already installed") ; }
+          $logging->log("Not installing as already installed") ; }
       else {
-          $console->log("Installing as not installed") ;
+          $logging->log("Installing as not installed") ;
           $this->install(); }
       return true;
   }
