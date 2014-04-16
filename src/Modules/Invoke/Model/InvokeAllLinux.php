@@ -86,8 +86,7 @@ class InvokeAllLinux extends Base {
             $this->servers = $this->params["servers"]; }
         if (isset($this->params["environment-name"])) {
             $names = $this->getEnvironmentNames($allProjectEnvs) ;
-            $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"];
-            var_dump($names, $this->servers) ; }
+            $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"]; }
         else if (count($allProjectEnvs) > 0) {
             $question = 'Use Environments Configured in Project?';
             $useProjEnvs = self::askYesOrNo($question, true);
