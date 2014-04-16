@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Console extends Base {
+class Logging extends Base {
 
     public function execute($pageVars) {
 
