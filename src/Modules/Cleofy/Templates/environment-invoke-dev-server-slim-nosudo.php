@@ -10,18 +10,30 @@ class AutoPilotConfigured extends AutoPilot {
         $this->setSteps();
     }
 
+
+
     /* Steps */
     private function setSteps() {
 
         $this->steps =
-        array(
-            array ( "Invoke" => array( "data" =>
-                array("ssh-data" => $this->setSSHData() ),
-                array("servers" => array(<%tpl.php%>gen_srv_array_text</%tpl.php%>), ),
-            ) , ) ,
-        );
+            array(
+                array ( "Logging" => array( "log" =>
+                array( "log-message" => "Lets begin invoking Dev Server Slim NoSudo on environment <%tpl.php%>env_name</%tpl.php%>"),
+                ) ),
+                array ( "Invoke" => array( "data" =>
+                array(
+                    "guess" => true,
+                    "ssh-data" => $this->setSSHData(),
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
+                ),
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                array( "log-message" => "Invoking Dev Server Slim NoSudo on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+                ) ),
+            );
 
     }
+
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
@@ -29,6 +41,7 @@ sudo apt-get install -y php5 git
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
 sudo cleopatra dapperstrano install --yes=true
 SSHDATA;
+        return $sshData ;
     }
 
 }

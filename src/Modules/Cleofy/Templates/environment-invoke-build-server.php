@@ -15,10 +15,16 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Lets begin invoking a build server on environment <%tpl.php%>env_name</%tpl.php%>"),
+                ) ),
                 array ( "Invoke" => array( "data" =>
                     array("ssh-data" => $this->setSSHData() ),
-                    array("servers" => array(<%tpl.php%>gen_srv_array_text</%tpl.php%>), ),
+                    array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
                 ) , ) ,
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Invoking a build server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+                ) ),
         );
 
     }

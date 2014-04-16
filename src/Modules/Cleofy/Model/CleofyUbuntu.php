@@ -73,7 +73,10 @@ class CleofyUbuntu extends Base {
               $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
               $templator->template(
                   file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
-                  array( "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ),
+                  array(
+                      "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                      "env_name" => $environment["any-app"]["gen_env_name"]
+                  ),
                   $targetLocation ); } } }
     }
 
