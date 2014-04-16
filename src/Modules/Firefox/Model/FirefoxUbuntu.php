@@ -42,17 +42,29 @@ class FirefoxUbuntu extends BaseLinuxApp {
     }
 
     public function versionInstalledCommandTrimmer($text) {
-        $done = substr($text, 22, 17) ;
+        $candidateStarts = strpos($text, "Installed: ") ;
+        $candidateEnds = $candidateStarts + 11 ;
+        $theRest = substr($text, $candidateEnds) ;
+        $firstSpaceAfterNumber = strpos($theRest, "\n") ;
+        $done = substr($text, $candidateEnds, $firstSpaceAfterNumber) ;
         return $done ;
     }
 
     public function versionLatestCommandTrimmer($text) {
-        $done = substr($text, 53, 17) ;
+        $candidateStarts = strpos($text, "Candidate: ") ;
+        $candidateEnds = $candidateStarts + 11 ;
+        $theRest = substr($text, $candidateEnds) ;
+        $firstSpaceAfterNumber = strpos($theRest, "\n") ;
+        $done = substr($text, $candidateEnds, $firstSpaceAfterNumber) ;
         return $done ;
     }
 
     public function versionRecommendedCommandTrimmer($text) {
-        $done = substr($text, 53, 17) ;
+        $candidateStarts = strpos($text, "Candidate: ") ;
+        $candidateEnds = $candidateStarts + 11 ;
+        $theRest = substr($text, $candidateEnds) ;
+        $firstSpaceAfterNumber = strpos($theRest, "\n") ;
+        $done = substr($text, $candidateEnds, $firstSpaceAfterNumber) ;
         return $done ;
     }
 
