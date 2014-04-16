@@ -217,16 +217,16 @@ COMPLETION;
     }
 
     protected function askStatusByArray($commsToCheck) {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
         foreach ($commsToCheck as $commToCheck) {
             $outs = $this->executeAndLoad("command -v $commToCheck") ;
             if ( !strstr($outs, $commToCheck) ) {
-                $console->log("No command '{$commToCheck}' found") ;
+                $logging->log("No command '{$commToCheck}' found") ;
                 $passing = false ; }
             else {
-                $console->log("Command '{$commToCheck}' found") ; } }
+                $logging->log("Command '{$commToCheck}' found") ; } }
         return $passing ;
     }
 
@@ -276,17 +276,17 @@ COMPLETION;
     }
 
     protected function askWhetherToDoAction($action) {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         if ( isset($this->actionsToMethods)) {
             if (isset($this->actionsToMethods[$action]) && method_exists($this, $this->actionsToMethods[$action])) {
                 $return = $this->{$this->actionsToMethods[$action]}() ;
                 return $return ; }
             else {
-                $console->log("No method {$this->actionsToMethods[$action]} in model ".get_class($this)) ;
+                $logging->log("No method {$this->actionsToMethods[$action]} in model ".get_class($this)) ;
                 return false; } }
         else {
-            $console->log('No property $actionsToMethods in model '.get_class($this)) ;
+            $logging->log('No property $actionsToMethods in model '.get_class($this)) ;
             return false; }
     }
 
