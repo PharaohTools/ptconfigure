@@ -1,20 +1,13 @@
 <?php
 
-if ($pageVars["route"]["action"]=="autopilot") {
-  if (!isset($pageVars["autoPilotErrors"])) {
+if ($pageVars["route"]["action"]=="data") {
 ?>
 
-Invoke SSH Script Result: <?php echo $pageVars["sshInvokeScriptResult"] ; ?>
-
-Invoke SSH Data Result: <?php echo $pageVars["sshInvokeDataResult"] ; ?>
+Invoke SSH Data Result: <?php echo $pageVars["shlResult"] ; ?>
 
 <?php
-} else {
-?>
-Auto Pilot errors:
-<?php echo $pageVars["autoPilotErrors"]; ?>
-<?php
-} } else if ($pageVars["route"]["action"]=="shell") {
+
+} else if ($pageVars["route"]["action"]=="cli") {
     ?>
 Shell Result: <?php echo $pageVars["shlResult"]  ; ?>
 

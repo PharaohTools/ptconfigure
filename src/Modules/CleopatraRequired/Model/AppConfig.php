@@ -14,7 +14,7 @@ class AppConfig {
         if (self::checkSettingsExistOrCreateIt()) {
             $appConfigArray = self::loadProjectFile();
             if ( $listAdd == true && $listAddKey==null ) {
-                if (is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
+                if ( isset($appConfigArray[$variable]) && is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
                     $appConfigArray[$variable][] = $value ; } }
             else if ( $listAdd == true && $listAddKey!=null ) {
                 $appConfigArray[$variable][$listAddKey] = $value ; }
