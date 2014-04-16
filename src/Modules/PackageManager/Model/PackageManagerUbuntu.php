@@ -135,15 +135,15 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         $packager = $this->getPackager();
         if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
         $returns = array() ;
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         foreach($this->packageName as $onePackage) {
             $packageIsRequired = $this->packageIsRequired($onePackage) ;
             if ($packageIsRequired) {
                 $moduleString = implode(', ', $packageIsRequired) ;
-                $console->log("Not removing Package $onePackage, it's required by these Modules: $moduleString") ; }
+                $logging->log("Not removing Package $onePackage, it's required by these Modules: $moduleString") ; }
             else {
-                $console->log("Removing Package $onePackage") ;
+                $logging->log("Removing Package $onePackage") ;
                 $returns[] = $packager->removePackage($onePackage) ; } }
         return (in_array(false, $returns)) ? false : true ;
     }
@@ -152,14 +152,14 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         if ($this->isInstalled()==false) { $this->installPackages(); }
         else {
             $this->setPackageStatusInCleovars($this->packageName, true);
-            $consoleFactory = new \Model\Console();
-            $console = $consoleFactory->getModel($this->params);
+            $loggingFactory = new \Model\Console();
+            $logging = $loggingFactory->getModel($this->params);
             if (is_array($this->packageName) ) {
                 $lText  = "Packages ".implode(", ", $this->packageName) ;
                 $lText .= " from the Packager {$this->packagerName} are already installed" ; }
             else {
                 $lText = "Package {$this->packageName} from the Packager {$this->packagerName} is already installed" ; }
-            $console->log($lText); }
+            $logging->log($lText); }
         return $this;
     }
 

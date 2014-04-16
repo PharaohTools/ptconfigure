@@ -50,9 +50,9 @@ class SshHardenUbuntu extends BaseLinuxApp {
         $file->setFile('/etc/ssh/sshd_config') ;
         $file->replaceIfPresent(new RegExp("/^#?PermitRootLogin yes/m"), 'PermitRootLogin no');
         $file->shouldHaveLine("PermitRootLogin no");
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("/etc/ssh/sshd_config modified to disallow root ssh login") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("/etc/ssh/sshd_config modified to disallow root ssh login") ;
     }
 
     private function doNotAllowPlainTextPasswords() {
@@ -61,9 +61,9 @@ class SshHardenUbuntu extends BaseLinuxApp {
         $file->setFile('/etc/ssh/sshd_config') ;
         $file->replaceIfPresent(new RegExp("/^#?PasswordAuthentication yes/m"), 'PasswordAuthentication no');
         $file->shouldHaveLine("PasswordAuthentication no");
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
-        $console->log("/etc/ssh/sshd_config modified to disallow password based ssh login") ;
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("/etc/ssh/sshd_config modified to disallow password based ssh login") ;
     }
 
     // @todo will restarting ssh break it all?

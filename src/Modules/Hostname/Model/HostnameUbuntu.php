@@ -37,8 +37,8 @@ class HostnameUbuntu extends BaseLinuxApp {
     }
 
     public function change($hostname = null) {
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($hostname)) { }
         else if (isset($this->params["hostname"])) {
             $hostname = $this->params["hostname"]; }
@@ -47,11 +47,11 @@ class HostnameUbuntu extends BaseLinuxApp {
         $command = 'sudo dapperstrano he add --host-ip="127.0.0.1" --host-name="'.$hostname.'" --yes' ;
         $returnCode = self::executeAndGetReturnCode($command) ;
         if ($returnCode !== 0) {
-            $console->log("Adding host file entry did not execute correctly") ;
+            $logging->log("Adding host file entry did not execute correctly") ;
             return false ; }
         $return = file_put_contents('/etc/host', $hostname) ;
         if ($return < 1) {
-            $console->log("Writing hostname $hostname to /etc/host failed") ;
+            $logging->log("Writing hostname $hostname to /etc/host failed") ;
             return false ; }
         return true ;
     }

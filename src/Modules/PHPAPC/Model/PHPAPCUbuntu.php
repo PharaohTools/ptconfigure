@@ -35,13 +35,13 @@ class PHPAPCUbuntu extends BaseLinuxApp {
         $modsText = $this->executeAndLoad($modsTextCmd) ;
 
         $modsToCheck = array("apc") ;
-        $consoleFactory = new \Model\Console();
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console();
+        $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
 
         foreach ($modsToCheck as $modToCheck) {
             if (!strstr($modsText, $modToCheck)) {
-                $console->log("PHP Module {$modToCheck} does not exist.") ;
+                $logging->log("PHP Module {$modToCheck} does not exist.") ;
                 $passing = false ; } }
 
         return $passing ;
