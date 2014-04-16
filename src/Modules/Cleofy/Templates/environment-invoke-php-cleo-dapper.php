@@ -8,36 +8,27 @@ class AutoPilotConfigured extends AutoPilot {
 
     public function __construct() {
         $this->setSteps();
-        $this->setSSHData();
     }
 
     /* Steps */
     private function setSteps() {
 
-      $this->steps =
-        array(
-          array ( "InvokeSSH" => array(
-            "sshInvokeSSHDataExecute" => true,
-            "sshInvokeSSHDataData" => "",
-            "sshInvokeServers" => array(
-              <%tpl.php%>gen_srv_array_text</%tpl.php%>
-            ),
-          ) , ) ,
-        );
+        $this->steps =
+            array(
+                array ( "Invoke" => array( "ssh-data" =>
+                    array("ssh-data" => $this->setSSHData() ),
+                    array("servers" => array(<%tpl.php%>gen_srv_array_text</%tpl.php%>), ),
+                ) , ) ,
+            );
 
     }
 
-
-//
-// This function will set the sshInvokeSSHDataData variable with the data that
-// you need in it. Call this in your constructor
-//
-  private function setSSHData() {
-    $this->steps[0]["InvokeSSH"]["sshInvokeSSHDataData"] = <<<"SSHDATA"
+    private function setSSHData() {
+        $sshData = <<<"SSHDATA"
 sudo apt-get install -y php5 git
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
 sudo cleopatra dapperstrano install --yes=true
 SSHDATA;
-  }
+    }
 
 }

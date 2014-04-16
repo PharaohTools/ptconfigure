@@ -8,7 +8,6 @@ class AutoPilotConfigured extends AutoPilot {
 
     public function __construct() {
         $this->setSteps();
-        $this->setSSHData();
     }
 
     /* Steps */
@@ -27,15 +26,10 @@ class AutoPilotConfigured extends AutoPilot {
 
     }
 
-
-//
-// This function will set the sshInvokeSSHDataData variable with the data that
-// you need in it. Call this in your constructor
-//
-  private function setSSHData() {
-    $this->steps[0]["InvokeSSH"]["sshInvokeSSHDataData"] = <<<"SSHDATA"
+    private function setSSHData() {
+        $sshData = <<<"SSHDATA"
 sudo cleopatra install-package prod --yes=true
 SSHDATA;
-  }
+    }
 
 }
