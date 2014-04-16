@@ -27,9 +27,9 @@ class EnvironmentConfigAllOS extends Base {
     }
 
     public function askToScreenWhetherToEnvironmentConfig() {
-      if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-      $question = 'Configure Environments Here?' ;
-      return self::askYesOrNo($question, true) ;
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
+        $question = 'Configure Environments Here?' ;
+        return self::askYesOrNo($question, true) ;
     }
 
     public function setEnvironmentReplacements($overrideReplacements) {
@@ -45,20 +45,20 @@ class EnvironmentConfigAllOS extends Base {
 
     public function getDefaultEnvironmentReplacements() {
         return array( "any-app" => array(
-                array( "var" =>"gen_env_name", "friendly_text" =>"Name of this Environment"),
-                array( "var" =>"gen_env_tmp_dir", "friendly_text" =>"Default Temp Dir (should usually be /tmp/)"),) );
+            array( "var" =>"gen_env_name", "friendly_text" =>"Name of this Environment"),
+            array( "var" =>"gen_env_tmp_dir", "friendly_text" =>"Default Temp Dir (should usually be /tmp/)"),) );
     }
 
     public function doQuestions() {
-      $envSuffix = array_keys($this->environmentReplacements);
-      $useExisting = $this->checkIfPossibleToUseExistingSettings() ;
-      if ( $useExisting !== false ) { $this->askForExistingOrNew($useExisting); }
-      $this->addMoreEnvironments($envSuffix) ;
+        $envSuffix = array_keys($this->environmentReplacements);
+        $useExisting = $this->checkIfPossibleToUseExistingSettings() ;
+        if ( $useExisting !== false ) { $this->askForExistingOrNew($useExisting); }
+        $this->addMoreEnvironments($envSuffix) ;
     }
 
     private function askForExistingOrNew($allProjectEnvs) {
         $question = 'Use existing environment settings?';
-        $useProjEnvs = self::askYesOrNo($question, true);
+        $useProjEnvs = (isset($this->params["guess"])) ? true : self::askYesOrNo($question, true);
         if ($useProjEnvs == true ) { $this->modifyExistingEnvironments($allProjectEnvs); }
     }
 
@@ -101,9 +101,7 @@ class EnvironmentConfigAllOS extends Base {
                 if ($add_another_env == true) {
                     $this->initPopulateEnvironment($envSuffix); }
                 else {
-                    $more_envs = false; } }
-        }
-
+                    $more_envs = false; } } }
     }
 
     private function initPopulateEnvironment($envSuffix) {
@@ -113,39 +111,39 @@ class EnvironmentConfigAllOS extends Base {
     }
 
     private function populateAnEnvironment($i, $appEnvType) {
-      $envName = (isset($this->environments[$i]["any-app"]["gen_env_name"])) ?
+        $envName = (isset($this->environments[$i]["any-app"]["gen_env_name"])) ?
           $this->environments[$i]["any-app"]["gen_env_name"] : null ;
-      echo "Environment ".($i+1)." $envName : \n";
+        echo "Environment ".($i+1)." $envName : \n";
 
-      if (!isset($this->environments[$i]["any-app"]) || $appEnvType =="any-app") {
-        echo "Default Settings for Any App not setup for environment $envName enter them now.\n";
-          $defaultReplacements = $this->getDefaultEnvironmentReplacements() ;
-          foreach ($defaultReplacements["any-app"] as $replacementQuestion) {
-              $this->environments[$i]["any-app"][$replacementQuestion["var"]]
+        if (!isset($this->environments[$i]["any-app"]) || $appEnvType =="any-app") {
+            echo "Default Settings for Any App not setup for environment $envName enter them now.\n";
+            $defaultReplacements = $this->getDefaultEnvironmentReplacements() ;
+            foreach ($defaultReplacements["any-app"] as $replacementQuestion) {
+                $this->environments[$i]["any-app"][$replacementQuestion["var"]]
                   = self::askForInput("Value for: ".$replacementQuestion["friendly_text"]); }
-          if ($appEnvType=="any-app") { $this->environments[$i]["servers"] = $this->getServers(); } }
-      else {
-          foreach ($this->environmentReplacements[$appEnvType] as $replacementQuestion) {
-              $this->environments[$i][$appEnvType][$replacementQuestion["var"]]
+            if ($appEnvType=="any-app") { $this->environments[$i]["servers"] = $this->getServers(); } }
+        else {
+            foreach ($this->environmentReplacements[$appEnvType] as $replacementQuestion) {
+                $this->environments[$i][$appEnvType][$replacementQuestion["var"]]
                   = self::askForInput("Value for: ".$replacementQuestion["friendly_text"]); } }
     }
 
     public function getServers() {
-      $servers = array();
-      $serverAttributes = array("target", "user", "password");
-      $keepGoing = true ;
-      $question = 'Enter Servers - this is an array of entries';
-      while ($keepGoing == true) {
-        $tinierArray = array();
-        echo $question."\n";
-        foreach ($serverAttributes as $questionTarget) {
-          $miniQuestion = 'Enter '.$questionTarget.' ?';
-          $tinierArray[$questionTarget] = self::askForInput($miniQuestion, true); }
-        $servers[] = $tinierArray;
-        $keepGoingQuestion = 'Add Another Server? (Y/N)';
-        $keepGoingResult = self::askForInput($keepGoingQuestion, true);
-        $keepGoing = ($keepGoingResult == "Y" || $keepGoingResult == "y") ? true : false ; }
-      return $servers;
+        $servers = array();
+        $serverAttributes = array("target", "user", "password");
+        $keepGoing = true ;
+        $question = 'Enter Servers - this is an array of entries';
+        while ($keepGoing == true) {
+            $tinierArray = array();
+            echo $question."\n";
+            foreach ($serverAttributes as $questionTarget) {
+                $miniQuestion = 'Enter '.$questionTarget.' ?';
+                $tinierArray[$questionTarget] = self::askForInput($miniQuestion, true); }
+            $servers[] = $tinierArray;
+            $keepGoingQuestion = 'Add Another Server? (Y/N)';
+            $keepGoingResult = self::askForInput($keepGoingQuestion, true);
+            $keepGoing = ($keepGoingResult == "Y" || $keepGoingResult == "y") ? true : false ; }
+        return $servers;
     }
 
     public function writeEnvsToProjectFile() {
