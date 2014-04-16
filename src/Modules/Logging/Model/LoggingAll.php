@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ConsoleAll extends BaseLinuxApp {
+class LoggingAll extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -19,28 +19,31 @@ class ConsoleAll extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "Console";
+        $this->autopilotDefiner = "Logging";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "setLogMessage", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "log", "params" => array()) ),);
         $this->uninstallCommands = array();
-        $this->programDataFolder = "/opt/Console"; // command and app dir name
-        $this->programNameMachine = "console"; // command and app dir name
-        $this->programNameFriendly = "  Console!  "; // 12 chars
-        $this->programNameInstaller = "Console";
+        $this->programDataFolder = "/opt/Logging"; // command and app dir name
+        $this->programNameMachine = "logging"; // command and app dir name
+        $this->programNameFriendly = "  Logging!  "; // 12 chars
+        $this->programNameInstaller = "Logging";
         $this->initialize();
     }
 
     public function setLogMessage() {
-        if (isset($this->params["console-log-message"])) {
-            $this->logMessage = $this->params["console-log-message"] ; }
+        if (isset($this->params["log-message"])) {
+            $this->logMessage = $this->params["log-message"] ; }
         else {
             $this->logMessage = self::askForInput("Enter Log Message", true) ; }
     }
 
     public function log($message = null) {
         if (isset($this->logMessage)) { $message = $this->logMessage ; }
-        file_put_contents("php://stderr", "[Pharoah Console] " . $message . "\n");
+        $fullMessage = "[Pharoah Logging] " . $message . "\n" ;
+        file_put_contents("php://stderr", $fullMessage );
+        if (isset($this->params["php-log"])) {
+            error_log($fullMessage) ; }
     }
 
 }
