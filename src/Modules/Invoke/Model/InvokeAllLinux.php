@@ -83,8 +83,9 @@ class InvokeAllLinux extends Base {
     private function loadServerData() {
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
         if (isset($this->params["servers"])) {
+            var_dump($this->params["servers"]) ;
             $this->servers = $this->params["servers"]; }
-        if (isset($this->params["environment-name"])) {
+        else if (isset($this->params["environment-name"])) {
             $names = $this->getEnvironmentNames($allProjectEnvs) ;
             $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"]; }
         else if (count($allProjectEnvs) > 0) {

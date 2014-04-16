@@ -11,6 +11,7 @@ class Invoke extends Base {
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
         $action = $pageVars["route"]["action"];
+        $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="cli") {
             $this->content["shlResult"] = $thisModel->askWhetherToInvokeSSHShell();
