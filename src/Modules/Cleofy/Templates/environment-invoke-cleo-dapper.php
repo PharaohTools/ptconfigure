@@ -15,10 +15,19 @@ class AutoPilotConfigured extends AutoPilot {
 
     $this->steps =
         array(
+            array ( "Logging" => array( "log" =>
+                array( "log-message" => "Lets begin invoking Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%>"),
+            ) ),
             array ( "Invoke" => array( "data" =>
-                array("ssh-data" => $this->setSSHData() ),
-                array("servers" => array(<%tpl.php%>gen_srv_array_text</%tpl.php%>), ),
+                array(
+                    "guess" => true,
+                    "ssh-data" => $this->setSSHData(),
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
+                ),
             ) , ) ,
+            array ( "Logging" => array( "log" =>
+                array( "log-message" => "Invoking Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+            ) ),
         );
 
     }
@@ -28,6 +37,7 @@ class AutoPilotConfigured extends AutoPilot {
 git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
 sudo cleopatra dapperstrano install --yes=true
 SSHDATA;
+        return $sshData ;
     }
 
 }
