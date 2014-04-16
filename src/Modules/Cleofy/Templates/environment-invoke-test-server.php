@@ -15,7 +15,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
         array(
-            array ( "Invoke" => array( "ssh-data" =>
+            array ( "Invoke" => array( "data" =>
                 array("ssh-data" => $this->setSSHData() ),
                 array("servers" => array(<%tpl.php%>gen_srv_array_text</%tpl.php%>), ),
             ) , ) ,

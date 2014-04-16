@@ -13,16 +13,13 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
-      $this->steps =
-        array(
-          array ( "InvokeSSH" => array(
-            "sshInvokeSSHDataExecute" => true,
-            "sshInvokeSSHDataData" => "",
-            "sshInvokeServers" => array(
-              <%tpl.php%>gen_srv_array_text</%tpl.php%>
-            ),
-          ) , ) ,
-        );
+        $this->steps =
+            array(
+                array ( "Invoke" => array( "data" =>
+                    array("ssh-data" => $this->setSSHData() ),
+                    array("servers" => array(<%tpl.php%>gen_srv_array_text</%tpl.php%>), ),
+                ) , ) ,
+            );
 
     }
 
