@@ -13,14 +13,12 @@ class HostEditor extends Base {
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
         $action = $pageVars["route"]["action"];
 
-        $hostEditorModel = new \Model\HostEditor($pageVars["route"]["extraParams"]);
-
         if ($action=="add") {
-            $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostEntry();
+            $this->content["hostEditorResult"] = $thisModel->askWhetherToDoHostEntry();
             return array ("type"=>"view", "view"=>"hostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="rm") {
-            $this->content["hostEditorResult"] = $hostEditorModel->askWhetherToDoHostRemoval();
+            $this->content["hostEditorResult"] = $thisModel->askWhetherToDoHostRemoval();
             return array ("type"=>"view", "view"=>"hostEditor", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Host Editor Action";
