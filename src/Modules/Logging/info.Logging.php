@@ -37,7 +37,7 @@ class LoggingInfo extends CleopatraBase {
   Logging, logging
 
         - log
-        Logs a message the console or
+        Logs a message the logging or
         example: cleopatra logging log --php-log --log-message="Here is something logging to the console and error log"
 
 HELPDATA;
