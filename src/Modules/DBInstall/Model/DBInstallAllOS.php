@@ -21,12 +21,6 @@ class DBInstallAllOS extends Base {
     private $dbRootUser ;
     private $dbRootPass ;
 
-    public function runAutoPilot($autoPilot){
-        $this->runAutoPilotDBRemoval($autoPilot);
-        $this->runAutoPilotDBInstallation($autoPilot);
-        return true;
-    }
-
     public function askWhetherToInstallDB(\Model\DBConfigure $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
         else { return $this->performDBInstallation(); }
@@ -117,82 +111,62 @@ class DBInstallAllOS extends Base {
         return "Seems Fine...";
     }
 
-    public function runAutoPilotDBInstallation($autoPilot){
-        if ( !isset($autoPilot["dbInstallExecute"]) || $autoPilot["dbInstallExecute"]== false ) { return false; }
-        $this->dbHost = $autoPilot["dbInstallDBHost"];
-        $this->dbUser = $autoPilot["dbInstallDBUser"];
-        $this->dbPass = $autoPilot["dbInstallDBPass"];
-        $this->dbName = $autoPilot["dbInstallDBName"];
-        $this->dbRootUser = $autoPilot["dbInstallDBRootUser"];
-        $this->dbRootPass = $autoPilot["dbInstallDBRootPass"];
-        $this->userCreator();
-        $this->databaseCreator();
-        $this->sqlInstaller();
-        return true;
-    }
-
-    public function runAutoPilotDBRemoval($autoPilot){
-        if ( !isset($autoPilot["dbDropExecute"]) || $autoPilot["dbDropExecute"]==false ) { return false; }
-        $this->dbHost = $autoPilot["dbDropDBHost"];
-        $this->dbName = $autoPilot["dbDropDBName"];
-        $this->dbRootUser = $autoPilot["dbDropDBRootUser"];
-        $this->dbRootPass = $autoPilot["dbDropDBRootPass"];
-        $this->dropDB();
-        if ( isset($autoPilot["dbDropUserExecute"]) && $autoPilot["dbDropUserExecute"] == true ) {
-            $this->dbUser = $autoPilot["dbDropDBUser"];
-            $this->userDropper(); }
-        return true;
-    }
-
     private function askForDBInstall(){
-        $question = 'Do you want to install a database?';
-        return self::askYesOrNo($question);
+        $question = 'Do you want to install a database?' ;
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForDBDropActions(){
-        $question = 'Do you want to perform drop actions (user/db)?';
-        return self::askYesOrNo($question);
+        $question = 'Do you want to perform drop actions (user/db)?' ;
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForDBDrop(){
         $question = 'Do you want to drop a database?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForDBUserDrop(){
         $question = 'Do you want to drop a user?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForDBUserAdd(){
         $question = 'Do you want to add a user?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function verifyContinueWithNonConnectDetails(){
         $question = 'Cannot connect with these details. Sure you want to continue?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForDBHost(){
+        if (isset($this->params["mysql-host"])) { return $this->params["mysql-host"] ; };
         $question = 'What\'s the Mysql Host? Enter for 127.0.0.1';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1' : $input ;
     }
 
     private function askForDBUser(){
+        if (isset($this->params["mysql-user"])) { return $this->params["mysql-user"] ; }
+        if (isset($this->params["mysql-user-name"])) { return $this->params["mysql-user-name"] ; };
+        if (isset($this->params["mysql-username"])) { return $this->params["mysql-username"] ; };
         $question = 'What\'s the application DB User?';
         $allDbUsers = array_merge(array("**CREATE NEW USER**"), $this->getDbUsers()) ;
         $user = self::askForArrayOption($question, $allDbUsers, true);
         if ($user=="**CREATE NEW USER**") {
-          $question = 'Enter New User Name?';
-          $user = self::askForInput($question, true); }
+            $question = 'Enter New User Name?';
+            $user = self::askForInput($question, true); }
         return $user;
     }
 
     private function askForFreeFormDBUser(){
-      $question = 'What\'s the application DB User?';
-      return self::askForInput($question, true);
+        if (isset($this->params["mysql-user"])) { return $this->params["mysql-user"] ; }
+        if (isset($this->params["mysql-user-name"])) { return $this->params["mysql-user-name"] ; };
+        if (isset($this->params["mysql-username"])) { return $this->params["mysql-username"] ; };
+        $question = 'What\'s the application DB User?';
+        return self::askForInput($question, true);
     }
 
     private function loadDBAdminUser() {
@@ -214,11 +188,13 @@ class DBInstallAllOS extends Base {
     }
 
     private function askForDBPass(){
+        if (isset($this->params["mysql-user-password"])) { return $this->params["mysql-user-password"] ; }
         $question = 'What\'s the application DB Password?';
         return self::askForInput($question, true);
     }
 
     private function askForDBFreeFormName(){
+        if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
         $question = 'What\'s the application DB Name?'."\n";
         $question .= 'Current Db\'s are:'."\n";
         $allDbNames = $this->getDbNameList();
@@ -228,6 +204,7 @@ class DBInstallAllOS extends Base {
     }
 
     private function askForDBFixedName(){
+        if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
         $question = 'What\'s the application DB Name?';
         $allDbNames = $this->getDbNameList();
         return self::askForArrayOption($question, $allDbNames, true);
@@ -287,15 +264,17 @@ class DBInstallAllOS extends Base {
 
     private function useRootToSetUpUserAndDb(){
         $question = 'MySQL Admin Details required to setup DB/User - Continue?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForRootDBUser(){
+        if (isset($this->params["mysql-admin-user"])) { return $this->params["mysql-admin-user"] ; }
         $question = 'What\'s the MySQL Admin User?';
         return self::askForInput($question, true);
     }
 
     private function askForRootDBPass(){
+        if (isset($this->params["mysql-admin-pass"])) { return $this->params["mysql-admin-pass"] ; }
         $question = 'What\'s the MySQL Admin Password?';
         return self::askForInput($question, true);
     }
