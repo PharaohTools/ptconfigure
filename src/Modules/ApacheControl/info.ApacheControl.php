@@ -13,28 +13,12 @@ class ApacheControlInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "ApacheControl" => array_merge(parent::routesAvailable(), array("start", "stop", "restart") ) );
+      return array( "ApacheControl" => array_merge(parent::routesAvailable(), array("start", "stop", "restart", "reload") ) );
     }
 
     public function routeAliases() {
       return array("apachecontrol"=>"ApacheControl", "apachectl"=>"ApacheControl", "apache-control"=>"ApacheControl",
           "apache-ctl"=>"ApacheControl");
-    }
-
-    public function autoPilotVariables() {
-      return array(
-        "ApacheControl" => array(
-          "apacheControlRestartExecute" => array(
-            "apacheControlRestartExecute" => "boolean",
-            "apacheControlRestartApacheCommand" => "string", ) ,
-          "apacheControlStartExecute" => array(
-            "apacheControlStartExecute" => "boolean",
-            "apacheControlStartApacheCommand" => "string", ) ,
-          "apacheControlStopExecute" => array(
-            "apacheControlStopExecute" => "boolean",
-            "apacheControlStopApacheCommand" => "string", ) ,
-        ) ,
-      );
     }
 
     public function helpDefinition() {
