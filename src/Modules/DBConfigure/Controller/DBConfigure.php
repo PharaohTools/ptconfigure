@@ -14,8 +14,6 @@ class DBConfigure extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        $thisModel = new \Model\DBConfigure($pageVars["route"]["extraParams"]) ;
-
         if ($action=="configure" || $action== "config" || $action== "conf") {
             $this->content["dbResult"] = $thisModel->askWhetherToConfigureDB();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }

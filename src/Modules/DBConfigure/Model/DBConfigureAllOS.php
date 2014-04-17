@@ -25,17 +25,6 @@ class DBConfigureAllOS extends Base {
     private $dbRootPass ;
     private $dbName ;
 
-    public function __construct() {
-        //do stuff
-    }
-
-    public function runAutoPilot($autoPilot){
-        $this->runAutoPilotDBReset($autoPilot);
-        $this->runAutoPilotDBConfiguration($autoPilot);
-        echo "dave wins\n" ;
-        return true;
-    }
-
     public function askWhetherToConfigureDB(){
         return $this->performDBConfiguration();
     }
@@ -80,40 +69,6 @@ class DBConfigureAllOS extends Base {
         return true;
     }
 
-    public function runAutoPilotDBConfiguration($autoPilot){
-        if ( !isset($autoPilot["dbConfigureExecute"]) || $autoPilot["dbConfigureExecute"] == false ) { return false; }
-        echo "DB Config Setup:\n";
-        $this->dbHost = $autoPilot["dbConfigureDBHost"];
-        $this->dbUser = $autoPilot["dbConfigureDBUser"];
-        $this->dbPass = $autoPilot["dbConfigureDBPass"];
-        $this->dbName = $autoPilot["dbConfigureDBName"];
-        $this->platform = $autoPilot["dbConfigurePlatform"];
-        $this->setPlatformVars();
-        $this->loadCurrentSettingsFile();
-        $this->settingsFileDataChange();
-        $this->removeOldSettingsFile();
-        $this->createSettingsFile();
-        if (is_array($this->platformVars->getProperty("extraConfigFiles")) &&
-            count($this->platformVars->getProperty("extraConfigFiles"))>0) {
-            $this->doExtraSettingsFilesDataChanges(); }
-        return true;
-    }
-
-    public function runAutoPilotDBReset($autoPilot){
-        if ( !isset($autoPilot["dbResetExecute"]) || $autoPilot["dbResetExecute"] == false ) { return false; }
-        echo "DB Config Reset:\n";
-        $this->platform = $autoPilot["dbResetPlatform"];
-        $this->setPlatformVars();
-        $this->loadCurrentSettingsFile();
-        $this->settingsFileReverseDataChange();
-        $this->removeOldSettingsFile();
-        $this->createSettingsFile();
-        if (is_array($this->platformVars->getProperty("extraConfigFiles")) &&
-            count($this->platformVars->getProperty("extraConfigFiles"))>0) {
-            $this->doExtraSettingsFilesReverseDataChanges(); }
-        return true;
-    }
-
     public function getProperty($property) {
         return $this->$property;
     }
@@ -141,6 +96,8 @@ class DBConfigureAllOS extends Base {
 
     private function askForPlatform(){
         $availablePlats = array("drupal7", "php" , "gcfw" , "gcfw2", "joomla15", "joomla30");
+        if (isset($this->params["platform"]) && in_array($this->params["platform"], $availablePlats)) {
+            return $this->params["platform"] ; }
         $question = "Please Choose Project Platform:\n";
         $i=0;
         foreach ($availablePlats as $plat) {
@@ -159,26 +116,30 @@ class DBConfigureAllOS extends Base {
 
     private function askForDBConfig(){
         $question = 'Do you want to configure a database?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForDBConfigReset(){
         $question = 'Do you want to reset a database configuration?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function verifyContinueWithNonConnectDetails(){
         $question = 'Cannot connect with these details. Sure you want to continue?';
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function askForDBHost(){
+        if (isset($this->params["mysql-host"])) { return $this->params["mysql-host"] ; };
         $question = 'What\'s the Mysql Host? Enter for 127.0.0.1';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1' : $input ;
     }
 
     private function askForDBUser(){
+        if (isset($this->params["mysql-user"])) { return $this->params["mysql-user"] ; }
+        if (isset($this->params["mysql-user-name"])) { return $this->params["mysql-user-name"] ; };
+        if (isset($this->params["mysql-username"])) { return $this->params["mysql-username"] ; };
         $question = 'What\'s the application DB User?'."\n";
         if ($this->dbRootUser != "") {
           $allDbUsers = array_merge(array("**ENTER PLAIN TEXT**"), $this->getDbUsers()) ;
@@ -191,13 +152,15 @@ class DBConfigureAllOS extends Base {
     }
 
     private function askForRootDBUser(){
-      $question = 'What\'s the MySQL Admin User? (Enter nothing to skip loading current users to help config)';
-      return self::askForInput($question, true);
+        if (isset($this->params["mysql-admin-user"])) { return $this->params["mysql-admin-user"] ; }
+        $question = 'What\'s the MySQL Admin User? (Enter nothing to skip loading current users to help config)';
+        return self::askForInput($question, true);
     }
 
     private function askForRootDBPass(){
-      $question = 'What\'s the MySQL Admin Password?';
-      return self::askForInput($question, true);
+        if (isset($this->params["mysql-admin-pass"])) { return $this->params["mysql-admin-pass"] ; }
+        $question = 'What\'s the MySQL Admin Password?';
+        return self::askForInput($question, true);
     }
 
     private function getDbUsers() {
@@ -231,11 +194,15 @@ class DBConfigureAllOS extends Base {
     }
 
     private function askForDBPass(){
+        if (isset($this->params["mysql-password"])) { return $this->params["mysql-password"] ; }
+        if (isset($this->params["mysql-pass"])) { return $this->params["mysql-pass"] ; }
         $question = 'What\'s the application DB Password?';
         return self::askForInput($question, true);
     }
 
     private function askForDBName(){
+        if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
+        if (isset($this->params["mysql-db"])) { return $this->params["mysql-db"] ; }
         $question = 'What\'s the application DB Name?'."\n";
         if ($this->dbRootUser != "") {
           $allDbNames = array_merge(array("**ENTER PLAIN TEXT**"), $this->getDbNameList()) ;
@@ -311,7 +278,7 @@ class DBConfigureAllOS extends Base {
 
     private function checkSettingsFileOkay(){
         $question = 'Please check '.$this->platform.' Settings file: '.$this->settingsFileData."\n\nIs this Okay?";
-        return self::askYesOrNo($question);
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
     private function createSettingsFile() {
@@ -324,7 +291,7 @@ class DBConfigureAllOS extends Base {
     }
 
     private function removeOldSettingsFile(){
-        $command    = 'rm '.$this->platformVars->getProperty("settingsFileLocation").'/';
+        $command    = 'rm -f '.$this->platformVars->getProperty("settingsFileLocation").'/';
         $command .= $this->platformVars->getProperty("settingsFileName");
         self::executeAndOutput($command, "Removing old settings file ".$this->platformVars->getProperty("settingsFileName")."...\n");
     }
