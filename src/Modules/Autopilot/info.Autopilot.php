@@ -6,7 +6,7 @@ class AutopilotInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Cleopatra Autopilot - User Defined Installs";
+    public $name = "Dappestrano Autopilot - User Defined Installations";
 
     public function __construct() {
       parent::__construct();
@@ -18,10 +18,6 @@ class AutopilotInfo extends Base {
 
     public function routeAliases() {
       return array("auto"=>"Autopilot", "autopilot"=>"Autopilot");
-    }
-
-    public function autoPilotVariables() {
-      return array();
     }
 
     public function helpDefinition() {

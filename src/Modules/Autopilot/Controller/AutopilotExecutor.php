@@ -2,22 +2,63 @@
 
 Namespace Controller ;
 
+use Core\View;
+
 class AutopilotExecutor extends Base {
 
     public function execute($pageVars, $autopilot) {
+      $params = $pageVars["route"]["extraParams"];
       $this->content["package-friendly"] = "Autopilot";
-      $this->registeredModules = $this->getModulesFromSteps($autopilot->steps) ;
-      // @todo check below works i added the param no checking
-      $this->checkForRegisteredModules($pageVars["route"]["extraParams"], $this->registeredModules);
-      $this->executeMyRegisteredModulesAutopilot($autopilot, $pageVars["route"]["extraParams"]);
+      $this->registeredModels = $autopilot->steps ;
+      $this->checkForRegisteredModels($params);
+      $this->content["autoExec"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $params);
       return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
-    private function getModulesFromSteps($steps) {
-      $modules = array();
-      foreach ($steps as $step) {
-        $stepName = array_keys($step);
-        $modules[] = $stepName[0] ; }
-      return $modules ;
+    protected function executeMyRegisteredModelsAutopilot($autoPilot) {
+        $dataFromThis = "";
+        foreach ($autoPilot->steps as $modelArray) {
+            $currentControls = array_keys($modelArray) ;
+            $currentControl = $currentControls[0] ;
+            $currentActions = array_keys($modelArray[$currentControl]) ;
+            $currentAction = $currentActions[0] ;
+            $modParams = $modelArray[$currentControl][$currentAction] ;
+            $modParams = $this->formatParams($modParams) ;
+            $params = array() ;
+            $params["route"] =
+            array(
+                "extraParams" => $modParams ,
+                "control" => $currentControl ,
+                "action" => $currentAction ,
+            ) ;
+            $dataFromThis .= $this->executeControl($currentControl, $params); }
+        return $dataFromThis ;
     }
+
+    private function formatParams($params) {
+        $newParams = array();
+        foreach($params as $origParamKey => $origParamVal) {
+            $newParams[] = '--'.$origParamKey.'='.$origParamVal ; }
+        $newParams[] = '--yes' ;
+        $newParams[] = "--hide-title=yes";
+        $newParams[] = "--hide-completion=yes";
+        return $newParams ;
+    }
+
+    public function executeControl($controlToExecute, $pageVars=null) {
+        $control = new \Core\Control();
+        $controlResult = $control->executeControl($controlToExecute, $pageVars);
+        if ($controlResult["type"]=="view") {
+            return $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
+        else if ($controlResult["type"]=="control") {
+            $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); }
+    }
+
+    public function executeView($view, Array $viewVars) {
+        $viewObject = new View();
+        $templateData = $viewObject->loadTemplate ($view, $viewVars) ;
+        $data = $viewObject->loadLayout ( "blank", $templateData, $viewVars) ;
+        return $data ;
+    }
+
 }
