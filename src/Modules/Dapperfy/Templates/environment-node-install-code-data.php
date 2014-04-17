@@ -24,6 +24,18 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSteps() {
 
 	    $this->steps =
+            array(
+                array ( "Logging" => array( "log" =>
+                array( "log-message" => "Lets begin invoking Revision Enforcement on environment <%tpl.php%>env_name</%tpl.php%>"),
+                ) ),
+                array ( "Invoke" => array( "data" =>
+                array("ssh-data" => $this->setSSHData() ),
+                    array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                array( "log-message" => "Invoking Revision Enforcement on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+                ) ),
+            );
 	      array(
           array ( "Project" => array(
                     "projectContainerInitExecute" => true,
