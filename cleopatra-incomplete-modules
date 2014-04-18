@@ -5,10 +5,6 @@ IN PROGRESS
 You cannot call a module NoModuleAssociated as PackageManager uses that to store packages in cleovars that were installed
 from cli not module
 
-VERY IMPORTANT!!!
-MysqlAdmins and RunCommand both require a new way to call
-FIXED, If a command requires propertiers of an object, put it in a method and use executeAsShell
-
 
 DONE
 SSH Private key encryption thing
@@ -621,3 +617,9 @@ OK - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
 OK - UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
 OK - User - Add, Remove or Modify Users
 OK - Yum - Add, Remove or Modify Yum Packages
+
+
+
+VERY IMPORTANT!!!
+MysqlAdmins and RunCommand both require a new way to call
+FIXED, If a command requires propertiers of an object, put it in a method and use executeAsShell
