@@ -55,11 +55,13 @@ class ApacheControlAllLinux extends Base {
         $appConfigFactory = new \Model\AppSettings();
         $appConfigModel = $appConfigFactory->getModel($this->params, "AppConfig");
         $linuxTypeFromConfig = $appConfigModel::getAppVariable("linux-type") ;
-        if ( in_array($linuxTypeFromConfig, array("debian", "redhat") ) ) {
-            $input = ($linuxTypeFromConfig == "debian") ? "apache2" : "httpd" ; }
-        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+        if (isset($this->params["apache-command"])) {
+            return $this->params["apache-command"] ; }
+        else if (isset($this->params["guess"])) {
             $isDebian = $this->detectDebianApacheVHostFolderExistence();
             $input = ($isDebian) ? "apache2" : "httpd" ; }
+        else if ( in_array($linuxTypeFromConfig, array("debian", "redhat") ) ) {
+            $input = ($linuxTypeFromConfig == "debian") ? "apache2" : "httpd" ; }
         else {
             $question = 'What is the apache service name?';
             $input = self::askForArrayOption($question, array("apache2", "httpd"), true) ; }
