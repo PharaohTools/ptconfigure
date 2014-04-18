@@ -15,8 +15,7 @@ class NginxControl extends Base {
         $action = $pageVars["route"]["action"];
 
         if (in_array($action, array("start", "stop", "restart"))) {
-            $NginxControlModel = new \Model\NginxControl($pageVars["route"]["extraParams"]);
-            $this->content["NginxControlResult"] = $NginxControlModel->askWhetherToCtlNginx($action);
+            $this->content["NginxControlResult"] = $thisModel->askWhetherToCtlNginx($action);
             return array ("type"=>"view", "view"=>"NginxControl", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Nginx Control Action";

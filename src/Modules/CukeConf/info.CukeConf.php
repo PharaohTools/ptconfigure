@@ -20,31 +20,22 @@ class CukeConfInfo extends Base {
       return array("cukeconf"=>"CukeConf", "cukeConf"=>"CukeConf", "cuke"=>"CukeConf");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "CukeConf" => array(
-          "cukeConfAdditionExecute" => array(
-            "cukeConfAdditionExecute" => "boolean",
-            "cukeConfAdditionURI"=>"string", ) ,
-          "cukeConfDeletionExecute" => array(
-            "cukeConfDeletionExecute" => "boolean", ) ,
-        )
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and provides you  with a method by which you can configure Cucumber configurations
 
   CukeConf, cukeConf, cukeconf, cuke
 
-          - conf
+          - configure, config, conf
           modify the url used for cucumber features testing
-          example: dapperstrano cukeconf cli
+          example: dapperstrano cukeconf conf
+          example: dapperstrano cukeconf conf --yes --cucumber-url="www.dave.local"
 
           - reset
           reset cuke uri to generic values so dapperstrano can write them. may need to be run before cuke conf.
           example: dapperstrano cukeconf reset
+          example: dapperstrano cukeconf reset --yes
+
 HELPDATA;
       return $help ;
     }

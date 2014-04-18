@@ -21,22 +21,6 @@ class LighttpdControlInfo extends Base {
           "lighttpd-ctl"=>"LighttpdControl");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "LighttpdControl" => array(
-          "lighttpdControlRestartExecute" => array(
-            "lighttpdControlRestartExecute" => "boolean",
-            "lighttpdControlRestartLighttpdCommand" => "string", ) ,
-          "lighttpdControlStartExecute" => array(
-            "lighttpdControlStartExecute" => "boolean",
-            "lighttpdControlStartLighttpdCommand" => "string", ) ,
-          "lighttpdControlStopExecute" => array(
-            "lighttpdControlStopExecute" => "boolean",
-            "lighttpdControlStopLighttpdCommand" => "string", ) ,
-        ) ,
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Lighttpd Server Control Functions.
@@ -46,18 +30,22 @@ class LighttpdControlInfo extends Base {
           - start
           Start the Lighttpd server
           example: dapperstrano lighttpdcontrol start
+          example: dapperstrano lighttpdcontrol start --yes
 
           - stop
           Stop the Lighttpd server
           example: dapperstrano lighttpdcontrol stop
+          example: dapperstrano lighttpdcontrol stop --yes
 
           - restart
           Restart the Lighttpd server
           example: dapperstrano lighttpdcontrol restart
+          example: dapperstrano lighttpdcontrol restart --yes
 
           - reload
           Reloads the Lighttpd server configuration without restarting
           example: dapperstrano lighttpdcontrol reload
+          example: dapperstrano lighttpdcontrol reload --yes
 
 HELPDATA;
       return $help ;

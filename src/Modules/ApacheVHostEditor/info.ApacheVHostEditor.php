@@ -18,60 +18,39 @@ class ApacheVHostEditorInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("vhc"=>"ApacheVHostEditor", "vhosted"=>"ApacheVHostEditor", "vhed"=>"ApacheVHostEditor",
+      return array("vhe"=>"ApacheVHostEditor", "vhosted"=>"ApacheVHostEditor", "vhed"=>"ApacheVHostEditor",
           "vhosteditor"=>"ApacheVHostEditor", "VHostEditor"=>"ApacheVHostEditor",  "apachevhosteditor"=>"ApacheVHostEditor");
-    }
-
-    public function autoPilotVariables() {
-      return array(
-        "ApacheVHostEditor" => array(
-          "virtualHostEditorAdditionExecute" => array(
-            "virtualHostEditorAdditionExecute" => "boolean",
-            "virtualHostEditorAdditionDocRoot" => "string",
-            "virtualHostEditorAdditionURL" => "string",
-            "virtualHostEditorAdditionIp" => "string",
-            "virtualHostEditorAdditionTemplateData" => "string",
-            "virtualHostEditorAdditionDirectory" => "string",
-            "virtualHostEditorAdditionFileSuffix" => "string",
-            "virtualHostEditorAdditionVHostEnable" => "boolean",
-            "virtualHostEditorAdditionSymLinkDirectory" => "string",
-            "virtualHostEditorAdditionApacheCommand" => "string", ) ,
-          "virtualHostEditorDeletionExecute" => array(
-            "virtualHostEditorDeletionExecute" => "boolean",
-            "virtualHostEditorDeletionDirectory" => "string",
-            "virtualHostEditorDeletionTarget" => "string",
-            "virtualHostEditorDeletionVHostDisable" => "boolean",
-            "virtualHostEditorDeletionSymLinkDirectory" => "string",
-            "virtualHostEditorDeletionApacheCommand" => "string", ) ,
-        ) ,
-      );
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Apache VHosts Functions.
 
-  ApacheVHostEditor, apachevhosteditor, vhosteditor, vhc, vhosted
+  ApacheVHostEditor, apachevhosteditor, vhosteditor, vhe, vhosted
 
           - add
           create a Virtual Host
-          example: dapperstrano vhc add
+          example: sudo dapperstrano vhe add
+          example: sudo dapperstrano vhe add --yes --vhe-docroot=/var/www/the-app --vhe-url=www.dave.com
+                        --vhe-file-ext="" --vhe-apache-command="apache2" --vhe-ip-port
+            --vhe-vhost-dir
+            --vhe-template
 
           - rm
           remove a Virtual Host
-          example: dapperstrano vhc rm
+          example: dapperstrano vhe rm
 
           - list
           List current Virtual Hosts
-          example: dapperstrano vhc list
+          example: dapperstrano vhe list
 
           - enable
           enable a Server Block
-          example: dapperstrano vhc enable
+          example: dapperstrano vhe enable
 
           - disable
           disable a Server Block
-          example: dapperstrano vhc disable
+          example: dapperstrano vhe disable
 
 HELPDATA;
       return $help ;

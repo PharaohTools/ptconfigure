@@ -20,21 +20,6 @@ class HostEditorInfo extends Base {
       return array("he"=>"HostEditor", "hostEditor"=>"HostEditor");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "HostEditor" => array(
-          "hostEditorAdditionExecute" => array(
-            "hostEditorAdditionExecute" => "boolean",
-            "hostEditorAdditionIP" => "string",
-            "hostEditorAdditionURI" => "string", ) ,
-          "hostEditorDeletionExecute" => array(
-            "hostEditorDeletionExecute" => "boolean",
-            "hostEditorDeletionIP" => "string",
-            "hostEditorDeletionURI"=>"string", ) ,
-        ) ,
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Host File Management Functions.
@@ -44,10 +29,12 @@ class HostEditorInfo extends Base {
           - add
           add a Host File entry
           example: dapperstrano hosteditor add
+          example: dapperstrano hosteditor add --yes --host-ip=127.0.0.1 --host-name=dave.com
 
           - rm
           remove a Host File entry
           example: dapperstrano hosteditor rm
+          example: dapperstrano hosteditor rm --yes --host-ip=127.0.0.1 --host-name=dave.com
 
 HELPDATA;
       return $help ;

@@ -9,45 +9,20 @@ class NginxSBEditorInfo extends Base {
     public $name = "Nginx Server Block Functions";
 
     public function _construct() {
-      parent::__construct();
+        parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "NginxSBEditor" => array_merge(parent::routesAvailable(), array("add", "rm", "remove", "list",
-          "enable", "en", "disable", "dis") ) );
+        return array( "NginxSBEditor" => array_merge(
+            parent::routesAvailable(), array("add", "rm", "remove", "list", "enable", "en", "disable", "dis") ) );
     }
 
     public function routeAliases() {
-      return array("nginx-sb-editor"=>"NginxSBEditor", "nginxsbe"=>"NginxSBEditor");
-    }
-
-    public function autoPilotVariables() {
-      return array(
-        "NginxSBEditor" => array(
-          "serverBlockEditorAdditionExecute" => array(
-            "serverBlockEditorAdditionExecute" => "boolean",
-            "serverBlockEditorAdditionDocRoot" => "string",
-            "serverBlockEditorAdditionURL" => "string",
-            "serverBlockEditorAdditionIp" => "string",
-            "serverBlockEditorAdditionTemplateData" => "string",
-            "serverBlockEditorAdditionDirectory" => "string",
-            "serverBlockEditorAdditionFileSuffix" => "string",
-            "serverBlockEditorAdditionServerBlockEnable" => "boolean",
-            "serverBlockEditorAdditionSymLinkDirectory" => "string",
-          ) ,
-          "serverBlockEditorDeletionExecute" => array(
-            "serverBlockEditorDeletionExecute" => "boolean",
-            "serverBlockEditorDeletionDirectory" => "string",
-            "serverBlockEditorDeletionTarget" => "string",
-            "serverBlockEditorDeletionServerBlockDisable" => "boolean",
-            "serverBlockEditorDeletionSymLinkDirectory" => "string",
-          ) ,
-        ) ,
-      );
+        return array("nginx-sb-editor"=>"NginxSBEditor", "nginxsbe"=>"NginxSBEditor");
     }
 
     public function helpDefinition() {
-      $help = <<<"HELPDATA"
+        $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Nginx ServerBlocks Functions.
 
   NginxSBEditor, nginx-sb-editor, nginxsbe
@@ -55,6 +30,9 @@ class NginxSBEditorInfo extends Base {
           - add
           create a Server Block
           example: dapperstrano nginxsbe add
+          sb-docroot
+          sb-url
+          sb-ip-port
 
           - rm
           remove a Server Block
@@ -77,8 +55,8 @@ HELPDATA;
     }
 
 
-  public function generatorCodeInjection($step=null) {
-    $inject = <<<'INJECT'
+    public function generatorCodeInjection($step=null) {
+        $inject = <<<'INJECT'
 //
 // // This function will set the ServerBlock template for your Server Block
 // // You need to call this from your constructor
@@ -133,7 +111,7 @@ INJECT;
 //}
 //
 INJECT;
-    return $inject ;
+        return $inject ;
 
     }
 

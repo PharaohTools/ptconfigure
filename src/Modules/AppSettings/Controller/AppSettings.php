@@ -14,22 +14,20 @@ class AppSettings extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        $appSettingsModel = new \Model\AppSettings($pageVars["route"]["extraParams"]);
-
         if ($action=="set") {
-          $this->content["configResult"] = $appSettingsModel->askWhetherToSetConfig();
+          $this->content["configResult"] = $thisModel->askWhetherToSetConfig();
           return array ("type"=>"view", "view"=>"config", "pageVars"=>$this->content); }
 
         if ($action=="get") {
-            $this->content["configResult"] = $appSettingsModel->askWhetherToGetConfig();
+            $this->content["configResult"] = $thisModel->askWhetherToGetConfig();
             return array ("type"=>"view", "view"=>"config", "pageVars"=>$this->content); }
 
         if ($action=="delete") {
-            $this->content["configResult"] = $appSettingsModel->askWhetherToDeleteConfig();
+            $this->content["configResult"] = $thisModel->askWhetherToDeleteConfig();
             return array ("type"=>"view", "view"=>"config", "pageVars"=>$this->content); }
 
         if ($action=="list") {
-            $this->content["configResult"] = $appSettingsModel->askWhetherToListConfigs();
+            $this->content["configResult"] = $thisModel->askWhetherToListConfigs();
             return array ("type"=>"view", "view"=>"config", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Project Action";

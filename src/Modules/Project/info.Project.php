@@ -21,23 +21,6 @@ class ProjectInfo extends Base {
       return array("proj"=>"Project", "project"=>"Project");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "Project" => array(
-          "projectContainerInitExecute" => array(
-            "projectContainerInitExecute" => "boolean",
-            "projectContainerDirectory" => "string", ) ,
-          "projectInitializeExecute" => array(
-            "projectInitializeExecute" => "boolean", ) ,
-          "projectBuildInstallExecute" => array(
-            "projectBuildInstallExecute" => "boolean",
-            "projectJenkinsOriginalJobFolderName" => "string",
-            "projectJenkinsFSFolder" => "string",
-            "projectJenkinsNewJobFolderName" => "string", ) ,
-        ) ,
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Project initialisation functions, like configuring a project, or a project
@@ -45,17 +28,25 @@ class ProjectInfo extends Base {
 
   Project, project, proj
 
+
           - container
           make a container folder for revisions (like /var/www/applications/*APP NAME*)
           example: dapperstrano proj container
+          example: dapperstrano proj container --yes --proj-container="/var/www/applications/the-app"
 
           - init
-          initialize DH project
+          initialize Dapper project
           example: dapperstrano proj init
+          example: dapperstrano proj init --yes
 
           - build-install
           copy jenkins project stored in repo to running jenkins so you can run builds
           example: dapperstrano proj build-install
+          example: dapperstrano proj build-install
+                        --jenkins-fs-dir=/var/lib/jenkins # --guess will set this to /var/lib/jenkins
+                        --original-build-dir="/var/www/applications/the-app/build/config/cleopatra/Project/jenkins-builds"
+                        --target-job-name="Project_Build"
+                        --new-job-dir="Project_Build_Alternate_Name"  # If target one is not available
 
 HELPDATA;
       return $help ;
