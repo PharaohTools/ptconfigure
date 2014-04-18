@@ -27,7 +27,7 @@ class Base {
 
         if (isset($thisModel)) {
             // @todo child controllers should specify this
-            if ($action=="install" || $action=="uninstall" || $action=="status" && !in_array($action, $ignored_actions)) {
+            if ( ($action=="install" || $action=="uninstall" || $action=="status") && !in_array($action, $ignored_actions)) {
                 $this->content["params"] = $thisModel->params;
                 $this->content["appName"] = $thisModel->autopilotDefiner;
                 $newAction = ucfirst($action) ;
