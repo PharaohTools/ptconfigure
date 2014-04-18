@@ -1,10 +1,41 @@
 Dapperstrano Incomplete Modules
 -------------------------------------
 
+Dapperfy must use templateing like clefoy does
+
+remove references to $this->baseTempDir
+
 Concepts
 --------
 database should use templating for config
 git and svn should have web server reset functions removed
+
+Parameterize/Autopilotize
+-----------------------
+ApacheControl - Apache Server Control - DONE
+ApacheVHostEditor - Apache Virtual Host Functions - DONE
+AppSettings - Dapperstrano Application Settings  - DONE
+Autopilot - Dappestrano Autopilot - User Defined Installations - DONE
+CukeConf - Cucumber Configuration - DONE
+DBConfigure - Database Connection Configuration Functions - DONE
+DBInstall - Database Installation Management Functions - DONE
+Dapperfy - Dapperstrano Dapperfyer - Create some standard autopilots for your project - DONE MOST
+EnvironmentConfig - Environment Configuration - Configure Environments for a project  - DONE
+GitClone - GitClone Source Control Clone Functions - DONE
+HostEditor - Host File Management Functions - DONE
+Invoke - SSH Invocation Functions - DONE
+LighttpdControl - Lighttpd Server Control - WAIT
+Logging - Logging - Output errors to the logging - DONE
+NginxControl - Nginx Server Control - DONE
+NginxSBEditor - Nginx Server Block Functions
+ParallelSshChild - Command Execution Functions - WAIT
+Project - Dapperstrano Project Management Functions
+SVN - SVN Source Control Project Checkout/Download Functions - DONE
+SystemDetection - System Detection - Detect the Running Operating System - DONE
+Version - Versioning Functions - DONE
+
+MVP Above Here
+-------------------------------------------------------------
 
 
 Not Done
@@ -21,7 +52,6 @@ zend server vhc
 
 Not Done
 -----------
-AWS
 CVS
 
 
@@ -103,3 +133,7 @@ database should be split into
    mongo)
 
    DONE
+
+
+
+AWS - EC2 In cleopatra
