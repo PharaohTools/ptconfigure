@@ -16,12 +16,6 @@ class CukeConfAllOS extends Base {
 
     private $cukeFileData;
 
-    public function runAutoPilot($autoPilot){
-        $this->runAutoPilotAddition($autoPilot);
-        $this->runAutoPilotDeletion($autoPilot);
-        return true;
-    }
-
     public function askWhetherToCreateCuke(){
         return $this->performCukeConfigure();
     }
@@ -35,7 +29,7 @@ class CukeConfAllOS extends Base {
         if (!$cukeFileEntry) { return false; }
         if ( !$this->checkIsDHProject() ) {
             return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
-        $uri = $this->askForCukefileUri();
+        $uri = $this->askForCukefileUrl();
         $this->loadCurrentCukeFile();
         $this->cukeFileDataChange( $uri);
         $this->checkCukeFileOkay();
@@ -59,51 +53,26 @@ class CukeConfAllOS extends Base {
         return "Seems Okay\n";
     }
 
-    public function runAutoPilotAddition($autoPilot){
-        if ( !isset($autoPilot["cukeConfAdditionExecute"]) || $autoPilot["cukeConfAdditionExecute"]==false ) { return false; }
-      if ( !$this->checkIsDHProject() ) {
-        return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
-        $uri = $autoPilot["cukeConfAdditionURI"];
-        $this->loadCurrentCukeFile();
-        $this->cukeFileDataChange( $uri);
-        $this->createCukeFile();
-        $this->removeOldCukeFile();
-        $this->moveCukeFile();
-        return true;
-    }
-
-    public function runAutoPilotDeletion($autoPilot){
-        if ( !isset($autoPilot["cukeConfDeletionExecute"]) || $autoPilot["cukeConfDeletionExecute"]==false) { return false; }
-        if ( !$this->checkIsDHProject() ) {
-            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
-        $this->loadCurrentCukeFile();
-        $this->cukeFileReverseDataChange();
-        $this->createCukeFile();
-        $this->removeOldCukeFile();
-        $this->moveCukeFile();
-        return true;
-    }
-
     private function checkIsDHProject(){
         return file_exists('dhproj');
     }
 
     private function askForCukeModToScreen(){
-        if (isset($this->params["yes"]) && $this->params["yes"]==true) {
-            return true ; }
+        if (isset($this->params["yes"])) { return true ; }
         $question = 'Do you want to modify cucumber features URI?';
         return self::askYesOrNo($question);
     }
 
     private function askForCukeResetToScreen(){
-        if (isset($this->params["yes"]) && $this->params["yes"]==true) {
-            return true ; }
+        if (isset($this->params["yes"])) { return true ; }
         $question = 'Do you want to reset cucumber features?';
         return self::askYesOrNo($question);
     }
 
-    private function askForCukefileUri(){
-        $question = 'What URI do you want to add to the Cuke File?';
+    private function askForCukefileUrl(){
+        if (isset($this->params["cucumber-url"])) { return $this->params["cucumber-url"] ; }
+        if (isset($this->params["cuke-url"])) { return $this->params["cuke-url"] ; }
+        $question = 'What URL do you want to add to the Cuke File?';
         return self::askForInput($question, true);
     }
 
@@ -128,6 +97,7 @@ class CukeConfAllOS extends Base {
     }
 
     private function checkCukeFileOkay(){
+        if (isset($this->params["yes"])) { return true ; }
         $question = 'Please check cuke file: '.$this->cukeFileData."\n\nIs this Okay?";
         return self::askYesOrNo($question);
     }

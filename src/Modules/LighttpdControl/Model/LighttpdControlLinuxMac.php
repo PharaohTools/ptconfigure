@@ -20,34 +20,6 @@ class LighttpdControlLinuxMac extends Base {
       return true;
     }
 
-    public function runAutoPilot($autoPilot) {
-        $this->runAutoPilotLighttpdCtlStart($autoPilot);
-        $this->runAutoPilotLighttpdCtlRestart($autoPilot);
-        $this->runAutoPilotLighttpdCtlStop($autoPilot);
-        return true;
-    }
-
-    public function runAutoPilotLighttpdCtlStart($autoPilot){
-      if ( !isset($autoPilot["lighttpdCtlStartExecute"]) ||
-        $autoPilot["lighttpdCtlStartExecute"] == false ) { return false; }
-      $this->startLighttpd();
-      return true;
-    }
-
-    public function runAutoPilotLighttpdCtlRestart($autoPilot){
-      if ( !isset($autoPilot["lighttpdCtlRestartExecute"]) ||
-        $autoPilot["lighttpdCtlRestartExecute"] == false ) { return false; }
-      $this->restartLighttpd();
-      return true;
-    }
-
-    public function runAutoPilotLighttpdCtlStop($autoPilot){
-      if ( !isset($autoPilot["lighttpdCtlStopExecute"]) ||
-        $autoPilot["lighttpdCtlStopExecute"] == false ) { return false; }
-      $this->stopLighttpd();
-      return true;
-    }
-
     private function askForLighttpdCtl($type) {
       if (!in_array($type, array("start", "stop", "restart"))) { return false; }
       if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }

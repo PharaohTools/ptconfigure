@@ -62,23 +62,23 @@ class SVNAllLinuxMac extends Base {
         return self::askYesOrNo($question);
     }
 
-    private function askForSVNTargetRepo(){
+    private function askForSVNTargetRepo() {
+        if (isset($this->params["repository-url"])) { return $this->params["repository-url"] ; }
         $question = 'What\'s svn repo to clone from?';
         return self::askForInput($question, true);
     }
 
-    private function askAlsoChangePerms(){
+    private function askAlsoChangePerms() {
+        if (isset($this->params["change-owner-permissions"])) { return true ; }
         $question = 'Also change permissions/owner?';
         return self::askYesOrNo($question);
     }
 
-    private function doSVNCommand(){
-        $customCloneFolder =
-            (isset($this->params["svnCheckoutCustomCloneFolder"]) && ($this->params["svnCheckoutCustomCloneFolder"]) != "none")
-            ? $this->params["svnCheckoutCustomCloneFolder"] : null ;
-        $command  = 'svn co '.escapeshellarg($this->params["svnCheckoutProjectOriginRepo"]);
+    private function doSVNCommand() {
+        $customCloneFolder = (isset($this->params["custom-clone-dir"]) ) ? $this->params["custom-clone-dir"] : null ;
+        $command  = 'svn co '.escapeshellarg($this->params["repository-url"]);
         if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
-        $nameInRepo = substr($this->params["svnCheckoutProjectOriginRepo"], strrpos($this->params["svnCheckoutProjectOriginRepo"], '/', -1) );
+        $nameInRepo = substr($this->params["repository-url"], strrpos($this->params["repository-url"], '/', -1) );
         $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
         return self::executeAndLoad($command);
     }

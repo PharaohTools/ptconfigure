@@ -18,12 +18,6 @@ class HostEditorAllLinuxMac extends Base {
     private $uri;
     private $ipAddress;
 
-    public function runAutoPilot($autoPilot){
-        $auto1 = $this->runAutoPilotHostDeletion($autoPilot);
-        $auto2 = $this->runAutoPilotHostAddition($autoPilot);
-        return  ( $auto1==true || $auto2==true ) ? true : false ;
-    }
-
     public function askWhetherToDoHostEntry(){
         return $this->performHostAddition();
     }
@@ -55,34 +49,6 @@ class HostEditorAllLinuxMac extends Base {
         $this->loadCurrentHostFile();
         $this->hostFileDataRemove($this->ipAddress, $this->uri);
         $this->checkHostFileOkay();
-        $this->createHostFile();
-        $this->moveHostFileAsRoot();
-        return true;
-    }
-
-    public function runAutoPilotHostAddition($autoPilot){
-        $hostFileEntry =
-        (isset($autoPilot["hostEditorAdditionExecute"]) && $autoPilot["hostEditorAdditionExecute"]==true)
-          ? true : false;
-        if (!$hostFileEntry) { return false; }
-        $ipEntry = $autoPilot["hostEditorAdditionIP"];
-        $uri = $autoPilot["hostEditorAdditionURI"];
-        $this->loadCurrentHostFile();
-        $this->hostFileDataAdd($ipEntry, $uri);
-        $this->createHostFile();
-        $this->moveHostFileAsRoot();
-        return true;
-    }
-
-    public function runAutoPilotHostDeletion($autoPilot){
-        $hostFileEntry =
-          (isset($autoPilot["hostEditorDeletionExecute"]) && $autoPilot["hostEditorDeletionExecute"]==true)
-          ? true : false;
-        if (!$hostFileEntry) { return false; }
-        $ipEntry = $autoPilot["hostEditorDeletionIP"];
-        $uri = $autoPilot["hostEditorDeletionURI"];
-        $this->loadCurrentHostFile();
-        $this->hostFileDataRemove($ipEntry, $uri);
         $this->createHostFile();
         $this->moveHostFileAsRoot();
         return true;

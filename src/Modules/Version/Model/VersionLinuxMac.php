@@ -16,60 +16,47 @@ class VersionLinuxMac extends Base {
 
     private $appRootDirectory ;
     private $appVersion ;
+    private $versionLimit ;
 
-    public function runAutopilot($autpoilot){
-        $this->runAutoPilotVersion($autpoilot);
-        return true;
-    }
-
-    public function askWhetherToVersionSpecific($params){
-        $this->setCmdLineParams($params);
+    public function askWhetherToVersionSpecific() {
         return $this->performSymLinkVersion();
     }
 
-    public function askWhetherToVersionLatest($params){
-        $this->setCmdLineParams($params);
-        return $this->performSymLinkVersion("0");
+    public function askWhetherToVersionLatest() {
+        $this->params["version"] = 0 ;
+        return $this->performSymLinkVersion();
     }
 
-    public function askWhetherToVersionRollback($params){
-        $this->setCmdLineParams($params);
-        return $this->performSymLinkVersion("1");
+    public function askWhetherToVersionRollback() {
+        $this->params["version"] = 1 ;
+        return $this->performSymLinkVersion();
     }
 
-    private function performSymLinkVersion($arrayPointToRollback = null) {
+    private function performSymLinkVersion() {
         if ( !$this->askForSymLinkChange() ) { return false; }
         $this->appRootDirectory = $this->selectAppRoot();
-        $this->appVersion = $this->selectAppVersion($arrayPointToRollback);
-        $versionLimit = (isset($this->params["limit"])) ? $this->params["limit"] : $this->selectVersionLimit();
+        $this->appVersion = $this->selectAppVersion();
+        $this->versionLimit = $this->selectVersionLimit();
         $this->symlinkRemover();
         $this->symlinkCreator();
-        $this->removeDirectoriesToLimit( $versionLimit ) ;
+        $this->removeDirectoriesToLimit() ;
         return "Seems Fine...";
     }
 
-    public function runAutoPilotVersion($autoPilot){
-        if ( !$autoPilot["versionExecute"] ) { return false; }
-        $this->appRootDirectory = $autoPilot["versionAppRootDirectory"];
-        $this->appVersion = $this->selectAppVersion($autoPilot["versionArrayPointToRollback"]);
-        $this->symlinkRemover();
-        $this->symlinkCreator();
-        $this->removeDirectoriesToLimit( $autoPilot["versionLimit"] ) ;
-        return true;
-    }
-
-    private function askForSymLinkChange(){
+    private function askForSymLinkChange() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to change the version that *current* points to?';
         return self::askYesOrNo($question);
     }
 
-    private function selectVersionLimit(){
+    private function selectVersionLimit() {
+        if ( isset($this->params["limit"])) { return $this->params["limit"] ; }
         $question = 'How many Versions to limit to? Enter 0 to ignore version limits';
         return self::askForInteger($question);
     }
 
-    private function selectAppVersion($version){
+    private function selectAppVersion() {
+        if ( isset($this->params["version"])) { return $this->params["version"] ; }
         $otherResults = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
         arsort($otherResults) ;
         $question = "Please Choose Version to make current (Showing newest first, Enter none for newest):\n";
@@ -93,8 +80,9 @@ class VersionLinuxMac extends Base {
             return $availableVersions[$input] ; }
     }
 
-    private function selectAppRoot(){
-        $question = 'What is the Application Root Directory? (The one with versions in) Enter none for '.getcwd();
+    private function selectAppRoot() {
+        if ( isset($this->params["container"])) { return $this->params["container"] ; }
+        $question = 'What is the Project Container Directory? (The one with versions in) Enter none for '.getcwd();
         $input = self::askForInput($question) ;
         return ($input=="") ? getcwd() : $input ;
     }
@@ -111,8 +99,8 @@ class VersionLinuxMac extends Base {
         self::executeAndOutput($command);
     }
 
-    private function removeDirectoriesToLimit($versionLimit) {
-        if ($versionLimit != null && $versionLimit>0) {
+    private function removeDirectoriesToLimit() {
+        if ($this->versionLimit != null && $this->versionLimit>0) {
           $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
           arsort($allEntries) ;
           $i = 0;
@@ -128,7 +116,7 @@ class VersionLinuxMac extends Base {
           // now we have an array of all projects in directory
           $allEntries = array_reverse($allEntries, true);
           $i=1;
-          $dirsToLeave = count($allEntries) - $versionLimit;
+          $dirsToLeave = count($allEntries) - $this->versionLimit;
           foreach ($allEntries as &$oneEntry) {
             $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
             if ($i < $dirsToLeave) {

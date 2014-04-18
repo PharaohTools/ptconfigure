@@ -72,7 +72,6 @@ class NginxSBEditorLinuxMac extends Base {
         if ( $this->askForEnableServerBlock() ) {
             $this->ServerBlockEnabledDir = $this->askForServerBlockEnabledDirectory();
             $this->enableServerBlock(); }
-        $this->restartNginx();
         return true;
     }
 
@@ -87,7 +86,6 @@ class NginxSBEditorLinuxMac extends Base {
             $this->ServerBlockEnabledDir = $this->askForServerBlockEnabledDirectory();
             $this->disableServerBlock(); }
         $this->attemptServerBlockDeletion();
-        $this->restartNginx();
         return true;
     }
 
@@ -97,7 +95,6 @@ class NginxSBEditorLinuxMac extends Base {
             $urlRay = $this->selectServerBlockInProjectOrFS() ;
             $this->url = $urlRay[0] ;
             $this->enableServerBlock(); }
-        $this->restartNginx();
         return true;
     }
 
@@ -106,47 +103,6 @@ class NginxSBEditorLinuxMac extends Base {
             $this->ServerBlockEnabledDir = $this->askForServerBlockEnabledDirectory();
             $this->ServerBlockForDeletion = $this->selectServerBlockInProjectOrFS();
             $this->disableServerBlock(); }
-        $this->restartNginx();
-        return true;
-    }
-
-    public function runAutoPilot($autoPilot) {
-        $this->runAutoPilotServerBlockDeletion($autoPilot);
-        $this->runAutoPilotServerBlockCreation($autoPilot);
-        return true;
-    }
-
-    public function runAutoPilotServerBlockCreation($autoPilot){
-        if ( !isset($autoPilot["serverBlockEditorAdditionExecute"]) ||
-          $autoPilot["serverBlockEditorAdditionExecute"] == false ) { return false; }
-        echo "Creating ServerBlock\n";
-        $this->docRoot = $autoPilot["serverBlockEditorAdditionDocRoot"];
-        $this->url = $autoPilot["serverBlockEditorAdditionURL"];
-        $this->ServerBlockIp = $autoPilot["serverBlockEditorAdditionIp"];
-        if ($autoPilot["serverBlockEditorAdditionTemplateData"] != null) {
-            echo "Using autopilot ServerBlock\n";
-            $this->ServerBlockTemplate = $autoPilot["serverBlockEditorAdditionTemplateData"]; }
-        else { echo "Using default ServerBlock\n";
-            $this->setServerBlockDefaultTemplate(); }
-        $this->processServerBlock();
-        $this->ServerBlockDir = $autoPilot["serverBlockEditorAdditionDirectory"];
-        $this->attemptServerBlockWrite($autoPilot["serverBlockEditorAdditionFileSuffix"]);
-        if ( $autoPilot["serverBlockEditorAdditionServerBlockEnable"]==true ) {
-            $this->enableServerBlock($autoPilot["serverBlockEditorAdditionSymLinkDirectory"]); }
-        $this->restartNginx($autoPilot["serverBlockEditorAdditionRestartNginx"]);
-        return true;
-    }
-
-    public function runAutoPilotServerBlockDeletion($autoPilot) {
-        if ( !isset($autoPilot["serverBlockEditorDeletionExecute"]) ||
-          $autoPilot["serverBlockEditorDeletionExecute"] == false) { return false; }
-        $this->ServerBlockDir = $autoPilot["serverBlockEditorDeletionDirectory"] ;
-        $this->ServerBlockForDeletion = (is_array( $autoPilot["serverBlockEditorDeletionTarget"]) ) ?
-          $autoPilot["serverBlockEditorDeletionTarget"] : array( $autoPilot["serverBlockEditorDeletionTarget"] );
-        if ( $autoPilot["serverBlockEditorDeletionServerBlockDisable"]==true ) {
-            $this->disableServerBlock($autoPilot["serverBlockEditorDeletionSymLinkDirectory"]); }
-        $this->attemptServerBlockDeletion();
-        $this->restartNginx($autoPilot["serverBlockEditorAdditionRestartNginx"]);
         return true;
     }
 
@@ -175,24 +131,27 @@ class NginxSBEditorLinuxMac extends Base {
     }
 
     private function askForDocRoot() {
-      $question = 'What\'s the document root? Enter nothing for '.getcwd();
-      $input = self::askForInput($question);
-      return ($input=="") ? getcwd() : $input ;
+        if (isset($this->params["sb-docroot"])) { return $this->params["sb-docroot"] ; }
+        $question = 'What\'s the document root? Enter nothing for '.getcwd();
+        $input = self::askForInput($question);
+        return ($input=="") ? getcwd() : $input ;
     }
 
     private function askForHostURL() {
-        if (isset($this->params["site"])) { return $this->params["site"] ; }
+        if (isset($this->params["sb-url"])) { return $this->params["sb-url"] ; }
         $question = 'What URL do you want to add as server name?';
         return self::askForInput($question, true);
     }
 
     private function askForServerBlockIp() {
+        if (isset($this->params["sb-ip-port"])) { return $this->params["sb-ip-port"] ; }
         $question = 'What IP:Port should be set? Enter nothing for 127.0.0.1:80';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1:80' : $input ;
     }
 
     private function checkServerBlockOkay(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Please check ServerBlock: '.$this->ServerBlockTemplate."\n\nIs this Okay?";
         return self::askYesOrNo($question);
     }
@@ -221,7 +180,7 @@ class NginxSBEditorLinuxMac extends Base {
         return self::askForInput($question, true);
     }
 
-    private function askForServerBlockAvailableDirectory(){
+    private function askForServerBlockAvailableDirectory() {
         $question = 'What is your Available ServerBlock directory?';
         if ($this->detectNginxServerBlockFolderExistence()) {
             if (isset($this->params["guess"]) && $this->params["guess"]==true) {
@@ -233,7 +192,7 @@ class NginxSBEditorLinuxMac extends Base {
         return self::askForInput($question, true);
     }
 
-    private function askForServerBlockTemplateDirectory(){
+    private function askForServerBlockTemplateDirectory() {
         $question = 'What is your ServerBlock Template directory? Enter nothing for default templates';
         if ($this->detectServerBlockTemplateFolderExistence()) {
             $question .= ' Found "'.$this->docRoot.'/build/config/dapperstrano/server-blocks" - Enter nothing to use this';
@@ -323,21 +282,6 @@ class NginxSBEditorLinuxMac extends Base {
             $command = 'sudo rm -f '.$srvAvailDir.DIRECTORY_SEPARATOR.$ServerBlock;
             self::executeAndOutput($command, "Server Block $ServerBlock Disabled  if existed");  }
         return true;
-    }
-
-    private function restartNginx($autoPilot = null ){
-        if ( (isset($autoPilot) && $autoPilot==true)  ||
-             (isset($this->params["yes"]) && $this->params["yes"]==true) ) {
-            $doRestart = true ; }
-        else {
-            $question = 'Do you want to restart Nginx?';
-            $doRestart = self::askYesOrNo($question); }
-        if ($doRestart == true) {
-            echo "Restarting Nginx...\n";
-            $command = "sudo service nginx restart";
-            self::executeAndOutput($command); }
-        else {
-            echo "Not Restarting Nginx...\n"; }
     }
 
     private function checkIsDHProject() {

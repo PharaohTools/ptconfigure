@@ -19,13 +19,7 @@ class ProjectLinuxMac extends Base  {
     private $jenkinsFSFolder = "/var/lib/jenkins";
     private $tempFolder = "/projectTemp/";
     private $projectContainerDirectory;
-
-    public function runAutoPilot($autoPilot){
-        $this->runAutoPilotProjectContInit($autoPilot);
-        $this->runAutoPilotInit($autoPilot);
-        $this->runAutoPilotBuildInstall($autoPilot);
-        return true;
-    }
+    private $newJobName ;
 
     public function askWhetherToInitializeProject() {
         return $this->performProjectInitialize();
@@ -39,44 +33,12 @@ class ProjectLinuxMac extends Base  {
         return $this->performInstallBuildInProject();
     }
 
-    public function runAutoPilotProjectContInit($autoPilot) {
-        $projContInit =(isset($autoPilot["projectContainerInitExecute"]) && $autoPilot["projectContainerInitExecute"] );
-        if ($projContInit != true) { return false; }
-        $this->projectContainerDirectory = $autoPilot["projectContainerDirectory"];
-        $this->projectContainerInitialize();
-        return true;
-    }
-
-    public function runAutoPilotInit($autoPilot) {
-        $projInit = (isset($autoPilot["projectInitializeExecute"]) && $autoPilot["projectInitializeExecute"] ==true );
-        if ($projInit != true) { return false; }
-        $this->projectInitialize();
-        return true;
-    }
-
-    public function runAutoPilotBuildInstall($autoPilot) {
-        $projBuildInstall = ( isset($autoPilot["projectBuildInstallExecute"]) && $autoPilot["projectBuildInstallExecute"]) == true;
-        if ($projBuildInstall != true) { return false; }
-        if ( !$this->checkIsDHProject() ) { return "No Dapperstrano project file found. Try: \ndapperstrano proj init\n"; }
-        $this->jenkinsOriginalJobFolderName = $autoPilot["projectJenkinsOriginalJobFolderName"];
-        $this->jenkinsFSFolder = $autoPilot["projectJenkinsFSFolder"];
-        $this->jenkinsNewJobFolderName = $autoPilot["projectJenkinsNewJobFolderName"] ;
-        $this->tryToCreateTempFolder();
-        $this->projectBuildInstall();
-        $this->changeNewJenkinsJobFolderPermissions();
-        $this->changeNewJenkinsJobFolderOwner();
-        $this->changeNewJenkinsJobFolderGroup();
-        $this->ctlJenkins("stop");
-        $this->ctlJenkins("start");
-        return true;
-    }
-
     private function performProjectInitialize() {
         $projInit = $this->askForProjModifyToScreen("To initialise Project");
-        if ($projInit != true) { return false; }
+        if ($projInit != true) { return false ; }
         $projInit = $this->askForProjInitToScreen();
-        if (!$projInit) { return false; }
-        $this->projectInitialize();
+        if (!$projInit) { return false ; }
+        $this->projectInitialize() ;
         return "Seems Fine...";
     }
 
@@ -93,11 +55,12 @@ class ProjectLinuxMac extends Base  {
     private function performInstallBuildInProject() {
         $projInit = $this->askForProjModifyToScreen("To Install Build");
         if ($projInit!=true) { return false; }
-        if ( !$this->checkIsDHProject() ) { return "No Dapperstrano project file found. Try: \ndapperstrano proj init\n"; }
+        if ( !$this->checkIsPharoahProject() ) { return "No papyrusfile found. Try: \ndapperstrano proj init\n"; }
         $projInit = $this->askForProjBuildInstallToScreen();
         if (!$projInit) { return false; }
         $this->jenkinsOriginalJobFolderName = $this->selectJenkinsFolderInProject();
         $this->jenkinsFSFolder = $this->selectJenkinsFolderInFileSystem();
+        $this->newJobName = $this->askForTargetJobName() ;
         $this->getNewJobFolderIfJenkinsFolderExistsInFileSystem();
         $this->tryToCreateTempFolder();
         $this->projectBuildInstall();
@@ -133,14 +96,23 @@ class ProjectLinuxMac extends Base  {
         return self::askYesOrNo($question);
     }
 
-    private function askForProjContainerDirectory(){
+    private function askForProjContainerDirectory() {
+        if (isset($this->params["proj-container"])) { return $this->params["proj-container"] ; }
         $question = 'What is your Project Container directory?';
         return self::askForInput($question, true);
     }
 
+    private function askForTargetJobName() {
+        if (isset($this->params["target-job-name"])) { return $this->params["target-job-name"] ; }
+        $question = 'What is the target Job Name?';
+        return self::askForInput($question, true);
+    }
+
     private function selectJenkinsFolderInFileSystem(){
+        if (isset($this->params["jenkins-fs-dir"])) { return $this->params["jenkins-fs-dir"] ; }
         $question = 'What is your Jenkins home?';
         if ($this->detectJenkinsHomeFolderExistence()) {
+            if (isset($this->params["guess"])) { return $this->jenkinsFSFolder ; }
             $question .= ' Found "'. $this->jenkinsFSFolder.'" - use this?';
             $input = self::askForInput($question);
             return ($input=="") ? $this->jenkinsFSFolder : $input ;  }
@@ -180,8 +152,10 @@ class ProjectLinuxMac extends Base  {
     }
 
     private function selectJenkinsFolderInProject(){
-        $results = scandir(getcwd().'/'."build/config/jenkins");
-        $availableDirs = array();
+        if (isset($this->params["original-build-dir"])) { return $this->params["original-build-dir"] ; }
+        $projBuildsDir = getcwd().'/'."build/config/jenkins/projects" ;
+        $results = (file_exists($projBuildsDir)) ? scandir($projBuildsDir) : array() ;
+        $availableDirs = array() ;
         $question = "Please Choose Jenkins Directory in Project:\n";
         $i=0;
         foreach ($results as $result) {
@@ -192,29 +166,34 @@ class ProjectLinuxMac extends Base  {
                 $i++; } }
         $validChoice = false;
         $i=0;
-        while ($validChoice == false) {
-            if ($i==1) { $question = "That's not a valid option, ".$question; }
-            $input = self::askForDigit($question) ;
-            if ( array_key_exists($input, $availableDirs) ){
-                $validChoice = true;}
-            $i++; }
-        return $availableDirs[$input] ;
+        if (count($availableDirs)>0) {
+            while ($validChoice == false) {
+                if ($i==1) { $question = "That's not a valid option, ".$question; }
+                $input = self::askForDigit($question) ;
+                if ( array_key_exists($input, $availableDirs) ){
+                    $validChoice = true;}
+                $i++; }
+            return $projBuildsDir.'/'.$availableDirs[$input] ; }
+        else {
+            echo "No options available, enter path:\n" ;
+            return $this->askForInput($question, true) ; }
     }
 
     private function getNewJobFolderIfJenkinsFolderExistsInFileSystem(){
         if ( $this->detectJenkinsJobExistence() ) {
+            if (isset($this->params["new-job-dir"])) { return $this->params["new-job-dir"] ; }
             $question = 'Job "'.$this->jenkinsOriginalJobFolderName.'" already exists. Enter new Job folder.';
             $this->jenkinsNewJobFolderName = self::askForInput($question, true); }
         else { $this->jenkinsNewJobFolderName = $this->jenkinsOriginalJobFolderName ; }
     }
 
     private function tryToCreateTempFolder(){
-        if (!file_exists($this->baseTempDir.$this->tempFolder)) {
-          mkdir ($this->baseTempDir.$this->tempFolder, 0777, true);}
+        if (!file_exists('/tmp/'.$this->tempFolder)) {
+          mkdir ('/tmp/'.$this->tempFolder, 0777, true);}
     }
 
     private function projectBuildInstall(){
-        $command  = 'sudo cp -r build/config/jenkins'.'/'.$this->jenkinsOriginalJobFolderName.' ' ;
+        $command  = 'sudo cp -r '.$this->jenkinsOriginalJobFolderName.' ' ;
         $command .= $this->jenkinsFSFolder.'/jobs/'.$this->jenkinsNewJobFolderName;
         self::executeAndOutput($command, "Copying Files...");
     }

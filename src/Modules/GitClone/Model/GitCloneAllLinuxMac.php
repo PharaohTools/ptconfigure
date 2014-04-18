@@ -35,24 +35,24 @@ class GitCloneAllLinuxMac extends Base {
         return self::askYesOrNo($question);
     }
 
-    private function askForGitCloneTargetRepo(){
+    private function askForGitCloneTargetRepo() {
         if (isset($this->params["repository-url"])) { return $this->params["repository-url"] ; }
         $question = 'What\'s git repo to clone from?';
         $this->params["repository-url"] = self::askForInput($question, true);
     }
 
-    private function askAlsoChangePerms(){
-        if (isset($this->params["change-owner-permissions"])) { return $this->params["repository-url"] ; }
+    private function askAlsoChangePerms() {
+        if (isset($this->params["change-owner-permissions"])) { return true ; }
         $question = 'Also change permissions/owner?';
         return self::askYesOrNo($question);
     }
-
-    private function doGitCloneCommandWithErrorCheck($params){
-        $data = $this->doGitCloneCommand($params);
-        print $data;
-        if ( substr($data, 0, 5) == "error" ) { return false; }
-        return true;
-    }
+// @todo scrap this
+//    private function doGitCloneCommandWithErrorCheck($params){
+//        $data = $this->doGitCloneCommand($params);
+//        print $data;
+//        if ( substr($data, 0, 5) == "error" ) { return false; }
+//        return true;
+//    }
 
     private function doGitCloneCommand(){
         $projectOriginRepo = $this->params["repository-url"] ;
