@@ -6,6 +6,14 @@ You cannot call a module NoModuleAssociated as PackageManager uses that to store
 from cli not module
 
 
+A new concept
+One composerised, we can keep client installs lightweight by building cleo from dependencies in the autopilot.
+step one, logging, then get the dependencies for that
+next, packagemanager, etc, then dependencies.
+Then, once that is one, we actually run the autopilot.
+Is this any good, is it any quicker since composer is slow, is it more secure, by not including modules which you
+don't need but could be abused.
+
 DONE
 SSH Private key encryption thing
 ----------------------------------
