@@ -113,7 +113,7 @@ class Base {
                     if ( !is_object($compatibleObject) ) {
                         $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system\n"; } } } }
         if ( count($errors) > 0 ) {
-            $loggingFactory = new \Model\Console();
+            $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($params) ;
             foreach ($errors as $error) { $logging->log($error); }
             return $errors; }
