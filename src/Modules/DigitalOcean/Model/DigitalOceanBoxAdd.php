@@ -30,7 +30,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 $environmentExists = true ; } }
 
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
         if (isset($environmentExists)) {
@@ -140,7 +140,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
         $curlUrl = "https://api.digitalocean.com/droplets/new" ;
         $callOut = $this->digitalOceanCall($callVars, $curlUrl);
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for {$callVars["name"]} complete") ;
         return $callOut ;

@@ -135,7 +135,7 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         $packager = $this->getPackager();
         if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
         $returns = array() ;
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         foreach($this->packageName as $onePackage) {
             $packageIsRequired = $this->packageIsRequired($onePackage) ;
@@ -152,7 +152,7 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         if ($this->isInstalled()==false) { $this->installPackages(); }
         else {
             $this->setPackageStatusInCleovars($this->packageName, true);
-            $loggingFactory = new \Model\Console();
+            $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             if (is_array($this->packageName) ) {
                 $lText  = "Packages ".implode(", ", $this->packageName) ;

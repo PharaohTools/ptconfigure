@@ -46,7 +46,7 @@ class PortUbuntu extends BaseLinuxApp {
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if ($socket === false) { throw new Exception("Cannot create socket"); }
         $result = @socket_connect($socket, '127.0.0.1', $this->number);
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($result !== false) {
             $logging->log("Port {$this->portNumber} is responding") ;

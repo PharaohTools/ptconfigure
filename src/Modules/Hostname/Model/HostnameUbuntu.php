@@ -37,7 +37,7 @@ class HostnameUbuntu extends BaseLinuxApp {
     }
 
     public function change($hostname = null) {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (isset($hostname)) { }
         else if (isset($this->params["hostname"])) {

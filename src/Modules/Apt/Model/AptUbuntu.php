@@ -38,7 +38,7 @@ class AptUbuntu extends BasePackager {
     public function installPackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         foreach ($packageName as $package) {
             $out = $this->executeAndOutput("sudo apt-get install $package -y --force-yes");
@@ -57,7 +57,7 @@ class AptUbuntu extends BasePackager {
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo apt-get remove $packageName -y --force-yes");
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
             $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}") ;
@@ -73,7 +73,7 @@ class AptUbuntu extends BasePackager {
     public function update($autopilot = null) {
         $out = $this->executeAndOutput("sudo apt-get update -y");
         if (strpos($out, "Done") != false) {
-            $loggingFactory = new \Model\Console();
+            $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }

@@ -51,7 +51,7 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $modsToCheck = array( "http_module", "deflate_module", "php5_module", "proxy_module", "proxy_html_module",
             "proxy_http_module", "rewrite_module", "ssl_module" ) ;
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
         foreach ($modsToCheck as $modToCheck) {

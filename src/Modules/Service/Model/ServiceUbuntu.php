@@ -80,11 +80,11 @@ class ServiceUbuntu extends BaseLinuxApp {
     public function ensureRunning() {
         $status = $this->executeAndLoad("service {$this->serviceName} status 2> /dev/null");
         if(strpos($status, 'running') != false) {
-            $loggingFactory = new \Model\Console();
+            $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Service {$this->serviceName} is running...") ; }
         else {
-            $loggingFactory = new \Model\Console();
+            $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Service {$this->serviceName} is not running...") ;
             $logging->log("Starting {$this->serviceName} service") ;
@@ -93,7 +93,7 @@ class ServiceUbuntu extends BaseLinuxApp {
     }
 
     public function runAtReboots() {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Starting {$this->serviceName} service") ;
         $this->executeAndOutput("update-rc.d {$this->serviceName} defaults");
@@ -101,7 +101,7 @@ class ServiceUbuntu extends BaseLinuxApp {
     }
 
     public function start() {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Starting {$this->serviceName} service") ;
         $this->executeAndOutput("service {$this->serviceName} start");
@@ -109,7 +109,7 @@ class ServiceUbuntu extends BaseLinuxApp {
     }
 
     public function stop() {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Stopping {$this->serviceName} service") ;
         $this->executeAndOutput("service {$this->serviceName} stop");
@@ -117,7 +117,7 @@ class ServiceUbuntu extends BaseLinuxApp {
     }
 
     public function restart() {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Restarting {$this->serviceName} service") ;
         $this->executeAndOutput("service {$this->serviceName} restart");
