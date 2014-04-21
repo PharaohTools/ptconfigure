@@ -77,7 +77,7 @@ class SshKeygenAllLinux extends BaseLinuxApp {
     }
 
     public function removeKey() {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (file_exists($this->params["ssh-keygen-path"])) {
             unlink($this->params["ssh-keygen-path"]) ;

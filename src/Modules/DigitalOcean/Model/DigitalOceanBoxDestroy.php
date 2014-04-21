@@ -29,7 +29,7 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
             if (isset($environment["any-app"]["gen_env_name"]) && $environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 $environmentExists = true ; } }
 
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
         if (isset($environmentExists)) {
@@ -83,7 +83,7 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
         $callVars["droplet_id"] = $serverData["dropletID"];
         $curlUrl = "https://api.digitalocean.com/droplets/{$callVars["droplet_id"]}/destroy" ;
         $callOut = $this->digitalOceanCall($callVars, $curlUrl);
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
         return $callOut ;

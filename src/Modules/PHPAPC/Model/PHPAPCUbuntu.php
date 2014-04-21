@@ -35,7 +35,7 @@ class PHPAPCUbuntu extends BaseLinuxApp {
         $modsText = $this->executeAndLoad($modsTextCmd) ;
 
         $modsToCheck = array("apc") ;
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
 

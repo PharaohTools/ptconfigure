@@ -44,7 +44,7 @@ class PearUbuntu extends BasePackager {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo pear install -f $packageName");
         if (!is_int(strpos($out, "install ok"))) {
-            $loggingFactory = new \Model\Console();
+            $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
@@ -55,7 +55,7 @@ class PearUbuntu extends BasePackager {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo pear uninstall $packageName");
         if (!is_int(strpos($out, "uninstall ok"))) {
-            $loggingFactory = new \Model\Console();
+            $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
             return false ; }
@@ -65,7 +65,7 @@ class PearUbuntu extends BasePackager {
     public function channelDiscover() {
         $channel = $this->setChannel();
         $out = $this->executeAndLoad("sudo pear channel-discover $channel");
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         // var_dump($out, 'Channel "'.$channel.'" is already initialized') ;
         $initString = 'Channel "'.$channel.'" is already initialized'."\n" ;
@@ -82,7 +82,7 @@ class PearUbuntu extends BasePackager {
     public function channelDelete() {
         $channel = $this->setChannel();
         $out = $this->executeAndLoad("sudo pear channel-del $channel");
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $initString = 'channel-delete: channel "'.$channel.'" does not exist'."\n" ;
         if ($out == $initString) {

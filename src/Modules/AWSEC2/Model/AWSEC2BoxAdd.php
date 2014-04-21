@@ -30,7 +30,7 @@ class AWSEC2BoxAdd extends BaseAWSEC2AllOS {
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 $environmentExists = true ; } }
 
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
         if (isset($environmentExists)) {
@@ -220,7 +220,7 @@ class AWSEC2BoxAdd extends BaseAWSEC2AllOS {
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
         $curlUrl = "https://api.awsec2.com/droplets/new" ;
         $callOut = $this->awsCall($callVars, $curlUrl);
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for {$callVars["name"]} complete") ;
         return $callOut ;

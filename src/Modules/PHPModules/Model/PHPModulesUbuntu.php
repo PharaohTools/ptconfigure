@@ -34,7 +34,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         $modsTextCmd = 'sudo php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $modsToCheck = array("gd", "imagick", "curl", "mysql") ;
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
         foreach ($modsToCheck as $modToCheck) {

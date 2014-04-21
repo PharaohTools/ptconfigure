@@ -50,7 +50,7 @@ class SshHardenUbuntu extends BaseLinuxApp {
         $file->setFile('/etc/ssh/sshd_config') ;
         $file->replaceIfPresent(new RegExp("/^#?PermitRootLogin yes/m"), 'PermitRootLogin no');
         $file->shouldHaveLine("PermitRootLogin no");
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("/etc/ssh/sshd_config modified to disallow root ssh login") ;
     }
@@ -61,7 +61,7 @@ class SshHardenUbuntu extends BaseLinuxApp {
         $file->setFile('/etc/ssh/sshd_config') ;
         $file->replaceIfPresent(new RegExp("/^#?PasswordAuthentication yes/m"), 'PasswordAuthentication no');
         $file->shouldHaveLine("PasswordAuthentication no");
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("/etc/ssh/sshd_config modified to disallow password based ssh login") ;
     }

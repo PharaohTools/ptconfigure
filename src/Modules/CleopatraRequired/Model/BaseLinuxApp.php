@@ -50,7 +50,7 @@ class BaseLinuxApp extends Base {
     }
 
     public function ensureInstalled(){
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($this->askStatus() == true) {
             $logging->log("Not installing as already installed") ; }

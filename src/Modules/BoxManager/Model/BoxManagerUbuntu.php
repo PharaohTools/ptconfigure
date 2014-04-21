@@ -80,7 +80,7 @@ class BoxManagerUbuntu extends BaseLinuxApp {
 
     protected function addBox() {
         $provider = $this->getProvider();
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $returns = array() ;
         foreach($this->boxAmount as $oneBox) {
@@ -95,7 +95,7 @@ class BoxManagerUbuntu extends BaseLinuxApp {
         $provider = $this->getProvider();
         if (!is_array($this->environmentName)) { $this->environmentName = array($this->environmentName); }
         $returns = array() ;
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         foreach($this->environmentName as $oneBox) {
             $environmentIsRequired = $this->environmentIsRequired($oneBox) ;

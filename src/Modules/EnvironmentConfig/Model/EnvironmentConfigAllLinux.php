@@ -89,13 +89,16 @@ class EnvironmentConfigAllLinux extends Base {
             if (count($this->environments)==0) {
                 $this->populateAnEnvironment($i, $envSuffix[0]);}
             else {
-                $question = 'Do you want to add another environment?';
-                $add_another_env = self::askYesOrNo($question);
-                if ($add_another_env == true) {
-                    $i = count($this->environments) + 1 ;
-                    $this->populateAnEnvironment($i, $envSuffix[0]); }
+                if (isset($this->params["guess"])) {
+                    $more_envs = false; }
                 else {
-                    $more_envs = false; } }
+                    $question = 'Do you want to add another environment?';
+                    $add_another_env = self::askYesOrNo($question);
+                    if ($add_another_env == true) {
+                        $i = count($this->environments) + 1 ;
+                        $this->populateAnEnvironment($i, $envSuffix[0]); }
+                    else {
+                        $more_envs = false; } } }
             $i++; }
     }
 
