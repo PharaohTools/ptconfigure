@@ -16,7 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" =>
-                array( "log-message" => "Lets begin invoking Dev Server Slim on environment <%tpl.php%>env_name</%tpl.php%>"),
+                array( "log-message" => "Lets begin invoking Configuration of Dev Server Slim on environment <%tpl.php%>env_name</%tpl.php%>"),
                 ) ),
                 array ( "Invoke" => array( "data" =>
                 array(

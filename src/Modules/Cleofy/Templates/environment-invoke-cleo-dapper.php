@@ -16,7 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
     $this->steps =
         array(
             array ( "Logging" => array( "log" =>
-                array( "log-message" => "Lets begin invoking Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%>"),
+                array( "log-message" => "Lets begin invoking Configuration of Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%>"),
             ) ),
             array ( "Invoke" => array( "data" =>
                 array(

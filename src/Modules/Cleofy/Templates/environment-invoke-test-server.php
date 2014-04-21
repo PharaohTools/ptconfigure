@@ -18,17 +18,17 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" =>
-                array( "log-message" => "Lets begin invoking Test Server on environment <%tpl.php%>env_name</%tpl.php%>"),
+                    array( "log-message" => "Lets begin invoking Configuration of Test Server on environment <%tpl.php%>env_name</%tpl.php%>"),
                 ) ),
                 array ( "Invoke" => array( "data" =>
-                array(
-                    "guess" => true,
-                    "ssh-data" => $this->setSSHData(),
-                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
-                ),
+                    array(
+                        "guess" => true,
+                        "ssh-data" => $this->setSSHData(),
+                        "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
+                    ),
                 ) , ) ,
                 array ( "Logging" => array( "log" =>
-                array( "log-message" => "Invoking Test Server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+                    array( "log-message" => "Invoking Test Server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
                 ) ),
             );
 
