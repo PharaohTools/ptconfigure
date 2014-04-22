@@ -26,7 +26,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),
 
                 // SSH Hardening
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
                 array ( "SSHHarden" => array( "ensure" => array(),),),
 
                 // Standard Tools
@@ -44,8 +44,18 @@ class AutoPilotConfigured extends AutoPilot {
                 // Apache
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Apache Server is installed" ),),),
                 array ( "ApacheServer" => array( "ensure" => array(),),),
+
+                // Apache Modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
                 array ( "ApacheModules" => array( "ensure" => array(),),),
+
+                // Restart Apache for new modules
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
+                array ( "RunCommand" => array( "restart" =>
+                    array("guess" => true),
+                    array("username" => "root"),
+                    array("command" => "dapperstrano ApacheCtl restart --yes"),
+                    array("background" => "") ) ),
 
                 //Mysql
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
@@ -56,10 +66,8 @@ class AutoPilotConfigured extends AutoPilot {
                     array("root-pass" => "cleopatra"),
                     array("new-user" => "root"),
                     array("new-pass" => "root"),
-                    array("mysql-host" => "127.0.0.1"),),),
+                    array("mysql-host" => "127.0.0.1") ) ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the Jenkins user can use Sudo without a Password"),),),
-                array ( "JenkinsSudoNoPass" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 /*
