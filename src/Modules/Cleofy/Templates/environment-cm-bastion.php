@@ -18,11 +18,26 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a standalone server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
-                // Install Keys - Bastion Public Key
+                // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
                 array ( "SshKeyInstall" => array( "file" =>
                     array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
                     array("user-name" => "{$this->myUser}"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our DevOps Public Key is installed" ),),),
+                array ( "SshKeyInstall" => array( "file" =>
+                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+                    array("user-name" => "{$this->myUser}"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Private Key is installed" ),),),
+                // @todo if this is run over ssh from another machine (DevOps laptop), the encryption key never needs to be on the target
+                // box might not even need encryption... look at this
+                array ( "Encryption" => array( "file" =>
+                    array("encrypted-data" => "build/config/cleopatra/SSH/keys/private/crypt/bastion"),
+                    array("encryption-target" => "{$this->myUser}"),),),
+                /*
+                --encrypted-data=/tmp/encrypted
+            --encryption-target-file=/var/www/a-website/build/config/cleopatra/SSH/raw/bastion --encryption-key=/root/.cleopatra/SSH/key
+        --encryption-file-permissions="" --encryption-file-owner="" --encryption-file-group=""
+                */
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
