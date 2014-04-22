@@ -6,36 +6,37 @@ class SshKeyInstallInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Apply security functions to the SSH accounts/setup of the machine";
+    public $name = "Install SSH Public Keys to a user account";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-        // return array( "SshKeyInstall" =>  array_merge(parent::routesAvailable(), array() ) );
         return array( "SshKeyInstall" =>  array_merge(
             array("help", "status", "securify")
         ) );
     }
 
     public function routeAliases() {
-        return array("sshharden"=>"SshKeyInstall", "ssh-harden"=>"SshKeyInstall");
+        return array("sshkeyinstall"=>"SshKeyInstall", "ssh-key-install"=>"SshKeyInstall");
     }
 
     public function dependencies() {
-        return array("Service");
+        return array("Service", "Console");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify sshhardens
+  This command allows you to install an SSH Public key for a user
 
-  SshKeyInstall, sshharden, ssh-harden
+  SshKeyInstall, sshkeyinstall, ssh-key-install
 
-        - securify
-        Add some security to your SSH accounts
-        example: cleopatra ssh-harden securify
+        - public-key
+        Add an SSH Public Key to an account
+        example: cleopatra ssh-key-install public-key
+        example: cleopatra ssh-key-install public-key --yes --public-key-data="zzzzz"
+        example: cleopatra ssh-key-install public-key --yes --public-key-file="id_rsa.pub" --user-name=dave
 
 HELPDATA;
       return $help ;
