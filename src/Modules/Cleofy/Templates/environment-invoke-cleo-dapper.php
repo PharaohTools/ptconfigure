@@ -34,8 +34,8 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
-sudo cleopatra dapperstrano install --yes=true
+sudo cleopatra cleopatra install --yes
+sudo cleopatra dapperstrano install --yes
 SSHDATA;
         return $sshData ;
     }

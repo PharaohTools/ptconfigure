@@ -18,7 +18,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" =>
-                array( "log-message" => "Lets begin invoking Configuration of PHP, Cleo amd Dapper on environment <%tpl.php%>env_name</%tpl.php%>"),
+                array( "log-message" => "Lets begin invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%>"),
                 ) ),
                 array ( "Invoke" => array( "data" =>
                 array(
@@ -28,7 +28,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),
                 ) , ) ,
                 array ( "Logging" => array( "log" =>
-                array( "log-message" => "Invoking PHP, Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+                array( "log-message" => "Invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
                 ) ),
             );
 
@@ -37,9 +37,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo apt-get install -y php5 git
-git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install-silent
-sudo cleopatra dapperstrano install --yes=true
+sudo cleopatra install-package prod --yes=true
 SSHDATA;
         return $sshData ;
     }
