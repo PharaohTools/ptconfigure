@@ -70,7 +70,7 @@ class SshKeyInstallUbuntu extends BaseLinuxApp {
             $user = $userFactory->getModel($this->params);
             $user->setUser($this->userName) ;
             $this->userHomeDir = $user->getHome(); }
-        else if (isset($this->params["user-home "])) {
+        else if (isset($this->params["user-home"])) {
             $this->userHomeDir = $this->params["user-home"]; }
         else if (isset($this->params["guess"])) {
             $this->userHomeDir = '/home/'.$this->params["username"]; }
