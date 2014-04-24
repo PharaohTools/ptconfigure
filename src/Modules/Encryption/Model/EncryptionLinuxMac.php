@@ -103,12 +103,13 @@ class EncryptionLinuxMac extends BaseTemplater {
      */
     public function decrypt($encrypted, $targetLocation=null, $key=null, $perms="", $owner="", $group="") {
         if (is_file($encrypted)) { $encrypted = file_get_contents($encrypted); }
-        $encrypted = $this->getEncrypted($encrypted, $key) ;
-        if (is_null($targetLocation)) { return $encrypted ; }
-        $this->saveAndSetPerms($encrypted, $targetLocation, $perms, $owner, $group) ;
+        $decrypted = $this->getDecrypted($encrypted, $key) ;
+        if (is_null($targetLocation)) { return $decrypted ; }
+        $this->saveAndSetPerms($decrypted, $targetLocation, $perms, $owner, $group) ;
     }
 
     protected function getDecrypted($encrypted, $key = null) {
+        $key = (is_file($key)) ? file_get_contents($key) : $key ;
         $key = (!is_null($key)) ? $key : $this->key ;
         $decrypted = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $encrypted, MCRYPT_MODE_ECB);
         return $decrypted ;
