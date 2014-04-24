@@ -16,7 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Bastion server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Git SCM Server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
                 // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
@@ -72,25 +72,12 @@ class AutoPilotConfigured extends AutoPilot {
                     array("command" => "dapperstrano ApacheCtl restart --yes"),
                     array("background" => "") ) ),
 
-                // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
-                array ( "Testingkamen" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
-                array ( "Parallax" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jrush for Joomla" ),),),
-                array ( "Jrush" => array( "ensure" => array(),),),
+                // @todo GitLab
+                // Git Lab
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure GitLab is installed" ),),),
+                array ( "GitLab" => array( "ensure" => array(),),),
 
-                // Drush
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
-                array ( "PackageManager" => array( "pkg-ensure" =>
-                    array("package-name" => "drush"),
-                    array("packager-name" => "Pear"),),),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Bastion server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Git SCM server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 /*
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,
@@ -104,7 +91,6 @@ class AutoPilotConfigured extends AutoPilot {
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
 //                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/http" ), ) , ) ,
                 */
-
 
         );
 

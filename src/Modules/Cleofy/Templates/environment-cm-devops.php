@@ -16,29 +16,13 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Bastion server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a standalone server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
-                // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
+                // Install Keys - Bastion Public Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
                 array ( "SshKeyInstall" => array( "file" =>
                     array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
                     array("user-name" => "{$this->myUser}"),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our DevOps Public Key is installed" ),),),
-                array ( "SshKeyInstall" => array( "file" =>
-                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
-                    array("user-name" => "{$this->myUser}"),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Private Key is installed" ),),),
-                // @todo if this is run over ssh from another machine (DevOps laptop), the encryption key never needs to be on the target
-                // box might not even need encryption... look at this
-                array ( "Encryption" => array( "uninstall" =>
-                    array("encrypted-data" => "build/config/cleopatra/SSH/keys/private/encrypted/bastion"),
-                    array("encryption-target-file" => "{$this->myUserHome}/.ssh/bastion"),
-                    // @todo the key thing
-                    array("encryption-key" => "{$this->myUser}"),
-                    array("encryption-file-permissions" => ""),
-                    array("encryption-file-owner" => ""),
-                    array("encryption-group" => ""),
-                ),),
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
@@ -72,25 +56,18 @@ class AutoPilotConfigured extends AutoPilot {
                     array("command" => "dapperstrano ApacheCtl restart --yes"),
                     array("background" => "") ) ),
 
-                // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
-                array ( "Testingkamen" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
-                array ( "Parallax" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jrush for Joomla" ),),),
-                array ( "Jrush" => array( "ensure" => array(),),),
+                //Mysql
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
+                array ( "MysqlServer" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
+                array ( "MysqlAdmins" => array( "install" =>
+                    array("root-user" => "root"),
+                    array("root-pass" => "cleopatra"),
+                    array("new-user" => "root"),
+                    array("new-pass" => "root"),
+                    array("mysql-host" => "127.0.0.1") ) ),
 
-                // Drush
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
-                array ( "PackageManager" => array( "pkg-ensure" =>
-                    array("package-name" => "drush"),
-                    array("packager-name" => "Pear"),),),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Bastion server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 /*
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,
