@@ -51,7 +51,7 @@ class Base {
         return false;
     }
 
-    public function checkForRegisteredModules($params, $modelOverrides = null) {
+    public function checkForRegisteredModels($params, $modelOverrides = null) {
         $modelsToCheck = (isset($modelOverrides)) ? $modelOverrides : $this->registeredModules ;
         $errors = array();
         foreach ($modelsToCheck as $modelClassNameOrArray) {
@@ -126,7 +126,7 @@ class Base {
     protected function getModelAndCheckDependencies($module, $pageVars, $moduleType="Default") {
         $myInfo = \Core\AutoLoader::getSingleInfoObject($module);
         $myModuleAndDependencies = array_merge(array($module), $myInfo->dependencies() ) ;
-        $dependencyCheck = $this->checkForRegisteredModules($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
+        $dependencyCheck = $this->checkForRegisteredModels($pageVars["route"]["extraParams"], $myModuleAndDependencies) ;
         if ($dependencyCheck === true) {
             $thisModel = \Model\SystemDetectionFactory::getCompatibleModel($module, $moduleType, $pageVars["route"]["extraParams"]);
             return $thisModel; }
