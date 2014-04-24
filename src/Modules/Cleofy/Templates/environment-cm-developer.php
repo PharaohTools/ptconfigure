@@ -16,7 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a standalone server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Developer box on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
                 // Install Keys - Bastion Public Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
@@ -61,7 +61,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "MysqlServer" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
                 array ( "MysqlAdmins" => array( "install" =>
-                array("root-user" => "root"),
+                    array("root-user" => "root"),
                     array("root-pass" => "cleopatra"),
                     array("new-user" => "root"),
                     array("new-pass" => "root"),
@@ -128,13 +128,29 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
                 array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Developer box on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 // Unit Testing Tools
 
                 // PHPUnit
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPUnit is installed"),),),
                 array ( "PHPUnit" => array( "ensure" => array("guess" => true ),),),
+
+                // IDE's and Developer Tools
+
+                // Developer Tools
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure DeveloperTools are installed"),),),
+                array ( "DeveloperTools" => array( "ensure" => array("guess" => true ),),),
+
+                // IntelliJ
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure IntelliJ IDE is installed"),),),
+                array ( "IntelliJ" => array( "ensure" => array("guess" => true ),),),
+
+                // Mysql Tools
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Tools are installed"),),),
+                array ( "MysqlTools" => array( "ensure" => array("guess" => true ),),),
+
+
 
 
                 /*
