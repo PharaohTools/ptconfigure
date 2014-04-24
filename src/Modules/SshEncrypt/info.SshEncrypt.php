@@ -20,15 +20,18 @@ class SshEncryptInfo extends CleopatraBase {
     return array("ssh-encrypt"=>"SshEncrypt", "sshencrypt"=>"SshEncrypt");
   }
 
+  public function dependencies() {
+      return array("Logging", "Encryption") ;
+  }
+
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install admin users for MySQL so that MySQL can
-  be managed without using the Root User.
+  This command allows you to install an encrypted private SSH key or to encrypt one.
 
   SshEncrypt, ssh-encrypt, sshencrypt
 
         - install
-        Installs Mysql Admin Users.
+        Installs an encrypted SSH Key.
         example: cleopatra mysql-admins install
 
 HELPDATA;
