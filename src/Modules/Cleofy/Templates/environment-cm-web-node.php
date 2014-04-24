@@ -56,17 +56,6 @@ class AutoPilotConfigured extends AutoPilot {
                     array("command" => "dapperstrano ApacheCtl restart --yes"),
                     array("background" => "") ) ),
 
-                //Mysql
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
-                array ( "MysqlServer" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
-                array ( "MysqlAdmins" => array( "install" =>
-                    array("root-user" => "root"),
-                    array("root-pass" => "cleopatra"),
-                    array("new-user" => "root"),
-                    array("new-pass" => "root"),
-                    array("mysql-host" => "127.0.0.1") ) ),
-
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 /*

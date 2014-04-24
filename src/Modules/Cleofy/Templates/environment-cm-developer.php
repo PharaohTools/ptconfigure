@@ -16,29 +16,13 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Bastion server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a standalone server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
-                // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
+                // Install Keys - Bastion Public Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
                 array ( "SshKeyInstall" => array( "file" =>
                     array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
                     array("user-name" => "{$this->myUser}"),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our DevOps Public Key is installed" ),),),
-                array ( "SshKeyInstall" => array( "file" =>
-                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
-                    array("user-name" => "{$this->myUser}"),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Private Key is installed" ),),),
-                // @todo if this is run over ssh from another machine (DevOps laptop), the encryption key never needs to be on the target
-                // box might not even need encryption... look at this
-                array ( "Encryption" => array( "uninstall" =>
-                    array("encrypted-data" => "build/config/cleopatra/SSH/keys/private/encrypted/bastion"),
-                    array("encryption-target-file" => "{$this->myUserHome}/.ssh/bastion"),
-                    // @todo the key thing
-                    array("encryption-key" => "{$this->myUser}"),
-                    array("encryption-file-permissions" => ""),
-                    array("encryption-file-owner" => ""),
-                    array("encryption-group" => ""),
-                ),),
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
@@ -72,6 +56,42 @@ class AutoPilotConfigured extends AutoPilot {
                     array("command" => "dapperstrano ApacheCtl restart --yes"),
                     array("background" => "") ) ),
 
+                //Mysql
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
+                array ( "MysqlServer" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
+                array ( "MysqlAdmins" => array( "install" =>
+                array("root-user" => "root"),
+                    array("root-pass" => "cleopatra"),
+                    array("new-user" => "root"),
+                    array("new-pass" => "root"),
+                    array("mysql-host" => "127.0.0.1") ) ),
+
+                // Build Tools
+
+                // Pear
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Pear is installed"),),),
+                array ( "Pear" => array( "ensure" => array("guess" => true ),),),
+
+                // Phing
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Phing is installed"),),),
+                array ( "PackageManager" => array( "pkg-ensure" =>
+                    array("package-name" => "phing"),
+                    array("packager-name" => "Pear"),),),
+
+                // Java
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Java is installed"),),),
+                array ( "Java" => array( "ensure" => array("guess" => true ),),),
+
+                // Jenkins
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jenkins is installed" ),),),
+                array ( "Jenkins" => array( "install" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jenkins PHP Plugins are installed"),),),
+                array ( "JenkinsPlugins" => array( "install" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the Jenkins user can use Sudo without a Password"),),),
+                array ( "JenkinsSudoNoPass" => array( "install" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a build server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+
                 // All Pharoes
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
                 array ( "Cleopatra" => array( "ensure" => array(),),),
@@ -90,7 +110,32 @@ class AutoPilotConfigured extends AutoPilot {
                     array("package-name" => "drush"),
                     array("packager-name" => "Pear"),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Bastion server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                // BDD Testing
+
+                // SeleniumServer
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Selenium Server is installed"),),),
+                array ( "SeleniumServer" => array( "ensure" => array("guess" => true ),),),
+
+                // Behat
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Behat is installed"),),),
+                array ( "Behat" => array( "ensure" => array("guess" => true ),),),
+
+                // Ruby
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby is installed"),),),
+                array ( "RubySystem" => array( "ensure" => array("guess" => true ),),),
+
+                // Ruby BDD Gems
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
+                array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+
+                // Unit Testing Tools
+
+                // PHPUnit
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPUnit is installed"),),),
+                array ( "PHPUnit" => array( "ensure" => array("guess" => true ),),),
+
 
                 /*
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,
