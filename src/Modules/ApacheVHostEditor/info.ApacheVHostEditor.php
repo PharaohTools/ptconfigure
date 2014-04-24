@@ -22,6 +22,7 @@ class ApacheVHostEditorInfo extends Base {
           "vhosteditor"=>"ApacheVHostEditor", "VHostEditor"=>"ApacheVHostEditor",  "apachevhosteditor"=>"ApacheVHostEditor");
     }
 
+    // @todo finish this
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Apache VHosts Functions.
