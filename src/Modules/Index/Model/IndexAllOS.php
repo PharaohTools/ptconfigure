@@ -38,7 +38,7 @@ class IndexAllOS extends Base {
     private function findOnlyCompatibleModuleNames($params) {
         $allModules = $this->findAllModuleNames() ;
         $controllerBase = new \Controller\Base();
-        $errors = $controllerBase->checkForRegisteredModules($params, $allModules) ;
+        $errors = $controllerBase->checkForRegisteredModels($params, $allModules) ;
         $compatibleModules = array();
         foreach($allModules as $oneModule) {
             if (!in_array($oneModule["command"], $errors)) {
