@@ -87,11 +87,11 @@ class DBInstallAllOS extends Base {
             $this->loadDBAdminUser();
             $this->dbName = $this->askForDBFixedName();
             $this->dropDB(); }
-        if ( $this->askForDBUserDrop() ) {
-            if (!isset($this->dbRootUser)) {
-              $this->loadDBAdminUser(); }
-            $this->dbUser = $this->askForDBUser();
-            $this->userDropper(); }
+//        if ( $this->askForDBUserDrop() ) {
+//            if (!isset($this->dbRootUser)) {
+//              $this->loadDBAdminUser(); }
+//            $this->dbUser = $this->askForDBUser();
+//            $this->userDropper(); }
         return "Seems Fine...";
     }
 
@@ -195,6 +195,7 @@ class DBInstallAllOS extends Base {
 
     private function askForDBFreeFormName(){
         if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
+        if (isset($this->params["mysql-db"])) { return $this->params["mysql-db"] ; }
         $question = 'What\'s the application DB Name?'."\n";
         $question .= 'Current Db\'s are:'."\n";
         $allDbNames = $this->getDbNameList();
@@ -205,6 +206,7 @@ class DBInstallAllOS extends Base {
 
     private function askForDBFixedName(){
         if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
+        if (isset($this->params["mysql-db"])) { return $this->params["mysql-db"] ; }
         $question = 'What\'s the application DB Name?';
         $allDbNames = $this->getDbNameList();
         return self::askForArrayOption($question, $allDbNames, true);
