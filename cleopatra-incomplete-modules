@@ -6,6 +6,8 @@ You cannot call a module NoModuleAssociated as PackageManager uses that to store
 from cli not module
 
 
+All
+
 A new concept
 One composerised, we can keep client installs lightweight by building cleo from dependencies in the autopilot.
 step one, logging, then get the dependencies for that
@@ -56,12 +58,6 @@ ALMOST DONE
 Just remove all references to autopilot. also remove method calls from install, baselinuxapp, basephpapp, all methods accepting
 autopilot or using autopilot parameters. make sure that everything that was covered by a runautopilot is now covered by a
 control action combo
-There are lots of runAutopilot methods missing. Is there a cleaner way to do this by just having autopilot variables
-assigned to parameters at the beginning. So, then you provide Module(Controller), Action, available Parameters as each
-step. This means that all runAutoPilot methods can be removed. each of the info files has an autoPilotVariables() method.
-They can now all be removed, replaced with "exposedParams" or something. This way, each action can be listed with the
-parameters it accepts. It also means that the generator will be much easier to work, with some js and httpPostInput,
-the generator can look great.
 
 
 Composerise core. As part of this, you can install a custom et of modules, including say cleo amd dapper in one.
@@ -79,6 +75,8 @@ MVP ABOVE HERE
 
 Kind Of Important - will be luvvly
 -----------------------------------
+
+All Models of a particular Model group should have an interface
 We should have some kind of waiter function for the build process and autopilots, so
 I change my jenkins-server autopilot, during the build this is noticed, and an invoke script,
 tied to the autopilot (use a naming convention by default/guess maybe?)
@@ -631,3 +629,10 @@ OK - Yum - Add, Remove or Modify Yum Packages
 VERY IMPORTANT!!!
 MysqlAdmins and RunCommand both require a new way to call
 FIXED, If a command requires propertiers of an object, put it in a method and use executeAsShell
+
+There are lots of runAutopilot methods missing. Is there a cleaner way to do this by just having autopilot variables
+assigned to parameters at the beginning. So, then you provide Module(Controller), Action, available Parameters as each
+step. This means that all runAutoPilot methods can be removed. each of the info files has an autoPilotVariables() method.
+They can now all be removed, replaced with "exposedParams" or something. This way, each action can be listed with the
+parameters it accepts. It also means that the generator will be much easier to work, with some js and httpPostInput,
+the generator can look great.
