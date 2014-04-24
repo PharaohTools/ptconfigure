@@ -32,10 +32,7 @@ class ApacheVHostEditorInfo extends Base {
           - add
           create a Virtual Host
           example: sudo dapperstrano vhe add
-          example: sudo dapperstrano vhe add --yes --vhe-docroot=/var/www/the-app --vhe-url=www.dave.com
-                        --vhe-file-ext="" --vhe-apache-command="apache2" --vhe-ip-port
-            --vhe-vhost-dir
-            --vhe-template
+          example: sudo dapperstrano vhe add --yes --vhe-docroot=/var/www/the-app --vhe-url=www.dave.com --vhe-file-ext="" --vhe-apache-command="apache2" --vhe-ip-port="127.0.0.1:80" --vhe-vhost-dir="/etc/apache2/sites-available" --vhe-template="*template data*"
 
           - rm
           remove a Virtual Host

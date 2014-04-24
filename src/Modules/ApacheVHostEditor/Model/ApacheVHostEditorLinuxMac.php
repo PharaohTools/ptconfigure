@@ -116,6 +116,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForEnableVHost() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
                 echo "You have a sites available dir, guessing you need to enable a Virtual Host.\n" ;
@@ -126,6 +127,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForDisableVHost() {
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
                 echo "You have a sites available dir, guessing you need to disable a Virtual Host.\n" ;
@@ -177,7 +179,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForVHostDirectory(){
-        if (isset($this->params["vhost-dir"])) { return $this->params["vhost-dir"] ; }
+        if (isset($this->params["vhe-vhost-dir"])) { return $this->params["vhe-vhost-dir"] ; }
         $question = 'What is your VHost directory?';
         if ($this->detectDebianApacheVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - Enter nothing to use this';
             if (isset($this->params["guess"])) { return $this->vHostDir ; }
