@@ -1,6 +1,8 @@
 Dapperstrano Incomplete Modules
 -------------------------------------
 
+ModelGroups should be more modular.
+
 Dapperfy must use templateing like clefoy does
 
 remove references to $this->baseTempDir
