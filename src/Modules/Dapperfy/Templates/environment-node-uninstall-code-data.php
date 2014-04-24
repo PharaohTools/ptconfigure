@@ -27,7 +27,7 @@ class AutoPilotConfigured extends AutoPilot {
 	      array(
               array ( "Git" => array(
                   "gitDeletorExecute" => true,
-                  "gitDeletorCustomFolder" => "****dap_proj_cont_dir****"
+                  "gitDeletorCustomFolder" => " 4"
               ), ) ,
               array ( "HostEditor" => array(
                   "hostEditorDeletionExecute" => true,

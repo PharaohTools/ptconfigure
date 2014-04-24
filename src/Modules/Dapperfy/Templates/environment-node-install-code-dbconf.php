@@ -13,88 +13,101 @@ class AutoPilotConfigured extends AutoPilot {
 
     public $steps ;
 
+    private $time ;
+
     public function __construct() {
-	      $this->setSteps();
-        $this->setRevisionFolderName();
-        $this->calculateVHostDocRoot();
-        $this->setVHostTemplate();
+        $this->setTime() ;
+        $this->setSteps();
     }
 
     /* Steps */
     private function setSteps() {
 
-	    $this->steps =
-	      array(
-          array ( "Project" => array(
-                    "projectContainerInitExecute" => true,
-                    "projectContainerDirectory" => "****dap_proj_cont_dir****",
-          ) , ) ,
-          array ( "Git" => array(
-                    "gitCheckoutExecute" => true,
-                    "gitCheckoutProjectOriginRepo" => "****dap_git_repo_url****",
-                    "gitCheckoutCustomCloneFolder" => "",
-                    "gitCheckoutCustomBranch" => "****dap_git_custom_branch****",
-                    "gitCheckoutWebServerUser" => "www-data",
-          ) , ) ,
-          array ( "Project" => array(
-                    "projectInitializeExecute" => true,
-          ) , ) ,
-          array ( "VHostEditor" => array(
-                    "virtualHostEditorAdditionExecute" => true,
-                    "virtualHostEditorAdditionDocRoot" => "",
-                    "virtualHostEditorAdditionURL" => "****dap_apache_vhost_url****",
-                    "virtualHostEditorAdditionIp" => "****dap_apache_vhost_ip****",
-                    "virtualHostEditorAdditionTemplateData" => "",
-                    "virtualHostEditorAdditionDirectory" => "/etc/apache2/sites-available",
-                    "virtualHostEditorAdditionFileSuffix" => "",
-                    "virtualHostEditorAdditionVHostEnable" => true,
-                    "virtualHostEditorAdditionSymLinkDirectory" => "/etc/apache2/sites-enabled",
-                    "virtualHostEditorAdditionApacheCommand" => "apache2",
-          ) , ) ,
-          array ( "DBConfigure" => array(
-                    "dbResetExecute" => true,
-                    "dbResetPlatform" => "****dap_db_platform****",
-          ) , ) ,
-          array ( "DBConfigure" => array(
-                    "dbConfigureExecute" => true,
-                    "dbConfigureDBHost" => "****dap_db_ip_address****",
-                    "dbConfigureDBUser" => "****dap_db_app_user_name****",
-                    "dbConfigureDBPass" => "****dap_db_app_user_pass****",
-                    "dbConfigureDBName" => "****dap_db_name****",
-                    "dbConfigurePlatform" => "****dap_db_platform****",
-          ) , ) ,
-          array ( "Version" => array(
-                    "versionExecute" => true,
-                    "versionAppRootDirectory" => "****dap_proj_cont_dir****",
-                    "versionArrayPointToRollback" => "0",
-                    "versionLimit" => "****dap_version_num_revisions****",
-          ) , ) ,
-              array ( "ApacheControl" => array(
-                  "apacheCtlRestartExecute" => true,
-              ) , ) ,
-	      );
+        $this->steps =
+            array(
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Lets begin with ensuring the Project Container is initialized"),
+                ) ),
+                array ( "Project" => array( "container" =>
+                    array(),
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Next lets do our git clone"),
+                ) ),
+                array ( "GitClone" => array( "clone" =>
+                    array ( "guess" => true ),
+                    array ( "repository-url" => "****dap_git_repo_url****"),
+                    array ( "custom-clone-dir" => $this->getTime() ),
+                    array ( "custom-branch" => "****dap_git_custom_branch****"),
+                ) ,  ),
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Lets initialize our new download directory as a dapper project"),
+                ) ),
+                array ( "Project" => array( "init" =>
+                    array(),
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Next create our virtual host"),
+                ) ),
+                array ( "VHostEditor" => array( "add" =>
+                    array ( "guess" => true ),
+                    array ( "vhe-docroot" => "****dap_proj_cont_dir****{$this->getTime()}"),
+                    array ( "vhe-url" => "****dap_apache_vhost_url****"),
+                    array ( "vhe-ip-port" => "****dap_apache_vhost_ip****"),
+                    array ( "vhe-vhost-dir" => "/etc/apache2/sites-available" ),
+                    array ( "vhe-template" => $this->getTemplate() ),
+                    array ( "vhe-file-ext" => "" ),
+                ) ,  ),
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Next ensure our db file configuration is reset to blank"),
+                ) ),
+                array ( "DBConfigure" => array( "reset" =>
+                    array("platform" => "****dap_db_platform****" ),
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Next configure our projects db configuration file"),
+                ) ),
+                array ( "DBConfigure" => array( "conf" =>
+                    array( "mysql-host" => "****dap_db_ip_address****"),
+                    array( "mysql-user" => "****dap_db_app_user_name****"),
+                    array( "mysql-pass" => "****dap_db_app_user_pass****"),
+                    array( "mysql-db" => "****dap_db_name****"),
+                    array( "mysql-platform" => "****dap_db_platform****"),
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "The application is installed now so lets do our versioning"),
+                ) ),
+                array ( "Version" => array( "latest" =>
+                    array( "container" => "****dap_proj_cont_dir****"),
+                    array( "limit" => "****dap_version_num_revisions****"),
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Now lets restart Apache so we are serving our new application"),
+                ) ),
+                array ( "ApacheControl" => array( "restart" =>
+                    array() ,
+                ) , ) ,
+                array ( "Logging" => array( "log" =>
+                    array( "log-message" => "Our deployment is done"),
+                ) ),
+            );
+
 
 	  }
 
 
- private function setRevisionFolderName() {
-   $this->steps[1]["Git"]["gitCheckoutCustomCloneFolder"] = time() ;
- }
+    private function setTime() {
+        $this->time = time() ;
+    }
 
+    private function getTime() {
+        return $this->time ;
+    }
 
- // This function will set the vhost template for your Virtual Host
- // You need to call this from your constructor
- private function calculateVHostDocRoot() {
-    $this->steps[3]["VHostEditor"]["virtualHostEditorAdditionDocRoot"]
-        = "****dap_proj_cont_dir****".$this->steps[1]["Git"]["gitCheckoutCustomCloneFolder"];
- }
-
- // This function will set the vhost template for your Virtual Host
- // You need to call this from your constructor
- private function setVHostTemplate() {
-   $this->steps[3]["VHostEditor"]["virtualHostEditorAdditionTemplateData"] =
-  <<<'TEMPLATE'
- NameVirtualHost ****IP ADDRESS****:80
+    private function getTemplate() {
+        $template =
+            <<<'TEMPLATE'
+           NameVirtualHost ****IP ADDRESS****:80
  <VirtualHost ****IP ADDRESS****:80>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
@@ -128,7 +141,9 @@ class AutoPilotConfigured extends AutoPilot {
   CustomLog /var/log/apache2/access.log combined
   </VirtualHost>
 TEMPLATE;
-}
+
+        return $template ;
+    }
 
 
 }
