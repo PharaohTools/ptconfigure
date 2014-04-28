@@ -131,14 +131,14 @@ class HostEditorAllLinuxMac extends Base {
 
     private function writeHostFileEntryToProjectFile(){
         if ($this->checkIsPharoahProject()){
-            $appSettingsFactory = new \AppSettings();
+            $appSettingsFactory = new \Model\AppSettings();
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
             $appConfig::setProjectVariable("host-entries", array("$this->uri" => "$this->ipAddress") );  }
     }
 
     private function deleteHostFileEntryFromProjectFile(){
         if ($this->checkIsPharoahProject()) {
-            $appSettingsFactory = new \AppSettings();
+            $appSettingsFactory = new \Model\AppSettings();
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
             $allHostFileEntries = $appConfig::getProjectVariable("host-entries");
             if ($allHostFileEntries instanceof \stdClass) { $allHostFileEntries = new \ArrayObject($allHostFileEntries); }
