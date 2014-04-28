@@ -33,10 +33,21 @@ class ApacheVHostEditorInfo extends Base {
           create a Virtual Host
           example: sudo dapperstrano vhe add
           example: sudo dapperstrano vhe add --yes --vhe-docroot=/var/www/the-app --vhe-url=www.dave.com --vhe-file-ext="" --vhe-apache-command="apache2" --vhe-ip-port="127.0.0.1:80" --vhe-vhost-dir="/etc/apache2/sites-available" --vhe-template="*template data*"
+          example: sudo dapperstrano vhe add --yes --guess --vhe-url=www.dave.com
+              # will attempt to guess the following but you can override any
+              # --vhe-docroot=*current working dir*
+              # --vhe-file-ext="ubuntu none, others .conf"
+              # --vhe-apache-command="apache2 or httpd depends on system"
+              # --vhe-ip-port="127.0.0.1:80"
+              # --vhe-vhost-dir="/etc/apache2/sites-available or /etc/httpd/vhosts.d"
+              # --vhe-template="*template data*"
+              # --vhe-default-template-name="docroot-src-suffix" // from default templates
 
           - rm
-          remove a Virtual Host
           example: dapperstrano vhe rm
+          example: dapperstrano vhe rm --yes --
+          example: dapperstrano vhe rm --yes --guess --vhe-deletion-vhost=www.site.com
+          example: dapperstrano vhe rm --yes --guess --vhe-deletion-vhost=www.site.com
 
           - list
           List current Virtual Hosts
@@ -54,65 +65,5 @@ HELPDATA;
       return $help ;
     }
 
-
-  public function generatorCodeInjection($step=null) {
-    $inject = <<<'INJECT'
-//
-// // This function will set the vhost template for your Virtual Host
-// // You need to call this from your constructor
-// private function calculateVHostDocRoot() {
-        $serverAlias = str_replace("www", "*", $this->virtualHostEditorAdditionURL);
-INJECT;
-$inject .= "\n".'//   $this->steps['.$step.']["ApacheVHostEditor"]["virtualHostEditorAdditionDocRoot"] = getcwd();'."\n";
-$inject .= <<<'INJECT'
-// }
-//
-// // This function will set the vhost template for your Virtual Host
-// // You need to call this from your constructor
-// private function setVHostTemplate() {
-INJECT;
-    $inject .= "\n".'//   $this->steps['.$step.']["ApacheVHostEditor"]["virtualHostEditorAdditionTemplateData"] = '."\n";
-    $inject .= <<<'INJECT'
-//  <<<'TEMPLATE'
-//  NameVirtualHost ****IP ADDRESS****:80
-//  <VirtualHost ****IP ADDRESS****:80>
-//    ServerAdmin webmaster@localhost
-// 	  ServerName ****SERVER NAME****
-// 	  DocumentRoot ****WEB ROOT****/src
-// 	  <Directory ****WEB ROOT****/src>
-// 		  Options Indexes FollowSymLinks MultiViews
-// 		  AllowOverride All
-// 		  Order allow,deny
-// 		  allow from all
-// 	  </Directory>
-//    ErrorLog /var/log/apache2/error.log
-//    CustomLog /var/log/apache2/access.log combined
-//  </VirtualHost>
-//
-//  NameVirtualHost ****IP ADDRESS****:443
-//  <VirtualHost ****IP ADDRESS****:443>
-// 	  ServerAdmin webmaster@localhost
-// 	  ServerName ****SERVER NAME****
-// 	  DocumentRoot ****WEB ROOT****/src
-//    # SSLEngine on
-// 	  # SSLCertificateFile /etc/apache2/ssl/ssl.crt
-//    # SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
-//    # SSLCertificateChainFile /etc/apache2/ssl/bundle.crt
-// 	  <Directory ****WEB ROOT****/src>
-// 		  Options Indexes FollowSymLinks MultiViews
-//  		AllowOverride All
-//		  Order allow,deny
-//	  	allow from all
-//  	</Directory>
-//    ErrorLog /var/log/apache2/error.log
-//    CustomLog /var/log/apache2/access.log combined
-//  </VirtualHost>
-//TEMPLATE;
-//}
-//
-INJECT;
-    return $inject ;
-
-    }
 
 }
