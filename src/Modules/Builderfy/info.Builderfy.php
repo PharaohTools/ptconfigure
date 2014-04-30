@@ -26,9 +26,7 @@ class BuilderfyInfo extends Base {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This is a default Module and provides you a way to deploy build projects to jenkins that are
-  configured for your project.
-
+  This is a default Module and provides you a way to deploy build jobs to jenkins that are configured for your project.
 
   Builderfy, builderfy
 
@@ -47,8 +45,6 @@ class BuilderfyInfo extends Base {
         - continuous
         Create a continuous build for this project
         example: dapperstrano builderfy continuous
-
-        The start of the command will be dapperstrano autopilot execute *filename*
 
 
 HELPDATA;

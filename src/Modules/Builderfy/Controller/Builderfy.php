@@ -15,6 +15,7 @@ class Builderfy extends Base {
         $action = $pageVars["route"]["action"];
 
         if (in_array($action, array("developer", "staging", "production", "continuous"))) {
+          $thisModel->params["action"] = $action ;
           $this->content["result1"] = $thisModel->askInstall();
           $this->content["result2"] = $thisModel->result;
           return array ("type"=>"view", "view"=>"builderfy", "pageVars"=>$this->content); }

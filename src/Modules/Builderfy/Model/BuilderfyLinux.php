@@ -70,8 +70,9 @@ class BuilderfyLinux extends BaseLinuxApp {
         $this->jenkinsFSFolder = $this->selectJenkinsFolderInFileSystem();
         $this->newJobName = $this->askForTargetJobName() ;
         $this->getNewJobFolderIfJenkinsFolderExistsInFileSystem();
-        $this->tryToCreateTempFolder();
+        // $this->tryToCreateTempFolder();
         $this->projectBuildInstall();
+        $this->templateConfiguration();
         $this->changeNewJenkinsJobFolderPermissions();
         $this->changeNewJenkinsJobFolderOwner();
         $this->changeNewJenkinsJobFolderGroup();
@@ -100,10 +101,9 @@ class BuilderfyLinux extends BaseLinuxApp {
 
     protected function selectSourceTemplateDirectory(){
         if (isset($this->params["source-build-dir"])) { return $this->params["source-build-dir"] ; }
-        $actsToDirs = array("developer", "staging", "continuous-staging", "production", "continuous-production") ;
-        if (in_array($action, array_keys($actsToDirs))) {
+        if (in_array($this->params["action"], array("developer", "staging", "continuous-staging", "production", "continuous-production"))) {
             $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
-            $dir = $templatesDir.'/'.$action ;
+            $dir = $templatesDir.'/'.$this->params["action"] ;
             return $dir ; }
     }
 
@@ -117,22 +117,28 @@ class BuilderfyLinux extends BaseLinuxApp {
 
     protected function projectBuildInstall(){
         $command  = 'sudo cp -r '.$this->jenkinsOriginalJobFolderName.' ' ;
-        $command .= $this->jenkinsFSFolder.'/jobs/'.$this->jenkinsNewJobFolderName;
+        $command .= $this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
+        self::executeAndOutput($command, "Copying Files...");
+    }
+
+    protected function templateConfiguration(){
+        $command  = 'sudo cp -r '.$this->jenkinsOriginalJobFolderName.' ' ;
+        $command .= $this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Copying Files...");
     }
 
     protected function changeNewJenkinsJobFolderPermissions(){
-        $command  = 'sudo chmod -R 755 '.$this->jenkinsFSFolder.'/jobs/'.$this->jenkinsNewJobFolderName;
+        $command  = 'sudo chmod -R 755 '.$this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Changing Folder Permissions...");
     }
 
     protected function changeNewJenkinsJobFolderOwner(){
-        $command  = 'sudo chown -R jenkins '.$this->jenkinsFSFolder.'/jobs/'.$this->jenkinsNewJobFolderName;
+        $command  = 'sudo chown -R jenkins '.$this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Changing Folder Owner...");
     }
 
     protected function changeNewJenkinsJobFolderGroup(){
-        $command  = 'sudo chgrp -R jenkins '.$this->jenkinsFSFolder.'/jobs/'.$this->jenkinsNewJobFolderName;
+        $command  = 'sudo chgrp -R jenkins '.$this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Changing Folder Group...");
     }
 
