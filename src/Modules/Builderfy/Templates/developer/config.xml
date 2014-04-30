@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>An MVC Framework I wrote in PHP</description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+      <projectUrl>https://github.com/phpengine/mvc-practice/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+      <skip>true</skip>
+    </org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>PUSH</name>
+          <description>If you&apos;ve passed a build locally, and want to push, then you can use this to
+a) Run all Tests against your work
+b) Run all tests, then push your work to the main repo master branch
+c) Run all tests, push to the main repo master branch, and tag, so that it is queued to be tested automatically again by the build system then put into staging.
+</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>TEST_NO_PUSH</string>
+              <string>TEST_PUSH_MASTER</string>
+              <string>TEST_PUSH_MASTER_TAGGED</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name></name>
+        <refspec></refspec>
+        <url>http://git:deploy1995@git.gcdevel.co.uk/mvc-practice-php</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>origin/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <useShallowClone>false</useShallowClone>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <reference></reference>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <includedRegions></includedRegions>
+    <scmName></scmName>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd $WORKSPACE
+echo &quot;Moving to folder named deployed...&quot;
+mkdir /tmp/dapperstranodeployed
+mv $WORKSPACE/* /tmp/dapperstranodeployed
+mkdir $WORKSPACE/deployed
+mv /tmp/dapperstranodeployed/* $WORKSPACE/deployed</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd $WORKSPACE/deployed
+echo &quot;Running Application Installation...&quot;
+echo &quot;sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php&quot;
+sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+echo &quot;Running PHP Unit For Console, HTML, XUnit and XML Clover Coverage Output...&quot;
+cd $WORKSPACE/deployed
+php build/config/phpunit/execute-console.php
+php build/config/phpunit/execute-html.php
+php build/config/phpunit/execute-ci-xunit.php
+php build/config/phpunit/execute-ci-clover-coverage-xml.php</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+echo &quot;Running PHP MD For Console and XML Output...&quot;
+cd $WORKSPACE/deployed
+php build/config/phpmd/execute-console.php
+php build/config/phpmd/execute-ci.php</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+echo &quot;Running Cucumber Console and JSON Output...&quot;
+[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot;
+rvm use 1.9.3
+cd $WORKSPACE/deployed
+bundle install
+cd $WORKSPACE/deployed/build/tests
+cucumber
+cucumber --format json -o cucumber.json
+mv cucumber.json ../reports/cucumber/json/</command>
+    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+      <condition class="org.jenkins_ci.plugins.run_condition.core.StatusCondition">
+        <worstResult>
+          <name>SUCCESS</name>
+          <ordinal>0</ordinal>
+          <color>BLUE</color>
+        </worstResult>
+        <bestResult>
+          <name>SUCCESS</name>
+          <ordinal>0</ordinal>
+          <color>BLUE</color>
+        </bestResult>
+      </condition>
+      <buildStep class="hudson.tasks.Shell">
+        <command>echo &quot;ALL SHELL STEPS FINISHED&quot;
+#!/bin/bash
+cd $WORKSPACE/deployed
+if [ $PUSH = &quot;TEST_PUSH_MASTER&quot; ]
+then
+  echo &quot;Successful build, set to push, so pushing...&quot;
+  git push origin master
+fi
+if [ $PUSH = &quot;TEST_PUSH_MASTER_TAGGED&quot; ]
+then
+  echo &quot;Successful build, set to tag, so tagging...&quot;
+  git tag -a $BUILD_ID -m &quot;Jenkins Development Tag&quot;
+  echo &quot;Pushing to master with New Tag&quot;
+  git push origin master --tags 
+fi</command>
+      </buildStep>
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail"/>
+    </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.pmd.PmdPublisher>
+      <healthy></healthy>
+      <unHealthy></unHealthy>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[PMD] </pluginName>
+      <defaultEncoding></defaultEncoding>
+      <canRunOnFailed>true</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+        <unstableTotalAll></unstableTotalAll>
+        <unstableTotalHigh></unstableTotalHigh>
+        <unstableTotalNormal></unstableTotalNormal>
+        <unstableTotalLow></unstableTotalLow>
+        <failedTotalAll></failedTotalAll>
+        <failedTotalHigh></failedTotalHigh>
+        <failedTotalNormal></failedTotalNormal>
+        <failedTotalLow></failedTotalLow>
+      </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>true</dontComputeNew>
+      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+      <pattern>deployed/build/reports/phpmd/xml/report.xml</pattern>
+    </hudson.plugins.pmd.PmdPublisher>
+    <org.jenkinsci.plugins.cloverphp.CloverPublisher>
+      <publishHtmlReport>true</publishHtmlReport>
+      <reportDir>deployed/build/reports/phpunit/html</reportDir>
+      <xmlLocation>deployed/build/reports/phpunit/xml/report.xml</xmlLocation>
+      <disableArchiving>false</disableArchiving>
+      <healthyTarget>
+        <methodCoverage>70</methodCoverage>
+        <statementCoverage>80</statementCoverage>
+      </healthyTarget>
+      <unhealthyTarget/>
+      <failingTarget/>
+    </org.jenkinsci.plugins.cloverphp.CloverPublisher>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>deployed/build/reports/phpunit/junit/junit.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <net.masterthought.jenkins.CucumberReportPublisher>
+      <jsonReportDirectory>deployed/build/reports/cucumber/json</jsonReportDirectory>
+      <pluginUrlPath></pluginUrlPath>
+      <skippedFails>true</skippedFails>
+      <undefinedFails>true</undefinedFails>
+      <noFlashCharts>false</noFlashCharts>
+    </net.masterthought.jenkins.CucumberReportPublisher>
+    <hudson.plugins.postbuildtask.PostbuildTask>
+      <tasks>
+        <hudson.plugins.postbuildtask.TaskProperties>
+          <logTexts>
+            <hudson.plugins.postbuildtask.LogProperties>
+              <logText>Building in workspace</logText>
+              <operator>AND</operator>
+            </hudson.plugins.postbuildtask.LogProperties>
+          </logTexts>
+          <EscalateStatus>true</EscalateStatus>
+          <RunIfJobSuccessful>false</RunIfJobSuccessful>
+          <script>#!/bin/bash&#xd;
+echo &quot;Running Application Uninstallation...&quot;&#xd;
+cd $WORKSPACE/deployed&#xd;
+echo &quot;sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php&quot;&#xd;
+sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php</script>
+        </hudson.plugins.postbuildtask.TaskProperties>
+      </tasks>
+    </hudson.plugins.postbuildtask.PostbuildTask>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.xvnc.Xvnc>
+      <takeScreenshot>false</takeScreenshot>
+    </hudson.plugins.xvnc.Xvnc>
+  </buildWrappers>
+</project>
