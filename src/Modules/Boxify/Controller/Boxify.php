@@ -2,9 +2,7 @@
 
 Namespace Controller ;
 
-class Boxify extends Base {
-
-    private $injectedActions = array();
+class BoxManager extends Base {
 
     public function execute($pageVars) {
 
@@ -19,9 +17,10 @@ class Boxify extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if ($action=="standard") {
-          $this->content["genCreateResult"] = $thisModel->askWhetherToBoxify();
-          return array ("type"=>"view", "view"=>"Boxify", "pageVars"=>$this->content); }
+        if (in_array($action, array("box-add", "box-remove") )) {
+            $this->content["result"] = $thisModel->askAction($action);
+            $this->content["appName"] = $thisModel->programNameInstaller ;
+            return array ("type"=>"view", "view"=>"apt", "pageVars"=>$this->content); }
 
     }
 

@@ -2,38 +2,42 @@
 
 Namespace Info;
 
-class BoxifyInfo extends CleopatraBase {
+class BoxManagerInfo extends CleopatraBase {
 
-    public $hidden = false;
+  public $hidden = false;
 
-    public $name = "Cleopatra Boxifyer - Configures servers for your project";
+  public $name = "Boxify Wrapper - Create Cloud Instances";
 
-    public function __construct() {
-      parent::__construct();
-    }
+  public function __construct() {
+    parent::__construct();
+  }
 
-    public function routesAvailable() {
-      return array( "Boxify" => array("help", "standard") );
-    }
+  public function routesAvailable() {
+    return array( "BoxManager" =>  array_merge(parent::routesAvailable(), array("box-add", "box-remove") ) );
+  }
 
-    public function routeAliases() {
-      return array("boxify"=>"Boxify");
-    }
+  public function routeAliases() {
+    return array("box-manager"=>"BoxManager", "boxmanager"=>"BoxManager", "box-mgr"=>"BoxManager", "boxmgr"=>"BoxManager");
+  }
 
-    public function helpDefinition() {
-      $help = <<<"HELPDATA"
-  This command is part of a default Module Core and provides you with a method by which you can
-  create a standard set of Autopilot files for your project from the command line.
+  public function helpDefinition() {
+    $help = <<<"HELPDATA"
+  This command allows you to use a Box Management wrapper.
 
+  BoxManager, box-manager, boxmanager, box-mgr, boxmgr
 
-  Boxify, boxify
+        - box-add
+        Installs a Box through a Box Manager
+        example: cleopatra box-manager box-add --environment-name="staging" --environment-version="5.0" --provider="apt-get"
 
-        - standard
-        Populate your project with Servers from Cloud Hosts, or your own Module if provided.
-        example: cleopatra boxify standard
+        - box-remove
+        Removes a Box through a Box Manager
+        example: cleopatra box-manager box-remove --environment-name="staging" --environment-version="5.0" --provider="apt-get"
+
+  A environment manager wrapper that will allow you to install environments on any system
 
 HELPDATA;
-      return $help ;
-    }
+    return $help ;
+  }
 
 }
