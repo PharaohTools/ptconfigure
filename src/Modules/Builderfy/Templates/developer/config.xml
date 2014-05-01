@@ -3,8 +3,8 @@
   <actions/>
   <description><%tpl.php%>site_description</%tpl.php%></description>
   <logRotator>
-    <daysToKeep>-1</daysToKeep>
-    <numToKeep>10</numToKeep>
+    <daysToKeep><%tpl.php%>days_to_keep</%tpl.php%></daysToKeep>
+    <numToKeep><%tpl.php%>num_to_keep</%tpl.php%></numToKeep>
     <artifactDaysToKeep>-1</artifactDaysToKeep>
     <artifactNumToKeep>-1</artifactNumToKeep>
   </logRotator>

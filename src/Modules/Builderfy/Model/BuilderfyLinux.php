@@ -159,12 +159,12 @@ class BuilderfyLinux extends BaseLinuxApp {
             case "developer" :
                 $bcv =
                     array(
-                        "site_description" => $environment["any-app"]["site_description"] ,
-                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "site_description" => $this->varOrDefault($environment["any-app"]["site_description"], "No Description given.") ,
+                        "github_url" => $this->varOrDefault($environment["any-app"]["primary_scm_url"], "/var/www/app-directory") ,
                         "branch_spec" => "origin/master" ,
-                        "github_url" => $environment["any-app"]["primary_scm_url"],
-                        "site_description" => $environment["any-app"]["site_description"] ,
-                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "scm_url" => "/var/www/app-directory",
+                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
+                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "10") ,
                     ) ;
             break;
             case "staging" :
@@ -172,7 +172,7 @@ class BuilderfyLinux extends BaseLinuxApp {
                     array(
                         "site_description" => $environment["any-app"]["site_description"] ,
                         "github_url" => $environment["any-app"]["primary_scm_url"],
-                        "branch_spec" => "origin/master" ,
+                        "branch_spec" => "origin/staging" ,
                         "github_url" => $environment["any-app"]["primary_scm_url"],
                         "site_description" => $environment["any-app"]["site_description"] ,
                         "github_url" => $environment["any-app"]["primary_scm_url"],
@@ -216,7 +216,7 @@ class BuilderfyLinux extends BaseLinuxApp {
     }
 
     protected function varOrDefault($var, $default){
-        if (isset($var) && !is_null($var) { return $var ; }
+        if (isset($var) && !is_null($var)) { return $var ; }
         return $default ;
     }
 
