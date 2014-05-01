@@ -1,4 +1,4 @@
-Apt Modifications:
+Boxify Modifications:
 --------------------------------------------
 
 <?php echo $pageVars["appName"] ; ?>: <?php
@@ -9,4 +9,4 @@ Apt Modifications:
 ?>
 
 ------------------------------
-Apt Mods Finished
+Boxify Mods Finished

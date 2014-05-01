@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class BoxManager extends Base {
+class Boxify extends Base {
 
     public function execute($pageVars) {
 
@@ -17,10 +17,10 @@ class BoxManager extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("box-add", "box-remove") )) {
+        if (in_array($action, array("box-add", "box-remove", "box-destroy") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"apt", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"boxify", "pageVars"=>$this->content); }
 
     }
 

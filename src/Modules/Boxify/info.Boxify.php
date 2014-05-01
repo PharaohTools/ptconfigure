@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class BoxManagerInfo extends CleopatraBase {
+class BoxifyInfo extends CleopatraBase {
 
   public $hidden = false;
 
@@ -13,26 +13,30 @@ class BoxManagerInfo extends CleopatraBase {
   }
 
   public function routesAvailable() {
-    return array( "BoxManager" =>  array_merge(parent::routesAvailable(), array("box-add", "box-remove") ) );
+    return array( "Boxify" =>  array_merge(parent::routesAvailable(), array("box-add", "box-destroy", "box-remove") ) );
   }
 
   public function routeAliases() {
-    return array("box-manager"=>"BoxManager", "boxmanager"=>"BoxManager", "box-mgr"=>"BoxManager", "boxmgr"=>"BoxManager");
+    return array("boxify"=>"Boxify");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to use a Box Management wrapper.
+  This command allows you to Boxify a Box Management wrapper.
 
-  BoxManager, box-manager, boxmanager, box-mgr, boxmgr
+  Boxify, boxify
 
         - box-add
-        Installs a Box through a Box Manager
+        Installs a Box through a cloud provider
         example: cleopatra box-manager box-add --environment-name="staging" --environment-version="5.0" --provider="apt-get"
 
         - box-remove
-        Removes a Box through a Box Manager
+        Removes a Box from the papyrus
         example: cleopatra box-manager box-remove --environment-name="staging" --environment-version="5.0" --provider="apt-get"
+
+        - box-destroy
+        Removes a Box from both papyrus and the cloud provider
+        example: cleopatra box-manager box-destroy --environment-name="staging" --server-prefix="" --provider="apt-get"
 
   A environment manager wrapper that will allow you to install environments on any system
 
