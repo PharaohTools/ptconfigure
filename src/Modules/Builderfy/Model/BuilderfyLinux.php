@@ -76,8 +76,6 @@ class BuilderfyLinux extends BaseLinuxApp {
         $this->changeNewJenkinsJobFolderPermissions();
         $this->changeNewJenkinsJobFolderOwner();
         $this->changeNewJenkinsJobFolderGroup();
-        $this->ctlJenkins("stop");
-        $this->ctlJenkins("start");
         $this->result = true ;
         return "Seems Fine...";
     }
@@ -122,9 +120,14 @@ class BuilderfyLinux extends BaseLinuxApp {
     }
 
     protected function templateConfiguration(){
-        $command  = 'sudo cp -r '.$this->jenkinsOriginalJobFolderName.' ' ;
-        $command .= $this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
-        self::executeAndOutput($command, "Copying Files...");
+        $templatorFactory = new \Model\Templating();
+        $templator = $templatorFactory->getModel($this->params);
+        $data = file_get_contents($this->jenkinsFSFolder.'/jobs/'.$this->newJobName.'/config.xml') ;
+        $targetLocation = $this->jenkinsFSFolder.'/jobs/'.$this->newJobName.'/config.xml' ;
+        $templator->template(
+            $data,
+            $this->getBuildConfigVars(),
+            $targetLocation );
     }
 
     protected function changeNewJenkinsJobFolderPermissions(){
@@ -142,17 +145,79 @@ class BuilderfyLinux extends BaseLinuxApp {
         self::executeAndOutput($command, "Changing Folder Group...");
     }
 
-    protected function ctlJenkins($action){
-        $command  = 'sudo service jenkins '.$action;
-        self::executeAndOutput($command, ucfirst($action)."ing Jenkins...");
-    }
-
     protected function detectJenkinsHomeFolderExistence(){
         return file_exists($this->jenkinsFSFolder);
     }
 
     protected function detectJenkinsJobExistence(){
         return file_exists($this->jenkinsFSFolder.'/jobs/'.$this->jenkinsOriginalJobFolderName);
+    }
+
+    protected function getBuildConfigVars() {
+
+        switch ($this->params["action"]) {
+            case "developer" :
+                $bcv =
+                    array(
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "branch_spec" => "origin/master" ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                    ) ;
+            break;
+            case "staging" :
+                $bcv =
+                    array(
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "branch_spec" => "origin/master" ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                    ) ;
+            break;
+            case "continuous-staging" :
+                $bcv =
+                    array(
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "branch_spec" => "origin/master" ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                    ) ;
+            break;
+            case "production" :
+                $bcv =
+                    array(
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "branch_spec" => "origin/master" ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                    ) ;
+            break;
+            case "continuous-production" :
+                $bcv =
+                    array(
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "branch_spec" => "origin/master" ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                        "site_description" => $environment["any-app"]["site_description"] ,
+                        "github_url" => $environment["any-app"]["primary_scm_url"],
+                    ) ;
+            break;
+        }
+        return $bcv ;
+    }
+
+    protected function varOrDefault($var, $default){
+        if (isset($var) && !is_null($var) { return $var ; }
+        return $default ;
     }
 
 }
