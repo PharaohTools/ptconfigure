@@ -93,36 +93,14 @@ mv /tmp/dapperstranodeployed/* $WORKSPACE/deployed</command>
       <command>#!/bin/bash
 cd $WORKSPACE/deployed
 echo &quot;Running Application Installation...&quot;
-echo &quot;sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php&quot;
-sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php</command>
+echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot_install</%tpl.php%>&quot;
+sudo dapperstrano autopilot execute <%tpl.php%>autopilot_install</%tpl.php%></command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-echo &quot;Running PHP Unit For Console, HTML, XUnit and XML Clover Coverage Output...&quot;
+echo &quot;Running Testingkamen Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;
 cd $WORKSPACE/deployed
-php build/config/phpunit/execute-console.php
-php build/config/phpunit/execute-html.php
-php build/config/phpunit/execute-ci-xunit.php
-php build/config/phpunit/execute-ci-clover-coverage-xml.php</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>#!/bin/bash
-echo &quot;Running PHP MD For Console and XML Output...&quot;
-cd $WORKSPACE/deployed
-php build/config/phpmd/execute-console.php
-php build/config/phpmd/execute-ci.php</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>#!/bin/bash
-echo &quot;Running Cucumber Console and JSON Output...&quot;
-[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot;
-rvm use 1.9.3
-cd $WORKSPACE/deployed
-bundle install
-cd $WORKSPACE/deployed/build/tests
-cucumber
-cucumber --format json -o cucumber.json
-mv cucumber.json ../reports/cucumber/json/</command>
+testingkamen autopilot execute build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php</command>
     </hudson.tasks.Shell>
     <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
       <condition class="org.jenkins_ci.plugins.run_condition.core.StatusCondition">
@@ -144,68 +122,20 @@ cd $WORKSPACE/deployed
 if [ $PUSH = &quot;TEST_PUSH_MASTER&quot; ]
 then
   echo &quot;Successful build, set to push, so pushing...&quot;
-  git push origin master
+  git push <%tpl.php%>target_scm</%tpl.php%>
 fi
 if [ $PUSH = &quot;TEST_PUSH_MASTER_TAGGED&quot; ]
 then
   echo &quot;Successful build, set to tag, so tagging...&quot;
   git tag -a $BUILD_ID -m &quot;Jenkins Development Tag&quot;
   echo &quot;Pushing to master with New Tag&quot;
-  git push origin master --tags 
+  git push <%tpl.php%>target_scm</%tpl.php%> --tags
 fi</command>
       </buildStep>
       <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail"/>
     </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
   </builders>
   <publishers>
-    <hudson.plugins.pmd.PmdPublisher>
-      <healthy></healthy>
-      <unHealthy></unHealthy>
-      <thresholdLimit>low</thresholdLimit>
-      <pluginName>[PMD] </pluginName>
-      <defaultEncoding></defaultEncoding>
-      <canRunOnFailed>true</canRunOnFailed>
-      <useStableBuildAsReference>false</useStableBuildAsReference>
-      <useDeltaValues>false</useDeltaValues>
-      <thresholds>
-        <unstableTotalAll></unstableTotalAll>
-        <unstableTotalHigh></unstableTotalHigh>
-        <unstableTotalNormal></unstableTotalNormal>
-        <unstableTotalLow></unstableTotalLow>
-        <failedTotalAll></failedTotalAll>
-        <failedTotalHigh></failedTotalHigh>
-        <failedTotalNormal></failedTotalNormal>
-        <failedTotalLow></failedTotalLow>
-      </thresholds>
-      <shouldDetectModules>false</shouldDetectModules>
-      <dontComputeNew>true</dontComputeNew>
-      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
-      <pattern>deployed/build/reports/phpmd/xml/report.xml</pattern>
-    </hudson.plugins.pmd.PmdPublisher>
-    <org.jenkinsci.plugins.cloverphp.CloverPublisher>
-      <publishHtmlReport>true</publishHtmlReport>
-      <reportDir>deployed/build/reports/phpunit/html</reportDir>
-      <xmlLocation>deployed/build/reports/phpunit/xml/report.xml</xmlLocation>
-      <disableArchiving>false</disableArchiving>
-      <healthyTarget>
-        <methodCoverage>70</methodCoverage>
-        <statementCoverage>80</statementCoverage>
-      </healthyTarget>
-      <unhealthyTarget/>
-      <failingTarget/>
-    </org.jenkinsci.plugins.cloverphp.CloverPublisher>
-    <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>deployed/build/reports/phpunit/junit/junit.xml</testResults>
-      <keepLongStdio>false</keepLongStdio>
-      <testDataPublishers/>
-    </hudson.tasks.junit.JUnitResultArchiver>
-    <net.masterthought.jenkins.CucumberReportPublisher>
-      <jsonReportDirectory>deployed/build/reports/cucumber/json</jsonReportDirectory>
-      <pluginUrlPath></pluginUrlPath>
-      <skippedFails>true</skippedFails>
-      <undefinedFails>true</undefinedFails>
-      <noFlashCharts>false</noFlashCharts>
-    </net.masterthought.jenkins.CucumberReportPublisher>
     <hudson.plugins.postbuildtask.PostbuildTask>
       <tasks>
         <hudson.plugins.postbuildtask.TaskProperties>
@@ -220,8 +150,8 @@ fi</command>
           <script>#!/bin/bash&#xd;
 echo &quot;Running Application Uninstallation...&quot;&#xd;
 cd $WORKSPACE/deployed&#xd;
-echo &quot;sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php&quot;&#xd;
-sudo dapperstrano install autopilot build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php</script>
+echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%>&quot;&#xd;
+sudo dapperstrano autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%></script>
         </hudson.plugins.postbuildtask.TaskProperties>
       </tasks>
     </hudson.plugins.postbuildtask.PostbuildTask>
