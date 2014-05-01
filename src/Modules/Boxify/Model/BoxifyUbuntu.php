@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BoxManagerUbuntu extends BaseLinuxApp {
+class BoxifyUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -26,23 +26,29 @@ class BoxManagerUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "BoxManager";
-        $this->programNameMachine = "boxmanager"; // command and app dir name
-        $this->programNameFriendly = "Box Mgr!"; // 12 chars
-        $this->programNameInstaller = "Box Manager";
+        $this->autopilotDefiner = "Boxify";
+        $this->programNameMachine = "boxify"; // command and app dir name
+        $this->programNameFriendly = "Boxify!"; // 12 chars
+        $this->programNameInstaller = "Boxify your Environments";
         $this->initialize();
     }
 
-    public function performBoxAdd($providerName, $environmentName) {
+    public function performBoxAdd($providerName = null, $environmentName = null) {
         $this->setEnvironment($environmentName);
         $this->setProvider($providerName);
         return $this->installBoxes();
     }
 
-    public function performBoxRemove($providerName, $environmentName) {
+    public function performBoxRemove($providerName = null, $environmentName = null) {
         $this->setEnvironment($environmentName);
         $this->setProvider($providerName);
         return $this->removeBoxes();
+    }
+
+    public function performBoxDestroy($providerName = null, $environmentName = null) {
+        $this->setEnvironment($environmentName);
+        $this->setProvider($providerName);
+        return $this->destroyBoxes();
     }
 
     public function setEnvironment($environmentName = null) {
@@ -92,23 +98,24 @@ class BoxManagerUbuntu extends BaseLinuxApp {
     }
 
     protected function removeBoxes() {
-        $provider = $this->getProvider();
-        if (!is_array($this->environmentName)) { $this->environmentName = array($this->environmentName); }
-        $returns = array() ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        foreach($this->environmentName as $oneBox) {
-            $environmentIsRequired = $this->environmentIsRequired($oneBox) ;
-            if ($environmentIsRequired) {
-                $moduleString = implode(', ', $environmentIsRequired) ;
-                $logging->log("Not removing Box $oneBox, it's required by these Modules: $moduleString") ; }
-            else {
-                $logging->log("Removing Box $oneBox") ;
-                $returns[] = $provider->removeBox($oneBox) ; } }
-        return (in_array(false, $returns)) ? false : true ;
+        foreach($this->boxAmount as $oneBox) {
+            $logging->log("Removing Box $oneBox") ;
+            $this->setEnvironmentStatusInCleovars($oneBox, false) ; }
+        return true ;
     }
 
-    protected function getProvider() {
+    protected function destroyBoxes() {
+        $provider = $this->getProvider("BoxDestroy");
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Destroying Boxes in environment $this->environmentName") ;
+        $return = $provider->destroyBox() ;
+        return $return ;
+    }
+
+    protected function getProvider($modGroup = "BoxAdd") {
         $infoObjects = \Core\AutoLoader::getInfoObjects();
         $allProviders = array();
         foreach($infoObjects as $infoObject) {
@@ -118,7 +125,7 @@ class BoxManagerUbuntu extends BaseLinuxApp {
             if ( (isset($this->providerName) && $this->providerName == $oneProvider) ) {
                 $className = '\Model\\'.$oneProvider ;
                 $providerFactory = new $className();
-                $provider = $providerFactory->getModel($this->params, "BoxAdd");
+                $provider = $providerFactory->getModel($this->params, $modGroup);
                 return $provider ; } }
         return false ;
     }
