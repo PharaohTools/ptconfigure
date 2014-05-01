@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Boxify extends BaseModelFactory {
+class BoxManager extends BaseModelFactory {
 
 }
