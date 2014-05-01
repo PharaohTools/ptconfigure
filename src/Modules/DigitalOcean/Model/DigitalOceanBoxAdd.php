@@ -72,52 +72,52 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     }
 
     private function getServerPrefix() {
-        if (isset($this->params["digital-ocean-server-prefix"])) {
-            return $this->params["digital-ocean-server-prefix"] ; }
+        if (isset($this->params["server-prefix"])) {
+            return $this->params["server-prefix"] ; }
         $question = 'Enter Prefix for all Servers (None is fine)';
         return self::askForInput($question);
     }
 
     private function getWorkingEnvironment() {
-        if (isset($this->params["digital-ocean-environment-name"])) {
-            return $this->params["digital-ocean-environment-name"] ; }
+        if (isset($this->params["environment-name"])) {
+            return $this->params["environment-name"] ; }
         $question = 'Enter Environment to add Servers to';
         return self::askForInput($question);
     }
 
     private function getServerGroupImageID() {
-        if (isset($this->params["digital-ocean-image-id"])) {
-            return $this->params["digital-ocean-image-id"] ; }
+        if (isset($this->params["image-id"])) {
+            return $this->params["image-id"] ; }
         $question = 'Enter Image ID for this Server Group';
         return self::askForInput($question, true);
     }
 
     private function getServerGroupSizeID() {
-        if (isset($this->params["digital-ocean-size-id"])) {
-            return $this->params["digital-ocean-size-id"] ; }
+        if (isset($this->params["size-id"])) {
+            return $this->params["size-id"] ; }
         $question = 'Enter size ID for this Server Group';
         return self::askForInput($question, true);
     }
 
     private function getServerGroupRegionID() {
-        if (isset($this->params["digital-ocean-region-id"])) {
-            return $this->params["digital-ocean-region-id"] ; }
+        if (isset($this->params["region-id"])) {
+            return $this->params["region-id"] ; }
         $question = 'Enter Region ID for this Server Group';
         return self::askForInput($question, true);
     }
 
     private function getServerGroupBoxAmount() {
-        if (isset($this->params["digital-ocean-box-amount"])) {
-            return $this->params["digital-ocean-box-amount"] ; }
+        if (isset($this->params["box-amount"])) {
+            return $this->params["box-amount"] ; }
         $question = 'Enter number of boxes to add to Environment';
         return self::askForInput($question, true);
     }
 
     private function getUsernameOfBox($boxName = null) {
-        if (isset($this->params["digital-ocean-box-user-name"])) {
-            return $this->params["digital-ocean-box-user-name"] ; }
-        if (isset($this->params["digital-ocean-box-username"])) {
-            return $this->params["digital-ocean-box-username"] ; }
+        if (isset($this->params["box-user-name"])) {
+            return $this->params["box-user-name"] ; }
+        if (isset($this->params["box-username"])) {
+            return $this->params["box-username"] ; }
         $question = (isset($boxName))
             ? 'Enter SSH username of box '.$boxName
             : 'Enter SSH username of remote box';
@@ -125,8 +125,8 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     }
 
     private function getSSHKeyLocation() {
-        if (isset($this->params["digital-ocean-private-ssh-key-path"])) {
-            return $this->params["digital-ocean-private-ssh-key-path"] ; }
+        if (isset($this->params["private-ssh-key-path"])) {
+            return $this->params["private-ssh-key-path"] ; }
         $question = 'Enter file path of private SSH Key';
         return self::askForInput($question, true);
     }
@@ -164,8 +164,8 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     }
 
     private function getAllSshKeyIdsString() {
-        if (isset($this->params["digital-ocean-ssh-key-ids"])) {
-            return $this->params["digital-ocean-ssh-key-ids"] ; }
+        if (isset($this->params["ssh-key-ids"])) {
+            return $this->params["ssh-key-ids"] ; }
         $curlUrl = "https://api.digitalocean.com/ssh_keys" ;
         $sshKeysObject =  $this->digitalOceanCall(array(), $curlUrl);
         $sshKeys = array();
