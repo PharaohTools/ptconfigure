@@ -14,8 +14,10 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
     // Model Group
     public $modelGroup = array("BoxDestroy") ;
 
-    public function askWhetherToBoxDestroy($params=null) {
-        return $this->destroyBox($params);
+    public function askWhetherToBoxDestroy() {
+        $out = $this->destroyBox();
+        var_dump($out) ;
+        return $out ;
     }
 
     public function destroyBox() {
@@ -44,23 +46,25 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
                         $removeFromThisEnvironment = self::askYesOrNo($question); }
 
                     if ($removeFromThisEnvironment == true) {
-                        if (isset($this->params["digital-ocean-destroy-all-boxes"])) {
+                        if (isset($this->params["destroy-all-boxes"])) {
                             $responses = array();
                             for ($iBox = 0; $iBox < count($environments[$i]["servers"]); $iBox++) {
                                 $serverData = array();
                                 $serverData["dropletID"] = $environments[$i]["servers"][$iBox]["id"] ;
                                 $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
-                                $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]); } }
-                        else if (isset($this->params["digital-ocean-destroy-box-id"])) {
+                                $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]);
+                                return true ; } }
+                        else if (isset($this->params["destroy-box-id"])) {
                             $responses = array();
                             $serverData = array();
-                            $serverData["dropletID"] = $this->params["digital-ocean-destroy-box-id"] ;
+                            $serverData["dropletID"] = $this->params["destroy-box-id"] ;
                             $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
-                            $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]); }
+                            $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]);
+                            return true ; }
                         else {
                             echo "bum" ; //@todo
                             $responses = (isset($responses)) ? $responses : "anything else" ; } } } }
-            return $responses ; }
+            return true ; }
         else {
             $logging->log("The environment $workingEnvironment does not exist.") ; }
     }
@@ -72,9 +76,9 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
     }
 
     private function getWorkingEnvironment() {
-        if (isset($this->params["digital-ocean-environment-name"])) {
-            return $this->params["digital-ocean-environment-name"] ; }
-        $question = 'Enter Environment to add Servers to';
+        if (isset($this->params["environment-name"])) {
+            return $this->params["environment-name"] ; }
+        $question = 'Enter Environment to destroy Servers in';
         return self::askForInput($question);
     }
 
