@@ -113,13 +113,13 @@ class BuilderfyLinux extends BaseLinuxApp {
         else { $this->jenkinsNewJobFolderName = $this->jenkinsOriginalJobFolderName ; }
     }
 
-    protected function projectBuildInstall(){
+    protected function projectBuildInstall() {
         $command  = 'sudo cp -r '.$this->jenkinsOriginalJobFolderName.' ' ;
         $command .= $this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Copying Files...");
     }
 
-    protected function templateConfiguration(){
+    protected function templateConfiguration() {
         $templatorFactory = new \Model\Templating();
         $templator = $templatorFactory->getModel($this->params);
         $data = file_get_contents($this->jenkinsFSFolder.'/jobs/'.$this->newJobName.'/config.xml') ;
@@ -130,22 +130,22 @@ class BuilderfyLinux extends BaseLinuxApp {
             $targetLocation );
     }
 
-    protected function changeNewJenkinsJobFolderPermissions(){
+    protected function changeNewJenkinsJobFolderPermissions() {
         $command  = 'sudo chmod -R 755 '.$this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Changing Folder Permissions...");
     }
 
-    protected function changeNewJenkinsJobFolderOwner(){
+    protected function changeNewJenkinsJobFolderOwner() {
         $command  = 'sudo chown -R jenkins '.$this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Changing Folder Owner...");
     }
 
-    protected function changeNewJenkinsJobFolderGroup(){
+    protected function changeNewJenkinsJobFolderGroup() {
         $command  = 'sudo chgrp -R jenkins '.$this->jenkinsFSFolder.'/jobs/'.$this->newJobName;
         self::executeAndOutput($command, "Changing Folder Group...");
     }
 
-    protected function detectJenkinsHomeFolderExistence(){
+    protected function detectJenkinsHomeFolderExistence() {
         return file_exists($this->jenkinsFSFolder);
     }
 
@@ -153,95 +153,79 @@ class BuilderfyLinux extends BaseLinuxApp {
         return file_exists($this->jenkinsFSFolder.'/jobs/'.$this->jenkinsOriginalJobFolderName);
     }
 
-    protected function getBuildConfigVars() {
+//    protected function getBuildConfigVars() {
+//
+//        switch ($this->params["action"]) {
+//            case "staging" :
+//                $bcv =
+//                    array(
+//                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+//                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
+//                        "branch_spec" => "origin/master" ,
+//                        "scm_url" => "/var/www/app-directory",
+//                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
+//                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
+//                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
+//                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
+//                        "build_type" => $this->params["action"] ,
+//                        "target_branch" => "remote master" ,
+//                    ) ;
+//            break;
+//            case "production" :
+//                $bcv =
+//                    array(
+//                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+//                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
+//                        "branch_spec" => "origin/master" ,
+//                        "scm_url" => "/var/www/app-directory",
+//                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
+//                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
+//                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
+//                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
+//                        "build_type" => $this->params["action"] ,
+//                        "target_branch" => "remote master" ,
+//                    ) ;
+//            break;
+//            case "continuous" :
+//                $bcv =
+//                    array(
+//                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+//                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
+//                        "branch_spec" => "origin/master" ,
+//                        "scm_url" => "/var/www/app-directory",
+//                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
+//                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "50") ,
+//                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
+//                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
+//                        "build_type" => $this->params["action"] ,
+//                        "target_branch" => "remote master" ,
+//                    ) ;
+//            break;
+//            case "complete" :
+//                $bcv =
+//                    array(
+//                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+//                        "github_url" => $this->params["primary_scm_url"] ,
+//                        "branch_spec" => "origin/master" ,
+//                        "scm_url" => "/var/www/app-directory",
+//                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
+//                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "10") ,
+//                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
+//                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
+//                        "build_type" => $this->params["action"] ,
+//                        "target_branch" => "remote master" ,
+//                    ) ;
+//            break;
+//        }
+//        return $bcv ;
+//    }
 
-        switch ($this->params["action"]) {
-            case "developer" :
-                $bcv =
-                    array(
-                        "site_description" =>  ,
-                        "github_url" => $this->askForParam("primary-scm-url", "Your primary SCM URL", null, true) ,
-                        "branch_spec" => $this->askForParam("branch-spec", "Your remote SCM URL", "origin/master") ,
-                        "primary_scm_url" => $this->askForParam("primary-scm-url", "Your primary SCM URL") ,
-                        "days_to_keep" => $this->askForParam("days-to-keep", "Number of days to keep build", "-1") ,
-                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
-                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
-                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
-                        "build_type" => $this->params["action"] ,
-                        "target_branch" => "remote master" ,
-                        "target_scm_url"
-                    ) ;
-            break;
-            case "staging" :
-                $bcv =
-                    array(
-                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
-                        "branch_spec" => "origin/master" ,
-                        "scm_url" => "/var/www/app-directory",
-                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
-                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
-                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
-                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
-                        "build_type" => $this->params["action"] ,
-                        "target_branch" => "remote master" ,
-                    ) ;
-            break;
-            case "production" :
-                $bcv =
-                    array(
-                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
-                        "branch_spec" => "origin/master" ,
-                        "scm_url" => "/var/www/app-directory",
-                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
-                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
-                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
-                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
-                        "build_type" => $this->params["action"] ,
-                        "target_branch" => "remote master" ,
-                    ) ;
-            break;
-            case "continuous" :
-                $bcv =
-                    array(
-                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
-                        "branch_spec" => "origin/master" ,
-                        "scm_url" => "/var/www/app-directory",
-                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
-                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "50") ,
-                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
-                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
-                        "build_type" => $this->params["action"] ,
-                        "target_branch" => "remote master" ,
-                    ) ;
-            break;
-            case "complete" :
-                $bcv =
-                    array(
-                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
-                        "github_url" => $this->params["primary_scm_url"] ,
-                        "branch_spec" => "origin/master" ,
-                        "scm_url" => "/var/www/app-directory",
-                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
-                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "10") ,
-                        "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
-                        "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
-                        "build_type" => $this->params["action"] ,
-                        "target_branch" => "remote master" ,
-                    ) ;
-            break;
-        }
-        return $bcv ;
-    }
-
-    protected function askForParam($paramName, $question, $default=null, $required=false){
-        if (!isset($this->params[$paramName] && !is_null($default)) {
-            $this->params[$paramName] = $default ; }
-        else if (!isset($this->params[$paramName] && is_null($default)) {
-            $this->params[$paramName] = self::askForInput($question, $required); }
-        return $this->params[$paramName] ;
-    }
+//    protected function askForParam($paramName, $question, $default=null, $required=false){
+//        if (!isset($this->params[$paramName]) && !is_null($default)) {
+//            $this->params[$paramName] = $default ; }
+//        else if (!isset($this->params[$paramName]) && is_null($default)) {
+//            $this->params[$paramName] = self::askForInput($question, $required); }
+//        return $this->params[$paramName] ;
+//    }
 
 }

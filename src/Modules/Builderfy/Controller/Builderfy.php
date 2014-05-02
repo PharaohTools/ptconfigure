@@ -15,7 +15,7 @@ class Builderfy extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action == "developer") {
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars "Developer") ;
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Developer") ;
             // if we don't have an object, its an array of errors
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $thisModel->params["action"] = $action ;

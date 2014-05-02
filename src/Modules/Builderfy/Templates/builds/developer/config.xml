@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description><%tpl.php%>site_description</%tpl.php%></description>
+  <description><%tpl.php%>project_description</%tpl.php%></description>
   <logRotator>
     <daysToKeep><%tpl.php%>days_to_keep</%tpl.php%></daysToKeep>
     <numToKeep><%tpl.php%>num_to_keep</%tpl.php%></numToKeep>
@@ -11,7 +11,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>https://github.com/phpengine/mvc-practice/</projectUrl>
+      <projectUrl><%tpl.php%>github_url</%tpl.php%></projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
       <skip>true</skip>
@@ -47,7 +47,7 @@ c) Run all tests, push to the main repo master branch, and tag, so that it is qu
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name><%tpl.php%>branch_spec</%tpl.php%></name>
+        <name><%tpl.php%>source_branch_spec</%tpl.php%></name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <disableSubmodules>false</disableSubmodules>
@@ -129,7 +129,7 @@ then
   echo &quot;Successful build, set to tag, so tagging...&quot;
   git tag -a $BUILD_ID -m &quot;Jenkins Development Tag&quot;
   echo &quot;Pushing to master with New Tag&quot;
-  git push <%tpl.php%>target_scm</%tpl.php%> --tags
+  git push <%tpl.php%>target_scm</%tpl.php%> <%tpl.php%>target_scm</%tpl.php%> --tags
 fi</command>
       </buildStep>
       <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail"/>
