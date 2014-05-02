@@ -99,8 +99,8 @@ class BuilderfyLinux extends BaseLinuxApp {
 
     protected function selectSourceTemplateDirectory(){
         if (isset($this->params["source-build-dir"])) { return $this->params["source-build-dir"] ; }
-        if (in_array($this->params["action"], array("developer", "staging", "continuous-staging", "production", "continuous-production"))) {
-            $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
+        if (in_array($this->params["action"], array("developer", "staging", "production", "continuous", "complete"))) {
+            $templatesDir = str_replace("Model", "Templates/builds", dirname(__FILE__) ) ;
             $dir = $templatesDir.'/'.$this->params["action"] ;
             return $dir ; }
     }
@@ -159,23 +159,24 @@ class BuilderfyLinux extends BaseLinuxApp {
             case "developer" :
                 $bcv =
                     array(
-                        "site_description" => $this->varOrDefault($environment["any-app"]["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($environment["any-app"]["primary_scm_url"], "/var/www/app-directory") ,
-                        "branch_spec" => "origin/master" ,
-                        "scm_url" => "/var/www/app-directory",
-                        "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
+                        "site_description" =>  ,
+                        "github_url" => $this->askForParam("primary-scm-url", "Your primary SCM URL", null, true) ,
+                        "branch_spec" => $this->askForParam("branch-spec", "Your remote SCM URL", "origin/master") ,
+                        "primary_scm_url" => $this->askForParam("primary-scm-url", "Your primary SCM URL") ,
+                        "days_to_keep" => $this->askForParam("days-to-keep", "Number of days to keep build", "-1") ,
                         "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
                         "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
                         "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
                         "build_type" => $this->params["action"] ,
                         "target_branch" => "remote master" ,
+                        "target_scm_url"
                     ) ;
             break;
             case "staging" :
                 $bcv =
                     array(
-                        "site_description" => $this->varOrDefault($environment["any-app"]["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($environment["any-app"]["primary_scm_url"], "/var/www/app-directory") ,
+                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
                         "branch_spec" => "origin/master" ,
                         "scm_url" => "/var/www/app-directory",
                         "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
@@ -189,8 +190,8 @@ class BuilderfyLinux extends BaseLinuxApp {
             case "production" :
                 $bcv =
                     array(
-                        "site_description" => $this->varOrDefault($environment["any-app"]["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($environment["any-app"]["primary_scm_url"], "/var/www/app-directory") ,
+                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
                         "branch_spec" => "origin/master" ,
                         "scm_url" => "/var/www/app-directory",
                         "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
@@ -201,30 +202,30 @@ class BuilderfyLinux extends BaseLinuxApp {
                         "target_branch" => "remote master" ,
                     ) ;
             break;
-            case "continuous-production" :
+            case "continuous" :
                 $bcv =
                     array(
-                        "site_description" => $this->varOrDefault($environment["any-app"]["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($environment["any-app"]["primary_scm_url"], "/var/www/app-directory") ,
+                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+                        "github_url" => $this->varOrDefault($this->params["primary_scm_url"], "/var/www/app-directory") ,
                         "branch_spec" => "origin/master" ,
                         "scm_url" => "/var/www/app-directory",
                         "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
-                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
+                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "50") ,
                         "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
                         "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
                         "build_type" => $this->params["action"] ,
                         "target_branch" => "remote master" ,
                     ) ;
             break;
-            case "continuous-staging" :
+            case "complete" :
                 $bcv =
                     array(
-                        "site_description" => $this->varOrDefault($environment["any-app"]["site_description"], "No Description given.") ,
-                        "github_url" => $this->varOrDefault($environment["any-app"]["primary_scm_url"], "/var/www/app-directory") ,
+                        "site_description" => $this->varOrDefault($this->params["site_description"], "No Description given.") ,
+                        "github_url" => $this->params["primary_scm_url"] ,
                         "branch_spec" => "origin/master" ,
                         "scm_url" => "/var/www/app-directory",
                         "days_to_keep" => $this->varOrDefault($this->params["build_days_to_keep"], "-1") ,
-                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "15") ,
+                        "num_to_keep" => $this->varOrDefault($this->params["build_num_to_keep"], "10") ,
                         "autopilot_install" => $this->varOrDefault($this->params["build_autopilot_install"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php") ,
                         "autopilot_uninstall" => $this->varOrDefault($this->params["build_autopilot_uninstall"], "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php") ,
                         "build_type" => $this->params["action"] ,
@@ -235,9 +236,12 @@ class BuilderfyLinux extends BaseLinuxApp {
         return $bcv ;
     }
 
-    protected function varOrDefault($var, $default){
-        if (isset($var) && !is_null($var)) { return $var ; }
-        return $default ;
+    protected function askForParam($paramName, $question, $default=null, $required=false){
+        if (!isset($this->params[$paramName] && !is_null($default)) {
+            $this->params[$paramName] = $default ; }
+        else if (!isset($this->params[$paramName] && is_null($default)) {
+            $this->params[$paramName] = self::askForInput($question, $required); }
+        return $this->params[$paramName] ;
     }
 
 }
