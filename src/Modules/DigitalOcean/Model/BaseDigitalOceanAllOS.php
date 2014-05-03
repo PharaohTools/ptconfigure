@@ -21,8 +21,10 @@ class BaseDigitalOceanAllOS extends Base {
         if (isset($this->params["digital-ocean-api-key"])) { return $this->params["digital-ocean-api-key"] ; }
         $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-api-key") ;
         if ($papyrusVar != null) {
-            if ($this->params["guess"] == true) { return $papyrusVar ; }
-            if ($this->params["use-project-api-key"] == true) { return $papyrusVar ; }
+            if (isset($this->params["guess"])) {
+                return $papyrusVar ; }
+            if (isset($this->params["use-project-api-key"]) && $this->params["use-project-api-key"] == true) {
+                return $papyrusVar ; }
             $question = 'Use Project saved Digital Ocean API Key?';
             if (self::askYesOrNo($question, true) == true) { return $papyrusVar ; } }
         $appVar = \Model\AppConfig::getProjectVariable("digital-ocean-api-key") ;

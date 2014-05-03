@@ -22,6 +22,7 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
 
     public function destroyBox() {
         if ($this->askForOverwriteExecute() != true) { return false; }
+        echo "here" ;
         $this->apiKey = $this->askForDigitalOceanAPIKey();
         $this->clientId = $this->askForDigitalOceanClientID();
         $environments = \Model\AppConfig::getProjectVariable("environments");
@@ -96,7 +97,7 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
     private function deleteServerFromPapyrus($workingEnvironment, $dropletId) {
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $newServers = array() ;
-        foreach ($environments as $environment) {
+        foreach ($environments as &$environment) {
             echo "a".$environment["any-app"]["gen_env_name"].$workingEnvironment."\n" ;
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 echo "b"."\n" ;
@@ -107,7 +108,7 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
                         echo "setting {$server["id"]} as new srv\n" ;
                         $newServers[] = $server ; }
                     echo "saving the following to papyrus\n" ;
-                    $environments["servers"] = $newServers ; }
+                    $environment["servers"] = $newServers ; }
                 // var_dump($environments);
                 \Model\AppConfig::setProjectVariable("environments", $environments); } }
     }

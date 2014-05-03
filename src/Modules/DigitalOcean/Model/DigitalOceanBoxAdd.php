@@ -121,14 +121,16 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $question = (isset($boxName))
             ? 'Enter SSH username of box '.$boxName
             : 'Enter SSH username of remote box';
-        return self::askForInput($question, true);
+        $this->params["box-user-name"] = self::askForInput($question, true) ;
+        return $this->params["box-user-name"] ;
     }
 
     private function getSSHKeyLocation() {
         if (isset($this->params["private-ssh-key-path"])) {
             return $this->params["private-ssh-key-path"] ; }
         $question = 'Enter file path of private SSH Key';
-        return self::askForInput($question, true);
+        $this->params["private-ssh-key-path"] = self::askForInput($question, true) ;
+        return $this->params["private-ssh-key-path"] ;
     }
 
     private function getNewServerFromDigitalOcean($serverData) {
@@ -148,11 +150,12 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
 
     private function addServerToPapyrus($envName, $data) {
         $environments = \Model\AppConfig::getProjectVariable("environments");
-        var_dump($data->droplet);
         $dropletData = $this->getDropletData($data->droplet->id);
+        if (!isset($dropletData->ip_address) && isset($this->params["wait-for-box-info"])) {
+            $dropletData = $this->waitForBoxInfo($data->droplet->id); }
         $server = array();
-        $server["target"] = $dropletData->ip_address;
-        $server["user"] = $this->getUsernameOfBox($data->name) ;
+        $server["target"] = $dropletData->droplet->ip_address;
+        $server["user"] = $this->getUsernameOfBox() ;
         $server["password"] = $this->getSSHKeyLocation() ;
         $server["provider"] = "DigitalOcean";
         $server["id"] = $data->droplet->id;
@@ -179,6 +182,21 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $curlUrl = "https://api.digitalocean.com/droplets/$dropletId" ;
         $dropletObject =  $this->digitalOceanCall(array(), $curlUrl);
         return $dropletObject;
+    }
+
+    private function waitForBoxInfo($dropletId) {
+        $maxWaitTime = "300" ;
+        $i2 = 1 ;
+        for($i=0; $i<=$maxWaitTime; $i=$i+10){
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Attempt $i2 for box info...") ;
+            sleep (10);
+            $dropletData = $this->getDropletData($dropletId);
+            if (isset($dropletData->droplet->ip_address)) {
+                return $dropletData ; }
+            $i2++; }
+        return null;
     }
 
 }
