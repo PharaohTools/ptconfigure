@@ -13,7 +13,7 @@ class BoxifyInfo extends CleopatraBase {
   }
 
   public function routesAvailable() {
-    return array( "Boxify" =>  array_merge(parent::routesAvailable(), array("box-add", "box-destroy", "box-remove") ) );
+    return array( "Boxify" =>  array_merge(parent::routesAvailable(), array("box-add", "box-destroy", "box-remove", "list-papyrus") ) );
   }
 
   public function routeAliases() {
@@ -37,6 +37,11 @@ class BoxifyInfo extends CleopatraBase {
         - box-destroy
         Removes a Box from both papyrus and the cloud provider
         example: cleopatra box-manager box-destroy --environment-name="staging" --server-prefix="" --provider="apt-get"
+
+        - list-papyrus
+        List all servers in papyrus, or those of a particular environment
+        example: cleopatra box-manager list-papyrus --yes
+        example: cleopatra box-manager list-papyrus --yes --environment-name="staging"
 
   A environment manager wrapper that will allow you to install environments on any system
 
