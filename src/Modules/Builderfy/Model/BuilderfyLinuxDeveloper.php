@@ -5,7 +5,7 @@ Namespace Model;
 class BuilderfyLinuxDeveloper extends BuilderfyLinux {
 
     // Compatibility
-    public $os = array("any") ;
+    public $os = array("Linux") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -30,7 +30,7 @@ class BuilderfyLinuxDeveloper extends BuilderfyLinux {
             "autopilot_install" => $this->getInstallAutopilot() ,
             "autopilot_uninstall" => $this->getUninstallAutopilot() ,
             "build_type" => $this->params["action"] ,
-            "target_scm_url" => $this->getPrimaryScmUrl() ,
+            "target_scm_url" => $this->getTargetScmUrl() ,
             "target_branch" => $this->getTargetBranch() ,
         ) ;
         return $bcv ;
@@ -39,11 +39,13 @@ class BuilderfyLinuxDeveloper extends BuilderfyLinux {
     protected function getProjectDescription() {
         if (isset($this->params["project-description"])) {
             return $this->params["project-description"] ; }
-        if (isset($this->params["use-defaults"]) ) {
-            return "Your Project Description" ; }
+        if (isset($this->params["guess"]) ) {
+            $this->params["project-description"] = "Your Project Description" ;
+            return $this->params["project-description"] ; }
         $papVersion = \Model\AppConfig::getProjectVariable("description");
         if (isset($this->params["guess"])  && !is_null($papVersion) ) {
-            return $papVersion ; }
+            $this->params["project-description"] = $papVersion ;
+            return $this->params["project-description"] ; }
         $question = 'Enter a description for your project' ;
         return self::askForInput($question) ;
     }
@@ -75,10 +77,6 @@ class BuilderfyLinuxDeveloper extends BuilderfyLinux {
     protected function getSourceBranchSpec() {
         if (isset($this->params["source-branch-spec"])) {
             return $this->params["source-branch-spec"] ; }
-        if (isset($this->params["use-defaults"]) ) {
-            $this->params["source-branch-spec"] = "origin/master" ;
-            return $this->params["source-branch-spec"] ; }
-        $papVersion = \Model\AppConfig::getProjectVariable("source-branch-spec");
         if (isset($this->params["guess"])) {
             $this->params["source-branch-spec"] = "origin/master" ;
             return $this->params["source-branch-spec"] ; }
@@ -122,6 +120,9 @@ class BuilderfyLinuxDeveloper extends BuilderfyLinux {
 
     protected function getTargetScmUrl() {
         if (isset($this->params["target-scm-url"])) {
+            return $this->params["target-scm-url"] ; }
+        if (isset($this->params["guess"])) {
+            $this->params["target-scm-url"] = $this->getPrimaryScmUrl();
             return $this->params["target-scm-url"] ; }
         $question = 'Enter a Target SCM URL for your project' ;
         $this->params["target-scm-url"] = self::askForInput($question) ;

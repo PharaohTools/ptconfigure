@@ -33,6 +33,19 @@ class BuilderfyInfo extends Base {
         - developer
         Create a developers build for this project
         example: dapperstrano builderfy developer
+        example: dapperstrano builderfy developer
+                    --yes
+                    --guess (optional)
+                    --project-description="A description for the project"
+                    --github-url="http://www.github.com/phpengine/dapperstrano"
+                    --source-branch-spec="origin/master" # guess will assume origin/master
+                    --source-scm-url="/var/www/application" # guess will assume the current directory
+                    --days-to-keep="10" # guess will assume -1 (to ignore this value)
+                    --num-to-keep="100" # guess will assume 15
+                    --autopilot-install="/path/to/installer/autopilot" # guess will assume "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php"
+                    --autopilot-uninstall="/path/to/uninstaller/autopilot" # guess will assume "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php"
+                    --target-scm-url="http://www.github.com/phpengine/dapperstrano" #  guess will use your github url
+                    --target-branch="master" # guess will default to master
 
         - staging
         Create a developers build for this project
