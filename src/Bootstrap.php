@@ -27,7 +27,7 @@ class BootStrap {
       $route = $routeObject->run($argv_or_boot_params_null);
       $emptyPageVars = array("messages"=>array(), "route"=>$route);
       $this->executeControl($route["control"], $emptyPageVars);
-      $this->exitGracefully;
+      $this->exitGracefully();
     }
 
     public function executeControl($controlToExecute, $pageVars=null) {
