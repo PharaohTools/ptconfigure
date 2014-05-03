@@ -636,3 +636,5 @@ step. This means that all runAutoPilot methods can be removed. each of the info 
 They can now all be removed, replaced with "exposedParams" or something. This way, each action can be listed with the
 parameters it accepts. It also means that the generator will be much easier to work, with some js and httpPostInput,
 the generator can look great.
+
+Pharoah exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)
