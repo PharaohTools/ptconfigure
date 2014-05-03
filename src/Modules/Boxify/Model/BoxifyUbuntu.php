@@ -33,10 +33,11 @@ class BoxifyUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function performBoxAdd($providerName = null, $environmentName = null) {
+    public function performBoxAdd($providerName = null, $environmentName = null, $boxAmount = null) {
         $this->setEnvironment($environmentName);
         $this->setProvider($providerName);
-        return $this->installBoxes();
+        $this->setBoxAmount($boxAmount);
+        return $this->addBox();
     }
 
     public function performBoxRemove($providerName = null, $environmentName = null) {
@@ -89,10 +90,12 @@ class BoxifyUbuntu extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $returns = array() ;
-        foreach($this->boxAmount as $oneBox) {
-            $logging->log("Adding Box $oneBox") ;
-            $result = $provider->addBox($oneBox) ;
-            if ($result == true) { $this->setEnvironmentStatusInCleovars($oneBox, true) ; } ;
+        for($i=1; $i<=$this->boxAmount; $i++) {
+            $logging->log("Adding Box Number $i") ;
+            $result = $provider->addBox() ;
+            if ($result == true) {
+                // @todo do we need this
+                $this->setEnvironmentStatusInCleovars($oneBox, true) ; } ;
             $returns[] = $result ; }
         return (in_array(false, $returns)) ? false : true ;
     }
