@@ -9,7 +9,7 @@ class IntelliJUbuntu extends BaseLinuxApp {
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
     public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
-    public $architectures = array("64") ;
+    public $architectures = array("32", "64") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
@@ -47,7 +47,9 @@ class IntelliJUbuntu extends BaseLinuxApp {
 
     // todo intellij should ensure java
     public function ensureJava() {
-
+		$javaFactory = new \Model\Java();
+		$java = $javaFactory->getModel($this->params);
+		$java->ensureInstalled();
     }
 
 }
