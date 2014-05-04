@@ -21,8 +21,11 @@ class JavaUbuntu32 extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),
             array("command" => array(
                 "git clone https://bitbucket.org/phpengine/cleopatra-oraclejava7jdk32 /tmp/oraclejdk" ,
+                "cd /tmp/oraclejdk", 
+                "tar -xvf jdk-1_7-32bit.tar.gz" ,
+                "tar -xvf jdk-1_7-32bit.tar.gz" ,
                 "mkdir -p ****PROGDIR****" ,
-                "cp -r /tmp/oraclejdk/* ****PROGDIR****" ,
+                "cp -r /tmp/oraclejdk/jdk-1_7-32bit/* ****PROGDIR****" ,
                 "rm -rf /tmp/oraclejdk" ,
                 "cd ****PROGDIR****",
                 "chmod a+x ****PROGDIR****",
