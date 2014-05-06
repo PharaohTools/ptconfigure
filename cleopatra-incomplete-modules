@@ -27,30 +27,21 @@ ssh-encrypt (encrypt/decrypt a private key) 75% DONE
 
 VERSIONING
 Should be able to specify what version of packages are required
+The version_compare function, already available in PHP will make this easy
+The only important ones are either software version should
+a) be exact
+b) be greater than
 
+
+Boxify Almost complete - Works smoothly on DigitalOcean, but there is a Problem. The SSH keys dont work,
+even when adding them manually via the digital ocean interface, cant login
+so, use Environmrntconfig with --keep-current-environemnts and --no-manual-servers to create an empty env.
+Then use boxify, and we can Invoke cli --env-name straight after
 BOX-MANAGER-SUPERCLASS
 BoxManager like packagemanager. This is barely started. write down a list of what this and scaler module needs.
 VERY IMPORTANT! Work out the interface for environment/box clouding, and smooth scaling. AWS and digital ocean
 minimum. 50% DONE
-Boxify
-Should do these questions
-1) Do a Boxify?  DONE
-2) Edit Existing Enviroments?
-   - If Yes then foreach environment
-     - Remove Boxes
-         All
-         Individual By ID
-     - Add Boxes
-         How Many
-         Provider
-         Type
-         Key/Passwd ID
-3) Add New Environment?
-     - Add Boxes
-         How Many
-         Provider
-         Type
-         Key/Passwd ID
+
 
 contact sebastien bergmann and everzet to ask for their views on testing the app. Get a test framework plan at least.
 
