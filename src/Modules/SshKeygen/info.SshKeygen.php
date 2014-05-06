@@ -29,6 +29,7 @@ class SshKeygenInfo extends CleopatraBase {
         - install
         Installs a new SSH Key
         example: cleopatra ssh-keygen install
+        example: cleopatra ssh-keygen install --yes --ssh-keygen-bits=4096 --ssh-keygen-type=rsa --ssh-keygen-path="/home/dave/.ssh/id_rsa" --ssh-keygen-comment="Daves"
 
         - uninstall
         Removes an SSH Key
