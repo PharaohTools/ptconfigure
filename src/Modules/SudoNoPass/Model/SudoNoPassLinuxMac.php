@@ -19,7 +19,8 @@ class SudoNoPassLinuxMac extends BaseLinuxApp {
         $this->autopilotDefiner = "SudoNoPass";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array() ) ) ,
-            array("command"=> $this->setInstallCommandsWithNewUserName() , )
+            array("method"=> array("object" => $this, "method" => "displayDangerousFileWarning", "params" => array() ) ) ,
+            array("method"=> array("object" => $this, "method" => "performFileModification", "params" => array() ) ) ,
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array() ) ) ,);
@@ -30,14 +31,21 @@ class SudoNoPassLinuxMac extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function setInstallCommandsWithNewUserName() {
-        return array(
-            'echo "The following will be written to /etc/sudoers" ',
-            'echo "Please check if it looks wrong" ',
-            'echo "It may break your system if wrong !!!" ',
-            'echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" ',
-            'echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" >> /etc/sudoers '
-        );
+    public function displayDangerousFileWarning() {
+        echo "The following will be written to /etc/sudoers\n" ;
+        echo "Please check if it looks wrong\n" ;
+        echo "You may not be able to use Sudo if it is incorrect!!!\n" ;
+        echo "$this->installUserName ALL=NOPASSWD: ALL\n" ;
+        if ( isset($this->params["yes"]) && $this->params["yes"]==true) {
+            $this->params["perform-file-modifications"] = true ; }
+        else {
+            $question = 'Is this okay?';
+            $this->params["perform-file-modifications"] = self::askYesOrNo($question, true); }
+    }
+
+    public function performFileModification() {
+        if ($this->params["perform-file-modifications"] == true ) {
+            $this->executeAndOutput('echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" >> /etc/sudoers ' ) ; }
     }
 
 }
