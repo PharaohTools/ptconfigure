@@ -73,7 +73,7 @@ class SshKeygenAllLinux extends BaseLinuxApp {
         else {
             $question = "Plain text comment appended to public key. None is fine";
             $keygenComment = self::askForInput($question);
-            $this->keygenComment = (isset($keygenComment)) ? $keygenComment : "Pharoah Tools" ; }
+            $this->keygenComment = (isset($keygenComment) && strlen($keygenComment)>0) ? $keygenComment : "Pharoah Tools" ; }
     }
 
     public function removeKey() {
