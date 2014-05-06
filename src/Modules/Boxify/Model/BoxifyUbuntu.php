@@ -89,13 +89,9 @@ class BoxifyUbuntu extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $returns = array() ;
-       // for($i=1; $i<=$this->boxAmount; $i++) {
-            $logging->log("Adding Boxes") ;
-            $result = $provider->addBox() ;
-            if ($result == true) {
-                // @todo do we need this
-                $this->setEnvironmentStatusInCleovars($result, true) ; } ;
-            $returns[] = $result ;// }
+        $logging->log("Adding Boxes") ;
+        $result = $provider->addBox() ;
+        $returns[] = $result ;
         return (in_array(false, $returns)) ? false : true ;
     }
 
@@ -130,33 +126,6 @@ class BoxifyUbuntu extends BaseLinuxApp {
                 $provider = $providerFactory->getModel($this->params, $modGroup);
                 return $provider ; } }
         return false ;
-    }
-
-    // @todo why is this being added to cleovars
-    public function setEnvironmentStatusInCleovars($environmentName, $bool) {
-        if ($bool == true) {
-            if (is_array($environmentName)) {
-                foreach ($environmentName as $oneBoxName) { $this->addBoxToCleovars($oneBoxName) ; } }
-            else { $this->addBoxToCleovars($environmentName) ; } }
-        else {
-            if (is_array($environmentName)) {
-                foreach ($environmentName as $oneBoxName) { $this->removeBoxFromCleovars($oneBoxName) ; } }
-            else {
-                $this->removeBoxFromCleovars($environmentName) ; } }
-    }
-
-    // @todo why is this being added to cleovars
-    protected function addBoxToCleovars($environmentName) {
-        $installedBoxes = \Model\AppConfig::getAppVariable("installed-environments") ;
-        $installedBoxes[$this->moduleName][$this->providerName][$environmentName] = true ;
-        \Model\AppConfig::setAppVariable("installed-environments", $installedBoxes) ;
-    }
-
-    // @todo why is this being added to cleovars
-    protected function removeBoxFromCleovars($environmentName) {
-        $installedBoxes = \Model\AppConfig::getAppVariable("installed-environments") ;
-        unset($installedBoxes[$this->moduleName][$this->providerName][$environmentName]) ;
-        \Model\AppConfig::setAppVariable("installed-environments", $installedBoxes) ;
     }
 
 }
