@@ -32,8 +32,8 @@ class BoxifyListingUbuntu extends BaseLinuxApp {
     }
 
     public function performListing() {
-        if (!isset($this->params["all-environments"])) {
-            $this->setEnvironment($environmentName); }
+        if (isset($this->params["environment-name"])) {
+            $this->setEnvironment($this->params["environment-name"]); }
         return $this->listBoxes();
     }
 
