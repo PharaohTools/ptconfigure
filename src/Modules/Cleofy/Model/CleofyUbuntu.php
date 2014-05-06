@@ -9,7 +9,7 @@ class CleofyUbuntu extends Base {
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
     public $versions = array("12.04", "12.10") ;
-    public $architectures = array("64") ;
+    public $architectures = array("32", "64") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
