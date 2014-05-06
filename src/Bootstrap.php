@@ -52,10 +52,10 @@ class BootStrap {
         if (self::$exitCode == null) {
             exit(0) ; }
         else if (!is_int(self::$exitCode)) {
-            echo "[Pharoah Exit] Non Integer Exit Code Attempted" ;
+            echo "[Pharoah Exit] Non Integer Exit Code Attempted\n" ;
             exit(1) ; }
         else {
-            echo "[Pharoah Exit] Exiting with exit code: ".self::$exitCode ;
+            echo "[Pharoah Exit] Exiting with exit code: ".self::$exitCode."\n" ;
             exit(self::$exitCode) ; }
     }
 
