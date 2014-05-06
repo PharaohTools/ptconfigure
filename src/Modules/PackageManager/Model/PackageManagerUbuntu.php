@@ -159,6 +159,7 @@ class PackageManagerUbuntu extends BaseLinuxApp {
                 $lText .= " from the Packager {$this->packagerName} are already installed" ; }
             else {
                 $lText = "Package {$this->packageName} from the Packager {$this->packagerName} is already installed" ; }
+            $lText .= ", so not installing" ;
             $logging->log($lText); }
         return $this;
     }
