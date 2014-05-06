@@ -42,7 +42,7 @@ class AptUbuntu extends BasePackager {
         $logging = $loggingFactory->getModel($this->params);
         foreach ($packageName as $package) {
             $out = $this->executeAndOutput("sudo apt-get install $package -y --force-yes");
-            if (strpos($out, "ldconfig deferred processing now taking place") != false) {
+            if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
             else if (strpos($out, "is already the newest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
