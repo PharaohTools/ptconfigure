@@ -67,6 +67,7 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
                             $responses = (isset($responses)) ? $responses : "anything else" ; } } } }
             return true ; }
         else {
+            \Core\BootStrap::setExitCode(1) ;
             $logging->log("The environment $workingEnvironment does not exist.") ; }
     }
 
