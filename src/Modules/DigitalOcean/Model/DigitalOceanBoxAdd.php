@@ -60,7 +60,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
                             // var_dump("response", $response) ;
                             $this->addServerToPapyrus($envName, $response); } } } }
 
-                return (isset($callsReturned)) ? $callsReturned : null ; }
+                return true ; }
         else {
             \Core\BootStrap::setExitCode(1) ;
             $logging->log("The environment $workingEnvironment does not exist.") ; }
