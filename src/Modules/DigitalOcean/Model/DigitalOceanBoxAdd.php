@@ -173,9 +173,11 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $curlUrl = "https://api.digitalocean.com/ssh_keys" ;
         $sshKeysObject =  $this->digitalOceanCall(array(), $curlUrl);
         $sshKeys = array();
+        // @todo use the list call to get ids, this uses name
         foreach($sshKeysObject->ssh_keys as $sshKey) {
-            $sshKeys[] = $sshKey->name ; }
+            $sshKeys[] = $sshKey->id ; }
         $keysString = implode(",", $sshKeys) ;
+        echo "ke y string: $keysString\n\n" ;
         return $keysString;
     }
 
