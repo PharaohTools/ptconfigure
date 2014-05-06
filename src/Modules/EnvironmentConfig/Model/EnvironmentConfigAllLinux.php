@@ -27,10 +27,23 @@ class EnvironmentConfigAllLinux extends Base {
         return true;
     }
 
-    public function askToScreenWhetherToEnvironmentConfig() {
-      $question = 'Configure Environments Here?';
-      return (isset($this->params["yes"]) && $this->params["yes"]==true) ?
-          true : self::askYesOrNo($question, true);
+    public function askWhetherToDeleteEnvironment() {
+        if ($this->askToScreenWhetherToEnvironmentConfig("Delete") != true) { return false; }
+        $this->doDelete() ;
+        $this->writeEnvsToProjectFile() ;
+        return true;
+    }
+
+    public function askWhetherToListEnvironments() {
+        if ($this->askToScreenWhetherToEnvironmentConfig("List") != true) { return false; }
+        return $this->doList() ;
+    }
+
+    public function askToScreenWhetherToEnvironmentConfig($type = "Configure") {
+        $question = $type.' Environments Here?';
+        $question .= ($type == "Delete") ? "\nWARNING: Deleting an environment from papyrus is final. You may be looking for boxify box-destroy instead" : "" ;
+        return (isset($this->params["yes"]) && $this->params["yes"]==true) ?
+            true : self::askYesOrNo($question, true);
     }
 
     public function setEnvironmentReplacements($overrideReplacements) {
@@ -51,38 +64,40 @@ class EnvironmentConfigAllLinux extends Base {
     }
 
     public function doQuestions() {
-      $envSuffix = array_keys($this->environmentReplacements);
-      $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
-      if (count($allProjectEnvs) > 0) {
-        if (isset($this->params["yes"]) && $this->params["yes"]==true) { $useProjEnvs = true ; }
-        else {
-            $question = 'Use existing environment settings?';
-            $useProjEnvs = self::askYesOrNo($question, true); }
-        if ($useProjEnvs == true ) {
-          $this->environments = $allProjectEnvs;
-          $i = 0;
-          foreach ($this->environments as $oneEnvironment) {
-              $curEnvGroupRay = array_keys($this->environmentReplacements) ;
-              $curEnvGroup = $curEnvGroupRay[0] ;
-              $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?
-                  $oneEnvironment["any-app"]["gen_env_name"] : "*unknown*" ;
-              $q  = "Do you want to modify entries applicable to any app in " ;
-              $q .= "environment $envName" ;
-              if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-                  continue ; }
-              if (self::askYesOrNo($q)==true) {
-                  $this->populateAnEnvironment($i, "any-app" ) ;
-                  continue ; }
-              if ( isset($oneEnvironment[$curEnvGroup]) ) {
-                  $q  = "Do you want to modify entries for group $curEnvGroup in " ;
-                  $q .= "environment $envName" ;
-                  if (self::askYesOrNo($q)==true) {
-                      $this->populateAnEnvironment($i, $curEnvGroup) ; } }
-              else {
-                  echo "Settings for ".$curEnvGroup." not setup for environment " .
-                  "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
-                  $this->populateAnEnvironment($i, $curEnvGroup) ; }
-              $i++; } } }
+        $envSuffix = array_keys($this->environmentReplacements);
+        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+        if (count($allProjectEnvs) > 0) {
+            if (isset($this->params["yes"]) && $this->params["yes"]==true) { $useProjEnvs = true ; }
+            else {
+                $question = 'Use existing environment settings?';
+                $useProjEnvs = self::askYesOrNo($question, true); }
+            if ($useProjEnvs == true ) {
+                $this->environments = $allProjectEnvs;
+                $i = 0;
+                foreach ($this->environments as $oneEnvironment) {
+                    $curEnvGroupRay = array_keys($this->environmentReplacements) ;
+                    $curEnvGroup = $curEnvGroupRay[0] ;
+                    $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?
+                        $oneEnvironment["any-app"]["gen_env_name"] : "*unknown*" ;
+                    $q  = "Do you want to modify entries applicable to any app in " ;
+                    $q .= "environment $envName" ;
+                    if (isset($this->params["keep-current-environments"]) && $this->params["keep-current-environments"]==true) {
+                        continue ; }
+                    if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                        continue ; }
+                    if (self::askYesOrNo($q)==true) {
+                        $this->populateAnEnvironment($i, "any-app" ) ;
+                        continue ; }
+                    if ( isset($oneEnvironment[$curEnvGroup]) ) {
+                        $q  = "Do you want to modify entries for group $curEnvGroup in " ;
+                        $q .= "environment $envName" ;
+                        if (self::askYesOrNo($q)==true) {
+                            $this->populateAnEnvironment($i, $curEnvGroup) ; } }
+                    else {
+                        echo "Settings for ".$curEnvGroup." not setup for environment " .
+                            "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
+                        $this->populateAnEnvironment($i, $curEnvGroup) ; }
+                    $i++; } } }
         $i = 0;
         $more_envs = true;
         while ($more_envs == true) {
@@ -95,11 +110,36 @@ class EnvironmentConfigAllLinux extends Base {
                     $question = 'Do you want to add another environment?';
                     $add_another_env = self::askYesOrNo($question);
                     if ($add_another_env == true) {
-                        $i = count($this->environments) + 1 ;
+                        $i = count($this->environments) ;
                         $this->populateAnEnvironment($i, $envSuffix[0]); }
                     else {
                         $more_envs = false; } } }
             $i++; }
+    }
+
+    public function doDelete() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+        if (is_array($allProjectEnvs) && count($allProjectEnvs) > 0) {
+            $this->environments = $allProjectEnvs ;
+            $keys = array_keys($this->environments) ;
+            for ($i = 0 ; $i<count($this->environments) ; $i++) {
+                $envName = $this->environments[$keys[$i]]["any-app"]["gen_env_name"] ;
+                if ($envName == $this->params["environment-name"]) {
+                    $q = "Environment $envName found. Are you sure you want to delete it?" ;
+                    $res = (isset($this->params["yes"])) ? true : self::askYesOrNo($q) ;
+                    if ($res==true) {
+                        $logging->log("Removing environment $envName.") ;
+                        unset ($this->environments[$keys[$i]]) ;
+                        continue ; } } } }
+        else {
+            $logging->log("No environments exist here. Nothing to delete.") ; }
+    }
+
+    public function doList() {
+        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+        return $allProjectEnvs ;
     }
 
     private function populateAnEnvironment($i, $appEnvType) {
@@ -123,7 +163,7 @@ class EnvironmentConfigAllLinux extends Base {
     public function getServers() {
       $servers = array();
       $serverAttributes = array("target", "user", "password");
-      $keepGoing = true ;
+      $keepGoing = (isset($this->params["no-manual-servers"])) ? false : true ;
       $question = 'Enter Servers - this is an array of entries';
       while ($keepGoing == true) {
         $tinierArray = array();
