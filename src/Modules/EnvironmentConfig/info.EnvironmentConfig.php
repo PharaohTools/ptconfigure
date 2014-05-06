@@ -13,7 +13,7 @@ class EnvironmentConfigInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "EnvironmentConfig" =>  array_merge(parent::routesAvailable(), array("configure", "config") ) );
+      return array( "EnvironmentConfig" =>  array_merge(parent::routesAvailable(), array("list", "configure", "config", "delete", "del") ) );
     }
 
     public function routeAliases() {
@@ -30,10 +30,19 @@ class EnvironmentConfigInfo extends CleopatraBase {
 
   EnvironmentConfig, environmentconfig, environment-config, envconfig, env-config
 
-        - configure
+        - list
+        List current environments
+        example: cleopatra envconfig list --yes
+
+        - configure, config
         Configure the environments for your project to use
-        example: dapperstrano envconfig configure
-        example: cleopatra envconfig configure
+        example: cleopatra envconfig config
+        example: cleopatra envconfig config --keep-current-environments
+
+        - delete, del
+        Configure the environments for your project to use
+        example: cleopatra envconfig delete
+        example: cleopatra envconfig del --environment-name="staging"
 
 
 HELPDATA;

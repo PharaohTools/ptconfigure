@@ -9,12 +9,25 @@ class EnvironmentConfig extends Base {
         $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
         // if we don't have an object, its an array of errors
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
         $action = $pageVars["route"]["action"];
 
+        if ($action=="list") {
+            $this->content["result"] = $thisModel->askWhetherToListEnvironments();
+            return array ("type"=>"view", "view"=>"environmentConfigList", "pageVars"=>$this->content); }
+
         if ($action=="configure" || $action=="config") {
-          $this->content["result"] = $thisModel->askWhetherToEnvironmentConfig();
-          return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
+            $this->content["result"] = $thisModel->askWhetherToEnvironmentConfig();
+            return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
+
+        if ($action=="delete" || $action=="del") {
+            $this->content["result"] = $thisModel->askWhetherToDeleteEnvironment();
+            return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "The action $action does not exist in this Module" ;
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
 
