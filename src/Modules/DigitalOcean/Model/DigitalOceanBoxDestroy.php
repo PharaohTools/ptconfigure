@@ -16,13 +16,11 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
 
     public function askWhetherToBoxDestroy() {
         $out = $this->destroyBox();
-        var_dump($out) ;
         return $out ;
     }
 
     public function destroyBox() {
         if ($this->askForOverwriteExecute() != true) { return false; }
-        echo "here" ;
         $this->apiKey = $this->askForDigitalOceanAPIKey();
         $this->clientId = $this->askForDigitalOceanClientID();
         $environments = \Model\AppConfig::getProjectVariable("environments");
@@ -53,8 +51,9 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
                                 $serverData = array();
                                 $serverData["dropletID"] = $environments[$i]["servers"][$iBox]["id"] ;
                                 $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
-                                $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]);
-                                return true ; } }
+                                echo "about to del\n" ;
+                                $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]); }
+                            return true ; }
                         else if (isset($this->params["destroy-box-id"])) {
                             $responses = array();
                             $serverData = array();
@@ -63,8 +62,9 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
                             $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]);
                             return true ; }
                         else {
-                            echo "bum" ; //@todo
-                            $responses = (isset($responses)) ? $responses : "anything else" ; } } } }
+                            \Core\BootStrap::setExitCode(1) ;
+                            $logging->log("You must provide either parameter --destroy-all-boxes or --destroy-box-id");
+                            return false ; } } } }
             return true ; }
         else {
             \Core\BootStrap::setExitCode(1) ;
@@ -99,18 +99,10 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $newServers = array() ;
         foreach ($environments as &$environment) {
-            echo "a".$environment["any-app"]["gen_env_name"].$workingEnvironment."\n" ;
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
-                echo "b"."\n" ;
                 foreach ($environment["servers"] as $server ) {
-                    echo "c".$server["id"].$dropletId."\n" ;
-                    if ($server["id"] != $dropletId) {
-                        echo "d"."\n" ;
-                        echo "setting {$server["id"]} as new srv\n" ;
-                        $newServers[] = $server ; }
-                    echo "saving the following to papyrus\n" ;
+                    if ($server["id"] != $dropletId) { $newServers[] = $server ; }
                     $environment["servers"] = $newServers ; }
-                // var_dump($environments);
                 \Model\AppConfig::setProjectVariable("environments", $environments); } }
     }
 
