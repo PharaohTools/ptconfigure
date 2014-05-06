@@ -51,7 +51,6 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
                                 $serverData = array();
                                 $serverData["dropletID"] = $environments[$i]["servers"][$iBox]["id"] ;
                                 $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
-                                echo "about to del\n" ;
                                 $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]); }
                             return true ; }
                         else if (isset($this->params["destroy-box-id"])) {
