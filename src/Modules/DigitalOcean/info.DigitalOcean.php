@@ -34,12 +34,15 @@ class DigitalOceanInfo extends CleopatraBase {
         - save-ssh-key
         Will let you save a local ssh key to your Digital Ocean account, so you can ssh in to your nodes
         securely and without a password
-        example: dapperstrano digital-ocean save-ssh-key
+        example: cleopatra digital-ocean save-ssh-key
+                    --yes
+                    --digital-ocean-ssh-key-path="/home/dave/.ssh/bastion.pub"
+                    --digital-ocean-ssh-key-name="bastion"
 
         - list
         Will display data about your digital ocean account
-        example: dapperstrano digital-ocean list
-        example: dapperstrano digital-ocean list --yes
+        example: cleopatra digital-ocean list
+        example: cleopatra digital-ocean list --yes
                     --guess # use project saved connection details if possible
                     --digital-ocean-list-data-type=sizes # droplets, sizes, images, domains, regions, ssh_keys
 
