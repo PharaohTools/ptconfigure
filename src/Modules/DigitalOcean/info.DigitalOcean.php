@@ -39,6 +39,9 @@ class DigitalOceanInfo extends CleopatraBase {
         - list
         Will display data about your digital ocean account
         example: dapperstrano digital-ocean list
+        example: dapperstrano digital-ocean list --yes
+                    --guess # use project saved connection details if possible
+                    --digital-ocean-list-data-type=sizes # droplets, sizes, images, domains, regions, ssh_keys
 
 HELPDATA;
       return $help ;

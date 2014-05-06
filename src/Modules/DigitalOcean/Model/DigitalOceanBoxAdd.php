@@ -62,6 +62,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
 
                 return (isset($callsReturned)) ? $callsReturned : null ; }
         else {
+            \Core\BootStrap::setExitCode(1) ;
             $logging->log("The environment $workingEnvironment does not exist.") ; }
     }
 
