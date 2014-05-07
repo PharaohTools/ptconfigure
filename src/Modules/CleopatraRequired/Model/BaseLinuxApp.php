@@ -52,11 +52,44 @@ class BaseLinuxApp extends Base {
     public function ensureInstalled(){
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ($this->askStatus() == true) {
-            $logging->log("Not installing as already installed") ; }
-        else {
-            $logging->log("Installing as not installed") ;
-            $this->install(); }
+        if (isset($this->params["version"])) {
+            $logging->log("Ensure install is checking versions") ;
+            if ($this->askStatus() == true) {
+                $logging->log("Already installed, checking version constraints") ;
+                if (!isset($this->params["version-operator"])) {
+                    $logging->log("No --version-operator is set. Assuming requested version operator is minimum") ;
+                    $this->params["version-operator"] = "+" ; }
+                $currentVersion = $this->getVersion() ;
+                $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                if ($currentVersion->isCompatible() == true) {
+                    $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing") ; }
+                else {
+                    // @todo check if requested version is available
+                    $logging->log("Installed version {$currentVersion->shortVersionNumber} does not match constraint, uninstalling") ;
+                    // $this->unInstall() ;
+                    /* @todo do a proper uninstall and install right version */ } }
+            else {
+                $logging->log("Not already installed, checking version constraints") ;
+                if (!isset($this->params["version-operator"])) {
+                    $logging->log("No --version-operator is set. Assuming requested version is minimum") ;
+                    $this->params["version-operator"] = "+" ; }
+                $recVersion = $this->getVersion("Recommended") ;
+                $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                if ($recVersion->isCompatible()) {
+                    $logging->log("Requested version {$recVersion->shortVersionNumber} matches constraints, installing") ;
+                    $this->install() ;  }
+                else {
+                    // @todo check if requested version is available
+                    $logging->log("Installed version {$this->getVersion()} does not match constraint, uninstalling") ;
+                    $this->unInstall() ;
+                    /* @todo do a proper uninstall and install right version */ } } }
+        else { // not checking version
+            $logging->log("Ensure module install is not checking versions") ;
+            if ($this->askStatus() == true) {
+                $logging->log("Not installing as already installed") ; }
+            else {
+                $logging->log("Installing as not installed") ;
+                $this->install(); } }
         return true;
     }
 
