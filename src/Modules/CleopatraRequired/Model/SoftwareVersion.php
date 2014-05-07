@@ -6,6 +6,7 @@ class SoftwareVersion {
 
     public $shortVersionNumber;
     public $fullVersionNumber;
+    private $conditions;
 
     public function __construct($versionNumber) {
         $this->fullVersionNumber = $versionNumber ;
@@ -30,9 +31,9 @@ class SoftwareVersion {
             $comparePieces = explode(".", $compare->shortVersionNumber) ;
             for ( $i=0 ; $i<count($comparePieces); $i++) {
                 if ($comparePieces[$i] > $myPieces[$i] ) {
-                    return true ; }
-                if ($comparePieces[$i] < $myPieces[$i] ) {
                     return false ; }
+                if ($comparePieces[$i] < $myPieces[$i] ) {
+                    return true ; }
                 else {
                     continue; } } }
         return "SoftwareVersion->isGreaterThan() Requires an instance of SoftwareVersion" ;
@@ -45,27 +46,38 @@ class SoftwareVersion {
             $comparePieces = explode(".", $compare->shortVersionNumber) ;
             for ( $i=0 ; $i<count($comparePieces); $i++) {
                 if ($comparePieces[$i] < $myPieces[$i] ) {
-                    return true ; }
-                if ($comparePieces[$i] > $myPieces[$i] ) {
                     return false ; }
+                if ($comparePieces[$i] > $myPieces[$i] ) {
+                    return true ; }
                 else {
                     continue; } } }
         return "SoftwareVersion->isLessThan() Requires an instance of SoftwareVersion" ;
     }
 
-    //@todo this return seems wrong
-    public function isCompatibleWith($compare) {
-        if (is_object($compare) && $compare instanceof SoftwareVersion) {
-            $myPieces = explode(".", $this->shortVersionNumber) ;
-            $comparePieces = explode(".", $compare->shortVersionNumber) ;
-            for ( $i=0 ; $i<count($comparePieces); $i++) {
-                if ($comparePieces[$i] < $myPieces[$i] ) {
-                    return true ; }
-                if ($comparePieces[$i] > $myPieces[$i] ) {
-                    return false ; }
-                else {
-                    continue; } } }
-        return "SoftwareVersion->isCompatibleWith Requires an instance of SoftwareVersion" ;
+    public function setCondition($version, $operation) {
+        $this->conditions[] = array("version" => $version, "operation" => $operation) ;
+    }
+
+    public function isCompatible() {
+        foreach ($this->conditions as $condition) {
+            if (($condition["version"] instanceof \Model\SoftwareVersion) !== true ) {
+                $conditionVersion = new \Model\SoftwareVersion($condition["version"]) ; }
+            $op = $this->getOpFromSymbol($condition["operation"]) ;
+            if ($op == "gt") {
+                if ($this->isGreaterThan($conditionVersion) != true) {
+                    return false ; }  }
+            if ($op == "lt") {
+                if ($this->isLessThan($conditionVersion) != true) {
+                    return false ; }  } }
+        return true ;
+    }
+
+    protected function getOpFromSymbol($symbol) {
+        if (in_array($symbol, array("gt", ">", "+"))) {
+            return "gt" ;  }
+        if (in_array($symbol, array("lt", "<", "-"))) {
+            return "lt" ;  }
+        return null ;
     }
 
 
