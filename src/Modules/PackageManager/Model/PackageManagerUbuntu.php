@@ -125,7 +125,7 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
         $returns = array() ;
         foreach($this->packageName as $onePackage) {
-            $result = $packager->installPackage($onePackage) ;
+            $result = $packager->installPackage($onePackage, $this->version, $this->versionAccuracy) ;
             if ($result == true) { $this->setPackageStatusInCleovars($onePackage, true) ; } ;
             $returns[] = $result ; }
         return (in_array(false, $returns)) ? false : true ;
