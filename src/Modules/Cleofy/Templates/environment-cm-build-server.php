@@ -43,7 +43,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Apache
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Apache Server is installed" ),),),
-                array ( "ApacheServer" => array( "ensure" => array(),),),
+                array ( "ApacheServer" => array( "ensure" =>  array("version" => "2.2"), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
                 array ( "ApacheModules" => array( "ensure" => array(),),),
 
