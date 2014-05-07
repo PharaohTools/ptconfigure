@@ -31,6 +31,17 @@ class DigitalOceanInfo extends CleopatraBase {
 
     DigitalOcean, digitalocean, digital-ocean
 
+        - box-add
+        Lets you add boxes to Digital Ocean, and adds them to your papyrusfile
+        example: cleopatra digital-ocean box-add
+                    --yes
+                    --digital-ocean-ssh-key-path="/home/dave/.ssh/bastion.pub"
+                    --digital-ocean-ssh-key-name="bastion"
+
+        - box-destroy
+        Will destroy box/es in an environment for you, and remove them from the papyrus file
+        example: cleopatra digital-ocean box-destroy --yes --guess --digital-ocean-ssh-key-path="/home/dave/.ssh/bastion.pub" --digital-ocean-ssh-key-name="bastion"
+
         - save-ssh-key
         Will let you save a local ssh key to your Digital Ocean account, so you can ssh in to your nodes
         securely and without a password
