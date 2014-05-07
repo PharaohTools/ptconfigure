@@ -15,15 +15,19 @@ class ApacheServerCentos32 extends BaseLinuxApp {
   public $modelGroup = array("Default") ;
 
   public function __construct($params) {
-    parent::__construct($params);
-    $this->autopilotDefiner = "ApacheServer";
-    $this->installCommands = array("yum install -y httpd");
-    $this->uninstallCommands = array("yum remove -y httpd");
-    $this->programDataFolder = "/opt/ApacheServer"; // command and app dir name
-    $this->programNameMachine = "apacheserver"; // command and app dir name
-    $this->programNameFriendly = "Apache Server!"; // 12 chars
-    $this->programNameInstaller = "Apache Server";
-    $this->initialize();
+      parent::__construct($params);
+      $this->autopilotDefiner = "ApacheServer";
+      $this->installCommands = array("yum install -y httpd");
+      $this->uninstallCommands = array("yum remove -y httpd");
+      $this->programDataFolder = "/opt/ApacheServer"; // command and app dir name
+      $this->programNameMachine = "apacheserver"; // command and app dir name
+      $this->programNameFriendly = "Apache Server!"; // 12 chars
+      $this->programNameInstaller = "Apache Server";
+      $this->statusCommand = "httpd -v" ;
+//      $this->versionInstalledCommand = "sudo apt-cache policy httpd" ;
+//      $this->versionRecommendedCommand = "sudo apt-cache policy httpd" ;
+//      $this->versionLatestCommand = "sudo apt-cache policy httpd" ;
+      $this->initialize();
   }
 
 }
