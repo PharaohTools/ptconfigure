@@ -21,6 +21,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "SeleniumServer";
         $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("command"=> array(
                 "cd /tmp" ,
                 "mkdir -p /tmp/selenium" ,
@@ -44,6 +45,16 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         $this->programExecutorTargetPath = "firefox-bin";
         $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/selenium-server.jar';
         $this->initialize();
-      }
+    }
+
+
+    public function executeDependencies() {
+        $gitToolsFactory = new \Model\GitTools($this->params);
+        $gitTools = new $gitToolsFactory->getModel($this->params);
+        $gitTools->ensureInstalled();
+        $javaFactory = new \Model\Java();
+        $java = new $javaFactory->getModel($this->params);
+        $java->ensureInstalled();
+    }
 
 }
