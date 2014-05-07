@@ -130,14 +130,18 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function writeHostFileEntryToProjectFile(){
-        if ($this->checkIsPharoahProject()){
+        $projectFactory = new \Model\Project();
+        $projectModel = $projectFactory->getModel($this->params);
+        if ($projectModel::checkIsPharoahProject()) {
             $appSettingsFactory = new \Model\AppSettings();
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
-            $appConfig::setProjectVariable("host-entries", array("$this->uri" => "$this->ipAddress") );  }
+            $appConfig::setProjectVariable("host-entries", array("$this->uri" => "$this->ipAddress", true) );  }
     }
 
     private function deleteHostFileEntryFromProjectFile(){
-        if ($this->checkIsPharoahProject()) {
+        $projectFactory = new \Model\Project();
+        $projectModel = $projectFactory->getModel($this->params);
+        if ($projectModel::checkIsPharoahProject()) {
             $appSettingsFactory = new \Model\AppSettings();
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
             $allHostFileEntries = $appConfig::getProjectVariable("host-entries");
@@ -146,10 +150,6 @@ class HostEditorAllLinuxMac extends Base {
                 if (isset($allHostFileEntries[$i]) && array_key_exists($allHostFileEntries[$i], $this->uri)) {
                     unset($allHostFileEntries[$i]); } }
             $appConfig::setProjectVariable("host-entries", $allHostFileEntries); }
-    }
-
-    private function checkIsPharoahProject() {
-        return file_exists('papyrusfile');
     }
 
 }

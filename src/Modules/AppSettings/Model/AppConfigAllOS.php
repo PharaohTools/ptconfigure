@@ -15,7 +15,7 @@ class AppConfigAllOS extends Base {
     public $modelGroup = array("AppConfig") ;
 
     private static function checkSettingsExistOrCreateIt() {
-        if (!file_exists('papyrusfile')) { touch('papyrusfile'); }
+        // if (!file_exists('papyrusfile')) { touch('papyrusfile'); }
         return true;
     }
 
@@ -56,19 +56,20 @@ class AppConfigAllOS extends Base {
 
     public static function getProjectVariable($variable) {
         $value = null;
-        if (self::checkSettingsExistOrCreateIt()) {
+        // if (self::checkSettingsExistOrCreateIt()) {
             $appConfigArray = self::loadProjectFile();
-            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ; }
+            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ;
+        // }
         return $value;
     }
 
-    private static function loadProjectFile() {
+    private function loadProjectFile() {
         $appConfigArraySerialized = file_get_contents('papyrusfile');
         $decoded = unserialize($appConfigArraySerialized);
         return $decoded ;
     }
 
-    private static function saveProjectFile($appConfigArray) {
+    private function saveProjectFile($appConfigArray) {
         $appConfigSerialized = serialize($appConfigArray);
         file_put_contents(getcwd().DIRECTORY_SEPARATOR.'papyrusfile', $appConfigSerialized);
         chmod('papyrusfile', 0777);

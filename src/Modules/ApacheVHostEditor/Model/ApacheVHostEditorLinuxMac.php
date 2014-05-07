@@ -80,8 +80,6 @@ class ApacheVHostEditorLinuxMac extends Base {
         echo "Deleting vhost\n";
         $this->vHostDir = $this->askForVHostDirectory();
         $this->vHostForDeletion = $this->selectVHostInProjectOrFS();
-        if ( self::areYouSure("Definitely delete VHost?") == false ) {
-          return false; }
         if ( $this->askForDisableVHost() ) {
             $this->disableVHost(); }
         $this->attemptVHostDeletion();
@@ -121,7 +119,9 @@ class ApacheVHostEditorLinuxMac extends Base {
             if ($this->detectDebianApacheVHostFolderExistence()) {
                 echo "You have a sites available dir, guessing you need to enable a Virtual Host.\n" ;
                 return true ; }
-            else { echo "You don't have a sites available dir, guessing you don't need to enable a Virtual Host.\n"; } }
+            else {
+                echo "You don't have a sites available dir, guessing you don't need to enable a Virtual Host.\n";
+                return false ; } }
         $question = 'Do you want to enable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
     }
@@ -132,7 +132,9 @@ class ApacheVHostEditorLinuxMac extends Base {
             if ($this->detectDebianApacheVHostFolderExistence()) {
                 echo "You have a sites available dir, guessing you need to disable a Virtual Host.\n" ;
                 return true ; }
-            else { echo "You don't have a sites available dir, guessing you don't need to disable a Virtual Host.\n"; } }
+            else {
+                echo "You don't have a sites available dir, guessing you don't need to disable a Virtual Host.\n";
+                return false ; } }
         $question = 'Do you want to disable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
     }
@@ -145,6 +147,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForDocRoot() {
+        if (isset($this->params["guess"])) { return getcwd() ; }
         if (isset($this->params["vhe-docroot"])) { return $this->params["vhe-docroot"] ; }
         $question = 'What\'s the document root? Enter nothing for '.getcwd();
         $input = self::askForInput($question);
@@ -158,6 +161,9 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForFileExtension() {
+        if (isset($this->params["guess"])) {
+            if ($this->detectDebianApacheVHostFolderExistence()) { return "" ; }
+            else { return ".conf" ; } }
         if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         $question = 'What File Extension should be used? Enter nothing for None (hint: ubuntu probably none centos, .conf)';
         $input = self::askForInput($question) ;
@@ -165,6 +171,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForVHostIp() {
+        if (isset($this->params["guess"])) { return "127.0.0.1:80" ; }
         if (isset($this->params["vhe-ip-port"])) { return $this->params["vhe-ip-port"] ; }
         $question = 'What IP:Port should be set? Enter nothing for 127.0.0.1:80';
         $input = self::askForInput($question) ;
@@ -173,7 +180,8 @@ class ApacheVHostEditorLinuxMac extends Base {
 
     private function checkVHostOkay(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) {
-            echo $this->vHostTemplate."\n\nAssuming Okay due to yes parameter"; }
+            echo $this->vHostTemplate."\n\nAssuming Okay due to yes parameter\n";
+            return true ;}
         $question = 'Please check VHost: '.$this->vHostTemplate."\n\nIs this Okay?";
         return self::askYesOrNo($question);
     }
@@ -193,6 +201,8 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForVHostTemplateDirectory(){
+        if (isset($this->params["vhe-default-template-name"])) { return "" ; }
+        if (isset($this->params["vhe-template"])) { return "" ; }
         $question = 'What is your VHost Template directory? Enter nothing for default templates';
         if ($this->detectVHostTemplateFolderExistence()) {
             $question .= ' Found "'.$this->docRoot.'/build/config/dapperstrano/virtual-hosts" - Enter nothing to use this';
@@ -232,6 +242,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function processVHost() {
+        // @todo do this with the templating module instead
         $replacements =  array('****WEB ROOT****'=>$this->docRoot,
             '****SERVER NAME****'=>$this->url, '****IP ADDRESS****'=>$this->vHostIp);
         $this->vHostTemplate = strtr($this->vHostTemplate, $replacements);
@@ -289,6 +300,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     // @todo get project variable below is wrong
+    // @todo look at how ugly this is
     private function listAllVHosts() {
         $projResults = ($this->checkIsDHProject()) ? \Model\AppConfig::getProjectVariable("virtual-hosts") : array() ;
         $scanned = scandir($this->vHostEnabledDir) ;
@@ -320,9 +332,9 @@ class ApacheVHostEditorLinuxMac extends Base {
         echo $question;
     }
 
+    // @todo look at how ugly this is
     private function selectVHostInProjectOrFS() {
-        if (isset($this->params["site"])) {
-            return array($this->params["site"]) ; }
+        if (isset($this->params["vhe-deletion-vhost"])) { return array($this->params["vhe-deletion-vhost"]) ; }
         $projResults = ($this->checkIsDHProject())
           ? \Model\AppConfig::getProjectVariable("virtual-hosts")
           : array() ;
@@ -356,10 +368,12 @@ class ApacheVHostEditorLinuxMac extends Base {
     // @todo, this is ugly and possibly unneccessary
     private function selectVHostTemplate(){
         if (isset($this->params["vhe-template"])) { $this->vHostTemplate = $this->params["vhe-template"] ; }
-        $vHostTemplateResults = (is_array($this->vHostTemplateDir) &&
-        count($this->vHostTemplateDir)>0)
+        $vHostTemplateResults = ( (is_array($this->vHostTemplateDir) && count($this->vHostTemplateDir)>0) )
           ? scandir($this->vHostTemplateDir)
           : array() ;
+        if (isset($this->params["vhe-default-template-name"])) {
+            $this->vHostTemplate = $this->vHostDefaultTemplates[$this->params["vhe-default-template-name"]] ;
+            return ; }
         $question = "Please Choose VHost Template: \n";
         $i1 = $i2 = 0;
         $availableVHostTemplates = array();
@@ -376,18 +390,16 @@ class ApacheVHostEditorLinuxMac extends Base {
                 $i1++;
                 $availableVHostTemplates[] = $result;} }
         $validChoice = false;
-        while ($validChoice == false) {
-            if ($i2==1) { $question = "That's not a valid option, ".$question; }
-            $input = self::askForInput($question) ;
-            if (array_key_exists($input, $availableVHostTemplates) ){
-                $validChoice = true;}
-            $i2++; }
+            while ($validChoice == false) {
+                if ($i2==1) { $question = "That's not a valid option, ".$question; }
+                $input = self::askForInput($question) ;
+                if (array_key_exists($input, $availableVHostTemplates) ){
+                    $validChoice = true; }
+                $i2++; }
         if (array_key_exists($availableVHostTemplates[$input], $this->vHostDefaultTemplates) ) {
-          $this->vHostTemplate
-            = $this->vHostDefaultTemplates[$availableVHostTemplates[$input]];
+          $this->vHostTemplate = $this->vHostDefaultTemplates[$availableVHostTemplates[$input]];
           return ; }
-      $this->vHostTemplate = file_get_contents($this->vHostTemplateDir . '/' .
-        $availableVHostTemplates[$input]);
+        $this->vHostTemplate = file_get_contents($this->vHostTemplateDir . '/' . $availableVHostTemplates[$input]);
     }
 
     private function setVHostDefaultTemplates() {
@@ -469,7 +481,7 @@ TEMPLATE5;
 
     $this->vHostDefaultTemplates = array(
       "docroot-no-suffix" => $template1,
-      "docroot-src-sfx" => $template2,
+      "docroot-src-suffix" => $template2,
       "docroot-web-suffix" => $template3,
       "docroot-www-suffix" => $template4,
       "docroot-docroot-suffix" => $template5
