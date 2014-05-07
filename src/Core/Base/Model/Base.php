@@ -301,10 +301,10 @@ COMPLETION;
     }
 
     //@todo maybe this should be a helper
-    public function packageAdd($packager, $package) {
+    public function packageAdd($packager, $package, $version = null, $versionOperator = "+") {
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageEnsure($packager, $package, $this);
+        $packageManager->performPackageEnsure($packager, $package, $this, $version, $versionOperator);
     }
 
     //@todo maybe this should be a helper
@@ -333,7 +333,7 @@ COMPLETION;
             $trimmer = "{$property}Trimmer" ;
             if (isset($this->$property) && method_exists($this, $trimmer)) {
                 $out = $this->executeAndLoad($this->$property);
-                return new SoftwareVersion($this->$trimmer($out)) ; }
+                return new \Model\SoftwareVersion($this->$trimmer($out)) ; }
             else if (isset($this->$property)) {
                 return $this->executeAndLoad($this->$property); }
             else {
