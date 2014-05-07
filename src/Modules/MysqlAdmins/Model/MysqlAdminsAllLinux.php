@@ -52,28 +52,11 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
         $command .= ' < /tmp/mysql-adminshcript.sql' ;
         $sqlCommand = 'GRANT ALL PRIVILEGES ON *.* TO \''.$this->mysqlNewAdminUser.'\'@\''.$this->dbHost.'\' ';
         $sqlCommand .= 'IDENTIFIED BY \''.$this->mysqlNewAdminPass.'\' WITH GRANT OPTION;';
-
-
         $comms = array(
             'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
             $command,
-            'rm /tmp/mysql-adminshcript.sql'
-        );
-
+            'rm /tmp/mysql-adminshcript.sql' );
         $this->executeAsShell($comms) ;
-    }
-
-    protected function getInstallCommands() {
-        $command  = 'mysql -h'.$this->dbHost.' -u'.$this->mysqlRootUser.' ';
-        if (strlen($this->mysqlRootPass) > 0) {$command .= '-p'.$this->mysqlRootPass.' '; }
-        $command .= ' < /tmp/mysql-adminshcript.sql' ;
-        $sqlCommand = 'GRANT ALL PRIVILEGES ON *.* TO \''.$this->mysqlNewAdminUser.'\'@\''.$this->dbHost.'\' ';
-        $sqlCommand .= 'IDENTIFIED BY \''.$this->mysqlNewAdminPass.'\' WITH GRANT OPTION;';
-        return array(
-            'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
-            $command,
-            'rm /tmp/mysql-adminshcript.sql'
-        );
     }
 
     public function askForMysqlNewAdminUserName() {
