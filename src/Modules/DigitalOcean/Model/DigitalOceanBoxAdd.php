@@ -177,7 +177,6 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         foreach($sshKeysObject->ssh_keys as $sshKey) {
             $sshKeys[] = $sshKey->id ; }
         $keysString = implode(",", $sshKeys) ;
-        echo "ke y string: $keysString\n\n" ;
         return $keysString;
     }
 
