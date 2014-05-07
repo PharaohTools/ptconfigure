@@ -21,14 +21,14 @@ class GitBucketUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("command"=> array(
                 "cd /tmp" ,
-                "mkdir -p /tmp/selenium" ,
-                "cd /tmp/selenium" ,
-                "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar",
+                "mkdir -p /tmp/gitbucket" ,
+                "cd /tmp/gitbucket" ,
+                "wget http://github.com/takezoe/gitbucket/releases/tag/1.13",
                 "mkdir -p ****PROGDIR****",
-                "mv /tmp/selenium/* ****PROGDIR****",
-                "rm -rf /tmp/selenium/",
-                "cd ****PROGDIR****",
-                "mv selenium-server-standalone-2.39.0.jar selenium-server.jar" ) ) ,
+                "mv /tmp/gitbucket/* ****PROGDIR****",
+                "rm -rf /tmp/gitbucket/" ) ) ,
+            array("method"=> array("object" => $this, "method" => "askForRepoHome", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "setExecutorCommand", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
@@ -36,10 +36,12 @@ class GitBucketUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
         );
-        $this->programDataFolder = "";
+        $this->programDataFolder = "/opt/gitbucket/";
         $this->programNameMachine = "gitlab"; // command and app dir name
         $this->programNameFriendly = "!Git Lab!!"; // 12 chars
         $this->programNameInstaller = "Git Lab";
+        $this->programExecutorFolder = "/usr/bin";
+        $this->programExecutorTargetPath = "selenium";
         $this->initialize();
     }
 
@@ -50,6 +52,22 @@ class GitBucketUbuntu extends BaseLinuxApp {
         $javaFactory = new \Model\Java();
         $java = new $javaFactory->getModel($this->params);
         $java->ensureInstalled();
+    }
+
+    public function askForRepoHome() {
+        if (isset($this->params["repository-home"])) {
+            $this->repoHome = $this->params["repository-home"]; }
+        else if (isset($this->params["guess"])) {
+            $defaultRepo = "/opt/gitbucket/repositories" ;
+            $this->executeAndOutput("mkdir -p $defaultRepo") ;
+            $this->repoHome = $defaultRepo ; }
+        else {
+            $question = "Enter Repository Root Directory:";
+            $this->repoHome = self::askForInput($question, true); }
+    }
+
+    public function setExecutorCommand() {
+        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/gitbucket.jar';
     }
 
 }
