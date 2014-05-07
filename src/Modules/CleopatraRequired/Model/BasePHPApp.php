@@ -4,30 +4,32 @@ Namespace Model;
 
 class BasePHPApp extends Base {
 
-  protected $fileSources;
+    protected $fileSources;
 
-  public function __construct($params) {
-    parent::__construct($params);
-    $this->populateStartDirectory();
-    $this->populateCompletion();
-  }
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->populateStartDirectory();
+        $this->populateCompletion();
+    }
 
-  public function initialize() {
-    $this->populateTitle();
-  }
+    public function initialize() {
+        $this->populateTitle();
+        $this->versionInstalledCommand = "git --git-dir=/opt/{$this->programNameMachine}/{$this->programNameMachine}/.git --work-tree=/{$this->programNameMachine} tag" ;
+        $this->versionRecommendedCommand = "git --git-dir=/opt/{$this->programNameMachine}/{$this->programNameMachine}/.git --work-tree=/{$this->programNameMachine} tag" ;
+        $this->versionLatestCommand = "git --git-dir=/opt/{$this->programNameMachine}/{$this->programNameMachine}/.git --work-tree=/{$this->programNameMachine} tag" ;
+    }
 
-  protected function populateStartDirectory() {
-    $this->startDirectory = str_replace("/$this->programNameMachine", "",
-      $this->tempDir);
-  }
+    protected function populateStartDirectory() {
+        $this->startDirectory = str_replace("/$this->programNameMachine", "", $this->tempDir);
+    }
 
-  public function askWhetherToInstallPHPApp() {
-    return $this->performPHPAppInstall();
-  }
+    public function askWhetherToInstallPHPApp() {
+        return $this->performPHPAppInstall();
+    }
 
-  public function askInstall() {
-    return $this->askWhetherToInstallPHPApp();
-  }
+    public function askInstall() {
+        return $this->askWhetherToInstallPHPApp();
+    }
 
   public function askUnInstall() {
     return $this->askWhetherToUninstallPHPApp();
@@ -53,16 +55,60 @@ class BasePHPApp extends Base {
     return true;
   }
 
-  public function ensureInstalled(){
-      $loggingFactory = new \Model\Logging();
-      $logging = $loggingFactory->getModel($this->params);
-      if ($this->askStatus() == true) {
-          $logging->log("Not installing as already installed") ; }
-      else {
-          $logging->log("Installing as not installed") ;
-          $this->install(); }
-      return true;
-  }
+    public function ensureInstalled(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if (isset($this->params["version"])) {
+            $logging->log("Ensure install is checking versions") ;
+            if ($this->askStatus() == true) {
+                $logging->log("Already installed, checking version constraints") ;
+                if (!isset($this->params["version-operator"])) {
+                    $logging->log("No --version-operator is set. Assuming requested version operator is minimum") ;
+                    $this->params["version-operator"] = "+" ; }
+                $currentVersion = $this->getVersion() ;
+                $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                if ($currentVersion->isCompatible() == true) {
+                    $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing") ; }
+                else {
+                    // @todo check if requested version is available
+                    $logging->log("Installed version {$currentVersion->shortVersionNumber} does not match constraint, uninstalling") ;
+                    // $this->unInstall() ;
+                    /* @todo do a proper uninstall and install right version */ } }
+            else {
+                $logging->log("Not already installed, checking version constraints") ;
+                if (!isset($this->params["version-operator"])) {
+                    $logging->log("No --version-operator is set. Assuming requested version is minimum") ;
+                    $this->params["version-operator"] = "+" ; }
+                $recVersion = $this->getVersion("Recommended") ;
+                $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                if ($recVersion->isCompatible()) {
+                    $logging->log("Requested version {$recVersion->shortVersionNumber} matches constraints, installing") ;
+                    $this->install() ;  }
+                else {
+                    // @todo check if requested version is available
+                    $logging->log("Installed version {$this->getVersion()} does not match constraint, uninstalling") ;
+                    $this->unInstall() ;
+                    /* @todo do a proper uninstall and install right version */ } } }
+        else { // not checking version
+            $logging->log("Ensure module install is not checking versions") ;
+            if ($this->askStatus() == true) {
+                $logging->log("Not installing as already installed") ; }
+            else {
+                $logging->log("Installing as not installed") ;
+                $this->install(); } }
+        return true;
+    }
+
+//  public function ensureInstalled(){
+//      $loggingFactory = new \Model\Logging();
+//      $logging = $loggingFactory->getModel($this->params);
+//      if ($this->askStatus() == true) {
+//          $logging->log("Not installing as already installed") ; }
+//      else {
+//          $logging->log("Installing as not installed") ;
+//          $this->install(); }
+//      return true;
+//  }
 
   public function install($autoPilot = null) {
     if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
@@ -205,5 +251,34 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
       $data .= self::executeAndLoad($command); }
     return $data;
   }
+
+
+    public function versionInstalledCommandTrimmer($text) {
+        $lastNewLine = strrpos($text, "\n") ;
+        $penultimateNewLine = strrpos(substr($text, 0, $lastNewLine), "\n") ;
+        $done = substr($text, $penultimateNewLine, $lastNewLine) ;
+        $done = trim($done, "\n") ;
+        $done = trim($done, "\r") ;
+        return $done ;
+    }
+
+    // @todo this should check the repo or do git pull, etc
+    public function versionLatestCommandTrimmer($text) {
+        $lastNewLine = strrpos($text, "\n") ;
+        $penultimateNewLine = strrpos(substr($text, 0, $lastNewLine), "\n") ;
+        $done = substr($text, $penultimateNewLine, $lastNewLine) ;
+        $done = trim($done, "\n") ;
+        $done = trim($done, "\r") ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $lastNewLine = strrpos($text, "\n") ;
+        $penultimateNewLine = strrpos(substr($text, 0, $lastNewLine), "\n") ;
+        $done = substr($text, $penultimateNewLine, $lastNewLine) ;
+        $done = trim($done, "\n") ;
+        $done = trim($done, "\r") ;
+        return $done ;
+    }
 
 }
