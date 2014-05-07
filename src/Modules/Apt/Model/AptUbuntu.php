@@ -35,12 +35,20 @@ class AptUbuntu extends BasePackager {
         return $passing ;
     }
 
-    public function installPackage($packageName) {
+    public function installPackage($packageName, $version=null, $versionAccuracy=null) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
+            $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
+            $logging->log($lmsg) ;
+            \BootStrap::setExitCode(1) ;
+            return false ; }
         foreach ($packageName as $package) {
+            if (!is_null($version)) {
+                 $versionToInstall = "" ;
+            }
             $out = $this->executeAndOutput("sudo apt-get install $package -y --force-yes");
             if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
@@ -71,6 +79,16 @@ class AptUbuntu extends BasePackager {
     }
 
     public function update($autopilot = null) {
+        $out = $this->executeAndOutput("sudo apt-get update -y");
+        if (strpos($out, "Done") != false) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            return false ; }
+        return true ;
+    }
+
+    public function versionCompatible($autopilot = null) {
         $out = $this->executeAndOutput("sudo apt-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
