@@ -31,10 +31,9 @@ class IntelliJUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
         $this->uninstallCommands = array(
-            array("command" => array(
-                    "rm -rf ****PROGDIR****",
-                    "rm -rf ****PROG EXECUTOR****" ) )
-            );
+            array("command" => array("rm -rf ****PROGDIR****") ),
+            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
+        );
         $this->programDataFolder = "/opt/intellij"; // command and app dir name
         $this->programNameMachine = "intellij"; // command and app dir name
         $this->programNameFriendly = "Intelli J 12"; // 12 chars
