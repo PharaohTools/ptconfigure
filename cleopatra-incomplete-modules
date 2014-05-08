@@ -37,7 +37,6 @@ Modules Ensuring Versions
 ------------------------------------
 
 WAIT - Behat - Behat - The PHP BDD Testing Suite
-WAIT - Firefox - Firefox - Install or remove Firefox
 WAIT - Firewall - Add, Remove or Modify Firewalls
 WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
 WAIT - IntelliJ - IntelliJ - A great IDE from JetBrains
@@ -45,24 +44,25 @@ WAIT - Jenkins - Jenkins - The Java Build Server
 WAIT - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
 WAIT - NagiosServer - Nagios Server - Install or remove the Nagios Server
 WAIT - NginxServer - Nginx Server - Install or remove the Nginx Server
-WAIT - NodeJS - Node JS - The Server Side Javascript Engine
 WAIT - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
 WAIT - PostgresServer - Postgres Server - The Postgres RDBMS Server
 WAIT - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
 WAIT - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
-WAIT - SVN - SVN - The Source Control Manager
 WAIT - SeleniumServer - The Selenium Web Browser controlling server
 
 DONE - ApacheServer - Apache Server - Install or remove the Apache Server
 DONE - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra - PHPGITAPP GET TAG
 DONE - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool - PHPGITAPP GET TAG
+DONE - Firefox - Firefox - Install or remove Firefox
 DONE - Java - Java JDK 1.7
 DONE - JRush - JRush - The Joomla command line utility from Golden Contact - PHPGITAPP GET TAG
 DONE - MysqlServer - Mysql Server - The Mysql RDBMS Server
+DONE - NodeJS - Node JS - The Server Side Javascript Engine
 DONE - Parallax - Parallax - The parallel execution tool from Golden Contact - PHPGITAPP GET TAG
 DONE - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP - PHPGITAPP GET TAG
 DONE - Python - Python - The programming language
 DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen PHP - PHPGITAPP GET TAG
+DONE - SVN - SVN - The Source Control Manager
 
 ******************************
 

@@ -345,7 +345,9 @@ COMPLETION;
                 $out = $this->executeAndLoad($this->$property);
                 return new \Model\SoftwareVersion($this->$trimmer($out)) ; }
             else if (isset($this->$property)) {
-                return $this->executeAndLoad($this->$property); }
+                $versionText = $this->executeAndLoad($this->$property);
+                $versionObject = new \Model\SoftwareVersion($versionText) ;
+                return $versionObject ; }
             else {
                 \Core\BootStrap::setExitCode(1) ;
                 $logging->log("Cannot find version") ;
