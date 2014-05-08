@@ -72,10 +72,11 @@ class AutoPilotConfigured extends AutoPilot {
                     array("command" => "dapperstrano ApacheCtl restart --yes"),
                     array("background" => "") ) ),
 
-                // @todo GitLab
-                // Git Lab
+                // Git Bucket
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure GitLab is installed" ),),),
-                array ( "GitLab" => array( "ensure" => array(),),),
+                array ( "GitBucket" => array( "ensure" => array(
+                    array("guess" => true),
+                ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Git SCM server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
