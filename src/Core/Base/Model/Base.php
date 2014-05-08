@@ -316,18 +316,28 @@ COMPLETION;
 
     /*Versioning starts here*/
 
+    // @todo this and the method below rolled into one
     public function findVersion() {
         if (isset($this->params["version-type"])) {
             if (in_array($this->params["version-type"], array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))){
                 return $this->getVersion($this->params["version-type"]); }
             else {
+                \Core\BootStrap::setExitCode(1) ;
                 return "Wrong Version Type"; } }
         else {
            return $this->getVersion(); }
     }
 
+    // @todo this and the method above rolled into one
     public function getVersion($type = "Installed") {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (in_array($type, array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))) {
+            if (in_array($type, array("Installed", "installed"))) {
+                if ($this->askStatus() != true) {
+                    \Core\BootStrap::setExitCode(1) ;
+                    $logging->log("This program is not installed, so cannot find version") ;
+                    return false; } }
             $type = ucfirst($type) ;
             $property = "version{$type}Command" ;
             $trimmer = "{$property}Trimmer" ;
@@ -337,6 +347,8 @@ COMPLETION;
             else if (isset($this->$property)) {
                 return $this->executeAndLoad($this->$property); }
             else {
+                \Core\BootStrap::setExitCode(1) ;
+                $logging->log("Cannot find version") ;
                 return false; } }
         else {
             return false; }
