@@ -27,7 +27,24 @@ class PythonUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "python"; // command and app dir name
         $this->programNameFriendly = "!Python!!"; // 12 chars
         $this->programNameInstaller = "Python";
+        $this->versionInstalledCommand = "python --version 2>&1" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy python" ;
+        $this->versionLatestCommand = "sudo apt-cache policy python" ;
         $this->initialize();
+    }
+    public function versionInstalledCommandTrimmer($text) {
+        $done = substr($text, 7, strlen($text)-8) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 53, 17) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 53, 17) ;
+        return $done ;
     }
 
 }
