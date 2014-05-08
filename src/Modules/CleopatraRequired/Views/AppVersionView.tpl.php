@@ -26,7 +26,7 @@ if (isset($pageVars["appName"]) && isset($pageVars["versionResult"])) {
             in_array($pageVars["params"]["version-type"], array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))) {
             echo " ".ucfirst($pageVars["params"]["version-type"]) ; }
         echo " Version : " ;
-        echo $pageVars["versionResult"]."\n" ;
+        echo ($pageVars["versionResult"] == false) ? "No Result" : $pageVars["versionResult"]."\n" ;
     }
 
 }
