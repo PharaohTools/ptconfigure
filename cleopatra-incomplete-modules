@@ -26,17 +26,52 @@ ssh-encrypt (encrypt/decrypt a private key) 75% DONE
 (save decrypted private key somewhere) DECRYPT WILL DO THIS GIVEN A TARGET
 
 VERSIONING
+Versioning works for modules, but not for packages installed from modules, different code
 Should be able to specify what version of packages are required
 The version_compare function, already available in PHP will make this easy
 The only important ones are either software version should
 a) be exact
 b) be greater than
 
+Modules Ensuring Versions
+------------------------------------
+
+WAIT - Behat - Behat - The PHP BDD Testing Suite
+WAIT - Firefox - Firefox - Install or remove Firefox
+WAIT - Firewall - Add, Remove or Modify Firewalls
+WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
+WAIT - IntelliJ - IntelliJ - A great IDE from JetBrains
+WAIT - Jenkins - Jenkins - The Java Build Server
+WAIT - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
+WAIT - NagiosServer - Nagios Server - Install or remove the Nagios Server
+WAIT - NginxServer - Nginx Server - Install or remove the Nginx Server
+WAIT - NodeJS - Node JS - The Server Side Javascript Engine
+WAIT - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
+WAIT - PostgresServer - Postgres Server - The Postgres RDBMS Server
+WAIT - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
+WAIT - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
+WAIT - SVN - SVN - The Source Control Manager
+WAIT - SeleniumServer - The Selenium Web Browser controlling server
+
+DONE - ApacheServer - Apache Server - Install or remove the Apache Server
+DONE - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra - PHPGITAPP GET TAG
+DONE - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool - PHPGITAPP GET TAG
+DONE - Java - Java JDK 1.7
+DONE - JRush - JRush - The Joomla command line utility from Golden Contact - PHPGITAPP GET TAG
+DONE - MysqlServer - Mysql Server - The Mysql RDBMS Server
+DONE - Parallax - Parallax - The parallel execution tool from Golden Contact - PHPGITAPP GET TAG
+DONE - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP - PHPGITAPP GET TAG
+DONE - Python - Python - The programming language
+DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen PHP - PHPGITAPP GET TAG
+
+******************************
+
+
 
 Boxify Almost complete - Works smoothly on DigitalOcean, but there is a Problem. The SSH keys dont work,
 even when adding them manually via the digital ocean interface, cant login
 so, use Environmrntconfig with --keep-current-environemnts and --no-manual-servers to create an empty env.
-Then use boxify, and we can Invoke cli --env-name straight after
+Then use boxify, and we can Invoke cli --env-name straight after .
 BOX-MANAGER-SUPERCLASS
 BoxManager like packagemanager. This is barely started. write down a list of what this and scaler module needs.
 VERY IMPORTANT! Work out the interface for environment/box clouding, and smooth scaling. AWS and digital ocean
@@ -67,8 +102,11 @@ MVP ABOVE HERE
 Kind Of Important - will be luvvly
 -----------------------------------
 
+A file caching system for pharoah
+
 All Models of a particular Model group should have an interface
-We should have some kind of waiter function for the build process and autopilots, so
+
+We should have some kind of waiter module for the build process and autopilots, so
 I change my jenkins-server autopilot, during the build this is noticed, and an invoke script,
 tied to the autopilot (use a naming convention by default/guess maybe?)
 
@@ -106,6 +144,7 @@ WAIT - RubyRVM - Ruby RVM - The Ruby version manager
 
 Autopilot Definer
 ---------------
+Do we need this anymore
 Set this in the Parent constructor of Models. This removes a line from all default models constructors. it should
 always be the module name for a default model. This also removes confusion for a non default model it should be
 Module::ModelGroup.
@@ -130,6 +169,7 @@ Web Servers
 ----------------
 Zend Server  - HAVE APPROACHED ZEND TO DO THIS
 PHP VM  - GET FACEBOOK TO DO THIS
+Zephir
 
 
 
