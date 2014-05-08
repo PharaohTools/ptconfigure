@@ -42,6 +42,10 @@ class IntelliJUbuntu extends BaseLinuxApp {
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "intellij.sh";
         $this->programExecutorCommand = $this->programDataFolder.'/'.$this->programExecutorTargetPath;
+        $this->statusCommand = "cat /usr/bin/intellij > /dev/null 2>&1";
+        $this->versionInstalledCommand = 'echo "12.1"' ;
+        $this->versionRecommendedCommand = 'echo "12.1"' ;
+        $this->versionLatestCommand = 'echo "12.1"' ;
         $this->initialize();
     }
 
