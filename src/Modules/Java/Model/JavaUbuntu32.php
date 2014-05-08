@@ -25,7 +25,7 @@ class JavaUbuntu32 extends BaseLinuxApp {
                 "tar -xvf jdk-1_7-32bit.tar.gz" ,
                 "mkdir -p ****PROGDIR****" ,
                 "cp -r /tmp/oraclejdk/jdk1.7.0_55/* ****PROGDIR****" ,
-                // "rm -rf /tmp/oraclejdk" ,
+                "rm -rf /tmp/oraclejdk" ,
                 "cd ****PROGDIR****",
                 "chmod a+x ****PROGDIR****",
                 'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/profile',
@@ -51,6 +51,9 @@ class JavaUbuntu32 extends BaseLinuxApp {
         $this->programNameMachine = "java"; // command and app dir name
         $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
         $this->programNameInstaller = "The Oracle Java JDK 1.7";
+        $this->versionInstalledCommand = 'java -version 2>&1' ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy java" ;
+        $this->versionLatestCommand = "sudo apt-cache policy java" ;
         $this->initialize();
     }
 
@@ -62,6 +65,24 @@ class JavaUbuntu32 extends BaseLinuxApp {
         else {
             $question = "Enter Java Install Directory (no trailing slash):";
             $this->programDataFolder = self::askForInput($question, true); }
+    }
+
+    public function versionInstalledCommandTrimmer($text) {
+        $leftQuote = strpos($text, 'java version "') + 14 ;
+        $rightQuote = strpos($text, '"', $leftQuote) ;
+        $difference = $rightQuote - $leftQuote ;
+        $done = substr($text, $leftQuote, $difference) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 53, 17) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 53, 17) ;
+        return $done ;
     }
 
 }

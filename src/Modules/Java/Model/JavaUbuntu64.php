@@ -30,6 +30,10 @@ class JavaUbuntu64 extends BaseLinuxApp {
                 'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
                 'echo \'export JAVA_HOME\' >> /etc/profile',
                 'echo \'export PATH\' >> /etc/profile',
+                'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/bash.bashrc',
+                'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/bash.bashrc',
+                'echo \'export JAVA_HOME\' >> /etc/bash.bashrc',
+                'echo \'export PATH\' >> /etc/bash.bashrc',
                 'sudo update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
                 'sudo update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
                 'sudo update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
@@ -45,6 +49,9 @@ class JavaUbuntu64 extends BaseLinuxApp {
         $this->programNameMachine = "java"; // command and app dir name
         $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
         $this->programNameInstaller = "The Oracle Java JDK 1.7";
+        $this->versionInstalledCommand = 'java -version 2>&1' ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy java" ;
+        $this->versionLatestCommand = "sudo apt-cache policy java" ;
         $this->initialize();
     }
 
@@ -56,6 +63,24 @@ class JavaUbuntu64 extends BaseLinuxApp {
         else {
             $question = "Enter Java Install Directory (no trailing slash):";
             $this->programDataFolder = self::askForInput($question, true); }
+    }
+
+    public function versionInstalledCommandTrimmer($text) {
+        $leftQuote = strpos($text, 'java version "') + 14 ;
+        $rightQuote = strpos($text, '"', $leftQuote) ;
+        $difference = $rightQuote - $leftQuote ;
+        $done = substr($text, $leftQuote, $difference) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 53, 17) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 53, 17) ;
+        return $done ;
     }
 
 }
