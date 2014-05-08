@@ -132,6 +132,7 @@ class EnvironmentConfigAllLinux extends Base {
                     if ($res==true) {
                         $logging->log("Removing environment $envName.") ;
                         unset ($this->environments[$keys[$i]]) ;
+                        $this->environments = array_merge($this->environments);
                         continue ; } } } }
         else {
             $logging->log("No environments exist here. Nothing to delete.") ; }
