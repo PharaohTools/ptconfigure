@@ -17,7 +17,7 @@ class SVNInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("svn"=>"SVN");
+      return array("svn"=>"SVN", "subversion"=>"SVN");
     }
 
     public function helpDefinition() {
@@ -28,8 +28,12 @@ class SVNInfo extends CleopatraBase {
   SVN, svn
 
         - install
-        Installs the latest version of SVN
+        Installs the latest available (In your package manager) version of SVN
         example: cleopatra svn install
+
+        - uninstall
+        Installs the latest version of SVN
+        example: cleopatra svn uninstall
 
 HELPDATA;
       return $help ;
