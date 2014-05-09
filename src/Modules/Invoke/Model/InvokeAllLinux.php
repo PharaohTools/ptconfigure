@@ -122,9 +122,10 @@ class InvokeAllLinux extends Base {
 
     // @todo it currently looks for both pword and password lets stick to one
     private function attemptSSH2Connection($server) {
-        $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
-        $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
-        require_once($ssh2File) ;
+        if (!class_exists('Net_SSH2')) {
+            $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
+            $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
+            require_once($ssh2File) ; }
         $ssh = new \Net_SSH2($server["target"], 22, $this->params["timeout"]);
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
@@ -135,9 +136,10 @@ class InvokeAllLinux extends Base {
 
     private function getKeyIfAvailable($pword) {
         if (file_exists($pword)) {
-            $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
-            $rsaFile = $srcFolder."/Libraries/seclib/Crypt/RSA.php" ;
-            require_once($rsaFile) ;
+            if (!class_exists('Crypt_RSA')) {
+                $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
+                $rsaFile = $srcFolder."/seclib/Crypt/RSA.php" ;
+                require_once($rsaFile) ; }
             $key = new \Crypt_RSA();
             $key->loadKey(file_get_contents($pword));
             return $key ; }
