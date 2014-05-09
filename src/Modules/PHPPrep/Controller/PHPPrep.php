@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Cleofy extends Base {
+class PHPPrep extends Base {
 
     private $injectedActions = array();
 
@@ -20,18 +20,18 @@ class Cleofy extends Base {
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
         if ($action=="standard") {
-          $this->content["result"] = $thisModel->askWhetherToCleofy();
-          return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
+          $this->content["result"] = $thisModel->askWhetherToPHPPrep();
+          return array ("type"=>"view", "view"=>"phpprep", "pageVars"=>$this->content); }
 
         else if (in_array($action, array_keys($this->injectedActions))) {
           $extendedModel = new $this->injectedActions[$action]() ;
-          $this->content["result"] = $extendedModel->askWhetherToCleofy();
-          return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content);
+          $this->content["result"] = $extendedModel->askWhetherToPHPPrep();
+          return array ("type"=>"view", "view"=>"phpprep", "pageVars"=>$this->content);
         }
 
     }
 
-    public function injectCleofyAction($action, $modelName) {
+    public function injectPHPPrepAction($action, $modelName) {
        $this->injectedActions[] = array($action => $modelName);
     }
 

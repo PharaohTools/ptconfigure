@@ -15,34 +15,27 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets begin invoking Configuration of a Bastion server on environment <%tpl.php%>env_name</%tpl.php%>"),
-                ) ),
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "First lets SFTP over our Bastion Server CM Autopilot"),
-                ) ),
-                array ( "SFTP" => array( "copy" =>
-                    array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php" ),
-                    array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php" ),
-                    array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets run that autopilot"),
-                ) ),
-                array ( "Invoke" => array( "data" =>
-                    array("ssh-data" => $this->setSSHData() ),
-                    array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Invoking a Bastion server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
-                ) ),
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Lets begin invoking PHP initial install on environment <%tpl.php%>env_name</%tpl.php%>"
+                ), ), ),
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Lets SSH our PHP Install Command"
+                ), ), ),
+                array ( "Invoke" => array( "data" => array(
+                    "guess" => true,
+                    "ssh-data" => $this->setSSHData(),
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
+                ), ), ),
+                array ( "Logging" => array( "log" => array(
+                     "log-message" => "Invoking a PHP initial install on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                ), ), ),
             );
 
     }
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot execute /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php
+sudo apt-get install -y php5
 SSHDATA;
         return $sshData ;
     }
