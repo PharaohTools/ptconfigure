@@ -30,8 +30,9 @@ class SFTPAllLinux extends Base {
         $sourceDataPath = $this->getSourceFilePath("local") ;
         $sourceData = $this->attemptToLoad($sourceDataPath) ;
         if (is_null($sourceData)) {
-            // @todo make this a logging call not an echo
-            echo "SFTP Put will cancel, no source file\n" ;
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("SFTP Put will cancel, no source file") ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote") ;
         echo "Opening SFTP Connections...\n"  ;
@@ -47,8 +48,6 @@ class SFTPAllLinux extends Base {
         if (file_exists($sourceDataPath)) {
             return file_get_contents($sourceDataPath) ; }
         else {
-            // @todo make this a logging call not an echo
-            echo "SFTP Could not load source file\n" ;
             return null ; }
     }
 
@@ -124,10 +123,7 @@ class SFTPAllLinux extends Base {
                 echo "Connection to Server {$server["target"]} failed.\n";
                 $server["sftpObject"] = null ; }
             else {
-                $server["sftpObject"] = $attempt ;
-                // echo $this->changeBashPromptToPharoah($server["sftpObject"]);
-                // echo $this->doSFTPCopy($server["sftpObject"], 'echo "Pharoah Remote SFTP on ...'.$server["target"].'"', true ) ;
-            } }
+                $server["sftpObject"] = $attempt ; } }
         return true;
     }
 
@@ -141,8 +137,20 @@ class SFTPAllLinux extends Base {
         $sftp = new \Net_SFTP($server["target"]);
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
+        $pword = $this->getKeyIfAvailable($pword);
         if ($sftp->login($server["user"], $pword) == true) { return $sftp; }
         return null;
+    }
+
+    private function getKeyIfAvailable($pword) {
+        if (file_exists($pword)) {
+            $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
+            $rsaFile = $srcFolder."/Libraries/seclib/Crypt/RSA.php" ;
+            require_once($rsaFile) ;
+            $key = new \Crypt_RSA();
+            $key->loadKey(file_get_contents($pword));
+            return $key ; }
+        return $pword ;
     }
 
     private function askForSFTPExecute(){
