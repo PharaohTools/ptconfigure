@@ -48,7 +48,6 @@ WAIT - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing sta
 WAIT - PostgresServer - Postgres Server - The Postgres RDBMS Server
 WAIT - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
 WAIT - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
-WAIT - SeleniumServer - The Selenium Web Browser controlling server
 
 DONE - ApacheServer - Apache Server - Install or remove the Apache Server
 DONE - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra - PHPGITAPP GET TAG
@@ -62,6 +61,7 @@ DONE - Parallax - Parallax - The parallel execution tool from Golden Contact - P
 DONE - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP - PHPGITAPP GET TAG
 DONE - Python - Python - The programming language
 DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen PHP - PHPGITAPP GET TAG
+WAIT - SeleniumServer - The Selenium Web Browser controlling server
 DONE - SVN - SVN - The Source Control Manager
 
 ******************************
@@ -101,6 +101,8 @@ MVP ABOVE HERE
 
 Kind Of Important - will be luvvly
 -----------------------------------
+
+Module Handler. Get new Modules, Delete Modules, Disable, Enable
 
 A file caching system for pharoah
 
