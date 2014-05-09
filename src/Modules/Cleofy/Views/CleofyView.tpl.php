@@ -1,6 +1,3 @@
-<?php
-
-   echo $pageVars["genCreateResult"] ;
-?>
+<?php echo ($pageVars["result"] == true) ? "Success" : "Failure" ; ?>
 
 In Cleofy
