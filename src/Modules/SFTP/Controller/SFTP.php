@@ -16,12 +16,15 @@ class SFTP extends Base {
         $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="put") {
-            $this->content["shlResult"] = $thisModel->askWhetherToSFTPPut();
+            $this->content["result"] = $thisModel->askWhetherToSFTPPut();
             return array ("type"=>"view", "view"=>"SFTP", "pageVars"=>$this->content); }
 
         if ($action=="get") {
-            $this->content["shlResult"] = $thisModel->askWhetherToSFTPGet();
+            $this->content["result"] = $thisModel->askWhetherToSFTPGet();
             return array ("type"=>"view", "view"=>"SFTP", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
 
