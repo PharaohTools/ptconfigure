@@ -20,12 +20,12 @@ class Cleofy extends Base {
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
         if ($action=="standard") {
-          $this->content["genCreateResult"] = $thisModel->askWhetherToCleofy();
+          $this->content["result"] = $thisModel->askWhetherToCleofy();
           return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
 
         else if (in_array($action, array_keys($this->injectedActions))) {
           $extendedModel = new $this->injectedActions[$action]() ;
-          $this->content["genCreateResult"] = $extendedModel->askWhetherToCleofy();
+          $this->content["result"] = $extendedModel->askWhetherToCleofy();
           return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content);
         }
 
