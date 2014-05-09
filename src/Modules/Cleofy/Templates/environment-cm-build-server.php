@@ -81,8 +81,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Testingkamen" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
                 array ( "Parallax" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jrush for Joomla" ),),),
-                array ( "Jrush" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure JRush for Joomla" ),),),
+                array ( "JRush" => array( "ensure" => array(),),),
 
                 // Drush
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),

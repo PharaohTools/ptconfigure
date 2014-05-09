@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class CleofyUbuntu extends Base {
+class PHPPrepUbuntu extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -21,17 +21,17 @@ class CleofyUbuntu extends Base {
       parent::__construct($params);
     }
 
-    public function askWhetherToCleofy() {
-        if ($this->askToScreenWhetherToCleofy() != true) { return false; }
+    public function askWhetherToPHPPrep() {
+        if ($this->askToScreenWhetherToPHPPrep() != true) { return false; }
         $this->setEnvironmentReplacements() ;
         $this->getEnvironments() ;
-        $this->doCleofy() ;
+        $this->doPHPPrep() ;
         return true;
     }
 
-    public function askToScreenWhetherToCleofy() {
+    public function askToScreenWhetherToPHPPrep() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Cleofy This?';
+        $question = 'PHPPrep This?';
         return self::askYesOrNo($question, true);
     }
 
@@ -60,7 +60,7 @@ class CleofyUbuntu extends Base {
         return $serversText;
     }
 
-    private function doCleofy() {
+    private function doPHPPrep() {
       $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
       $templates = scandir($templatesDir);
       foreach ($this->environments as $environment) {
