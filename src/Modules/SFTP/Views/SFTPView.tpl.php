@@ -1,23 +1,17 @@
 <?php
 
-if ($pageVars["route"]["action"]=="data") {
+if ($pageVars["route"]["action"]=="put") {
 ?>
 
-SFTP SSH Data Result: <?php echo $pageVars["shlResult"] ; ?>
+SFTP Put: <?php echo ($pageVars["shlResult"] == true) ? "Success" : "Failure" ; ?>
 
 <?php
 
-} else if ($pageVars["route"]["action"]=="cli") {
+} else if ($pageVars["route"]["action"]=="get") {
     ?>
-Shell Result: <?php echo $pageVars["shlResult"]  ; ?>
+Shell Result: <?php echo ($pageVars["shlResult"] == true) ? "Success" : "Failure" ; ?>
 
-SFTP Shell Cli
-<?php
-} else if ($pageVars["route"]["action"]=="script") {
-    ?>
-Shell Result: <?php echo $pageVars["shlResult"]  ; ?>
-
-SFTP Script
+SFTP Get
 <?php
 } ?>
 
