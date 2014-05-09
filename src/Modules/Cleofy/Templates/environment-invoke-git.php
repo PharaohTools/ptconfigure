@@ -21,11 +21,11 @@ class AutoPilotConfigured extends AutoPilot {
             array ( "Logging" => array( "log" =>
                 array( "log-message" => "First lets SFTP over our Git SCM Server CM Autopilot"),
             ) ),
-            array ( "SFTP" => array( "copy" =>
+            array ( "SFTP" => array( "put" =>  array(
                 array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-git.php" ),
                 array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-git.php" ),
                 array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
-            ) , ) ,
+            ), ) , ) ,
             array ( "Logging" => array( "log" =>
                 array( "log-message" => "Lets run that autopilot"),
             ) ),

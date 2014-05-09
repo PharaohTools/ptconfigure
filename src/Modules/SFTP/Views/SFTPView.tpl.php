@@ -3,13 +3,13 @@
 if ($pageVars["route"]["action"]=="put") {
 ?>
 
-SFTP Put: <?php echo ($pageVars["shlResult"] == true) ? "Success" : "Failure" ; ?>
+SFTP Put: <?php echo ($pageVars["result"] == true) ? "Success" : "Failure" ; ?>
 
 <?php
 
 } else if ($pageVars["route"]["action"]=="get") {
     ?>
-Shell Result: <?php echo ($pageVars["shlResult"] == true) ? "Success" : "Failure" ; ?>
+Shell Result: <?php echo ($pageVars["result"] == true) ? "Success" : "Failure" ; ?>
 
 SFTP Get
 <?php
