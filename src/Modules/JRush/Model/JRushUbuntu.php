@@ -30,6 +30,6 @@ class JRushUbuntu extends BasePHPApp {
         $this->programNameInstaller = "JRush - Joomla Command Line";
         $this->programExecutorTargetPath = 'jrush/src/Bootstrap.php';
         $this->initialize();
-      }
+    }
 
 }
