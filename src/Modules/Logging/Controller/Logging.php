@@ -21,6 +21,9 @@ class Logging extends Base {
             $this->content["genCreateResult"] = $thisModel->askInstall();
             return array ("type"=>"view", "view"=>"AppInstall", "pageVars"=>$this->content); }
 
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+
     }
 
 }
