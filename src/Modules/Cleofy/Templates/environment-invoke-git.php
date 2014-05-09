@@ -16,14 +16,14 @@ class AutoPilotConfigured extends AutoPilot {
     $this->steps =
         array(
             array ( "Logging" => array( "log" =>
-                array( "log-message" => "Lets begin invoking Configuration of Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%>"),
+                array( "log-message" => "Lets begin invoking Configuration of a Git SCM Server on environment <%tpl.php%>env_name</%tpl.php%>"),
             ) ),
             array ( "Logging" => array( "log" =>
-                array( "log-message" => "First lets SFTP over our Cleo Dapper CM Autopilot"),
+                array( "log-message" => "First lets SFTP over our Git SCM Server CM Autopilot"),
             ) ),
             array ( "SFTP" => array( "copy" =>
-                array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php" ),
-                array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php" ),
+                array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-git.php" ),
+                array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-git.php" ),
                 array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
             ) , ) ,
             array ( "Logging" => array( "log" =>
@@ -34,7 +34,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
             ) , ) ,
             array ( "Logging" => array( "log" =>
-                array( "log-message" => "Invoking Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+                array( "log-message" => "Invoking Git SCM Server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
             ) ),
         );
 
@@ -42,7 +42,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php
+sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-git.php
 SSHDATA;
         return $sshData ;
     }

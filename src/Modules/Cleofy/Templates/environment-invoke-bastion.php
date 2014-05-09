@@ -16,14 +16,14 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets begin invoking Configuration of a build server on environment <%tpl.php%>env_name</%tpl.php%>"),
+                    array( "log-message" => "Lets begin invoking Configuration of a Bastion server on environment <%tpl.php%>env_name</%tpl.php%>"),
                 ) ),
                 array ( "Logging" => array( "log" =>
-                    array( "log-message" => "First lets SFTP over our Build Server CM Autopilot"),
+                    array( "log-message" => "First lets SFTP over our Bastion Server CM Autopilot"),
                 ) ),
                 array ( "SFTP" => array( "copy" =>
-                    array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php" ),
-                    array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php" ),
+                    array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php" ),
+                    array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php" ),
                     array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
                 ) , ) ,
                 array ( "Logging" => array( "log" =>
@@ -34,7 +34,7 @@ class AutoPilotConfigured extends AutoPilot {
                     array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
                 ) , ) ,
                 array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Invoking a build server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
+                    array( "log-message" => "Invoking a Bastion server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
                 ) ),
             );
 
@@ -42,7 +42,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot execute /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php
+sudo cleopatra autopilot execute /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php
 SSHDATA;
         return $sshData ;
     }
