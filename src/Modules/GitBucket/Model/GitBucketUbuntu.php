@@ -23,7 +23,7 @@ class GitBucketUbuntu extends BaseLinuxApp {
                 "cd /tmp" ,
                 "mkdir -p /tmp/gitbucket" ,
                 "cd /tmp/gitbucket" ,
-                "wget http://github.com/takezoe/gitbucket/releases/tag/1.13",
+                "wget http://github.com/takezoe/gitbucket/releases/tag/1.13/gitbucket.war",
                 "mkdir -p ****PROGDIR****",
                 "mv /tmp/gitbucket/* ****PROGDIR****",
                 "rm -rf /tmp/gitbucket/" ) ) ,
@@ -70,7 +70,7 @@ class GitBucketUbuntu extends BaseLinuxApp {
     }
 
     public function setExecutorCommand() {
-        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . 'gitbucket.jar';
+        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . 'gitbucket.war';
     }
 
     public function versionInstalledCommandTrimmer($text) {
