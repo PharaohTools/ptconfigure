@@ -42,31 +42,32 @@ Modules Ensuring Versions
 
 WAIT - Behat - Behat - The PHP BDD Testing Suite
 WAIT - Firewall - Add, Remove or Modify Firewalls
-WAIT - Jenkins - Jenkins - The Java Build Server
-WAIT - NagiosServer - Nagios Server - Install or remove the Nagios Server
 WAIT - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
-WAIT - PostgresServer - Postgres Server - The Postgres RDBMS Server
 WAIT - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
-WAIT - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
 
 DONE - ApacheServer - Apache Server - Install or remove the Apache Server
 DONE - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra - PHPGITAPP GET TAG
 DONE - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool - PHPGITAPP GET TAG
 DONE - Firefox - Firefox - Install or remove Firefox
 DONE - IntelliJ - IntelliJ - A great IDE from JetBrains
-WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
+DONE - GitBucket - Git Bucket - The Git SCM Management Web Application
 DONE - Java - Java JDK 1.7
+DONE - Jenkins - Jenkins - The Java Build Server
 DONE - JRush - JRush - The Joomla command line utility from Golden Contact - PHPGITAPP GET TAG
 DONE - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
 DONE - MysqlServer - Mysql Server - The Mysql RDBMS Server
+DONE - NagiosServer - Nagios Server - Install or remove the Nagios Server
 DONE - NginxServer - Nginx Server - Install or remove the Nginx Server
 DONE - NodeJS - Node JS - The Server Side Javascript Engine
 DONE - Parallax - Parallax - The parallel execution tool from Golden Contact - PHPGITAPP GET TAG
 DONE - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP - PHPGITAPP GET TAG
+DONE - PostgresServer - Postgres Server - The Postgres RDBMS Server
+DONE - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
 DONE - Python - Python - The programming language
 DONE - Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen PHP - PHPGITAPP GET TAG
-WAIT - SeleniumServer - The Selenium Web Browser controlling server
+DONE - SeleniumServer - The Selenium Web Browser controlling server
 DONE - SVN - SVN - The Source Control Manager
+
 
 ******************************
 
@@ -144,9 +145,6 @@ WAIT - SshHarden - Apply security functions to the SSH accounts/setup of the mac
 WAIT - Gem - Ruby Gems Package Manager
 WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
 WAIT - GitLab - Git Lab - The Git SCM Management Web Application
-WAIT - Jenkins - Jenkins - The Java Build Server ITS A JAVA PROGRAM NOT SURE HOW TO DO INST CHECK YET
-WAIT - NodeJS - Node JS - The Server Side Javascript Engine  (looks like it should work but node not installed to check)
-WAIT - Pear - Pear Package Manager
 WAIT - RubyRVM - Ruby RVM - The Ruby version manager
 
 
@@ -677,3 +675,11 @@ parameters it accepts. It also means that the generator will be much easier to w
 the generator can look great.
 
 Pharoah exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)
+
+
+status done
+--------------
+
+DONE - Jenkins - Jenkins - The Java Build Server
+DONE - NodeJS - Node JS - The Server Side Javascript Engine  (looks like it should work but node not installed to check)
+DONE - Pear - Pear Package Manager
