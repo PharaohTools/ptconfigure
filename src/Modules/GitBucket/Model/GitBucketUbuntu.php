@@ -39,7 +39,7 @@ class GitBucketUbuntu extends BaseLinuxApp {
         $this->programDataFolder = "/opt/gitbucket/";
         $this->programNameMachine = "gitbucket"; // command and app dir name
         $this->programNameFriendly = "!GitBucket!"; // 12 chars
-        $this->programNameInstaller = "Git Lab";
+        $this->programNameInstaller = "Git Bucket";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "gitbucket";
         $this->versionInstalledCommand = 'echo "1.13"' ;
@@ -49,7 +49,7 @@ class GitBucketUbuntu extends BaseLinuxApp {
     }
 
     public function executeDependencies() {
-        $gitToolsFactory = new \Model\GitTools($this->params);
+        $gitToolsFactory = new \Model\GitTools();
         $gitTools = new $gitToolsFactory->getModel($this->params);
         $gitTools->ensureInstalled();
         $javaFactory = new \Model\Java();
