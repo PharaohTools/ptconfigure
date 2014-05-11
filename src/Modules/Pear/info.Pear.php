@@ -14,8 +14,8 @@ class PearInfo extends CleopatraBase {
 
     public function routesAvailable() {
         // return array( "Pear" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "Pear" =>  array_merge(
-            array("help", "pkg-install", "pkg-exists", "pkg-remove", "channel-discover", "channel-delete")
+        return array( "Pear" =>  array_merge(parent::routesAvailable(),
+            array("pkg-install", "pkg-exists", "pkg-remove", "channel-discover", "channel-delete")
         ) );
     }
 
