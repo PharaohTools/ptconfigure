@@ -16,16 +16,16 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Lets begin invoking Configuration of a Bastion server on environment <%tpl.php%>env_name</%tpl.php%>"
-                ), ) ),
+                    "log-message" => "Lets begin invoking Configuration of an Updated Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%>"
+                ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "First lets SFTP over our Bastion Server CM Autopilot"
+                    "log-message" => "First lets SFTP over our Cleo Dapper CM Autopilot"
                 ), ) ),
                 array ( "SFTP" => array( "put" => array(
-                    "source" => getcwd()."/build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php",
-                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php",
-                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
-                ) , ) , ) ,
+                    "source" => getcwd()."/build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php",
+                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php",
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
+                ) , ) , ),
                 array ( "Logging" => array( "log" => array(
                     "log-message" => "Lets run that autopilot"
                 ), ) ),
@@ -35,7 +35,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Invoking a Bastion server on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                    "log-message" => "Invoking an update of Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"
                 ), ) ),
             );
 
@@ -43,7 +43,8 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot execute /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php
+sudo cleopatra cleopatra install --yes --guess
+sudo cleopatra dapperstrano install --yes --guess
 SSHDATA;
         return $sshData ;
     }

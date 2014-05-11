@@ -17,17 +17,17 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Jenkins build server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
-                // Install Keys - Bastion Public Key
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
-                array ( "Copy" => array( "file" =>
-                    array("from" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
-                    array("to" => "$HOME/.ssh/id_rsa"),
-                    // @todo Fix this Standalone Server
-                ),),
+//                // Install Keys - Bastion Public Key
+//                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
+//                array ( "Copy" => array( "file" =>
+//                    array("from" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+//                    array("to" => "$HOME/.ssh/id_rsa"),
+//                    // @todo Fix this Standalone Server
+//                ),),
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
-                array ( "SSHHarden" => array( "ensure" => array(),),),
+                array ( "SshHarden" => array( "ensure" => array(),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
