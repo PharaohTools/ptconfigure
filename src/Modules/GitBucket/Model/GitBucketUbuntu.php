@@ -50,10 +50,10 @@ class GitBucketUbuntu extends BaseLinuxApp {
 
     public function executeDependencies() {
         $gitToolsFactory = new \Model\GitTools();
-        $gitTools = new $gitToolsFactory->getModel($this->params);
+        $gitTools = $gitToolsFactory->getModel($this->params);
         $gitTools->ensureInstalled();
         $javaFactory = new \Model\Java();
-        $java = new $javaFactory->getModel($this->params);
+        $java = $javaFactory->getModel($this->params);
         $java->ensureInstalled();
     }
 
