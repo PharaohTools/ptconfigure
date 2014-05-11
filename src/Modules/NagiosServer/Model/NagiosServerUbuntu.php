@@ -28,7 +28,25 @@ class NagiosServerUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "Nagios Server!"; // 12 chars
         $this->programNameInstaller = "Nagios Server";
         $this->statusCommand = "sudo nagios3 --version" ;
+        $this->versionInstalledCommand = "sudo apt-cache policy nagios3" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy nagios3" ;
+        $this->versionLatestCommand = "sudo apt-cache policy nagios3" ;
         $this->initialize();
+    }
+
+    public function versionInstalledCommandTrimmer($text) {
+        $done = substr($text, 22, 15) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 42, 14) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 42, 14) ;
+        return $done ;
     }
 
 }
