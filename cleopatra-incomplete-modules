@@ -30,20 +30,20 @@ Versioning works for modules, but not for packages installed from modules, diffe
 Should be able to specify what version of packages are required
 The version_compare function, already available in PHP will make this easy
 The only important ones are either software version should
-a) be exact
-b) be greater than
+a) be exact DONE
+b) be greater than DONE
+also maybe
+c) greater than and less than
+possibly
+d) not equal to
 
 Modules Ensuring Versions
 ------------------------------------
 
 WAIT - Behat - Behat - The PHP BDD Testing Suite
 WAIT - Firewall - Add, Remove or Modify Firewalls
-WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
-WAIT - IntelliJ - IntelliJ - A great IDE from JetBrains
 WAIT - Jenkins - Jenkins - The Java Build Server
-WAIT - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
 WAIT - NagiosServer - Nagios Server - Install or remove the Nagios Server
-WAIT - NginxServer - Nginx Server - Install or remove the Nginx Server
 WAIT - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
 WAIT - PostgresServer - Postgres Server - The Postgres RDBMS Server
 WAIT - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
@@ -53,9 +53,13 @@ DONE - ApacheServer - Apache Server - Install or remove the Apache Server
 DONE - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra - PHPGITAPP GET TAG
 DONE - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool - PHPGITAPP GET TAG
 DONE - Firefox - Firefox - Install or remove Firefox
+DONE - IntelliJ - IntelliJ - A great IDE from JetBrains
+WAIT - GitBucket - Git Bucket - The Git SCM Management Web Application
 DONE - Java - Java JDK 1.7
 DONE - JRush - JRush - The Joomla command line utility from Golden Contact - PHPGITAPP GET TAG
+DONE - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
 DONE - MysqlServer - Mysql Server - The Mysql RDBMS Server
+DONE - NginxServer - Nginx Server - Install or remove the Nginx Server
 DONE - NodeJS - Node JS - The Server Side Javascript Engine
 DONE - Parallax - Parallax - The parallel execution tool from Golden Contact - PHPGITAPP GET TAG
 DONE - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP - PHPGITAPP GET TAG
@@ -72,6 +76,8 @@ Boxify Almost complete - Works smoothly on DigitalOcean, but there is a Problem.
 even when adding them manually via the digital ocean interface, cant login
 so, use Environmrntconfig with --keep-current-environemnts and --no-manual-servers to create an empty env.
 Then use boxify, and we can Invoke cli --env-name straight after .
+This does work, but i think i had a dodgy
+
 BOX-MANAGER-SUPERCLASS
 BoxManager like packagemanager. This is barely started. write down a list of what this and scaler module needs.
 VERY IMPORTANT! Work out the interface for environment/box clouding, and smooth scaling. AWS and digital ocean
