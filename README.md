@@ -1,8 +1,6 @@
 # Cleopatra, Pharoah Tools
--------------------
 
 ## About:
------------------
 
 Configuration Management, Systems Automation and Infrastructure by Code in PHP. Provision your boxes manually or
 with an Operating System agnostic method of ensuring environment stability.
@@ -21,7 +19,7 @@ Currently, all of the Modules work on Ubuntu 12, most on 13, and a few on Centos
 
     
 ## Installation
------------------
+
 On your Mac, Linux, Unix or Windows Machine, you'll need to install Git and PHP5. If you don't have either, google
 them they are easy to install. To install cleopatra cli on your machine do the following at the command line.
 
@@ -36,7 +34,6 @@ git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install (
 
 
 ## Usage:
------------------
 
 So, there are a few simple commands...
 
