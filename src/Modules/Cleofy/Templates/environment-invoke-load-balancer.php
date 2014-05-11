@@ -16,14 +16,14 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Lets begin invoking Configuration of Load Balancer on environment <%tpl.php%>env_name</%tpl.php%>"
+                    "log-message" => "Lets begin invoking Configuration of Apache Load Balancer on environment <%tpl.php%>env_name</%tpl.php%>"
                 ), ) ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "First lets SFTP over our Load Balancer CM Autopilot",
+                    "log-message" => "First lets SFTP over our Apache Load Balancer CM Autopilot",
                 ), ), ),
                 array ( "SFTP" => array( "put" =>  array(
-                    "source" => getcwd()."/build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-load-balancer.php",
-                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-load-balancer.php",
+                    "source" => getcwd()."/build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-standalone-server.php",
+                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-standalone-server.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" =>array(
@@ -35,7 +35,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Invoking Configuration of Load Balancer on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                    "log-message" => "Invoking Configuration of Apache Load Balancer on environment <%tpl.php%>env_name</%tpl.php%> complete"
                 ), ), ),
             );
 
@@ -44,7 +44,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-load-balancer.php
+sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-standalone-server.php
 SSHDATA;
         return $sshData ;
     }

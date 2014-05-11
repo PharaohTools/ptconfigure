@@ -16,10 +16,10 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Lets begin invoking Configuration of a MySQL Database Slave Node on environment <%tpl.php%>env_name</%tpl.php%>"
+                    "log-message" => "Lets begin invoking Configuration of Mysql DB Server Slave Node on environment <%tpl.php%>env_name</%tpl.php%>"
                 ), ) ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "First lets SFTP over our DB Slave CM Autopilot",
+                    "log-message" => "First lets SFTP over our Mysql DB Server Slave Node CM Autopilot",
                 ), ), ),
                 array ( "SFTP" => array( "put" =>  array(
                     "source" => getcwd()."/build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-db-node.php",
@@ -35,7 +35,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Invoking Configuration of a MySQL Database Slave Node on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                    "log-message" => "Invoking Configuration of Mysql DB Server Slave Node on environment <%tpl.php%>env_name</%tpl.php%> complete"
                 ), ), ),
             );
 
