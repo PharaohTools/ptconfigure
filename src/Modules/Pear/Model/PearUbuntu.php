@@ -32,7 +32,26 @@ class PearUbuntu extends BasePackager {
         $this->programNameMachine = "pear"; // command and app dir name
         $this->programNameFriendly = "!Pear!!"; // 12 chars
         $this->programNameInstaller = "Pear";
+        $this->statusCommand = "pear version" ;
+        $this->versionInstalledCommand = "sudo apt-cache policy php-pear" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy php-pear" ;
+        $this->versionLatestCommand = "sudo apt-cache policy php-pear" ;
         $this->initialize();
+    }
+
+    public function versionInstalledCommandTrimmer($text) {
+        $done = substr($text, 23, 18) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 55, 18) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 55, 18) ;
+        return $done ;
     }
 
     public function isInstalled($packageName) {
