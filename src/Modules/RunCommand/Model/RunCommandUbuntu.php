@@ -57,7 +57,7 @@ class RunCommandUbuntu extends BaseLinuxApp {
         else if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])==0) {
             $this->runUser = null ; }
         else {
-            $this->runUser = self::askForInput($question); }
+            $this->runUser = null ; }
     }
 
     public function askForCommand() {
