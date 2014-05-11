@@ -71,7 +71,7 @@ class InvokeAllLinux extends Base {
                 echo "[".$server["target"]."] Executing $sshCommand...\n"  ;
                 echo $this->doSSHCommand($server["ssh2Object"], $sshCommand ) ;
                 echo "[".$server["target"]."] $sshCommand Completed...\n"  ; } }
-        echo "Data by SSH Completed";
+        echo "Data by SSH Completed\n";
         return true;
     }
 
