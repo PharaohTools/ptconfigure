@@ -45,6 +45,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
 sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-web-node.php
+rm /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-web-node.php
 SSHDATA;
         return $sshData ;
     }
