@@ -35,6 +35,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
+sudo apt-get update
 sudo apt-get install -y php5 git
 SSHDATA;
         return $sshData ;
