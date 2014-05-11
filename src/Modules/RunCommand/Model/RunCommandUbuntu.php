@@ -67,11 +67,13 @@ class RunCommandUbuntu extends BaseLinuxApp {
     public function askForBackground() {
         $question = "Run in Background?";
         if (isset($this->params["background"]) && strlen($this->params["background"])>0) {
-            $this->background = $this->params["background"] ; }
+            $this->background = true ; }
+        else if (isset($this->params["background"]) && $this->params["background"]===true) {
+            $this->background = true ; }
         else if (isset($this->params["background"]) && strlen($this->params["background"])==0) {
             $this->background = null ; }
         else {
-            $this->background = self::askForInput($question); }
+            $this->background = null; }
     }
 
 }
