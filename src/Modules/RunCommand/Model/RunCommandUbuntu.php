@@ -65,7 +65,6 @@ class RunCommandUbuntu extends BaseLinuxApp {
     }
 
     public function askForBackground() {
-        $question = "Run in Background?";
         if (isset($this->params["background"]) && strlen($this->params["background"])>0) {
             $this->background = true ; }
         else if (isset($this->params["background"]) && $this->params["background"]===true) {
