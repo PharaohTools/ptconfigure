@@ -40,11 +40,13 @@ class RunCommandUbuntu extends BaseLinuxApp {
         $commandRay = array() ;
         $commandRay[] = "cd ".getcwd() ;
         if (isset($this->runUser) && !is_null($this->runUser))  {
-            $commandRay[] = "su ".$this->runUser ; }
+            $commandRay[] = "su  ".$this->runUser ; }
         if (isset($this->background) && !is_null($this->background))  {
             $commandRay[] = $this->command.' &' ; }
         else  {
             $commandRay[] = $this->command ; }
+        if (isset($this->runUser) && !is_null($this->runUser))  {
+            $commandRay[] = "exit" ; }
         $this->executeAsShell($commandRay) ;
     }
 
