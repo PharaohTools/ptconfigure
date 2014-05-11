@@ -42,7 +42,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
-                array ( "SSHHarden" => array( "ensure" => array(),),),
+                array ( "SshHarden" => array( "ensure" => array(),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
@@ -66,25 +66,25 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Restart Apache for new modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
-                array ( "RunCommand" => array( "install" =>
-                    array("guess" => true),
-                    array("username" => "root"),
-                    array("command" => "dapperstrano ApacheCtl restart --yes"),
-                    array("background" => "") ) ),
+                array ( "RunCommand" => array( "install" => array(
+                    "guess" => true,
+                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "background" => ""
+                ) ) ),
 
                 // Install Git Bucket
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure GitBucket is installed" ),),),
                 array ( "GitBucket" => array( "ensure" => array(
-                    array("guess" => true),
+                    "guess" => true,
                 ),),),
 
                 // Start Git Bucket
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets start GitBucket" ),),),
-                array ( "RunCommand" => array( "install" =>
-                    array("guess" => true),
-                    array("username" => "root"),
-                    array("command" => "gitbucket"),
-                    array("background" => "true") ) ),
+                array ( "RunCommand" => array( "install" => array(
+                    "guess" => true,
+                    "command" => "gitbucket",
+                    "background" => "true"
+                ) ) ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Git SCM server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 

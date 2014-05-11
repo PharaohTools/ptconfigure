@@ -18,15 +18,15 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Load Balancer on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
-                // Install Keys - Bastion Public Key
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
-                array ( "SshKeyInstall" => array( "file" =>
-                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
-                    array("user-name" => "{$this->myUser}"),),),
+//                // Install Keys - Bastion Public Key
+//                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
+//                array ( "SshKeyInstall" => array( "file" =>
+//                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+//                    array("user-name" => "{$this->myUser}"),),),
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
-                array ( "SSHHarden" => array( "ensure" => array(),),),
+                array ( "SshHarden" => array( "ensure" => array(),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
@@ -50,11 +50,11 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Restart Apache for new modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
-                array ( "RunCommand" => array( "restart" =>
-                    array("guess" => true),
-                    array("username" => "root"),
-                    array("command" => "dapperstrano ApacheCtl restart --yes"),
-                    array("background" => "") ) ),
+                array ( "RunCommand" => array( "restart" => array(
+                    "guess" => true,
+                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "background" => ""
+                ) ) ),
 
                 /*
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,

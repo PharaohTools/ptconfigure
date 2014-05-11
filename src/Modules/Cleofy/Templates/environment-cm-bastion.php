@@ -18,33 +18,33 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Bastion server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
-                // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
-                array ( "SshKeyInstall" => array( "file" => array(
-                    "public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion",
-                    "user-name" => "{$this->myUser}"
-                ), ), ),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our DevOps Public Key is installed" ),),),
-                array ( "SshKeyInstall" => array( "file" => array(
-                    "public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion",
-                    "user-name" => "{$this->myUser}"
-                ), ), ),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Private Key is installed" ),),),
-                // @todo if this is run over ssh from another machine (DevOps laptop), the encryption key never needs to be on the target
-                // box might not even need encryption... look at this
-                array ( "Encryption" => array( "uninstall" => array(
-                    "encrypted-data" => "build/config/cleopatra/SSH/keys/private/encrypted/bastion",
-                    "encryption-target-file" => "{$this->myUserHome}/.ssh/bastion",
-                    // @todo the key thing
-                    "encryption-key" => "{$this->myUser}",
-                    "encryption-file-permissions" => "",
-                    "encryption-file-owner" => "",
-                    "encryption-group" => ""
-                ), ), ),
+//                // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
+//                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
+//                array ( "SshKeyInstall" => array( "file" => array(
+//                    "public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion",
+//                    "user-name" => "{$this->myUser}"
+//                ), ), ),
+//                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our DevOps Public Key is installed" ),),),
+//                array ( "SshKeyInstall" => array( "file" => array(
+//                    "public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion",
+//                    "user-name" => "{$this->myUser}"
+//                ), ), ),
+//                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Private Key is installed" ),),),
+//                // @todo if this is run over ssh from another machine (DevOps laptop), the encryption key never needs to be on the target
+//                // box might not even need encryption... look at this
+//                array ( "Encryption" => array( "uninstall" => array(
+//                    "encrypted-data" => "build/config/cleopatra/SSH/keys/private/encrypted/bastion",
+//                    "encryption-target-file" => "{$this->myUserHome}/.ssh/bastion",
+//                    // @todo the key thing
+//                    "encryption-key" => "{$this->myUser}",
+//                    "encryption-file-permissions" => "",
+//                    "encryption-file-owner" => "",
+//                    "encryption-group" => ""
+//                ), ), ),
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
-                array ( "SSHHarden" => array( "ensure" => array( ),),),
+                array ( "SshHarden" => array( "ensure" => array( ),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
@@ -70,7 +70,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "restart" => array(
                     "guess" => true,
-                    "username" => "root",
                     "command" => "dapperstrano ApacheCtl restart --yes",
                     "background" => ""
                 ), ), ),
