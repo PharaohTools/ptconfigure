@@ -21,11 +21,11 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" =>
                     array( "log-message" => "First lets SFTP over our Bastion Server CM Autopilot"),
                 ) ),
-                array ( "SFTP" => array( "copy" =>
-                    array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php" ),
-                    array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php" ),
-                    array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
-                ) , ) ,
+                array ( "SFTP" => array( "put" => array(
+                    "source" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php",
+                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php",
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
+                ) , ) , ) ,
                 array ( "Logging" => array( "log" =>
                     array( "log-message" => "Lets run that autopilot"),
                 ) ),

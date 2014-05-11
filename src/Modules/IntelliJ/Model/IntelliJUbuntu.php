@@ -55,4 +55,19 @@ class IntelliJUbuntu extends BaseLinuxApp {
 		$java->ensureInstalled();
     }
 
+    public function versionInstalledCommandTrimmer($text) {
+        $done = substr($text, 0, 4) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 0, 4) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 0, 4) ;
+        return $done ;
+    }
+
 }

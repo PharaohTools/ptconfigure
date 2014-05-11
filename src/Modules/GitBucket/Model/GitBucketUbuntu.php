@@ -37,11 +37,14 @@ class GitBucketUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
         );
         $this->programDataFolder = "/opt/gitbucket/";
-        $this->programNameMachine = "gitlab"; // command and app dir name
-        $this->programNameFriendly = "!Git Lab!!"; // 12 chars
+        $this->programNameMachine = "gitbucket"; // command and app dir name
+        $this->programNameFriendly = "!GitBucket!"; // 12 chars
         $this->programNameInstaller = "Git Lab";
         $this->programExecutorFolder = "/usr/bin";
-        $this->programExecutorTargetPath = "selenium";
+        $this->programExecutorTargetPath = "gitbucket";
+        $this->versionInstalledCommand = 'echo "1.13"' ;
+        $this->versionRecommendedCommand = 'echo "1.13"' ;
+        $this->versionLatestCommand = 'echo "1.13"' ;
         $this->initialize();
     }
 
@@ -68,6 +71,21 @@ class GitBucketUbuntu extends BaseLinuxApp {
 
     public function setExecutorCommand() {
         $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/gitbucket.jar';
+    }
+
+    public function versionInstalledCommandTrimmer($text) {
+        $done = substr($text, 0, 4) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 0, 4) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 0, 4) ;
+        return $done ;
     }
 
 }
