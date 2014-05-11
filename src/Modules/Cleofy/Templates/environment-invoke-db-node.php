@@ -16,14 +16,14 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Lets begin invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%>"
+                    "log-message" => "Lets begin invoking Configuration of a MySQL Database Slave Node on environment <%tpl.php%>env_name</%tpl.php%>"
                 ), ) ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "First lets SFTP over our Standalone Server CM Autopilot",
+                    "log-message" => "First lets SFTP over our DB Slave CM Autopilot",
                 ), ), ),
                 array ( "SFTP" => array( "put" =>  array(
-                    "source" => getcwd()."/build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-standalone-server.php",
-                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-standalone-server.php",
+                    "source" => getcwd()."/build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-db-node.php",
+                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-db-node.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" =>array(
@@ -35,7 +35,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                    "log-message" => "Invoking Configuration of a MySQL Database Slave Node on environment <%tpl.php%>env_name</%tpl.php%> complete"
                 ), ), ),
             );
 
@@ -44,7 +44,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-standalone-server.php
+sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-db-node.php
 SSHDATA;
         return $sshData ;
     }
