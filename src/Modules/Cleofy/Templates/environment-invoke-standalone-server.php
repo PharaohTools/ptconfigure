@@ -10,26 +10,22 @@ class AutoPilotConfigured extends AutoPilot {
         $this->setSteps();
     }
 
-
-
     /* Steps */
     private function setSteps() {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" =>
-                array( "log-message" => "Lets begin invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%>"),
-                ) ),
-                array ( "Invoke" => array( "data" =>
-                array(
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Lets begin invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%>"
+                ), ) ),
+                array ( "Invoke" => array( "data" => array(
                     "guess" => true,
                     "ssh-data" => $this->setSSHData(),
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
-                ),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                array( "log-message" => "Invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%> complete"),
-                ) ),
+                ) , ) , ) ,
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Invoking Configuration of Standalone App/DB Server on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                ), ), ),
             );
 
     }

@@ -2,6 +2,7 @@
 
 Namespace Model;
 
+//@todo if we can use a wget/binary method like selenium or gitbucket then we can easily use across other linux os
 class JenkinsUbuntu extends BaseLinuxApp {
 
     // Compatibility
@@ -30,7 +31,26 @@ class JenkinsUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "jenkins"; // command and app dir name
         $this->programNameFriendly = " ! Jenkins !"; // 12 chars
         $this->programNameInstaller = "Jenkins";
+        $this->statusCommand = "sudo jenkins -v" ;
+        $this->versionInstalledCommand = "sudo apt-cache policy jenkins" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy jenkins" ;
+        $this->versionLatestCommand = "sudo apt-cache policy jenkins" ;
         $this->initialize();
+    }
+
+    public function versionInstalledCommandTrimmer($text) {
+        $done = substr($text, 23, 15) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 42, 23) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 42, 23) ;
+        return $done ;
     }
 
 }
