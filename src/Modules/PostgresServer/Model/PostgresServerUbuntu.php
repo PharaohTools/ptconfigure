@@ -26,11 +26,30 @@ class PostgresServerUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("postgresql-contrib"))) ),
         );
         $this->programDataFolder = "/opt/PostgresServer"; // command and app dir name
-        $this->programNameMachine = "postgresserver"; // command and app dir name
+        $this->programNameMachine = "postgresql"; // command and app dir name
         $this->programNameFriendly = "Postgres Server!"; // 12 chars
         $this->programNameInstaller = "Postgres Server";
-        $this->statusCommand = "postgres --version" ;
+        $this->statusCommand = "psql --version" ;
+        $this->versionInstalledCommand = "sudo apt-cache policy postgresql" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy postgresql" ;
+        $this->versionLatestCommand = "sudo apt-cache policy postgresql" ;
         $this->initialize();
     }
+
+    public function versionInstalledCommandTrimmer($text) {
+        $done = substr($text, 25, 14) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = substr($text, 53, 14) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = substr($text, 53, 14) ;
+        return $done ;
+    }
+
 
 }
