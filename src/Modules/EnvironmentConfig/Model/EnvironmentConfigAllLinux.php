@@ -104,14 +104,20 @@ class EnvironmentConfigAllLinux extends Base {
             if (count($this->environments)==0) {
                 $this->populateAnEnvironment($i, $envSuffix[0]);}
             else {
-                if (isset($this->params["guess"])) {
+                if (isset($this->params["guess"]) && (!isset($this->params["add-single-environment"])) ) {
                     $more_envs = false; }
                 else {
                     $question = 'Do you want to add another environment?';
-                    $add_another_env = self::askYesOrNo($question);
+                    if (isset($this->params["add-single-environment"])) {
+                        $add_another_env = true ; }
+                    else {
+                        $add_another_env = self::askYesOrNo($question); }
                     if ($add_another_env == true) {
                         $i = count($this->environments) ;
-                        $this->populateAnEnvironment($i, $envSuffix[0]); }
+                        $this->populateAnEnvironment($i, $envSuffix[0]);
+                        if (isset($this->params["add-single-environment"])) {
+                            unset($this->params["add-single-environment"]) ; }
+                        $more_envs = false ; }
                     else {
                         $more_envs = false; } } }
             $i++; }
@@ -152,9 +158,14 @@ class EnvironmentConfigAllLinux extends Base {
         echo "Default Settings for Any App not setup for environment $envName enter them now.\n";
           $defaultReplacements = $this->getDefaultEnvironmentReplacements() ;
           foreach ($defaultReplacements["any-app"] as $replacementQuestion) {
-              $this->environments[$i]["any-app"][$replacementQuestion["var"]]
-                  = self::askForInput("Value for: ".$replacementQuestion["friendly_text"]); }
-          if ($appEnvType=="any-app") { $this->environments[$i]["servers"] = $this->getServers(); } }
+              if ($replacementQuestion["var"] == "gen_env_name" && isset($this->params["environment-name"])) {
+                  $this->environments[$i]["any-app"][$replacementQuestion["var"]] = $this->params["environment-name"] ; }
+              else if ($replacementQuestion["var"] == "gen_env_tmp_dir" && isset($this->params["tmp-dir"])) {
+                  $this->environments[$i]["any-app"][$replacementQuestion["var"]] = $this->params["tmp-dir"] ; }
+              else {
+                  $this->environments[$i]["any-app"][$replacementQuestion["var"]] = self::askForInput("Value for: ".$replacementQuestion["friendly_text"]); } } }
+
+      if ($appEnvType=="any-app") { $this->environments[$i]["servers"] = $this->getServers(); }
       else {
           foreach ($this->environmentReplacements[$appEnvType] as $replacementQuestion) {
               $this->environments[$i][$appEnvType][$replacementQuestion["var"]]
