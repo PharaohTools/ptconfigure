@@ -18,11 +18,11 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Database Node on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
-                // Install Keys - Bastion Public Key
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
-                array ( "SshKeyInstall" => array( "file" =>
-                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
-                    array("user-name" => "{$this->myUser}"),),),
+//                // Install Keys - Bastion Public Key
+//                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
+//                array ( "SshKeyInstall" => array( "file" =>
+//                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+//                    array("user-name" => "{$this->myUser}"),),),
 
                 // SSH Hardening
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure we have some SSH Security" ),),),
@@ -43,16 +43,20 @@ class AutoPilotConfigured extends AutoPilot {
                 //Mysql
                 //@todo Mysql Client/Cluster etc
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
-                array ( "MysqlServer" => array( "ensure" =>  array("version" => "5", "version-operator" => "+"), ), ),
+                array ( "MysqlServer" => array( "ensure" =>  array(
+                    "version" => "5",
+                    "version-operator" => "+"
+                ), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
-                array ( "MysqlAdmins" => array( "install" =>
-                    array("root-user" => "root"),
-                    array("root-pass" => "cleopatra"),
-                    array("new-user" => "root"),
-                    array("new-pass" => "root"),
-                    array("mysql-host" => "127.0.0.1") ) ),
+                array ( "MysqlAdmins" => array( "install" => array(
+                    "root-user" => "root",
+                    "root-pass" => "cleopatra",
+                    "new-user" => "root",
+                    "new-pass" => "root",
+                    "mysql-host" => "127.0.0.1"
+                ) ) ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Database Node on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 /*
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,

@@ -71,7 +71,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RunCommand" => array( "restart" => array(
                     "guess" => true,
                     "command" => "dapperstrano ApacheCtl restart --yes",
-                    "background" => ""
                 ), ), ),
 
                 // All Pharoes

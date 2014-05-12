@@ -54,12 +54,14 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RunCommand" => array( "restart" => array(
                     "guess" => true,
                     "command" => "dapperstrano ApacheCtl restart --yes",
-                    "background" => ""
                 ) ) ),
 
                 //Mysql
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
-                array ( "MysqlServer" => array( "ensure" =>  array("version" => "5", "version-operator" => "+"), ), ),
+                array ( "MysqlServer" => array( "ensure" =>  array(
+                    "version" => "5",
+                    "version-operator" => "+"
+                ), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
                 array ( "MysqlAdmins" => array( "install" => array(
                     "root-user" => "root",

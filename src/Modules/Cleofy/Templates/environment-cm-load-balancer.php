@@ -48,12 +48,15 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
                 array ( "ApacheModules" => array( "ensure" => array(),),),
 
+                // Apache Modules
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
+                array ( "ApacheReverseProxyModules" => array( "ensure" => array(),),),
+
                 // Restart Apache for new modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "restart" => array(
                     "guess" => true,
                     "command" => "dapperstrano ApacheCtl restart --yes",
-                    "background" => ""
                 ) ) ),
 
                 /*
