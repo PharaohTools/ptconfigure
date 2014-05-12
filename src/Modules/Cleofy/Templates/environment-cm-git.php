@@ -83,7 +83,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RunCommand" => array( "install" => array(
                     "guess" => true,
                     "command" => "gitbucket",
-                    "background" => "true"
                 ) ) ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Git SCM server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
