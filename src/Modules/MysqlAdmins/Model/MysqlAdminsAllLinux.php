@@ -37,7 +37,7 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminUserName", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForMysqlNewAdminPass", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForMysqlHost", "params" => array()) ),
-            array("command"=> $this->getInstallCommands() ),
+            array("method"=> array("object" => $this, "method" => "doUninstallCommands", "params" => array()) ),
         );
         $this->programDataFolder = "";
         $this->programNameMachine = "mysqladmins"; // command and app dir name
@@ -52,6 +52,18 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
         $command .= ' < /tmp/mysql-adminshcript.sql' ;
         $sqlCommand = 'GRANT ALL PRIVILEGES ON *.* TO \''.$this->mysqlNewAdminUser.'\'@\''.$this->dbHost.'\' ';
         $sqlCommand .= 'IDENTIFIED BY \''.$this->mysqlNewAdminPass.'\' WITH GRANT OPTION;';
+        $comms = array(
+            'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
+            $command,
+            'rm /tmp/mysql-adminshcript.sql' );
+        $this->executeAsShell($comms) ;
+    }
+
+    protected function doUninstallCommands() {
+        $command  = 'mysql -h'.$this->dbHost.' -u'.$this->mysqlRootUser.' ';
+        if (strlen($this->mysqlRootPass) > 0) {$command .= '-p'.$this->mysqlRootPass.' '; }
+        $command .= ' < /tmp/mysql-adminshcript.sql' ;
+        $sqlCommand = 'DROP USER \''.$this->mysqlNewAdminUser.'\'@\''.$this->dbHost.'\';';
         $comms = array(
             'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
             $command,
