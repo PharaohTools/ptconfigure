@@ -18,15 +18,17 @@ class RubyBDDUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "RubyBDD";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForInstallUserHomeDir", "params" => array()) ),
+            // @todo do we need the install user name
+            // array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array()) ),
+            // array("method"=> array("object" => $this, "method" => "askForInstallUserHomeDir", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "cucumber")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "capybara")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "calabash")) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForInstallUserHomeDir", "params" => array()) ),
+            // @todo do we need the install user name
+            // array("method"=> array("object" => $this, "method" => "askForInstallUserName", "params" => array()) ),
+            // array("method"=> array("object" => $this, "method" => "askForInstallUserHomeDir", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "cucumber")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "capybara")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "calabash")) ),
