@@ -102,7 +102,10 @@ class EnvironmentConfigAllLinux extends Base {
         $more_envs = true;
         while ($more_envs == true) {
             if (count($this->environments)==0) {
-                $this->populateAnEnvironment($i, $envSuffix[0]);}
+                $this->populateAnEnvironment($i, $envSuffix[0]);
+                if (isset($this->params["add-single-environment"])) {
+                    unset($this->params["add-single-environment"]) ; }
+                $more_envs = false ; }
             else {
                 if (isset($this->params["guess"]) && (!isset($this->params["add-single-environment"])) ) {
                     $more_envs = false; }
