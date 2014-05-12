@@ -106,15 +106,15 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RubySystem" => array( "ensure" => array("guess" => true ),),),
 
                 // Ruby BDD Gems
-                // @todo these are hidden as the install is failing, troublehoot and re -enable
-             // array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
-             // array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
+                // @todo this should be hidden as the install is failing, troublehoot and re -enable
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
+                array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
 
 
                 // Unit Testing Tools
 
                 // PHPUnit
-                // @todo this is almost definitely not the right way to install PHPunit
+                // @todo this is almost definitely not the right way to install PHPunit,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPUnit is installed"),),),
                 array ( "PHPUnit" => array( "ensure" => array("guess" => true ),),),
 
