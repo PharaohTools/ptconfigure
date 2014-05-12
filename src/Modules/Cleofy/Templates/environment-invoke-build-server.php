@@ -30,6 +30,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "Lets run that autopilot"
                 ), ), ),
                 array ( "Invoke" => array( "data" => array(
+                    "guess" => true,
                     "ssh-data" => $this->setSSHData(),
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
                 ), ), ),
