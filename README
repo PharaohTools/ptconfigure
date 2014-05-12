@@ -60,6 +60,9 @@ working on a web front end, but you can also use JSON output and the PostInput m
 
 Go to http://www.pharoah-tools.org.uk for more
 
+
+## Available Commands:
+
 - AWSCloudFormation - The AWS CloudFormation CLI Tools
 - AWSCloudWatch - The AWS CloudWatch CLI Tools
 - AWSEC2 - AWS EC2 Server Management Functions
