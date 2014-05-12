@@ -70,7 +70,7 @@ class GitBucketUbuntu extends BaseLinuxApp {
     }
 
     public function setExecutorCommand() {
-        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . 'gitbucket.war &';
+        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . 'gitbucket.war > /dev/null 2>&1 &';
     }
 
     public function versionInstalledCommandTrimmer($text) {
