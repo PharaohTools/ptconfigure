@@ -41,6 +41,30 @@ class AutoPilotConfigured extends AutoPilot {
                     "wait-for-box-info" => true,
                 ),),),
 
+                // Git
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a GitBucket Box" ),),),
+                array ( "EnvironmentConfig" => array("configure" => array(
+                    "guess" => true,
+                    "environment-name" => "tiny-git",
+                    "tmp-dir" => "/tmp/",
+                    "keep-current-environments" => true,
+                    "no-manual-servers" => true,
+                    "add-single-environment" => true,
+                ),),),
+                array ( "Boxify" => array("box-add" => array(
+                    "guess" => true,
+                    "environment-name" => "tiny-git",
+                    "provider-name" => "DigitalOcean",
+                    "box-amount" => "1",
+                    "image-id" => "3101045",
+                    "region-id" => "2",
+                    "size-id" => "66",
+                    "server-prefix" => "tiny-test",
+                    "box-user-name" => "root",
+                    "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
+                    "wait-for-box-info" => true,
+                ),),),
+
                 // Jenkins
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins Box" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(

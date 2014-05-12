@@ -29,8 +29,20 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "tiny-bastion"
                 ),),),
 
+                // Git
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the GitBucket Box" ),),),
+                array ( "Boxify" => array("box-destroy" => array(
+                    "guess" => true,
+                    "environment-name" => "tiny-git",
+                    "provider-name" => "DigitalOcean",
+                    "destroy-all-boxes" => true,
+                ),),),
+                array ( "EnvironmentConfig" => array("delete" => array(
+                    "environment-name" => "tiny-git"
+                ),),),
+
                 // Jenkins
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
