@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Jenkins
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins" ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
                     "provider-name" => "DigitalOcean",
@@ -43,7 +43,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Staging
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Box" ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
                     "provider-name" => "DigitalOcean",
@@ -55,7 +55,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Production
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Box" ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-prod",
                     "provider-name" => "DigitalOcean",
