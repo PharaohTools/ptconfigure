@@ -22,9 +22,6 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
             array("command"=> "a2enmod rewrite" ),
             array("command"=> "a2enmod deflate" ),
             array("command"=> "a2enmod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
-            array("command"=> "a2enmod proxy" ),
-            array("command"=> "a2enmod proxy_http" ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-php5")) ),
             array("command"=> "a2enmod php5" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
@@ -33,9 +30,6 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
             array("command"=> "a2dismod rewrite" ),
             array("command"=> "a2dismod deflate" ),
             array("command"=> "a2dismod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
-            array("command"=> "a2dismod proxy" ),
-            array("command"=> "a2dismod proxy_http" ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-php5")) ),
             array("command"=> "a2dismod php5" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
@@ -49,8 +43,7 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
     public function askStatus() {
         $modsTextCmd = 'apachectl -t -D DUMP_MODULES';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
-        $modsToCheck = array( "http_module", "deflate_module", "php5_module", "proxy_module", "proxy_html_module",
-            "proxy_http_module", "rewrite_module", "ssl_module" ) ;
+        $modsToCheck = array("deflate_module", "php5_module", "rewrite_module", "ssl_module" ) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
