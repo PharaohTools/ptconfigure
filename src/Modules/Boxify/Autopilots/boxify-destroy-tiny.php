@@ -18,67 +18,51 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a tiny set of environments"),),),
 
                 // Bastion
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Bastion Box" ),),),
+                array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "bastion",
+                    "environment-name" => "tiny-bastion",
                     "provider-name" => "DigitalOcean",
-                    "box-amount" => "1",
-                    "image-id" => "3101045",
-                    "region-id" => "2",
-                    "size-id" => "66",
-                    "server-prefix" => "tiny-test",
-                    "box-user-name" => "root",
-                    "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
-                    "wait-for-box-info" => true,
+                    "destroy-all-boxes" => true,
+                ),),),
+                array ( "EnvironmentConfig" => array("delete" => array(
+                    "environment-name" => "tiny-bastion"
                 ),),),
 
                 // Jenkins
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins" ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "jenkins",
+                    "environment-name" => "tiny-jenkins",
                     "provider-name" => "DigitalOcean",
-                    "box-amount" => "1",
-                    "image-id" => "3101045",
-                    "region-id" => "2",
-                    "size-id" => "66",
-                    "server-prefix" => "tiny-test",
-                    "box-user-name" => "root",
-                    "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
-                    "wait-for-box-info" => true,
+                    "destroy-all-boxes" => true,
+                ),),),
+                array ( "EnvironmentConfig" => array("delete" => array(
+                    "environment-name" => "tiny-jenkins"
                 ),),),
 
                 // Staging
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Box" ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "staging",
+                    "environment-name" => "tiny-staging",
                     "provider-name" => "DigitalOcean",
-                    "box-amount" => "1",
-                    "image-id" => "3101045",
-                    "region-id" => "2",
-                    "size-id" => "66",
-                    "server-prefix" => "tiny-test",
-                    "box-user-name" => "root",
-                    "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
-                    "wait-for-box-info" => true,
+                    "destroy-all-boxes" => true,
+                ),),),
+                array ( "EnvironmentConfig" => array("delete" => array(
+                    "environment-name" => "tiny-staging"
                 ),),),
 
                 // Production
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Box" ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "production",
+                    "environment-name" => "tiny-prod",
                     "provider-name" => "DigitalOcean",
-                    "box-amount" => "1",
-                    "image-id" => "3101045",
-                    "region-id" => "2",
-                    "size-id" => "66",
-                    "server-prefix" => "tiny-test",
-                    "box-user-name" => "root",
-                    "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
-                    "wait-for-box-info" => true,
+                    "destroy-all-boxes" => true,
+                ),),),
+                array ( "EnvironmentConfig" => array("delete" => array(
+                    "environment-name" => "tiny-prod"
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a tiny set of environments complete"),),),
