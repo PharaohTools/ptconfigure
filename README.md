@@ -32,7 +32,6 @@ git clone https://github.com/phpengine/cleopatra && sudo php cleopatra/install (
 ... that's it, now the cleopatra command should be available at the command line for you.
 
 
-
 ## Usage:
 
 So, there are a few simple commands...
@@ -55,6 +54,9 @@ You'll be able to automate any action from any available module into an autopilo
 working on a web front end, but you can also use JSON output and the PostInput module to use any module from an API.
 
 Go to http://www.pharoah-tools.org.uk for more
+
+
+## Available Commands:
 
 - AWSCloudFormation - The AWS CloudFormation CLI Tools
 - AWSCloudWatch - The AWS CloudWatch CLI Tools
