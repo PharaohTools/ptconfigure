@@ -55,9 +55,17 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Phing
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Phing is installed"),),),
-                array ( "PackageManager" => array( "pkg-ensure" =>
-                array("package-name" => "phing"),
-                    array("packager-name" => "Pear"),),),
+                array ( "PackageManager" => array( "pkg-ensure" => array(
+                    "package-name" => "phing",
+                    "packager-name" => "Pear"
+                ),),),
+
+                // Drush
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
+                array ( "PackageManager" => array( "pkg-ensure" => array(
+                    "package-name" => "drush",
+                    "packager-name" => "Pear"
+                ),),),
 
                 // Java
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Java is installed"),),),
@@ -70,7 +78,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "JenkinsPlugins" => array( "install" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the Jenkins user can use Sudo without a Password"),),),
                 array ( "JenkinsSudoNoPass" => array( "install" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a build server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 // All Pharoes
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
@@ -83,12 +90,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Parallax" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure JRush for Joomla" ),),),
                 array ( "JRush" => array( "ensure" => array(),),),
-
-                // Drush
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
-                array ( "PackageManager" => array( "pkg-ensure" =>
-                array("package-name" => "drush"),
-                    array("packager-name" => "Pear"),),),
 
                 // BDD Testing
 
@@ -108,14 +109,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
                 array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 // Unit Testing Tools
 
                 // PHPUnit
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPUnit is installed"),),),
                 array ( "PHPUnit" => array( "ensure" => array("guess" => true ),),),
-                /*
+
+                // End
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a build server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+
+            /*
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,
 //                array ( "Firewall" => array( "deny" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all output"), ) , ) ,
@@ -126,7 +130,7 @@ class AutoPilotConfigured extends AutoPilot {
 //                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/https" ), ) , ) ,
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
 //                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/http" ), ) , ) ,
-                */
+            */
 
 
                 // Dapper Reverse Proxy
