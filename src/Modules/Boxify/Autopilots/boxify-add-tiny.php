@@ -19,9 +19,17 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "EnvironmentConfig" => array("configure" => array(
+                    "guess" => true,
+                    "environment-name" => "tiny-bastion",
+                    "tmp-dir" => "/tmp/",
+                    "keep-current-environments" => true,
+                    "no-manual-servers" => true,
+                    "add-single-environment" => true,
+                ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "bastion",
+                    "environment-name" => "tiny-bastion",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
@@ -34,10 +42,18 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Jenkins
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins Box" ),),),
+                array ( "EnvironmentConfig" => array("configure" => array(
+                    "guess" => true,
+                    "environment-name" => "tiny-jenkins",
+                    "tmp-dir" => "/tmp/",
+                    "keep-current-environments" => true,
+                    "no-manual-servers" => true,
+                    "add-single-environment" => true,
+                ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "jenkins",
+                    "environment-name" => "tiny-jenkins",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
@@ -50,10 +66,18 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Staging
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging Box" ),),),
+                array ( "EnvironmentConfig" => array("configure" => array(
+                    "guess" => true,
+                    "environment-name" => "tiny-staging",
+                    "tmp-dir" => "/tmp/",
+                    "keep-current-environments" => true,
+                    "no-manual-servers" => true,
+                    "add-single-environment" => true,
+                ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "staging",
+                    "environment-name" => "tiny-staging",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
@@ -66,10 +90,18 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Production
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Production Box" ),),),
+                array ( "EnvironmentConfig" => array("configure" => array(
+                    "guess" => true,
+                    "environment-name" => "tiny-prod",
+                    "tmp-dir" => "/tmp/",
+                    "keep-current-environments" => true,
+                    "no-manual-servers" => true,
+                    "add-single-environment" => true,
+                ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "production",
+                    "environment-name" => "tiny-prod",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
