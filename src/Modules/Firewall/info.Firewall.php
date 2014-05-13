@@ -42,11 +42,11 @@ class FirewallInfo extends CleopatraBase {
         example: cleopatra firewall allow --firewall-rule="ssh/tcp"
 
         - deny
-        Deny a Firewall rule
+        Deny a Firewall rule. Allow connection attempts to be ignored and time out.
         example: cleopatra firewall deny --firewall-rule="ssh/tcp"
 
         - reject
-        Reject a Firewall rule
+        Reject a Firewall rule. Terminate connections attempts with an error to the connector.
         example: cleopatra firewall reject --firewall-rule="ssh/tcp"
 
         - limit
@@ -65,6 +65,10 @@ class FirewallInfo extends CleopatraBase {
         - reset
         Reset a Firewall rule.
         example: cleopatra firewall reset --firewall-rule="ssh/tcp"
+
+        - default
+        Set default policy, should be allow, deny, or reject
+        example: cleopatra firewall default --policy="deny"
 
 HELPDATA;
       return $help ;
