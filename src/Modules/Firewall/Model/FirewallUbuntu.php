@@ -13,6 +13,7 @@ class FirewallUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
+    protected $defaultPolicy ;
     protected $firewallRule ;
     protected $actionsToMethods ;
 
@@ -60,7 +61,7 @@ class FirewallUbuntu extends BaseLinuxApp {
 
     protected function performFirewallDelete() {
         $this->setFirewallRule();
-        return $this->delete();
+        return $this->deleteRule();
     }
 
     protected function performFirewallInsert() {
@@ -69,7 +70,12 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     protected function performFirewallReset() {
-        return $this->reset();
+        return $this->resetRule();
+    }
+
+    protected function setFirewallDefault() {
+        $this->setDefaultPolicyParam();
+        return $this->setDefault();
     }
 
     public function setFirewallRule() {
@@ -80,6 +86,17 @@ class FirewallUbuntu extends BaseLinuxApp {
         $this->firewallRule = $firewallRule ;
     }
 
+    public function setDefaultPolicyParam() {
+        $opts =  array("allow", "deny", "reject") ;
+        if (isset($this->params["policy"]) && in_array($this->params["policy"], $opts)) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Policy param for set default must be allow, deny or reject") ;
+            $defaultPolicy = $this->params["policy"]; }
+        else {
+            $defaultPolicy = self::askForArrayOption("Enter Policy:", $opts, true); }
+        $this->defaultPolicy = $defaultPolicy ;
+    }
 
     public function enable() {
         $out = $this->executeAndOutput("sudo ufw enable");
@@ -92,7 +109,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function disable() {
-        $out = $this->executeAndOutput("sudo ufw endisable");
+        $out = $this->executeAndOutput("sudo ufw disable");
         if (strpos($out, "disabled") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -146,7 +163,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
 
-    public function delete() {
+    public function deleteRule() {
         $out = $this->executeAndOutput("sudo ufw delete $this->firewallRule");
         if (strpos($out, "Could not delete non-existent rule") != false ||
             strpos($out, "Rule deleted") != false ) {
@@ -168,9 +185,19 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function reset() {
+    public function resetRule() {
         $out = $this->executeAndOutput("echo y | sudo ufw reset --force $this->firewallRule");
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Firewall Reset command did not execute correctly") ;
+            return false ; }
+        return true ;
+    }
+
+    public function setDefault() {
+        $out = $this->executeAndOutput("sudo ufw default $this->defaultPolicy");
+        if (strpos($out, "Default incoming policy changed to '{$this->defaultPolicy}'") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Firewall Reset command did not execute correctly") ;
@@ -189,6 +216,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             "delete" => "performFirewallDelete",
             "insert" => "performFirewallInsert",
             "reset" => "performFirewallReset",
+            "default" => "setFirewallDefault",
         ) ;
     }
 
