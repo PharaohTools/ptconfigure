@@ -53,21 +53,19 @@ class AutoPilotConfigured extends AutoPilot {
                     "mysql-host" => "127.0.0.1"
                 ) ) ),
 
+                // Firewall
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets disable Firewall to change settings"), ) , ) ,
+                array ( "Firewall" => array( "disable" => array(), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets deny all input"), ) , ) ,
+                array ( "Firewall" => array( "default" => array("policy" => "deny" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow MySQL input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "3306/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
+                array ( "Firewall" => array( "enable" => array(), ) , ) ,
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Database Node on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
-
-                /*
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,
-//                array ( "Firewall" => array( "deny" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all output"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/https" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/https" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/http" ), ) , ) ,
-                */
-
 
         );
 

@@ -85,20 +85,24 @@ class AutoPilotConfigured extends AutoPilot {
                     "command" => "gitbucket",
                 ) ) ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Git SCM server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                // Firewall
+                // @todo when the dapper reverse proxy works we can deny 8080 requests
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets disable Firewall to change settings"), ) , ) ,
+                array ( "Firewall" => array( "disable" => array(), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets deny all input"), ) , ) ,
+                array ( "Firewall" => array( "default" => array("policy" => "deny" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "http/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "https/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow 8080 input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "8080/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
+                array ( "Firewall" => array( "enable" => array(), ) , ) ,
 
-                /*
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,
-//                array ( "Firewall" => array( "deny" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all output"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/https" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/https" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/http" ), ) , ) ,
-                */
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Git SCM server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
         );
 

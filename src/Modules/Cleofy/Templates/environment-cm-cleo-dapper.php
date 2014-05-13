@@ -37,20 +37,6 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
-                /*
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all input"), ) , ) ,
-//                array ( "Firewall" => array( "deny" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets block all output"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/https" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/https" ), ) , ) ,
-//                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
-//                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/http" ), ) , ) ,
-                */
-
-
         );
 
     }
