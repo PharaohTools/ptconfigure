@@ -20,6 +20,7 @@ class BootStrap {
     }
 
     public static function setExitCode($exitCode){
+        debug_print_backtrace();
         self::$exitCode = $exitCode ;
     }
 
@@ -28,7 +29,6 @@ class BootStrap {
         $route = $routeObject->run($argv_or_boot_params_null);
         $emptyPageVars = array("messages"=>array(), "route"=>$route);
         $this->executeControl($route["control"], $emptyPageVars);
-        \Core\Bootstrap::setExitCode(1);
         $this->exitGracefully();
     }
 
