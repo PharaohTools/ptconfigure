@@ -367,7 +367,9 @@ class ApacheVHostEditorLinuxMac extends Base {
 
     // @todo, this is ugly and possibly unneccessary
     private function selectVHostTemplate(){
-        if (isset($this->params["vhe-template"])) { $this->vHostTemplate = $this->params["vhe-template"] ; }
+        if (isset($this->params["vhe-template"])) {
+            $this->vHostTemplate = $this->params["vhe-template"] ;
+            return ; }
         $vHostTemplateResults = ( (is_array($this->vHostTemplateDir) && count($this->vHostTemplateDir)>0) )
           ? scandir($this->vHostTemplateDir)
           : array() ;
