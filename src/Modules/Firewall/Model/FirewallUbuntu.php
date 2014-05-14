@@ -99,7 +99,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function enable() {
-        $out = $this->executeAndOutput("sudo ufw enable");
+        $out = $this->executeAndOutput("sudo ufw --force enable");
         if (strpos($out, "enabled") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
