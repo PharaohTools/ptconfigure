@@ -17,12 +17,12 @@ class Dapperfy extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action=="standard") {
-          $this->content["genCreateResult"] = $thisModel->askWhetherToDapperfy();
+          $this->content["result"] = $thisModel->askWhetherToDapperfy();
           return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
         else if (in_array($action, array_keys($this->injectedActions))) {
           $extendedModel = new $this->injectedActions[$action]() ;
-          $this->content["genCreateResult"] = $extendedModel->askWhetherToDapperfy();
+          $this->content["result"] = $extendedModel->askWhetherToDapperfy();
           return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content);
         }
 
