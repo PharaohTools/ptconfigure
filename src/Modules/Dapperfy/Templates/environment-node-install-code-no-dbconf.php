@@ -82,7 +82,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function getTemplate() {
         $template =
             <<<'TEMPLATE'
-           NameVirtualHost ****IP ADDRESS****:80
+ NameVirtualHost ****IP ADDRESS****:80
  <VirtualHost ****IP ADDRESS****:80>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
