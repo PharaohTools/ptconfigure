@@ -72,7 +72,9 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
-                array ( "ApacheControl" => array( "restart" => array(), ), ),
+                array ( "ApacheControl" => array( "restart" => array(
+                    "guess" => true,
+                ), ), ),
 
                 array ( "Logging" => array( "log" => array("log-message" => "Our deployment is done" ), ), ),
             );
