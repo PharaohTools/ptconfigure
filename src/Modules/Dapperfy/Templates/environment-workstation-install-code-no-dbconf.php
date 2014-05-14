@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "hostEditorAdditionIP" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
                     "hostEditorAdditionURI" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>.local",
           ) , ) ,
-          array ( "VHostEditor" => array(
+          array ( "ApacheVHostEditor" => array(
                     "virtualHostEditorAdditionExecute" => true,
                     "virtualHostEditorAdditionDocRoot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>",
                     "virtualHostEditorAdditionURL" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>.local",
@@ -54,7 +54,7 @@ class AutoPilotConfigured extends AutoPilot {
  // This function will set the vhost template for your Virtual Host
  // You need to call this from your constructor
  private function setVHostTemplate() {
-   $this->steps[2]["VHostEditor"]["virtualHostEditorAdditionTemplateData"] =
+   $this->steps[2]["ApacheVHostEditor"]["virtualHostEditorAdditionTemplateData"] =
   <<<'TEMPLATE'
  NameVirtualHost ****IP ADDRESS****:80
  <VirtualHost ****IP ADDRESS****:80>

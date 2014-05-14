@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                   "hostEditorDeletionIP" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
                   "hostEditorDeletionURI" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>.local",
               ) , ) ,
-              array ( "VHostEditor" => array(
+              array ( "ApacheVHostEditor" => array(
                   "virtualHostEditorDeletionExecute" => "boolean",
                   "virtualHostEditorDeletionDirectory" => "/etc/apache2/sites-available",
                   "virtualHostEditorDeletionTarget" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",

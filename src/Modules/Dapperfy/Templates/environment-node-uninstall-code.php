@@ -38,7 +38,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" =>
                     array( "log-message" => "Next remove our virtual host"),
                 ) ),
-                array ( "VHostEditor" => array(
+                array ( "ApacheVHostEditor" => array(
                     "virtualHostEditorDeletionExecute" => "boolean",
                     "virtualHostEditorDeletionDirectory" => "/etc/apache2/sites-available",
                     "virtualHostEditorDeletionTarget" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
@@ -46,7 +46,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "virtualHostEditorDeletionSymLinkDirectory" => "/etc/apache2/sites-enabled",
                     "virtualHostEditorDeletionApacheCommand" => "apache2",
                 ) , ) ,
-                array ( "VHostEditor" => array( "rm" => array (
+                array ( "ApacheVHostEditor" => array( "rm" => array (
                     "guess" => true ,
                     "vhe-docroot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
                     "vhe-url" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
