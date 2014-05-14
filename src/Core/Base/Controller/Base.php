@@ -15,9 +15,18 @@ class Base {
         if (is_array($defaultExecution)) { return $defaultExecution ; }
     }
 
+    protected function defaultExecution($pageVars) {
+        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+        return null ;
+    }
+
     public function checkDefaultActions($pageVars, $ignored_actions=array(), $thisModel=null) {
         $this->content["route"] = $pageVars["route"];
-        $this->content["messages"] = $pageVars["messages"];
+        $this->content["messages"] = (isset($pageVars["messages"])) ? $pageVars["messages"] : null ;
         $action = $pageVars["route"]["action"];
 
         if ($action=="help" && !in_array($action, $ignored_actions)) {
@@ -137,15 +146,6 @@ class Base {
         $this->content = array_merge($pageVars, $content) ;
         foreach($errors as $error) { $this->content["messages"][] = $error ; }
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
-    }
-
-    protected function defaultExecution($pageVars) {
-        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
-        // if we don't have an object, its an array of errors
-        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-        $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
-        if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
-        return null ;
     }
 
 }
