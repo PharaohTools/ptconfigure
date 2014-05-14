@@ -100,7 +100,7 @@ class FirewallUbuntu extends BaseLinuxApp {
 
     public function enable() {
         $out = $this->executeAndOutput("sudo ufw --force enable");
-        if (strpos($out, "enabled") != false ) {
+        if (strpos($out, "enabled") == false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Firewall Enable command did not execute correctly") ;
@@ -110,7 +110,7 @@ class FirewallUbuntu extends BaseLinuxApp {
 
     public function disable() {
         $out = $this->executeAndOutput("sudo ufw disable");
-        if (strpos($out, "disabled") != false ) {
+        if (strpos($out, "disabled") == false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Firewall Disable command did not execute correctly") ;
