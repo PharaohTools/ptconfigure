@@ -26,7 +26,9 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin with ensuring the Project Container is initialized" ), ) ),
-                array ( "Project" => array( "container" => array(), ) , ) ,
+                array ( "Project" => array( "container" => array(
+                    "proj-container" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>"
+                ), ) , ) ,
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next lets do our git clone" ), ) ),
                 array ( "GitClone" => array( "clone" => array (
