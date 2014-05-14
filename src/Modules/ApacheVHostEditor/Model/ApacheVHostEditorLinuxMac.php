@@ -171,8 +171,8 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForVHostIp() {
-        if (isset($this->params["guess"])) { return "127.0.0.1:80" ; }
         if (isset($this->params["vhe-ip-port"])) { return $this->params["vhe-ip-port"] ; }
+        if (isset($this->params["guess"])) { return "127.0.0.1:80" ; }
         $question = 'What IP:Port should be set? Enter nothing for 127.0.0.1:80';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1:80' : $input ;
