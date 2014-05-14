@@ -147,8 +147,8 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForDocRoot() {
-        if (isset($this->params["guess"])) { return getcwd() ; }
         if (isset($this->params["vhe-docroot"])) { return $this->params["vhe-docroot"] ; }
+        if (isset($this->params["guess"])) { return getcwd() ; }
         $question = 'What\'s the document root? Enter nothing for '.getcwd();
         $input = self::askForInput($question);
         return ($input=="") ? getcwd() : $input ;
@@ -161,10 +161,10 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function askForFileExtension() {
+        if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         if (isset($this->params["guess"])) {
             if ($this->detectDebianApacheVHostFolderExistence()) { return "" ; }
             else { return ".conf" ; } }
-        if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         $question = 'What File Extension should be used? Enter nothing for None (hint: ubuntu probably none centos, .conf)';
         $input = self::askForInput($question) ;
         return $input ;
