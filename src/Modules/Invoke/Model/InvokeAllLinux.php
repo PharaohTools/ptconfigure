@@ -71,11 +71,13 @@ class InvokeAllLinux extends Base {
                 echo "[".$server["target"]."] Executing $sshCommand...\n"  ;
                 echo $this->doSSHCommand($server["ssh2Object"], $sshCommand ) ;
                 echo "[".$server["target"]."] $sshCommand Completed...\n"  ; } }
-        echo "Data by SSH Completed";
+        echo "Data by SSH Completed\n";
         return true;
     }
 
     public function populateServers() {
+        $this->askForTimeout();
+        $this->askForPort();
         $this->loadServerData();
         $this->loadSSHConnections();
     }
@@ -83,7 +85,6 @@ class InvokeAllLinux extends Base {
     private function loadServerData() {
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
         if (isset($this->params["servers"])) {
-            var_dump($this->params["servers"]) ;
             $this->servers = $this->params["servers"]; }
         else if (isset($this->params["environment-name"])) {
             $names = $this->getEnvironmentNames($allProjectEnvs) ;
@@ -121,15 +122,28 @@ class InvokeAllLinux extends Base {
 
     // @todo it currently looks for both pword and password lets stick to one
     private function attemptSSH2Connection($server) {
-        $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
-        $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
-        require_once($ssh2File) ;
-        $ssh = new \Net_SSH2($server["target"]);
+        if (!class_exists('Net_SSH2')) {
+            $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
+            $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
+            require_once($ssh2File) ; }
+        $ssh = new \Net_SSH2($server["target"], 22, $this->params["timeout"]);
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
-        if ($ssh->login($server["user"], $pword) == true) {
-            return $ssh; }
+        $pword = $this->getKeyIfAvailable($pword);
+        if ($ssh->login($server["user"], $pword) == true) { return $ssh; }
         return null;
+    }
+
+    private function getKeyIfAvailable($pword) {
+        if (file_exists($pword)) {
+            if (!class_exists('Crypt_RSA')) {
+                $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
+                $rsaFile = $srcFolder."/seclib/Crypt/RSA.php" ;
+                require_once($rsaFile) ; }
+            $key = new \Crypt_RSA();
+            $key->loadKey(file_get_contents($pword));
+            return $key ; }
+        return $pword ;
     }
 
     private function askForSSHShellExecute(){
@@ -186,6 +200,26 @@ QUESTION;
             $question = 'Add Another Server?';
             if ( count($this->servers)<1) { $question .= "You need to enter at least one server\n"; }
             $serverAddingExecution = self::askYesOrNo($question); }
+    }
+
+    private function askForTimeout(){
+        if (isset($this->params["timeout"])) { return ; }
+        if (isset($this->params["guess"])) {
+            $this->params["timeout"] = 100 ;
+            return ; }
+        $question = 'Please Enter SSH Timeout in seconds';
+        $input = self::askForInput($question, true) ;
+        $this->params["timeout"] = $input ;
+    }
+
+    private function askForPort(){
+        if (isset($this->params["port"])) { return ; }
+        if (isset($this->params["guess"])) {
+            $this->params["port"] = 22 ;
+            return ; }
+        $question = 'Please Enter remote SSH Port';
+        $input = self::askForInput($question, true) ;
+        $this->params["timeout"] = $input ;
     }
 
     private function askForServerTarget(){
