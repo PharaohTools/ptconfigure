@@ -22,24 +22,19 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets enforce our Revisions"),
-                ) ),
-                array ( "Version" => array( "rollback" =>
-                    array( "container" => "****dap_proj_cont_dir****"),
-                    array( "limit" => "****dap_version_num_revisions****"),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Now lets restart Apache so we are serving our new application"),
-                ) ),
-                array ( "ApacheControl" => array( "restart" =>
-                    array() ,
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Our deployment is done"),
-                ) ),
-            );
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Rollback to our previous Revision"), ) ),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets execute the version command"), ) ),
+                array ( "Version" => array( "latest" => array(
+                    "container" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>",
+                    "limit" => "<%tpl.php%>dap_version_num_revisions</%tpl.php%>",
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application" ), ), ),
+                array ( "ApacheControl" => array( "restart" => array() , ) , ) ,
+
+                array ( "Logging" => array( "log" =>array( "log-message" => "Our revisioning is done" ), ), ),
+            );
 
     }
 
