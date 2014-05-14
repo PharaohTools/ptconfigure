@@ -33,6 +33,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Next lets do our git clone" ), ) ),
                 array ( "GitClone" => array( "clone" => array (
                     "guess" => true,
+                    "change-owner-permissions" => false,
                     "repository-url" => "<%tpl.php%>dap_git_repo_url</%tpl.php%>",
                     "custom-clone-dir" => $this->getTime(),
                     "custom-branch" => "<%tpl.php%>dap_git_custom_branch</%tpl.php%>",
