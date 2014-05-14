@@ -82,7 +82,9 @@ class DapperfyAllOS extends Base {
             $defaultReplacements =
             array(
                 "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
-                "env_name" => $environment["any-app"]["gen_env_name"] ) ;
+                "env_name" => $environment["any-app"]["gen_env_name"],
+                "gen_env_tmp_dir" => $environment["any-app"]["gen_env_tmp_dir"]
+            ) ;
 
             if (isset($environment["dapper"])) {
                 $replacements = array_merge($defaultReplacements, $environment["dapper"]) ; }
@@ -94,7 +96,7 @@ class DapperfyAllOS extends Base {
                 $templatorFactory = new \Model\Templating();
                 $templator = $templatorFactory->getModel($this->params);
                 $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'cleopatra'.DIRECTORY_SEPARATOR.'autopilots';
+                $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
                 $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
                 $templator->template(
                     file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
