@@ -107,7 +107,7 @@ echo &quot;BUILD SUCCESSFUL&quot;&#xd;</command>
                   <RunIfJobSuccessful>true</RunIfJobSuccessful>
                   <script>#!/bin/bash&#xd;
 echo &quot;Successful Build, deploying to Production&quot;&#xd;
-cd $WORKSPACE/deployed&#xd;
+cd $WORKSPACE/deployed
 echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;&#xd;
 sudo dapperstrano autopilot execute &quot;<%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;</script>
               </hudson.plugins.postbuildtask.TaskProperties>
