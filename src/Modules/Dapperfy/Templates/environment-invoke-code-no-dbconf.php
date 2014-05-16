@@ -22,34 +22,39 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets begin invoking Code Without Data Configuration on environment <%tpl.php%>env_name</%tpl.php%>"),
-                ) ),
-                array ( "Invoke" => array( "data" =>
-                    array("ssh-data" => $this->setSSHData() ),
-                    array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Invoking Code Without Data Configuration on environment <%tpl.php%>env_name</%tpl.php%> complete"),
-                ) ),
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Lets begin invoking Code Without Data Configuration on environment <%tpl.php%>env_name</%tpl.php%>"
+                ), ) ),
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "First lets SFTP over our Dapper Autopilot"
+                ), ) ),
+                array ( "SFTP" => array( "put" => array(
+                    "source" => getcwd()."/build/config/dapperstrano/autopilots/<%tpl.php%>env_name</%tpl.php%>-node-install-code-no-dbconf.php",
+                    "target" => "<%tpl.php%>gen_env_tmp_dir</%tpl.php%><%tpl.php%>env_name</%tpl.php%>-node-install-code-no-dbconf.php",
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
+                ) , ) , ) ,
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Lets run that autopilot"
+                ), ) ),
+                array ( "Invoke" => array( "data" =>  array(
+                    "guess" => true,
+                    "ssh-data" => $this->setSSHData(),
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
+                ), ), ),
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Invoking Code Without Data Configuration on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                ), ) ),
             );
 
     }
 
     private function setSSHData() {
-        $timeDrop = time();
         $sshData = <<<"SSHDATA"
-cd ****gen_env_tmp_dir****
-git clone -b ****dap_git_custom_branch**** --no-checkout --depth 1 ****dap_git_repo_url**** dapper$timeDrop
-cd dapper$timeDrop
-git show HEAD:build/config/dapperstrano/autopilots/****gen_env_name****-node-install-code-no-dbconf.php > ****gen_env_tmp_dir********gen_env_name****-node-install-code-no-dbconf.php
-rm -rf ****gen_env_tmp_dir****dapper$timeDrop
-cd ****gen_env_tmp_dir****
-sudo dapperstrano autopilot execute ****gen_env_name****-node-install-code-no-dbconf.php
-sudo chown -R www-data ****dap_proj_cont_dir****current/src
-sudo rm ****gen_env_name****-node-install-code-no-dbconf.php
+cd <%tpl.php%>gen_env_tmp_dir</%tpl.php%>
+sudo dapperstrano autopilot execute <%tpl.php%>env_name</%tpl.php%>-node-install-code-no-dbconf.php
+sudo rm <%tpl.php%>env_name</%tpl.php%>-node-install-code-no-dbconf.php
 SSHDATA;
-      return $sshData ;
+        return $sshData ;
     }
 
 }

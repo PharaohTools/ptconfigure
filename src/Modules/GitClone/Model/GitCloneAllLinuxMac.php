@@ -42,7 +42,7 @@ class GitCloneAllLinuxMac extends Base {
     }
 
     private function askAlsoChangePerms() {
-        if (isset($this->params["change-owner-permissions"])) { return true ; }
+        if (isset($this->params["change-owner-permissions"]) && $this->params["change-owner-permissions"]!=true) { return false ; }
         $question = 'Also change permissions/owner?';
         return self::askYesOrNo($question);
     }

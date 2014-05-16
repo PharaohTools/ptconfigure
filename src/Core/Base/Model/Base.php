@@ -28,11 +28,13 @@ class Base {
     protected $versionInstalledCommand;
     protected $versionRecommendedCommand;
     protected $versionLatestCommand;
+    protected $baseTempDir ;
 
     public function __construct($params) {
-      $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
-      $this->autopilotDefiner = $this->getModuleName() ;
-      $this->setCmdLineParams($params);
+        $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
+        $this->baseTempDir =  $this->tempDir ;
+        $this->autopilotDefiner = $this->getModuleName() ;
+        $this->setCmdLineParams($params);
     }
 
     protected function populateTitle() {

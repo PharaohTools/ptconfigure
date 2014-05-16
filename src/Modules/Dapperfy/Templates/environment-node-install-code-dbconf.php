@@ -25,76 +25,61 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets begin with ensuring the Project Container is initialized"),
-                ) ),
-                array ( "Project" => array( "container" =>
-                    array(),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Next lets do our git clone"),
-                ) ),
-                array ( "GitClone" => array( "clone" =>
-                    array ( "guess" => true ),
-                    array ( "repository-url" => "****dap_git_repo_url****"),
-                    array ( "custom-clone-dir" => $this->getTime() ),
-                    array ( "custom-branch" => "****dap_git_custom_branch****"),
-                ) ,  ),
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets initialize our new download directory as a dapper project"),
-                ) ),
-                array ( "Project" => array( "init" =>
-                    array(),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Next create our virtual host"),
-                ) ),
-                array ( "VHostEditor" => array( "add" =>
-                    array ( "guess" => true ),
-                    array ( "vhe-docroot" => "****dap_proj_cont_dir****{$this->getTime()}"),
-                    array ( "vhe-url" => "****dap_apache_vhost_url****"),
-                    array ( "vhe-ip-port" => "****dap_apache_vhost_ip****"),
-                    array ( "vhe-vhost-dir" => "/etc/apache2/sites-available" ),
-                    array ( "vhe-template" => $this->getTemplate() ),
-                    array ( "vhe-file-ext" => "" ),
-                ) ,  ),
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Next ensure our db file configuration is reset to blank"),
-                ) ),
-                array ( "DBConfigure" => array( "reset" =>
-                    array("platform" => "****dap_db_platform****" ),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Next configure our projects db configuration file"),
-                ) ),
-                array ( "DBConfigure" => array( "conf" =>
-                    array( "mysql-host" => "****dap_db_ip_address****"),
-                    array( "mysql-user" => "****dap_db_app_user_name****"),
-                    array( "mysql-pass" => "****dap_db_app_user_pass****"),
-                    array( "mysql-db" => "****dap_db_name****"),
-                    array( "mysql-platform" => "****dap_db_platform****"),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "The application is installed now so lets do our versioning"),
-                ) ),
-                array ( "Version" => array( "latest" =>
-                    array( "container" => "****dap_proj_cont_dir****"),
-                    array( "limit" => "****dap_version_num_revisions****"),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Now lets restart Apache so we are serving our new application"),
-                ) ),
-                array ( "ApacheControl" => array( "restart" =>
-                    array() ,
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Our deployment is done"),
-                ) ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin with ensuring the Project Container is initialized" ), ) ),
+                array ( "Project" => array( "container" => array(
+                    "proj-container" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>"
+                ), ) , ) ,
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Next lets do our git clone" ), ) ),
+                array ( "GitClone" => array( "clone" => array (
+                    "guess" => true,
+                    "change-owner-permissions" => false,
+                    "repository-url" => "<%tpl.php%>dap_git_repo_url</%tpl.php%>",
+                    "custom-clone-dir" => $this->getTime(),
+                    "custom-branch" => "<%tpl.php%>dap_git_custom_branch</%tpl.php%>",
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets initialize our new download directory as a dapper project"), ) ),
+                array ( "Project" => array( "init" => array(), ) , ) ,
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Next create our virtual host"), ) ),
+                array ( "ApacheVHostEditor" => array( "add" => array (
+                    "guess" => true,
+                    "vhe-docroot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
+                    "vhe-url" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
+                    "vhe-ip-port" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
+                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
+                    "vhe-template" => $this->getTemplate(),
+                    "vhe-file-ext" => "",
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Next ensure our db file configuration is reset to blank" ), ), ),
+                array ( "DBConfigure" => array( "reset" => array( "platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>" ), ), ),
+
+                array ( "Logging" => array( "log" => array("log-message" => "Next configure our projects db configuration file"), ) ),
+                array ( "DBConfigure" => array( "conf" => array(
+                    "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
+                    "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
+                    "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
+                    "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
+                    "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                ), ) , ) ,
+
+                array ( "Logging" => array( "log" => array( "log-message" => "The application is installed now so lets do our versioning" ), ), ),
+                array ( "Version" => array( "latest" => array(
+                    "container" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>",
+                    "limit" => "<%tpl.php%>dap_version_num_revisions</%tpl.php%>"
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
+                array ( "ApacheControl" => array( "restart" => array(
+                    "guess" => true,
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array("log-message" => "Our deployment is done" ), ), ),
             );
 
-
-	  }
-
+	}
 
     private function setTime() {
         $this->time = time() ;

@@ -104,11 +104,13 @@ class VersionLinuxMac extends Base {
           $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
           arsort($allEntries) ;
           $i = 0;
+            $projectFactory = new \Model\Project();
+            $project = $projectFactory->getModel($this->params) ;
           foreach ($allEntries as $currentKey => $oneEntry) {
             $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
             if ( is_dir($fullDirPath) == null ) {
               unset ($allEntries[$currentKey]); } // remove entry from array if not directory
-            else if (\Model\Project::checkIsDHProject($fullDirPath) == false) {
+            else if ($project::checkIsPharoahProject($fullDirPath) == false) {
               unset ($allEntries[$currentKey]); } // remove entry from array if directory not a project
             else if ($oneEntry=="." || $oneEntry=="..") {
               unset ($allEntries[$currentKey]); }// remove entry from array if its dot notation

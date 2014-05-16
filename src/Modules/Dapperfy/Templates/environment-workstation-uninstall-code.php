@@ -25,17 +25,17 @@ class AutoPilotConfigured extends AutoPilot {
 	      array(
               array ( "Git" => array(
                   "gitDeletorExecute" => true,
-                  "gitDeletorCustomFolder" => "****dap_proj_cont_dir****"
+                  "gitDeletorCustomFolder" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>"
               ), ) ,
               array ( "HostEditor" => array(
                   "hostEditorDeletionExecute" => true,
-                  "hostEditorDeletionIP" => "****dap_apache_vhost_ip****",
-                  "hostEditorDeletionURI" => "****dap_apache_vhost_url****.local",
+                  "hostEditorDeletionIP" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
+                  "hostEditorDeletionURI" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>.local",
               ) , ) ,
-              array ( "VHostEditor" => array(
+              array ( "ApacheVHostEditor" => array(
                   "virtualHostEditorDeletionExecute" => "boolean",
                   "virtualHostEditorDeletionDirectory" => "/etc/apache2/sites-available",
-                  "virtualHostEditorDeletionTarget" => "****dap_apache_vhost_url****",
+                  "virtualHostEditorDeletionTarget" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
                   "virtualHostEditorDeletionVHostDisable" => false,
                   "virtualHostEditorDeletionSymLinkDirectory" => "/etc/apache2/sites-enabled",
                   "virtualHostEditorDeletionApacheCommand" => "apache2",

@@ -14,15 +14,15 @@ class BuilderfyLinux extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $jenkinsOriginalJobFolderName;
-    private $jenkinsNewJobFolderName;
-    private $jenkinsFSFolder = "/var/lib/jenkins";
-    private $tempFolder = "/projectTemp/";
-    private $newJobName ;
-    private $projectContainerDirectory;
+    protected $jenkinsOriginalJobFolderName;
+    protected $jenkinsNewJobFolderName;
+    protected $jenkinsFSFolder = "/var/lib/jenkins";
+    protected $tempFolder = "/projectTemp/";
+    protected $newJobName ;
+    protected $projectContainerDirectory;
 
-    private $environments ;
-    private $environmentReplacements ;
+    protected $environments ;
+    protected $environmentReplacements ;
     public $result ;
 
     public function __construct($params) {
@@ -40,16 +40,6 @@ class BuilderfyLinux extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function askWhetherToBuilderfy() {
-        if ($this->askToScreenWhetherToBuilderfy() != true) { return false; }
-        if ($this->performInstallBuildInProject() == false){
-            return false ; }
-        $this->setEnvironmentReplacements() ;
-        $this->getEnvironments() ;
-        $this->doBuilderfy() ;
-        return true;
-    }
-
     public function askToScreenWhetherToBuilderfy() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Builderfy This?';
@@ -65,12 +55,17 @@ class BuilderfyLinux extends BaseLinuxApp {
             $log->log("Error: No papyrusfile found") ;
             $log->log("Try: \"dapperstrano proj init\" to initialize your project.") ;
             $this->result = false ;
-            return; }
+            return false; }
         $this->jenkinsOriginalJobFolderName = $this->selectSourceTemplateDirectory();
         $this->jenkinsFSFolder = $this->selectJenkinsFolderInFileSystem();
         $this->newJobName = $this->askForTargetJobName() ;
         $this->getNewJobFolderIfJenkinsFolderExistsInFileSystem();
-        // $this->tryToCreateTempFolder();
+        $this->getEnvironments();
+        if (!isset($this->params["no-autopilots"])) {
+            if (method_exists($this, "templateAutopilots")) { $this->templateAutopilots() ; } }
+        if (isset($this->params["only-autopilots"])) {
+            $this->result = true ;
+            return "Seems Fine..."; }
         $this->projectBuildInstall();
         $this->templateConfiguration();
         $this->changeNewJenkinsJobFolderPermissions();
@@ -80,6 +75,10 @@ class BuilderfyLinux extends BaseLinuxApp {
         return "Seems Fine...";
     }
 
+    public function getEnvironments() {
+        $this->environments = \Model\AppConfig::getProjectVariable("environments");
+    }
+
     protected function askForTargetJobName() {
         if (isset($this->params["target-job-name"])) { return $this->params["target-job-name"] ; }
         $question = 'What is the target Job Name?';
@@ -87,7 +86,7 @@ class BuilderfyLinux extends BaseLinuxApp {
     }
 
     protected function selectJenkinsFolderInFileSystem(){
-        if (isset($this->params["jenkins-fs-dir"])) { return $this->params["jenkins-fs-dir"] ; }
+        if (isset($this->params["jenkins-home"])) { return $this->params["jenkins-home"] ; }
         $question = 'What is your Jenkins home?';
         if ($this->detectJenkinsHomeFolderExistence()) {
             if (isset($this->params["guess"])) { return $this->jenkinsFSFolder ; }
@@ -128,6 +127,17 @@ class BuilderfyLinux extends BaseLinuxApp {
             $data,
             $this->getBuildConfigVars(),
             $targetLocation );
+    }
+
+    public function getServerArrayText($serversArray) {
+        $serversText = "";
+        foreach($serversArray as $serverArray) {
+            $serversText .= 'array(';
+            $serversText .= '"target" => "'.$serverArray["target"].'", ';
+            $serversText .= '"user" => "'.$serverArray["user"].'", ';
+            $serversText .= '"pword" => "'.$serverArray["password"].'", ';
+            $serversText .= '),'."\n"; }
+        return $serversText;
     }
 
     protected function changeNewJenkinsJobFolderPermissions() {

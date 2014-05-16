@@ -25,65 +25,50 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin uninstalling our application code"  ), ) ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "First remove the directory" ), ) ),
+                array ( "GitClone" => array( "rm" => array (
+                    "guess" => true ,
+                    "repository-url" => "<%tpl.php%>dap_git_repo_url</%tpl.php%>",
+                    "custom-clone-dir" => $this->getTime() ,
+                    "custom-branch" => "<%tpl.php%>dap_git_custom_branch</%tpl.php%>"
+                ), ), ),
+
                 array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets begin uninstalling our application code"),
+                    array( "log-message" => "Next remove our virtual host"),
                 ) ),
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "First remove the directory"),
-                ) ),
-                array ( "GitClone" => array( "rm" =>
-                    array ( "guess" => true ),
-                    array ( "repository-url" => "****dap_git_repo_url****"),
-                    array ( "custom-clone-dir" => $this->getTime() ),
-                    array ( "custom-branch" => "****dap_git_custom_branch****"),
-                ) ,  ),
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Lets initialize our new download directory as a dapper project"),
-                ) ),
-                array ( "Project" => array( "init" =>
-                    array(),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Next create our virtual host"),
-                ) ),
-                array ( "HostEditor" => array(
-                    "hostEditorDeletionExecute" => true,
-                    "hostEditorDeletionIP" => "****dap_apache_vhost_ip****",
-                    "hostEditorDeletionURI" => "****dap_apache_vhost_url****.local",
-                ) , ) ,
-                array ( "VHostEditor" => array(
+                array ( "ApacheVHostEditor" => array(
                     "virtualHostEditorDeletionExecute" => "boolean",
                     "virtualHostEditorDeletionDirectory" => "/etc/apache2/sites-available",
-                    "virtualHostEditorDeletionTarget" => "****dap_apache_vhost_url****",
+                    "virtualHostEditorDeletionTarget" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
                     "virtualHostEditorDeletionVHostDisable" => false,
                     "virtualHostEditorDeletionSymLinkDirectory" => "/etc/apache2/sites-enabled",
                     "virtualHostEditorDeletionApacheCommand" => "apache2",
                 ) , ) ,
-                array ( "VHostEditor" => array( "rm" =>
-                    array ( "guess" => true ),
-                    array ( "vhe-docroot" => "****dap_proj_cont_dir****{$this->getTime()}"),
-                    array ( "vhe-url" => "****dap_apache_vhost_url****"),
-                    array ( "vhe-ip-port" => "****dap_apache_vhost_ip****"),
-                    array ( "vhe-vhost-dir" => "/etc/apache2/sites-available" ),
-                    array ( "vhe-template" => $this->getTemplate() ),
-                    array ( "vhe-file-ext" => "" ),
-                ) ,  ),
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "The application is installed now so lets do our versioning"),
-                ) ),
-                array ( "Version" => array( "latest" =>
-                    array( "container" => "****dap_proj_cont_dir****"),
-                    array( "limit" => "****dap_version_num_revisions****"),
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Now lets restart Apache to stop serving our application"),
-                ) ),
-                array ( "ApacheControl" => array( "restart" =>
-                    array() ,
-                ) , ) ,
-                array ( "Logging" => array( "log" =>
-                    array( "log-message" => "Our deployment is done"),
-                ) ),
+                array ( "ApacheVHostEditor" => array( "rm" => array (
+                    "guess" => true ,
+                    "vhe-docroot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
+                    "vhe-url" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
+                    "vhe-ip-port" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
+                    "vhe-vhost-dir" => "/etc/apache2/sites-available" ,
+                    "vhe-template" => $this->getTemplate() ,
+                    "vhe-file-ext" => ""
+                ), ), ),
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "The application is installed now so lets do our versioning"
+                ), ), ),
+                array ( "Version" => array( "latest" => array(
+                    "container" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>",
+                    "limit" => "<%tpl.php%>dap_version_num_revisions</%tpl.php%>"
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array (
+                    "log-message" => "Now lets restart Apache to stop serving our application"
+                ), ), ),
+                array ( "ApacheControl" => array( "restart" => array() , ) , ) ,
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Our deployment is done"),) ),
             );
 
 
@@ -138,57 +123,5 @@ TEMPLATE;
 
         return $template ;
     }
-
-
-}
-
-
-<?php
-
-/*************************************
-*      Generated Autopilot file      *
-*     ---------------------------    *
-*Autopilot Generated By Dapperstrano *
-*     ---------------------------    *
-*************************************/
-
-Namespace Core ;
-
-class AutoPilotConfigured extends AutoPilot {
-
-    public $steps ;
-
-    public function __construct() {
-	      $this->setSteps();
-    }
-
-    /* Steps */
-    private function setSteps() {
-
-	    $this->steps =
-	      array(
-              array ( "Git" => array(
-                  "gitDeletorExecute" => true,
-                  "gitDeletorCustomFolder" => "****dap_proj_cont_dir****"
-              ), ) ,
-              array ( "HostEditor" => array(
-                  "hostEditorDeletionExecute" => true,
-                  "hostEditorDeletionIP" => "****dap_apache_vhost_ip****",
-                  "hostEditorDeletionURI" => "****dap_apache_vhost_url****.local",
-              ) , ) ,
-              array ( "VHostEditor" => array(
-                  "virtualHostEditorDeletionExecute" => "boolean",
-                  "virtualHostEditorDeletionDirectory" => "/etc/apache2/sites-available",
-                  "virtualHostEditorDeletionTarget" => "****dap_apache_vhost_url****",
-                  "virtualHostEditorDeletionVHostDisable" => false,
-                  "virtualHostEditorDeletionSymLinkDirectory" => "/etc/apache2/sites-enabled",
-                  "virtualHostEditorDeletionApacheCommand" => "apache2",
-              ) , ) ,
-              array ( "ApacheControl" => array(
-                  "apacheCtlRestartExecute" => true,
-              ) , ) ,
-	      );
-
-	  }
 
 }

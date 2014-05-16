@@ -31,25 +31,25 @@ class AutoPilotConfigured extends AutoPilot {
               ), ) ,
               array ( "HostEditor" => array(
                   "hostEditorDeletionExecute" => true,
-                  "hostEditorDeletionIP" => "****dap_apache_vhost_ip****",
-                  "hostEditorDeletionURI" => "****dap_apache_vhost_url****.local",
+                  "hostEditorDeletionIP" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
+                  "hostEditorDeletionURI" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>.local",
               ) , ) ,
-              array ( "VHostEditor" => array(
+              array ( "ApacheVHostEditor" => array(
                   "virtualHostEditorDeletionExecute" => "boolean",
                   "virtualHostEditorDeletionDirectory" => "/etc/apache2/sites-available",
-                  "virtualHostEditorDeletionTarget" => "****dap_apache_vhost_url****",
+                  "virtualHostEditorDeletionTarget" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
                   "virtualHostEditorDeletionVHostDisable" => false,
                   "virtualHostEditorDeletionSymLinkDirectory" => "/etc/apache2/sites-enabled",
                   "virtualHostEditorDeletionApacheCommand" => "apache2",
               ) , ) ,
               array ( "DBInstall" => array(
                   "dbDropExecute" => true,
-                  "dbDropDBHost" => "****dap_db_ip_address****",
-                  "dbDropDBName" => "****dap_db_name****",
+                  "dbDropDBHost" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
+                  "dbDropDBName" => "<%tpl.php%>dap_db_name</%tpl.php%>",
                   "dbDropDBRootUser" => "****dap_db_admin_user_name****",
                   "dbDropDBRootPass" => "****dap_db_admin_user_pass****",
                   "dbDropUserExecute" => true,
-                  "dbDropDBUser" => "****dap_db_app_user_name****",
+                  "dbDropDBUser" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
               ) , ) ,
               array ( "ApacheControl" => array(
                   "apacheCtlRestartExecute" => true,
