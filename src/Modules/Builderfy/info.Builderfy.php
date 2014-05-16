@@ -13,7 +13,7 @@ class BuilderfyInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Builderfy" =>  array_merge(parent::routesAvailable(), array("developer", "staging", "continuous-staging", "production", "continuous-production") ) );
+      return array( "Builderfy" =>  array_merge(parent::routesAvailable(), array("developer", "staging", "continuous", "production") ) );
     }
 
     public function routeAliases() {

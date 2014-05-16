@@ -23,7 +23,16 @@ class Builderfy extends Base {
             $this->content["result2"] = $thisModel->result;
             return array ("type"=>"view", "view"=>"builderfy", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("staging", "production", "continuous"))) {
+        if ($action == "continuous") {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Continuous") ;
+            // if we don't have an object, its an array of errors
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $thisModel->params["action"] = $action ;
+            $this->content["result1"] = $thisModel->askInstall();
+            $this->content["result2"] = $thisModel->result;
+            return array ("type"=>"view", "view"=>"builderfy", "pageVars"=>$this->content); }
+
+        if (in_array($action, array("staging", "production"))) {
             $thisModel->params["action"] = $action ;
             $this->content["result1"] = $thisModel->askInstall();
             $this->content["result2"] = $thisModel->result;
