@@ -90,7 +90,7 @@ cd $WORKSPACE/deployed
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
 <command>#!/bin/bash
-    echo &quot;BUILD SUCCESSFUL&quot;</command>
+echo &quot;BUILD SUCCESSFUL&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
