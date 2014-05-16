@@ -22,6 +22,10 @@ class ApacheVHostEditor extends Base {
             $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToCreateVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
+        if ($action=="add-balancer") {
+            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToCreateBalancerVHost();
+            return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
+
         else if ($action=="remove" || $action=="rm") {
             $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToDeleteVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }

@@ -25,6 +25,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     private $vHostDir = '/etc/apache2/sites-available' ; // no trailing slash
     private $vHostTemplateDir;
     private $vHostDefaultTemplates;
+    private $vHostDefaultBalancerTemplates ;
 
     public function __construct($params) {
       parent::__construct($params);
@@ -37,6 +38,10 @@ class ApacheVHostEditorLinuxMac extends Base {
 
     public function askWhetherToCreateVHost() {
         return $this->performVHostCreation();
+    }
+
+    public function askWhetherToCreateBalancerVHost() {
+        return $this->performBalancerVHostCreation();
     }
 
     public function askWhetherToDeleteVHost() {
@@ -67,6 +72,23 @@ class ApacheVHostEditorLinuxMac extends Base {
         $this->vHostTemplateDir = $this->askForVHostTemplateDirectory();
         $this->selectVHostTemplate();
         $this->processVHost();
+        if ( !$this->checkVHostOkay() ) { return false; }
+        $this->vHostDir = $this->askForVHostDirectory();
+        $this->attemptVHostWrite();
+        if ( $this->askForEnableVHost() ) {
+            $this->enableVHost(); }
+        return true;
+    }
+
+    private function performBalancerVHostCreation() {
+        if ( !$this->askForVHostEntry() ) { return false; }
+        $this->docRoot = $this->askForDocRoot();
+        $this->url = $this->askForHostURL();
+        $this->vHostIp = $this->askForVHostIp();
+        $this->fileExtension = $this->askForFileExtension();
+        $this->vHostTemplateDir = $this->askForVHostTemplateDirectory();
+        $this->selectBalancerVHostTemplate();
+        $this->processBalancerVHost();
         if ( !$this->checkVHostOkay() ) { return false; }
         $this->vHostDir = $this->askForVHostDirectory();
         $this->attemptVHostWrite();
@@ -296,7 +318,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function checkIsDHProject() {
-        return file_exists('dhproj');
+        return file_exists('papyrusfile');
     }
 
     // @todo get project variable below is wrong
@@ -406,7 +428,7 @@ class ApacheVHostEditorLinuxMac extends Base {
 
     private function setVHostDefaultTemplates() {
 
-      $template1 = <<<'TEMPLATE1'
+        $template1 = <<<'TEMPLATE1'
 NameVirtualHost ****IP ADDRESS****
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
@@ -421,7 +443,7 @@ NameVirtualHost ****IP ADDRESS****
 </VirtualHost>
 TEMPLATE1;
 
-      $template2 = <<<'TEMPLATE2'
+        $template2 = <<<'TEMPLATE2'
 NameVirtualHost ****IP ADDRESS****
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
@@ -436,7 +458,7 @@ NameVirtualHost ****IP ADDRESS****
 </VirtualHost>
 TEMPLATE2;
 
-      $template3 = <<<'TEMPLATE3'
+        $template3 = <<<'TEMPLATE3'
 NameVirtualHost ****IP ADDRESS****
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
@@ -481,14 +503,106 @@ NameVirtualHost ****IP ADDRESS****
 </VirtualHost>
 TEMPLATE5;
 
-    $this->vHostDefaultTemplates = array(
-      "docroot-no-suffix" => $template1,
-      "docroot-src-suffix" => $template2,
-      "docroot-web-suffix" => $template3,
-      "docroot-www-suffix" => $template4,
-      "docroot-docroot-suffix" => $template5
-    );
+        $this->vHostDefaultTemplates = array(
+            "docroot-no-suffix" => $template1,
+            "docroot-src-suffix" => $template2,
+            "docroot-web-suffix" => $template3,
+            "docroot-www-suffix" => $template4,
+            "docroot-docroot-suffix" => $template5
+        );
 
     }
 
+    // @todo, this is ugly and possibly unneccessary
+    private function selectBalancerVHostTemplate(){
+        if (isset($this->params["vhe-template"])) {
+            $this->vHostTemplate = $this->params["vhe-template"] ;
+            return ; }
+        if (isset($this->params["vhe-default-template-name"])) {
+            $this->vHostTemplate = $this->vHostDefaultBalancerTemplates[$this->params["vhe-default-template-name"]] ;
+            return ; }
+    }
+
+    private function setBalancerVHostTemplates() {
+
+        $servers = $this->getServersText() ;
+
+        $template1 = <<<"TEMPLATE1"
+
+<Proxy balancer://mycluster>
+    # Define back-end servers:
+    $servers
+</Proxy>
+
+<VirtualHost ****IP ADDRESS****>
+    # Apply VH settings as desired
+    # However, configure ProxyPass argument to
+    # use "mycluster" to balance the load
+
+    ProxyPass / balancer://mycluster
+</VirtualHost>
+
+
+<VirtualHost ****IP ADDRESS****>
+	ServerAdmin webmaster@localhost
+	ServerName ****SERVER NAME****
+	DocumentRoot ****WEB ROOT****
+	<Directory ****WEB ROOT****>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+</VirtualHost>
+TEMPLATE1;
+
+        $template2 = <<<'TEMPLATE2'
+<VirtualHost ****IP ADDRESS****>
+	ServerAdmin webmaster@localhost
+	ServerName ****SERVER NAME****
+	DocumentRoot ****WEB ROOT****/src
+	<Directory ****WEB ROOT****/src>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+</VirtualHost>
+TEMPLATE2;
+
+        $this->vHostDefaultBalancerTemplates = array(
+            "http" => $template1,
+            "http-https" => $template2
+        );
+
+    }
+
+    private function getServersText() {
+        $servers = $this->getServersArray() ;
+        if ($servers != null) {
+            $sText = "" ;
+            $i = 0 ;
+            foreach ($servers as $srvId => $srvDetails) {
+                $sText .= '# Server '.$srvId."\n";
+                $sText .= 'BalancerMember http://'.$srvDetails["target"]."\n";
+                $sText .= "\n";
+                $i++ ; }
+            return $sText ; }
+        return false ;
+    }
+
+    private function getServersArray() {
+        if (isset($this->params["environment-name"])) {
+            $envs = $this->getEnvironments();
+            $servers = $envs["servers"] ;
+            return $servers ; }
+        else {
+            \BootStrap::setExitCode(1);
+
+        }
+    }
+
+    protected function getEnvironments() {
+        return \Model\AppConfig::getProjectVariable("environments");
+    }
 }
