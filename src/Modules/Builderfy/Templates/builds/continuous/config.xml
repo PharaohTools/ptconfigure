@@ -77,39 +77,21 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-cd $WORKSPACE/deployed&#xd;
+cd $WORKSPACE/deployed
 echo &quot;Running Application Installation...&quot;&#xd;
 echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;&#xd;
-sudo dapperstrano autopilot execute <%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&#xd;</command>
+sudo dapperstrano autopilot execute &quot;<%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>#!/bin/bash
+<command>#!/bin/bash
 echo &quot;Running Testingkamen Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;&#xd;
-cd $WORKSPACE/deployed&#xd;
-sudo testingkamen autopilot execute build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php&#xd;</command>
+cd $WORKSPACE/deployed
+# sudo testingkamen autopilot execute &quot;build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php&quot;</command>
     </hudson.tasks.Shell>
-    <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
-      <condition class="org.jenkins_ci.plugins.run_condition.core.StatusCondition">
-        <worstResult>
-          <name>SUCCESS</name>
-          <ordinal>0</ordinal>
-          <color>BLUE</color>
-        </worstResult>
-        <bestResult>
-          <name>SUCCESS</name>
-          <ordinal>0</ordinal>
-          <color>BLUE</color>
-        </bestResult>
-      </condition>
-      <buildStep class="hudson.tasks.Shell">
-        <command>#!/bin/bash
-echo &quot;ALL SHELL STEPS FINISHED&quot;&#xd;
-cd $WORKSPACE/deployed&#xd;
-echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;&#xd;
-sudo dapperstrano autopilot execute <%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&#xd;</command>
-      </buildStep>
-      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail"/>
-    </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+<hudson.tasks.Shell>
+<command>#!/bin/bash
+echo &quot;BUILD SUCCESSFUL&quot;&#xd;</command>
+</hudson.tasks.Shell>
   </builders>
   <publishers>
       <hudson.plugins.postbuildtask.PostbuildTask plugin="postbuild-task@1.8">
@@ -127,7 +109,7 @@ sudo dapperstrano autopilot execute <%tpl.php%>autopilot-prod-invoke-install-fil
 echo &quot;Successful Build, deploying to Production&quot;&#xd;
 cd $WORKSPACE/deployed&#xd;
 echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;&#xd;
-sudo dapperstrano autopilot execute <%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%></script>
+sudo dapperstrano autopilot execute &quot;<%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;</script>
               </hudson.plugins.postbuildtask.TaskProperties>
           </tasks>
       </hudson.plugins.postbuildtask.PostbuildTask>
