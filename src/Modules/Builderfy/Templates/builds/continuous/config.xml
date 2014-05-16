@@ -88,10 +88,10 @@ echo &quot;Running Testingkamen Executors for <%tpl.php%>build_type</%tpl.php%>.
 cd $WORKSPACE/deployed
 # sudo testingkamen autopilot execute &quot;build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php&quot;</command>
     </hudson.tasks.Shell>
-<hudson.tasks.Shell>
+    <hudson.tasks.Shell>
 <command>#!/bin/bash
-echo &quot;BUILD SUCCESSFUL&quot;&#xd;</command>
-</hudson.tasks.Shell>
+    echo &quot;BUILD SUCCESSFUL&quot;</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
       <hudson.plugins.postbuildtask.PostbuildTask plugin="postbuild-task@1.8">
