@@ -39,12 +39,15 @@ class BuilderfyLinuxContinuous extends BuilderfyLinux {
         if (isset($this->params["project-description"])) {
             return $this->params["project-description"] ; }
         if (isset($this->params["use-defaults"]) ) {
-            return "Your Project Description" ; }
+            $this->params["project-description"] = "Your Project Description" ;
+            return $this->params["project-description"] ; }
         $papVersion = \Model\AppConfig::getProjectVariable("description");
         if (isset($this->params["guess"])  && !is_null($papVersion) ) {
-            return $papVersion ; }
+            $this->params["project-description"] = $papVersion ;
+            return $this->params["project-description"] ;}
         $question = 'Enter a description for your project' ;
-        return self::askForInput($question) ;
+        $this->params["project-description"] = self::askForInput($question) ;
+        return $this->params["project-description"] ;
     }
 
     protected function getPrimaryScmUrl() {
