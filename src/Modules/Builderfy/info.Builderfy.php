@@ -13,7 +13,11 @@ class BuilderfyInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Builderfy" =>  array_merge(parent::routesAvailable(), array("developer", "staging", "continuous", "production") ) );
+      return array( "Builderfy" =>  array_merge(
+          parent::routesAvailable(),
+          array("developer", "staging", "continuous", "production"),
+          $this->getExtraRoutes()
+      ) );
     }
 
     public function routeAliases() {
@@ -25,6 +29,7 @@ class BuilderfyInfo extends Base {
     }
 
     public function helpDefinition() {
+      $extraHelp = $this->getExtraHelpDefinitions() ;
       $help = <<<"HELPDATA"
   This is a default Module and provides you a way to deploy build jobs to jenkins that are configured for your project.
 
@@ -62,9 +67,31 @@ class BuilderfyInfo extends Base {
 
         also --no-autopilots to just install the build
 
-
+        $extraHelp
 HELPDATA;
       return $help ;
+    }
+
+    protected function getExtraHelpDefinitions() {
+        $extraDefsText = "" ;
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "helpDefinitions")) {
+                $defNames = array_keys($info->helpDefinitions());
+                if (in_array("Builderfy", $defNames)) {
+                    $defs = $info->helpDefinitions() ;
+                    $thisDef = $defs["Builderfy"] ;
+                    $extraDefsText .= $thisDef ; } } }
+        return $extraDefsText ;
+    }
+
+    protected function getExtraRoutes() {
+        $extraActions = array() ;
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "builderfyActions")) {
+                $extraActions = array_merge($extraActions, $info->builderfyActions()); } }
+        return $extraActions ;
     }
 
 }
