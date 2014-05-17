@@ -81,14 +81,14 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function performBalancerVHostCreation() {
-        if ( !$this->askForVHostEntry() ) { return false; }
-        $this->docRoot = $this->askForDocRoot();
+        if ( !$this->askForVHostEntry(true) ) { return false; }
         $this->url = $this->askForHostURL();
         $this->vHostIp = $this->askForVHostIp();
         $this->fileExtension = $this->askForFileExtension();
         $this->vHostTemplateDir = $this->askForVHostTemplateDirectory();
+        $this->setBalancerVHostTemplates  ;
         $this->selectBalancerVHostTemplate();
-        $this->processBalancerVHost();
+        $this->processVHost();
         if ( !$this->checkVHostOkay() ) { return false; }
         $this->vHostDir = $this->askForVHostDirectory();
         $this->attemptVHostWrite();
@@ -123,9 +123,10 @@ class ApacheVHostEditorLinuxMac extends Base {
         return true;
     }
 
-    private function askForVHostEntry() {
+    private function askForVHostEntry($bal = null) {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Do you want to add a VHost?';
+        $tx = ($bal == true) ? "Load Balancer" : "" ;
+        $question = 'Do you want to add a '.$tx.' VHost?';
         return self::askYesOrNo($question);
     }
 
@@ -179,6 +180,12 @@ class ApacheVHostEditorLinuxMac extends Base {
     private function askForHostURL() {
         if (isset($this->params["vhe-url"])) { return $this->params["vhe-url"] ; }
         $question = 'What URL do you want to add as server name?';
+        return self::askForInput($question, true);
+    }
+
+    private function askForClusterName() {
+        if (isset($this->params["vhe-cluster-name"])) { return $this->params["vhe-cluster-name"] ; }
+        $question = 'What do you want to add as Cluster name?';
         return self::askForInput($question, true);
     }
 
@@ -525,35 +532,22 @@ TEMPLATE5;
 
     private function setBalancerVHostTemplates() {
 
+        $clusterName = $this->askForClusterName() ;
         $servers = $this->getServersText() ;
 
         $template1 = <<<"TEMPLATE1"
 
-<Proxy balancer://mycluster>
+<Proxy balancer://$clusterName>
     # Define back-end servers:
     $servers
 </Proxy>
 
 <VirtualHost ****IP ADDRESS****>
-    # Apply VH settings as desired
-    # However, configure ProxyPass argument to
-    # use "mycluster" to balance the load
-
-    ProxyPass / balancer://mycluster
-</VirtualHost>
-
-
-<VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
 	ServerName ****SERVER NAME****
-	DocumentRoot ****WEB ROOT****
-	<Directory ****WEB ROOT****>
-		Options Indexes FollowSymLinks MultiViews
-		AllowOverride All
-		Order allow,deny
-		allow from all
-	</Directory>
+    ProxyPass / balancer://$clusterName
 </VirtualHost>
+
 TEMPLATE1;
 
         $template2 = <<<'TEMPLATE2'
