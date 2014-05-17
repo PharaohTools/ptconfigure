@@ -4,9 +4,13 @@ Namespace Controller ;
 
 class Dapperfy extends Base {
 
-    private $injectedActions = array();
-
     public function execute($pageVars) {
+
+        $action = $pageVars["route"]["action"];
+
+        $otherModuleExecutor = $this->getExecutorForAction($action);
+        if (!is_null($otherModuleExecutor)) {
+            return $otherModuleExecutor->executeDapperfy($pageVars) ; }
 
         $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
         // if we don't have an object, its an array of errors
@@ -14,24 +18,23 @@ class Dapperfy extends Base {
         $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
-        $action = $pageVars["route"]["action"];
-
         if ($action=="standard") {
           $this->content["result"] = $thisModel->askWhetherToDapperfy();
           return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
-        else if (in_array($action, array_keys($this->injectedActions))) {
-          $extendedModel = new $this->injectedActions[$action]() ;
-          $this->content["result"] = $extendedModel->askWhetherToDapperfy();
-          return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content);
-        }
-
-        $this->content["messages"][] = "Invalid Project Action";
+        $this->content["messages"][] = "Invalid Dapperfy Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 
-    public function injectDapperfyAction($action, $modelName) {
-       $this->injectedActions[] = array($action => $modelName);
+    protected function getExecutorForAction($action) {
+        $controllers = \Core\AutoLoader::getAllControllers() ;
+        foreach ($controllers as $controller) {
+            if (method_exists($controller, "executeDapperfy"))
+                $info = \Core\AutoLoader::getSingleInfoObject(substr(get_class($controller), 11)) ;
+            $myDapperfyRoutes = (isset($info) && method_exists($info, "dapperfyActions")) ? $info->dapperfyActions() : array() ;
+            if (in_array($action, $myDapperfyRoutes)) {
+                return $controller ; } }
+        return null ;
     }
 
 }
