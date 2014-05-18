@@ -2,6 +2,7 @@
 
 Namespace Model;
 
+// @todo this class is way too long, we should use model groups, at least for balancing
 class ApacheVHostEditorLinuxMac extends Base {
 
     // Compatibility
@@ -86,7 +87,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         $this->vHostIp = $this->askForVHostIp();
         $this->fileExtension = $this->askForFileExtension();
         $this->vHostTemplateDir = $this->askForVHostTemplateDirectory();
-        $this->setBalancerVHostTemplates  ;
+        $this->setBalancerVHostTemplates()  ;
         $this->selectBalancerVHostTemplate();
         $this->processVHost();
         if ( !$this->checkVHostOkay() ) { return false; }
@@ -550,18 +551,35 @@ TEMPLATE5;
 
 TEMPLATE1;
 
-        $template2 = <<<'TEMPLATE2'
+        $template2 = <<<"TEMPLATE2"
+
+<Proxy balancer://$clusterName>
+    # Define back-end servers:
+    $servers
+</Proxy>
+
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
 	ServerName ****SERVER NAME****
-	DocumentRoot ****WEB ROOT****/src
-	<Directory ****WEB ROOT****/src>
-		Options Indexes FollowSymLinks MultiViews
-		AllowOverride All
-		Order allow,deny
-		allow from all
-	</Directory>
+    ProxyPass / balancer://$clusterName
 </VirtualHost>
+
+Listen 443
+
+NameVirtualHost ****SSL_IP ADDRESS****
+<VirtualHost ****SSL_IP ADDRESS****>
+    SSLEngine On
+
+    # Set the path to SSL certificate
+    # Usage: SSLCertificateFile /path/to/cert.pem
+    SSLCertificateFile ****SSL_CERT_FILE****
+    # /etc/apache2/ssl/file.pem
+
+    # Or, balance the load:
+    ProxyPass / balancer://balancer_cluster_name
+
+</VirtualHost>
+
 TEMPLATE2;
 
         $this->vHostDefaultBalancerTemplates = array(
@@ -578,6 +596,8 @@ TEMPLATE2;
             $i = 0 ;
             foreach ($servers as $srvId => $srvDetails) {
                 $sText .= '# Server '.$srvId."\n";
+                $sText .= (isset($srvDetails["name"])) ? ", {$srvDetails["name"]}" : "";
+                $sText .= "\n";
                 $sText .= 'BalancerMember http://'.$srvDetails["target"]."\n";
                 $sText .= "\n";
                 $i++ ; }
@@ -592,8 +612,10 @@ TEMPLATE2;
             return $servers ; }
         else {
             \BootStrap::setExitCode(1);
-
-        }
+            $loggingFactory = new \Model\Logging() ;
+            $log = $loggingFactory->getModel($this->params) ;
+            $log->log("No environment name provided for Load Balancing") ;
+            return null ; }
     }
 
     protected function getEnvironments() {
