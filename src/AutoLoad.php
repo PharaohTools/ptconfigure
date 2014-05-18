@@ -48,45 +48,45 @@ class AutoLoader{
                                 $className = '\Info\\'.$singleModuleDir.'Info' ;
                                 $allInfoObjects[] = new $className(); } } } } } }
         return $allInfoObjects;
-    }
+        }
 
-    public static function getController($module) {
-        $allModuleParentDirectories = array("Extensions", "Modules", "Core");
-        foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
-            $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
-            $modulesIndividualDirectories = scandir($currentModulesParentDir);
-            foreach ($modulesIndividualDirectories as $singleModuleDir) {
-                if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
-                    if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
-                        if ($singleModuleDir == $module) {
-                            $c = $currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.
-                                'Controller'.DIRECTORY_SEPARATOR.$module.'.php' ;
-                            require_once $c;
-                            $className = '\Controller\\'.$singleModuleDir ;
-                            return new $className(); } } } } }
-        return null ;
-    }
-
-    public static function getAllControllers() {
-        $controllers = array() ;
-        $allModuleParentDirectories = array("Extensions", "Modules", "Core");
-        foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
-            $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
-            $modulesIndividualDirectories = scandir($currentModulesParentDir);
-            foreach ($modulesIndividualDirectories as $singleModuleDir) {
-                if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
-                    if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
-                        if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.'Controller')) { // if is a dir
-                            $ctrlFiles = scandir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.'Controller') ;
-                            foreach ($ctrlFiles as $ctrlFile) {
+        public static function getController($module) {
+            $allModuleParentDirectories = array("Extensions", "Modules", "Core");
+            foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
+                $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
+                $modulesIndividualDirectories = scandir($currentModulesParentDir);
+                foreach ($modulesIndividualDirectories as $singleModuleDir) {
+                    if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
+                        if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
+                            if ($singleModuleDir == $module) {
                                 $c = $currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.
-                                    'Controller'.DIRECTORY_SEPARATOR.$ctrlFile ;
-                                if (!in_array($ctrlFile, array(".", ".."))) { // if not dot or double dot
-                                    require_once $c; } }
-                            $className = '\Controller\\'.$singleModuleDir ;
-                            $controllers[] = new $className(); } } } } }
-        return $controllers ;
-    }
+                                    'Controller'.DIRECTORY_SEPARATOR.$module.'.php' ;
+                                require_once $c;
+                                $className = '\Controller\\'.$singleModuleDir ;
+                                return new $className(); } } } } }
+            return null ;
+        }
+
+        public static function getAllControllers() {
+            $controllers = array() ;
+            $allModuleParentDirectories = array("Extensions", "Modules", "Core");
+            foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
+                $currentModulesParentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
+                $modulesIndividualDirectories = scandir($currentModulesParentDir);
+                foreach ($modulesIndividualDirectories as $singleModuleDir) {
+                    if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
+                        if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
+                            if ( is_dir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.'Controller')) { // if is a dir
+                                $ctrlFiles = scandir($currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.'Controller') ;
+                                foreach ($ctrlFiles as $ctrlFile) {
+                                    $c = $currentModulesParentDir.DIRECTORY_SEPARATOR.$singleModuleDir.DIRECTORY_SEPARATOR.
+                                        'Controller'.DIRECTORY_SEPARATOR.$ctrlFile ;
+                                    if (!in_array($ctrlFile, array(".", ".."))) { // if not dot or double dot
+                                        require_once $c; } }
+                                $className = '\Controller\\'.$singleModuleDir ;
+                                $controllers[] = new $className(); } } } } }
+            return $controllers ;
+        }
 
     public static function getSingleInfoObject($module) {
         $allModuleParentDirectories = array("Extensions", "Modules", "Core");
