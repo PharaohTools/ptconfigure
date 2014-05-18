@@ -172,7 +172,8 @@ class EnvironmentConfigAllLinux extends Base {
       else {
           foreach ($this->environmentReplacements[$appEnvType] as $replacementQuestion) {
               $this->environments[$i][$appEnvType][$replacementQuestion["var"]]
-                  = self::askForInput("Value for: ".$replacementQuestion["friendly_text"]); } }
+                  = (isset($this->params[$replacementQuestion["var"]]))
+                  ? $this->params[$replacementQuestion["var"]] : self::askForInput("Value for: ".$replacementQuestion["friendly_text"]); } }
     }
 
     public function getServers() {
