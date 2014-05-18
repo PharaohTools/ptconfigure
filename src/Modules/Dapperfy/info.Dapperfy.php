@@ -6,7 +6,7 @@ class DapperfyInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Dapperstrano Dapperfyer - Create some standard autopilots for your project";
+    public $name = "Dapperstrano Dapperfyer - Automated Application Deployment autopilots for your project";
 
     public function __construct() {
       parent::__construct();
