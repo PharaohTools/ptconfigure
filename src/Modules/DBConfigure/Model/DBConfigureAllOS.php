@@ -14,16 +14,16 @@ class DBConfigureAllOS extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $platform;
-    private $platformVars;
-    private $settingsFileData;
-    private $currentExtraSettingsFileData;
-    private $dbHost ;
-    private $dbUser ;
-    private $dbPass ;
-    private $dbRootUser ;
-    private $dbRootPass ;
-    private $dbName ;
+    protected $platform;
+    protected $platformVars;
+    protected $settingsFileData;
+    protected $currentExtraSettingsFileData;
+    protected $dbHost ;
+    protected $dbUser ;
+    protected $dbPass ;
+    protected $dbRootUser ;
+    protected $dbRootPass ;
+    protected $dbName ;
 
     public function askWhetherToConfigureDB(){
         return $this->performDBConfiguration();
@@ -33,7 +33,7 @@ class DBConfigureAllOS extends Base {
         return $this->performDBConfigurationReset();
     }
 
-    private function performDBConfiguration(){
+    protected function performDBConfiguration(){
         if ( !$this->askForDBConfig() ) { return false; }
         // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
         $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
@@ -56,7 +56,7 @@ class DBConfigureAllOS extends Base {
         return true;
     }
 
-    private function performDBConfigurationReset(){
+    protected function performDBConfigurationReset(){
         if ( !$this->askForDBConfigReset() ) { return false; }
         // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
         $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
@@ -74,27 +74,11 @@ class DBConfigureAllOS extends Base {
     }
 
     public function setPlatformVars() {
-        if (in_array($this->platform, array("d7", "drupal7" , "drupal"))) {
-            $this->platformVars = new \Model\DBConfigureDataDrupal70();
-            return; }
-        if (in_array($this->platform, array("php", "gcfw", "gcfw2"))) {
-          $this->platformVars = new \Model\DBConfigureDataGCFW2();
-          return; }
-        if (in_array($this->platform, array("joomla", "j15", "joomla15"))) {
-          $this->platformVars = new \Model\DBConfigureDataJoomla15();
-          return; }
-        if (in_array($this->platform, array("j30", "joomla30"))) {
-          $this->platformVars = new \Model\DBConfigureDataJoomla30();
-          return; }
-        if ($this->platform != "") {
-          $platformClassName = '\Model\DBConfigureData'.$this->platform ;
-          $this->platformVars = new $platformClassName();
-          return; }
         $this->platformVars = new \Model\DBConfigureDataGCFW2();
         return;
     }
 
-    private function askForPlatform(){
+    protected function askForPlatform(){
         $availablePlats = array("drupal7", "php" , "gcfw" , "gcfw2", "joomla15", "joomla30");
         if (isset($this->params["platform"]) && in_array($this->params["platform"], $availablePlats)) {
             return $this->params["platform"] ; }
@@ -114,29 +98,29 @@ class DBConfigureAllOS extends Base {
         return $availablePlats[$input] ;
     }
 
-    private function askForDBConfig(){
+    protected function askForDBConfig(){
         $question = 'Do you want to configure a database?';
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
-    private function askForDBConfigReset(){
+    protected function askForDBConfigReset(){
         $question = 'Do you want to reset a database configuration?';
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
-    private function verifyContinueWithNonConnectDetails(){
+    protected function verifyContinueWithNonConnectDetails(){
         $question = 'Cannot connect with these details. Sure you want to continue?';
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
-    private function askForDBHost(){
+    protected function askForDBHost(){
         if (isset($this->params["mysql-host"])) { return $this->params["mysql-host"] ; };
         $question = 'What\'s the Mysql Host? Enter for 127.0.0.1';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1' : $input ;
     }
 
-    private function askForDBUser(){
+    protected function askForDBUser(){
         if (isset($this->params["mysql-user"])) { return $this->params["mysql-user"] ; }
         if (isset($this->params["mysql-user-name"])) { return $this->params["mysql-user-name"] ; };
         if (isset($this->params["mysql-username"])) { return $this->params["mysql-username"] ; };
@@ -151,19 +135,19 @@ class DBConfigureAllOS extends Base {
         return $user ;
     }
 
-    private function askForRootDBUser(){
+    protected function askForRootDBUser(){
         if (isset($this->params["mysql-admin-user"])) { return $this->params["mysql-admin-user"] ; }
         $question = 'What\'s the MySQL Admin User? (Enter nothing to skip loading current users to help config)';
         return self::askForInput($question, true);
     }
 
-    private function askForRootDBPass(){
+    protected function askForRootDBPass(){
         if (isset($this->params["mysql-admin-pass"])) { return $this->params["mysql-admin-pass"] ; }
         $question = 'What\'s the MySQL Admin Password?';
         return self::askForInput($question, true);
     }
 
-    private function getDbUsers() {
+    protected function getDbUsers() {
       $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
       $mysqliResult = $mysqli->query('SELECT User from mysql.user;');
       $users = array();
@@ -178,7 +162,7 @@ class DBConfigureAllOS extends Base {
       return $usersSorted;
     }
 
-    private function getDbNameList() {
+    protected function getDbNameList() {
       $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
       $mysqliResult = $mysqli->query('show databases;');
       $dbs = array();
@@ -193,14 +177,14 @@ class DBConfigureAllOS extends Base {
       return $dbsSorted;
     }
 
-    private function askForDBPass(){
+    protected function askForDBPass(){
         if (isset($this->params["mysql-password"])) { return $this->params["mysql-password"] ; }
         if (isset($this->params["mysql-pass"])) { return $this->params["mysql-pass"] ; }
         $question = 'What\'s the application DB Password?';
         return self::askForInput($question, true);
     }
 
-    private function askForDBName(){
+    protected function askForDBName(){
         if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
         if (isset($this->params["mysql-db"])) { return $this->params["mysql-db"] ; }
         $question = 'What\'s the application DB Name?'."\n";
@@ -215,7 +199,7 @@ class DBConfigureAllOS extends Base {
     }
 
 
-    private function canIConnect(){
+    protected function canIConnect(){
         error_reporting(0);
         $con = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
         error_reporting(E_ALL ^ E_WARNING);
@@ -226,13 +210,13 @@ class DBConfigureAllOS extends Base {
             return true;}
     }
 
-    private function loadCurrentSettingsFile() {
+    protected function loadCurrentSettingsFile() {
         $command  = 'cat '.getcwd().'/'.$this->platformVars->getProperty("settingsFileLocation").'/';
         $command .= $this->platformVars->getProperty("settingsFileName");
         $this->settingsFileData = self::executeAndLoad($command);
     }
 
-    private function doExtraSettingsFilesDataChanges() {
+    protected function doExtraSettingsFilesDataChanges() {
         foreach ($this->platformVars->getProperty("extraConfigFiles") as $settingsFile) {
             echo "Loading Extra settings file $settingsFile to configure values...\n" ;
             $command  = 'cat '.$settingsFile;
@@ -244,7 +228,7 @@ class DBConfigureAllOS extends Base {
             return file_put_contents($settingsFile, $this->currentExtraSettingsFileData);}
     }
 
-    private function doExtraSettingsFilesReverseDataChanges() {
+    protected function doExtraSettingsFilesReverseDataChanges() {
         foreach ($this->platformVars->getProperty("extraConfigFiles") as $settingsFile) {
             echo "Loading Extra settings file $settingsFile to reset values...\n" ;
             $command  = 'cat '.$settingsFile;
@@ -260,13 +244,13 @@ class DBConfigureAllOS extends Base {
             return file_put_contents($settingsFile, $this->currentExtraSettingsFileData); }
     }
 
-    private function settingsFileDataChange(){
+    protected function settingsFileDataChange(){
         $replacements =  array('****DB USER****'=>$this->dbUser, '****DB NAME****'=>$this->dbName,
             '****DB PASS****'=>$this->dbPass, '****DB HOST****'=>$this->dbHost, );
         $this->settingsFileData = strtr($this->settingsFileData, $replacements);
     }
 
-    private function settingsFileReverseDataChange(){
+    protected function settingsFileReverseDataChange(){
         $settingsFileLines = explode("\n", $this->settingsFileData);
         $replacements = $this->platformVars->getProperty("settingsFileReplacements") ;
         foreach ( $settingsFileLines as &$settingsFileLine ) {
@@ -276,12 +260,12 @@ class DBConfigureAllOS extends Base {
         $this->settingsFileData = implode("\n", $settingsFileLines);
     }
 
-    private function checkSettingsFileOkay(){
+    protected function checkSettingsFileOkay(){
         $question = 'Please check '.$this->platform.' Settings file: '.$this->settingsFileData."\n\nIs this Okay?";
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
-    private function createSettingsFile() {
+    protected function createSettingsFile() {
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
           ? $location = $this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = "" ;
@@ -290,7 +274,7 @@ class DBConfigureAllOS extends Base {
         return file_put_contents($location, $this->settingsFileData);
     }
 
-    private function removeOldSettingsFile(){
+    protected function removeOldSettingsFile(){
         $command    = 'rm -f '.$this->platformVars->getProperty("settingsFileLocation").'/';
         $command .= $this->platformVars->getProperty("settingsFileName");
         self::executeAndOutput($command, "Removing old settings file ".$this->platformVars->getProperty("settingsFileName")."...\n");
