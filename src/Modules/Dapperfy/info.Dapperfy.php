@@ -13,7 +13,11 @@ class DapperfyInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "Dapperfy" =>  array_merge(parent::routesAvailable(), array("create", "standard") ) );
+      return array( "Dapperfy" =>  array_merge(
+          parent::routesAvailable(),
+          array("create", "standard"),
+          $this->getExtraRoutes()
+      ) );
     }
 
     public function routeAliases() {
@@ -25,7 +29,8 @@ class DapperfyInfo extends Base {
     }
 
     public function helpDefinition() {
-      $help = <<<"HELPDATA"
+        $extraHelp = $this->getExtraHelpDefinitions() ;
+        $help = <<<"HELPDATA"
   This command is part of a default Module Core and provides you with a method by which you can
   create a standard set of Autopilot files for your project from the command line.
   You can configure default application settings, ie: mysql admin user, host, pass
@@ -43,9 +48,31 @@ class DapperfyInfo extends Base {
 
         The start of the command will be dapperstrano autopilot execute *filename*
 
-
+        $extraHelp
 HELPDATA;
-      return $help ;
+        return $help ;
+    }
+
+    protected function getExtraHelpDefinitions() {
+        $extraDefsText = "" ;
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "helpDefinitions")) {
+                $defNames = array_keys($info->helpDefinitions());
+                if (in_array("Dapperfy", $defNames)) {
+                    $defs = $info->helpDefinitions() ;
+                    $thisDef = $defs["Dapperfy"] ;
+                    $extraDefsText .= $thisDef ; } } }
+        return $extraDefsText ;
+    }
+
+    protected function getExtraRoutes() {
+        $extraActions = array() ;
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "dapperfyActions")) {
+                $extraActions = array_merge($extraActions, $info->dapperfyActions()); } }
+        return $extraActions ;
     }
 
 }
