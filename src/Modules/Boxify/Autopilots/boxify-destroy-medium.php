@@ -105,48 +105,48 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production DB Node Boxes" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-secondary",
+                    "environment-name" => "medium-production-db-secondary",
                     "provider-name" => "DigitalOcean",
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "medium-prod-db-secondary"
+                    "environment-name" => "medium-production-db-secondary"
                 ),),),
 
                 // Production DB Primary
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Primary DB Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-primary",
+                    "environment-name" => "medium-production-db-primary",
                     "provider-name" => "DigitalOcean",
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "medium-prod-db-primary"
+                    "environment-name" => "medium-production-db-primary"
                 ),),),
 
                 // Production Web Nodes
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Web Node Boxes" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-web-nodes",
+                    "environment-name" => "medium-production-web-nodes",
                     "provider-name" => "DigitalOcean",
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "medium-prod-web-nodes"
+                    "environment-name" => "medium-production-web-nodes"
                 ),),),
 
                 // Production Load Balancer
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Load Balancer Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-load-balancer",
+                    "environment-name" => "medium-production-load-balancer",
                     "provider-name" => "DigitalOcean",
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "medium-prod-load-balancer"
+                    "environment-name" => "medium-production-load-balancer"
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a tiny set of environments complete"),),),
