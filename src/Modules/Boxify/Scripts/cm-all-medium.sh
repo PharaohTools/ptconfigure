@@ -20,14 +20,14 @@ cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-db-
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-db-secondary-prep-ubuntu.php
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-db-secondary-invoke-cleo-dapper-new.php
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-db-secondary-invoke-db-node.php
-# cm staging load balancer
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-load-balancer-prep-ubuntu.php
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-load-balancer-invoke-cleo-dapper-new.php
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-load-balancer-invoke-web-node.php
 # cm staging web nodes
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-web-nodes-prep-ubuntu.php
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-web-nodes-invoke-cleo-dapper-new.php
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-web-nodes-invoke-load-balancer.php
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-web-nodes-invoke-web-node.php
+# cm staging load balancer
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-load-balancer-prep-ubuntu.php
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-load-balancer-invoke-cleo-dapper-new.php
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-staging-load-balancer-invoke-load-balancer.php
 
 # cm production db primary
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-db-primary-prep-ubuntu.php
@@ -37,11 +37,11 @@ cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-db-secondary-prep-ubuntu.php
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-db-secondary-invoke-cleo-dapper-new.php
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-db-secondary-invoke-db-node.php
-# cm production load balancer
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-load-balancer-prep-ubuntu.php
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-load-balancer-invoke-cleo-dapper-new.php
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-load-balancer-invoke-web-node.php
 # cm production web nodes
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-web-nodes-prep-ubuntu.php
 cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-web-nodes-invoke-cleo-dapper-new.php
-cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-web-nodes-invoke-load-balancer.php
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-web-nodes-invoke-web-node.php
+# cm production load balancer
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-load-balancer-prep-ubuntu.php
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-load-balancer-invoke-cleo-dapper-new.php
+cleopatra autopilot install build/config/cleopatra/autopilots/medium-production-load-balancer-invoke-load-balancer.php
