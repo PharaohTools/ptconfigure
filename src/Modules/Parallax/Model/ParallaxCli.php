@@ -57,6 +57,15 @@ class ParallaxCli extends BaseLinuxApp {
             $i++; }
     }
 
+    /*
+     * @todo
+     * It may/may not be "better" to use stout/sterr to read from than a file
+     * as a large file in memory (for thousands of lines of output) might be
+     * dud, but surely stout and sterr are in memory somewhere anyway? may save
+     * on file IO but lose on logging
+     * http://us1.php.net/manual/en/function.getmypid.php
+     *
+     */
     private function executeAllCommandInput() {
       $allPlxOuts = array();
       foreach ($this->arrayOfCommands as $command) {
