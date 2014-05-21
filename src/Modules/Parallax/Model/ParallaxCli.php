@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ParallaxCli extends Base {
+class ParallaxCli extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
@@ -17,40 +17,46 @@ class ParallaxCli extends Base {
     private $arrayOfCommands = array();
     private $commandResults = array();
 
-    public function runAutoPilot($autoPilot){
-      return $this->runAutopilotParallelCommand($autoPilot);
+    public function __construct($params) {
+        parent::__construct($params) ;
     }
 
     public function askWhetherToRunParallelCommand() {
       $doRunParallel = $this->askToScreenWhetherToRunParallelCommand();
-      if ($doRunParallel != true) {
-        return false ; }
-      $this->askForAllCommands() ;
-      return $this->executeAllCommandInput() ;
-    }
-
-    public function runAutopilotParallelCommand($autoPilot) {
-      if ( !isset($autoPilot["cliExecute"]) || $autoPilot["cliExecute"] !== true ) { return false; }
-      $this->askForAllCommands($autoPilot) ;
+      if ($doRunParallel != true) { return false ; }
+        var_dump("1")  ;
+        $this->askForAllCommands() ;
+        var_dump($this->arrayOfCommands)  ;
       return $this->executeAllCommandInput() ;
     }
 
     public function askToScreenWhetherToRunParallelCommand() {
+        if (isset($this->params["yes"])) { return true; }
         $question = 'Run Commands in Parallel?';
         return self::askYesOrNo($question, true);
     }
 
-    public function askForAllCommands($autoPilot = null) {
-        if ( isset($autoPilot["cliCommands"]) ) {
-            $this->arrayOfCommands = $autoPilot["cliCommands"]; }
-        else {
-          $commandInput = "anything";
-          while ($commandInput != "") {
-            $question = "Enter Command to include next. Enter none to end." ;
-            $commandInput = self::askForInput($question) ;
-            if ($commandInput != "") {
-              $this->arrayOfCommands[] = $commandInput ; } }
-        }
+    public function askForAllCommands() {
+      if (isset($this->params["command-1"])) {
+          var_dump($this->params) ;
+          $this->setParameterCommands() ;
+          return ; }
+      $commandInput = "anything";
+      while ($commandInput != "") {
+        $question = "Enter Command to include next. Enter none to end." ;
+        $commandInput = self::askForInput($question) ;
+        if ($commandInput != "") {
+          $this->arrayOfCommands[] = $commandInput ; } }
+    }
+
+    private function setParameterCommands() {
+        $stillMore = true ;
+        $i = 1;
+        while ($stillMore == true) {
+            if (isset($this->params["command-$i"])) {
+                $this->arrayOfCommands[] = $this->params["command-$i"] ; }
+            else {
+                $stillMore = false ; }}
     }
 
     private function executeAllCommandInput() {
@@ -58,7 +64,8 @@ class ParallaxCli extends Base {
       foreach ($this->arrayOfCommands as $command) {
         $tempScript = $this->makeCommandFile($command);
         $outfile = $this->getFileToWrite("final");
-        $cmd = 'parallax cx execute --command-to-execute="sh '.$tempScript.'" --output-file="'.$outfile.'" > /dev/null &';
+        $cmd = 'cleopatra parallax child --command-to-execute="sh '.$tempScript.'" --output-file="'.$outfile.'" > /dev/null &';
+          var_dump($cmd)  ;
         system($cmd, $plxExit);
         $allPlxOuts[] = array($tempScript, $outfile); }
       $copyPlxOuts = $allPlxOuts;
