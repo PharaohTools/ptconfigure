@@ -17,6 +17,10 @@ class ParallaxChild extends Base {
     private $commandData;
     private $finishedOutputFile;
 
+    public function __construct($params) {
+        parent::__construct($params) ;
+    }
+
     public function askWhetherToDoCommandExecution($pageVars){
         $this->setCmdLineParams($pageVars["route"]["extraParams"]);
         return $this->performCommandExecution();

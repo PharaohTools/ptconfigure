@@ -13,7 +13,7 @@ class ParallaxInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Parallax" =>  array_merge(parent::routesAvailable(), array("parent") ) );
+      return array( "Parallax" =>  array_merge(parent::routesAvailable(), array("cli", "child") ) );
     }
 
     public function routeAliases() {
@@ -27,9 +27,14 @@ class ParallaxInfo extends CleopatraBase {
 
   Parallax, parallax
 
-        - execute
+        - cli
         Go through all questions to execute parallel programs
-        example: parallax cli execute
+        example: cleopatra parallax cli
+        example: cleopatra parallax cli --yes --command-1="pwd" --command-2="ls"
+
+        - child
+        Unlikely you'll use this, its used by cli to spawn child processes
+        example: parallax cli child
 
 HELPDATA;
       return $help ;
