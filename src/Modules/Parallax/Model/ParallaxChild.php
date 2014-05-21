@@ -72,9 +72,8 @@ class ParallaxChild extends Base {
         file_put_contents($finishedOutputFile, "COMPLETE: 0\n", FILE_APPEND);
         file_put_contents($finishedOutputFile, "EXIT_STATUS: \n", FILE_APPEND);
         system($this->commandData .' > '.$tempOutputFile, $exit_status);
-        // @todo whats this
+        // @todo whats this this is for turning commands into shell, used in cli model
         if (substr($this->commandData, 0, 2)=="sh") {
-            file_put_contents("/tmp/mocklog", $this->commandData);
             $actual_command = file_get_contents(substr($this->commandData, 3)); }
         else {
             $actual_command = $this->commandData;}
@@ -87,7 +86,7 @@ class ParallaxChild extends Base {
     }
 
     private function getFileToWrite($file_type) {
-        $random = $this->baseTempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
+        $random = $this->tempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
         if ($file_type == "temp") { return $random.'temp.txt'; }
         if ($file_type == "final") { return $random.'final.txt'; }
         else { return null ; }
