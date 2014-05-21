@@ -65,6 +65,8 @@ class ParallaxCli extends BaseLinuxApp {
      * on file IO but lose on logging
      * http://us1.php.net/manual/en/function.getmypid.php
      *
+     * Also maybe a message queue instead
+     *
      */
     private function executeAllCommandInput() {
       $allPlxOuts = array();
