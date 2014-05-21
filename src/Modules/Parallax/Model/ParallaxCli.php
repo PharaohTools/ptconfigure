@@ -22,12 +22,10 @@ class ParallaxCli extends BaseLinuxApp {
     }
 
     public function askWhetherToRunParallelCommand() {
-      $doRunParallel = $this->askToScreenWhetherToRunParallelCommand();
-      if ($doRunParallel != true) { return false ; }
-        var_dump("1")  ;
+        $doRunParallel = $this->askToScreenWhetherToRunParallelCommand();
+        if ($doRunParallel != true) { return false ; }
         $this->askForAllCommands() ;
-        var_dump($this->arrayOfCommands)  ;
-      return $this->executeAllCommandInput() ;
+        return $this->executeAllCommandInput() ;
     }
 
     public function askToScreenWhetherToRunParallelCommand() {
@@ -38,7 +36,6 @@ class ParallaxCli extends BaseLinuxApp {
 
     public function askForAllCommands() {
       if (isset($this->params["command-1"])) {
-          var_dump($this->params) ;
           $this->setParameterCommands() ;
           return ; }
       $commandInput = "anything";
@@ -56,7 +53,8 @@ class ParallaxCli extends BaseLinuxApp {
             if (isset($this->params["command-$i"])) {
                 $this->arrayOfCommands[] = $this->params["command-$i"] ; }
             else {
-                $stillMore = false ; }}
+                $stillMore = false ; }
+            $i++; }
     }
 
     private function executeAllCommandInput() {
@@ -65,7 +63,6 @@ class ParallaxCli extends BaseLinuxApp {
         $tempScript = $this->makeCommandFile($command);
         $outfile = $this->getFileToWrite("final");
         $cmd = 'cleopatra parallax child --command-to-execute="sh '.$tempScript.'" --output-file="'.$outfile.'" > /dev/null &';
-          var_dump($cmd)  ;
         system($cmd, $plxExit);
         $allPlxOuts[] = array($tempScript, $outfile); }
       $copyPlxOuts = $allPlxOuts;
@@ -88,7 +85,10 @@ class ParallaxCli extends BaseLinuxApp {
             $exitStatus = substr($file->current(), 13, 1);
             $this->commandResults[] = $exitStatus;
             $fileData .= file_get_contents($fileToScan);
-            $ignores[] = $i; }}
+            $ignores[] = $i;
+              // remove our child output file and temp script
+              unlink($copyPlxOuts[$i][0]);
+              unlink($copyPlxOuts[$i][1]); }}
         echo ".";
         sleep(3); }
         $anyFailures = in_array("1", $this->commandResults);
@@ -96,13 +96,13 @@ class ParallaxCli extends BaseLinuxApp {
     }
 
     private function makeCommandFile($command) {
-        $random = $this->baseTempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
+        $random = $this->tempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
         file_put_contents($random.'-parallax-temp.sh', $command);
         return $random.'-parallax-temp.sh';
     }
 
     private function getFileToWrite($file_type) {
-      $random = $this->baseTempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
+      $random = $this->tempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
       if ($file_type == "temp") { return $random.'temp.txt'; }
       if ($file_type == "final") { return $random.'final.txt'; }
       else { return null ; }
