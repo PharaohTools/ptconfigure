@@ -13,7 +13,7 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
-        $prefix = "default-project" ;
+        include("settings.php") ;
 
         $this->steps =
             array(
