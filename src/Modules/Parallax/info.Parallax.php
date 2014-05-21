@@ -6,14 +6,14 @@ class ParallaxInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Parallax - The parallel execution tool from Golden Contact";
+    public $name = "Parallax - Execute commands in parallel";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Parallax" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "Parallax" =>  array_merge(parent::routesAvailable(), array("parent") ) );
     }
 
     public function routeAliases() {
@@ -22,13 +22,14 @@ class ParallaxInfo extends CleopatraBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update Parallax.
+
+  This Module lets you execute commands in parallel
 
   Parallax, parallax
 
-        - install
-        Installs the latest version of parallax
-        example: cleopatra parallax install
+        - execute
+        Go through all questions to execute parallel programs
+        example: parallax cli execute
 
 HELPDATA;
       return $help ;
