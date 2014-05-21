@@ -65,7 +65,9 @@ class ParallaxCli extends BaseLinuxApp {
      * on file IO but lose on logging
      * http://us1.php.net/manual/en/function.getmypid.php
      *
-     * Also maybe a message queue instead
+     * Also maybe a message queue instead between this and the forked process
+     *
+     * We are kinda mocking threading, so also look at pthreads
      *
      */
     private function executeAllCommandInput() {
