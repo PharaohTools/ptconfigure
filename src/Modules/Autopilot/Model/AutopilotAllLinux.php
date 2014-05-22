@@ -15,7 +15,7 @@ class AutopilotAllLinux extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
 
     public function __construct($params) {
-
+        parent::__construct($params);
     }
 
 }

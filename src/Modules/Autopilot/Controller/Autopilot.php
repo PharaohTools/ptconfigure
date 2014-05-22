@@ -11,10 +11,12 @@ class Autopilot extends Base {
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
         $action = $pageVars["route"]["action"];
+        var_dump($thisModel->params);
+        die();
 
       if ($action=="install" || $action=="execute") {
-        $autoPilotFileName= (isset($pageVars["route"]["extraParams"][0]))
-          ? $pageVars["route"]["extraParams"][0]
+        $autoPilotFileName= (isset($thisModel->params["autopilot-file"]))
+          ? $thisModel->params["autopilot-file"]
           : null;
         if (isset($autoPilotFileName) && strlen($autoPilotFileName)>0 ) {
           $autoPilot = $this->loadAutoPilot($autoPilotFileName);
