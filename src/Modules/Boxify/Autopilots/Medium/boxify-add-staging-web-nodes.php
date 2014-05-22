@@ -41,6 +41,8 @@ class AutoPilotConfigured extends AutoPilot {
                     "private-ssh-key-path" => "$priv_ssh_key_load_balancer",
                     "wait-for-box-info" => true,
                     "max-box-info-wait-time" => $wait_time,
+                    "wait-until-active" => true,
+                    "max-active-wait-time" => $wait_time,
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-staging-web-nodes environment complete"),),),
