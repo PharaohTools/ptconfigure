@@ -11,8 +11,6 @@ class Autopilot extends Base {
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
         $action = $pageVars["route"]["action"];
-        var_dump($thisModel->params);
-        die();
 
       if ($action=="install" || $action=="execute") {
         $autoPilotFileName= (isset($thisModel->params["autopilot-file"]))
