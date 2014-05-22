@@ -153,8 +153,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $dropletData = $this->getDropletData($data->droplet->id);
         if (!isset($dropletData->ip_address) && isset($this->params["wait-for-box-info"])) {
             $dropletData = $this->waitForBoxInfo($data->droplet->id); }
-        var_dump($dropletData) ;
-        if (!isset($dropletData->ip_address) && isset($this->params["wait-until-active"])) {
+        if (($dropletData->status != "active") && isset($this->params["wait-until-active"])) {
             $dropletData = $this->waitUntilActive($data->droplet->id); }
         $server = array();
         $server["target"] = $dropletData->droplet->ip_address;
@@ -163,10 +162,14 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $server["provider"] = "DigitalOcean";
         $server["id"] = $data->droplet->id;
         $server["name"] = $data->droplet->name;
+        // file_put_contents("/tmp/outloc", getcwd()) ;
+        // file_put_contents("/tmp/outsrv", $server) ;
         $environments = \Model\AppConfig::getProjectVariable("environments");
+        // file_put_contents("/tmp/outenv1", serialize($environments)) ;
         for ($i= 0 ; $i<count($environments); $i++) {
             if ($environments[$i]["any-app"]["gen_env_name"] == $envName) {
                 $environments[$i]["servers"][] = $server; } }
+        // file_put_contents("/tmp/outenv2", serialize($environments)) ;
         \Model\AppConfig::setProjectVariable("environments", $environments);
     }
 
@@ -195,26 +198,26 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for box info...") ;
-            sleep (10);
+            $logging->log("Attempt $i2 for droplet $dropletId box info...") ;
             $dropletData = $this->getDropletData($dropletId);
             if (isset($dropletData->droplet->ip_address)) {
                 return $dropletData ; }
+            sleep (10);
             $i2++; }
         return null;
     }
 
     private function waitUntilActive($dropletId) {
-        $maxWaitTime = (isset($this->params["max-active-wait-time"])) ? $this->params["max-box-info-wait-time"] : "300" ;
+        $maxWaitTime = (isset($this->params["max-active-wait-time"])) ? $this->params["max-active-wait-time"] : "300" ;
         $i2 = 1 ;
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for box info...") ;
-            sleep (10);
+            $logging->log("Attempt $i2 for droplet $dropletId to become active...") ;
             $dropletData = $this->getDropletData($dropletId);
-            if (isset($dropletData->droplet->ip_address)) {
+            if (isset($dropletData->droplet->status) && $dropletData->droplet->status=="active") {
                 return $dropletData ; }
+            sleep (10);
             $i2++; }
         return null;
     }
