@@ -28,13 +28,9 @@ class AutopilotInfo extends CleopatraBase {
 
   Autopilot, autopilot, auto
 
-    - install
+    - install, execute
     execute all of the defined modules in your Autopilot file
-    example: cleopatra autopilot install *path-to-file*
-
-    - execute
-    execute all of the defined modules in your Autopilot file
-    example: cleopatra autopilot execute *path-to-file*
+    example: cleopatra autopilot install --autopilot-file=*path-to-file*
 
 HELPDATA;
       return $help ;
