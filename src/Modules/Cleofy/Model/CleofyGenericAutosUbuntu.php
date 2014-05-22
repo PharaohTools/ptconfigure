@@ -43,7 +43,8 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
         $dir = str_replace("Model", "", __DIR__) ;
         $dir = $dir.'Templates/' ;
         $this->templateGroupsToDirs = array(
-            "generic" => "{$dir}Generic"
+            "tiny" => "{$dir}Generic/Tiny",
+            "medium" => "{$dir}Generic/Medium"
         );
     }
 
@@ -56,7 +57,7 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["template-group"])) {
             $this->templateGroup = $this->params["template-group"]; }
         else {
-            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("generic"), true) ; }
+            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("tiny", "medium"), true) ; }
     }
 
     public function setDestination($destination = null) {
