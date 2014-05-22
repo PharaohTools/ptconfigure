@@ -69,7 +69,7 @@ class CleofyUbuntu extends Base {
               $templatorFactory = new \Model\Templating();
               $templator = $templatorFactory->getModel($this->params);
               $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-              $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'cleopatra'.DIRECTORY_SEPARATOR.'autopilots';
+              $autosDir = getcwd().'build/config/cleopatra/cleofy/autopilots/generated';
               $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
               $templator->template(
                   file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),

@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
+class CleofyGenericAutosUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -25,10 +25,10 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "Boxify";
-        $this->programNameMachine = "boxify"; // command and app dir name
-        $this->programNameFriendly = "Boxify!"; // 12 chars
-        $this->programNameInstaller = "Boxify your Environments";
+        $this->autopilotDefiner = "Cleofy";
+        $this->programNameMachine = "cleofy"; // command and app dir name
+        $this->programNameFriendly = "Cleofy!"; // 12 chars
+        $this->programNameInstaller = "Cleofy your Environments";
         $this->initialize();
     }
 
@@ -41,14 +41,14 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
 
     public function setTemplateGroupsToDirs() {
         $dir = str_replace("Model", "", __DIR__) ;
-        $dir = $dir.'Autopilots/' ;
+        $dir = $dir.'Templates/' ;
         $this->templateGroupsToDirs = array(
-            "tiny" => "{$dir}Tiny",
-            "medium" => "{$dir}Medium",
+            "generic" => "{$dir}Generic"
         );
     }
 
     public function setTemplateGroup($templateGroup = null) {
+        // @this should log that you  have specified an invalid template group if that is the case and go to prompt
         if (isset($templateGroup)) {
             $this->templateGroup = $templateGroup; }
         else if (isset($this->params["templategroup"])) {
@@ -56,10 +56,11 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["template-group"])) {
             $this->templateGroup = $this->params["template-group"]; }
         else {
-            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("tiny", "medium"), true) ; }
+            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("generic"), true) ; }
     }
 
     public function setDestination($destination = null) {
+        // @this should log that you have specified an invalid destination if that is the case and go to prompt
         if (isset($destination)) {
             $this->destination = $destination; }
         else if (isset($this->params["destinationdir"])) {
@@ -67,7 +68,7 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["destination-dir"])) {
             $this->destination = $this->params["destination-dir"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd()."/build/config/cleopatra/boxify/autopilots/" ;
+            $defaultdir = getcwd()."/build/config/cleopatra/cleofy/autopilots/generic/" ;
             if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
             $this->destination = $defaultdir ; }
         else {
@@ -82,7 +83,6 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         $logging->log("Performing file copy from $source to $target") ;
         // @todo php cannot do a recursive copy so change the copy module to one of these
         $result = $this->executeAndGetReturnCode("cp -r $source $target") ;
-        var_dump($result) ;
         return $result ;
     }
 
