@@ -13,7 +13,7 @@ class CleofyInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard") ) );
+      return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "install-generic-autopilots") ) );
     }
 
     public function routeAliases() {
@@ -36,6 +36,15 @@ class CleofyInfo extends CleopatraBase {
         Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
         your project.
         example: cleopatra cleofy standard
+
+        - install-generic-autopilots
+        Install the generic Boxify autopilot templates for a Tiny or Medium (Current Default) set of Environments
+        example: cleopatra boxify install-generic-autopilots
+        example: cleopatra boxify install-generic-autopilots
+                    --yes
+                    --guess # will set --destination-dir=*this dir +*build/config/cleopatra/boxify/autopilots/
+                    --template-group=tiny
+                    --destination-dir=*path-to-destination*
 
 HELPDATA;
       return $help ;

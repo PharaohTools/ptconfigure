@@ -19,21 +19,16 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a medium set of environments"),),),
 
-
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add all Boxes and Environments in Parallel" ),),),
                 array ( "Parallax" => array("cli" => array(
-                    "command-1"  => "cleopatra autopilot execute {$parent}boxify-add-bastion.php",
-                    "command-2"  => "cleopatra autopilot execute {$parent}boxify-add-git.php",
-                    "command-3"  => "cleopatra autopilot execute {$parent}boxify-add-jenkins.php",
-                    "command-4"  => "cleopatra autopilot execute {$parent}boxify-add-staging-web-nodes.php",
-                    "command-5"  => "cleopatra autopilot execute {$parent}boxify-add-staging-load-balancer.php",
-                    "command-6"  => "cleopatra autopilot execute {$parent}boxify-add-staging-secondary-db.php",
-                    "command-7"  => "cleopatra autopilot execute {$parent}boxify-add-staging-primary-db.php",
-                    "command-8"  => "cleopatra autopilot execute {$parent}boxify-add-production-web-nodes.php",
-                    "command-9"  => "cleopatra autopilot execute {$parent}boxify-add-production-load-balancer.php",
-                    "command-10" => "cleopatra autopilot execute {$parent}boxify-add-production-secondary-db.php",
-                    "command-11" => "cleopatra autopilot execute {$parent}boxify-add-production-primary-db.php",
+                    "command-1"  => "cleopatra autopilot execute {$parent}cleofy-cm-bastion.php",
+                    "command-2"  => "cleopatra autopilot execute {$parent}cleofy-cm-git.php",
+                    "command-3"  => "cleopatra autopilot execute {$parent}cleofy-cm-jenkins.php",
+                    "command-4"  => "cleopatra autopilot execute {$parent}cleofy-cm-staging-db.php",
+                    "command-5"  => "cleopatra autopilot execute {$parent}cleofy-cm-staging-web.php",
+                    "command-6"  => "cleopatra autopilot execute {$parent}cleofy-cm-production-db.php",
+                    "command-7"  => "cleopatra autopilot execute {$parent}cleofy-cm-production-web.php",
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating a medium set of environments complete"),),),
