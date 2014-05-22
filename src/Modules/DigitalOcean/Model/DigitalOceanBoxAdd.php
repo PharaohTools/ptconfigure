@@ -150,7 +150,6 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     }
 
     private function addServerToPapyrus($envName, $data) {
-        $environments = \Model\AppConfig::getProjectVariable("environments");
         $dropletData = $this->getDropletData($data->droplet->id);
         if (!isset($dropletData->ip_address) && isset($this->params["wait-for-box-info"])) {
             $dropletData = $this->waitForBoxInfo($data->droplet->id); }
@@ -161,6 +160,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $server["provider"] = "DigitalOcean";
         $server["id"] = $data->droplet->id;
         $server["name"] = $data->droplet->name;
+        $environments = \Model\AppConfig::getProjectVariable("environments");
         for ($i= 0 ; $i<count($environments); $i++) {
             if ($environments[$i]["any-app"]["gen_env_name"] == $envName) {
                 $environments[$i]["servers"][] = $server; } }
@@ -187,7 +187,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     }
 
     private function waitForBoxInfo($dropletId) {
-        $maxWaitTime = "300" ;
+        $maxWaitTime = (isset($this->params["max-box-info-wait-time"])) ? $this->params["max-box-info-wait-time"] : "300" ;
         $i2 = 1 ;
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
