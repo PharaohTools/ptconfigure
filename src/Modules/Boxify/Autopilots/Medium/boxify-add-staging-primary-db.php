@@ -40,6 +40,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "$user_name_primary_db",
                     "private-ssh-key-path" => "$priv_ssh_key_primary_db",
                     "wait-for-box-info" => true,
+                    "max-box-info-wait-time" => $wait_time,
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-staging-primary-db environment complete"),),),
