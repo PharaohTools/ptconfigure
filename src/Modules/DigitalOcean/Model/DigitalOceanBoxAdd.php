@@ -153,6 +153,9 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $dropletData = $this->getDropletData($data->droplet->id);
         if (!isset($dropletData->ip_address) && isset($this->params["wait-for-box-info"])) {
             $dropletData = $this->waitForBoxInfo($data->droplet->id); }
+        var_dump($dropletData) ;
+        if (!isset($dropletData->ip_address) && isset($this->params["wait-until-active"])) {
+            $dropletData = $this->waitUntilActive($data->droplet->id); }
         $server = array();
         $server["target"] = $dropletData->droplet->ip_address;
         $server["user"] = $this->getUsernameOfBox() ;
@@ -188,6 +191,21 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
 
     private function waitForBoxInfo($dropletId) {
         $maxWaitTime = (isset($this->params["max-box-info-wait-time"])) ? $this->params["max-box-info-wait-time"] : "300" ;
+        $i2 = 1 ;
+        for($i=0; $i<=$maxWaitTime; $i=$i+10){
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Attempt $i2 for box info...") ;
+            sleep (10);
+            $dropletData = $this->getDropletData($dropletId);
+            if (isset($dropletData->droplet->ip_address)) {
+                return $dropletData ; }
+            $i2++; }
+        return null;
+    }
+
+    private function waitUntilActive($dropletId) {
+        $maxWaitTime = (isset($this->params["max-active-wait-time"])) ? $this->params["max-box-info-wait-time"] : "300" ;
         $i2 = 1 ;
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
