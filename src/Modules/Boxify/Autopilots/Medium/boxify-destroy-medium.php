@@ -13,9 +13,11 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        include ("settings.php") ;
+
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a tiny set of environments"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Destroying of a medium set of environments"),),),
 
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Bastion Box" ),),),
@@ -149,7 +151,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "medium-prod-load-balancer"
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a tiny set of environments complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Destroying a medium set of environments complete"),),),
 
             );
 

@@ -40,10 +40,9 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "$user_name_git",
                     "private-ssh-key-path" => "$priv_ssh_key_git",
                     "wait-for-box-info" => true,
+                    "max-box-info-wait-time" => $wait_time,
                 ),),),
-
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-git environment complete"),),),
-
             );
 
     }

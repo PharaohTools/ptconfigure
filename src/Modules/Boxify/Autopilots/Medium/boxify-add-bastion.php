@@ -18,7 +18,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 // Bastion
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add the medium-bastion Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Bastion Environment" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "medium-bastion",
@@ -40,8 +40,9 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "$user_name_bastion",
                     "private-ssh-key-path" => "$priv_ssh_key_bastion",
                     "wait-for-box-info" => true,
+                    "max-box-info-wait-time" => $wait_time,
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-bastion environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Creating Bastion environment complete"),),),
             );
 
     }

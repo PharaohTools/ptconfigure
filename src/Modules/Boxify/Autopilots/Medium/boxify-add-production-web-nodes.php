@@ -40,6 +40,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "$user_name_load_balancer",
                     "private-ssh-key-path" => "$priv_ssh_key_load_balancer",
                     "wait-for-box-info" => true,
+                    "max-box-info-wait-time" => $wait_time,
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-prod-web-nodes environment complete"),),),
