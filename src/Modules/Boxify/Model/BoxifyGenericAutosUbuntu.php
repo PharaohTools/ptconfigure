@@ -82,7 +82,6 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         $logging->log("Performing file copy from $source to $target") ;
         // @todo php cannot do a recursive copy so change the copy module to one of these
         $result = $this->executeAndGetReturnCode("cp -r $source $target") ;
-        var_dump($result) ;
         return $result ;
     }
 
