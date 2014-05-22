@@ -51,12 +51,10 @@ class ParallaxCli extends BaseLinuxApp {
         $i = 1;
         while ($stillMore == true) {
             if (isset($this->params["command-$i"])) {
-                var_dump("dave") ;
                 $this->arrayOfCommands[] = $this->params["command-$i"] ;
                 $i++;  }
             else {
-                $stillMore = false ;
-                var_dump("dave2") ; }}
+                $stillMore = false ; }}
     }
 
     /*
