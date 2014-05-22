@@ -1,5 +1,7 @@
 <?php
 
+$parent = dirname(__FILE__).'/' ;
+
 $prefix = "default-project" ;
 $priv_ssh_key = "/home/golden/.ssh/id_rsa" ;
 $provider = "DigitalOcean" ;
