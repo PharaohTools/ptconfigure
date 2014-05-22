@@ -51,10 +51,12 @@ class ParallaxCli extends BaseLinuxApp {
         $i = 1;
         while ($stillMore == true) {
             if (isset($this->params["command-$i"])) {
-                $this->arrayOfCommands[] = $this->params["command-$i"] ; }
+                var_dump("dave") ;
+                $this->arrayOfCommands[] = $this->params["command-$i"] ;
+                $i++;  }
             else {
-                $stillMore = false ; }
-            $i++; }
+                $stillMore = false ;
+                var_dump("dave2") ; }}
     }
 
     /*
@@ -72,6 +74,7 @@ class ParallaxCli extends BaseLinuxApp {
      */
     private function executeAllCommandInput() {
       $allPlxOuts = array();
+      $i = 1 ;
       foreach ($this->arrayOfCommands as $command) {
         $tempScript = $this->makeCommandFile($command);
         $outfile = $this->getFileToWrite("final");
@@ -104,6 +107,7 @@ class ParallaxCli extends BaseLinuxApp {
               unlink($copyPlxOuts[$i][1]); }}
         echo ".";
         sleep(3); }
+
         $anyFailures = in_array("1", $this->commandResults);
         return array ($fileData, $anyFailures);
     }
