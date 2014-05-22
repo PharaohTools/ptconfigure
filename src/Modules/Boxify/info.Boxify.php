@@ -13,7 +13,7 @@ class BoxifyInfo extends CleopatraBase {
   }
 
   public function routesAvailable() {
-    return array( "Boxify" =>  array_merge(parent::routesAvailable(), array("box-add", "box-destroy", "box-remove", "list-papyrus") ) );
+    return array( "Boxify" =>  array_merge(parent::routesAvailable(), array("box-add", "box-destroy", "box-remove", "list-papyrus", "install-generic-autopilots") ) );
   }
 
   public function routeAliases() {
@@ -42,6 +42,15 @@ class BoxifyInfo extends CleopatraBase {
         List all servers in papyrus, or those of a particular environment
         example: cleopatra boxify list-papyrus --yes
         example: cleopatra boxify list-papyrus --yes --environment-name="staging"
+
+        - install-generic-autopilots
+        Install the generic Boxify autopilot templates for a Tiny or Medium (Current Default) set of Environments
+        example: cleopatra boxify install-generic-autopilots
+        example: cleopatra boxify install-generic-autopilots
+                    --yes
+                    --guess # will set --destination-dir=*this dir +*build/config/cleopatra/boxify/autopilots/
+                    --template-group=tiny
+                    --destination-dir=*path-to-destination*
 
   A environment manager wrapper that will allow you to install environments on any system
 
