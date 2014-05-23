@@ -1,130 +1,479 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3daef38a-5e1d-4147-a27a-f7058f1030ae" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/AppConfig.php" afterPath="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/AppConfig.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseModelFactory.php" afterPath="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseModelFactory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Behat/Model/BehatAllLinux.php" afterPath="$PROJECT_DIR$/src/Modules/Behat/Model/BehatAllLinux.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Dapperstrano/Model/DapperstranoAllLinux.php" afterPath="$PROJECT_DIR$/src/Modules/Dapperstrano/Model/DapperstranoAllLinux.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Firefox14/Model/Firefox14.php" afterPath="$PROJECT_DIR$/src/Modules/Firefox14/Model/Firefox14.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Firefox17/Model/Firefox17.php" afterPath="$PROJECT_DIR$/src/Modules/Firefox17/Model/Firefox17.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php" afterPath="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleopatra-incomplete-modules" afterPath="$PROJECT_DIR$/cleopatra-incomplete-modules" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleopatra.iml" afterPath="$PROJECT_DIR$/cleopatra.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Mink/Templates/mink-browser-drivers-composer.json.php" afterPath="$PROJECT_DIR$/src/Modules/Mink/Templates/mink-browser-drivers-composer.json.php" />
+    <list default="true" id="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spare/Boxify/Model/BoxifyUbuntu.php" afterPath="$PROJECT_DIR$/spare/Boxify/Model/BoxifyUbuntu.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spare/Gerar/Ssh.php" afterPath="$PROJECT_DIR$/spare/Gerar/Ssh.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spare/Gerar/User.php" afterPath="$PROJECT_DIR$/spare/Gerar/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cleovars" afterPath="$PROJECT_DIR$/src/cleovars" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spare/NewAutopilot/example-builder.php" afterPath="$PROJECT_DIR$/spare/NewAutopilot/example-builder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spare/NewAutopilot/exampleArray.php" afterPath="$PROJECT_DIR$/spare/NewAutopilot/exampleArray.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cleopatra.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/a.dummy" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690901105" ignored="false" />
-    <file path="/MysqlTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678288112" ignored="false" />
-    <file path="/info.NodeJS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381331761368" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/dapperstrano-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381588491824" ignored="false" />
-    <file path="/dapperstrano-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381588491824" ignored="false" />
-    <file path="/cleopatra-incomplete-modules" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381687364995" ignored="false" />
-    <file path="/ApacheInstall.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381609270126" ignored="false" />
-    <file path="/SystemDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690616680" ignored="false" />
-    <file path="/SystemDetectionFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381691938097" ignored="false" />
-    <file path="/AutoLoad.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381605304661" ignored="false" />
-    <file path="/ApacheInstallUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381601934137" ignored="false" />
-    <file path="/ApacheInstallCentos32.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381604616503" ignored="false" />
-    <file path="/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690140977" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Core/Base/Info/Base.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381609530398" ignored="false" />
-    <file path="/info.ApacheServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381610718726" ignored="false" />
-    <file path="/CleofyUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381610829779" ignored="false" />
-    <file path="/DapperstranoAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381611087123" ignored="false" />
-    <file path="/Cleopatra.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381612354758" ignored="false" />
-    <file path="/BaseModelFactory.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381616633117" ignored="false" />
-    <file path="/ApacheModulesUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381622717664" ignored="false" />
-    <file path="/ApacheModules.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381671145178" ignored="false" />
-    <file path="/StateDetectionHTMLView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624109416" ignored="false" />
-    <file path="/StateDetectionView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381623952657" ignored="false" />
-    <file path="/StateDetectionJSONView.tpl.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624002851" ignored="false" />
-    <file path="/info.SystemDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381624419982" ignored="false" />
-    <file path="/README.md" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381625486084" ignored="false" />
-    <file path="/Index.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690538466" ignored="false" />
-    <file path="/DeveloperTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381672931746" ignored="false" />
-    <file path="/DeveloperToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381671982029" ignored="false" />
-    <file path="/EnvironmentConfig.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381672132669" ignored="false" />
-    <file path="/Dapperstrano.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381674047484" ignored="false" />
-    <file path="/Cleofy.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381675584667" ignored="false" />
-    <file path="/Firefox14.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676168209" ignored="false" />
-    <file path="/Firefox17Ubuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676229633" ignored="false" />
-    <file path="/GitBucketUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676312353" ignored="false" />
-    <file path="/GitBucket.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676346174" ignored="false" />
-    <file path="/GitLab.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676424580" ignored="false" />
-    <file path="/GitTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676523312" ignored="false" />
-    <file path="/IntelliJ.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381676702999" ignored="false" />
-    <file path="/Java.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677096579" ignored="false" />
-    <file path="/JavaUbuntu64.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677152281" ignored="false" />
-    <file path="/Jenkins.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677233654" ignored="false" />
-    <file path="/JenkinsPlugins.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677267746" ignored="false" />
-    <file path="/JenkinsSudoNoPassUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677351697" ignored="false" />
-    <file path="/JenkinsPluginsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677360912" ignored="false" />
-    <file path="/JenkinsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677372549" ignored="false" />
-    <file path="/JenkinsSudoNoPass.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677628243" ignored="false" />
-    <file path="/JRushUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677801064" ignored="false" />
-    <file path="/JRush.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677749663" ignored="false" />
-    <file path="/LigHTTPDServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677892102" ignored="false" />
-    <file path="/LigHTTPDServerUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677925555" ignored="false" />
-    <file path="/MediaToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677986603" ignored="false" />
-    <file path="/MediaTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381677995740" ignored="false" />
-    <file path="/MysqlAdminsAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678077990" ignored="false" />
-    <file path="/MysqlAdmins.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678085035" ignored="false" />
-    <file path="/MysqlServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678191740" ignored="false" />
-    <file path="/MysqlServerUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678212079" ignored="false" />
-    <file path="/MysqlToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678282074" ignored="false" />
-    <file path="/NodeJSUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678346012" ignored="false" />
-    <file path="/NodeJS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678360489" ignored="false" />
-    <file path="/ParallaxUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678469480" ignored="false" />
-    <file path="/Parallax.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678479443" ignored="false" />
-    <file path="/PHPCSUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678730987" ignored="false" />
-    <file path="/PHPCS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678609652" ignored="false" />
-    <file path="/PHPMDUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678659821" ignored="false" />
-    <file path="/PHPMD.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678668344" ignored="false" />
-    <file path="/PHPModulesUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678813395" ignored="false" />
-    <file path="/PHPUnit.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678989218" ignored="false" />
-    <file path="/PHPUnitAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381678975944" ignored="false" />
-    <file path="/PythonUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679026550" ignored="false" />
-    <file path="/Python.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679075741" ignored="false" />
-    <file path="/RubyRVMUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679111025" ignored="false" />
-    <file path="/RubyRVM.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679135494" ignored="false" />
-    <file path="/RubySystem.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679242751" ignored="false" />
-    <file path="/SeleniumServerAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679326974" ignored="false" />
-    <file path="/SeleniumServer.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679373250" ignored="false" />
-    <file path="/RubySystemUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679390896" ignored="false" />
-    <file path="/StandardTools.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679456759" ignored="false" />
-    <file path="/StandardToolsUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679498704" ignored="false" />
-    <file path="/StateDetectionUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679681572" ignored="false" />
-    <file path="/StateDetection.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679688804" ignored="false" />
-    <file path="/SudoNoPassUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679742397" ignored="false" />
-    <file path="/SudoNoPass.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679779075" ignored="false" />
-    <file path="/UbuntuCompilerUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381679839025" ignored="false" />
-    <file path="/UbuntuCompiler.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381680230378" ignored="false" />
-    <file path="/GeneratorUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381680528982" ignored="false" />
-    <file path="/Generator.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381680474852" ignored="false" />
-    <file path="/IntelliJUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381681293858" ignored="false" />
-    <file path="/Invoke.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381681803608" ignored="false" />
-    <file path="/InvokeSSH.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381681823370" ignored="false" />
-    <file path="/PHPModules.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381687056082" ignored="false" />
-    <file path="/Router.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381688269647" ignored="false" />
-    <file path="/DummyLinuxModuleAllLinux.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381689934637" ignored="false" />
-    <file path="/DummyLinuxModule.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381689996623" ignored="false" />
-    <file path="/GitLabUbuntu.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690191022" ignored="false" />
-    <file path="/IndexAllOS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381691502355" ignored="false" />
-    <file path="/info.Index.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381690508484" ignored="false" />
-    <file path="/SystemDetectionAllOS.php" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1381691832475" ignored="false" />
-    <file path="/Dummy.txt" changelist="3daef38a-5e1d-4147-a27a-f7058f1030ae" time="1383322886798" ignored="false" />
+    <file path="/Dummy.txt" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400847879665" ignored="false" />
+    <file path="/var/www/imperial-invites/papyrusfile" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399199924658" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/cleopatra/autopilots/staging-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399194807772" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Model/DapperfyAllOS.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208570934" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/EnvironmentConfig/Model/EnvironmentConfigAllOS.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399198242233" ignored="false" />
+    <file path="/EnvironmentConfigAllOS.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399198242233" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Bootstrap.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399199959584" ignored="false" />
+    <file path="/Bootstrap.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399199955355" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-workstation-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689237" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-workstation-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689237" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-invoke-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689237" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-workstation-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689237" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-invoke-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689238" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-install-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689239" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689239" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-workstation-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689239" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-workstation-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689239" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-invoke-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689239" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-workstation-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689240" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-install-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689240" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-invoke-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689241" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-install-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689241" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-invoke-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-workstation-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-workstation-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-invoke-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-invoke-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-workstation-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-invoke-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-workstation-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689247" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-invoke-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-workstation-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-install-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-invoke-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-invoke-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-invoke-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-workstation-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-workstation-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-install-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-workstation-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-workstation-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689248" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-workstation-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-install-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-invoke-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-workstation-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-workstation-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-invoke-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-workstation-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689249" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-install-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689253" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-install-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-install-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-invoke-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-invoke-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-invoke-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-install-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-workstation-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-install-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689254" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-invoke-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-invoke-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-invoke-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-invoke-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-install-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-install-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-node-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689255" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-invoke-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-node-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-node-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-workstation-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-install-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-invoke-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-workstation-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-invoke-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-invoke-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-workstation-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/local-jenkins-node-install-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689256" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-invoke-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-invoke-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-workstation-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-invoke-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/jenkins-workstation-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/workstation-invoke-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/staging-invoke-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="/var/www/imperial-invites/build/config/dapperstrano/autopilots/production-node-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399208689257" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/EnvironmentConfig/Model/EnvironmentConfigListAllOS.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399198584733" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Controller/Dapperfy.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399199049870" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Views/DapperfyView.tpl.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399199528757" ignored="false" />
+    <file path="/DapperfyView.tpl.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399199138435" ignored="false" />
+    <file path="/a.dummy" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400852995287" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-invoke-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-invoke-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-invoke-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-invoke-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-invoke-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-invoke-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-install-enforce-revisions.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-workstation-install-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-install-rollback-newest.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026131" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-node-install-rollback-previous.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-workstation-install-code-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-workstation-uninstall-code.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-workstation-install-code-no-dbconf.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Templates/environment-workstation-uninstall-code-data.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1399210026132" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/AutoLoad.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400355231075" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/ApacheVHostEditor/Model/ApacheVHostEditorLinuxMac.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400427929945" ignored="false" />
+    <file path="/ApacheVHostEditorLinuxMac.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400360377180" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/DBConfigure/Controller/DBConfigure.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400361708327" ignored="false" />
+    <file path="/DBConfigure.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400361546307" ignored="false" />
+    <file path="/Drupal.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400362175768" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Drupal/Controller/Drupal.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400362741287" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/info.Dapperfy.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400367081084" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Drupal/Model/DBConfigureDataDrupal70.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400363807770" ignored="false" />
+    <file path="/DBConfigureDataDrupal70.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400363149398" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/DBConfigure/Model/DBConfigureAllOS.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400363932344" ignored="false" />
+    <file path="/DBConfigureAllOS.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400363820159" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Drupal/info.Drupal.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400367175064" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Drupal/Autopilots/Dapperfy/dapperfy-drupal-tiny.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400366174244" ignored="false" />
+    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/EnvironmentConfig/Model/EnvironmentConfigAllLinux.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400366783260" ignored="false" />
+    <file path="/EnvironmentConfigAllLinux.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400366659504" ignored="false" />
+    <file path="/info.Drupal.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400367160374" ignored="false" />
+    <file path="/boxify-add-medium.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400521280133" ignored="false" />
+    <file path="/cm-all-medium.sh" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400527824331" ignored="false" />
+    <file path="$PROJECT_DIR$/../../parallax/parallax/src/Modules/CommandExec/Model/CommandExec.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400633621076" ignored="false" />
+    <file path="$PROJECT_DIR$/../../parallax/parallax/src/Modules/CommandExec/Controller/CommandExec.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400633700105" ignored="false" />
+    <file path="/Cli.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400634393627" ignored="false" />
+    <file path="/ParallaxChild.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400694943934" ignored="false" />
+    <file path="/ParallaxCli.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400850606537" ignored="false" />
+    <file path="/boxify-add-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400780950987" ignored="false" />
+    <file path="/settings.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400756304699" ignored="false" />
+    <file path="/boxify-add-medium-all-parallel.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400680169796" ignored="false" />
+    <file path="/DigitalOceanBoxAdd.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400758880723" ignored="false" />
+    <file path="/boxify-add-production-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400689430519" ignored="false" />
+    <file path="/boxify-destroy-medium.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400692479759" ignored="false" />
+    <file path="/destroy-settings.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400755563436" ignored="false" />
+    <file path="/Base.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400787365485" ignored="false" />
+    <file path="/Autopilot.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400837894750" ignored="false" />
+    <file path="/AutopilotAllLinux.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400765402211" ignored="false" />
+    <file path="/BoxifyGenericAutosUbuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400773772926" ignored="false" />
+    <file path="/CleofyGenericAutosUbuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400786638291" ignored="false" />
+    <file path="/CleofyUbuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400840614783" ignored="false" />
+    <file path="/cleofy-cm-medium-all-parallel.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400837362190" ignored="false" />
+    <file path="/cleofy-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400840088429" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-medium-all-parallel.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346215" ignored="false" />
+    <file path="/var/www/test_project/papyrusfile" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400868930649" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291566" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291566" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291566" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291566" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291567" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291567" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291567" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291567" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291567" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291567" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291577" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291577" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291577" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291550" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291550" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291550" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-git-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-secondary-db-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-web-nodes-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-jenkins-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-bastion-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-jenkins.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346218" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-prep-ubuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346218" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-staging-web.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346218" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346218" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-production-db.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346218" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-production-web.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346218" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generic/Medium/cleofy-cm-staging-db.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400861346218" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291550" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291550" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291550" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-cleo-dapper-update.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291561" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291562" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291558" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-developer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-devops.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291559" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291552" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-db-primary.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291553" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-build-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-designer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-cleo-dapper.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291554" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-prep-any-box.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-cleo-dapper-new.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-invoke-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-db-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291560" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-cm-standalone-server.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-secondary-db-invoke-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291557" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/cleofy/autopilots/generated/medium-prod-primary-db-cm-web-node.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291568" ignored="false" />
+    <file path="/RunCommandUbuntu.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400849446522" ignored="false" />
+    <file path="/AutopilotExecutor.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400856298311" ignored="false" />
+    <file path="/AppInstallView.tpl.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400854415969" ignored="false" />
+    <file path="/View.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400859506702" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-destroy-medium-all-sequential.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-production-secondary-db.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-medium-all-sequential.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-production-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-staging-load-balancer.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-bastion.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-staging-primary-db.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-production-primary-db.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-medium-all-parallel.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-staging-web-nodes.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-production-web-nodes.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-destroy-medium-all-parallel.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-git.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-staging-secondary-db.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/boxify-add-jenkins.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/settings.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291563" ignored="false" />
+    <file path="/var/www/test_project/build/config/cleopatra/boxify/autopilots/Medium/destroy-settings.php" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400865291564" ignored="false" />
+    <file path="/cleopatra-incomplete-modules" changelist="7f03e5a3-069f-44ff-ac15-c4376e44a7e5" time="1400864115620" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,64 +534,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Base.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
+      <file leaf-file-name="boxify-add-medium-all-sequential.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-medium-all-sequential.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="44" selection-start="3021" selection-end="3021" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="18.125">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndexAllOS.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/IndexAllOS.php">
+      <file leaf-file-name="boxify-add-staging-web-nodes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-staging-web-nodes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="83" selection-start="1541" selection-end="1541" vertical-scroll-proportion="0.0">
+            <state line="41" column="1" selection-start="1635" selection-end="1635" vertical-scroll-proportion="-11.708333">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GitLab.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/GitLab/Controller/GitLab.php">
+      <file leaf-file-name="Autopilot.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Controller/Autopilot.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="23" selection-start="54" selection-end="54" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Index/Controller/Index.php">
+      <file leaf-file-name="AutopilotExecutor.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Controller/AutopilotExecutor.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="6" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0">
+            <state line="41" column="40" selection-start="1290" selection-end="1633" vertical-scroll-proportion="-12.458333">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/Index.php">
+      <file leaf-file-name="boxify-add-jenkins.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-jenkins.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="36" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SystemDetectionAllOS.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
+      <file leaf-file-name="boxify-add-medium-all-parallel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-medium-all-parallel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="87" selection-start="723" selection-end="723" vertical-scroll-proportion="0.5672269">
+            <state line="34" column="133" selection-start="2070" selection-end="2070" vertical-scroll-proportion="-19.333334">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SystemDetectionFactory.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
+      <file leaf-file-name="Parallax.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Parallax/Controller/Parallax.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="843" selection-end="843" vertical-scroll-proportion="-0.625">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cleopatra-incomplete-modules" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="96" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/settings.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="19" selection-start="799" selection-end="808" vertical-scroll-proportion="-13.125">
               <folding />
             </state>
           </provider>
@@ -266,32 +633,33 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Modules/RubySystem/info.RubySystem.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific/environment-invoke-cleo-dapper-new.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific/environment-invoke-db-node.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific/environment-invoke-db-primary.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific/environment-invoke-git.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific/environment-invoke-load-balancer.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific/environment-invoke-standalone-server.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific/environment-invoke-web-node.php" />
+        <option value="$PROJECT_DIR$/src/Modules/RunCommand/Model/RunCommandUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Core/View.php" />
+        <option value="$PROJECT_DIR$/src/Modules/CleopatraRequired/Views/AppInstallView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Parallax/Model/ParallaxCli.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-production-web-nodes.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-staging-web-nodes.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Autopilot/Controller/AutopilotExecutor.php" />
         <option value="$PROJECT_DIR$/cleopatra-incomplete-modules" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/info.SystemDetection.php" />
-        <option value="$PROJECT_DIR$/src/Core/Router.php" />
-        <option value="$PROJECT_DIR$/src/Extensions/DummyLinuxModule/Controller/DummyLinuxModule.php" />
-        <option value="$PROJECT_DIR$/src/Extensions/DummyLinuxModule/Model/DummyLinuxModuleAllLinux.php" />
-        <option value="$PROJECT_DIR$/src/Extensions/DummyLinuxModule/Model/DummyLinuxModule.php" />
-        <option value="$PROJECT_DIR$/src/Modules/GitLab/Model/GitLabUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Index/Controller/Index.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Index/info.Index.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Index/Model/Index.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php" />
-        <option value="$PROJECT_DIR$/src/Core/Base/Controller/Base.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Index/Model/IndexAllOS.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-medium-all-parallel.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1280" />
-    <option name="height" value="690" />
+    <option name="x" value="-1" />
+    <option name="y" value="27" />
+    <option name="width" value="1368" />
+    <option name="height" value="742" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -318,7 +686,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -387,181 +754,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SystemDetection" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SystemDetection" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitLab" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitLab" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitLab" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
+              <option name="myItemId" value="Cleofy" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -587,53 +780,79 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Autopilot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="75" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="98" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="75" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="106" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="998" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="994" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="104" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="96" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
-  </component>
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <PyConsoleSettings />
-    </option>
-    <option name="myDjangoConsoleState">
-      <PyConsoleSettings />
-    </option>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Modules/SystemDetection/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/Index/Model" />
-      <recent name="$PROJECT_DIR$/src/Extensions/DummyLinuxModule/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/Invoke/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/Generator/Model" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Templates/Generic/Medium" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Views" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Templates/Generic/Tempy" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Templates/Generic" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/spare" />
-      <recent name="$PROJECT_DIR$/src/Modules/SystemDetection" />
-      <recent name="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model" />
-      <recent name="$PROJECT_DIR$/src/Modules/ApacheInstall/Model" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Templates/Generic/Medium" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Templates/Generic/Tempy" />
+      <recent name="$PROJECT_DIR$/src/Modules/Cleofy/Templates/EnvSpecific" />
+      <recent name="$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium" />
+      <recent name="$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Tiny" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
       <method />
@@ -647,34 +866,6 @@
       <method />
     </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
-      <method />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -705,98 +896,51 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
+    <list size="0" />
+    <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
     </configuration>
-    <list size="0" />
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+    </configuration>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
-  </component>
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="3daef38a-5e1d-4147-a27a-f7058f1030ae" name="Default" comment="" />
-      <created>1383322868047</created>
-      <updated>1383322868047</updated>
-    </task>
-    <servers />
-  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="690" extended-state="6" />
+    <frame x="-1" y="27" width="1368" height="742" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Repo Search" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15520282" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="SimpleHttpClient" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="ConsoleMavenPlugin" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30470017" sideWeight="0.59611994" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="AIT RSS/Atom Reader" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Archetypes" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven-2 Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Sonar" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46317512" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="RESTClient" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="JSON Formatter" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Amazon EC2" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37917933" sideWeight="0.5368249" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Sonar" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329806" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40388006" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -859,111 +1003,119 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
-  </component>
-  <component name="antWorkspaceConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Extensions/DummyLinuxModule/Model/DummyLinuxModule.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-medium-all-sequential.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="47" selection-start="72" selection-end="72" vertical-scroll-proportion="-2.5" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spare/GCInstallCustomPackage/info.GCInstallCustomPackage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spare/GCInstallCustomPackage/Controller/GCInstallCustomPackage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spare/GCInstallCustomPackage/Controller/DevServerSlim.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="8.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/GitLab/Model/GitLabUbuntu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="18" selection-start="43" selection-end="43" vertical-scroll-proportion="-2.5">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="18.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-production-load-balancer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="31" selection-end="31" vertical-scroll-proportion="0.13333334">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="10.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/GitLab/Controller/GitLab.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-production-primary-db.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="23" selection-start="54" selection-end="54" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="13.166667">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetection.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-production-secondary-db.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="47" selection-start="72" selection-end="72" vertical-scroll-proportion="0.12295082">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="12.833333">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/PHPModules/Model/PHPModulesUbuntu.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/settings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="45" selection-start="70" selection-end="393" vertical-scroll-proportion="0.43032786" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Index/info.Index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="28" selection-start="52" selection-end="52" vertical-scroll-proportion="0.12295082">
+        <state line="21" column="19" selection-start="799" selection-end="808" vertical-scroll-proportion="-13.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/Index.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-production-web-nodes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="36" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0">
+        <state line="40" column="61" selection-start="1623" selection-end="1623" vertical-scroll-proportion="-14.083333">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Index/Controller/Index.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-staging-load-balancer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="17.208334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-staging-primary-db.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="44" selection-start="3021" selection-end="3021" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="17.958334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Index/Model/IndexAllOS.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-staging-secondary-db.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="83" selection-start="1541" selection-end="1541" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="20.041666">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionFactory.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-staging-web-nodes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="843" selection-end="843" vertical-scroll-proportion="-0.625">
+        <state line="41" column="1" selection-start="1635" selection-end="1635" vertical-scroll-proportion="-11.708333">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Controller/Autopilot.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="87" selection-start="723" selection-end="723" vertical-scroll-proportion="0.5672269">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Controller/AutopilotExecutor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="40" selection-start="1290" selection-end="1633" vertical-scroll-proportion="-12.458333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-jenkins.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="96" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Boxify/Autopilots/Medium/boxify-add-medium-all-parallel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="133" selection-start="2070" selection-end="2070" vertical-scroll-proportion="-19.333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Parallax/Controller/Parallax.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
