@@ -72,15 +72,11 @@ class ParallaxCli extends BaseLinuxApp {
      */
     private function executeAllCommandInput() {
       $allPlxOuts = array();
-      $i = 1 ;
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
       foreach ($this->arrayOfCommands as $command) {
         $tempScript = $this->makeCommandFile($command);
         $outfile = $this->getFileToWrite("final");
         $cmd = 'cleopatra parallax child --command-to-execute="sh '.$tempScript.'" --output-file="'.$outfile.'" > /dev/null &';
-        $out = shell_exec($cmd);
-        $logging->log($out) ;
+        shell_exec($cmd);
         $allPlxOuts[] = array($tempScript, $outfile);
         $commandInitWait = (isset($this->params["execution-wait"])) ? $this->params["execution-wait"] : 2 ;
         sleep($commandInitWait); }
