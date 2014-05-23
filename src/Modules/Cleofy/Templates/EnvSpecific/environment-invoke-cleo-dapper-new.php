@@ -46,7 +46,7 @@ class AutoPilotConfigured extends AutoPilot {
 cd /tmp
 git clone https://github.com/phpengine/cleopatra
 sudo php cleopatra/install-silent
-sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php
+sudo cleopatra autopilot execute --autopilot-file="/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php"
 rm /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php
 SSHDATA;
         return $sshData ;
