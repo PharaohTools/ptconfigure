@@ -22,13 +22,13 @@ class AutoPilotConfigured extends AutoPilot {
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add all Boxes and Environments in Parallel" ),),),
                 array ( "Parallax" => array("cli" => array(
-                    "command-1"  => "cleopatra autopilot execute {$parent}cleofy-cm-bastion.php",
-                    "command-2"  => "cleopatra autopilot execute {$parent}cleofy-cm-git.php",
-                    "command-3"  => "cleopatra autopilot execute {$parent}cleofy-cm-jenkins.php",
-                    "command-4"  => "cleopatra autopilot execute {$parent}cleofy-cm-staging-db.php",
-                    "command-5"  => "cleopatra autopilot execute {$parent}cleofy-cm-staging-web.php",
-                    "command-6"  => "cleopatra autopilot execute {$parent}cleofy-cm-production-db.php",
-                    "command-7"  => "cleopatra autopilot execute {$parent}cleofy-cm-production-web.php",
+                    "command-1"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-bastion.php\"",
+                    "command-2"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-git.php\"",
+                    "command-3"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-jenkins.php\"",
+                    "command-4"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging-db.php\"",
+                    "command-5"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging-web.php\"",
+                    "command-6"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production-db.php\"",
+                    "command-7"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production-web.php\"",
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating a medium set of environments complete"),),),
