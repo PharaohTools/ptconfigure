@@ -40,7 +40,7 @@ class AutopilotExecutor extends Base {
 //                )
 //            ) ;
 //        }
-            $dataFromThis .= $this->executeControl($currentControl, $params);
+            $dataFromThis .= $this->executeControl($currentControl, $params)."\n";
 
         }
 //        var_dump("dft: ",$dataFromThis) ;
