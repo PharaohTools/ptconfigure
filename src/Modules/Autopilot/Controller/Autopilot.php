@@ -13,18 +13,15 @@ class Autopilot extends Base {
         $action = $pageVars["route"]["action"];
 
       if ($action=="install" || $action=="execute") {
-        $autoPilotFileName= (isset($thisModel->params["autopilot-file"]))
-          ? $thisModel->params["autopilot-file"]
-          : null;
-        if (isset($autoPilotFileName) && strlen($autoPilotFileName)>0 ) {
-          $autoPilot = $this->loadAutoPilot($autoPilotFileName);
+        if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
+          $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
           if ( $autoPilot!==null ) {
-            $autoPilotExecutor = new AutopilotExecutor();
+            $autoPilotExecutor = new \Controller\AutopilotExecutor();
             return $autoPilotExecutor->execute($pageVars, $autoPilot); }
           else {
-            $this->content["messages"][] = "Auto Pilot couldn't load"; } }
+            $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }
         else {
-          $this->content["messages"][] = "Auto Pilot not defined"; } }
+          $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
 
       else if ($action=="help") {
             $helpModel = new \Model\Help();
