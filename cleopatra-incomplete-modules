@@ -5,6 +5,7 @@ IN PROGRESS
 You cannot call a module NoModuleAssociated as PackageManager uses that to store packages in cleovars that were installed
 from cli not module
 
+Logging - all calls to logging should also state what module and server they are running from/on
 
 All
 
