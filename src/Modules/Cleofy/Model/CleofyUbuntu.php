@@ -61,7 +61,7 @@ class CleofyUbuntu extends Base {
     }
 
     private function doCleofy() {
-      $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
+      $templatesDir = str_replace("Model", "Templates/EnvSpecific", dirname(__FILE__) ) ;
       $templates = scandir($templatesDir);
       foreach ($this->environments as $environment) {
         foreach ($templates as $template) {
@@ -77,7 +77,8 @@ class CleofyUbuntu extends Base {
                       "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
                       "env_name" => $environment["any-app"]["gen_env_name"]
                   ),
-                  $targetLocation ); } } }
+                  $targetLocation );
+          echo $targetLocation."\n"; } } }
     }
 
 }
