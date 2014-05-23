@@ -59,21 +59,29 @@ class View {
   public function loadViewFile($viewFileName, $pageVars, $templateData=null) {
     $allModuleParentDirectories = array("Extensions", "Modules", "Core");
     foreach ($allModuleParentDirectories as $oneModuleParentDirectory) {
-      $modulesParentDirFullPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
-      $modulesIndividualDirectories = scandir($modulesParentDirFullPath);
-      foreach ($modulesIndividualDirectories as $singleModuleDir) {
-        if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
-          if ( is_dir($modulesParentDirFullPath.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
-            $fileNameAndPath =
-              $modulesParentDirFullPath . DIRECTORY_SEPARATOR . $singleModuleDir .
-              DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . $viewFileName;
-            if (is_readable($fileNameAndPath)) {
-              require_once $fileNameAndPath;
-              return true;
-            }
-          }
+        if ($oneModuleParentDirectory != "Core") {
+            $modulesParentDirFullPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $oneModuleParentDirectory ;
+            $modulesIndividualDirectories = scandir($modulesParentDirFullPath);
+            foreach ($modulesIndividualDirectories as $singleModuleDir) {
+              if (!in_array($singleModuleDir, array(".", ".."))) { // if not dot or double dot
+                  if ( is_dir($modulesParentDirFullPath.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
+                      $fileNameAndPath =
+                          $modulesParentDirFullPath . DIRECTORY_SEPARATOR . $singleModuleDir .
+                          DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . $viewFileName;
+                      if (is_readable($fileNameAndPath)) {
+                          require_once $fileNameAndPath;
+                          return true; } } } } }
+        else {
+            $modulesParentDirFullPath = dirname(__FILE__).DIRECTORY_SEPARATOR."Base".DIRECTORY_SEPARATOR."Views" ;
+            $coreViewFiles = scandir($modulesParentDirFullPath );
+            foreach ($coreViewFiles as $coreViewFile) {
+                if (!in_array($coreViewFile, array(".", ".."))) { // if not dot or double dot
+                        $fileNameAndPath = $modulesParentDirFullPath . DIRECTORY_SEPARATOR . $coreViewFile;
+                        if (is_readable($fileNameAndPath) && $viewFileName == $coreViewFile) {
+                            require_once $fileNameAndPath;
+                            return true; } } }
+
         }
-      }
     }
     return false;
   }
