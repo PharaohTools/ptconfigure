@@ -42,6 +42,10 @@ class DigitalOceanInfo extends CleopatraBase {
         Will destroy box/es in an environment for you, and remove them from the papyrus file
         example: cleopatra digital-ocean box-destroy --yes --guess --digital-ocean-ssh-key-path="/home/dave/.ssh/bastion.pub" --digital-ocean-ssh-key-name="bastion"
 
+        - box-destroy-all
+        Will destroy all boxes in your digital ocean account - Careful - its irreversible
+        example: cleopatra digital-ocean box-destroy-all --yes --guess
+
         - save-ssh-key
         Will let you save a local ssh key to your Digital Ocean account, so you can ssh in to your nodes
         securely and without a password
