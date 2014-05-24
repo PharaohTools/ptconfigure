@@ -14,11 +14,6 @@ class DigitalOceanAllBoxesDestroy extends BaseDigitalOceanAllOS {
     // Model Group
     public $modelGroup = array("BoxDestroyAll") ;
 
-    public function askWhetherToBoxDestroy() {
-        $out = $this->destroyBox();
-        return $out ;
-    }
-
     public function destroyAllBoxes() {
         if ($this->askForOverwriteExecute() != true) { return false; }
         $this->apiKey = $this->askForDigitalOceanAPIKey();
