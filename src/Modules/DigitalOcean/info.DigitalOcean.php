@@ -14,7 +14,7 @@ class DigitalOceanInfo extends CleopatraBase {
 
     public function routesAvailable() {
       return array( "DigitalOcean" => array_merge(parent::routesAvailable(), array("save-ssh-key",
-          "box-add", "box-remove", "box-destroy", "destroy-all-droplets", "list") ) );
+          "box-add", "box-remove", "box-destroy", "box-destroy-all", "list") ) );
     }
 
     public function routeAliases() {

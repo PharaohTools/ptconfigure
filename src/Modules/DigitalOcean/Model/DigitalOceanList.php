@@ -14,11 +14,15 @@ class DigitalOceanList extends BaseDigitalOceanAllOS {
     // Model Group
     public $modelGroup = array("Listing") ;
 
-    public function askWhetherToListData($params=null) {
-        return $this->performDigitalOceanListData($params);
+    public function __construct($params) {
+        parent::__construct($params) ;
     }
 
-    protected function performDigitalOceanListData($params=null){
+    public function askWhetherToListData() {
+        return $this->performDigitalOceanListData();
+    }
+
+    protected function performDigitalOceanListData(){
         if ($this->askForListExecute() != true) { return false; }
         $this->apiKey = $this->askForDigitalOceanAPIKey();
         $this->clientId = $this->askForDigitalOceanClientID();

@@ -37,6 +37,14 @@ class DigitalOcean extends Base {
             $this->content["digiOceanResult"] = $thisModel->destroyBox();
             return array ("type"=>"view", "view"=>"digitalOceanAPI", "pageVars"=>$this->content); }
 
+        if ($action=="box-destroy-all") {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxDestroyAll") ;
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+            if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+            $this->content["digiOceanResult"] = $thisModel->destroyAllBoxes();
+            return array ("type"=>"view", "view"=>"digitalOceanAPI", "pageVars"=>$this->content); }
+
         if ($action=="save-ssh-key") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "SshKey") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
