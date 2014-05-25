@@ -328,7 +328,7 @@ COMPLETION;
            return $this->getVersion(); }
     }
 
-    // @todo this and the method above rolled into one
+    // @todo this and the method above should be rolled into one
     public function getVersion($type = "Installed") {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -349,7 +349,8 @@ COMPLETION;
                 $versionObject = new \Model\SoftwareVersion($versionText) ;
                 return $versionObject ; }
             else {
-                \Core\BootStrap::setExitCode(1) ;
+                // @todo should this always make an error exit code?
+                // \Core\BootStrap::setExitCode(1) ;
                 $logging->log("Cannot find version") ;
                 return false; } }
         else {
