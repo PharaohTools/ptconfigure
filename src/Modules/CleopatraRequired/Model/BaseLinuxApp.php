@@ -49,12 +49,56 @@ class BaseLinuxApp extends Base {
         return $this->unInstall();
     }
 
+    /*
+     * Ensuring covers quite a lot,but it should follow this I think:
+     *
+ensuring
+
+if doing versions
+	if its installed
+		if installed is compatible
+			do nothing * DONE (status 1)
+		if installed is not compatible
+            if recommended is compatible
+                uninstall () * NOT DONE (status 2)
+                install (recommended) * NOT DONE (status 2)
+            if recommended is not compatible
+                if latest version install is allowed
+                    if latest is compatible
+                        install (latest) * NOT DONE (status 3)
+                    if latest is not compatible
+                        exit (unable to meet installation requirements) * NOT DONE (status 4)
+                if latest version install is not allowed
+                    exit (unable to meet installation requirements) * NOT DONE (status 5)
+	if not installed
+		if recommended is compatible
+			install (recommended) * DONE (status 6)
+		if recommended is not compatible
+			if latest version install is allowed
+				if latest is compatible
+					install (latest) * NOT DONE (status 7)
+				if latest is not compatible
+					exit (unable to meet installation requirements) * NOT DONE (status 8)
+			if latest version install is not allowed
+				exit (unable to meet installation requirements) * NOT DONE (status 9)
+if not doing versions
+	if its installed
+		do nothing * DONE (status 10)
+	if not installed
+		install (default) * DONE (status 11)
+     *
+     */
+
+    /*
+     * @todo this method is 100 lines long, making it the one most in need of a refactor IMO
+     */
+
     public function ensureInstalled(){
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (isset($this->params["version"])) {
+        if (isset($this->params["version"])) { // if checking versions
             $logging->log("Ensure install is checking versions") ;
-            if ($this->askStatus() == true) {
+            if ($this->askStatus() == true) {  // if already installed
                 $logging->log("Already installed, checking version constraints") ;
                 if (!isset($this->params["version-operator"])) {
                     $logging->log("No --version-operator is set. Assuming requested version operator is minimum") ;
@@ -62,13 +106,48 @@ class BaseLinuxApp extends Base {
                 $currentVersion = $this->getVersion() ;
                 $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                 if ($currentVersion->isCompatible() == true) {
+                    // status 1
                     $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing") ; }
                 else {
-                    // @todo check if requested version is available
-                    $logging->log("Installed version {$currentVersion->shortVersionNumber} does not match constraint, uninstalling") ;
-                    // $this->unInstall() ;
-                    /* @todo do a proper uninstall and install right version */ } }
-            else {
+                    $recVersion = $this->getVersion("Recommended") ;
+                    $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                    if ($recVersion->isCompatible()) {
+                        // status 2
+                        $logging->log(
+                            "Installed version {$currentVersion->shortVersionNumber} does not match constraints, but ".
+                            "Recommended version {$recVersion->shortVersionNumber} matches constraints, so installing".
+                            " the old version and reinstalling the Recommended.") ;
+                        $this->unInstall() ;
+                        $this->install() ;  }
+                    else {
+                        $allowLatestVersion = (isset($this->params["allow-latest"])) ? $this->params["allow-latest"] : false ;
+                        if ($allowLatestVersion == true) {
+                            $latestVersion = $this->getVersion("Latest") ;
+                            $latestVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                            if ($latestVersion->isCompatible()) {
+                                // status 3
+                                $logging->log(
+                                    "Installed version {$currentVersion->shortVersionNumber} does not match constraints, but ".
+                                    "Latest version {$latestVersion->shortVersionNumber} matches constraints, and use of Latest".
+                                    " version is allowed so installing the old version and reinstalling the Latest.") ;
+                                $this->unInstall() ;
+                                // @todo this functionality doesnt work yet, but it should do this
+                                $this->install("Latest") ;  }
+                            else {
+                                // status 4
+                                $logging->log(
+                                    "Installed version {$currentVersion->shortVersionNumber} does not match constraints, nor does ".
+                                    "Recommended version {$recVersion->shortVersionNumber} or Latest version {$latestVersion->shortVersionNumber}.".
+                                    " ... No More options! Cannot Continue.") ;
+                                \Core\BootStrap::setExitCode(1) ; } }
+                        else {
+                            // status 5
+                            $logging->log(
+                                "Installed version {$currentVersion->shortVersionNumber} does not match constraints, nor does ".
+                                "Recommended version {$recVersion->shortVersionNumber}. Latest versions are not allowed".
+                                " ... No More options! Cannot Continue.") ;
+                            \Core\BootStrap::setExitCode(1) ; } } } }
+            else { // if not already installed
                 $logging->log("Not already installed, checking version constraints") ;
                 if (!isset($this->params["version-operator"])) {
                     $logging->log("No --version-operator is set. Assuming requested version is minimum") ;
@@ -76,18 +155,44 @@ class BaseLinuxApp extends Base {
                 $recVersion = $this->getVersion("Recommended") ;
                 $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                 if ($recVersion->isCompatible()) {
-                    $logging->log("Requested version {$recVersion->shortVersionNumber} matches constraints, installing") ;
+                    // status 6
+                    $logging->log("Recommended version {$recVersion->shortVersionNumber} matches constraints, installing") ;
                     $this->install() ;  }
                 else {
-                    // @todo check if requested version is available
-                    $logging->log("Installed version {$this->getVersion()} does not match constraint, uninstalling") ;
-                    $this->unInstall() ;
-                    /* @todo do a proper uninstall and install right version */ } } }
+
+                    $allowLatestVersion = (isset($this->params["allow-latest"])) ? $this->params["allow-latest"] : false ;
+                    if ($allowLatestVersion == true) {
+                        $latestVersion = $this->getVersion("Latest") ;
+                        $latestVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                        if ($latestVersion->isCompatible()) {
+                            // status 7
+                            $logging->log(
+                                "Recommended version {$recVersion->shortVersionNumber} does not match constraints, but ".
+                                "Latest version {$latestVersion->shortVersionNumber} matches constraints, and use of Latest".
+                                " version is allowed so installing the old version and reinstalling the Latest.") ;
+                            $this->unInstall() ;
+                            // @todo this functionality doesnt work yet, but it should do this
+                            $this->install("Latest") ;  }
+                        else {
+                            // status 8
+                            $logging->log(
+                                "Recommended version {$recVersion->shortVersionNumber} does not match constraints, nor ".
+                                "does or Latest version {$latestVersion->shortVersionNumber}. ... No More options! " .
+                                "Cannot Continue.") ;
+                            \Core\BootStrap::setExitCode(1) ; } }
+                    else {
+                        // status 9
+                        $logging->log(
+                            "Recommended version {$recVersion->shortVersionNumber} does not match constraints. Latest " .
+                            "versions are not allowed ... No More options! Cannot Continue.") ;
+                        \Core\BootStrap::setExitCode(1) ; } } } }
         else { // not checking version
             $logging->log("Ensure module install is not checking versions") ;
             if ($this->askStatus() == true) {
+                // status 10
                 $logging->log("Not installing as already installed") ; }
             else {
+                // status 11
                 $logging->log("Installing as not installed") ;
                 $this->install(); } }
         return true;
