@@ -95,9 +95,13 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Selenium Server is installed"),),),
                 array ( "SeleniumServer" => array( "ensure" => array("guess" => true ),),),
 
-                // SeleniumServer
+                // Start the Selenium Server
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets also start Selenium so we can use it"),),),
-                array ( "SeleniumServer" => array( "ensure" => array("guess" => true ),),),
+                array ( "RunCommand" => array("install" => array(
+                    "command" => 'selenium',
+                    "run-as-user" => "",
+                    "background" => true,
+                ),),),
 
                 // Behat
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Behat is installed"),),),
