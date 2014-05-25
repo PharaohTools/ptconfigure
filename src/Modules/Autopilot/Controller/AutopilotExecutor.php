@@ -31,19 +31,9 @@ class AutopilotExecutor extends Base {
                 "control" => $currentControl ,
                 "action" => $currentAction ,
             ) ;
-//        if ($currentControl == "Parallax") {
-//            var_dump("if cc pr 1: ", $currentControl, $params,
-//                array(
-//                    "extraParams" => $modParams ,
-//                    "control" => $currentControl ,
-//                    "action" => $currentAction ,
-//                )
-//            ) ;
-//        }
             $dataFromThis .= $this->executeControl($currentControl, $params);
 
         }
-//        var_dump("dft: ",$dataFromThis) ;
 
         return $dataFromThis ;
     }
