@@ -80,8 +80,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Dapperstrano" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
                 array ( "Testingkamen" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
-                array ( "Parallax" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure JRush for Joomla" ),),),
                 array ( "JRush" => array( "ensure" => array(),),),
 
