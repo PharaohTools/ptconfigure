@@ -41,19 +41,19 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Staging Primary DB Environment" ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Staging Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-db-primary-prep-ubuntu.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-prep-ubuntu.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Staging Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-db-primary-invoke-cleo-dapper-new.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-cleo-dapper-new.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Staging Primary DB Box on the Staging Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-db-primary-invoke-db-primary.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-primary-db-invoke-db-primary.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
