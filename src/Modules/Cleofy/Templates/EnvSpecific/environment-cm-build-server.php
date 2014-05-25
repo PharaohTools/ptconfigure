@@ -64,7 +64,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
                 array ( "PackageManager" => array( "pkg-ensure" => array(
                     "package-name" => "drush",
-                    "packager-name" => "Pear"
+                    "packager-name" => "Apt"
                 ),),),
 
                 // Java
@@ -86,8 +86,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Dapperstrano" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
                 array ( "Testingkamen" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
-                array ( "Parallax" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure JRush for Joomla" ),),),
                 array ( "JRush" => array( "ensure" => array(),),),
 
@@ -95,6 +93,10 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // SeleniumServer
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Selenium Server is installed"),),),
+                array ( "SeleniumServer" => array( "ensure" => array("guess" => true ),),),
+
+                // SeleniumServer
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets also start Selenium so we can use it"),),),
                 array ( "SeleniumServer" => array( "ensure" => array("guess" => true ),),),
 
                 // Behat
@@ -107,8 +109,8 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Ruby BDD Gems
                 // @todo this should be hidden as the install is failing, troublehoot and re -enable
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
-                array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
+//                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
+//                array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
 
 
                 // Unit Testing Tools
