@@ -51,6 +51,7 @@ class BaseLinuxApp extends Base {
 
     /*
      * Ensuring covers quite a lot,but it should follow this I think:
+     * Most of it is to do with versions
      *
 ensuring
 
