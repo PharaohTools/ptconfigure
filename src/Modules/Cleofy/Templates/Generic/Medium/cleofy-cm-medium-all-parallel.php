@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "command-7"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production-web.php\"",
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating a medium set of environments complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a medium set of environments complete"),),),
 
             );
 

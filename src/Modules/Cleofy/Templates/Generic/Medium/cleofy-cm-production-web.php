@@ -18,7 +18,6 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
 
-
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Production Web Nodes Environment" ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Production Web Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(

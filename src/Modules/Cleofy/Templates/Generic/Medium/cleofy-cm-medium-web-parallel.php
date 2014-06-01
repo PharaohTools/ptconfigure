@@ -17,7 +17,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a medium set of environments"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a medium set of Web Only environments"),),),
 
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add all Boxes and Environments in Parallel" ),),),
@@ -25,13 +25,11 @@ class AutoPilotConfigured extends AutoPilot {
                     "command-1"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-bastion.php\"",
                     "command-2"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-git.php\"",
                     "command-3"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-jenkins.php\"",
-                    "command-4"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging-db.php\"",
-                    "command-5"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging-web.php\"",
-                    "command-6"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production-db.php\"",
-                    "command-7"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production-web.php\"",
+                    "command-4"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging-web.php\"",
+                    "command-5"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production-web.php\"",
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating a medium set of environments complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a medium set of Web Only environments complete"),),),
 
             );
 
