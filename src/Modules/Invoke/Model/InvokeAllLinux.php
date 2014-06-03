@@ -115,8 +115,8 @@ class InvokeAllLinux extends Base {
                 echo 'Connection to Server '.$server["target"].' failed. '; }
             else {
                 $server["ssh2Object"] = $attempt ;
-                echo $this->changeBashPromptToPharoah($server["ssh2Object"]);
-                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharoah Remote SSH on ...'.$server["target"].'"', true ) ; } }
+                echo $this->changeBashPromptToPharaoh($server["ssh2Object"]);
+                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
     }
 
@@ -250,7 +250,7 @@ QUESTION;
         return ($input=="") ? false : $input ;
     }
 
-    private function changeBashPromptToPharoah( $sshObject ) {
+    private function changeBashPromptToPharaoh( $sshObject ) {
         $command = 'echo "export PS1=PHAROAHPROMPT" > ~/.bash_login ' ;
         return $sshObject->exec("$command\n") ;
     }
