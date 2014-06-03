@@ -1,4 +1,4 @@
-# Cleopatra, Pharoah Tools
+# Cleopatra, Pharaoh Tools
 
 ## About:
 
@@ -11,7 +11,7 @@ systems with one or two PHP files, or quickly set up cloud friendly deployment p
 Cleopatra is modular. object oriented and extendible, you can pretty easily write your own module if you want
 functionality we haven't yet covered. Feel free to submit us pull requests.
 
-This is part of the Pharoah Tools suite, which covers Configuration Management, Test Automation Management, Automated
+This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
 Its easy to write modules for any Operating System but we've begun with Ubuntu and adding more as soon as possible.
@@ -54,13 +54,35 @@ You'll be able to automate any action from any available module into an autopilo
 working on a web front end, but you can also use JSON output and the PostInput module to use any module from an API.
 
 
+## My favourite example
+
+Using Cleopatra, Dapperstrano and Testingkamen, you can set up a reasonably solid PHP Configuration Managed stack of servers,
+1 Git Server, 1 Jenkins Server, 1 Bastion Server, with Production and Staging mirrored to 4 DB Nodes, a Primary DB, 8 Web Nodes
+and a Load Balancer, with a test pattern configured for that system and builds/tests automatically configured working for
+Developers or Designers.
+
+This is being updated regularly and there are a few kinks but its pretty much there and looking to be complete within days.
+
+Good bits are that you can have all of this in 10-15 commands and less than an hour for most Drupal or Joomla sites,
+with Wordpress, Symfony, Laravel and Zend Framework on the way. Currently works smoothly on Digital Ocean and (nearly)
+on AWS automatically. If you enter in connection details of your boxes manually, or populate the papyrus file serialized
+array yourself you can use any boxes and more modules for Cloud providers are underway. Apache, Nginx or Lighttpd out of
+the box, but eagerly waiting for Zend Server, Docker, HHVM to get involved.
+
+Changing any of these in your setup is relatively simple. I've written all of these modules for Ubuntu, some work across
+OS, but all can support having models written for them to work on any OS PHP runs on.
+
+DNS is on the priority list as we should have a way of ensuring that we have a DNS entry pointing somewhere as part of an
+infrastructure change in build.
+
+
 ## Or a quick example
 
 These 5 commands will fire you up 5 boxes on Digital Ocean, and configure the systems as a Bastion Server, a Git Server,
 a Jenkins Build Server, a Standalone PHP/Mysql Staging Server, and a Standalone PHP/Mysql Production Server. You'll need
 to set up your Digital Ocean account first.
 
- # create a directory, or use a current web project as your new Pharoah project
+ # create a directory, or use a current web project as your new Pharaoh project
  mkdir /var/www/my-test-project && cd /var/www/my-test-project
 
  # boxify
@@ -78,7 +100,7 @@ to set up your Digital Ocean account first.
 
 Use invoke cli or env-config list to see your boxes
 
-Go to http://www.pharoah-tools.org.uk for more
+Go to http://www.pharaoh-tools.org.uk for more
 
 
 ## Available Commands:

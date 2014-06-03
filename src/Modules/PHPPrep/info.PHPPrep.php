@@ -6,7 +6,7 @@ class PHPPrepInfo extends CleopatraBase {
 
     public $hidden = true;
 
-    public $name = "Cleopatra PHPPrepper - Install PHP to prepare for Pharoah install";
+    public $name = "Cleopatra PHPPrepper - Install PHP to prepare for Pharaoh install";
 
     public function __construct() {
       parent::__construct();

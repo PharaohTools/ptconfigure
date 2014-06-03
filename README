@@ -1,4 +1,4 @@
-Cleopatra, Pharoah Tools
+Cleopatra, Pharaoh Tools
 -------------------
 
 About:
@@ -13,7 +13,7 @@ systems with one or two PHP files, or quickly set up cloud friendly deployment p
 Cleopatra is modular. object oriented and extendible, you can pretty easily write your own module that will configure
 the way that you want them if you want functionality we haven't yet covered. Feel free to submit us pull requests.
 
-This is part of the Pharoah Tools suite, which covers Configuration Management, Test Automation Management, Automated
+This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
 Currently, all of the Modules work on Ubuntu 12, most on 13, and a few on Centos. It's reasonably easy for most devs to
@@ -58,7 +58,7 @@ available actions too.
 You'll be able to automate any action from any available module into an autopilot file, or run it from the CLI. I'm
 working on a web front end, but you can also use JSON output and the PostInput module to use any module from an API.
 
-Go to http://www.pharoah-tools.org.uk for more
+Go to http://www.pharaoh-tools.org.uk for more
 
 
 ## Available Commands:
