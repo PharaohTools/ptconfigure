@@ -112,7 +112,7 @@ Kind Of Important - will be luvvly
 
 Module Handler. Get new Modules, Delete Modules, Disable, Enable
 
-A file caching system for pharoah
+A file caching system for pharaoh
 
 All Models of a particular Model group should have an interface
 
@@ -298,16 +298,6 @@ allows you to write behavior-oriented code, oftentimes in plain English.
 
 
 
-IDE's
---------
-
-NetBeans
-A dedicated PHP coding environment and complete integration with web standards. The NetBeans PHP editor is dynamically
-integrated with NetBeans HTML, JavaScript and CSS editing features such as syntax highlighting and the JavaScript
-debugger. NetBeans IDE 6.5 fully supports iterative development, so testing PHP projects follows the classic patterns
-familiar to web developers.
-Similar to intellij, 6 hours
-
 
 
 
@@ -388,6 +378,12 @@ PHPEdit
 PHPEdit is an excellent PHP editor/IDE with a ton of useful features and a very intuitive user interface. To learn more
 about why PHPEdit is a good IDE, read the 10 reasons to use PHPEdit and view the introductory screencast about PHPEdit.
 
+NetBeans
+A dedicated PHP coding environment and complete integration with web standards. The NetBeans PHP editor is dynamically
+integrated with NetBeans HTML, JavaScript and CSS editing features such as syntax highlighting and the JavaScript
+debugger. NetBeans IDE 6.5 fully supports iterative development, so testing PHP projects follows the classic patterns
+familiar to web developers.
+Similar to intellij, 6 hours
 
 
 
@@ -675,7 +671,7 @@ They can now all be removed, replaced with "exposedParams" or something. This wa
 parameters it accepts. It also means that the generator will be much easier to work, with some js and httpPostInput,
 the generator can look great.
 
-Pharoah exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)
+Pharaoh exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)
 
 
 status done
