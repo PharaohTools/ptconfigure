@@ -39,6 +39,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "root",
                     "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
                     "wait-for-box-info" => true,
+                    "wait-until-active" => true,
                 ),),),
 
                 // Git
@@ -63,6 +64,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "root",
                     "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
                     "wait-for-box-info" => true,
+                    "wait-until-active" => true,
                 ),),),
 
                 // Jenkins
@@ -87,6 +89,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "root",
                     "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
                     "wait-for-box-info" => true,
+                    "wait-until-active" => true,
                 ),),),
 
                 // Staging
@@ -111,6 +114,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "root",
                     "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
                     "wait-for-box-info" => true,
+                    "wait-until-active" => true,
                 ),),),
 
                 // Production
@@ -135,6 +139,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "box-user-name" => "root",
                     "private-ssh-key-path" => "/home/dave/.ssh/id_rsa",
                     "wait-for-box-info" => true,
+                    "wait-until-active" => true,
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a tiny set of environments complete"),),),
