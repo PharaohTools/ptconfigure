@@ -17,6 +17,9 @@ Then, once that is one, we actually run the autopilot.
 Is this any good, is it any quicker since composer is slow, is it more secure, by not including modules which you
 don't need but could be abused.
 
+Disallow making more than one environment with the same name
+this causes infra creator autos to create it mulitple times
+
 DONE
 SSH Private key encryption thing
 ----------------------------------
