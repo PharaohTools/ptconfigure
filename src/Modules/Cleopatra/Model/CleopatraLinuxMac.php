@@ -19,8 +19,7 @@ class CleopatraLinuxMac extends BasePHPApp {
         $this->autopilotDefiner = "Cleopatra";
         $this->fileSources = array(
           array(
-              "https://github.com/phpengine/cleopatra.git",
-              //"https://github.com/phpengine/cleopatra.git",
+              "http://git.pharoah-tools.org.uk/git/phpengine/cleopatra.git",
               "cleopatra",
               null // can be null for none
           )
