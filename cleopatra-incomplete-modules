@@ -20,6 +20,9 @@ don't need but could be abused.
 Disallow making more than one environment with the same name
 this causes infra creator autos to create it mulitple times
 
+AWStats is uber cool and should be here
+https://help.ubuntu.com/community/AWStats
+
 DONE
 SSH Private key encryption thing
 ----------------------------------
