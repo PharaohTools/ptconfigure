@@ -37,7 +37,8 @@ class EnvironmentConfigInfo extends CleopatraBase {
         - configure, config
         Configure the environments for your project to use
         example: cleopatra envconfig config
-        example: cleopatra envconfig config --keep-current-environments
+        example: cleopatra envconfig config --yes --keep-current-environments --no-manual-servers --add-single-environment
+                   --environment-name="some-name" --tmp-dir=/tmp/
 
         - delete, del
         Configure the environments for your project to use
