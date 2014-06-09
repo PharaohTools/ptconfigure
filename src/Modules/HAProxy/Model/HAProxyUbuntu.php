@@ -19,9 +19,12 @@ class HAProxyUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "HAProxy";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "haproxy")) ),
-            array("method"=> array("object" => $this, "method" => "haproxyRestart", "params" => array())) );
+            array("method"=> array("object" => $this, "method" => "addInitScript", "params" => array())),
+            array("method"=> array("object" => $this, "method" => "haproxyRestart", "params" => array()))
+        );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "haproxy")) ),
+            array("method"=> array("object" => $this, "method" => "delInitScript", "params" => array())),
             array("method"=> array("object" => $this, "method" => "haproxyRestart", "params" => array())) );
         $this->programDataFolder = "/opt/HAProxy"; // command and app dir name
         $this->programNameMachine = "haproxy"; // command and app dir name
@@ -32,6 +35,24 @@ class HAProxyUbuntu extends BaseLinuxApp {
         $this->versionRecommendedCommand = "sudo apt-cache policy haproxy" ;
         $this->versionLatestCommand = "sudo apt-cache policy haproxy" ;
         $this->initialize();
+    }
+
+    public function addInitScript() {
+        $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
+        $templateSource = $templatesDir.'/haproxy';
+        $templatorFactory = new \Model\Templating();
+        $templator = $templatorFactory->getModel($this->params);
+        $newFileName = "/etc/default/haproxy" ;
+        $templator->template(
+            file_get_contents($templateSource),
+            array(),
+            $newFileName );
+        echo "HA Proxy Init script config file $newFileName added\n";
+    }
+
+    public function delInitScript() {
+        unlink("/etc/default/haproxy");
+        echo "HA Proxy Init script config file /etc/default/haproxy removed\n";
     }
 
     public function haproxyRestart() {
