@@ -23,8 +23,7 @@ class TeamcityUbuntu extends BaseLinuxApp {
             array("command"=> array(
                 "cd /tmp",
                 "wget http://download.jetbrains.com/teamcity/TeamCity-8.1.3.tar.gz",
-                "dpkg -i go-server-14.1.0-18882.deb",
-                "rm go-server-14.1.0-18882.deb"
+                "tar -xvf TeamCity-8.1.3.tar.gz",
             ) ),
         );
         $this->uninstallCommands = array( "apt-get remove -y teamcity" );
