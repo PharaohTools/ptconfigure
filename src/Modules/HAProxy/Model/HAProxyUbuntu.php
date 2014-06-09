@@ -42,17 +42,17 @@ class HAProxyUbuntu extends BaseLinuxApp {
     }
 
     public function versionInstalledCommandTrimmer($text) {
-        $done = substr($text, 22, 17) ;
+        $done = substr($text, 22, 8) ;
         return $done ;
     }
 
     public function versionLatestCommandTrimmer($text) {
-        $done = substr($text, 53, 17) ;
+        $done = substr($text, 44, 8) ;
         return $done ;
     }
 
     public function versionRecommendedCommandTrimmer($text) {
-        $done = substr($text, 53, 17) ;
+        $done = substr($text, 44, 8) ;
         return $done ;
     }
 
