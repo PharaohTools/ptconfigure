@@ -51,7 +51,6 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         $this->initialize();
     }
 
-
     public function executeDependencies() {
         $gitToolsFactory = new \Model\GitTools($this->params);
         $gitTools = $gitToolsFactory->getModel($this->params);
