@@ -35,15 +35,14 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
     protected function setDefaultReplacements() {
         // set array with default values
         $this->replacements = array(
-            // @todo the suffix string here is to denote that you should include the whole line (or multiple lines)
-            // in your override answer
+            // @todo the suffix string here is to denote that you should include the whole line (or multiple lines) in your override answer
             "global_log" => "127.0.0.1 local0 notice",
             "global_maxconn" => "2000",
             "global_user" => "haproxy",
             "global_group" => "haproxy",
             "defaults_log" => "global",
             "defaults_mode" => "http",
-            "defaults_option_string" => '    option httplog'."\n".'    option dontlognull'."\n".'    option redispatch',
+            "defaults_option_string" => "option httplog\n    option dontlognull\n    option redispatch",
             "defaults_retries" => "3",
             "defaults_timeout_connect" => "5000",
             "defaults_timeout_client" => "10000",
@@ -56,7 +55,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
             "listen_stats_realm_string" => 'stats realm Strictly\ Private',
             "listen_stats_auth_string" => "stats auth cleopatra:cleopatra", # use whole line so we can include multiple
             "listen_balance" => "roundrobin",
-            "listen_option_string" => "    option httpclose\n    option forwardfor",
+            "listen_option_string" => "option httpclose\n    option forwardfor",
             "listen_server_string" => $this->getServerString()
         ) ;
     }

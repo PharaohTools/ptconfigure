@@ -13,7 +13,7 @@ class HAProxyInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "HAProxy" =>  array_merge(parent::routesAvailable(), array() ) );
+      return array( "HAProxy" =>  array_merge(parent::routesAvailable(), array("config", "configure", "install") ) );
     }
 
     public function routeAliases() {
@@ -27,8 +27,12 @@ class HAProxyInfo extends CleopatraBase {
   HAProxy, ha-proxy, haproxy
 
         - install
-        Installs HA Proxy HTTP Server
+        Installs HA Proxy Server
         example: cleopatra haproxy install
+
+        - configure
+        Configure Load Balancing with HA Proxy Server
+        example: cleopatra haproxy configure
 
 HELPDATA;
       return $help ;
