@@ -59,12 +59,12 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging DB Node Boxes" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "medium-staging-secondary-db",
+                    "environment-name" => "medium-staging-db-nodes",
                     "provider-name" => "DigitalOcean",
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "medium-staging-secondary-db"
+                    "environment-name" => "medium-staging-db-nodes"
                 ),),),
 
                 // Staging DB Primary
@@ -107,12 +107,12 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production DB Node Boxes" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-secondary-db",
+                    "environment-name" => "medium-prod-db-nodes",
                     "provider-name" => "DigitalOcean",
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "medium-prod-secondary-db"
+                    "environment-name" => "medium-prod-db-nodes"
                 ),),),
 
                 // Production DB Primary
