@@ -29,11 +29,11 @@ class AutoPilotConfigured extends AutoPilot {
                     "command-4"  => "cleopatra autopilot execute {$parent}boxify-destroy-staging-web-nodes.php",
                     "command-5"  => "cleopatra autopilot execute {$parent}boxify-destroy-staging-load-balancer.php",
                     "command-6"  => "cleopatra autopilot execute {$parent}boxify-destroy-staging-secondary-db.php",
-                    "command-7"  => "cleopatra autopilot execute {$parent}boxify-destroy-staging-primary-db.php",
+                    "command-7"  => "cleopatra autopilot execute {$parent}boxify-destroy-staging-db-balancer.php",
                     "command-8"  => "cleopatra autopilot execute {$parent}boxify-destroy-production-web-nodes.php",
                     "command-9"  => "cleopatra autopilot execute {$parent}boxify-destroy-production-load-balancer.php",
                     "command-10" => "cleopatra autopilot execute {$parent}boxify-destroy-production-secondary-db.php",
-                    "command-11" => "cleopatra autopilot execute {$parent}boxify-destroy-production-primary-db.php",
+                    "command-11" => "cleopatra autopilot execute {$parent}boxify-destroy-production-db-balancer.php",
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating a medium set of environments complete"),),),

@@ -95,7 +95,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging Primary DB" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-staging-primary-db",
+                    "environment-name" => "medium-staging-db-balancer",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -103,7 +103,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-staging-primary-db",
+                    "environment-name" => "medium-staging-db-balancer",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
@@ -191,7 +191,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Production Primary DB" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-primary-db",
+                    "environment-name" => "medium-prod-db-balancer",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -199,7 +199,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-primary-db",
+                    "environment-name" => "medium-prod-db-balancer",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
