@@ -29,17 +29,20 @@ class JoomlaInfo extends Base {
     }
 
     public function dbConfigureActions() {
-        return array( "joomla7", "joomla6" );
+        return array( "joomla30-conf", "joomla15-conf", "joomla30-reset", "joomla15-reset" );
     }
 
     public function helpDefinitions() {
-        return array("Builderfy"=>$this->builderfyHelpDefinition(), "Dapperfy"=>$this->dapperfyHelpDefinition());
+        return array(
+            "Builderfy"=>$this->builderfyHelpDefinition(),
+            "Dapperfy"=>$this->dapperfyHelpDefinition(),
+            "DBConfigure"=>$this->dbConfigureHelpDefinition());
     }
 
     public function helpDefinition() {
         $help = <<<"HELPDATA"
-  This module is a Default Modules and provides autopilots for joomla tailored Builderfy and Dapperfy Autopilots.
-  Also provides Joomla Database Configuration for the DBConfigure Module.
+  This module is a Default one, and provides integration for Joomla websites. It has tailored Builderfy and Dapperfy
+  Autopilots and also provides Joomla Database Configuration for the DBConfigure Module.
 
   Joomla, joomla
 
@@ -85,12 +88,28 @@ HELPDATA;
 --------------
   Joomla Module:
 
-  The Joomla module extends Dapperfy by providing Templates for both the build and the autopilot to execute them from
+  The Joomla module extends Dapperfy by providing Templates for automated deployment Autopilots that will be configured
+  for your particular Joomla site. This module adds the 'joomla' action to dapperfy.
 
-  This module adds the 'joomla' action to dapperfy and will let you produce autopilots for it which are tailored to Joomla.
+  - joomla
+  create joomla tailored automated deployment dapperstrano autopilots
+  example: dapperstrano dapperfy joomla --yes --guess
+HELPDATA;
+        return $help ;
+    }
 
-  dapperstrano dapperfy joomla --yes --guess
+    public function dbConfigureHelpDefinition() {
+        $help = <<<"HELPDATA"
 
+--------------
+  Joomla Module:
+
+  The Joomla module extends DBConfigure by providing Templates for resetting or setting the configuration of a Joomla
+
+  Joomla module adds the actions joomla30-conf, joomla30-reset, joomla15-conf, joomla15-reset to DBConfigure and will
+  let you produce autopilots for it which are tailored to Joomla.
+
+  dapperstrano dbconf joomla30-conf --yes --guess
 HELPDATA;
         return $help ;
     }

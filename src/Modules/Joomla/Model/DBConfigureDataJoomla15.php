@@ -12,8 +12,10 @@ class DBConfigureDataJoomla15 extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Joomla15") ;
+    public $modelGroup = array("Joomla15Config") ;
 
+    private $friendlyName = 'Joomla 1.5.x Series';
+    private $shortName = 'Joomla15';
     private $settingsFileLocation = 'src'; // no trail slash, empty for root
     private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;

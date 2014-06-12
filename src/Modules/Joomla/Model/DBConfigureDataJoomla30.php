@@ -12,8 +12,10 @@ class DBConfigureDataJoomla30 extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Joomla30") ;
+    public $modelGroup = array("Default", "Joomla30Config") ;
 
+    private $friendlyName = 'Joomla 3.x Series';
+    private $shortName = 'Joomla30';
     private $settingsFileLocation = 'src'; // no trail slash, empty for root
     private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;
