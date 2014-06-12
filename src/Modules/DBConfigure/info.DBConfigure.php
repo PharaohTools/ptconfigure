@@ -13,10 +13,12 @@ class DBConfigureInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "DBConfigure" => array_merge(parent::routesAvailable(),
-        array("configure", "config", "conf", "reset") ) );
+      return array( "DBConfigure" => array_merge(
+          parent::routesAvailable(),
+          array("configure", "config", "conf", "reset"),
+          $this->getExtraRoutes()
+      ) );
     }
-
     public function routeAliases() {
       return array("dbconfigure"=>"DBConfigure", "db-configure"=>"DBConfigure", "db-conf"=>"DBConfigure");
     }
@@ -39,7 +41,8 @@ class DBConfigureInfo extends Base {
     }
 
     public function helpDefinition() {
-      $help = <<<"HELPDATA"
+        $extraHelp = $this->getExtraHelpDefinitions() ;
+        $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Databasing Functions.
 
   DBConfigure, db-configure, dbconfigure, db-conf
@@ -54,8 +57,33 @@ class DBConfigureInfo extends Base {
       example: dapperstrano db-conf reset drupal
       example: dapperstrano db-conf reset --yes --platform=joomla30
 
+      $extraHelp
 HELPDATA;
       return $help ;
     }
+
+
+    protected function getExtraHelpDefinitions() {
+        $extraDefsText = "" ;
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "helpDefinitions")) {
+                $defNames = array_keys($info->helpDefinitions());
+                if (in_array("DBConfigure", $defNames)) {
+                    $defs = $info->helpDefinitions() ;
+                    $thisDef = $defs["DBConfigure"] ;
+                    $extraDefsText .= $thisDef ; } } }
+        return $extraDefsText ;
+    }
+
+    protected function getExtraRoutes() {
+        $extraActions = array() ;
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "dbConfigureActions")) {
+                $extraActions = array_merge($extraActions, $info->dbConfigureActions()); } }
+        return $extraActions ;
+    }
+
 
 }

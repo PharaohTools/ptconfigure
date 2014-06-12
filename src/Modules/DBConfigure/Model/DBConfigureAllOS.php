@@ -36,7 +36,6 @@ class DBConfigureAllOS extends Base {
     protected function performDBConfiguration(){
         if ( !$this->askForDBConfig() ) { return false; }
         // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
-        $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
         $this->setPlatformVars();
         $this->dbRootUser = $this->askForRootDBUser();
         if ($this->dbRootUser != "") {
@@ -59,7 +58,6 @@ class DBConfigureAllOS extends Base {
     protected function performDBConfigurationReset(){
         if ( !$this->askForDBConfigReset() ) { return false; }
         // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
-        $this->platform = ($this->platform==null) ? $this->platform = $this->askForPlatform() : $this->platform ;
         $this->setPlatformVars();
         $this->loadCurrentSettingsFile();
         $this->settingsFileReverseDataChange();
@@ -76,7 +74,7 @@ class DBConfigureAllOS extends Base {
     public function setPlatformVars($platformVars = null) {
         if ($platformVars != null) {
             $this->platformVars = $platformVars; }
-        else {
+        else if ($this->platformVars == null) {
             $this->platformVars = new \Model\DBConfigureDataGCFW2(); }
         return;
     }
@@ -251,7 +249,7 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function checkSettingsFileOkay(){
-        $question = 'Please check '.$this->platform.' Settings file: '.$this->settingsFileData."\n\nIs this Okay?";
+        $question = 'Please check '.$this->platformVars->getProperty("friendlyName").' Settings file: '.$this->settingsFileData."\n\nIs this Okay?";
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
