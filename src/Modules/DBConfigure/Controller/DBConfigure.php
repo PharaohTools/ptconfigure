@@ -25,7 +25,7 @@ class DBConfigure extends Base {
             $this->content["dbResult"] = $thisModel->askWhetherToResetDBConfiguration();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid DB Action";
+        $this->content["messages"][] = "Invalid DB Configure Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 

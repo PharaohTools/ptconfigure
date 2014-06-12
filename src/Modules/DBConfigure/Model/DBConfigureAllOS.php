@@ -73,29 +73,19 @@ class DBConfigureAllOS extends Base {
         return $this->$property;
     }
 
-    public function setPlatformVars() {
-        $this->platformVars = new \Model\DBConfigureDataGCFW2();
+    public function setPlatformVars($platformVars = null) {
+        if ($platformVars != null) {
+            $this->platformVars = $platformVars; }
+        else {
+            $this->platformVars = new \Model\DBConfigureDataGCFW2(); }
         return;
     }
 
     protected function askForPlatform(){
-        $availablePlats = array("drupal7", "php" , "gcfw" , "gcfw2", "joomla15", "joomla30");
-        if (isset($this->params["platform"]) && in_array($this->params["platform"], $availablePlats)) {
-            return $this->params["platform"] ; }
-        $question = "Please Choose Project Platform:\n";
-        $i=0;
-        foreach ($availablePlats as $plat) {
-            $question .= "($i) $plat\n";
-            $i++; }
-        $validChoice = false;
-        $i=0;
-        while ($validChoice == false) {
-            if ($i==1) { $question = "That's not a valid option, ".$question; }
-            $input = self::askForDigit($question) ;
-            if ( array_key_exists($input, $availablePlats) ){
-                $validChoice = true;}
-            $i++; }
-        return $availablePlats[$input] ;
+        if (isset($this->params["platform"])) { return $this->params["platform"] ; }
+        $question = "Please Enter Project Platform:\n";
+        $input = self::askForInput($question, true) ;
+        return $input ;
     }
 
     protected function askForDBConfig(){
