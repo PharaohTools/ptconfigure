@@ -15,6 +15,9 @@ class BaseTemplater extends BaseLinuxApp {
                 if (isset($this->params["template_{$replacementKey}"])) {
                     $newArray[$replacementKey] = $this->params["template_{$replacementKey}"] ;
                     continue ; }
+                if (isset($this->params["guess"])) {
+                    $newArray[$replacementKey] = $replacementValue ;
+                    continue ; }
                 $doChange = $this->askYesOrNo("Set non-default value for $replacementKey? Default is $replacementValue");
                 if ($doChange) {
                     $newArray[$replacementKey] = $this->askForInput("What value for $replacementKey?"); }
