@@ -29,11 +29,14 @@ class DrupalInfo extends Base {
     }
 
     public function dbConfigureActions() {
-        return array( "drupal7", "drupal6" );
+        return array( "drupal7-conf", "drupal6-conf", "drupal7-reset", "drupal6-reset" );
     }
 
     public function helpDefinitions() {
-        return array("Builderfy"=>$this->builderfyHelpDefinition(), "Dapperfy"=>$this->dapperfyHelpDefinition());
+        return array(
+            "Builderfy"=>$this->builderfyHelpDefinition(),
+            "Dapperfy"=>$this->dapperfyHelpDefinition(),
+            "DBConfigure"=>$this->dbConfigureHelpDefinition());
     }
 
     public function helpDefinition() {
@@ -85,11 +88,29 @@ HELPDATA;
 --------------
   Drupal Module:
 
-  The Drupal module extends Dapperfy by providing Templates for both the build and the autopilot to execute them from
+  The Drupal module extends Dapperfy by providing Templates for automated deployment Autopilots that will be configured
+  for your particular Drupal site. This module adds the 'drupal' action to dapperfy.
 
-  This module adds the 'drupal' action to dapperfy and will let you produce autopilots for it which are tailored to Drupal.
+  - drupal
+  create drupal tailored automated deployment dapperstrano autopilots
+  example: dapperstrano dapperfy drupal --yes --guess
 
-  dapperstrano dapperfy drupal --yes --guess
+HELPDATA;
+        return $help ;
+    }
+
+    public function dbConfigureHelpDefinition() {
+        $help = <<<"HELPDATA"
+
+--------------
+  Drupal Module:
+
+  The Drupal module extends DBConfigure by providing Templates for resetting or setting the configuration of a Drupal
+
+  Drupal module adds the actions drupal7-conf, drupal7-reset, drupal6-conf, drupal6-reset to DBConfigure and will
+  let you produce autopilots for it which are tailored to Drupal.
+
+  dapperstrano dbconf drupal7-conf --yes --guess
 
 HELPDATA;
         return $help ;

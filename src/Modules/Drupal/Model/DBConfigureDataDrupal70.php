@@ -12,9 +12,11 @@ class DBConfigureDataDrupal70 extends DBConfigureAllOS {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Drupal7") ;
+    public $modelGroup = array("Default", "Drupal7Config") ;
 
     // @todo this assumes src directory
+    private $friendlyName = 'Drupal 7.x Series';
+    private $shortName = 'Drupal7';
     private $settingsFileLocation = 'src/sites/default'; // no trail slash
     private $settingsFileName = 'settings.php';
     private $settingsFileReplacements ;
@@ -41,23 +43,19 @@ class DBConfigureDataDrupal70 extends DBConfigureAllOS {
 
 
     private function setReplacements(){
-
         $this->settingsFileReplacements = array(
-        "'database'"=>"      'database' => '****DB NAME****',",
-        "'username'"=>"      'username' => '****DB USER****',",
-        "'password'"=>"      'password' => '****DB PASS****',",
-        "'host'"=>"      'host' => '****DB HOST****'," );
-
+            "'database'"=>"      'database' => '****DB NAME****',",
+            "'username'"=>"      'username' => '****DB USER****',",
+            "'password'"=>"      'password' => '****DB PASS****',",
+            "'host'"=>"      'host' => '****DB HOST****'," );
     }
 
     private function setExtraConfigReplacements(){
-
         $this->extraConfigFileReplacements = array(
             '$bootstrapDbName =' => '$bootstrapDbName = "****DB NAME****" ; ',
             '$bootstrapDbUser =' => '$this->dbUser = "****DB USER****" ; ',
             '$bootstrapDbPass =' => '$this->dbPass = "****DB PASS****" ; ',
             '$bootstrapDbHost =' => '$this->dbHost = "****DB HOST****" ; ');
-
     }
 
 }
