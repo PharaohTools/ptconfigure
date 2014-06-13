@@ -21,7 +21,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Production Secondary DB Environment" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-secondary-db",
+                    "environment-name" => "medium-prod-db-nodes",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -30,22 +30,22 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Production Secondary DB Box" ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-secondary-db",
-                    "provider-name" => "$provider_secondary_db",
-                    "box-amount" => "$box_amount_secondary_db",
-                    "image-id" => "$image_id_secondary_db",
-                    "region-id" => "$region_id_secondary_db",
-                    "size-id" => "$size_id_secondary_db",
+                    "environment-name" => "medium-prod-db-nodes",
+                    "provider-name" => "$provider_db_nodes",
+                    "box-amount" => "$box_amount_db_nodes",
+                    "image-id" => "$image_id_db_nodes",
+                    "region-id" => "$region_id_db_nodes",
+                    "size-id" => "$size_id_db_nodes",
                     "server-prefix" => $prefix,
-                    "box-user-name" => "$user_name_secondary_db",
-                    "private-ssh-key-path" => "$priv_ssh_key_secondary_db",
+                    "box-user-name" => "$user_name_db_nodes",
+                    "private-ssh-key-path" => "$priv_ssh_key_db_nodes",
                     "wait-for-box-info" => true,
                     "max-box-info-wait-time" => $wait_time,
                     "wait-until-active" => true,
                     "max-active-wait-time" => $wait_time,
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-prod-secondary-db environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-prod-db-nodes environment complete"),),),
 
             );
 

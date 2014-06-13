@@ -95,7 +95,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging Primary DB" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-staging-primary-db",
+                    "environment-name" => "medium-staging-db-balancer",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -103,7 +103,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-staging-primary-db",
+                    "environment-name" => "medium-staging-db-balancer",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
@@ -119,7 +119,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add Staging DB Nodes" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-staging-secondary-db",
+                    "environment-name" => "medium-staging-db-nodes",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -127,7 +127,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-staging-secondary-db",
+                    "environment-name" => "medium-staging-db-nodes",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "2",
                     "image-id" => "3101045",
@@ -191,7 +191,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Production Primary DB" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-primary-db",
+                    "environment-name" => "medium-prod-db-balancer",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -199,7 +199,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-primary-db",
+                    "environment-name" => "medium-prod-db-balancer",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",
@@ -215,7 +215,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add Production DB Nodes" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-secondary-db",
+                    "environment-name" => "medium-prod-db-nodes",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -223,7 +223,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-secondary-db",
+                    "environment-name" => "medium-prod-db-nodes",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "2",
                     "image-id" => "3101045",
