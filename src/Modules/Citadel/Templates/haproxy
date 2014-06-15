@@ -1,0 +1,4 @@
+# Set enabled to 1 if you want the init script to start citadel
+ENABLED=1
+# Add extra flags here
+#EXTRAOPTS="-de -m 16"
