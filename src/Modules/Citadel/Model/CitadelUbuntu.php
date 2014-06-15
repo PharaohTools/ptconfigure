@@ -41,12 +41,16 @@ class CitadelUbuntu extends BaseLinuxApp {
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "citadel-suite")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "citadel-server")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "citadel-client")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "citadel-webcit")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "debconf-utils")) ),
         );
         $this->programDataFolder = "/opt/Citadel"; // command and app dir name
         $this->programNameMachine = "citadel"; // command and app dir name
         $this->programNameFriendly = "Citadel Server!"; // 12 chars
         $this->programNameInstaller = "Citadel Server";
+        // @todo this always says installed
         $this->statusCommand = "sudo dpkg -l citadel-server | grep -E \"^ii\" | tr -s ' ' | cut -d' ' -f3" ;
         $this->versionInstalledCommand = "sudo apt-cache policy citadel-server" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy citadel-server" ;
