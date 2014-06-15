@@ -31,6 +31,9 @@ class HAProxy extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
+        $this->content["messages"][] = "Invalid HA Proxy Action";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+
     }
 
 }

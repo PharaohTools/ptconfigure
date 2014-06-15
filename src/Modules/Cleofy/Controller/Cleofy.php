@@ -27,6 +27,10 @@ class Cleofy extends Base {
         if ($action=="standard") {
           $this->content["result"] = $thisModel->askWhetherToCleofy();
           return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "Invalid Cleofy Action";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+
     }
 
 
