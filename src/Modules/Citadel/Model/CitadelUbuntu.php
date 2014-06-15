@@ -31,8 +31,8 @@ class CitadelUbuntu extends BaseLinuxApp {
                 "echo citadel-server citadel/LoginType select Internal | sudo debconf-set-selections",
                 // @todo below should have an extra parameter, it throws an error
                 //"echo citadel-server citadel/BadUser error | sudo debconf-set-selections",
-                "echo citadel-webcit citadel/WebcitApacheIntegration select	Internal | sudo debconf-set-selections",
-                "echo citadel-webcit citadel/WebcitHttpPort string 8504 | sudo debconf-set-selections",
+                "echo citadel-webcit citadel/WebcitApacheIntegration select	Apache2 | sudo debconf-set-selections",
+                "echo citadel-webcit citadel/WebcitHttpPort string 80 | sudo debconf-set-selections",
                 "echo citadel-webcit citadel/WebcitHttpsPort string	-1 | sudo debconf-set-selections",
                 "echo citadel-webcit citadel/WebcitOfferLang select UNLIMITED | sudo debconf-set-selections",
             ) ),
