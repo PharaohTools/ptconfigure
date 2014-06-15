@@ -51,7 +51,7 @@ class CitadelUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "Citadel Server!"; // 12 chars
         $this->programNameInstaller = "Citadel Server";
         // @todo this always says installed
-        $this->statusCommand = "sudo dpkg -l citadel-server | grep -E \"^ii\" | tr -s ' ' | cut -d' ' -f3" ;
+        $this->statusCommand = "sudo citadel -v" ;
         $this->versionInstalledCommand = "sudo apt-cache policy citadel-server" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy citadel-server" ;
         $this->versionLatestCommand = "sudo apt-cache policy citadel-server" ;
