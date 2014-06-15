@@ -19,6 +19,7 @@ class MysqlServerUbuntu extends BaseLinuxApp {
         $newRootPass = $this->getNewRootPass();
         $this->autopilotDefiner = "MysqlServer";
         $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "debconf-utils")) ),
             array("command"=> array(
                     "echo mysql-server mysql-server/root_password password $newRootPass | sudo debconf-set-selections",
                     "echo mysql-server mysql-server/root_password_again password $newRootPass | sudo debconf-set-selections" ) ),
@@ -28,6 +29,7 @@ class MysqlServerUbuntu extends BaseLinuxApp {
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "mysql-client")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "mysql-server")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "debconf-utils")) ),
         );
         $this->programDataFolder = "/opt/MysqlServer"; // command and app dir name
         $this->programNameMachine = "mysqlserver"; // command and app dir name
