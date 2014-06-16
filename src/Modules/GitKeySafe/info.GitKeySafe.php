@@ -2,6 +2,8 @@
 
 Namespace Info;
 
+// @todo the idea for the installed script is from http://alvinabad.wordpress.com/2013/03/23/how-to-specify-an-ssh-key-file-with-the-git-command/
+// @todo ^email that guy
 class GitKeySafeInfo extends CleopatraBase {
 
     public $hidden = false;
