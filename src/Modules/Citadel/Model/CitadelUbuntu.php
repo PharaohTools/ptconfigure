@@ -21,6 +21,7 @@ class CitadelUbuntu extends BaseLinuxApp {
         $newRootPass = $this->getNewRootPass() ;
         $serverIp = $this->getNewServerListenIp() ;
         $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "apacheStop", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "debconf-utils")) ),
             array("command"=> array(
                 "export DEBIAN_FRONTEND=noninteractive",
@@ -31,8 +32,8 @@ class CitadelUbuntu extends BaseLinuxApp {
                 "echo citadel-server citadel/LoginType select Internal | sudo debconf-set-selections",
                 // @todo below should have an extra parameter, it throws an error
                 //"echo citadel-server citadel/BadUser error | sudo debconf-set-selections",
-                "echo citadel-webcit citadel/WebcitApacheIntegration select	Apache2 | sudo debconf-set-selections",
-                "echo citadel-webcit citadel/WebcitHttpPort string 8504 | sudo debconf-set-selections",
+                "echo citadel-webcit citadel/WebcitApacheIntegration select	Internal | sudo debconf-set-selections",
+                "echo citadel-webcit citadel/WebcitHttpPort string 80 | sudo debconf-set-selections",
                 "echo citadel-webcit citadel/WebcitHttpsPort string	-1 | sudo debconf-set-selections",
                 "echo citadel-webcit citadel/WebcitOfferLang select UNLIMITED | sudo debconf-set-selections",
             ) ),
@@ -93,6 +94,13 @@ class CitadelUbuntu extends BaseLinuxApp {
         $serviceManager = $serviceFactory->getModel($this->params) ;
         $serviceManager->setService("citadel");
         $serviceManager->restart();
+    }
+
+    public function apacheStop() {
+        $serviceFactory = new Service();
+        $serviceManager = $serviceFactory->getModel($this->params) ;
+        $serviceManager->setService("apache2");
+        $serviceManager->stop();
     }
 
     public function versionInstalledCommandTrimmer($text) {
