@@ -188,6 +188,8 @@ class DBInstallAllOS extends Base {
     }
 
     private function askForDBPass(){
+        if (isset($this->params["mysql-pass"])) { return $this->params["mysql-pass"] ; }
+        if (isset($this->params["mysql-password"])) { return $this->params["mysql-password"] ; }
         if (isset($this->params["mysql-user-password"])) { return $this->params["mysql-user-password"] ; }
         $question = 'What\'s the application DB Password?';
         return self::askForInput($question, true);
