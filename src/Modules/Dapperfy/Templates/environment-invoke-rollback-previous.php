@@ -50,7 +50,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
 cd <%tpl.php%>gen_env_tmp_dir</%tpl.php%>
-sudo dapperstrano autopilot execute <%tpl.php%>env_name</%tpl.php%>-node-install-rollback-previous.php
+sudo dapperstrano autopilot execute --autopilot-file="<%tpl.php%>env_name</%tpl.php%>-node-install-rollback-previous.php"
 sudo rm <%tpl.php%>env_name</%tpl.php%>-node-install-rollback-previous.php
 SSHDATA;
         return $sshData ;
