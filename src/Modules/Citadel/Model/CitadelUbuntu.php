@@ -24,6 +24,7 @@ class CitadelUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "apacheStop", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "debconf-utils")) ),
             array("command"=> array(
+                'echo "deb http://ubuntu.citadel.org/ubuntu/ precise main" >> /etc/apt/sources.list"',
                 "export DEBIAN_FRONTEND=noninteractive",
                 "echo citadel-server citadel/Administrator string $newRootUser | sudo debconf-set-selections",
                 "echo citadel-server citadel/Password password $newRootPass | sudo debconf-set-selections",
