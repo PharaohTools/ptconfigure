@@ -34,17 +34,18 @@ class Joomla extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        if ($action == "joomla") {
-            $thisModel = $this->getModelAndCheckDependencies("Dapperfy", $pageVars) ;
-            // if we don't have an object, its an array of errors
+        if (in_array($action, array("joomla", "joomla30"))) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyJoomla") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $thisModel->platform = "joomla30";
+            $this->content["result"] = $thisModel->askWhetherToDapperfy();
+            return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "JoomlaEfficient") ;
-            // if we don't have an object, its an array of errors
+        if (in_array($action, array("joomla15"))) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyJoomla") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $thisModel->params["action"] = $action ;
-            $this->content["result1"] = $thisModel->askInstall();
-            $this->content["result2"] = $thisModel->result;
+            $thisModel->platform = "joomla15";
+            $this->content["result"] = $thisModel->askWhetherToDapperfy();
             return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Dapperfy Joomla Action";

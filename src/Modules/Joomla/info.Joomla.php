@@ -17,7 +17,7 @@ class JoomlaInfo extends Base {
     }
 
     public function routeAliases() {
-        return array("joomla"=>"Joomla");
+        return array( "joomla"=>"Joomla");
     }
 
     public function builderfyActions() {
@@ -25,7 +25,7 @@ class JoomlaInfo extends Base {
     }
 
     public function dapperfyActions() {
-        return array( "joomla" );
+        return array( "joomla", "joomla15", "joomla30" );
     }
 
     public function dbConfigureActions() {
