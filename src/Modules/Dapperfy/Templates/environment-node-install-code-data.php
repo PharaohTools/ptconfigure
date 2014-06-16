@@ -67,6 +67,8 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets drop our current database if it exists"), ) ),
                 array ( "DBInstall" => array( "drop" => array(
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
@@ -76,6 +78,8 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array("log-message" => "Now lets install our database"), ), ),
                 array ( "DBInstall" => array( "install" => array(
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
