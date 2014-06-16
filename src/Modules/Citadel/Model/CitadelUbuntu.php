@@ -23,6 +23,7 @@ class CitadelUbuntu extends BaseLinuxApp {
         $this->installCommands = array(
             array("command"=> array(
                 'echo "deb http://ubuntu.citadel.org/ubuntu/ precise main" >> /etc/apt/sources.list"',
+                'sudo apt-get update"',
             ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "debconf-utils")) ),
             array("method"=> array("object" => $this, "method" => "apacheStop", "params" => array()) ),
