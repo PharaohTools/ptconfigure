@@ -50,7 +50,7 @@ class EnvironmentConfigAllLinux extends Base {
         if ($overrideReplacements == null) {
             $this->setDefaultEnvironmentReplacements(); }
         else if (is_array($overrideReplacements)) {
-            $this->environmentReplacements = $overrideReplacements ; }
+            $this->environmentReplacements = array_merge($overrideReplacements, $this->getDefaultEnvironmentReplacements()) ; }
     }
 
     public function setDefaultEnvironmentReplacements() {
@@ -74,9 +74,10 @@ class EnvironmentConfigAllLinux extends Base {
             if ($useProjEnvs == true ) {
                 $this->environments = $allProjectEnvs;
                 $i = 0;
+                $curEnvGroupRay = array_keys($this->environmentReplacements) ;
+
                 foreach ($this->environments as $oneEnvironment) {
-                    $curEnvGroupRay = array_keys($this->environmentReplacements) ;
-                    $curEnvGroup = $curEnvGroupRay[0] ;
+                    $curEnvGroup = $curEnvGroupRay[$i] ;
                     $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?
                         $oneEnvironment["any-app"]["gen_env_name"] : "*unknown*" ;
                     $q  = "Do you want to modify entries applicable to any app in " ;
