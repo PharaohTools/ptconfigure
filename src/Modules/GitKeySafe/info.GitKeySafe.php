@@ -9,11 +9,11 @@ class GitKeySafeInfo extends CleopatraBase {
     public $name = "Git Key-Safe - Install a script for git to allow specifying ssh keys during commands";
 
     public function __construct() {
-      parent::__construct();
+        parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "GitKeySafe" =>  array_merge(parent::routesAvailable(), array("config", "configure", "install") ) );
+        return array( "GitKeySafe" =>  array_merge(parent::routesAvailable(), array("config", "configure", "install") ) );
     }
 
     public function routeAliases() {
