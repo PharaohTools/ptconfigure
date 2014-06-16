@@ -79,6 +79,13 @@ class DapperfyAllOS extends Base {
         $templates = scandir($templatesDir);
         foreach ($this->environments as $environment) {
 
+            if (isset($this->params["environment-name"])) {
+                if ($this->params["environment-name"] != $environment["any-app"]["gen_env_name"]) {
+                    $tx = "Skipping Environment {$environment["any-app"]["gen_env_name"]} " ;
+                    $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
+                    echo $tx;
+                    continue ; } }
+
             $defaultReplacements =
             array(
                 "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
