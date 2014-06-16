@@ -34,17 +34,18 @@ class Drupal extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        if ($action == "drupal") {
-            $thisModel = $this->getModelAndCheckDependencies("Dapperfy", $pageVars) ;
-            // if we don't have an object, its an array of errors
+        if (in_array($action, array("drupal", "drupal7"))) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyDrupal") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $thisModel->platform = "drupal7";
+            $this->content["result"] = $thisModel->askWhetherToDapperfy();
+            return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DrupalEfficient") ;
-            // if we don't have an object, its an array of errors
+        if (in_array($action, array("drupal6"))) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyDrupal") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $thisModel->params["action"] = $action ;
-            $this->content["result1"] = $thisModel->askInstall();
-            $this->content["result2"] = $thisModel->result;
+            $thisModel->platform = "drupal6";
+            $this->content["result"] = $thisModel->askWhetherToDapperfy();
             return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Dapperfy Drupal Action";
