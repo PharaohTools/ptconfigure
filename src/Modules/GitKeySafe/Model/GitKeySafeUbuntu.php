@@ -20,11 +20,10 @@ class GitKeySafeUbuntu extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "addGitKeySafeScript", "params" => array())),
             array("method"=> array("object" => $this, "method" => "chmodGitKeySafeScript", "params" => array())),
-            array("method"=> array("object" => $this, "method" => "gitkeysafeRestart", "params" => array()))
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "delGitKeySafeScript", "params" => array())),
-            array("method"=> array("object" => $this, "method" => "gitkeysafeRestart", "params" => array())) );
+        );
         $this->programDataFolder = "/opt/GitKeySafe"; // command and app dir name
         $this->programNameMachine = "gitkeysafe"; // command and app dir name
         $this->programNameFriendly = "Git Key-Safe Server!"; // 12 chars
@@ -58,7 +57,7 @@ class GitKeySafeUbuntu extends BaseLinuxApp {
 
     public function delGitKeySafeScript() {
         unlink("/usr/bin/git-key-safe");
-        echo "Git Key-Safe Init script config file /etc/default/git-key-safe removed\n";
+        echo "Git Key-Safe Init script config file /usr/bin/git-key-safe removed\n";
     }
 
     public function versionInstalledCommandTrimmer($text) {
