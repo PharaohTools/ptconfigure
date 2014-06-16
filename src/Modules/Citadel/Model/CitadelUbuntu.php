@@ -40,8 +40,9 @@ class CitadelUbuntu extends BaseLinuxApp {
                 "echo citadel-webcit citadel/WebcitHttpPort string 80 | sudo debconf-set-selections",
                 "echo citadel-webcit citadel/WebcitHttpsPort string	-1 | sudo debconf-set-selections",
                 "echo citadel-webcit citadel/WebcitOfferLang select UNLIMITED | sudo debconf-set-selections",
+                "wget -q -O - http://easyinstall.citadel.org/install | sh"
             ) ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "citadel-suite")) ),
+            // array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "citadel-suite")) ),
             array("method"=> array("object" => $this, "method" => "citadelRestart", "params" => array()))
         );
         $this->uninstallCommands = array(
