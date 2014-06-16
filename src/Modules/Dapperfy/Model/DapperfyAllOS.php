@@ -14,8 +14,8 @@ class DapperfyAllOS extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $environments ;
-    private $environmentReplacements ;
+    protected $environments ;
+    public $environmentReplacements ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -74,7 +74,7 @@ class DapperfyAllOS extends Base {
       return $serversText;
     }
 
-    private function doDapperfy() {
+    public function doDapperfy() {
         $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
         $templates = scandir($templatesDir);
         foreach ($this->environments as $environment) {
@@ -101,7 +101,8 @@ class DapperfyAllOS extends Base {
                 $templator->template(
                     file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
                     $replacements,
-                    $targetLocation ); } } }
+                    $targetLocation );
+                echo $targetLocation."\n"; } } }
     }
 
 }
