@@ -35,6 +35,7 @@ class DapperfyDrupalAllOS extends DapperfyAllOS {
           array( "dapper" => array(
               array("var"=>"dap_proj_cont_dir", "friendly_text"=>"Project Container directory, (inc slash)"),
               array("var"=>"dap_git_repo_url", "friendly_text"=>"Git Repo URL"),
+              array("var"=>"dap_git_repo_ssh_key", "friendly_text"=>"Optional Private SSH Key for Git Repo"),
               array("var"=>"dap_git_custom_branch", "friendly_text"=>"Git Custom Branch"),
               array("var"=>"dap_apache_vhost_url", "friendly_text"=>"Apache VHost URL (Don't Include http://)"),
               array("var"=>"dap_apache_vhost_ip", "friendly_text"=>"Apache VHost Hostname/IP"),
