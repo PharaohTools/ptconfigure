@@ -37,7 +37,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
         $this->replacements = array(
             // @todo the suffix string here is to denote that you should include the whole line (or multiple lines) in your override answer
             "global_log" => "127.0.0.1 local0 notice",
-            "global_maxconn" => "2000",
+            "global_maxconn" => "20000",
             "global_user" => "haproxy",
             "global_group" => "haproxy",
             "defaults_log" => "global",
@@ -64,8 +64,14 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
         $servers = $this->getServersArray() ;
         $st = "" ;
         foreach ($servers as $server) {
-            $st .= "server {$server["name"]} {$server["target"]}:80 check\n" ; }
+            $st .= "server {$server["name"]} {$server["target"]}:{$this->getTemplatePort()} check\n" ; }
         return $st ;
+    }
+
+    protected function getTemplatePort() {
+        if (isset($this->params["template_target_port"])) { return $this->params["template_target_port"] ; }
+        $colonPos = strpos($this->replacements["listen_ip_port"], ":");
+        return substr($this->replacements["listen_ip_port"], $colonPos) ;
     }
 
     protected function setTemplateFile() {

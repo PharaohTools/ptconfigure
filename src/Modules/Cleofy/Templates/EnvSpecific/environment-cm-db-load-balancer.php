@@ -16,7 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Load Balancer on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Database Node on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
 //                // Install Keys - Bastion Public Key
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
@@ -44,23 +44,20 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common PHP Modules are installed" ),),),
                 array ( "PHPModules" => array( "ensure" => array(),),),
 
-                // Apache
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Apache Server is installed" ),),),
-                array ( "ApacheServer" => array( "ensure" =>  array("version" => "2.2"), ), ),
+                // HA Proxy Cluster Addition step
+                // @todo Install HA - should be done below
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure HA Proxy Server is installed" ),),),
+                array ( "HAProxy" => array( "ensure" =>  array(), ), ),
 
-                // Apache Modules
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
-                array ( "ApacheModules" => array( "ensure" => array(),),),
-
-                // Apache Modules
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
-                array ( "ApacheReverseProxyModules" => array( "ensure" => array(),),),
-
-                // Restart Apache for new modules
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
-                array ( "RunCommand" => array( "restart" => array(
-                    "guess" => true,
-                    "command" => "dapperstrano ApacheCtl restart --yes",
+                // HA Proxy Cluster configure step
+                // @todo Configure HA - looks done?
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets HA Proxy to balance to our DB Nodes"),),),
+                array ( "HAProxy" => array( "config" => array(
+                    "environment-name" => "<%tpl.php%>db_nodes_env</%tpl.php%>",
+                    "template_listen_mode" => "tcp",
+                    "template_listen_ip_port" => "0.0.0.0:3306",
+                    "template_target_port" => "3306",
+                    "template_defaults_mode" => "tcp"
                 ) ) ),
 
                 // Firewall
@@ -70,17 +67,12 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Firewall" => array( "default" => array("policy" => "deny" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "http/tcp" ), ) , ) ,
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "https/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow MySQL input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "3306/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
                 array ( "Firewall" => array( "enable" => array(), ) , ) ,
 
-                // End
-                array ("Logging" => array( "log" => array(
-                    "log-message" => "Configuring a Load Balancer on environment <%tpl.php%>env_name</%tpl.php%> complete"
-                ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Database Node on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
         );
 

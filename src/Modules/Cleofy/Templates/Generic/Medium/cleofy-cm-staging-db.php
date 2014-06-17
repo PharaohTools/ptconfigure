@@ -53,7 +53,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Staging Primary DB Box on the Staging Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-db-balancer-invoke-db-primary.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-db-balancer-invoke-db-load-balancer.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
