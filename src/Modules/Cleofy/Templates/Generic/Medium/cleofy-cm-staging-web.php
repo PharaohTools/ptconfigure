@@ -56,7 +56,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Staging Load Balancer Box on the Staging Load Balancer Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-load-balancer.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/medium-staging-load-balancer-invoke-web-load-balancer.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
