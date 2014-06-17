@@ -16,7 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Load Balancer on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Web Load Balancer on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
 //                // Install Keys - Bastion Public Key
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
@@ -79,7 +79,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // End
                 array ("Logging" => array( "log" => array(
-                    "log-message" => "Configuring a Load Balancer on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                    "log-message" => "Configuring a Web Load Balancer on environment <%tpl.php%>env_name</%tpl.php%> complete"
                 ),),),
 
         );
