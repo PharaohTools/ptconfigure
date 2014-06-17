@@ -75,6 +75,12 @@ class EnvironmentConfigAllLinux extends Base {
                 $this->environments = $allProjectEnvs;
                 $i = 0;
                 foreach ($this->environments as $oneEnvironment) {
+                    if (isset($this->params["environment-name"])) {
+                        if ($this->params["environment-name"] != $oneEnvironment["any-app"]["gen_env_name"]) {
+                            $tx = "Skipping Environment {$oneEnvironment["any-app"]["gen_env_name"]} " ;
+                            $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
+                            echo $tx;
+                            continue ; } }
                     $curEnvGroupRay = array_keys($this->environmentReplacements) ;
                     $curEnvGroup = $curEnvGroupRay[0] ;
                     $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?

@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class HAProxy extends Base {
+class GitKeySafe extends Base {
 
 
     public function execute($pageVars) {
@@ -23,7 +23,7 @@ class HAProxy extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid HA Proxy Action";
+        $this->content["messages"][] = "Invalid Git Key-Safe Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
