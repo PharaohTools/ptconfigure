@@ -126,8 +126,8 @@ class ApacheVHostEditorLinuxMac extends Base {
 
     private function askForVHostEntry($bal = null) {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $tx = ($bal == true) ? "Load Balancer" : "" ;
-        $question = 'Do you want to add a '.$tx.' VHost?';
+        $tx = ($bal == true) ? "Load Balancer " : "" ;
+        $question = 'Do you want to add a '.$tx.'VHost?';
         return self::askYesOrNo($question);
     }
 
@@ -526,8 +526,13 @@ TEMPLATE5;
         if (isset($this->params["vhe-template"])) {
             $this->vHostTemplate = $this->params["vhe-template"] ;
             return ; }
-        if (isset($this->params["vhe-default-template-name"])) {
+        else if (isset($this->params["vhe-default-template-name"])) {
             $this->vHostTemplate = $this->vHostDefaultBalancerTemplates[$this->params["vhe-default-template-name"]] ;
+            return ; }
+        else {
+            $options = array_keys($this->vHostDefaultBalancerTemplates) ;
+            $chosen = $this->askForArrayOption("Pick a Template", $options) ;
+            $this->vHostTemplate = $this->vHostDefaultBalancerTemplates[$chosen] ;
             return ; }
     }
 
@@ -539,13 +544,14 @@ TEMPLATE5;
         $template1 = <<<"TEMPLATE1"
 
 <Proxy balancer://$clusterName>
+
     # Define back-end servers:
     $servers
 </Proxy>
 
 <VirtualHost ****IP ADDRESS****>
-	ServerAdmin webmaster@localhost
-	ServerName ****SERVER NAME****
+    ServerAdmin webmaster@localhost
+    ServerName ****SERVER NAME****
     ProxyPass / balancer://$clusterName
 </VirtualHost>
 
@@ -554,6 +560,7 @@ TEMPLATE1;
         $template2 = <<<"TEMPLATE2"
 
 <Proxy balancer://$clusterName>
+
     # Define back-end servers:
     $servers
 </Proxy>
@@ -589,16 +596,22 @@ TEMPLATE2;
 
     }
 
+    private function askForEnvironment(){
+        $question = 'What is the environment name of your web nodes? ';
+        $input = self::askForInput($question, true);
+        return $input ;
+    }
+
     private function getServersText() {
         $servers = $this->getServersArray() ;
         if ($servers != null) {
-            $sText = "" ;
+            $sText = "\n" ;
             $i = 0 ;
             foreach ($servers as $srvId => $srvDetails) {
-                $sText .= '# Server '.$srvId."\n";
+                $sText .= '    # Server '.$srvId ;
                 $sText .= (isset($srvDetails["name"])) ? ", {$srvDetails["name"]}" : "";
                 $sText .= "\n";
-                $sText .= 'BalancerMember http://'.$srvDetails["target"]."\n";
+                $sText .= '    BalancerMember http://'.$srvDetails["target"]."\n";
                 $sText .= "\n";
                 $i++ ; }
             return $sText ; }
@@ -606,16 +619,23 @@ TEMPLATE2;
     }
 
     private function getServersArray() {
-        if (isset($this->params["environment-name"])) {
-            $envs = $this->getEnvironments();
-            $servers = $envs["servers"] ;
-            return $servers ; }
-        else {
-            \BootStrap::setExitCode(1);
+        if (!isset($this->params["environment-name"])) {
             $loggingFactory = new \Model\Logging() ;
             $log = $loggingFactory->getModel($this->params) ;
             $log->log("No environment name provided for Load Balancing") ;
-            return null ; }
+            $this->params["environment-name"] = $this->askForEnvironment() ; }
+        $envs = $this->getEnvironments();
+        $names = $this->getEnvironmentNames($envs) ;
+        $this->servers = $envs[$names[$this->params["environment-name"]]]["servers"];
+        return $this->servers ;
+    }
+
+    private function getEnvironmentNames($envs) {
+        $eNames = array() ;
+        foreach ($envs as $envKey => $env) {
+            $envName = $env["any-app"]["gen_env_name"] ;
+            $eNames[$envName] = $envKey ; }
+        return $eNames ;
     }
 
     protected function getEnvironments() {

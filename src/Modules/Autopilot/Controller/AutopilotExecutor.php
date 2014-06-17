@@ -31,7 +31,10 @@ class AutopilotExecutor extends Base {
                 "control" => $currentControl ,
                 "action" => $currentAction ,
             ) ;
-            $dataFromThis .= $this->executeControl($currentControl, $params); }
+            $dataFromThis .= $this->executeControl($currentControl, $params);
+
+        }
+
         return $dataFromThis ;
     }
 
@@ -57,8 +60,13 @@ class AutopilotExecutor extends Base {
     public function executeView($view, Array $viewVars) {
         $viewObject = new View();
         $templateData = $viewObject->loadTemplate ($view, $viewVars) ;
-        $data = $viewObject->loadLayout ( "blank", $templateData, $viewVars) ;
-        return $data ;
+//        @todo this should parse layouts properly but doesnt. so, templates only for autos for now
+//        if ($view == "parallaxCli") {
+//            var_dump("tdata: ", $templateData) ;
+//            die() ;
+//        }
+//        $data = $viewObject->loadLayout ( "blank", $templateData, $viewVars) ;
+        return $templateData ;
     }
 
 }

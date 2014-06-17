@@ -29,32 +29,40 @@ class GitCloneAllLinuxMac extends Base {
         return true;
     }
 
-    private function askWhetherToDownload() {
+    protected function askWhetherToDownload() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Perform a clone/download of files?';
         return self::askYesOrNo($question);
     }
 
-    private function askForGitCloneTargetRepo() {
+    protected function askForGitCloneTargetRepo() {
         if (isset($this->params["repository-url"])) { return $this->params["repository-url"] ; }
         $question = 'What\'s git repo to clone from?';
         $this->params["repository-url"] = self::askForInput($question, true);
     }
 
-    private function askAlsoChangePerms() {
+    protected function askAlsoChangePerms() {
         if (isset($this->params["change-owner-permissions"]) && $this->params["change-owner-permissions"]!=true) { return false ; }
         $question = 'Also change permissions/owner?';
         return self::askYesOrNo($question);
     }
 // @todo scrap this
-//    private function doGitCloneCommandWithErrorCheck($params){
+//    protected function doGitCloneCommandWithErrorCheck($params){
 //        $data = $this->doGitCloneCommand($params);
 //        print $data;
 //        if ( substr($data, 0, 5) == "error" ) { return false; }
 //        return true;
 //    }
 
-    private function doGitCloneCommand(){
+    // @todo there needs to be a dependency check for git-safe-key module to be installed by cleopatra
+    protected function getGitCommand() {
+        if (isset($this->params["private-key"]) && strlen($this->params["private-key"])>0) {
+            return 'git-key-safe -i '.$this->params["private-key"] ; }
+        else {
+            return 'git' ; }
+    }
+
+    protected function doGitCloneCommand() {
         $projectOriginRepo = $this->params["repository-url"] ;
         $customCloneFolder = (isset($this->params["custom-clone-dir"])) ? $this->params["custom-clone-dir"] : null ;
         $customBranch = (isset($this->params["custom-branch"])) ? $this->params["custom-branch"] : null ;
@@ -62,19 +70,19 @@ class GitCloneAllLinuxMac extends Base {
         // changed it to clone whole repo then switch to specified. works on ubuntu and centos
         // $branchParam = ($customBranch!=null) ? $customBranch.' --single-branch ' : "" ;
         $branchParam = ($customBranch != null) ? '--branch '.escapeshellarg($customBranch).' ' : "" ;
-        $command  = 'git clone '.$branchParam.escapeshellarg($projectOriginRepo);
+        $command  = $this->getGitCommand().' clone '.$branchParam.escapeshellarg($projectOriginRepo);
         if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
         $nameInRepo = substr($projectOriginRepo, strrpos($projectOriginRepo, '/', -1) );
         $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
         return self::executeAndLoad($command);
     }
 
-    private function dropDirectory(){
+    protected function dropDirectory(){
         $command  = 'sudo rm -rf '.$this->projectDirectory;
         return self::executeAndOutput($command);
     }
 
-    private function changeToProjectDirectory(){
+    protected function changeToProjectDirectory(){
         if (file_exists(getcwd().DIRECTORY_SEPARATOR.$this->projectDirectory)) {
             chdir(getcwd().DIRECTORY_SEPARATOR.$this->projectDirectory); }
          else {
@@ -83,23 +91,23 @@ class GitCloneAllLinuxMac extends Base {
     }
 
     // @todo make this a param or remove to another module as its not technically a git command
-    private function setWebServerUser(){
+    protected function setWebServerUser(){
         $this->webServerUser = $this->askWebServerUser();
     }
 
     // @todo make this a param or remove to another module as its not technically a git command
-    private function changeNewProjectPermissions(){
+    protected function changeNewProjectPermissions(){
         $command  = 'sudo chmod -R 755 '.getcwd().DIRECTORY_SEPARATOR.$this->projectDirectory;
         self::executeAndOutput($command, "Changing Folder Permissions...");
     }
 
     // @todo make this a param or remove to another module as its not technically a git command
-    private function changeNewProjectFolderOwner(){
+    protected function changeNewProjectFolderOwner(){
         $command  = 'sudo chown -R '.$this->webServerUser.' '.$this->projectDirectory;
         self::executeAndOutput($command, "Changing Folder Owner...");
     }
 
-    private function askWebServerUser(){
+    protected function askWebServerUser(){
         $question = 'What user is Apache Web Server running as?';
         if ($this->detectDebianApacheVHostFolderExistence()) {
             if (isset($this->params["guess"])) { return "www-data" ; }
@@ -114,11 +122,11 @@ class GitCloneAllLinuxMac extends Base {
         return self::askForInput($question, true);
     }
 
-    private function detectDebianApacheVHostFolderExistence(){
+    protected function detectDebianApacheVHostFolderExistence(){
         return file_exists("/etc/apache2/sites-available");
     }
 
-    private function detectRHVHostFolderExistence(){
+    protected function detectRHVHostFolderExistence(){
         return file_exists("/etc/httpd/vhosts.d");
     }
 

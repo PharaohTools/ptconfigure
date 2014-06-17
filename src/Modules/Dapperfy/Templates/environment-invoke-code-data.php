@@ -51,7 +51,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
 cd <%tpl.php%>gen_env_tmp_dir</%tpl.php%>
-sudo dapperstrano autopilot execute <%tpl.php%>env_name</%tpl.php%>-node-install-code-data.php
+sudo dapperstrano autopilot execute --autopilot-file="<%tpl.php%>env_name</%tpl.php%>-node-install-code-data.php"
 sudo rm <%tpl.php%>env_name</%tpl.php%>-node-install-code-data.php
 SSHDATA;
         return $sshData ;

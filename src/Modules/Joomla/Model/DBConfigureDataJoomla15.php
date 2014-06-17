@@ -2,8 +2,20 @@
 
 Namespace Model;
 
-class DBConfigureDataJoomla30 extends Base {
+class DBConfigureDataJoomla15 extends Base {
 
+    // Compatibility
+    public $os = array("Linux", "Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
+    public $architectures = array("any") ;
+
+    // Model Group
+    public $modelGroup = array("Joomla15Config") ;
+
+    private $friendlyName = 'Joomla 1.5.x Series';
+    private $shortName = 'Joomla15';
     private $settingsFileLocation = 'src'; // no trail slash, empty for root
     private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;
@@ -25,10 +37,10 @@ class DBConfigureDataJoomla30 extends Base {
 
     private function setReplacements(){
         $this->settingsFileReplacements = array(
-            'public $db ' => '  public $db = "****DB NAME****";',
-            'public $user ' => '  public $user = "****DB USER****";',
-            'public $password ' => '  public $password = "****DB PASS****";',
-            'public $host ' => '  public $host = "****DB HOST****";');
+            'var $db ' => '  var $db = "****DB NAME****";',
+            'var $user ' => '  var $user = "****DB USER****";',
+            'var $password ' => '  var $password = "****DB PASS****";',
+            'var $host ' => '  var $host = "****DB HOST****";');
     }
 
     private function setExtraConfigReplacements(){

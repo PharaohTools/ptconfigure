@@ -14,8 +14,8 @@ class DapperfyAllOS extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $environments ;
-    private $environmentReplacements ;
+    protected $environments ;
+    public $environmentReplacements ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -41,6 +41,7 @@ class DapperfyAllOS extends Base {
           array( "dapper" => array(
               array("var"=>"dap_proj_cont_dir", "friendly_text"=>"Project Container directory, (inc slash)"),
               array("var"=>"dap_git_repo_url", "friendly_text"=>"Git Repo URL"),
+              array("var"=>"dap_git_repo_ssh_key", "friendly_text"=>"Optional Private SSH Key for Git Repo"),
               array("var"=>"dap_git_custom_branch", "friendly_text"=>"Git Custom Branch"),
               array("var"=>"dap_apache_vhost_url", "friendly_text"=>"Apache VHost URL (Don't Include http://)"),
               array("var"=>"dap_apache_vhost_ip", "friendly_text"=>"Apache VHost Hostname/IP"),
@@ -74,10 +75,17 @@ class DapperfyAllOS extends Base {
       return $serversText;
     }
 
-    private function doDapperfy() {
+    public function doDapperfy() {
         $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
         $templates = scandir($templatesDir);
         foreach ($this->environments as $environment) {
+
+            if (isset($this->params["environment-name"])) {
+                if ($this->params["environment-name"] != $environment["any-app"]["gen_env_name"]) {
+                    $tx = "Skipping Environment {$environment["any-app"]["gen_env_name"]} " ;
+                    $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
+                    echo $tx;
+                    continue ; } }
 
             $defaultReplacements =
             array(
@@ -101,7 +109,8 @@ class DapperfyAllOS extends Base {
                 $templator->template(
                     file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
                     $replacements,
-                    $targetLocation ); } } }
+                    $targetLocation );
+                echo $targetLocation."\n"; } } }
     }
 
 }

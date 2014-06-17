@@ -50,7 +50,7 @@ class EnvironmentConfigAllLinux extends Base {
         if ($overrideReplacements == null) {
             $this->setDefaultEnvironmentReplacements(); }
         else if (is_array($overrideReplacements)) {
-            $this->environmentReplacements = $overrideReplacements ; }
+            $this->environmentReplacements = array_merge($this->getDefaultEnvironmentReplacements(), $overrideReplacements) ; }
     }
 
     public function setDefaultEnvironmentReplacements() {
@@ -73,10 +73,20 @@ class EnvironmentConfigAllLinux extends Base {
                 $useProjEnvs = self::askYesOrNo($question, true); }
             if ($useProjEnvs == true ) {
                 $this->environments = $allProjectEnvs;
-                $i = 0;
+                $iEnvId = 0;
+                $curEnvGroupRay = array_keys($this->environmentReplacements) ;
+                // @todo does below var need to be here?
+                $iEnvGroupId = 1;
+
                 foreach ($this->environments as $oneEnvironment) {
-                    $curEnvGroupRay = array_keys($this->environmentReplacements) ;
-                    $curEnvGroup = $curEnvGroupRay[0] ;
+                    if (isset($this->params["environment-name"])) {
+                        if ($this->params["environment-name"] != $oneEnvironment["any-app"]["gen_env_name"]) {
+                            $tx = "Skipping Environment {$oneEnvironment["any-app"]["gen_env_name"]} " ;
+                            $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
+                            echo $tx;
+                            $iEnvId++;
+                            continue ; } }
+                    $curEnvGroup = $curEnvGroupRay[$iEnvGroupId] ;
                     $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?
                         $oneEnvironment["any-app"]["gen_env_name"] : "*unknown*" ;
                     $q  = "Do you want to modify entries applicable to any app in " ;
@@ -86,18 +96,18 @@ class EnvironmentConfigAllLinux extends Base {
                     if (isset($this->params["guess"]) && $this->params["guess"]==true) {
                         continue ; }
                     if (self::askYesOrNo($q)==true) {
-                        $this->populateAnEnvironment($i, "any-app" ) ;
+                        $this->populateAnEnvironment($iEnvId, "any-app" ) ;
                         continue ; }
                     if ( isset($oneEnvironment[$curEnvGroup]) ) {
                         $q  = "Do you want to modify entries for group $curEnvGroup in " ;
                         $q .= "environment $envName" ;
                         if (self::askYesOrNo($q)==true) {
-                            $this->populateAnEnvironment($i, $curEnvGroup) ; } }
+                            $this->populateAnEnvironment($iEnvId, $curEnvGroup) ; } }
                     else {
                         echo "Settings for ".$curEnvGroup." not setup for environment " .
                             "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
-                        $this->populateAnEnvironment($i, $curEnvGroup) ; }
-                    $i++; } } }
+                        $this->populateAnEnvironment($iEnvId, $curEnvGroup) ; }
+                    $iEnvId++; } } }
         $i = 0;
         $more_envs = true;
         while ($more_envs == true) {
