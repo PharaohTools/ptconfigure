@@ -37,7 +37,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
         $this->replacements = array(
             // @todo the suffix string here is to denote that you should include the whole line (or multiple lines) in your override answer
             "global_log" => "127.0.0.1 local0 notice",
-            "global_maxconn" => "2000",
+            "global_maxconn" => "20000",
             "global_user" => "haproxy",
             "global_group" => "haproxy",
             "defaults_log" => "global",
