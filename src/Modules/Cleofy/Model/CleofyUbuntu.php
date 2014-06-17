@@ -2,6 +2,7 @@
 
 Namespace Model;
 
+// @todo shouldnt this extend base templater? is it missing anything?
 class CleofyUbuntu extends Base {
 
     // Compatibility
@@ -75,10 +76,19 @@ class CleofyUbuntu extends Base {
                   file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
                   array(
                       "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
-                      "env_name" => $environment["any-app"]["gen_env_name"]
+                      "env_name" => $environment["any-app"]["gen_env_name"],
+                      "web_nodes_env" => $this->getEnvName("web") ,
+                      "db_nodes_env" => $this->getEnvName("database") ,
                   ),
                   $targetLocation );
           echo $targetLocation."\n"; } } }
+    }
+
+    public function getEnvName($envType) {
+        if (isset($this->params["$envType-nodes-env"])) { return $this->params["$envType-nodes-env"] ; }
+        if (isset($this->params["$envType-nodes-environment"])) { return $this->params["$envType-nodes-environment"] ; }
+        $question = "Enter name of environment with your ".ucfirst($envType)."nodes" ;
+        return $this->askForInput($question);
     }
 
 }
