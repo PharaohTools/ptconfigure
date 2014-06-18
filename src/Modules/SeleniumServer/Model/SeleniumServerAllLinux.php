@@ -16,7 +16,6 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
 
     // @todo parameterise the selenium version
     // @todo ensure wget is installed
-    // @todo ensure java is installed
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "SeleniumServer";
