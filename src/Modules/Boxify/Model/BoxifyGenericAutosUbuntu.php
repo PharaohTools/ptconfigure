@@ -45,6 +45,10 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         $this->templateGroupsToDirs = array(
             "tiny" => "{$dir}Tiny",
             "medium" => "{$dir}Medium",
+            "dbcluster" => "{$dir}DBCluster",
+            "db-cluster" => "{$dir}DBCluster",
+            "vspheredbcluster" => "{$dir}VSphereDBCluster",
+            "vsphere-db-cluster" => "{$dir}VSphereDBCluster",
         );
     }
 
@@ -56,7 +60,7 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["template-group"])) {
             $this->templateGroup = $this->params["template-group"]; }
         else {
-            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("tiny", "medium"), true) ; }
+            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("tiny", "medium", "dbcluster", "db-cluster"), true) ; }
     }
 
     public function setDestination($destination = null) {
