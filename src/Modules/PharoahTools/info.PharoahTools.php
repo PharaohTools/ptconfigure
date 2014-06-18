@@ -6,7 +6,7 @@ class PharoahToolsInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Pharoah Tools - Tools for working with Git SCM";
+    public $name = "Pharoah Tools - Gotta Install them all";
 
     public function __construct() {
       parent::__construct();
