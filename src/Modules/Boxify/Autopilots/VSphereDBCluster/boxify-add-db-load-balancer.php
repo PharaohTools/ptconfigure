@@ -21,31 +21,28 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the DB Load Balancer Environment" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-balancer",
+                    "environment-name" => "vsphere-cluster-db-balancer",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the DB Load Balancer Box" ),),),
-                array ( "Boxify" => array("box-add" => array(
+                // @todo set up boxify to accept box-clone at some point
+                array ( "VSphere" => array("box-clone" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-balancer",
+                    "environment-name" => "vsphere-cluster-db-balancer",
                     "provider-name" => "$provider_db_balancer",
                     "box-amount" => "$box_amount_db_balancer",
-                    "image-id" => "$image_id_db_balancer",
-                    "region-id" => "$region_id_db_balancer",
-                    "size-id" => "$size_id_db_balancer",
                     "server-prefix" => $prefix,
+                    "server-suffix" => $suffix,
                     "box-user-name" => "$user_name_db_balancer",
                     "private-ssh-key-path" => "$priv_ssh_key_db_balancer",
-                    "wait-for-box-info" => true,
-                    "max-box-info-wait-time" => $wait_time,
                     "wait-until-active" => true,
                     "max-active-wait-time" => $wait_time,
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-prod-db-balancer environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Creating vsphere-cluster-db-balancer environment complete"),),),
 
             );
 

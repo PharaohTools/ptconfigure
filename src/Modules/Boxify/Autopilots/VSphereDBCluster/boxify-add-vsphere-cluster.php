@@ -17,7 +17,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Creating a medium set of environments"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin creating boxes for a VSphere Cluster"),),),
 
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add all Boxes and Environments in Parallel" ),),),
@@ -26,7 +26,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "command-2" => "cleopatra autopilot execute --autopilot-file=\"{$parent}boxify-add-db-load-balancer.php\"",
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating a medium set of environments complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Creating boxes for a VSphere cluster complete"),),),
 
             );
 
