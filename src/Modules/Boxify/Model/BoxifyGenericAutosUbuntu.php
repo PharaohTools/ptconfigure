@@ -60,7 +60,8 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["template-group"])) {
             $this->templateGroup = $this->params["template-group"]; }
         else {
-            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("tiny", "medium", "dbcluster", "db-cluster"), true) ; }
+            $options = array("tiny", "medium", "dbcluster", "db-cluster", "vspheredbcluster", "vsphere-db-cluster") ;
+            $this->templateGroup = self::askForArrayOption("Enter Template Group:", $options, true) ; }
     }
 
     public function setDestination($destination = null) {
@@ -71,7 +72,7 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["destination-dir"])) {
             $this->destination = $this->params["destination-dir"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd()."/build/config/cleopatra/boxify/autopilots/" ;
+            $defaultdir = getcwd()."/build/config/cleopatra/boxify/autopilots/generic/" ;
             if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
             $this->destination = $defaultdir ; }
         else {
