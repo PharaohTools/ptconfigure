@@ -6,14 +6,14 @@ class ThoughtWorksGoInfo extends CleopatraBase {
 
   public $hidden = false;
 
-  public $name = "Mysql Server Galera - The Galera Clustering compatible version of Mysql RDBMS Server";
+  public $name = "ThoughtWorks Go - The Continuous Delivery server from ThoughtWorks";
 
   public function __construct() {
     parent::__construct();
   }
 
   public function routesAvailable() {
-    return array( "ThoughtWorksGo" =>  array_merge(parent::routesAvailable(), array("install", "config-galera-starter") ) );
+    return array( "ThoughtWorksGo" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
@@ -22,27 +22,13 @@ class ThoughtWorksGoInfo extends CleopatraBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install the MySQL Server Galera version.
+  This command allows you to install the ThoughtWorks Go.
 
-  ThoughtWorksGo, mysql-server-galera, mysqlservergalera
+  ThoughtWorksGo, thoughtworks-go, thoughtworksgo
 
         - install
-        Install the Galera Cluster compatible version of Mysql Server
-        example: cleopatra mysql-server-galera install
-
-        - config-galera-starter
-        Configure the wsrep.cnf file for a cluster starter
-        example: cleopatra mysql-server-galera config-galera-starter
-
-        - config-galera-joiner
-        Configure the wsrep.cnf file for a cluster joiner
-        example: cleopatra mysql-server-galera config-galera-joiner
-
-
-  Notes, during mysql install a root password will be set. First, it'll look
-  for the parameter --mysql-root-pass, if this is not set, it'll look in the
-  cleopatra config for a mysql-default-root-pass setting, and failing both of
-  those it will just set the password for root to cleopatra.
+        Install the the Thoughtworks Go Server and/or Agent
+        example: cleopatra thoughtworksgo install --yes --guess --install-server --install-agent
 
 HELPDATA;
     return $help ;
