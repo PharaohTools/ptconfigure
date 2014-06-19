@@ -35,8 +35,16 @@ class SFTPAllLinux extends Base {
             $logging->log("SFTP Put will cancel, no source file") ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote") ;
-        echo "Opening SFTP Connections...\n"  ;
-        foreach ($this->servers as &$server) {
+        echo "Opening SFTP Connections...\n."  ;
+        foreach ($this->servers as $srvId => &$server) {
+            if (isset($this->params["environment-box-id-include"])) {
+                if ($srvId != $this->params["environment-box-id-include"] ) {
+                    echo "Skipping {$$server["name"]} for box id Include constraint\n" ;
+                    continue ; } }
+            if (isset($this->params["environment-box-id-ignore"])) {
+                if ($srvId == $this->params["environment-box-id-ignore"] ) {
+                    echo "Skipping {$$server["name"]} for box id Ignore constraint\n" ;
+                    continue ; } }
             echo "[".$server["target"]."] Executing SFTP Put...\n"  ;
             echo $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
             echo "[".$server["target"]."] SFTP Put Completed...\n" ; }
