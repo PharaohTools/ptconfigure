@@ -109,7 +109,15 @@ class InvokeAllLinux extends Base {
 
     private function loadSSHConnections() {
         echo 'Attempting to load SSH connections... ';
-        foreach ($this->servers as &$server) {
+        foreach ($this->servers as $srvId => &$server) {
+            if (isset($this->params["environment-box-id-include"])) {
+                if ($srvId != $this->params["environment-box-id-include"] ) {
+                    echo "Skipping {$$server["name"]} for box id Include constraint\n" ;
+                    continue ; } }
+            if (isset($this->params["environment-box-id-ignore"])) {
+                if ($srvId == $this->params["environment-box-id-ignore"] ) {
+                    echo "Skipping {$$server["name"]} for box id Ignore constraint\n" ;
+                    continue ; } }
             $attempt = $this->attemptSSH2Connection($server) ;
             if ($attempt == null) {
                 echo 'Connection to Server '.$server["target"].' failed. '; }
