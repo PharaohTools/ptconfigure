@@ -7,12 +7,12 @@ use Core\View;
 class AutopilotExecutor extends Base {
 
     public function execute($pageVars, $autopilot) {
-      $params = $pageVars["route"]["extraParams"];
-      $this->content["package-friendly"] = "Autopilot";
-      $this->registeredModels = $autopilot->steps ;
-      $this->checkForRegisteredModels($params);
-      $this->content["autoExec"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $params);
-      return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
+        $params = $pageVars["route"]["extraParams"];
+        $this->content["package-friendly"] = "Autopilot";
+        $this->registeredModels = $autopilot->steps ;
+        $this->checkForRegisteredModels($params);
+        $this->content["autoExec"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $params);
+        return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
     protected function executeMyRegisteredModelsAutopilot($autoPilot) {
@@ -31,10 +31,7 @@ class AutopilotExecutor extends Base {
                 "control" => $currentControl ,
                 "action" => $currentAction ,
             ) ;
-            $dataFromThis .= $this->executeControl($currentControl, $params);
-
-        }
-
+            $dataFromThis .= $this->executeControl($currentControl, $params);  }
         return $dataFromThis ;
     }
 

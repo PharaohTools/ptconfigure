@@ -17,6 +17,8 @@ class Autopilot extends Base {
           $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
           if ( $autoPilot!==null ) {
             $autoPilotExecutor = new \Controller\AutopilotExecutor();
+            // get params from the base model to inject into the loaded autopilot object
+            $autoPilot->params = $thisModel->params ;
             return $autoPilotExecutor->execute($pageVars, $autoPilot); }
           else {
             $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }

@@ -4,6 +4,7 @@ Namespace Core ;
 
 class AutoPilot {
 
+    public $params ;
     protected $appHomeDir ;
 
     public function __construct() {
