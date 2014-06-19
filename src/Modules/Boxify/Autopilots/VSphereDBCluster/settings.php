@@ -4,10 +4,10 @@ $parent = dirname(__FILE__).'/' ;
 
 $prefix = "daves" ;
 $suffix = ".eurweb.eidos.com" ;
-$priv_ssh_key = "/home/golden/.ssh/id_rsa" ;
+$priv_ssh_key = "install" ;
 $provider = "VSphere" ;
 $source_vm_id = "vm-164" ;
-$user_name = "root" ;
+$user_name = "install" ;
 $box_amount = "1" ;
 $wait_time = "900" ; // wait 15 minutes if needed for boxes to complete
 
