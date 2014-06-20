@@ -6,7 +6,7 @@ class ServiceInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "View or Modify Service";
+    public $name = "Start, Stop or Restart a Service";
 
     public function __construct() {
       parent::__construct();
