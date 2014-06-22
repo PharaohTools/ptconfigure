@@ -58,6 +58,8 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array("log-message" => "Next configure our projects db configuration file"), ) ),
                 array ( "DBConfigure" => array( "conf" => array(
+					"mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+					"mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
