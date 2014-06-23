@@ -99,76 +99,66 @@ class BasePHPApp extends Base {
         return true;
     }
 
-//  public function ensureInstalled(){
-//      $loggingFactory = new \Model\Logging();
-//      $logging = $loggingFactory->getModel($this->params);
-//      if ($this->askStatus() == true) {
-//          $logging->log("Not installing as already installed") ; }
-//      else {
-//          $logging->log("Installing as not installed") ;
-//          $this->install(); }
-//      return true;
-//  }
+    public function install($autoPilot = null) {
+        if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
+        $this->showTitle();
+        $this->programDataFolder = ($autoPilot)
+          ? $autoPilot->{$this->autopilotDefiner."InstallDirectory"}
+          : $this->askForProgramDataFolder();
+        $this->programExecutorFolder = ($autoPilot)
+          ? $autoPilot->{$this->autopilotDefiner."ExecutorDirectory"}
+          : $this->askForProgramExecutorFolder();
+        $this->doGitCommandWithErrorCheck();
+        $this->deleteProgramDataFolderAsRootIfExists();
+        $this->makeProgramDataFolderIfNeeded();
+        $this->copyFilesToProgramDataFolder();
+        $this->deleteExecutorIfExists();
+        $this->populateExecutorFile();
+        $this->saveExecutorFile();
+        $this->deleteInstallationFiles();
+        $this->changePermissions();
+        $this->setInstallFlagStatus(true) ;
+        if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
+        $this->showCompletion();
+    }
 
-  public function install($autoPilot = null) {
-    if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
-    $this->showTitle();
-    $this->programDataFolder = ($autoPilot)
-      ? $autoPilot->{$this->autopilotDefiner."InstallDirectory"}
-      : $this->askForProgramDataFolder();
-    $this->programExecutorFolder = ($autoPilot)
-      ? $autoPilot->{$this->autopilotDefiner."ExecutorDirectory"}
-      : $this->askForProgramExecutorFolder();
-    $this->doGitCommandWithErrorCheck();
-    $this->deleteProgramDataFolderAsRootIfExists();
-    $this->makeProgramDataFolderIfNeeded();
-    $this->copyFilesToProgramDataFolder();
-    $this->deleteExecutorIfExists();
-    $this->populateExecutorFile();
-    $this->saveExecutorFile();
-    $this->deleteInstallationFiles();
-    $this->changePermissions();
-    $this->setInstallFlagStatus(true) ;
-    if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
-    $this->showCompletion();
-  }
+    public function unInstall($autoPilot = null) {
+        $this->showTitle();
+        $this->programDataFolder = ($autoPilot)
+          ? $autoPilot->{$this->autopilotDefiner}
+          : $this->askForProgramDataFolder();
+        $this->programExecutorFolder = $this->askForProgramExecutorFolder();
+        $this->deleteProgramDataFolderAsRootIfExists();
+        $this->deleteExecutorIfExists();
+        $this->setInstallFlagStatus(false) ;
+        $this->showCompletion();
+    }
 
-  public function unInstall($autoPilot = null) {
-    $this->showTitle();
-    $this->programDataFolder = ($autoPilot)
-      ? $autoPilot->{$this->autopilotDefiner}
-      : $this->askForProgramDataFolder();
-    $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-    $this->deleteProgramDataFolderAsRootIfExists();
-    $this->deleteExecutorIfExists();
-    $this->setInstallFlagStatus(false) ;
-    $this->showCompletion();
-  }
+    protected function showTitle() {
+        print $this->titleData ;
+    }
 
-  protected function showTitle() {
-    print $this->titleData ;
-  }
+    protected function showCompletion() {
+        print $this->completionData ;
+    }
 
-  protected function showCompletion() {
-    print $this->completionData ;
-  }
+    protected function askWhetherToInstallPHPAppToScreen(){
+        $question = "Install ".$this->programNameInstaller." ?";
+        return self::askYesOrNo($question);
+    }
 
-  protected function askWhetherToInstallPHPAppToScreen(){
-    $question = "Install ".$this->programNameInstaller." ?";
-    return self::askYesOrNo($question);
-  }
+    protected function askWhetherToUnInstallPHPAppToScreen(){
+        $question = "Un Install ".$this->programNameInstaller." ?";
+        return self::askYesOrNo($question);
+    }
 
-  protected function askWhetherToUnInstallPHPAppToScreen(){
-    $question = "Un Install ".$this->programNameInstaller." ?";
-    return self::askYesOrNo($question);
-  }
-
-  protected function askForProgramDataFolder() {
-    $question = 'What is the program data directory?';
-    $question .= ' Found "/opt/'.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
-    $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/opt/$this->programNameMachine" : self::askForInput($question);
-    return ($input=="") ? "/opt/$this->programNameMachine" : $input ;
-  }
+    protected function askForProgramDataFolder() {
+        if (isset($this->params["program-data-directory"])) { return $this->params["program-data-directory"] ; }
+        $question = 'What is the program data directory?';
+        $question .= ' Found "/opt/'.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
+        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/opt/$this->programNameMachine" : self::askForInput($question);
+        return ($input=="") ? "/opt/$this->programNameMachine" : $input ;
+    }
 
   protected function askForProgramExecutorFolder(){
     $question = 'What is the program executor directory?';
@@ -178,6 +168,7 @@ class BasePHPApp extends Base {
   }
 
   protected function populateExecutorFile() {
+      if (isset($this->params["no-executor"]))
     $arrayOfPaths = scandir($this->programDataFolder);
     $pathStr = "" ;
     foreach ($arrayOfPaths as $path) {
