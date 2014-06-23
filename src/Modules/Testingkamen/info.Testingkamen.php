@@ -6,7 +6,7 @@ class TestingkamenInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Testingkamen - Upgrade or Re-install Testingkamen";
+    public $name = "Upgrade or Re-install Testingkamen";
 
     public function __construct() {
       parent::__construct();
