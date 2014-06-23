@@ -1,15 +1,49 @@
 Cleopatra Modules to be created
 
+COOL SHIT FOR ROADMAP
+------------------------
+?? Are these the enterprise bits? below
+
+A Web interface for making autopilots by drag and drop. blocks of modules in a list, double click or something to edit params.
+ would need exposed params done on each module.
+
+A web interface for chaining all boxify, cleofy etc together. This will mean we can create the entire environment,
+  for all the projects, with the web interface, and to create a new project off a template takes seconds/minutes
+^^ goes with
+A web interface to monitor everything else with, so it can check the status of servers. check things are working and take
+notifications then reboot or reprovision if needed. scaling can also get done here.
+
+More work on postinput as the api
+
+A web interface for papyrusfile editing.
+
+Module Manager - should write to papyrus modmgr::disabled::modname or modmgr::disabled::moddir::modname then autoloader should
+ignore those directories
+
+for autopilot execute create shortcuts for a) action execute to just x b) --af --auto for file path c) --dfd --default-dir for default dir so
+cleopatra auto x --af="thisone.php" --dfd
+is much shorter
+
+ask zend to show me how to do autofill by tab at command line and also coloured command line output (that might be stack overflow)
+
+
 IN PROGRESS
 ---------------------------------------
 You cannot call a module NoModuleAssociated as PackageManager uses that to store packages in cleovars that were installed
-from cli not module
+from cli not module. TODO: Throw an error if a module by that name is found. have a disallowed-modules for autoloader.
+that might mean autoloader goes into its own module so it can have params
 
-Logging - all calls to logging should also state what module and server they are running from/on
+Logging - all calls to logging should also state what module, environment and server they are running from/on
 
-All
+Can we inject into the host shell every 3 seconds or so from the SSH client we're connecting to?
+
+Cleo SSH invoke doesn't work interactively yet. We should try to use native php ssh extension first with
+seclib style as a failover
+
+Make a cron job or something to return the origin SSH prompt
 
 A new concept
+----------------
 One composerised, we can keep client installs lightweight by building cleo from dependencies in the autopilot.
 step one, logging, then get the dependencies for that
 next, packagemanager, etc, then dependencies.
@@ -17,8 +51,7 @@ Then, once that is one, we actually run the autopilot.
 Is this any good, is it any quicker since composer is slow, is it more secure, by not including modules which you
 don't need but could be abused.
 
-Disallow making more than one environment with the same name
-this causes infra creator autos to create it mulitple times
+Disallow making more than one environment with the same name this causes infra creator autos to create it mulitple times
 
 AWStats is uber cool and should be here
 https://help.ubuntu.com/community/AWStats
@@ -183,7 +216,6 @@ Web Servers
 Zend Server  - HAVE APPROACHED ZEND TO DO THIS
 PHP VM  - GET FACEBOOK TO DO THIS
 Zephir
-
 
 
 Git Servers-
@@ -416,13 +448,16 @@ current state
 - this way a dependency will probably be an apt or a module DONE
 - DONE - all models have a default askStatus method. linux apps extend to execute an FS command. you can provide
   the statusCommand parameter to check with a command you provide for a 0 or non 0 exit code. you can also provide
-  statusCommandExpects otherwise it will try to run the "command programNameMachine" to
+  statusCommandExpects otherwise it will try to run the "command programNameMachine" to.
+TODO: Need to finish/Test the state reporting of all modules. Implementing a testing framework should go quite a way to doing this.
+Once we have a default set that checks like each module implementing x,y,z should report a,b,c and so on, we can see exactly
+what actions and modules need fixing.
 
 System Detection - Allow the pyramid application to detect OS, OS Version and Hardware information. Have a Factory Class
 in Core which detects the running OS and looks in the module for a model which Reports itself as matching The
 combination (ie "Ubuntu", "12.04"/"+ 11.10"), falling back to "any" instead of version if there's an "any" model. - DONE FULY
 - Add other data like hostname, ip addresses to this
-
+TODO: needs more work on restricting models working when specifying the wrong OS vesions
 
 OP Code Caches
 ----------------
@@ -435,6 +470,7 @@ sudo /usr/share/doc/libdvdread4/install-css.sh
 
 DONE
 -------------------------------------------------------------------------------
+
 
 Templating Module
 -------------------
