@@ -6,7 +6,7 @@ class UbuntuCompilerInfo extends CleopatraBase {
 
   public $hidden = false;
 
-  public $name = "Ubuntu Compiler - For Compiling Linux Programs";
+  public $name = "For Compiling Linux Programs";
 
   public function __construct() {
     parent::__construct();
@@ -22,7 +22,7 @@ class UbuntuCompilerInfo extends CleopatraBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install Node JS, The Server Side JS Language
+  This allows you to Complie programs written in C Source
 
   UbuntuCompiler, ubuntu-compiler, ubuntucompiler
 
