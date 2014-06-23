@@ -6,7 +6,7 @@ class ThoughtWorksGoInfo extends CleopatraBase {
 
   public $hidden = false;
 
-  public $name = "ThoughtWorks Go - The Continuous Delivery server from ThoughtWorks";
+  public $name = "The Continuous Delivery server from ThoughtWorks";
 
   public function __construct() {
     parent::__construct();
