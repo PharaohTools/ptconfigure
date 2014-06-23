@@ -6,7 +6,7 @@ class TemplatingInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Templating";
+    public $name = "Install files with placeholders replaced at runtime";
 
     public function __construct() {
       parent::__construct();
