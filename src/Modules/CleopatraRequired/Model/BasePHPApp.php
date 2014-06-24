@@ -160,59 +160,59 @@ class BasePHPApp extends Base {
         return ($input=="") ? "/opt/$this->programNameMachine" : $input ;
     }
 
-  protected function askForProgramExecutorFolder(){
-    $question = 'What is the program executor directory?';
-    $question .= ' Found "/usr/bin" - use this? (Enter nothing for yes, No Trailing Slash)';
-    $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/usr/bin" : self::askForInput($question);
-    return ($input=="") ? "/usr/bin" : $input ;
-  }
+    protected function askForProgramExecutorFolder(){
+        $question = 'What is the program executor directory?';
+        $question .= ' Found "/usr/bin" - use this? (Enter nothing for yes, No Trailing Slash)';
+        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/usr/bin" : self::askForInput($question);
+        return ($input=="") ? "/usr/bin" : $input ;
+    }
 
-  protected function populateExecutorFile() {
-      if (isset($this->params["no-executor"]))
-    $arrayOfPaths = scandir($this->programDataFolder);
-    $pathStr = "" ;
-    foreach ($arrayOfPaths as $path) {
-      $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ; }
-    $this->bootStrapData = "#!/usr/bin/php\n
+    protected function populateExecutorFile() {
+        if (isset($this->params["no-executor"])) { return ; }
+        $arrayOfPaths = scandir($this->programDataFolder);
+        $pathStr = "" ;
+        foreach ($arrayOfPaths as $path) {
+            $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ; }
+        $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
 set_include_path('" . $pathStr . "'.get_include_path() );
 require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTargetPath."');\n
 ?>";
-  }
+    }
 
-  protected function deleteProgramDataFolderAsRootIfExists(){
-    if ( is_dir($this->programDataFolder)) {
-      $command = 'rm -rf '.$this->programDataFolder;
-      self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
-    return true;
-  }
+    protected function deleteProgramDataFolderAsRootIfExists(){
+        if ( is_dir($this->programDataFolder)) {
+          $command = 'rm -rf '.$this->programDataFolder;
+          self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
+        return true;
+    }
 
-  protected function makeProgramDataFolderIfNeeded(){
-    if (!file_exists($this->programDataFolder)) {
-      mkdir($this->programDataFolder,  0777, true); }
-  }
+    protected function makeProgramDataFolderIfNeeded(){
+        if (!file_exists($this->programDataFolder)) {
+            mkdir($this->programDataFolder,  0777, true); }
+    }
 
-  protected function copyFilesToProgramDataFolder(){
-    $command = 'cp -r '.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine.
-        DIRECTORY_SEPARATOR.'* '.$this->programDataFolder;
-    return self::executeAndOutput($command, "Program Data folder populated");
-  }
+    protected function copyFilesToProgramDataFolder(){
+        $command = 'cp -r '.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine.
+            DIRECTORY_SEPARATOR.'* '.$this->programDataFolder;
+        return self::executeAndOutput($command, "Program Data folder populated");
+    }
 
-  protected function deleteExecutorIfExists(){
-    $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
-    self::executeAndOutput($command, "Program Executor Deleted if existed");
-    return true;
-  }
+    protected function deleteExecutorIfExists(){
+        $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
+        self::executeAndOutput($command, "Program Executor Deleted if existed");
+        return true;
+    }
 
-  protected function deleteInstallationFiles(){
-    $command = 'rm -rf '.$this->tempDir.'/'.$this->programNameMachine;
-    self::executeAndOutput($command);
-  }
+    protected function deleteInstallationFiles(){
+        $command = 'rm -rf '.$this->tempDir.'/'.$this->programNameMachine;
+        self::executeAndOutput($command);
+    }
 
-  protected function saveExecutorFile(){
-    $this->populateExecutorFile();
-    return file_put_contents($this->programExecutorFolder.'/'.$this->programNameMachine, $this->bootStrapData);
-  }
+    protected function saveExecutorFile(){
+        $this->populateExecutorFile();
+        return file_put_contents($this->programExecutorFolder.'/'.$this->programNameMachine, $this->bootStrapData);
+    }
 
   protected function changePermissions(){
     $command = "chmod -R 775 $this->programDataFolder";
