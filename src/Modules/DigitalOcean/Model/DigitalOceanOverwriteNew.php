@@ -95,7 +95,7 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
     }
 
     private function getAllSshKeyIdsString(){
-        $curlUrl = "https://api.digitalocean.com/ssh_keys" ;
+        $curlUrl = "https://api.digitalocean.com/v1/ssh_keys" ;
         $sshKeysObject =  $this->digitalOceanCall(array(), $curlUrl);
         $keysString = "";
         for ($i=0; $i<count($sshKeysObject->ssh_keys); $i++) {

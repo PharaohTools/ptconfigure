@@ -187,7 +187,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     }
 
     private function getDropletData($dropletId) {
-        $curlUrl = "https://api.digitalocean.com/droplets/$dropletId" ;
+        $curlUrl = "https://api.digitalocean.com/v1/droplets/$dropletId" ;
         $dropletObject =  $this->digitalOceanCall(array(), $curlUrl);
         return $dropletObject;
     }

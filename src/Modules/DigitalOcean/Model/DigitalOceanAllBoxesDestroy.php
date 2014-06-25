@@ -42,7 +42,7 @@ class DigitalOceanAllBoxesDestroy extends BaseDigitalOceanAllOS {
     private function destroyServerFromDigitalOcean($serverData) {
         $callVars = array() ;
         $callVars["droplet_id"] = $serverData["dropletID"];
-        $curlUrl = "https://api.digitalocean.com/droplets/{$callVars["droplet_id"]}/destroy" ;
+        $curlUrl = "https://api.digitalocean.com/v1/droplets/{$callVars["droplet_id"]}/destroy" ;
         $callOut = $this->digitalOceanCall($callVars, $curlUrl);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);

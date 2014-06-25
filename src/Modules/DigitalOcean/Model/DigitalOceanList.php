@@ -47,7 +47,7 @@ class DigitalOceanList extends BaseDigitalOceanAllOS {
 
     public function getDataListFromDigitalOcean($dataToList){
         $callVars = array();
-        $curlUrl = "https://api.digitalocean.com/$dataToList/" ;
+        $curlUrl = "https://api.digitalocean.com/v1/$dataToList/" ;
         return $this->digitalOceanCall($callVars, $curlUrl);
     }
 
