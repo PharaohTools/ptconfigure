@@ -52,8 +52,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "MysqlAdmins" => array( "install" => array(
                     "root-user" => "root",
                     "root-pass" => "cleopatra",
-                    "new-user" => "root",
-                    "new-pass" => "root",
+                    "new-user" => "dave",
+                    "new-pass" => "sqen",
                     "mysql-host" => "127.0.0.1"
                 ) ) ),
 
