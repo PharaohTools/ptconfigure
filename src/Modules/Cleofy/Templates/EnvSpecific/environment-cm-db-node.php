@@ -47,10 +47,7 @@ class AutoPilotConfigured extends AutoPilot {
                 //Mysql
                 //@todo Mysql Client/Cluster etc
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server (Galera version) is installed" ),),),
-                array ( "MysqlServerGalera" => array( "ensure" =>  array(
-                    "version" => "5",
-                    "version-operator" => "+"
-                ), ), ),
+                array ( "MysqlServerGalera" => array( "ensure" =>  array(), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
                 array ( "MysqlAdmins" => array( "install" => array(
                     "root-user" => "root",
