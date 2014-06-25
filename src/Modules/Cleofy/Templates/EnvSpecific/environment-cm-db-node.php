@@ -53,7 +53,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "root-user" => "root",
                     "root-pass" => "cleopatra",
                     "new-user" => "dave",
-                    "new-pass" => "sqen",
+                    "new-pass" => "dave",
                     "mysql-host" => "127.0.0.1"
                 ) ) ),
 
