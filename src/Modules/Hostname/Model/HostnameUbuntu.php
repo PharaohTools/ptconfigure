@@ -57,7 +57,7 @@ class HostnameUbuntu extends BaseLinuxApp {
     }
 
     public function getHostname() {
-        $command = 'sudo hostname' ;
+        $command = 'hostname' ;
         return $this->executeAndLoad($command) ;
     }
 
