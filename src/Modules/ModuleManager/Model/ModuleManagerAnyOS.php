@@ -27,6 +27,7 @@ class ModuleManagerAnyOS extends BasePHPApp {
 
     protected function setParameterOverrides() {
         $this->params["module-manager"] = true ;
+        $this->params["no-executor"] = true ;
         $ext_dir = dirname(dirname(dirname(__FILE__))) ;
         $ext_dir .= DIRECTORY_SEPARATOR."Extensions" ;
         $this->params["program-data-directory"] = $ext_dir ;
