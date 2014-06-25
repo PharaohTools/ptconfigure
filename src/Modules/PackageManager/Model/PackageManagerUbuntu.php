@@ -175,7 +175,8 @@ class PackageManagerUbuntu extends BaseLinuxApp {
         $modsWithPackages = array_keys($installedPackages);
         $modsRequiring = array() ;
         foreach ($modsWithPackages as $modWithPackages) {
-            if ($installedPackages[$modWithPackages][$this->packagerName][$packageName] == true) {
+            if (isset($installedPackages[$modWithPackages][$this->packagerName][$packageName]) &&
+                $installedPackages[$modWithPackages][$this->packagerName][$packageName] == true) {
                  $modsRequiring[] = $modWithPackages ; } }
         $finalModsRequiring = array() ;
         foreach ($modsRequiring as $modRequiring) {
