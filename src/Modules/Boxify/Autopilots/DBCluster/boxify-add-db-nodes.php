@@ -21,7 +21,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Secondary DB Environment" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-nodes",
+                    "environment-name" => "db-cluster-db-nodes",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -30,7 +30,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Secondary DB Box" ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-nodes",
+                    "environment-name" => "db-cluster-db-nodes",
                     "provider-name" => "$provider_db_nodes",
                     "box-amount" => "$box_amount_db_nodes",
                     "image-id" => "$image_id_db_nodes",
@@ -45,7 +45,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "max-active-wait-time" => $wait_time,
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-prod-db-nodes environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Creating db-cluster-db-nodes environment complete"),),),
 
             );
 

@@ -21,7 +21,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the DB Load Balancer Environment" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-balancer",
+                    "environment-name" => "db-cluster-db-balancer",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -30,7 +30,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add the DB Load Balancer Box" ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-prod-db-balancer",
+                    "environment-name" => "db-cluster-db-balancer",
                     "provider-name" => "$provider_db_balancer",
                     "box-amount" => "$box_amount_db_balancer",
                     "image-id" => "$image_id_db_balancer",
@@ -45,7 +45,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "max-active-wait-time" => $wait_time,
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-prod-db-balancer environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Creating db-cluster-db-balancer environment complete"),),),
 
             );
 
