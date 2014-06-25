@@ -85,10 +85,12 @@ class CleofyUbuntu extends Base {
     }
 
     public function getEnvName($envType) {
-        if (isset($this->params["$envType-nodes-env"])) { return $this->params["$envType-nodes-env"] ; }
+        if (isset($this->params["$envType-nodes-env"])) {
+            $this->params["$envType-nodes-environment"] = $this->params["$envType-nodes-env"] ; }
         if (isset($this->params["$envType-nodes-environment"])) { return $this->params["$envType-nodes-environment"] ; }
         $question = "Enter name of environment with your ".ucfirst($envType)."nodes" ;
-        return $this->askForInput($question);
+        $this->params["$envType-nodes-environment"] = $this->askForInput($question) ;
+        return $this->params["$envType-nodes-environment"] ;
     }
 
 }

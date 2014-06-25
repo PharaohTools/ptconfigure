@@ -9,15 +9,16 @@ class CleofyInfo extends CleopatraBase {
     public $name = "Cleopatra Cleofyer - Creates default autopilots for your project";
 
     public function __construct() {
-      parent::__construct();
+        parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "install-generic-autopilots") ) );
+        return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "db-cluster",
+            "install-generic-autopilots") ) );
     }
 
     public function routeAliases() {
-      return array("cleofy"=>"Cleofy");
+        return array("cleofy"=>"Cleofy");
     }
 
     public function helpDefinition() {

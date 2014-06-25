@@ -25,8 +25,15 @@ class Cleofy extends Base {
             return array ("type"=>"view", "view"=>"cleofyGenAutos", "pageVars"=>$this->content); }
 
         if ($action=="standard") {
-          $this->content["result"] = $thisModel->askWhetherToCleofy();
-          return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
+            $this->content["result"] = $thisModel->askWhetherToCleofy();
+            return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
+
+        if ($action=="db-cluster") {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DBCluster") ;
+            // if we don't have an object, its an array of errors
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $this->content["result"] = $thisModel->askWhetherToCleofy();
+            return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Cleofy Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
