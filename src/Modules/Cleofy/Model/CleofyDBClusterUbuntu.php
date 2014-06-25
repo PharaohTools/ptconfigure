@@ -3,7 +3,7 @@
 Namespace Model;
 
 // @todo shouldnt this extend base templater? is it missing anything?
-class CleofyUbuntu extends Base {
+class CleofyDBClusterUbuntu extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,7 +13,7 @@ class CleofyUbuntu extends Base {
     public $architectures = array("32", "64") ;
 
     // Model Group
-    public $modelGroup = array("Default") ;
+    public $modelGroup = array("DBCluster") ;
 
     private $environments ;
     private $environmentReplacements ;
@@ -77,7 +77,6 @@ class CleofyUbuntu extends Base {
                   array(
                       "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
                       "env_name" => $environment["any-app"]["gen_env_name"],
-                      "web_nodes_env" => $this->getEnvName("web") ,
                       "db_nodes_env" => $this->getEnvName("database") ,
                   ),
                   $targetLocation );
