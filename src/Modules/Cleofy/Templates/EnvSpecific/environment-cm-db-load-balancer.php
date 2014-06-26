@@ -71,7 +71,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow MySQL input"), ) , ) ,
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "3306/tcp" ), ) , ) ,
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow the HAProxy Stats port"), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow the HAProxy Stats port we've setup"), ) , ) ,
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "9000/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
                 array ( "Firewall" => array( "enable" => array(), ) , ) ,
