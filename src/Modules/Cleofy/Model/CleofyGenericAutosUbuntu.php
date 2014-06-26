@@ -44,7 +44,9 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
         $dir = $dir.'Templates/' ;
         $this->templateGroupsToDirs = array(
             "tiny" => "{$dir}Generic/Tiny",
-            "medium" => "{$dir}Generic/Medium"
+            "medium" => "{$dir}Generic/Medium",
+            "dbcluster" => "{$dir}Generic/DBCluster",
+            "db-cluster" => "{$dir}Generic/DBCluster"
         );
     }
 
