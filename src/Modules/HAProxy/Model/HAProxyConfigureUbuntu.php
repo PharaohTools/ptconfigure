@@ -50,14 +50,23 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
             "listen_appname" => "appname",
             "listen_ip_port" => "0.0.0.0:80",
             "listen_mode" => "http",
-            "listen_stats_enable" => "enable",
-            "listen_stats_uri_string" => "stats uri /haproxy?stats",
-            "listen_stats_realm_string" => 'stats realm Strictly\ Private',
-            "listen_stats_auth_string" => "stats auth cleopatra:cleopatra", # use whole line so we can include multiple
             "listen_balance" => "roundrobin",
             "listen_option_string" => "option httpclose\n    option forwardfor",
             "listen_server_string" => $this->getServerString()
         ) ;
+
+        $stats_defaults = array(
+            "listen_stats_enable" => "enable",
+            "listen_stats_uri_string" => "stats uri /haproxy?stats",
+            "listen_stats_realm_string" => 'stats realm Strictly\ Private',
+            "listen_stats_auth_string" => "stats auth cleopatra:cleopatra", # use whole line so we can include multiple
+            "listen_stats_appname" => "stats",
+            "listen_stats_ip_port" => "0.0.0.0:1936"
+        );
+
+        if (isset($this->params["with-stats"])) {
+            $this->replacements = array_merge($this->replacements, $stats_defaults) ;
+        }
     }
 
     protected function getServerString() {
@@ -76,7 +85,10 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
 
     protected function setTemplateFile() {
         $this->templateFile = str_replace("Model", "Templates", dirname(__FILE__) ) ;
-        $this->templateFile .= DIRECTORY_SEPARATOR."haproxy.cfg" ;
+        if (isset($this->params["with-stats"])) {
+            $this->templateFile .= DIRECTORY_SEPARATOR."haproxy-with-stats.cfg" ; }
+        else {
+            $this->templateFile .= DIRECTORY_SEPARATOR."haproxy.cfg" ; }
     }
 
     protected function getServersArray() {
