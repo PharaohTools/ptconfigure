@@ -48,6 +48,8 @@ class AutoPilotConfigured extends AutoPilot {
                 //@todo Mysql Client/Cluster etc
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server (Galera version) is installed" ),),),
                 array ( "MysqlServerGalera" => array( "ensure" =>  array(), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server (Galera version) is installed" ),),),
+                $this->getNodeIDBasedGaleraCommand() ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
                 array ( "MysqlAdmins" => array( "install" => array(
                     "root-user" => "root",
@@ -73,6 +75,20 @@ class AutoPilotConfigured extends AutoPilot {
 
         );
 
+    }
+
+    protected function getNodeIDBasedGaleraCommand() {
+        if ($this->params["node-id"]=="0") {
+            $commandArray =
+                array ( "MysqlServerGalera" => array(
+                    "config-galera-starter" =>  array(),
+                ), ) ; }
+        else {
+            $commandArray =
+                array ( "MysqlServerGalera" => array(
+                    "config-galera-joiner" =>  array(),
+                ), ) ; }
+        return $commandArray ;
     }
 
 }
