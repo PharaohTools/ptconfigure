@@ -38,6 +38,14 @@ class CleofyInfo extends CleopatraBase {
         your project.
         example: cleopatra cleofy standard
 
+        - db-cluster
+        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        your project.
+        example: cleopatra cleofy db-cluster
+                    --yes
+                    --guess
+                    --database-nodes-env=*db-nodes-environment-name*
+
         - install-generic-autopilots
         Install the generic Boxify autopilot templates for a Tiny or Medium (Current Default) set of Environments
         example: cleopatra boxify install-generic-autopilots
