@@ -42,7 +42,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
             "global_group" => "haproxy",
             "defaults_log" => "global",
             "defaults_mode" => "http",
-            "defaults_option_string" => "option httplog\n    option dontlognull\n    option redispatch",
+            "defaults_option_string" => "option dontlognull\n    option redispatch", # option httplog\n    
             "defaults_retries" => "3",
             "defaults_timeout_connect" => "5000",
             "defaults_timeout_client" => "10000",
