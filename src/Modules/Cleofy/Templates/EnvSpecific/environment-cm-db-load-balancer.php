@@ -53,6 +53,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // @todo Configure HA - looks done?
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets HA Proxy to balance to our DB Nodes"),),),
                 array ( "HAProxy" => array( "config" => array(
+                    "guess" => true,
                     "environment-name" => "<%tpl.php%>db_nodes_env</%tpl.php%>",
                     "template_listen_mode" => "tcp",
                     "template_listen_ip_port" => "0.0.0.0:3306",
