@@ -67,6 +67,7 @@ class VersionLinuxMac extends Base {
             foreach ($otherResults as $result) {
                 if ($result === '.' || $result === '..' || $result === 'current') continue;
                 if (!is_dir($this->appRootDirectory.'/'.$result)) continue;
+                if (!is_int($this->appRootDirectory.'/'.$result)) continue;
                 $question .= "($i1) $result\n";
                 $i1++;
                 $availableVersions[] = $result;} }
@@ -95,6 +96,7 @@ class VersionLinuxMac extends Base {
 
     private function symlinkCreator() {
         $command  = 'ln -s '.$this->appRootDirectory.'/'.$this->appVersion.' '.$this->appRootDirectory.'/current';
+        echo $command . "\n" ;
         echo "Created Version Symlink\n";
         self::executeAndOutput($command);
     }
