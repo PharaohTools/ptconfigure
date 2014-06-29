@@ -23,8 +23,14 @@ class DBConfigureDataJoomla30 extends Base {
     private $extraConfigFiles = array('build/config/phpunit/bootstrap.php'); // extra files requiring db config
 
     public function __construct(){
+		$this->setProperties();
         $this->setReplacements();
         $this->setExtraConfigReplacements();
+    }
+
+    protected function setProperties() {
+		$prefix = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
+		$this->settingsFileLocation = (strlen($prefix) > 0) ? 'src' : $prefix.'/src'; // no trail slash, empty for root	
     }
 
     public function getProperty($property) {
