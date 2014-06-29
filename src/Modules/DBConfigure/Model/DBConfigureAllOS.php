@@ -261,7 +261,7 @@ class DBConfigureAllOS extends Base {
           ? $location = $this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = "" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
-        echo "Moving new settings file ".$this->platformVars->getProperty("settingsFileName")." in...\n" ;
+        echo "Moving new settings file ".$this->platformVars->getProperty($location)." in...\n" ;
         return file_put_contents($location, $this->settingsFileData);
     }
 
