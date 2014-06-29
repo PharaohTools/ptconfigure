@@ -30,7 +30,7 @@ class DBConfigureDataJoomla30 extends Base {
 
     protected function setProperties() {
 		$prefix = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
-		$this->settingsFileLocation = (strlen($prefix) > 0) ? $prefix.'/src' : '/src' ; // no trail slash, empty for root	
+		$this->settingsFileLocation = (strlen($prefix) > 0) ? $prefix.'src' : 'src' ; // no trail slash, empty for root	
     }
 
     public function getProperty($property) {
