@@ -259,17 +259,17 @@ class DBConfigureAllOS extends Base {
     protected function createSettingsFile() {
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
+          ? $location = $parent."/".$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
-        echo "Moving new settings file ".$this->platformVars->getProperty($location)." in...\n" ;
+        echo "Moving new settings file ".$location." in...\n" ;
         return file_put_contents($location, $this->settingsFileData);
     }
 
     protected function removeOldSettingsFile(){
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
+          ? $location = $parent."/".$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
         $command    = 'rm -f '.$location ;
