@@ -266,9 +266,12 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function removeOldSettingsFile(){
-        $command    = 'rm -f '.$this->platformVars->getProperty("settingsFileLocation").'/';
-        $command .= $this->platformVars->getProperty("settingsFileName");
-        self::executeAndOutput($command, "Removing old settings file ".$this->platformVars->getProperty("settingsFileLocation")."...\n");
+        (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
+          ? $location = $this->platformVars->getProperty("settingsFileLocation").'/'
+          : $location = "" ;
+        $location .= $this->platformVars->getProperty("settingsFileName");
+        $command    = 'rm -f '.$location ;
+        self::executeAndOutput($command, "Removing old settings file ".$location."...\n");
     }
 
 }
