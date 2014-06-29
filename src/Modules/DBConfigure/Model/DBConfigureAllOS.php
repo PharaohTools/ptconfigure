@@ -199,7 +199,10 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function loadCurrentSettingsFile() {
-        $command  = 'cat '.getcwd().'/'.$this->platformVars->getProperty("settingsFileLocation").'/';
+		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
+		if (isset($this->params["guess"])) { $path = getcwd() ; }
+		if (!isset($path)) { $path = getcwd() ; }
+        $command  = 'cat '.$path.'/'.$this->platformVars->getProperty("settingsFileLocation").'/';
         $command .= $this->platformVars->getProperty("settingsFileName");
         $this->settingsFileData = self::executeAndLoad($command);
     }
