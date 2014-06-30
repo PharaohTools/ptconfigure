@@ -62,24 +62,25 @@ class CleofyWorkstationUbuntu extends Base {
     }
 
     private function doCleofy() {
-      $templatesDir = str_replace("Model", "Templates/EnvSpecific", dirname(__FILE__) ) ;
+      $templatesDir = str_replace("Model", "Templates/Workstation", dirname(__FILE__) ) ;
       $templates = scandir($templatesDir);
       foreach ($this->environments as $environment) {
-        foreach ($templates as $template) {
-          if (!in_array($template, array(".", ".."))) {
-              $templatorFactory = new \Model\Templating();
-              $templator = $templatorFactory->getModel($this->params);
-              $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-              $autosDir = getcwd().'/build/config/cleopatra/cleofy/autopilots/generated';
-              $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
-              $templator->template(
-                  file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
-                  array(
-                      "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
-                      "env_name" => $environment["any-app"]["gen_env_name"],
-                  ),
-                  $targetLocation );
-          echo $targetLocation."\n"; } } }
+		if (isset($this->params["environment-name"]) && ($environment["any-app"]["gen_env_name"] == $this->params["environment-name"] ) ) {
+			foreach ($templates as $template) {
+				if (!in_array($template, array(".", ".."))) {
+					$templatorFactory = new \Model\Templating();
+					$templator = $templatorFactory->getModel($this->params);
+					$newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+					$autosDir = getcwd().'/build/config/cleopatra/cleofy/autopilots/generated';
+					$targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+					$templator->template(
+					  file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
+					  array(
+						  "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+						  "env_name" => $environment["any-app"]["gen_env_name"],
+					  ),
+					  $targetLocation );
+				echo $targetLocation."\n"; } } } }
     }
 
 }

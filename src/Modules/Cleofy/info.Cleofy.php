@@ -13,7 +13,7 @@ class CleofyInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-        return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "db-cluster",
+        return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "db-cluster", "workstation",
             "install-generic-autopilots") ) );
     }
 
