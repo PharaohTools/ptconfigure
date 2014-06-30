@@ -67,7 +67,7 @@ class VersionLinuxMac extends Base {
             foreach ($otherResults as $result) {
                 if ($result === '.' || $result === '..' || $result === 'current') continue;
                 if (!is_dir($this->appRootDirectory.'/'.$result)) continue;
-                if (!is_int($this->appRootDirectory.'/'.$result)) continue;
+                if (!is_int($result)) continue;
                 $question .= "($i1) $result\n";
                 $i1++;
                 $availableVersions[] = $result;} }
