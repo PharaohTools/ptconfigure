@@ -20,7 +20,13 @@ class JavaUbuntu64 extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),
             array("command" => array(
-                "git clone https://bitbucket.org/phpengine/cleopatra-oraclejava7jdk /tmp/oraclejdk" ,
+                "wget https://bitbucket.org/phpengine/cleo-jdk-64/get/6c383e2868bd.zip /tmp/oraclejdk" ,
+                "mv 6c383e2868bd.zip /tmp/oraclejdk.zip",
+                "cd /tmp",
+                "unzip /tmp/oraclejdk.zip -d /tmp/oraclejdk",
+                "cd /tmp/oraclejdk" ,
+                "mv /tmp/oraclejdk/phpengine-cleo-jdk-64-6c383e2868bd/jdk-7u60-linux-x64.tar.gz /tmp/oraclejdk" ,
+                "tar -xvf jdk-7u60-linux-x64.tar.gz" ,
                 "mkdir -p ****PROGDIR****" ,
                 "cp -r /tmp/oraclejdk/* ****PROGDIR****" ,
                 "rm -rf /tmp/oraclejdk" ,
