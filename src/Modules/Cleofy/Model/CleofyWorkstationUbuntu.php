@@ -50,17 +50,6 @@ class CleofyWorkstationUbuntu extends Base {
         $this->environments = $environmentConfigModel->environments ;
     }
 
-    public function getServerArrayText($serversArray) {
-        $serversText = "";
-        foreach($serversArray as $serverArray) {
-            $serversText .= 'array(';
-            $serversText .= '"target" => "'.$serverArray["target"].'", ';
-            $serversText .= '"user" => "'.$serverArray["user"].'", ';
-            $serversText .= '"pword" => "'.$serverArray["password"].'", ';
-            $serversText .= '),'."\n"; }
-        return $serversText;
-    }
-
     private function doCleofy() {
       $templatesDir = str_replace("Model", "Templates/Workstation", dirname(__FILE__) ) ;
       $templates = scandir($templatesDir);
@@ -76,7 +65,6 @@ class CleofyWorkstationUbuntu extends Base {
 					$templator->template(
 					  file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
 					  array(
-						  "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
 						  "env_name" => $environment["any-app"]["gen_env_name"],
 					  ),
 					  $targetLocation );
