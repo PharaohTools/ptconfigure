@@ -13,7 +13,7 @@ class PearUbuntu extends BasePackager {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    protected $packagerName = "pear";
+    protected $packagerName = "Pear";
 
     public $actionsToMethods =
         array(
@@ -60,6 +60,7 @@ class PearUbuntu extends BasePackager {
     }
 
     public function installPackage($packageName, $autopilot = null) {
+		$this->channelDiscover();
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo pear install -f $packageName");
         if (!is_int(strpos($out, "install ok"))) {
@@ -83,9 +84,13 @@ class PearUbuntu extends BasePackager {
 
     public function channelDiscover() {
         $channel = $this->setChannel();
-        $out = $this->executeAndLoad("sudo pear channel-discover $channel");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        if ($channel == null) {
+            $logging->log("No Channel set to add, so not discovering") ;			
+			return true ;}
+        $out = $this->executeAndLoad("sudo pear channel-discover $channel");
+        echo $out."\n" ;
         // var_dump($out, 'Channel "'.$channel.'" is already initialized') ;
         $initString = 'Channel "'.$channel.'" is already initialized'."\n" ;
         if ($out == $initString) {
