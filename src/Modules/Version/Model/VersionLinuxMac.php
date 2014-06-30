@@ -56,7 +56,7 @@ class VersionLinuxMac extends Base {
     }
 
     private function selectAppVersion() {
-        if ( isset($this->params["version"])) {$version = $this->params["version"] ; }
+        if ( isset($this->params["version"])) { $version = $this->params["version"] ; }
         $otherResults = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
         arsort($otherResults) ;
         $question = "Please Choose Version to make current (Showing newest first, Enter none for newest):\n";
@@ -95,7 +95,7 @@ class VersionLinuxMac extends Base {
     }
 
     private function symlinkCreator() {
-        $command  = 'ln -s '.$this->appRootDirectory.'/'.$this->appVersion.' '.$this->appRootDirectory.'/current';
+        $command  = 'ln -s '.$this->appRootDirectory.$this->appVersion.' '.$this->appRootDirectory.'current';
         echo $command . "\n" ;
         echo "Created Version Symlink\n";
         self::executeAndOutput($command);
