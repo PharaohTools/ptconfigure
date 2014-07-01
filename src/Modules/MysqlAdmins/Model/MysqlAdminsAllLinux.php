@@ -71,22 +71,6 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
         $this->executeAsShell($comms) ;
     }
 
-    public function askForMysqlNewAdminUserName() {
-        if (isset($this->params["new-user"])) {
-            $this->mysqlNewAdminUser = $this->params["new-user"]; }
-        else {
-            $question = "Enter MySQL New Admin User:";
-            $this->mysqlNewAdminUser = self::askForInput($question, true); }
-    }
-
-    public function askForMysqlNewAdminPass() {
-        if (isset($this->params["new-pass"])) {
-            $this->mysqlNewAdminPass = $this->params["new-pass"]; }
-        else {
-            $question = "Enter MySQL New Admin Pass:";
-            $this->mysqlNewAdminPass = self::askForInput($question, true); }
-    }
-
     public function askForMysqlRootUserName(){
         if (isset($this->params["root-user"])) {
             $this->mysqlRootUser = $this->params["root-user"]; }
@@ -101,6 +85,22 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
         else {
             $question = "Enter MySQL Root Pass:";
             $this->mysqlRootPass = self::askForInput($question, true); }
+    }
+
+    public function askForMysqlNewAdminUserName() {
+        if (isset($this->params["new-user"])) {
+            $this->mysqlNewAdminUser = $this->params["new-user"]; }
+        else {
+            $question = "Enter MySQL New Admin User:";
+            $this->mysqlNewAdminUser = self::askForInput($question, true); }
+    }
+
+    public function askForMysqlNewAdminPass() {
+        if (isset($this->params["new-pass"])) {
+            $this->mysqlNewAdminPass = $this->params["new-pass"]; }
+        else {
+            $question = "Enter MySQL New Admin Pass:";
+            $this->mysqlNewAdminPass = self::askForInput($question, true); }
     }
 
     public function askForMysqlHost(){
