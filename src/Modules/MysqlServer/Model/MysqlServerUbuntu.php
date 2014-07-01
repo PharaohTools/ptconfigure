@@ -35,7 +35,7 @@ class MysqlServerUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "mysqlserver"; // command and app dir name
         $this->programNameFriendly = "MySQL Server!"; // 12 chars
         $this->programNameInstaller = "MySQL Server";
-        $this->statusCommand = "mysql --version" ;
+        $this->statusCommand = "mysqld --version" ;
         $this->versionInstalledCommand = "sudo apt-cache policy mysql-server" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy mysql-server" ;
         $this->versionLatestCommand = "sudo apt-cache policy mysql-server" ;
@@ -53,17 +53,17 @@ class MysqlServerUbuntu extends BaseLinuxApp {
     }
 
     public function versionInstalledCommandTrimmer($text) {
-        $done = substr($text, 27, 17) ;
+        $done = substr($text, 24, 17) ;
         return $done ;
     }
 
     public function versionLatestCommandTrimmer($text) {
-        $done = substr($text, 64, 17) ;
+        $done = substr($text, 47, 17) ;
         return $done ;
     }
 
     public function versionRecommendedCommandTrimmer($text) {
-        $done = substr($text, 64, 17) ;
+        $done = substr($text, 47, 17) ;
         return $done ;
     }
 
