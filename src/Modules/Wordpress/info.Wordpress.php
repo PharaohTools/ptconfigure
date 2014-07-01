@@ -25,11 +25,11 @@ class WordpressInfo extends Base {
     }
 
     public function dapperfyActions() {
-        return array( "wordpress", "wordpress15", "wordpress30" );
+        return array( "wordpress");
     }
 
     public function dbConfigureActions() {
-        return array( "wordpress30-conf", "wordpress15-conf", "wordpress30-reset", "wordpress15-reset" );
+        return array("wordpress-conf", "wordpress-reset");
     }
 
     public function helpDefinitions() {
