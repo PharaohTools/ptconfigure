@@ -48,22 +48,27 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Restart Apache for new modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
-                array ( "RunCommand" => array( "restart" =>
-                    array("guess" => true),
-                    array("command" => "dapperstrano ApacheCtl restart --yes"),
-                    array("background" => "") ) ),
+                array ( "RunCommand" => array( "restart" => array(
+                    "guess" => true,
+                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "background" => ""
+                ) ) ),
 
                 //Mysql
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
                 array ( "MysqlServer" => array( "ensure" =>  array("version" => "5", "version-operator" => "+"), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
-                array ( "MysqlAdmins" => array( "install" =>
-                    array("root-user" => "root"),
-                    array("root-pass" => "cleopatra"),
-                    array("new-user" => "root"),
-                    array("new-pass" => "root"),
-                    array("mysql-host" => "127.0.0.1")
-                ) ),
+                array ( "MysqlAdmins" => array( "install" => array (
+                    "root-user" => "root",
+                    "root-pass" => "cleopatra",
+                    "new-user" => "dave",
+                    "new-pass" => "golden",
+                    "mysql-host" => "127.0.0.1"
+                ) ) ),
+
+                // Mysql Tools
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Tools are installed"),),),
+                array ( "MysqlTools" => array( "ensure" => array("guess" => true ),),),
 
                 // Build Tools
 
@@ -73,11 +78,11 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Phing
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Phing is installed"),),),
-                array ( "PackageManager" => array( "pkg-ensure" =>
-                    array("package-name" => "phing/phing"),
-                    array("packager-name" => "Pear"),
-                    array("pear-channel" => "pear.phing.info"),
-                ),),
+                array ( "PackageManager" => array( "pkg-ensure" => array(
+                    "package-name" => "phing/phing",
+                    "packager-name" => "Pear",
+                    "pear-channel" => "pear.phing.info"
+                ), ),),
 
                 // Java
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Java is installed"),),),
@@ -104,11 +109,11 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Drush
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
-                array ( "PackageManager" => array( "pkg-ensure" =>
-                    array("package-name" => "drush/drush"),
-                    array("packager-name" => "Pear"),
-                    array("pear-channel" => "pear.drush.org"),
-                ),),
+                array ( "PackageManager" => array( "pkg-ensure" => array(
+                    "package-name" => "drush/drush",
+                    "packager-name" => "Pear",
+                    "pear-channel" => "pear.drush.org"
+                ), ),),
 
                 // BDD Testing
 
@@ -145,10 +150,6 @@ class AutoPilotConfigured extends AutoPilot {
                 // IntelliJ
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure IntelliJ IDE is installed"),),),
                 array ( "IntelliJ" => array( "ensure" => array("guess" => true ),),),
-
-                // Mysql Tools
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Tools are installed"),),),
-                array ( "MysqlTools" => array( "ensure" => array("guess" => true ),),),
 
         );
 

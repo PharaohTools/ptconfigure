@@ -48,21 +48,27 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Restart Apache for new modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
-                array ( "RunCommand" => array( "restart" =>
-                    array("guess" => true),
-                    array("command" => "dapperstrano ApacheCtl restart --yes"),
-                    array("background" => "") ) ),
+                array ( "RunCommand" => array( "restart" => array(
+                    "guess" => true,
+                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "background" => ""
+                ) ) ),
 
                 //Mysql
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Server is installed" ),),),
                 array ( "MysqlServer" => array( "ensure" =>  array("version" => "5", "version-operator" => "+"), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
-                array ( "MysqlAdmins" => array( "install" =>
-                    array("root-user" => "root"),
-                    array("root-pass" => "cleopatra"),
-                    array("new-user" => "root"),
-                    array("new-pass" => "root"),
-                    array("mysql-host" => "127.0.0.1") ) ),
+                array ( "MysqlAdmins" => array( "install" => array (
+                    "root-user" => "root",
+                    "root-pass" => "cleopatra",
+                    "new-user" => "dave",
+                    "new-pass" => "golden",
+                    "mysql-host" => "127.0.0.1"
+                ) ) ),
+
+                // Mysql Tools
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Mysql Tools are installed"),),),
+                array ( "MysqlTools" => array( "ensure" => array("guess" => true ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
