@@ -26,6 +26,10 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some git tools are installed" ),),),
                 array ( "GitTools" => array( "ensure" => array(),),),
 
+                // Network Tools
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some network tools are installed" ),),),
+                array ( "NetworkTools" => array( "ensure" => array(),),),
+
                 // Git Key Safe
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Git SSH Key Safe version is are installed" ),),),
                 array ( "GitKeySafe" => array( "ensure" => array(),),),

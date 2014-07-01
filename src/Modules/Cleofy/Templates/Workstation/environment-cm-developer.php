@@ -62,7 +62,8 @@ class AutoPilotConfigured extends AutoPilot {
                     array("root-pass" => "cleopatra"),
                     array("new-user" => "root"),
                     array("new-pass" => "root"),
-                    array("mysql-host" => "127.0.0.1") ) ),
+                    array("mysql-host" => "127.0.0.1")
+                ) ),
 
                 // Build Tools
 
