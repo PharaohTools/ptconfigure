@@ -122,7 +122,7 @@ class VersionLinuxMac extends Base {
           $i=1;
           $dirsToLeave = count($allEntries) - $this->versionLimit;
           foreach ($allEntries as &$oneEntry) {
-            $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
+            $fullDirPath = $this->appRootDirectory.$oneEntry;
             if ($i < $dirsToLeave) {
               $this->deleteDirectory($fullDirPath);
               echo "Removing Project Directory $fullDirPath as Versioning Limitation\n"; }
@@ -132,6 +132,7 @@ class VersionLinuxMac extends Base {
     }
 
     private function deleteDirectory($fullDirPath) {
+		// @todo change this to executeAndGetReturnCode?
         system('rm -rf ' . $fullDirPath, $retval);
         return $retval == 0; // UNIX commands return zero on success
     }
