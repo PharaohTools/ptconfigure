@@ -73,8 +73,10 @@ class AutoPilotConfigured extends AutoPilot {
                 // Phing
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Phing is installed"),),),
                 array ( "PackageManager" => array( "pkg-ensure" =>
-                    array("package-name" => "phing"),
-                    array("packager-name" => "Pear"),),),
+                    array("package-name" => "phing/phing"),
+                    array("packager-name" => "Pear"),
+                    array("pear-channel" => "pear.phing.info"),
+                ),),
 
                 // Java
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Java is installed"),),),
@@ -102,8 +104,10 @@ class AutoPilotConfigured extends AutoPilot {
                 // Drush
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
                 array ( "PackageManager" => array( "pkg-ensure" =>
-                    array("package-name" => "drush"),
-                    array("packager-name" => "Pear"),),),
+                    array("package-name" => "drush/drush"),
+                    array("packager-name" => "Pear"),
+                    array("pear-channel" => "pear.drush.org"),
+                ),),
 
                 // BDD Testing
 
