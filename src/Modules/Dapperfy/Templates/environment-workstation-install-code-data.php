@@ -25,13 +25,13 @@ class AutoPilotConfigured extends AutoPilot {
 	      array(
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets initialize our new download directory as a dapper project"), ) ),
-                array ( "Project" => array( "init" => array(), ) , )
+                array ( "Project" => array( "init" => array(), ) , ),
                 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets create our Host File entry"), ) ),
                 array ( "HostEditor" => array( "init" => array(
                   "host-ip" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
                   "host-name" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>.local",                
-                ), ) , )
+                ), ) , ),
                                 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next create our virtual host"), ) ),
                 array ( "ApacheVHostEditor" => array( "add" => array (
