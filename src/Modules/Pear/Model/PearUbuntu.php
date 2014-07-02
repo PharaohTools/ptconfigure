@@ -63,8 +63,8 @@ class PearUbuntu extends BasePackager {
 		$this->channelDiscover();
         $packageName = $this->getPackageName($packageName);
         $comm = "sudo pear install -f $packageName" ;
-        if (isset($this->params["required-dependencies"]) { $comm .= ' --onlyreqdeps' ; }
-        if (isset($this->params["all-dependencies"]) { $comm .= ' --alldeps' ; }
+        if (isset($this->params["required-dependencies"])) { $comm .= ' --onlyreqdeps' ; }
+        if (isset($this->params["all-dependencies"])) { $comm .= ' --alldeps' ; }
         $out = $this->executeAndOutput($comm);
         if (!is_int(strpos($out, "install ok"))) {
             $loggingFactory = new \Model\Logging();
