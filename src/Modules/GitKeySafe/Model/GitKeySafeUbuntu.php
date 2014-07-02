@@ -28,11 +28,17 @@ class GitKeySafeUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "gitkeysafe"; // command and app dir name
         $this->programNameFriendly = "Git Key-Safe Server!"; // 12 chars
         $this->programNameInstaller = "Git Key-Safe Server";
-        $this->statusCommand = "sudo gitkeysafe -v" ;
+        $this->statusCommand = $this->checkGitKeySafeStatus() ; // "command git-key-safe" ;
         $this->versionInstalledCommand = "sudo apt-cache policy gitkeysafe" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy gitkeysafe" ;
         $this->versionLatestCommand = "sudo apt-cache policy gitkeysafe" ;
         $this->initialize();
+    }
+
+    protected function checkGitKeySafeStatus() {
+        if (file_exists("/usr/bin/git-key-safe")) {
+            return "exit 0"; }
+        return "exit 1" ;
     }
 
     public function addGitKeySafeScript() {
