@@ -106,10 +106,10 @@ HELPDATA;
 
   The Wordpress module extends DBConfigure by providing Templates for resetting or setting the configuration of a Wordpress
 
-  Wordpress module adds the actions wordpress30-conf, wordpress30-reset, wordpress15-conf, wordpress15-reset to DBConfigure and will
-  let you produce autopilots for it which are tailored to Wordpress.
+  Wordpress module adds the actions wordpress-conf, wordpress-reset to DBConfigure and will let you produce autopilots
+  for it which are tailored to Wordpress.
 
-  dapperstrano dbconf wordpress30-conf --yes --guess
+  dapperstrano dbconf wordpress-conf --yes --guess
 HELPDATA;
         return $help ;
     }
