@@ -96,7 +96,7 @@ class VersionLinuxMac extends Base {
 
     private function symlinkCreator() {
         $command  = 'ln -s '.$this->appRootDirectory.$this->appVersion.' '.$this->appRootDirectory.'current';
-        echo $command . "\n" ;
+        // echo $command . "\n" ;
         echo "Created Version Symlink\n";
         self::executeAndOutput($command);
     }
