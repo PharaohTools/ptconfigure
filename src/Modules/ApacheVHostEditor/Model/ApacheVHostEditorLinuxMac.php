@@ -3,6 +3,7 @@
 Namespace Model;
 
 // @todo this class is way too long, we should use model groups, at least for balancing
+// @todo  the vhosttemp folder that gets left in temp should be removed
 class ApacheVHostEditorLinuxMac extends Base {
 
     // Compatibility
@@ -285,8 +286,8 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function moveVHostAsRoot($virtualHostEditorAdditionFileExtension=null){
-        $command = 'sudo mv '.'/tmp/'.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR.$this->url.' '.
-            $this->vHostDir.'/'.$this->url.$virtualHostEditorAdditionFileExtension;
+        $command = 'sudo mv '.'/tmp/'.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR.$this->url.$this->fileExtension.' '.
+            $this->vHostDir.'/'.$this->url.$this->fileExtension;
         return self::executeAndOutput($command);
     }
 
@@ -312,7 +313,10 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     private function enableVHost(){
-        $command = 'a2ensite '.$this->url;
+        if (isset($this->params["vhe-file-ext"]) && strlen($this->params["vhe-file-ext"])>0 ) {
+            $command = 'a2ensite '.$this->url.$this->params["vhe-file-ext"]; }
+        else {
+            $command = 'a2ensite '.$this->url ; }
         return self::executeAndOutput($command, "a2ensite $this->url done");
     }
 
