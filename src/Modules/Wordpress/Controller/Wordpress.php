@@ -34,17 +34,10 @@ class Wordpress extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        if (in_array($action, array("wordpress", "wordpress30"))) {
+        if (in_array($action, array("wordpress"))) {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyWordpress") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $thisModel->platform = "wordpress30";
-            $this->content["result"] = $thisModel->askWhetherToDapperfy();
-            return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
-
-        if (in_array($action, array("wordpress15"))) {
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyWordpress") ;
-            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $thisModel->platform = "wordpress15";
+            $thisModel->platform = "wordpress";
             $this->content["result"] = $thisModel->askWhetherToDapperfy();
             return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
