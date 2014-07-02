@@ -81,7 +81,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "PackageManager" => array( "pkg-ensure" => array(
                     "package-name" => "phing/phing",
                     "packager-name" => "Pear",
-                    "pear-channel" => "pear.phing.info"
+                    "pear-channel" => "pear.phing.info",
+                    "all-dependencies" => true
                 ), ),),
 
                 // Java
@@ -112,7 +113,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "PackageManager" => array( "pkg-ensure" => array(
                     "package-name" => "drush/drush",
                     "packager-name" => "Pear",
-                    "pear-channel" => "pear.drush.org"
+                    "pear-channel" => "pear.drush.org",
+                    "all-dependencies" => true
                 ), ),),
 
                 // BDD Testing
