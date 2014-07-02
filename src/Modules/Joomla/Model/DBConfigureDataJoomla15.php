@@ -16,15 +16,24 @@ class DBConfigureDataJoomla15 extends Base {
 
     private $friendlyName = 'Joomla 1.5.x Series';
     private $shortName = 'Joomla15';
-    private $settingsFileLocation = 'src'; // no trail slash, empty for root
+    private $settingsFileLocation = ''; // no trail slash, empty for root
     private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;
     private $extraConfigFileReplacements ;
     private $extraConfigFiles = array('build/config/phpunit/bootstrap.php'); // extra files requiring db config
 
     public function __construct(){
+        $this->setProperties();
         $this->setReplacements();
         $this->setExtraConfigReplacements();
+    }
+
+    protected function setProperties() {
+        $prefix = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
+        if (strlen($prefix) > 0) {
+            $this->settingsFileLocation = $prefix; }
+        else {
+            $this->settingsFileName = 'src/configuration.php'; }
     }
 
     public function getProperty($property) {
