@@ -16,7 +16,7 @@ class DBConfigureDataJoomla30 extends Base {
 
     private $friendlyName = 'Joomla 3.x Series';
     private $shortName = 'Joomla30';
-    private $settingsFileLocation = 'src'; // no trail slash, empty for root
+    private $settingsFileLocation = ''; // no trail slash, empty for root
     private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;
     private $extraConfigFileReplacements ;
@@ -30,7 +30,10 @@ class DBConfigureDataJoomla30 extends Base {
 
     protected function setProperties() {
 		$prefix = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
-		$this->settingsFileLocation = (strlen($prefix) > 0) ? $prefix.'src' : 'src' ; // no trail slash, empty for root	
+        if (strlen($prefix) > 0) {
+            $this->settingsFileLocation = $prefix; }
+        else {
+            $this->settingsFileName = 'src/configuration.php'; }
     }
 
     public function getProperty($property) {
