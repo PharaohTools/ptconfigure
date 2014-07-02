@@ -284,44 +284,44 @@ class DBInstallAllOS extends Base {
     }
 
     private function databaseCreator() {
-        $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+        $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
         $query = 'create database if not exists '.$this->dbName.';';
         echo "$query\n";
-        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
     }
 
     private function userCreator() {
-        $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+        $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
         $query = 'grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\' identified by "'.$this->dbPass.'";';
         echo "$query\n";
-        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
         $query = 'grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\' identified by "'.$this->dbPass.'";';
         echo "$query\n";
-        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
         $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\'' ;
         echo "$query\n";
-        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
         $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\'' ;
         echo "$query\n";
-        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
     }
 
     private function userDropper() {
-        $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+        $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
         $query = 'DROP USER \''.$this->dbUser.'\'@\'localhost\'; ' ;
         echo "$query\n";
-        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
         $query = 'DROP USER \''.$this->dbUser.'\'@\'%\'; ' ;
         echo "$query\n";
-        mysql_query($query, $dbc) or var_dump (mysql_error($dbc));
+        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
         print "Database User $this->dbUser dropped\n";
     }
 
     private function dropDB() {
-        $dbc = mysql_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
-        echo (mysql_error($dbc));
+        $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+        echo (mysqli_error($dbc));
         $query = 'DROP DATABASE '.$this->dbName.';';
-        mysql_query($query, $dbc) ;
+        mysqli_query($dbc, $query) ;
         print "Database $this->dbName dropped\n";
     }
 
