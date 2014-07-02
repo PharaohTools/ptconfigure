@@ -62,7 +62,10 @@ class PearUbuntu extends BasePackager {
     public function installPackage($packageName, $autopilot = null) {
 		$this->channelDiscover();
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo pear install -f $packageName");
+        $comm = "sudo pear install -f $packageName" ;
+        if (isset($this->params["required-dependencies"]) { $comm .= ' --onlyreqdeps' ; }
+        if (isset($this->params["all-dependencies"]) { $comm .= ' --alldeps' ; }
+        $out = $this->executeAndOutput($comm);
         if (!is_int(strpos($out, "install ok"))) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
