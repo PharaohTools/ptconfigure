@@ -14,7 +14,7 @@ class DapperfyWordpressAllOS extends DapperfyAllOS {
     // Model Group
     public $modelGroup = array("DapperfyWordpress") ;
 
-    public $platform = "wordpress30" ;
+    public $platform = "wordpress" ;
 
     public function __construct($params) {
         parent::__construct($params);
