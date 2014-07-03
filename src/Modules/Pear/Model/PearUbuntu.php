@@ -62,9 +62,10 @@ class PearUbuntu extends BasePackager {
     public function installPackage($packageName, $autopilot = null) {
 		$this->channelDiscover();
         $packageName = $this->getPackageName($packageName);
-        $comm = "sudo pear install -f $packageName" ;
+        $comm = "sudo pear install" ;
         if (isset($this->params["required-dependencies"])) { $comm .= ' --onlyreqdeps' ; }
         if (isset($this->params["all-dependencies"])) { $comm .= ' --alldeps' ; }
+        $comm .= " -f $packageName" ;
         $out = $this->executeAndOutput($comm);
         if (!is_int(strpos($out, "install ok"))) {
             $loggingFactory = new \Model\Logging();
@@ -87,37 +88,39 @@ class PearUbuntu extends BasePackager {
 
     public function channelDiscover() {
         $channel = $this->setChannel();
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        if ($channel == null) {
-            $logging->log("No Channel set to add, so not discovering") ;			
-			return true ;}
-        $out = $this->executeAndLoad("sudo pear channel-discover $channel");
-        echo $out."\n" ;
-        // var_dump($out, 'Channel "'.$channel.'" is already initialized') ;
-        $initString = 'Channel "'.$channel.'" is already initialized'."\n" ;
-        if ($out == $initString) {
-            $logging->log("Not adding Channel $channel in Packager Pear as it is already initialized") ;
-            return true ; }
-        else if (strpos($out, "Adding Channel \"".$channel."\" succeeded") == false ||
-            strpos($out, "Discovery of channel \"".$channel."\" succeeded") == false ) {
-            $logging->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
-            return false ; }
+        if (!is_null($channel)) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            if ($channel == null) {
+                $logging->log("No Channel set to add, so not discovering") ;
+                return true ;}
+            $out = $this->executeAndLoad("sudo pear channel-discover $channel");
+            echo $out."\n" ;
+            // var_dump($out, 'Channel "'.$channel.'" is already initialized') ;
+            $initString = 'Channel "'.$channel.'" is already initialized'."\n" ;
+            if ($out == $initString) {
+                $logging->log("Not adding Channel $channel in Packager Pear as it is already initialized") ;
+                return true ; }
+            else if (strpos($out, "Adding Channel \"".$channel."\" succeeded") == false ||
+                strpos($out, "Discovery of channel \"".$channel."\" succeeded") == false ) {
+                $logging->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
+                return false ; } }
         return true ;
     }
 
     public function channelDelete() {
         $channel = $this->setChannel();
-        $out = $this->executeAndLoad("sudo pear channel-del $channel");
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $initString = 'channel-delete: channel "'.$channel.'" does not exist'."\n" ;
-        if ($out == $initString) {
-            $logging->log("Not removing Channel $channel in Packager Pear as it is already initialized") ;
-            return true ; }
-        else if (strpos($out, "Channel \"".$channel."\" deleted") == false ) {
-            $logging->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
-            return false ; }
+        if (!is_null($channel)) {
+            $out = $this->executeAndLoad("sudo pear channel-del $channel");
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $initString = 'channel-delete: channel "'.$channel.'" does not exist'."\n" ;
+            if ($out == $initString) {
+                $logging->log("Not removing Channel $channel in Packager Pear as it is already initialized") ;
+                return true ; }
+            else if (strpos($out, "Channel \"".$channel."\" deleted") == false ) {
+                $logging->log("Discovering Channel $channel in Packager Pear did not execute correctly") ;
+                return false ; } }
         return true ;
     }
 
@@ -125,8 +128,6 @@ class PearUbuntu extends BasePackager {
         if (isset($channel)) {  }
         else if (isset($this->params["pear-channel"])) {
             $channel = $this->params["pear-channel"]; }
-        else {
-            $channel = self::askForInput("Enter Pear Channel:", true); }
         return $channel ;
     }
 
