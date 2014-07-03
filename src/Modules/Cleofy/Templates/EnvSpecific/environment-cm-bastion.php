@@ -86,8 +86,10 @@ class AutoPilotConfigured extends AutoPilot {
                 // Drush
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
                 array ( "PackageManager" => array( "pkg-ensure" => array(
-                    "package-name" => "drush",
+                    "package-name" => "drush/drush",
                     "packager-name" => "Pear",
+                    "pear-channel" => "pear.drush.org",
+                    "all-dependencies" => true
                 ), ), ),
 
                 // Firewall
