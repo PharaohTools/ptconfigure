@@ -13,9 +13,11 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        include("settings.php") ;
+
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a tiny set of environments"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of Staging Server in a tiny set of environments"),),),
 
                 // Staging
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging Box" ),),),

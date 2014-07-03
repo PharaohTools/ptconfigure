@@ -13,9 +13,11 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        include("settings.php") ;
+
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a tiny set of environments"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of Jenkins in a tiny set of environments"),),),
 
                 // Jenkins
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins Box" ),),),
@@ -31,13 +33,13 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
                     "provider-name" => $provider,
-                    "box-amount" => $box_amount_ ,
-                    "image-id" => $image_id_ ,
-                    "region-id" => $region_id_ ,
-                    "size-id" => $size_id_ ,
+                    "box-amount" => $box_amount_jenkins ,
+                    "image-id" => $image_id_jenkins ,
+                    "region-id" => $region_id_jenkins ,
+                    "size-id" => $size_id_jenkins ,
                     "server-prefix" => $prefix,
-                    "box-user-name" => $box_user_name_ ,
-                    "private-ssh-key-path" => $priv_ssh_key_ ,
+                    "box-user-name" => $box_user_name_jenkins ,
+                    "private-ssh-key-path" => $priv_ssh_key_jenkins ,
                     "wait-for-box-info" => true,
                     "wait-until-active" => true,
                 ),),),
