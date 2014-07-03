@@ -17,26 +17,26 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Jenkins Environment" ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Jenkins Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Staging Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Staging Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-jenkins-prep-ubuntu.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-staging-prep-ubuntu.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Jenkins Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Staging Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-jenkins-invoke-cleo-dapper-new.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-staging-invoke-cleo-dapper-new.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Jenkins Box on the Jenkins Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets setup a Standalone Server Box on the Staging Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-jenkins-invoke-build-server.php"',
+                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-staging-invoke-standalone-server.php"',
                     "run-as-user" => "",
                     "background" => "",
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Jenkins environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Staging environment complete"),),),
             );
 
     }
