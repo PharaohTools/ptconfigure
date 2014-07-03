@@ -56,15 +56,19 @@ class AutoPilotConfigured extends AutoPilot {
                 // Phing
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Phing is installed"),),),
                 array ( "PackageManager" => array( "pkg-ensure" => array(
-                    "package-name" => "phing",
-                    "packager-name" => "Pear"
+                    "package-name" => "phing/phing",
+                    "packager-name" => "Pear",
+                    "pear-channel" => "pear.phing.info",
+                    "all-dependencies" => true
                 ),),),
 
                 // Drush
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),
                 array ( "PackageManager" => array( "pkg-ensure" => array(
-                    "package-name" => "drush",
-                    "packager-name" => "Apt"
+                    "package-name" => "phing/phing",
+                    "packager-name" => "Pear",
+                    "pear-channel" => "pear.drush.org",
+                    "all-dependencies" => true
                 ),),),
 
                 // Java
