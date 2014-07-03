@@ -46,7 +46,8 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
             "tiny" => "{$dir}Generic/Tiny",
             "medium" => "{$dir}Generic/Medium",
             "dbcluster" => "{$dir}Generic/DBCluster",
-            "db-cluster" => "{$dir}Generic/DBCluster"
+            "db-cluster" => "{$dir}Generic/DBCluster",
+            "workstation" => "{$dir}Generic/Workstation"
         );
     }
 
@@ -62,6 +63,7 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
             $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("tiny", "medium"), true) ; }
     }
 
+    // @todo generic is not the  right word probably
     public function setDestination($destination = null) {
         // @this should log that you have specified an invalid destination if that is the case and go to prompt
         if (isset($destination)) {

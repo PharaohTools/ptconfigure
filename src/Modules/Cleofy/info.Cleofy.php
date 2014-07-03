@@ -52,7 +52,7 @@ class CleofyInfo extends CleopatraBase {
         example: cleopatra boxify install-generic-autopilots
                     --yes
                     --guess # will set --destination-dir=*this dir +*build/config/cleopatra/boxify/autopilots/
-                    --template-group=tiny # tiny, medium, dbcluster || db-cluster
+                    --template-group=tiny # tiny, medium, dbcluster || db-cluster, workstation
                     --destination-dir=*path-to-destination*
 
 HELPDATA;

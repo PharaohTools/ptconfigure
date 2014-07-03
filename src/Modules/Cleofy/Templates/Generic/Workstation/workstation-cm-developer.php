@@ -16,7 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Developer box on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of your Developer machine"),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
@@ -96,7 +96,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "JenkinsPlugins" => array( "install" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the Jenkins user can use Sudo without a Password"),),),
                 array ( "JenkinsSudoNoPass" => array( "install" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a build server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 // All Pharoes
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
@@ -135,25 +134,25 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Ruby BDD Gems are installed"),),),
                 array ( "RubyBDD" => array( "ensure" => array("guess" => true ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Developer box on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
-
                 // Unit Testing Tools
 
                 // PHPUnit
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPUnit is installed"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHP Unit is installed"),),),
                 array ( "PHPUnit" => array( "ensure" => array("guess" => true ),),),
 
                 // IDE's and Developer Tools
 
                 // Developer Tools
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure DeveloperTools are installed"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Developer Tools are installed"),),),
                 array ( "DeveloperTools" => array( "ensure" => array("guess" => true ),),),
 
                 // IntelliJ
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure IntelliJ IDE is installed"),),),
                 array ( "IntelliJ" => array( "ensure" => array("guess" => true ),),),
 
-        );
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring your Developer box complete"),),),
+
+            );
 
     }
 
