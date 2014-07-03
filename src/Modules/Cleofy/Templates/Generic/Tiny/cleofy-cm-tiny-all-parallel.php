@@ -26,7 +26,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "command-2"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-git.php\"",
                     "command-3"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-jenkins.php\"",
                     "command-4"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging.php\"",
-                    "command-7"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production.php\"",
+                    "command-5"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production.php\"",
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Tiny set of environments complete"),),),
