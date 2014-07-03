@@ -35,6 +35,13 @@ class Cleofy extends Base {
             $this->content["result"] = $thisModel->askWhetherToCleofy();
             return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
 
+        if ($action=="tiny") {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Tiny") ;
+            // if we don't have an object, its an array of errors
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $this->content["result"] = $thisModel->askWhetherToCleofy();
+            return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
+
         if ($action=="workstation") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Workstation") ;
             // if we don't have an object, its an array of errors

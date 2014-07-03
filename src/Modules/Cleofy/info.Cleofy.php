@@ -14,7 +14,7 @@ class CleofyInfo extends CleopatraBase {
 
     public function routesAvailable() {
         return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "db-cluster", "workstation",
-            "install-generic-autopilots") ) );
+            "install-generic-autopilots", "tiny") ) );
     }
 
     public function routeAliases() {
@@ -37,6 +37,11 @@ class CleofyInfo extends CleopatraBase {
         Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
         your project.
         example: cleopatra cleofy standard
+
+        - tiny
+        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        a project with a "tiny" style infreastructure.
+        example: cleopatra cleofy tiny
 
         - db-cluster
         Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for

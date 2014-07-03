@@ -3,7 +3,7 @@
 Namespace Model;
 
 // @todo shouldnt this extend base templater? is it missing anything?
-class CleofyDBClusterUbuntu extends Base {
+class CleofyTinyUbuntu extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,7 +13,7 @@ class CleofyDBClusterUbuntu extends Base {
     public $architectures = array("32", "64") ;
 
     // Model Group
-    public $modelGroup = array("DBCluster") ;
+    public $modelGroup = array("Tiny") ;
 
     private $environments ;
     private $environmentReplacements ;
@@ -77,19 +77,9 @@ class CleofyDBClusterUbuntu extends Base {
                   array(
                       "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
                       "env_name" => $environment["any-app"]["gen_env_name"],
-                      "db_nodes_env" => $this->getEnvName("database") ,
                   ),
                   $targetLocation );
           echo $targetLocation."\n"; } } }
-    }
-
-    public function getEnvName($envType) {
-        if (isset($this->params["$envType-nodes-env"])) {
-            $this->params["$envType-nodes-environment"] = $this->params["$envType-nodes-env"] ; }
-        if (isset($this->params["$envType-nodes-environment"])) { return $this->params["$envType-nodes-environment"] ; }
-        $question = "Enter name of environment with your ".ucfirst($envType)."nodes" ;
-        $this->params["$envType-nodes-environment"] = $this->askForInput($question) ;
-        return $this->params["$envType-nodes-environment"] ;
     }
 
 }
