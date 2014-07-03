@@ -38,7 +38,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "region-id" => $region_id_git ,
                     "size-id" => $size_id_git ,
                     "server-prefix" => $prefix,
-                    "box-user-name" => $box_user_name_git ,
+                    "box-user-name" => $user_name_git ,
                     "private-ssh-key-path" => $priv_ssh_key_git ,
                     "wait-for-box-info" => true,
                     "wait-until-active" => true,

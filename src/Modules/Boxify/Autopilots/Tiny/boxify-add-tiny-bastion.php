@@ -38,7 +38,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "region-id" => $region_id_bastion ,
                     "size-id" => $size_id_bastion ,
                     "server-prefix" => $prefix,
-                    "box-user-name" => $box_user_name_bastion ,
+                    "box-user-name" => $user_name_bastion ,
                     "private-ssh-key-path" => $priv_ssh_key_bastion,
                     "wait-for-box-info" => true,
                     "wait-until-active" => true,
