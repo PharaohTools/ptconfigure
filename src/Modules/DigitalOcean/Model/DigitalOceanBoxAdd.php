@@ -141,7 +141,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $callVars["image_id"] = $serverData["imageID"];
         $callVars["region_id"] = $serverData["regionID"];
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
-        $curlUrl = "https://api.digitalocean.com/droplets/new" ;
+        $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
         $callOut = $this->digitalOceanCall($callVars, $curlUrl);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -176,7 +176,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
     private function getAllSshKeyIdsString() {
         if (isset($this->params["ssh-key-ids"])) {
             return $this->params["ssh-key-ids"] ; }
-        $curlUrl = "https://api.digitalocean.com/ssh_keys" ;
+        $curlUrl = "https://api.digitalocean.com/v1/ssh_keys" ;
         $sshKeysObject =  $this->digitalOceanCall(array(), $curlUrl);
         $sshKeys = array();
         // @todo use the list call to get ids, this uses name

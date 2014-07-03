@@ -74,7 +74,7 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
 
     private function getNewServerFromDigitalOcean($serverData){
         $callVars = (array) $this->getNewServerCallVarsFromData($serverData) ;
-        $curlUrl = "https://api.digitalocean.com/droplets/new" ;
+        $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
         return $this->digitalOceanCall($callVars, $curlUrl);
     }
 
@@ -90,7 +90,7 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
         $callVars["image_id"] = $serverData["imageID"];
         $callVars["region_id"] = $serverData["regionID"];
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
-        $curlUrl = "https://api.digitalocean.com/droplets/new" ;
+        $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
         return $this->digitalOceanCall($callVars, $curlUrl);
     }
 
