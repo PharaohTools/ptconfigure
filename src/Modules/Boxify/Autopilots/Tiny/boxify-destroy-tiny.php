@@ -22,7 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-bastion",
-                    "provider-name" => "DigitalOcean",
+                    "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
@@ -34,7 +34,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-git",
-                    "provider-name" => "DigitalOcean",
+                    "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
@@ -46,7 +46,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
-                    "provider-name" => "DigitalOcean",
+                    "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
@@ -58,7 +58,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
-                    "provider-name" => "DigitalOcean",
+                    "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
@@ -70,7 +70,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-prod",
-                    "provider-name" => "DigitalOcean",
+                    "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
