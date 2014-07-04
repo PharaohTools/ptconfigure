@@ -17,6 +17,7 @@ class RunCommandUbuntu extends BaseLinuxApp {
     protected $runUser ;
     protected $command ;
     protected $background ;
+    protected $nohup ;
 
 
     public function __construct($params) {
@@ -26,6 +27,7 @@ class RunCommandUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForUserName", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "askForCommand", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "askForBackground", "params" => array() ) ) ,
+            array("method"=> array("object" => $this, "method" => "askForNohup", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "runCommand", "params" => array()) ),
         );
         $this->uninstallCommands = array();
@@ -41,6 +43,8 @@ class RunCommandUbuntu extends BaseLinuxApp {
         $commandRay[] = "cd ".getcwd() ;
         if (isset($this->runUser) && !is_null($this->runUser))  {
             $commandRay[] = "su  ".$this->runUser ; }
+        if (isset($this->nohup) && strlen($this->nohup)>0)  {
+            $this->command = "nohup ".$this->command ; }
         if (isset($this->background) && !is_null($this->background))  {
             $commandRay[] = $this->command.' &' ; }
         else  {
@@ -51,17 +55,27 @@ class RunCommandUbuntu extends BaseLinuxApp {
     }
 
     public function askForUserName() {
-        if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])>0) {
-            $this->runUser = $this->params["run-as-user"] ; }
-        else if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])==0) {
-            $this->runUser = null ; }
-        else {
-            $this->runUser = null ; }
+        if ($this->params["run-as-user"]) {
+            if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])>0) {
+                $this->runUser = $this->params["run-as-user"] ; }
+            else if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])==0) {
+                $this->runUser = null ; }
+            else {
+                $this->runUser = null ; } }
     }
 
     public function askForCommand() {
         $question = "Enter Command to run:";
         $this->command = (isset($this->params["command"])) ? $this->params["command"] : self::askForInput($question);
+    }
+
+    public function askForNohup() {
+        if (isset($this->params["nohup"])) {
+            $useNoHup = (strlen($this->params["nohup"]) > 0) ? true : false ;
+            $this->nohup = $useNoHup ;
+            return ; }
+        $question = "Use NoHup?:";
+        $this->nohup = self::askYesOrNo($question);
     }
 
     public function askForBackground() {
