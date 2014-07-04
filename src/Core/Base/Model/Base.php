@@ -334,8 +334,6 @@ COMPLETION;
                 $versionObject = new \Model\SoftwareVersion($versionText) ;
                 return $versionObject ; }
             else {
-                // @todo should this always make an error exit code?
-                // \Core\BootStrap::setExitCode(1) ;
                 $logging->log("Cannot find version") ;
                 return false; } }
         else {
