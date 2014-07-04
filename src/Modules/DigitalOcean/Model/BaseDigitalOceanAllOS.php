@@ -57,7 +57,6 @@ class BaseDigitalOceanAllOS extends Base {
     protected function digitalOceanCall(Array $curlParams, $curlUrl){
         $curlParams["client_id"] = $this->clientId ;
         $curlParams["api_key"] = $this->apiKey;
-        // @todo do we actually need to set this every time? highly unlikely
         \Model\AppConfig::setProjectVariable("digital-ocean-client-id", $this->clientId) ;
         \Model\AppConfig::setProjectVariable("digital-ocean-api-key", $this->apiKey) ;
         $postQuery = "";
