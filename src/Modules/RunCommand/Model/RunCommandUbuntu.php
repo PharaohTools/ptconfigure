@@ -51,6 +51,7 @@ class RunCommandUbuntu extends BaseLinuxApp {
             $commandRay[] = $this->command ; }
         if (isset($this->runUser) && !is_null($this->runUser))  {
             $commandRay[] = "exit" ; }
+        foreach ($commandRay as $command) { echo $command."\n" ; }
         $this->executeAsShell($commandRay) ;
     }
 
