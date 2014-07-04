@@ -103,9 +103,9 @@ class AutoPilotConfigured extends AutoPilot {
                 // Start the Selenium Server
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets also start Selenium so we can use it"),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => 'selenium',
+                    "command" => 'selenium 2&>1 /dev/null',
                     "run-as-user" => "",
-                    "background" => true,
+                    "background" => "",
                 ),),),
 
                 // Behat
