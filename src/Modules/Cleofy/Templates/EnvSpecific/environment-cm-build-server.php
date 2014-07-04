@@ -22,7 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
 //                array ( "Copy" => array( "file" =>
 //                    array("from" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
 //                    array("to" => "$HOME/.ssh/id_rsa"),
-//                    // @todo Fix this Standalone Server
+//                    // @todo Fix the key install!!
 //                ),),
 
                 // SSH Hardening
@@ -99,6 +99,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Selenium Server is installed"),),),
                 array ( "SeleniumServer" => array( "ensure" => array("guess" => true ),),),
 
+                // @todo Runcommand is, im pretty sure, not working properly for starting this background process
                 // Start the Selenium Server
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets also start Selenium so we can use it"),),),
                 array ( "RunCommand" => array("install" => array(
