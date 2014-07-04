@@ -55,7 +55,7 @@ class RunCommandUbuntu extends BaseLinuxApp {
     }
 
     public function askForUserName() {
-        if ($this->params["run-as-user"]) {
+        if (isset($this->params["run-as-user"])) {
             if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])>0) {
                 $this->runUser = $this->params["run-as-user"] ; }
             else if (isset($this->params["run-as-user"]) && strlen($this->params["run-as-user"])==0) {
