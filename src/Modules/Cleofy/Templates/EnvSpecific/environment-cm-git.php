@@ -73,7 +73,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RunCommand" => array( "install" => array(
                     "guess" => true,
                     "command" => "dapperstrano ApacheCtl restart --yes",
-                    "background" => ""
                 ) ) ),
 
                 // Install Git Bucket
@@ -85,7 +84,6 @@ class AutoPilotConfigured extends AutoPilot {
                 // Start Git Bucket
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets start GitBucket" ),),),
                 array ( "RunCommand" => array( "install" => array(
-                    "guess" => true,
                     "command" => "gitbucket",
                 ) ) ),
 
