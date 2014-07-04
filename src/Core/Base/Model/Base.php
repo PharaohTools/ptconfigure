@@ -196,7 +196,6 @@ COMPLETION;
         return $inputLine;
     }
 
-    // @todo update this method to use model factory
     protected function setInstallFlagStatus($bool) {
         if ($bool) {
             AppConfig::setProjectVariable("installed-modules", $this->getModuleName(), true); }
