@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ApacheReverseProxyModulesUbuntu extends BaseLinuxApp {
+class ApacheReverseProxyModulesUbuntuUpto13 extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
