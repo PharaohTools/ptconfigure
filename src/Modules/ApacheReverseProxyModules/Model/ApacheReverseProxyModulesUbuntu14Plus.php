@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class ApacheReverseProxyModulesUbuntuUpto13 extends BaseLinuxApp {
+class ApacheReverseProxyModulesUbuntu14Plus extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("12.04", "12.10") ;
+    public $versions = array("14.04", "14.10") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -20,8 +20,10 @@ class ApacheReverseProxyModulesUbuntuUpto13 extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libxml2-dev")) ),
+            array("command"=> "a2enmod lbmethod_byrequests" ),
             array("command"=> "a2enmod proxy" ),
             array("command"=> "a2enmod proxy_http" ),
+            array("command"=> "a2enmod mod_proxy_http" ),
             array("command"=> "a2enmod proxy_ftp" ),
             array("command"=> "a2enmod proxy_connect" ),
             array("command"=> "a2enmod proxy_ajp" ),
@@ -33,6 +35,7 @@ class ApacheReverseProxyModulesUbuntuUpto13 extends BaseLinuxApp {
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libxml2-dev")) ),
+            array("command"=> "a2dismod lbmethod_byrequests" ),
             array("command"=> "a2dismod proxy" ),
             array("command"=> "a2dismod proxy_http" ),
             array("command"=> "a2dismod proxy_ftp" ),
@@ -54,7 +57,7 @@ class ApacheReverseProxyModulesUbuntuUpto13 extends BaseLinuxApp {
         $modsTextCmd = 'apachectl -t -D DUMP_MODULES';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $modsToCheck = array( "http_module", "deflate_module", "php5_module", "proxy_module", "proxy_html_module",
-            "proxy_http_module", "rewrite_module", "ssl_module" ) ;
+            "rewrite_module", "ssl_module" ) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
