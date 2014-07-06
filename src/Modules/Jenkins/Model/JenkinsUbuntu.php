@@ -17,6 +17,7 @@ class JenkinsUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
+        $dapperAuto = $this->getDapperAutoPath() ;
         $this->autopilotDefiner = "Jenkins";
         $this->installCommands = array(
             array("command" => array(
@@ -24,7 +25,8 @@ class JenkinsUbuntu extends BaseLinuxApp {
                     "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
                     "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
                     "apt-get update -y",
-                    "apt-get install -y jenkins" ) )
+                    "apt-get install -y jenkins",
+                    "sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto" ) )
             );
         $this->uninstallCommands = array( "apt-get remove -y jenkins" );
         $this->programDataFolder = "/var/lib/jenkins"; // command and app dir name
@@ -51,6 +53,11 @@ class JenkinsUbuntu extends BaseLinuxApp {
     public function versionRecommendedCommandTrimmer($text) {
         $done = substr($text, 42, 23) ;
         return $done ;
+    }
+
+    private function getDapperAutoPath() {
+        $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/proxy-8080-to-80.php' ;
+        return $path ;
     }
 
 }
