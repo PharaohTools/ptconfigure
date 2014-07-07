@@ -17,17 +17,8 @@ class JenkinsUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $dapperAuto = $this->getDapperAutoPath() ;
         $this->autopilotDefiner = "Jenkins";
-        $this->installCommands = array(
-            array("command" => array(
-                    "cd /tmp" ,
-                    "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
-                    "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
-                    "apt-get update -y",
-                    "apt-get install -y jenkins",
-                    "sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto" ) )
-            );
+        $this->installCommands = $this->getInstallCommands();
         $this->uninstallCommands = array( "apt-get remove -y jenkins" );
         $this->programDataFolder = "/var/lib/jenkins"; // command and app dir name
         $this->programNameMachine = "jenkins"; // command and app dir name
@@ -38,6 +29,29 @@ class JenkinsUbuntu extends BaseLinuxApp {
         $this->versionRecommendedCommand = "sudo apt-cache policy jenkins" ;
         $this->versionLatestCommand = "sudo apt-cache policy jenkins" ;
         $this->initialize();
+    }
+
+    protected function getInstallCommands() {
+        if (!isset($this->params["with-http-port-proxy"])) {
+            $dapperAuto = $this->getDapperAutoPath() ;
+            return array(
+                array("command" => array(
+                    "cd /tmp" ,
+                    "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
+                    "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
+                    "apt-get update -y",
+                    "apt-get install -y jenkins",
+                    "sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto" ) )
+            ) ;  }
+        else {
+            return array(
+                array("command" => array(
+                    "cd /tmp" ,
+                    "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
+                    "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
+                    "apt-get update -y",
+                    "apt-get install -y jenkins") )
+            ) ;  }
     }
 
     public function versionInstalledCommandTrimmer($text) {
