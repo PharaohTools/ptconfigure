@@ -4,30 +4,30 @@ Namespace Model;
 
 // @todo this class is way too long, we should use model groups, at least for balancing
 // @todo  the vhosttemp folder that gets left in temp should be removed
-class ApacheVHostEditorLinuxMac extends Base {
+class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
-    public $linuxType = array("any") ;
-    public $distros = array("any") ;
-    public $versions = array("any") ;
-    public $architectures = array("any") ;
+    public $linuxType = array("Debian", "Redhat") ;
+    public $distros = array("Ubuntu", "CentOS") ;
+    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04", "13.10", "5.8", "6.1", "6.5") ;
+    public $architectures = array("32", "64") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $vHostTemplate;
-    private $docRoot;
-    private $url;
-    private $fileExtension;
-    private $vHostIp;
-    private $vHostForDeletion;
-    private $vHostEnabledDir;
-    private $apacheCommand;
-    private $vHostDir = '/etc/apache2/sites-available' ; // no trailing slash
-    private $vHostTemplateDir;
-    private $vHostDefaultTemplates;
-    private $vHostDefaultBalancerTemplates ;
+    protected $vHostTemplate;
+    protected $docRoot;
+    protected $url;
+    protected $fileExtension;
+    protected $vHostIp;
+    protected $vHostForDeletion;
+    protected $vHostEnabledDir;
+    protected $apacheCommand;
+    protected $vHostDir = '/etc/apache2/sites-available' ; // no trailing slash
+    protected $vHostTemplateDir;
+    protected $vHostDefaultTemplates;
+    protected $vHostDefaultBalancerTemplates ;
 
     public function __construct($params) {
       parent::__construct($params);
@@ -58,14 +58,14 @@ class ApacheVHostEditorLinuxMac extends Base {
         return $this->performVHostDisable();
     }
 
-    private function performVHostListing() {
+    protected function performVHostListing() {
         $this->vHostDir = $this->askForVHostDirectory();
         $this->vHostEnabledDir = $this->findVHostEnabledDirectory();
         $this->listAllVHosts();
         return true;
     }
 
-    private function performVHostCreation() {
+    protected function performVHostCreation() {
         if ( !$this->askForVHostEntry() ) { return false; }
         $this->docRoot = $this->askForDocRoot();
         $this->url = $this->askForHostURL();
@@ -82,7 +82,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return true;
     }
 
-    private function performBalancerVHostCreation() {
+    protected function performBalancerVHostCreation() {
         if ( !$this->askForVHostEntry(true) ) { return false; }
         $this->url = $this->askForHostURL();
         $this->vHostIp = $this->askForVHostIp();
@@ -99,7 +99,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return true;
     }
 
-    private function performVHostDeletion(){
+    protected function performVHostDeletion(){
         if ( !$this->askForVHostDeletion() ) { return false; }
         echo "Deleting vhost\n";
         $this->vHostDir = $this->askForVHostDirectory();
@@ -110,7 +110,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return true;
     }
 
-    private function performVHostEnable() {
+    protected function performVHostEnable() {
         if ( $this->askForEnableVHost() ) {
             $urlRay = $this->selectVHostInProjectOrFS() ;
             $this->url = $urlRay[0] ;
@@ -118,27 +118,27 @@ class ApacheVHostEditorLinuxMac extends Base {
         return true;
     }
 
-    private function performVHostDisable(){
+    protected function performVHostDisable(){
         if ( $this->askForDisableVHost() ) {
             $this->vHostForDeletion = $this->selectVHostInProjectOrFS();
             $this->disableVHost(); }
         return true;
     }
 
-    private function askForVHostEntry($bal = null) {
+    protected function askForVHostEntry($bal = null) {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $tx = ($bal == true) ? "Load Balancer " : "" ;
         $question = 'Do you want to add a '.$tx.'VHost?';
         return self::askYesOrNo($question);
     }
 
-    private function askForVHostDeletion() {
+    protected function askForVHostDeletion() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to delete VHost/s?';
         return self::askYesOrNo($question);
     }
 
-    private function askForEnableVHost() {
+    protected function askForEnableVHost() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
@@ -151,7 +151,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return self::askYesOrNo($question);
     }
 
-    private function askForDisableVHost() {
+    protected function askForDisableVHost() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
@@ -164,14 +164,14 @@ class ApacheVHostEditorLinuxMac extends Base {
         return self::askYesOrNo($question);
     }
 
-    private function findVHostEnabledDirectory() {
+    protected function findVHostEnabledDirectory() {
         if ($this->detectDebianApacheVHostFolderExistence()) {
             echo "You have a sites available dir, so also listing available sites.\n" ;
             return "/etc/apache2/sites-available" ; }
         return null ;
     }
 
-    private function askForDocRoot() {
+    protected function askForDocRoot() {
         if (isset($this->params["vhe-docroot"])) { return $this->params["vhe-docroot"] ; }
         if (isset($this->params["guess"])) { return getcwd() ; }
         $question = 'What\'s the document root? Enter nothing for '.getcwd();
@@ -179,19 +179,19 @@ class ApacheVHostEditorLinuxMac extends Base {
         return ($input=="") ? getcwd() : $input ;
     }
 
-    private function askForHostURL() {
+    protected function askForHostURL() {
         if (isset($this->params["vhe-url"])) { return $this->params["vhe-url"] ; }
         $question = 'What URL do you want to add as server name?';
         return self::askForInput($question, true);
     }
 
-    private function askForClusterName() {
+    protected function askForClusterName() {
         if (isset($this->params["vhe-cluster-name"])) { return $this->params["vhe-cluster-name"] ; }
         $question = 'What do you want to add as Cluster name?';
         return self::askForInput($question, true);
     }
 
-    private function askForFileExtension() {
+    protected function askForFileExtension() {
         if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         if (isset($this->params["guess"])) {
             if ($this->detectDebianApacheVHostFolderExistence()) { return "" ; }
@@ -201,7 +201,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return $input ;
     }
 
-    private function askForVHostIp() {
+    protected function askForVHostIp() {
         if (isset($this->params["vhe-ip-port"])) { return $this->params["vhe-ip-port"] ; }
         if (isset($this->params["guess"])) { return "127.0.0.1:80" ; }
         $question = 'What IP:Port should be set? Enter nothing for 127.0.0.1:80';
@@ -209,7 +209,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return ($input=="") ? '127.0.0.1:80' : $input ;
     }
 
-    private function checkVHostOkay(){
+    protected function checkVHostOkay(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) {
             echo $this->vHostTemplate."\n\nAssuming Okay due to yes parameter\n";
             return true ;}
@@ -217,7 +217,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return self::askYesOrNo($question);
     }
 
-    private function askForVHostDirectory(){
+    protected function askForVHostDirectory(){
         if (isset($this->params["vhe-vhost-dir"])) { return $this->params["vhe-vhost-dir"] ; }
         $question = 'What is your VHost directory?';
         if ($this->detectDebianApacheVHostFolderExistence()) { $question .= ' Found "/etc/apache2/sites-available" - Enter nothing to use this';
@@ -231,7 +231,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return self::askForInput($question, true);
     }
 
-    private function askForVHostTemplateDirectory(){
+    protected function askForVHostTemplateDirectory(){
         if (isset($this->params["vhe-default-template-name"])) { return "" ; }
         if (isset($this->params["vhe-template"])) { return "" ; }
         $question = 'What is your VHost Template directory? Enter nothing for default templates';
@@ -245,65 +245,65 @@ class ApacheVHostEditorLinuxMac extends Base {
         }
     }
 
-    private function detectDebianApacheVHostFolderExistence(){
+    protected function detectDebianApacheVHostFolderExistence(){
         return file_exists("/etc/apache2/sites-available");
     }
 
-    private function detectRHVHostFolderExistence(){
+    protected function detectRHVHostFolderExistence(){
         return file_exists("/etc/httpd/vhosts.d");
     }
 
-    private function detectVHostEnabledFolderExistence(){
+    protected function detectVHostEnabledFolderExistence(){
         return file_exists("/etc/apache2/sites-enabled");
     }
 
-    private function detectVHostTemplateFolderExistence(){
+    protected function detectVHostTemplateFolderExistence(){
         return file_exists( $this->vHostTemplateDir = $this->docRoot."/build/config/dapperstrano/virtual-hosts");
     }
 
-    private function attemptVHostWrite($virtualHostEditorAdditionFileExtension=null){
+    protected function attemptVHostWrite($virtualHostEditorAdditionFileExtension=null){
         $this->createVHost();
         $this->moveVHostAsRoot($virtualHostEditorAdditionFileExtension);
         $this->writeVHostToProjectFile($virtualHostEditorAdditionFileExtension);
     }
 
-    private function attemptVHostDeletion(){
+    protected function attemptVHostDeletion(){
         $this->deleteVHostAsRoot();
         $this->deleteVHostFromProjectFile();
     }
 
-    private function processVHost() {
+    protected function processVHost() {
         // @todo do this with the templating module instead
         $replacements =  array('****WEB ROOT****'=>$this->docRoot,
             '****SERVER NAME****'=>$this->url, '****IP ADDRESS****'=>$this->vHostIp);
         $this->vHostTemplate = strtr($this->vHostTemplate, $replacements);
     }
 
-    private function createVHost() {
+    protected function createVHost() {
         $tmpDir = '/tmp/'.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR;
         if (!file_exists($tmpDir)) {mkdir ($tmpDir, 0777, true);}
         return file_put_contents($tmpDir.'/'.$this->url.$this->fileExtension, $this->vHostTemplate);
     }
 
-    private function moveVHostAsRoot($virtualHostEditorAdditionFileExtension=null){
+    protected function moveVHostAsRoot($virtualHostEditorAdditionFileExtension=null){
         $command = 'sudo mv '.'/tmp/'.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR.$this->url.$this->fileExtension.' '.
             $this->vHostDir.'/'.$this->url.$this->fileExtension;
         return self::executeAndOutput($command);
     }
 
-    private function deleteVHostAsRoot(){
+    protected function deleteVHostAsRoot(){
         foreach ($this->vHostForDeletion as $vHost) {
             $command = 'sudo rm -f '.$this->vHostDir.'/'.$vHost;
             self::executeAndOutput($command, "VHost $vHost Deleted  if existed"); }
         return true;
     }
 
-    private function writeVHostToProjectFile($virtualHostEditorAdditionFileExtension=null){
+    protected function writeVHostToProjectFile($virtualHostEditorAdditionFileExtension=null){
         if ($this->checkIsDHProject()){
             \Model\AppConfig::setProjectVariable("virtual-hosts", $this->url.$virtualHostEditorAdditionFileExtension); }
     }
 
-    private function deleteVHostFromProjectFile(){
+    protected function deleteVHostFromProjectFile(){
         if ($this->checkIsDHProject()){
             $allProjectVHosts = \Model\AppConfig::getProjectVariable("virtual-hosts");
             for ($i = 0; $i<=count($allProjectVHosts) ; $i++ ) {
@@ -312,7 +312,7 @@ class ApacheVHostEditorLinuxMac extends Base {
             \Model\AppConfig::setProjectVariable("virtual-hosts", $allProjectVHosts); }
     }
 
-    private function enableVHost(){
+    protected function enableVHost(){
         if (isset($this->params["vhe-file-ext"]) && strlen($this->params["vhe-file-ext"])>0 ) {
             $command = 'a2ensite '.$this->url.$this->params["vhe-file-ext"]; }
         else {
@@ -320,7 +320,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         return self::executeAndOutput($command, "a2ensite $this->url done");
     }
 
-    private function disableVHost(){
+    protected function disableVHost(){
         if (!is_array($this->vHostForDeletion)) {
             $this->vHostForDeletion = array($this->vHostForDeletion) ; }
         foreach ($this->vHostForDeletion as $vHost) {
@@ -329,13 +329,13 @@ class ApacheVHostEditorLinuxMac extends Base {
         return true;
     }
 
-    private function checkIsDHProject() {
+    protected function checkIsDHProject() {
         return file_exists('papyrusfile');
     }
 
     // @todo get project variable below is wrong
     // @todo look at how ugly this is
-    private function listAllVHosts() {
+    protected function listAllVHosts() {
         $projResults = ($this->checkIsDHProject()) ? \Model\AppConfig::getProjectVariable("virtual-hosts") : array() ;
         $scanned = scandir($this->vHostEnabledDir) ;
         $enabledResults = (count($scanned)) ? $scanned : array() ;
@@ -367,7 +367,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     // @todo look at how ugly this is
-    private function selectVHostInProjectOrFS() {
+    protected function selectVHostInProjectOrFS() {
         if (isset($this->params["vhe-deletion-vhost"])) { return array($this->params["vhe-deletion-vhost"]) ; }
         $projResults = ($this->checkIsDHProject())
           ? \Model\AppConfig::getProjectVariable("virtual-hosts")
@@ -400,7 +400,7 @@ class ApacheVHostEditorLinuxMac extends Base {
     }
 
     // @todo, this is ugly and possibly unneccessary
-    private function selectVHostTemplate(){
+    protected function selectVHostTemplate(){
         if (isset($this->params["vhe-template"])) {
             $this->vHostTemplate = $this->params["vhe-template"] ;
             return ; }
@@ -438,7 +438,7 @@ class ApacheVHostEditorLinuxMac extends Base {
         $this->vHostTemplate = file_get_contents($this->vHostTemplateDir . '/' . $availableVHostTemplates[$input]);
     }
 
-    private function setVHostDefaultTemplates() {
+    protected function setVHostDefaultTemplates() {
 
         $template1 = <<<'TEMPLATE1'
 NameVirtualHost ****IP ADDRESS****
@@ -526,7 +526,7 @@ TEMPLATE5;
     }
 
     // @todo, this is ugly and possibly unneccessary
-    private function selectBalancerVHostTemplate(){
+    protected function selectBalancerVHostTemplate(){
         if (isset($this->params["vhe-template"])) {
             $this->vHostTemplate = $this->params["vhe-template"] ;
             return ; }
@@ -540,7 +540,7 @@ TEMPLATE5;
             return ; }
     }
 
-    private function setBalancerVHostTemplates() {
+    public function setBalancerVHostTemplates() {
 
         $clusterName = $this->askForClusterName() ;
         $servers = $this->getServersText() ;
@@ -556,7 +556,7 @@ TEMPLATE5;
 <VirtualHost ****IP ADDRESS****>
     ServerAdmin webmaster@localhost
     ServerName ****SERVER NAME****
-    ProxyPass / balancer://$clusterName
+    ProxyPass / balancer://$clusterName/
 </VirtualHost>
 
 TEMPLATE1;
@@ -572,7 +572,7 @@ TEMPLATE1;
 <VirtualHost ****IP ADDRESS****>
 	ServerAdmin webmaster@localhost
 	ServerName ****SERVER NAME****
-    ProxyPass / balancer://$clusterName
+    ProxyPass / balancer://$clusterName/
 </VirtualHost>
 
 Listen 443
@@ -600,13 +600,13 @@ TEMPLATE2;
 
     }
 
-    private function askForEnvironment(){
+    protected function askForEnvironment(){
         $question = 'What is the environment name of your web nodes? ';
         $input = self::askForInput($question, true);
         return $input ;
     }
 
-    private function getServersText() {
+    protected function getServersText() {
         $servers = $this->getServersArray() ;
         if ($servers != null) {
             $sText = "\n" ;
@@ -622,7 +622,7 @@ TEMPLATE2;
         return false ;
     }
 
-    private function getServersArray() {
+    protected function getServersArray() {
         if (!isset($this->params["environment-name"])) {
             $loggingFactory = new \Model\Logging() ;
             $log = $loggingFactory->getModel($this->params) ;
@@ -634,7 +634,7 @@ TEMPLATE2;
         return $this->servers ;
     }
 
-    private function getEnvironmentNames($envs) {
+    protected function getEnvironmentNames($envs) {
         $eNames = array() ;
         foreach ($envs as $envKey => $env) {
             $envName = $env["any-app"]["gen_env_name"] ;

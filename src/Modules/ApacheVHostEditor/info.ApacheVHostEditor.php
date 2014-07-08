@@ -43,6 +43,20 @@ class ApacheVHostEditorInfo extends Base {
               # --vhe-template="*template data*"
               # --vhe-default-template-name="docroot-src-suffix" // from default templates
 
+          - add-balancer
+          create a Virtual Host
+          example: sudo dapperstrano vhe add
+          example: sudo dapperstrano vhe add --yes --vhe-docroot=/var/www/the-app --vhe-url=www.dave.com --vhe-file-ext="" --vhe-apache-command="apache2" --vhe-ip-port="127.0.0.1:80" --vhe-vhost-dir="/etc/apache2/sites-available" --vhe-template="*template data*"
+          example: sudo dapperstrano vhe add --yes --guess --vhe-url=www.dave.com
+              # will attempt to guess the following but you can override any
+              # --vhe-docroot=*current working dir*
+              # --vhe-file-ext="ubuntu none, others .conf"
+              # --vhe-apache-command="apache2 or httpd depends on system"
+              # --vhe-ip-port="127.0.0.1:80"
+              # --vhe-vhost-dir="/etc/apache2/sites-available or /etc/httpd/vhosts.d"
+              # --vhe-template="*template data*"
+              # --vhe-default-template-name="docroot-src-suffix" // from default templates
+
           - rm
           example: dapperstrano vhe rm
           example: dapperstrano vhe rm --yes --
