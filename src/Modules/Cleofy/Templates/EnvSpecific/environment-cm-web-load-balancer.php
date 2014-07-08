@@ -59,6 +59,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // Restart Apache for new modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "install" => array(
+                    "guess" => true,
                     "command" => "dapperstrano ApacheCtl restart --yes",
                 ) ) ),
 

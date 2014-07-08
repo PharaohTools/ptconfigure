@@ -105,6 +105,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // Start the Selenium Server
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets also start Selenium so we can use it"),),),
                 array ( "RunCommand" => array("install" => array(
+                    "guess" => true,
                     "command" => 'printf "\n" | java -jar /opt/selenium/selenium-server.jar &',
                     "nohup" => true
                 ),),),
@@ -133,6 +134,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // Reverse proxy port 8080 to port 80, so we can close 80800 in the firewall
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
                 array ( "RunCommand" => array("install" => array(
+                    "guess" => true,
                     "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>",
                 ),),),
 
