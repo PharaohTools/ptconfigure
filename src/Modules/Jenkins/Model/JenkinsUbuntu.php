@@ -32,26 +32,18 @@ class JenkinsUbuntu extends BaseLinuxApp {
     }
 
     protected function getInstallCommands() {
-        if (!isset($this->params["with-http-port-proxy"])) {
+        $ray = array(
+            array("command" => array(
+                "cd /tmp" ,
+                "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
+                "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
+                "apt-get update -y",
+                "apt-get install -y jenkins") )
+        ) ;
+        if (isset($this->params["with-http-port-proxy"])) {
             $dapperAuto = $this->getDapperAutoPath() ;
-            return array(
-                array("command" => array(
-                    "cd /tmp" ,
-                    "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
-                    "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
-                    "apt-get update -y",
-                    "apt-get install -y jenkins",
-                    "sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto" ) )
-            ) ;  }
-        else {
-            return array(
-                array("command" => array(
-                    "cd /tmp" ,
-                    "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
-                    "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
-                    "apt-get update -y",
-                    "apt-get install -y jenkins") )
-            ) ;  }
+            $ray[0]["command"][5] = "sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto" ; }
+        return $ray ;
     }
 
     private function getDapperAutoPath() {
