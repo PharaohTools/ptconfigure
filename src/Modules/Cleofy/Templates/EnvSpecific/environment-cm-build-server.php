@@ -13,6 +13,9 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        // @todo find a better way to get this filename
+        $reverseProxyAutopilot = "/opt/cleopatra/cleopatra/src/Modules/Jenkins/Autopilots/Dapperstrano/proxy-8080-to-80.php" ;
+
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Jenkins build server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
@@ -99,7 +102,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Selenium Server is installed"),),),
                 array ( "SeleniumServer" => array( "ensure" => array("guess" => true ),),),
 
-                // @todo Runcommand is, im pretty sure, not working properly for starting this background process
                 // Start the Selenium Server
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets also start Selenium so we can use it"),),),
                 array ( "RunCommand" => array("install" => array(
@@ -128,8 +130,13 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPUnit is installed"),),),
                 array ( "PHPUnit" => array( "ensure" => array("guess" => true ),),),
 
+                // Reverse proxy port 8080 to port 80, so we can close 80800 in the firewall
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
+                array ( "RunCommand" => array("install" => array(
+                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot",
+                ),),),
+
                 // Firewall
-                // @todo when the dapper reverse proxy works we can deny 8080 requests
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets disable Firewall to change settings"), ) , ) ,
                 array ( "Firewall" => array( "disable" => array(), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets deny all input"), ) , ) ,
@@ -140,8 +147,6 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "http/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "https/tcp" ), ) , ) ,
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow 8080 input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "8080/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
                 array ( "Firewall" => array( "enable" => array(), ) , ) ,
 
