@@ -106,7 +106,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets also start Selenium so we can use it"),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'printf "\n" | java -jar /opt/selenium/selenium-server.jar &',
+                    "command" => 'selenium > /tmp/selenium-output.out 2> /tmp/selenium-error.err < /dev/null &',
                     "nohup" => true
                 ),),),
 
@@ -149,6 +149,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "http/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
                 array ( "Firewall" => array( "allow" => array("firewall-rule" => "https/tcp" ), ) , ) ,
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow 8080 input"), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("firewall-rule" => "8080/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
                 array ( "Firewall" => array( "enable" => array(), ) , ) ,
 
