@@ -12,16 +12,18 @@ class Autopilot extends Base {
 
         $action = $pageVars["route"]["action"];
 
-      if ($action=="install" || $action=="execute") {
-        if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
-          $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
-          if ( $autoPilot!==null ) {
-            $autoPilotExecutor = new \Controller\AutopilotExecutor();
-            return $autoPilotExecutor->execute($pageVars, $autoPilot); }
-          else {
-            $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }
+        if ($action=="install" || $action=="execute") {
+            if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
+                $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
+                if ( $autoPilot!==null ) {
+                    $autoPilotExecutor = new \Controller\AutopilotExecutor();
+                    // get params from the base model to inject into the loaded autopilot object
+                    $autoPilot->params = $thisModel->params ;
+                    return $autoPilotExecutor->execute($pageVars, $autoPilot); }
+            else {
+                $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }
         else {
-          $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
+            $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
 
       else if ($action=="help") {
             $helpModel = new \Model\Help();
