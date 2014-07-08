@@ -54,6 +54,11 @@ class JenkinsUbuntu extends BaseLinuxApp {
             ) ;  }
     }
 
+    private function getDapperAutoPath() {
+        $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/proxy-8080-to-80.php' ;
+        return $path ;
+    }
+
     public function versionInstalledCommandTrimmer($text) {
         $done = substr($text, 23, 15) ;
         return $done ;
@@ -67,11 +72,6 @@ class JenkinsUbuntu extends BaseLinuxApp {
     public function versionRecommendedCommandTrimmer($text) {
         $done = substr($text, 42, 23) ;
         return $done ;
-    }
-
-    private function getDapperAutoPath() {
-        $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/proxy-8080-to-80.php' ;
-        return $path ;
     }
 
 }
