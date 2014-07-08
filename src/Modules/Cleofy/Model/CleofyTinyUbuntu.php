@@ -77,6 +77,7 @@ class CleofyTinyUbuntu extends Base {
                   array(
                       "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
                       "env_name" => $environment["any-app"]["gen_env_name"],
+                      "first_server_target" => $environment["servers"][0]["target"],
                   ),
                   $targetLocation );
           echo $targetLocation."\n"; } } }
