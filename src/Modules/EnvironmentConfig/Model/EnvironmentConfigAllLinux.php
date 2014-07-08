@@ -18,6 +18,22 @@ class EnvironmentConfigAllLinux extends Base {
     public $environments = array() ;
     private $environmentReplacements ;
 
+    public function __construct($params) {
+        parent::__construct($params) ;
+        $this->setDefaultEnvironments();
+    }
+
+    protected function setDefaultEnvironments() {
+        $this->environments[] = array(
+            "any-app" => array("gen_env_name" => "default-local", "gen_env_tmp_dir" => "/tmp/"),
+            "servers" => array(array("target" => "127.0.0.1", "user" =>"local", "password" => "local") ),
+        ) ;
+        $this->environments[] = array(
+            "any-app" => array("gen_env_name" => "default-local-8080", "gen_env_tmp_dir" => "/tmp/"),
+            "servers" => array(array("target" => "127.0.0.1:8080", "user" =>"local", "password" => "local") ),
+        ) ;
+    }
+
     public function askWhetherToEnvironmentConfig($arrayOfReplacements = null) {
         if ($arrayOfReplacements == null) {
             if ($this->askToScreenWhetherToEnvironmentConfig() != true) { return false; } }
@@ -200,7 +216,15 @@ class EnvironmentConfigAllLinux extends Base {
     }
 
     private function writeEnvsToProjectFile() {
-        \Model\AppConfig::setProjectVariable("environments", $this->environments);
+        $all_envs = $this->removeDefaultEnvironments() ;
+        \Model\AppConfig::setProjectVariable("environments", $all_envs);
+    }
+
+    private function removeDefaultEnvironments() {
+        unset($this->environments[0]) ;
+        foreach ($this->environments as $environment) {
+            $all_envs[] = $environment ; }
+        return $all_envs ;
     }
 
 }
