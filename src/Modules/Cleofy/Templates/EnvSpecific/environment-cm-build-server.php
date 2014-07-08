@@ -87,7 +87,9 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Jenkins
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jenkins is installed" ),),),
-                array ( "Jenkins" => array( "install" => array(),),),
+                array ( "Jenkins" => array( "install" => array(
+                    "with-http-port-proxy" => true
+                ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jenkins PHP Plugins are installed"),),),
                 array ( "JenkinsPlugins" => array( "install" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the Jenkins user can use Sudo without a Password"),),),

@@ -86,6 +86,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure GitBucket is installed" ),),),
                 array ( "GitBucket" => array( "ensure" => array(
                     "guess" => true,
+                    "with-http-port-proxy" => true
                 ),),),
 
                 // Start Git Bucket
