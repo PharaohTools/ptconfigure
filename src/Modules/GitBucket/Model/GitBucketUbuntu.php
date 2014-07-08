@@ -17,21 +17,7 @@ class GitBucketUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "GitBucket";
-        $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
-            array("command"=> array(
-                "cd /tmp" ,
-                "mkdir -p /tmp/gitbucket" ,
-                "cd /tmp/gitbucket" ,
-                "git clone https://github.com/phpengine/gitbucket-war.git",
-                "mkdir -p ****PROGDIR****",
-                "mv /tmp/gitbucket/gitbucket-war/* ****PROGDIR****",
-                "rm -rf /tmp/gitbucket/" ) ) ,
-            array("method"=> array("object" => $this, "method" => "askForRepoHome", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "setExecutorCommand", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
-        );
+        $this->installCommands = $this->getInstallCommands() ;
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
@@ -47,6 +33,36 @@ class GitBucketUbuntu extends BaseLinuxApp {
         $this->versionLatestCommand = 'echo "1.13"' ;
         $this->initialize();
     }
+
+    protected function getInstallCommands() {
+        $ray =  array(
+            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
+            array("command"=> array(
+                "cd /tmp" ,
+                "mkdir -p /tmp/gitbucket" ,
+                "cd /tmp/gitbucket" ,
+                "git clone https://github.com/phpengine/gitbucket-war.git",
+                "mkdir -p ****PROGDIR****",
+                "mv /tmp/gitbucket/gitbucket-war/* ****PROGDIR****",
+                "rm -rf /tmp/gitbucket/" ) ) ,
+            array("method"=> array("object" => $this, "method" => "askForRepoHome", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "setExecutorCommand", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
+        );
+        if (isset($this->params["with-http-port-proxy"])) {
+            $dapperAuto = $this->getDapperAutoPath() ;
+            $miniray = array("command"=> array("sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto")) ;
+            array_push($ray, $miniray)  ;
+        }
+        return $ray ;
+    }
+
+    private function getDapperAutoPath() {
+        $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/proxy-8080-to-80.php' ;
+        return $path ;
+    }
+
 
     public function executeDependencies() {
         $gitToolsFactory = new \Model\GitTools();
