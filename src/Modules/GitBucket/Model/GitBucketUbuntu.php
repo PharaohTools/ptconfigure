@@ -50,7 +50,7 @@ class GitBucketUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
-        if (isset($this->params["with-http-port-proxy"])) {
+        if (isset($this->params["with-http-port-proxy"]) && $this->params["with-http-port-proxy"] == true) {
             $dapperAuto = $this->getDapperAutoPath() ;
             $miniray = array("command"=> array("sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto")) ;
             array_push($ray, $miniray)  ;
