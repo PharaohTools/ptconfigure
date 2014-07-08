@@ -133,7 +133,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // Reverse proxy port 8080 to port 80, so we can close 80800 in the firewall
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
                 array ( "RunCommand" => array("install" => array(
-                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot",
+                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>",
                 ),),),
 
                 // Firewall
