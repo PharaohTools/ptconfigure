@@ -47,10 +47,17 @@ class AutoPilotConfigured extends AutoPilot {
                 // Apache
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Apache Server is installed" ),),),
                 array ( "ApacheServer" => array( "ensure" =>  array("version" => "2.2"), ), ),
+
+                // Apache Modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
                 array ( "ApacheModules" => array( "ensure" => array(),),),
 
-                // Build Tools
+                // Apache Modules
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Reverse Proxy Apache Modules are installed" ),),),
+                array ( "ApacheReverseProxyModules" => array( "ensure" => array(),),),
+
+
+            // Build Tools
 
                 // Pear
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Pear is installed"),),),
