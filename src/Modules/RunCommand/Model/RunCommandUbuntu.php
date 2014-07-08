@@ -72,9 +72,12 @@ class RunCommandUbuntu extends BaseLinuxApp {
     }
 
     public function askForNohup() {
-        if (isset($this->params["nohup"])) {
+        if (isset($this->params["nohup"]) && $this->params["nohup"]==true) {
             $useNoHup = (strlen($this->params["nohup"]) > 0) ? true : false ;
             $this->nohup = $useNoHup ;
+            return ; }
+        if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->nohup = false ;
             return ; }
         $question = "Use NoHup?:";
         $this->nohup = self::askYesOrNo($question);
@@ -87,6 +90,9 @@ class RunCommandUbuntu extends BaseLinuxApp {
             $this->background = true ; }
         else if (isset($this->params["background"]) && strlen($this->params["background"])==0) {
             $this->background = null ; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->background = null ;
+            return ; }
         else {
             $this->background = null; }
     }
