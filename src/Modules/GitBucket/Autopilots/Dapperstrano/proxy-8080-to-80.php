@@ -31,8 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // ubuntu 14 dapper model should guess .conf whether its centos or ubuntu, past ubuntu 2.4
                 "vhe-file-ext" => ".conf",
                 "vhe-default-template-name" => "http",
-                "environment-name" => "local",
-                "with-http-port-proxy" => true
+                "environment-name" => "local"
             ),),),
 
             array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
