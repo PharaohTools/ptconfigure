@@ -14,6 +14,9 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        // @todo find a better way to get this filename
+        $reverseProxyAutopilot = "/opt/cleopatra/cleopatra/src/Modules/GitBucket/Autopilots/Dapperstrano/proxy-8080-to-80.php" ;
+
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Git SCM Server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
@@ -68,6 +71,10 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our common Apache Modules are installed" ),),),
                 array ( "ApacheModules" => array( "ensure" => array(),),),
 
+                // Apache Modules
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Reverse Proxy Apache Modules are installed" ),),),
+                array ( "ApacheReverseProxyModules" => array( "ensure" => array(),),),
+
                 // Restart Apache for new modules
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "install" => array(
@@ -87,6 +94,13 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => "gitbucket",
                 ) ) ),
+
+                // Reverse proxy port 8080 to port 80, so we can close 80800 in the firewall
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
+                array ( "RunCommand" => array("install" => array(
+                    "guess" => true,
+                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>",
+                ),),),
 
                 // Firewall
                 // @todo when the dapper reverse proxy works we can deny 8080 requests
