@@ -27,6 +27,14 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
+                    "log-message" => "Next lets SFTP over our Papyrus File"
+                ), ), ),
+                array ( "SFTP" => array( "put" => array(
+                    "source" => getcwd()."/papyrusfile" ,
+                    "target" => "/tmp/papyrusfile",
+                    "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
+                ), ), ),
+                array ( "Logging" => array( "log" => array(
                     "log-message" => "Lets run that autopilot"
                 ), ), ),
                 array ( "Invoke" => array( "data" => array(
@@ -43,6 +51,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
+cd /tmp
 sudo cleopatra autopilot execute --autopilot-file="/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php"
 rm /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php
 SSHDATA;
