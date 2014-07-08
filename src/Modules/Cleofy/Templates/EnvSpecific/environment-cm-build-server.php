@@ -144,7 +144,9 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>",
+                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot".
+                                 " --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>".
+                                 " --vhe-ip=<%tpl.php%>first_server_target</%tpl.php%>",
                 ),),),
 
                 // Firewall
