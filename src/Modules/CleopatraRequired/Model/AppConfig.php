@@ -4,13 +4,14 @@ Namespace Model;
 
 class AppConfig {
 
-    private function checkSettingsExist($pfile = null) {
+    private static function checkSettingsExistOrCreateIt($pfile = null) {
         $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
-        return (file_exists($pfile)) ? true : false ;
+        if (!file_exists($pfile)) { touch($pfile); }
+        return true;
     }
 
     public static function setProjectVariable($variable, $value, $listAdd=null, $listAddKey=null) {
-        if (self::checkSettingsExist()) {
+        if (self::checkSettingsExistOrCreateIt()) {
             $appConfigArray = self::loadProjectFile();
             if ( $listAdd == true && $listAddKey==null ) {
                 if ( isset($appConfigArray[$variable]) && is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
@@ -19,16 +20,6 @@ class AppConfig {
                 $appConfigArray[$variable][$listAddKey] = $value ; }
             else { $appConfigArray[$variable] = $value ; }
             self::saveProjectFile( $appConfigArray ) ; }
-        else {
-            self::failNoPapyrus() ; }
-    }
-
-    private static function failNoPapyrus() {
-        $loggingFactory = new \Model\Logging() ;
-        $log = $loggingFactory->getModel(array()) ;
-        $log->log("Error: No papyrusfile found. Project Variables must be configured in a project") ;
-        $log->log("Try: \"dapperstrano proj init\" to initialize your project.") ;
-        return false;
     }
 
     /*
@@ -38,6 +29,7 @@ class AppConfig {
      *
      */
     public static function deleteProjectVariable($variable, $key=null, $value=null) {
+        if (self::checkSettingsExistOrCreateIt()) {
             $appConfigArray = self::loadProjectFile();
             if ( isset($key) ) {
                 // if variable is array without keys, delete entry by value
@@ -50,13 +42,14 @@ class AppConfig {
                     unset($appConfigArray[$variable][$key]) ; } }
             else {
                 unset($appConfigArray[$variable]) ; }
-            self::saveProjectFile( $appConfigArray ) ;
+            self::saveProjectFile( $appConfigArray ) ; }
     }
 
     public static function getProjectVariable($variable) {
         $value = null;
-        $appConfigArray = self::loadProjectFile();
-        $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ;
+        if (self::checkSettingsExistOrCreateIt()) {
+            $appConfigArray = self::loadProjectFile();
+            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ; }
         return $value;
     }
 
