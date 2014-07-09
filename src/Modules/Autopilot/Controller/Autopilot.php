@@ -12,16 +12,16 @@ class Autopilot extends Base {
 
         $action = $pageVars["route"]["action"];
 
-      if ($action=="install" || $action=="execute") {
-        if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
-          $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
-          if ( $autoPilot!==null ) {
-            $autoPilotExecutor = new \Controller\AutopilotExecutor();
-            // get params from the base model to inject into the loaded autopilot object
-            $autoPilot->params = $thisModel->params ;
-            return $autoPilotExecutor->execute($pageVars, $autoPilot); }
-          else {
-            $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }
+        if ($action=="install" || $action=="execute") {
+            if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
+                $autoPilot = $this->loadAutoPilot($thisModel->params);
+                if ( $autoPilot!==null ) {
+                    $autoPilotExecutor = new \Controller\AutopilotExecutor();
+                    // get params from the base model to inject into the loaded autopilot object
+                    $autoPilot->params = $thisModel->params ;
+                    return $autoPilotExecutor->execute($pageVars, $autoPilot); }
+                else {
+                $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }
         else {
           $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
 
@@ -37,8 +37,8 @@ class Autopilot extends Base {
 
     }
 
-    private function loadAutoPilot($autoPilotFileName){
-        $autoPilotFileName = escapeshellcmd($autoPilotFileName);
+    private function loadAutoPilot($params){
+        $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
         $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
         $defaultFolderToCheck = str_replace("src/Controller",
           "build/config/cleopatra", dirname(__FILE__));
@@ -52,7 +52,7 @@ class Autopilot extends Base {
         else if (file_exists($autoPilotFilePath)) {
             require_once($autoPilotFilePath); }
         $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
-          new \Core\AutoPilotConfigured() : null ;
+          new \Core\AutoPilotConfigured($params) : null ;
         return $autoPilot;
     }
 
