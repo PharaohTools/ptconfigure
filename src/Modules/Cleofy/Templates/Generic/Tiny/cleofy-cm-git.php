@@ -25,10 +25,12 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Git Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
+                    "guess" => true,
                     "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-git-invoke-cleo-dapper-new.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Git Box on the Git Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
+                    "guess" => true,
                     "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/tiny-git-invoke-git.php"',
                 ),),),
             );
