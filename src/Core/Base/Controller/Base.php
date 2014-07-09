@@ -56,7 +56,6 @@ class Base {
         else if (!isset($thisModel)) {
             $this->content["messages"][] = "Required Model Missing. Cannot Continue.";
             return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); }
-
         return false;
     }
 

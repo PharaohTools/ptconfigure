@@ -11,7 +11,6 @@ class Autopilot extends Base {
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
         $action = $pageVars["route"]["action"];
-
         if ($action=="install" || $action=="execute") {
             if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
                 $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
@@ -21,9 +20,9 @@ class Autopilot extends Base {
                     $autoPilot->params = $thisModel->params ;
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
             else {
-                $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }
+                $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
         else {
-            $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
+            $this->content["messages"][] = "Action should be install or execute"; } }
 
       else if ($action=="help") {
             $helpModel = new \Model\Help();

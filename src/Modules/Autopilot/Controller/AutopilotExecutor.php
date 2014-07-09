@@ -6,16 +6,21 @@ use Core\View;
 
 class AutopilotExecutor extends Base {
 
-    public function execute($pageVars, $autopilot) {
-      $params = $pageVars["route"]["extraParams"];
-      $this->content["package-friendly"] = "Autopilot";
-      $this->registeredModels = $autopilot->steps ;
-      $this->checkForRegisteredModels($params);
-      $this->content["autoExec"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $params);
-      return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
+    public function execute($pageVars, $autopilot ) {
+        $params = $pageVars["route"]["extraParams"];
+
+        $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
+        // if we don't have an object, its an array of errors
+        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+
+        $this->content["package-friendly"] = "Autopilot";
+        $this->registeredModels = $autopilot->steps ;
+        $this->checkForRegisteredModels($params);
+        $this->content["autoExec"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
+        return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
-    protected function executeMyRegisteredModelsAutopilot($autoPilot) {
+    protected function executeMyRegisteredModelsAutopilot($autoPilot, $autopilotParams) {
         $dataFromThis = "";
         foreach ($autoPilot->steps as $modelArray) {
             $currentControls = array_keys($modelArray) ;
@@ -23,7 +28,7 @@ class AutopilotExecutor extends Base {
             $currentActions = array_keys($modelArray[$currentControl]) ;
             $currentAction = $currentActions[0] ;
             $modParams = $modelArray[$currentControl][$currentAction] ;
-            $modParams = $this->formatParams($modParams) ;
+            $modParams = $this->formatParams(array_merge($modParams, $autopilotParams)) ;
             $params = array() ;
             $params["route"] =
             array(
@@ -31,10 +36,7 @@ class AutopilotExecutor extends Base {
                 "control" => $currentControl ,
                 "action" => $currentAction ,
             ) ;
-            $dataFromThis .= $this->executeControl($currentControl, $params);
-
-        }
-
+            $dataFromThis .= $this->executeControl($currentControl, $params); }
         return $dataFromThis ;
     }
 
