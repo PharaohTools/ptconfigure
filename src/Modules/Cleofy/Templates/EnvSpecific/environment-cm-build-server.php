@@ -88,7 +88,8 @@ class AutoPilotConfigured extends AutoPilot {
                 // Jenkins
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jenkins is installed" ),),),
                 array ( "Jenkins" => array( "install" => array(
-                    "with-http-port-proxy" => true
+                    // @todo Add back the http-proxy when its ready
+                    // "with-http-port-proxy" => true
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jenkins PHP Plugins are installed"),),),
                 array ( "JenkinsPlugins" => array( "install" => array(),),),
