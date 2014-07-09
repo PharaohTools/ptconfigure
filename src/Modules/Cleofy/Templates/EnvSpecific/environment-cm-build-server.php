@@ -140,7 +140,9 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPUnit is installed"),),),
                 array ( "PHPUnit" => array( "ensure" => array("guess" => true ),),),
 
+                // @todo just removing this step because its not priority now
                 // Reverse proxy port 8080 to port 80, so we can close 80800 in the firewall
+                /*
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
@@ -148,6 +150,7 @@ class AutoPilotConfigured extends AutoPilot {
                                  " --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>".
                                  " --vhe-ip-port=<%tpl.php%>first_server_target</%tpl.php%>:80",
                 ),),),
+                */
 
                 // Firewall
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets disable Firewall to change settings"), ) , ) ,
