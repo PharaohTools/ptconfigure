@@ -2,13 +2,12 @@
 
 Namespace Core ;
 
-class AutoPilot extends \Model\Base{
+class AutoPilot {
 
     public $params ;
     protected $appHomeDir ;
 
-    public function __construct($params = null) {
-        parent::__construct($params);
+    public function __construct() {
         $this->setProperties();
     }
 
