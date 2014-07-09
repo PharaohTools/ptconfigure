@@ -146,7 +146,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot".
                                  " --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>".
-                                 " --vhe-ip=<%tpl.php%>first_server_target</%tpl.php%>",
+                                 " --vhe-ip-port=<%tpl.php%>first_server_target</%tpl.php%>:80",
                 ),),),
 
                 // Firewall
