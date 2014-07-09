@@ -221,6 +221,7 @@ class EnvironmentConfigAllLinux extends Base {
     }
 
     private function removeDefaultEnvironments() {
+        $all_envs = array() ;
         unset($this->environments[0]) ;
         foreach ($this->environments as $environment) {
             $all_envs[] = $environment ; }
