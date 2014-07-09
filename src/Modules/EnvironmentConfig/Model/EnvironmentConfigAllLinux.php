@@ -220,9 +220,10 @@ class EnvironmentConfigAllLinux extends Base {
         \Model\AppConfig::setProjectVariable("environments", $all_envs);
     }
 
+    // @todo this setup of having a default-local environment is not complete
     private function removeDefaultEnvironments() {
         $all_envs = array() ;
-        unset($this->environments[0]) ;
+        // unset($this->environments[0]) ;
         foreach ($this->environments as $environment) {
             $all_envs[] = $environment ; }
         return $all_envs ;
