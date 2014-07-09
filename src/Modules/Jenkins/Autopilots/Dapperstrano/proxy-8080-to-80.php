@@ -6,15 +6,13 @@ class AutoPilotConfigured extends AutoPilot {
 
     public $steps ;
 
-    public function __construct() {
+    public function __construct($params = null) {
+        parent::__construct($params);
         $this->setSteps();
     }
 
     /* Steps */
     private function setSteps() {
-
-        $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : 'www.jenkins.tld' ;
-        $vhe_ip = (isset($this->params['vhe-ip'])) ? $this->params['vhe-ip'] : '127.0.0.1' ;
 
         $this->steps =
             array(
@@ -25,8 +23,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
                 array ( "ApacheVHostEditor" => array( "add-balancer" => array(
                     "guess" => true,
-                    "vhe-url" => "$vhe_url",
-                    "vhe-ip-port" => "$vhe_ip:80",
+                    // "vhe-url" => "", this variable is pumped in from parent
+                    // "vhe-ip-port" => "", this variable is pumped in from parent
                     "vhe-cluster-name" => "jenkins-proxy",
                     // @todo we should let it guess this, and make sure the ubuntu 14 mode provide s correct result
                     // ubuntu 14 dapper model should guess .conf whether its centos or ubuntu, past ubuntu 2.4
