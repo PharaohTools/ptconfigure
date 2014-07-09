@@ -2,6 +2,8 @@
 
 Namespace Core ;
 
+use Model\Base;
+
 class AutoPilot {
 
     public $params ;
