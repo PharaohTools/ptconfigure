@@ -90,7 +90,7 @@ class EnvironmentConfigAllLinux extends Base {
             if ($useProjEnvs == true ) {
                 $this->environments = $allProjectEnvs;
                 $i = 0;
-                foreach ($this->environments as $oneEnvironment) {
+                foreach ($this->environments as $oneEnvironmentIndex => $oneEnvironment) {
                     if (isset($this->params["environment-name"])) {
                         if ($this->params["environment-name"] != $oneEnvironment["any-app"]["gen_env_name"]) {
                             $tx = "Skipping Environment {$oneEnvironment["any-app"]["gen_env_name"]} " ;
@@ -118,7 +118,8 @@ class EnvironmentConfigAllLinux extends Base {
                     else {
                         echo "Settings for ".$curEnvGroup." not setup for environment " .
                             "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
-                        $this->populateAnEnvironment($i, $curEnvGroup) ; }
+                        $ix = ($oneEnvironmentIndex != null) ? $oneEnvironmentIndex : $i ;
+                        $this->populateAnEnvironment($ix, $curEnvGroup) ; }
                     $i++; } } }
         $i = 0;
         $more_envs = true;
@@ -216,13 +217,16 @@ class EnvironmentConfigAllLinux extends Base {
     }
 
     private function writeEnvsToProjectFile() {
-        $all_envs = $this->removeDefaultEnvironments() ;
-        \Model\AppConfig::setProjectVariable("environments", $all_envs);
+        // @todo redo this so it works eh
+//        $all_envs = $this->removeDefaultEnvironments() ;
+//        \Model\AppConfig::setProjectVariable("environments", $all_envs);
+        \Model\AppConfig::setProjectVariable("environments", $this->environments);
     }
 
+    // @todo this setup of having a default-local environment is not complete
     private function removeDefaultEnvironments() {
         $all_envs = array() ;
-        unset($this->environments[0]) ;
+        // unset($this->environments[0]) ;
         foreach ($this->environments as $environment) {
             $all_envs[] = $environment ; }
         return $all_envs ;
