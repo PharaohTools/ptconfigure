@@ -202,8 +202,14 @@ class DBConfigureAllOS extends Base {
 		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
 		if (isset($this->params["guess"])) { $path = getcwd() ; }
 		if (!isset($path)) { $path = getcwd() ; }
-        $command  = 'cat '.$path."/".$this->platformVars->getProperty("settingsFileLocation").'/';
+        $len = strlen($path) ;
+        $lastChar = substr($path, ($len-1), $len);
+        if ($lastChar != '/') { $path .= '/' ; }
+        $command  = 'cat '.$path ;
+        $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
+            ? $this->platformVars->getProperty("settingsFileLocation").'/' : "";
         $command .= $this->platformVars->getProperty("settingsFileName");
+        echo $command ;
         $this->settingsFileData = self::executeAndLoad($command);
     }
 
