@@ -257,7 +257,7 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function createSettingsFile() {
-		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
+		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
           ? $location = $parent."/".$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
@@ -267,7 +267,7 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function removeOldSettingsFile(){
-		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
+		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
           ? $location = $parent."/".$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
