@@ -11,7 +11,7 @@ class ApacheVHostEditorUbuntu14 extends ApacheVHostEditorUbuntuUpto13AndCentos {
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
     public $versions = array("14.04", "14.10") ;
-    public $architectures = array("64") ;
+    public $architectures = array("32", "64") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
