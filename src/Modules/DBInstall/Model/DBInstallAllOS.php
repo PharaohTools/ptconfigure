@@ -326,7 +326,7 @@ class DBInstallAllOS extends Base {
     }
 
     private function sqlInstaller() {
-		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"]."/" ; }
+		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
 		if (isset($this->params["guess"])) { $path = getcwd()."/" ; }
 		if (!isset($path)) { $path = getcwd()."/" ; }
         $sqlFileToExecute = $path."db/database.sql" ;
