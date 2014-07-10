@@ -191,6 +191,7 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
         return self::askForInput($question, true);
     }
 
+    //@todo this should guess the difference between apache on Ubuntu<=13 and Ubuntu>14
     protected function askForFileExtension() {
         if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         if (isset($this->params["guess"])) {

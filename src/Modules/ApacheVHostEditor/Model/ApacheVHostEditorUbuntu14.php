@@ -80,4 +80,12 @@ TEMPLATE2;
 
     }
 
+    protected function askForFileExtension() {
+        if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
+        if (isset($this->params["guess"])) { return ".conf" ; }
+        $question = 'What File Extension should be used? Enter nothing for None (probably .conf on this system)';
+        $input = self::askForInput($question) ;
+        return $input ;
+    }
+
 }
