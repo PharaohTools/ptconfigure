@@ -51,8 +51,13 @@ class DapperfyWordpressAllOS extends DapperfyAllOS {
     }
 
     public function doDapperfy() {
-        $templatesDir = str_replace("Model", "Templates/Dapperfy/".ucfirst($this->platform), dirname(__FILE__) ) ;
-        $templates = scandir($templatesDir);
+        $templatesDir1 = str_replace("Wordpress", "Dapperfy", dirname(__FILE__) ) ;
+        $templatesDir1 = str_replace("Model", "Templates", $templatesDir1 ) ;
+        $templates1 = scandir($templatesDir1);
+
+        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/".ucfirst($this->platform), dirname(__FILE__) ) ;
+        $templates2 = scandir($templatesDir2);
+        // $templates = array_merge($templates2, $templates1) ;
         foreach ($this->environments as $environment) {
 
             if (isset($this->params["environment-name"])) {
@@ -75,18 +80,33 @@ class DapperfyWordpressAllOS extends DapperfyAllOS {
             else {
                 $replacements = $defaultReplacements ; }
 
-            foreach ($templates as $template) {
-            if (!in_array($template, array(".", ".."))) {
-                $templatorFactory = new \Model\Templating();
-                $templator = $templatorFactory->getModel($this->params);
-                $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
-                $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
-                $templator->template(
-                    file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
-                    $replacements,
-                    $targetLocation );
-                echo $targetLocation."\n"; } } }
+            echo "Original Dapperfies:\n" ;
+            foreach ($templates1 as $template) {
+                if (!in_array($template, array(".", ".."))) {
+                    $templatorFactory = new \Model\Templating();
+                    $templator = $templatorFactory->getModel($this->params);
+                    $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                    $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                    $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                    $templator->template(
+                        file_get_contents($templatesDir1.DIRECTORY_SEPARATOR.$template),
+                        $replacements,
+                        $targetLocation );
+                    echo $targetLocation."\n"; } }
+
+            echo "Wordpress Dapperfies:\n" ;
+            foreach ($templates2 as $template) {
+                if (!in_array($template, array(".", ".."))) {
+                    $templatorFactory = new \Model\Templating();
+                    $templator = $templatorFactory->getModel($this->params);
+                    $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                    $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                    $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                    $templator->template(
+                        file_get_contents($templatesDir2.DIRECTORY_SEPARATOR.$template),
+                        $replacements,
+                        $targetLocation );
+                    echo $targetLocation."\n"; } } }
     }
 
 }
