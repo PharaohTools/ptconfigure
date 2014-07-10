@@ -63,6 +63,8 @@ class AutoPilotConfigured extends AutoPilot {
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
                     "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
                     "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                 ), ) , ) ,
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets drop our current database if it exists"), ) ),
@@ -72,6 +74,8 @@ class AutoPilotConfigured extends AutoPilot {
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
                     "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
                     "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array("log-message" => "Now lets install our database"), ), ),
@@ -80,7 +84,9 @@ class AutoPilotConfigured extends AutoPilot {
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
                     "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
-                    "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>"
+                    "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "The application is installed now so lets do our versioning" ), ), ),

@@ -63,6 +63,8 @@ class AutoPilotConfigured extends AutoPilot {
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
                     "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
                     "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                 ), ) , ) ,
 
                 array ( "Logging" => array( "log" => array( "log-message" => "The application is installed now so lets do our versioning" ), ), ),
