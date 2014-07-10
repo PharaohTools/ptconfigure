@@ -125,7 +125,7 @@ class DBConfigureAllOS extends Base {
 
     protected function askForRootDBUser(){
         if (isset($this->params["mysql-admin-user"])) { return $this->params["mysql-admin-user"] ; }
-        $question = 'What\'s the MySQL Admin User? (Enter nothing to skip loading current users to help config)';
+        $question = 'What\'s the MySQL Admin User? (Enter nothing to skip loading current users to choose from)';
         return self::askForInput($question, true);
     }
 
