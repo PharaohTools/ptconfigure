@@ -80,7 +80,7 @@ class DapperfyWordpressAllOS extends DapperfyAllOS {
             else {
                 $replacements = $defaultReplacements ; }
 
-            echo "Original Dapperfies:\n" ;
+            echo "Standard Dapperfies:\n" ;
             foreach ($templates1 as $template) {
                 if (!in_array($template, array(".", ".."))) {
                     $templatorFactory = new \Model\Templating();
