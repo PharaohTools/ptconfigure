@@ -186,7 +186,6 @@ class DBConfigureAllOS extends Base {
         return $dbName ;
     }
 
-
     protected function canIConnect(){
         error_reporting(0);
         $con = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
@@ -209,7 +208,6 @@ class DBConfigureAllOS extends Base {
         $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
             ? $this->platformVars->getProperty("settingsFileLocation").'/' : "";
         $command .= $this->platformVars->getProperty("settingsFileName");
-        echo $command ;
         $this->settingsFileData = self::executeAndLoad($command);
     }
 
