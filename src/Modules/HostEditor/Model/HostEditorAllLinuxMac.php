@@ -68,6 +68,7 @@ class HostEditorAllLinuxMac extends Base {
 
     private function askForIPEntryToScreen(){
         if (isset($this->params["host-ip"])) { return $this->params["host-ip"] ; }
+        if (isset($this->params["guess"])) { return "127.0.0.1" ; }
         $question = 'Do you want a non-default IP? Enter for 127.0.0.1';
         return self::askForInput($question);
     }
