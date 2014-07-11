@@ -37,10 +37,10 @@ class DBConfigureDataWordpress extends Base {
 
     private function setReplacements(){
         $this->settingsFileReplacements = array(
-            "define('DB_NAME'," => '  define(\'DB_NAME\', \'****DB NAME****\');',
-            'define(\'DB_USER\',' => '  define(\'DB_USER\', \'****DB USER****\');',
-            'define(\'DB_PASSWORD\',' => '  define(\'DB_PASSWORD\', \'****DB PASS****\');',
-            'define(\'DB_HOST\',' => '  define(\'DB_HOST\', \'****DB HOST****\');',
+            "DB_NAME" => '  define(\'DB_NAME\', \'****DB NAME****\');',
+            'DB_USER' => '  define(\'DB_USER\', \'****DB USER****\');',
+            'DB_PASSWORD' => '  define(\'DB_PASSWORD\', \'****DB PASS****\');',
+            'DB_HOST' => '  define(\'DB_HOST\', \'****DB HOST****\');',
         );
     }
 
