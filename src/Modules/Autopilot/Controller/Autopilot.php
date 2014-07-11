@@ -12,25 +12,25 @@ class Autopilot extends Base {
 
         $action = $pageVars["route"]["action"];
         if ($action=="install" || $action=="execute") {
-            if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
+            if ( isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"]) > 0 ) {
                 $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
                 if ( $autoPilot!==null ) {
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
                     $autoPilot->params = $thisModel->params ;
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
+                else {
+                    $this->content["messages"][] = "There was a problem with the autopilot file specified"; } }
             else {
                 $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
-        else {
-            $this->content["messages"][] = "Action should be install or execute"; } }
 
-      else if ($action=="help") {
+        else if ($action=="help") {
             $helpModel = new \Model\Help();
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-      else {
-        $this->content["messages"][] = "Invalid Action - Action does not Exist for Autopilot"; }
+        else {
+            $this->content["messages"][] = "Invalid Action - Action does not Exist for Autopilot"; }
 
       return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
