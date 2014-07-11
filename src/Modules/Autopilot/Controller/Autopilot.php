@@ -11,29 +11,28 @@ class Autopilot extends Base {
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
         $action = $pageVars["route"]["action"];
-
         if ($action=="install" || $action=="execute") {
-            if (isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"])>0 ) {
-                $autoPilot = $this->loadAutoPilot($thisModel->params);
+            if ( isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"]) > 0 ) {
+                $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
                 if ( $autoPilot!==null ) {
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
                     $autoPilot->params = $thisModel->params ;
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
                 else {
-                $this->content["messages"][] = "No Auto Pilot class exists. Maybe the file was wrong or doesn't contain the class?"; } }
-        else {
-          $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
+                    $this->content["messages"][] = "There was a problem with the autopilot file specified"; } }
+            else {
+                $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
 
-      else if ($action=="help") {
+        else if ($action=="help") {
             $helpModel = new \Model\Help();
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-      else {
-        $this->content["messages"][] = "Invalid Action - Action does not Exist for Autopilot"; }
+        else {
+            $this->content["messages"][] = "Invalid Action - Action does not Exist for Autopilot"; }
 
-      return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
 
