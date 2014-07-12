@@ -80,33 +80,40 @@ class DapperfyWordpressAllOS extends DapperfyAllOS {
             else {
                 $replacements = $defaultReplacements ; }
 
-            echo "Standard Dapperfies:\n" ;
-            foreach ($templates1 as $template) {
-                if (!in_array($template, array(".", ".."))) {
-                    $templatorFactory = new \Model\Templating();
-                    $templator = $templatorFactory->getModel($this->params);
-                    $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                    $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
-                    $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
-                    $templator->template(
-                        file_get_contents($templatesDir1.DIRECTORY_SEPARATOR.$template),
-                        $replacements,
-                        $targetLocation );
-                    echo $targetLocation."\n"; } }
 
-            echo "Wordpress Dapperfies:\n" ;
-            foreach ($templates2 as $template) {
-                if (!in_array($template, array(".", ".."))) {
-                    $templatorFactory = new \Model\Templating();
-                    $templator = $templatorFactory->getModel($this->params);
-                    $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                    $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
-                    $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
-                    $templator->template(
-                        file_get_contents($templatesDir2.DIRECTORY_SEPARATOR.$template),
-                        $replacements,
-                        $targetLocation );
-                    echo $targetLocation."\n"; } } }
+            if (!isset($this->params["no-autopilot-creation"])) {
+
+                echo "Standard Dapperfies:\n" ;
+                foreach ($templates1 as $template) {
+                    if (!in_array($template, array(".", ".."))) {
+                        $templatorFactory = new \Model\Templating();
+                        $templator = $templatorFactory->getModel($this->params);
+                        $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                        $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                        $templator->template(
+                            file_get_contents($templatesDir1.DIRECTORY_SEPARATOR.$template),
+                            $replacements,
+                            $targetLocation );
+                        echo $targetLocation."\n"; } }
+
+                echo "Wordpress Dapperfies:\n" ;
+                foreach ($templates2 as $template) {
+                    if (!in_array($template, array(".", ".."))) {
+                        $templatorFactory = new \Model\Templating();
+                        $templator = $templatorFactory->getModel($this->params);
+                        $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                        $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                        $templator->template(
+                            file_get_contents($templatesDir2.DIRECTORY_SEPARATOR.$template),
+                            $replacements,
+                            $targetLocation );
+                        echo $targetLocation."\n"; } } }
+
+            else {
+                echo "Skipping creation of autopilot files in environment {$environment["any-app"]["gen_env_name"]} due to no-autopilot-creation parameter.\n" ; } }
+
     }
 
 }
