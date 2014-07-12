@@ -13,7 +13,8 @@ class EnvironmentConfigInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "EnvironmentConfig" =>  array_merge(parent::routesAvailable(), array("list", "configure", "config", "delete", "del") ) );
+      return array( "EnvironmentConfig" =>  array_merge(parent::routesAvailable(), array(
+          "list", "configure", "config", "delete", "del", "configure-default", "config-default") ) );
     }
 
     public function routeAliases() {
@@ -35,10 +36,15 @@ class EnvironmentConfigInfo extends CleopatraBase {
         example: cleopatra envconfig list --yes
 
         - configure, config
-        Configure the environments for your project to use
+        Configure bespoke environments for your project to use
         example: cleopatra envconfig config
         example: cleopatra envconfig config --yes --keep-current-environments --no-manual-servers --add-single-environment
                    --environment-name="some-name" --tmp-dir=/tmp/
+
+        - configure-default, config-default
+        Configure default environments for your project to use
+        example: cleopatra envconfig config-default
+        example: cleopatra envconfig config-default --yes --environment-name="local-80/local-8080"
 
         - delete, del
         Configure the environments for your project to use

@@ -20,18 +20,6 @@ class EnvironmentConfigAllLinux extends Base {
 
     public function __construct($params) {
         parent::__construct($params) ;
-        $this->setDefaultEnvironments();
-    }
-
-    protected function setDefaultEnvironments() {
-        $this->environments[] = array(
-            "any-app" => array("gen_env_name" => "default-local", "gen_env_tmp_dir" => "/tmp/"),
-            "servers" => array(array("target" => "127.0.0.1", "user" =>"local", "password" => "local") ),
-        ) ;
-        $this->environments[] = array(
-            "any-app" => array("gen_env_name" => "default-local-8080", "gen_env_tmp_dir" => "/tmp/"),
-            "servers" => array(array("target" => "127.0.0.1:8080", "user" =>"local", "password" => "local") ),
-        ) ;
     }
 
     public function askWhetherToEnvironmentConfig($arrayOfReplacements = null) {
@@ -199,21 +187,22 @@ class EnvironmentConfigAllLinux extends Base {
     }
 
     public function getServers() {
-      $servers = array();
-      $serverAttributes = array("target", "user", "password");
-      $keepGoing = (isset($this->params["no-manual-servers"])) ? false : true ;
-      $question = 'Enter Servers - this is an array of entries';
-      while ($keepGoing == true) {
-        $tinierArray = array();
-        echo $question."\n";
-        foreach ($serverAttributes as $questionTarget) {
-          $miniQuestion = 'Enter '.$questionTarget.' ?';
-          $tinierArray[$questionTarget] = self::askForInput($miniQuestion, true); }
-        $servers[] = $tinierArray;
-        $keepGoingQuestion = 'Add Another Server? (Y/N)';
-        $keepGoingResult = self::askForInput($keepGoingQuestion, true);
-        $keepGoing = ($keepGoingResult == "Y" || $keepGoingResult == "y") ? true : false ; }
-      return $servers;
+        if (isset($this->params["servers"])) { return $this->params["servers"] ; }
+        $servers = array();
+        $serverAttributes = array("target", "user", "password");
+        $keepGoing = (isset($this->params["no-manual-servers"])) ? false : true ;
+        $question = 'Enter Servers - this is an array of entries';
+        while ($keepGoing == true) {
+            $tinierArray = array();
+            echo $question."\n";
+            foreach ($serverAttributes as $questionTarget) {
+                $miniQuestion = 'Enter '.$questionTarget.' ?';
+                $tinierArray[$questionTarget] = self::askForInput($miniQuestion, true); }
+            $servers[] = $tinierArray;
+            $keepGoingQuestion = 'Add Another Server? (Y/N)';
+            $keepGoingResult = self::askForInput($keepGoingQuestion, true);
+            $keepGoing = ($keepGoingResult == "Y" || $keepGoingResult == "y") ? true : false ; }
+        return $servers;
     }
 
     private function writeEnvsToProjectFile() {

@@ -22,6 +22,13 @@ class EnvironmentConfig extends Base {
             $this->content["result"] = $thisModel->askWhetherToEnvironmentConfig();
             return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
 
+        if (in_array($action, array("config-default", "configure-default") )) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "GenericAutos") ;
+            // if we don't have an object, its an array of errors
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $this->content["result"] = $thisModel->askAction($action);
+            return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
+
         if ($action=="delete" || $action=="del") {
             $this->content["result"] = $thisModel->askWhetherToDeleteEnvironment();
             return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
