@@ -50,9 +50,15 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
 
     }
 
+
     public function doDapperfy() {
-        $templatesDir = str_replace("Model", "Templates/Dapperfy/".ucfirst($this->platform), dirname(__FILE__) ) ;
-        $templates = scandir($templatesDir);
+        $templatesDir1 = str_replace("Joomla", "Dapperfy", dirname(__FILE__) ) ;
+        $templatesDir1 = str_replace("Model", "Templates", $templatesDir1 ) ;
+        $templates1 = scandir($templatesDir1);
+
+        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/".ucfirst($this->platform), dirname(__FILE__) ) ;
+        $templates2 = scandir($templatesDir2);
+        // $templates = array_merge($templates2, $templates1) ;
         foreach ($this->environments as $environment) {
 
             if (isset($this->params["environment-name"])) {
@@ -63,30 +69,51 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
                     continue ; } }
 
             $defaultReplacements =
-            array(
-                "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
-                "env_name" => $environment["any-app"]["gen_env_name"],
-                "dap_db_platform" => $this->platform,
-                "gen_env_tmp_dir" => $environment["any-app"]["gen_env_tmp_dir"]
-            ) ;
+                array(
+                    "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                    "env_name" => $environment["any-app"]["gen_env_name"],
+                    "dap_db_platform" => $this->platform,
+                    "gen_env_tmp_dir" => $environment["any-app"]["gen_env_tmp_dir"]
+                ) ;
 
             if (isset($environment["dapper"])) {
                 $replacements = array_merge($defaultReplacements, $environment["dapper"]) ; }
             else {
                 $replacements = $defaultReplacements ; }
 
-            foreach ($templates as $template) {
-            if (!in_array($template, array(".", ".."))) {
-                $templatorFactory = new \Model\Templating();
-                $templator = $templatorFactory->getModel($this->params);
-                $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
-                $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
-                $templator->template(
-                    file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
-                    $replacements,
-                    $targetLocation );
-                echo $targetLocation."\n"; } } }
-    }
 
+            if (!isset($this->params["no-autopilot-creation"])) {
+
+                echo "Standard Dapperfies:\n" ;
+                foreach ($templates1 as $template) {
+                    if (!in_array($template, array(".", ".."))) {
+                        $templatorFactory = new \Model\Templating();
+                        $templator = $templatorFactory->getModel($this->params);
+                        $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                        $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                        $templator->template(
+                            file_get_contents($templatesDir1.DIRECTORY_SEPARATOR.$template),
+                            $replacements,
+                            $targetLocation );
+                        echo $targetLocation."\n"; } }
+
+                echo "Joomla Dapperfies:\n" ;
+                foreach ($templates2 as $template) {
+                    if (!in_array($template, array(".", ".."))) {
+                        $templatorFactory = new \Model\Templating();
+                        $templator = $templatorFactory->getModel($this->params);
+                        $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                        $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                        $templator->template(
+                            file_get_contents($templatesDir2.DIRECTORY_SEPARATOR.$template),
+                            $replacements,
+                            $targetLocation );
+                        echo $targetLocation."\n"; } } }
+
+            else {
+                echo "Skipping creation of autopilot files in environment {$environment["any-app"]["gen_env_name"]} due to no-autopilot-creation parameter.\n" ; } }
+
+    }
 }
