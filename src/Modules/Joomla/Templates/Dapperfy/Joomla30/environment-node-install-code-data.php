@@ -54,33 +54,45 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next ensure our db file configuration is reset to blank" ), ), ),
-                array ( "DBConfigure" => array( "<%tpl.php%>dap_db_platform</%tpl.php%>-reset" => array( "platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>" ), ), ),
+                array ( "DBConfigure" => array( "<%tpl.php%>dap_db_platform</%tpl.php%>-reset" => array(
+                    "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/",
+                    "platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                ), ), ),
 
                 array ( "Logging" => array( "log" => array("log-message" => "Next configure our projects db configuration file"), ) ),
                 array ( "DBConfigure" => array( "<%tpl.php%>dap_db_platform</%tpl.php%>-conf" => array(
+                    "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
                     "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
                     "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                 ), ) , ) ,
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets drop our current database if it exists"), ) ),
                 array ( "DBInstall" => array( "drop" => array(
+                    "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
                     "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
                     "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array("log-message" => "Now lets install our database"), ), ),
                 array ( "DBInstall" => array( "install" => array(
+                    "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
                     "mysql-pass" => "<%tpl.php%>dap_db_app_user_pass</%tpl.php%>",
                     "mysql-db" => "<%tpl.php%>dap_db_name</%tpl.php%>",
-                    "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>"
+                    "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
+                    "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
+                    "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "The application is installed now so lets do our versioning" ), ), ),
