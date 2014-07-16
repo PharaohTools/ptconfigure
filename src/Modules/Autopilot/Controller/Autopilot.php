@@ -36,8 +36,8 @@ class Autopilot extends Base {
 
     }
 
-    private function loadAutoPilot($params){
-        $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
+    private function loadAutoPilot($file){
+        $autoPilotFileName = escapeshellcmd($file);
         $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
         $defaultFolderToCheck = str_replace("src/Controller",
           "build/config/cleopatra", dirname(__FILE__));
