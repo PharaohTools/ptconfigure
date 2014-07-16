@@ -15,7 +15,9 @@ class BuilderfyInfo extends Base {
     public function routesAvailable() {
       return array( "Builderfy" =>  array_merge(
           parent::routesAvailable(),
-          array("developer", "staging", "continuous", "production"),
+          array(
+              "install-generic-autopilots", "developer", "manual-staging", "continuous-staging", "manual-production",
+              "continuous-staging-to-production" ),
           $this->getExtraRoutes()
       ) );
     }
@@ -52,17 +54,23 @@ class BuilderfyInfo extends Base {
                     --target-scm-url="http://www.github.com/phpengine/dapperstrano" #  guess will use your github url
                     --target-branch="master" # guess will default to master
 
-        - staging
-        Create a developers build for this project
-        example: dapperstrano builderfy staging
+        - manual-staging
+        Create a build which will manually deploy to staging and optionally test this project.
+        example: dapperstrano builderfy manual-staging
 
-        - production
-        Create a developers build for this project
-        example: dapperstrano builderfy production
+        - continuous-staging
+        Create a build which will test and automatically deploy to staging for this project, triggered by SCM Changes.
+        example: dapperstrano builderfy continuous-staging
 
-        - continuous
-        Create a continuous build for this project
-        example: dapperstrano builderfy continuous
+        - manual-production
+        Create a build which will manually deploy to production for this project. It deploys straight to production, so
+        will not test first.
+        example: dapperstrano builderfy manual-staging
+
+        - continuous-staging-to-production
+        Create a continuous build job for this project, which will automatically deploy and test SCM Changes to the
+        staging server, and upon successful testing will also deploy those changes to production.
+        example: dapperstrano builderfy continuous-staging-to-production
         dapperstrano builderfy continuous --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharoah-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharoah-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
 
         also --no-autopilots to just install the build

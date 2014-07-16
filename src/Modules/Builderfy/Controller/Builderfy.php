@@ -18,29 +18,31 @@ class Builderfy extends Base {
         $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
-        if ($action == "developer") {
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Developer") ;
+
+        if (in_array($action, array("install-generic-autopilots") )) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "GenericAutos") ;
             // if we don't have an object, its an array of errors
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $thisModel->params["action"] = $action ;
-            $this->content["result1"] = $thisModel->askInstall();
-            $this->content["result2"] = $thisModel->result;
-            return array ("type"=>"view", "view"=>"builderfy", "pageVars"=>$this->content); }
+            $this->content["result"] = $thisModel->askAction($action);
+            return array ("type"=>"view", "view"=>"builderfyGenAutos", "pageVars"=>$this->content); }
 
-        if ($action == "continuous") {
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Continuous") ;
-            // if we don't have an object, its an array of errors
-            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $thisModel->params["action"] = $action ;
-            $this->content["result1"] = $thisModel->askInstall();
-            $this->content["result2"] = $thisModel->result;
-            return array ("type"=>"view", "view"=>"builderfy", "pageVars"=>$this->content); }
+        $actionsToModelGroups = array(
+            "developer" => "Developer",
+            "manual-staging" => "ManualStaging",
+            "continuous-staging" => "ContinuousStaging",
+            "manual-production" => "ManualProduction",
+            "continuous-staging-to-production" => "ContinuousStagingToProduction",
+        );
 
-        if (in_array($action, array("staging", "production"))) {
-            $thisModel->params["action"] = $action ;
-            $this->content["result1"] = $thisModel->askInstall();
-            $this->content["result2"] = $thisModel->result;
-            return array ("type"=>"view", "view"=>"builderfy", "pageVars"=>$this->content); }
+        foreach ($actionsToModelGroups as $actionCurrent => $modelGroup) {
+            if ($action == $actionCurrent) {
+                $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, $modelGroup) ;
+                // if we don't have an object, its an array of errors
+                if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+                $thisModel->params["action"] = $action ;
+                $this->content["result1"] = $thisModel->askInstall();
+                $this->content["result2"] = $thisModel->result;
+                return array ("type"=>"view", "view"=>"builderfy", "pageVars"=>$this->content); } }
 
         $this->content["messages"][] = "Invalid Builderfy Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);

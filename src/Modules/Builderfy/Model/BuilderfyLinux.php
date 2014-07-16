@@ -57,6 +57,7 @@ class BuilderfyLinux extends BaseLinuxApp {
             $this->result = false ;
             return false; }
         $this->jenkinsOriginalJobFolderName = $this->selectSourceTemplateDirectory();
+        $this->jenkinsOriginalJobFolderName = $this->selectSourceTemplateDirectory();
         $this->jenkinsFSFolder = $this->selectJenkinsFolderInFileSystem();
         $this->newJobName = $this->askForTargetJobName() ;
         $this->getNewJobFolderIfJenkinsFolderExistsInFileSystem();
@@ -96,15 +97,26 @@ class BuilderfyLinux extends BaseLinuxApp {
         return self::askForInput($question, true);
     }
 
-    protected function selectSourceTemplateDirectory(){
+    protected function selectBuildDataHandlingType()  {
+        if (isset($this->params["data-handling-type"])) { return $this->params["data-handling-type"] ; }
+        $buildTypes = array("code", "replication", "capture") ;
+
+        array("none", "replication", "data-capture") ;
+        $templatesDir = str_replace("Model", "Templates/builds", dirname(__FILE__) ) ;
+        $dir = $templatesDir.'/'.$this->params["action"] ;
+        return $dir ;
+    }
+
+    protected function selectSourceTemplateDirectory() {
         if (isset($this->params["source-build-dir"])) { return $this->params["source-build-dir"] ; }
-        if (in_array($this->params["action"], array("developer", "staging", "production", "continuous", "complete"))) {
+        if (in_array($this->params["action"], array("developer", "manual-staging", "continuous-staging",
+            "manual-production", "continuous-staging-to-production"))) {
             $templatesDir = str_replace("Model", "Templates/builds", dirname(__FILE__) ) ;
             $dir = $templatesDir.'/'.$this->params["action"] ;
             return $dir ; }
     }
 
-    protected function getNewJobFolderIfJenkinsFolderExistsInFileSystem(){
+    protected function getNewJobFolderIfJenkinsFolderExistsInFileSystem() {
         if ( $this->detectJenkinsJobExistence() ) {
             if (isset($this->params["new-job-dir"])) { return $this->params["new-job-dir"] ; }
             $question = 'Job "'.$this->jenkinsOriginalJobFolderName.'" already exists. Enter new Job folder.';
