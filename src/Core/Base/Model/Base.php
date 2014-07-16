@@ -219,7 +219,7 @@ COMPLETION;
     }
 
     protected function askStatusByArray($commsToCheck) {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
         foreach ($commsToCheck as $commToCheck) {
@@ -278,7 +278,7 @@ COMPLETION;
     }
 
     protected function askWhetherToDoAction($action) {
-        $loggingFactory = new \Model\Console();
+        $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( isset($this->actionsToMethods)) {
             if (isset($this->actionsToMethods[$action]) && method_exists($this, $this->actionsToMethods[$action])) {
