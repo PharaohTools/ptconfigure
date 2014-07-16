@@ -57,10 +57,10 @@ class BuilderfyLinux extends BaseLinuxApp {
             $log->log("Try: \"dapperstrano proj init\" to initialize your project.") ;
             $this->result = false ;
             return false; }
+        $this->dataHandlingType = $this->selectBuildDataHandlingType() ;
         $this->jenkinsOriginalJobFolderName = $this->selectSourceTemplateDirectory();
         $this->jenkinsFSFolder = $this->selectJenkinsFolderInFileSystem();
         $this->newJobName = $this->askForTargetJobName() ;
-        $this->dataHandlingType = $this->selectBuildDataHandlingType() ;
         $this->getNewJobFolderIfJenkinsFolderExistsInFileSystem();
         $this->getEnvironments();
         if (!isset($this->params["no-autopilots"])) {
