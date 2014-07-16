@@ -13,7 +13,7 @@ class Autopilot extends Base {
         $action = $pageVars["route"]["action"];
         if ($action=="install" || $action=="execute") {
             if ( isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"]) > 0 ) {
-                $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
+                $autoPilot = $this->loadAutoPilot($thisModel->params);
                 if ( $autoPilot!==null ) {
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
@@ -36,8 +36,8 @@ class Autopilot extends Base {
 
     }
 
-    private function loadAutoPilot($file){
-        $autoPilotFileName = escapeshellcmd($file);
+    private function loadAutoPilot($params){
+        $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
         $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
         $defaultFolderToCheck = str_replace("src/Controller",
           "build/config/cleopatra", dirname(__FILE__));
