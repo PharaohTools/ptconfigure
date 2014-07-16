@@ -23,6 +23,8 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        $lowercase_db_platform = strtolower("<%tpl.php%>dap_db_platform</%tpl.php%>");
+
 	    $this->steps =
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin with ensuring the Project Container is initialized" ), ) ),
@@ -54,13 +56,13 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next ensure our db file configuration is reset to blank" ), ), ),
-                array ( "DBConfigure" => array( "<%tpl.php%>dap_db_platform</%tpl.php%>-reset" => array(
+                array ( "DBConfigure" => array( "$lowercase_db_platform-reset" => array(
                     "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/",
                     "platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array("log-message" => "Next configure our projects db configuration file"), ) ),
-                array ( "DBConfigure" => array( "<%tpl.php%>dap_db_platform</%tpl.php%>-conf" => array(
+                array ( "DBConfigure" => array( "$lowercase_db_platform-conf" => array(
                     "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
