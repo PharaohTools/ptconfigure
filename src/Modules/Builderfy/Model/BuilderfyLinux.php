@@ -20,6 +20,7 @@ class BuilderfyLinux extends BaseLinuxApp {
     protected $tempFolder = "/projectTemp/";
     protected $newJobName ;
     protected $projectContainerDirectory;
+    protected $dataHandlingType;
 
     protected $environments ;
     protected $environmentReplacements ;
@@ -57,9 +58,9 @@ class BuilderfyLinux extends BaseLinuxApp {
             $this->result = false ;
             return false; }
         $this->jenkinsOriginalJobFolderName = $this->selectSourceTemplateDirectory();
-        $this->jenkinsOriginalJobFolderName = $this->selectSourceTemplateDirectory();
         $this->jenkinsFSFolder = $this->selectJenkinsFolderInFileSystem();
         $this->newJobName = $this->askForTargetJobName() ;
+        $this->dataHandlingType = $this->selectBuildDataHandlingType() ;
         $this->getNewJobFolderIfJenkinsFolderExistsInFileSystem();
         $this->getEnvironments();
         if (!isset($this->params["no-autopilots"])) {
@@ -100,11 +101,8 @@ class BuilderfyLinux extends BaseLinuxApp {
     protected function selectBuildDataHandlingType()  {
         if (isset($this->params["data-handling-type"])) { return $this->params["data-handling-type"] ; }
         $buildTypes = array("code", "replication", "capture") ;
-
-        array("none", "replication", "data-capture") ;
-        $templatesDir = str_replace("Model", "Templates/builds", dirname(__FILE__) ) ;
-        $dir = $templatesDir.'/'.$this->params["action"] ;
-        return $dir ;
+        $dht = self::askForArrayOption("Enter the data handling type", $buildTypes, true) ;
+        return $dht ;
     }
 
     protected function selectSourceTemplateDirectory() {
@@ -112,7 +110,8 @@ class BuilderfyLinux extends BaseLinuxApp {
         if (in_array($this->params["action"], array("developer", "manual-staging", "continuous-staging",
             "manual-production", "continuous-staging-to-production"))) {
             $templatesDir = str_replace("Model", "Templates/builds", dirname(__FILE__) ) ;
-            $dir = $templatesDir.'/'.$this->params["action"] ;
+            $dir = $templatesDir.'/'.$this->dataHandlingType ;
+            $dir = $dir.'/'.$this->params["action"] ;
             return $dir ; }
     }
 
@@ -133,6 +132,8 @@ class BuilderfyLinux extends BaseLinuxApp {
     protected function templateConfiguration() {
         $templatorFactory = new \Model\Templating();
         $templator = $templatorFactory->getModel($this->params);
+
+        //@todo URGENT the source and targt cant be the fuking same???
         $data = file_get_contents($this->jenkinsFSFolder.'/jobs/'.$this->newJobName.'/config.xml') ;
         $targetLocation = $this->jenkinsFSFolder.'/jobs/'.$this->newJobName.'/config.xml' ;
         $templator->template(
