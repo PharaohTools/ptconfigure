@@ -33,6 +33,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
             "autopilot-prod-invoke-install-file" => $this->getDeployAutopilot() ,
             "autopilot-prod-invoke-dbconf-install-file" => $this->getDeployDBConfInstallAutopilot() ,
             "autopilot-prod-invoke-dbinstall-install-file" => $this->getDeployDBInstallAutopilot() ,
+            "data-handling" => $this->selectBuildDataHandlingType() ,
             "error-email" => $this->getErrorEmail() ,
             "build_type" => $this->params["action"] ,
         ) ;

@@ -30,6 +30,7 @@ class BuilderfyLinuxContinuousStaging extends BuilderfyLinux {
             "autopilot-test-invoke-install-file" => $this->getTestInstallAutopilot() ,
             "autopilot-test-invoke-dbconf-install-file" => $this->getTestDBConfInstallAutopilot() ,
             "autopilot-test-invoke-dbinstall-install-file" => $this->getTestDBInstallInstallAutopilot() ,
+            "data-handling" => $this->selectBuildDataHandlingType() ,
             "error-email" => $this->getErrorEmail() ,
             "build_type" => $this->params["action"] ,
         ) ;

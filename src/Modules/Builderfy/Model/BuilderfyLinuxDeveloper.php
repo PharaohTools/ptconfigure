@@ -29,6 +29,7 @@ class BuilderfyLinuxDeveloper extends BuilderfyLinux {
             "num_to_keep" => $this->getAmountToKeep() ,
             "autopilot_install" => $this->getInstallAutopilot() ,
             "autopilot_uninstall" => $this->getUninstallAutopilot() ,
+            "data-handling" => $this->selectBuildDataHandlingType() ,
             "build_type" => $this->params["action"] ,
             "target_scm_url" => $this->getTargetScmUrl() ,
             "target_branch" => $this->getTargetBranch() ,
