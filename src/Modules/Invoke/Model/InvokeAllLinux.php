@@ -143,6 +143,9 @@ class InvokeAllLinux extends Base {
     }
 
     private function getKeyIfAvailable($pword) {
+        if (substr($pword, 0, 1) == '~') {
+            $home = $_SERVER['HOME'] ;
+            $pword = str_replace('~', $home, $pword) ; }
         if (file_exists($pword)) {
             if (!class_exists('Crypt_RSA')) {
                 $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
