@@ -17,6 +17,9 @@ class DBInstall extends Base {
         if ($action=="install") {
             $this->content["dbResult"] = $thisModel->askWhetherToInstallDB();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
+        else if ($action=="save") {
+            $this->content["dbResult"] = $thisModel->askWhetherToSaveDB();
+            return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
         else if ($action=="drop") {
             $this->content["dbResult"] = $thisModel->askWhetherToDropDB();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }

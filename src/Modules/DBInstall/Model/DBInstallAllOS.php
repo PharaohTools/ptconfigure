@@ -26,6 +26,11 @@ class DBInstallAllOS extends Base {
         else { return $this->performDBInstallation(); }
     }
 
+    public function askWhetherToSaveDB(\Model\DBConfigure $dbConfigObject=null){
+        if ($dbConfigObject!=null) { return $this->performDBSave($dbConfigObject); }
+        else { return $this->performDBSave(); }
+    }
+
     public function askWhetherToDropDB(){
         return $this->performDBDrop();
     }
@@ -81,6 +86,42 @@ class DBInstallAllOS extends Base {
         return "Seems Fine...";
     }
 
+    protected function performDBSave(\Model\DBConfigure $dbConfigObject=null){
+        if ($dbConfigObject!==null) {
+            return $this->performDBSaveWithConfig($dbConfigObject) ; }
+        else {
+            return $this->performDBSaveWithNoConfig() ; }
+    }
+
+    protected function performDBSaveWithConfig(\Model\DBConfigure $dbConfigObject) {
+        if ( !$this->askForDBSave() ) { return false; }
+        $this->dbHost = $dbConfigObject->getProperty("dbHost");
+        $this->dbUser = $dbConfigObject->getProperty("dbUser");
+        $this->dbPass = $dbConfigObject->getProperty("dbPass");
+        $this->dbName = $dbConfigObject->getProperty("dbName");
+        $canIConnect = $this->canIConnect();
+        if ($canIConnect!==true) {
+            if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; }
+            if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
+            $this->dbRootUser = $this->askForRootDBUser();
+            $this->dbRootPass = $this->askForRootDBPass(); }
+        $this->databaseSaver();
+        return "Seems Fine...";
+    }
+
+    protected function performDBSaveWithNoConfig() {
+        if ( !$this->askForDBSave() ) { return false; }
+        $this->dbHost = $this->askForDBHost();
+        $this->dbRootUser = $this->askForRootDBUser();
+        $this->dbRootPass = $this->askForRootDBPass();
+        $this->dbName = $this->askForDBFreeFormName();
+        $canIConnect = $this->canIConnect();
+        if ($canIConnect!==true) {
+            if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; } }
+        $this->databaseSaver();
+        return "Seems Fine...";
+    }
+
     protected function performDBDrop() {
         if ( !$this->askForDBDropActions() ) { return false; }
         if ( $this->askForDBDrop() ) {
@@ -113,6 +154,11 @@ class DBInstallAllOS extends Base {
 
     protected function askForDBInstall(){
         $question = 'Do you want to install a database?' ;
+        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
+    }
+
+    protected function askForDBSave(){
+        $question = 'Do you want to save a database?' ;
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
@@ -288,6 +334,12 @@ class DBInstallAllOS extends Base {
         $query = 'create database if not exists '.$this->dbName.';';
         echo "$query\n";
         mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
+    }
+
+    protected function databaseSaver() {
+        $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > db/database.sql --no-create-db ; " ;
+        echo $comm."\n" ;
+        $this->executeAndOutput($comm, "Database Dumping...") ;
     }
 
     protected function userCreator() {

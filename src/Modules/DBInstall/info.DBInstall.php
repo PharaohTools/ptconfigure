@@ -14,7 +14,7 @@ class DBInstallInfo extends Base {
 
     public function routesAvailable() {
       return array( "DBInstall" => array_merge(parent::routesAvailable(),
-        array("install", "drop", "configure", "config", "conf", "reset", "useradd", "userdrop") ) );
+        array("install", "drop", "useradd", "userdrop", "save") ) );
     }
 
     public function routeAliases() {
@@ -30,6 +30,10 @@ class DBInstallInfo extends Base {
           - install
           install the database for a project. run conf first to set up users unless you already have them.
           example: dapperstrano db install
+
+          - save
+          save the database for a project. run conf first to set up users unless you already have them.
+          example: dapperstrano db save
 
           - drop
           drop the database for a project.
