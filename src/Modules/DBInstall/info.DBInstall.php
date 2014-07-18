@@ -21,29 +21,6 @@ class DBInstallInfo extends Base {
       return array("dbinstall"=>"DBInstall", "db-install"=>"DBInstall");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "DBInstall" => array(
-          "dbDropExecute" => array(
-            "dbDropExecute" => "boolean",
-            "dbDropDBHost" => "string",
-            "dbDropDBName" => "string",
-            "dbDropDBRootUser"=>"string",
-            "dbDropDBRootPass"=>"string",
-            "dbDropUserExecute"=>"string",
-            "dbDropDBUser"=>"string", ) ,
-          "dbInstallExecute" => array(
-            "dbInstallExecute" => "boolean",
-            "dbInstallDBHost" => "string",
-            "dbInstallDBUser" => "string",
-            "dbInstallDBPass" => "string",
-            "dbInstallDBName" => "string",
-            "dbInstallDBRootUser" => "string",
-            "dbInstallDBRootPass" => "string", ) ,
-        ) ,
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Database Installation Functions.

@@ -20,22 +20,6 @@ class SVNInfo extends Base {
       return array("svn" => "SVN");
     }
 
-    public function autoPilotVariables() {
-      return array(
-              "SVN" => array(
-                "svnCheckoutExecute" => array(
-                  "svnCheckoutExecute" => "boolean",
-                  "svnCheckoutProjectOriginRepo"=>"string",
-                  "svnCheckoutCustomCloneFolder"=>"string",
-                  "svnCheckoutCustomBranch"=>"string",
-                  "svnCheckoutWebServerUser"=>"string"),
-                "svnDeletorExecute" => array(
-                  "svnDeletorExecute" => "boolean",
-                  "svnDeletorCustomFolder" => "string" )
-              )
-             );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Checkout Functions.

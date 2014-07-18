@@ -21,22 +21,6 @@ class NginxControlInfo extends Base {
           "nginx-ctl"=>"NginxControl");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "NginxControl" => array(
-          "nginxControlRestartExecute" => array(
-            "nginxControlRestartExecute" => "boolean",
-            "nginxControlRestartNginxCommand" => "string", ) ,
-          "nginxControlStartExecute" => array(
-            "nginxControlStartExecute" => "boolean",
-            "nginxControlStartNginxCommand" => "string", ) ,
-          "nginxControlStopExecute" => array(
-            "nginxControlStopExecute" => "boolean",
-            "nginxControlStopNginxCommand" => "string", ) ,
-        ) ,
-      );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Nginx Server Control Functions.

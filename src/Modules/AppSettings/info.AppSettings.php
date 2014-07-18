@@ -20,10 +20,6 @@ class AppSettingsInfo extends Base {
       return array("appsettings"=>"AppSettings");
     }
 
-    public function autoPilotVariables() {
-      return array();
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and provides you  with a method by which you can configure Application Settings.

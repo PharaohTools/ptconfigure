@@ -23,23 +23,6 @@ class DBConfigureInfo extends Base {
       return array("dbconfigure"=>"DBConfigure", "db-configure"=>"DBConfigure", "db-conf"=>"DBConfigure");
     }
 
-    public function autoPilotVariables() {
-      return array(
-        "DBConfigure" => array(
-          "dbResetExecute" => array(
-            "dbResetExecute" => "boolean",
-            "dbResetPlatform" => "string", ) ,
-          "dbConfigureExecute" => array(
-            "dbConfigureExecute" => "boolean",
-            "dbConfigureDBHost" => "string",
-            "dbConfigureDBUser"=>"string",
-            "dbConfigureDBPass"=>"string",
-            "dbConfigureDBName"=>"string",
-            "dbConfigurePlatform"=>"string", ) ,
-        ) ,
-      );
-    }
-
     public function helpDefinition() {
         $extraHelp = $this->getExtraHelpDefinitions() ;
         $help = <<<"HELPDATA"

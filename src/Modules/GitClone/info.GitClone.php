@@ -20,22 +20,6 @@ class GitCloneInfo extends Base {
       return array("git-clone" => "GitClone", "gitclone" => "GitClone");
     }
 
-    public function autoPilotVariables() {
-      return array(
-              "GitClone" => array(
-                "gitCheckoutExecute" => array(
-                  "gitCheckoutExecute" => "boolean",
-                  "gitCheckoutProjectOriginRepo"=>"string",
-                  "gitCheckoutCustomCloneFolder"=>"string",
-                  "gitCheckoutCustomBranch"=>"string",
-                  "gitCheckoutWebServerUser"=>"string"),
-                "gitDeletorExecute" => array(
-                  "gitDeletorExecute" => "boolean",
-                  "gitDeletorCustomFolder" => "string" )
-              )
-             );
-    }
-
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Checkout Functions.
