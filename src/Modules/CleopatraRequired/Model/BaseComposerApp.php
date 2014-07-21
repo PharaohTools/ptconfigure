@@ -62,7 +62,7 @@ class BaseComposerApp extends BasePHPApp {
           "cd $this->programDataFolder".DIRECTORY_SEPARATOR.$this->programNameMachine ,
           "wget https://getcomposer.org/installer",
           "php installer",
-          "php composer.phar install"
+          "sudo php composer.phar install -vvv --prefer-dist"
       );
       self::executeAsShell($command);
     return true;
