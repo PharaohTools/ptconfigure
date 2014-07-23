@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "StandardTools" => array( "ensure" => array(),),),
 
                 // Git Tools
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some git tools are installed" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some Git Tools are installed" ),),),
                 array ( "GitTools" => array( "ensure" => array(),),),
                 
                 // Media Tools
@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "MediaTools" => array( "ensure" => array(),),),
 
                 // Git Key Safe
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Git SSH Key Safe version is are installed" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Git SSH Key Safe version is installed" ),),),
                 array ( "GitKeySafe" => array( "ensure" => array(),),),
 
                 // PHP Modules

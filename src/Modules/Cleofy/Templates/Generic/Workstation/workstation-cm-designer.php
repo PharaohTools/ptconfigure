@@ -23,11 +23,11 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "StandardTools" => array( "ensure" => array(),),),
 
                 // Git Tools
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some git tools are installed" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some Git Tools are installed" ),),),
                 array ( "GitTools" => array( "ensure" => array(),),),
 
                 // Git Key Safe
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Git SSH Key Safe version is are installed" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Git SSH Key Safe version is installed" ),),),
                 array ( "GitKeySafe" => array( "ensure" => array(),),),
 
                 // PHP Modules
@@ -60,6 +60,12 @@ class AutoPilotConfigured extends AutoPilot {
                     "new-pass" => "root",
                     "mysql-host" => "127.0.0.1"
                 ) ) ),
+
+                // IDE's and Developer Tools
+
+                // Developer Tools
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Developer Tools are installed"),),),
+                array ( "DeveloperTools" => array( "ensure" => array("guess" => true ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
