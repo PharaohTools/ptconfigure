@@ -17,13 +17,12 @@ class GIMPInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("gimp"=>"GIMP");
+      return array("gimp"=>"GIMP", "Gimp"=>"GIMP");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install GIMP, the popular Build Server.
-
+  This command allows you to install GIMP, the popular Image Editor
   GIMP, gimp
 
         - install
