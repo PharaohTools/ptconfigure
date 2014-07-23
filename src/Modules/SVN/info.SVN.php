@@ -31,6 +31,10 @@ class SVNInfo extends CleopatraBase {
         Installs the latest available (In your package manager) version of SVN
         example: cleopatra svn install
 
+        - ensure
+        Ensures SVN is installed
+        example: cleopatra svn ensure
+
         - uninstall
         Installs the latest version of SVN
         example: cleopatra svn uninstall
