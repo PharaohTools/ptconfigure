@@ -6,7 +6,7 @@ class WireframeSketcherInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "WireframeSketcher - A great IDE from JetBrains";
+    public $name = "Wireframe Sketcher - the Wireframing application";
 
     public function __construct() {
       parent::__construct();
@@ -17,18 +17,18 @@ class WireframeSketcherInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("wireframe-sketcher"=>"WireframeSketcher");
+      return array("wireframe-sketcher"=>"WireframeSketcher", "wireframesketcher"=>"WireframeSketcher");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Intellij, the JetBrains IDE
+  This command allows you to install Wireframe Sketcher, for Wireframing
 
-  WireframeSketcher, wireframe-sketcher
+  WireframeSketcher, wireframe-sketcher, wireframesketcher
 
         - install
         Installs the latest version of Developer Tools
-        example: cleopatra gittools install
+        example: cleopatra wireframe-sketcher install
 
 HELPDATA;
       return $help ;
