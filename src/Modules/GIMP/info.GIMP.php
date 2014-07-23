@@ -6,7 +6,7 @@ class GIMPInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "GIMP - The Java Build Server";
+    public $name = "GIMP - The Image Editor";
 
     public function __construct() {
       parent::__construct();
@@ -17,18 +17,18 @@ class GIMPInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("jenkins"=>"GIMP");
+      return array("gimp"=>"GIMP");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install GIMP, the popular Build Server.
 
-  GIMP, jenkins
+  GIMP, gimp
 
         - install
         Installs GIMP through apt-get
-        example: cleopatra jenkins install
+        example: cleopatra gimp install
 
 HELPDATA;
       return $help ;
