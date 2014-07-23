@@ -67,12 +67,18 @@ class AutoPilotConfigured extends AutoPilot {
          * DeveloperTools --
          * PHPStorm --
          *
+         * -- Graphic and Design Tools --
+         * GIMP todo
+         * Dia todo
+         * Wireframe Sketcher todo
+         * LibreOffice (Impress) todo
+         *
          * // // //
          *
          * -- Autopilots --
          * Dapper PostInput Autopilot todo
+         * Cleo PostInput Autopilot todo
          * Jenkins RP Autopilot todo
-         * Foreman RP Autopilot todo
          *
          */
 
@@ -220,6 +226,21 @@ class AutoPilotConfigured extends AutoPilot {
                 // PHPStorm
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPStorm IDE is installed"),),),
                 array ( "PHPStorm" => array( "ensure" => array("guess" => true ),),),
+
+
+                /* Graphic and Design Tools */
+
+                // The GIMP Image Editor
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the GIMP Image Editor is installed"),),),
+                array ( "GIMP" => array( "ensure" => array("guess" => true ),),),
+
+                // The DIA Editor
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the DIA Editor is installed"),),),
+                array ( "DIA" => array( "ensure" => array("guess" => true ),),),
+
+                // Wireframe Sketcher
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Wireframe Sketcher is installed"),),),
+                array ( "WireframeSketcher" => array( "ensure" => array("guess" => true ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
