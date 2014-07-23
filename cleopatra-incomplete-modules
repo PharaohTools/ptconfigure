@@ -1,30 +1,57 @@
 Cleopatra Modules to be created
 
+* CSS Regression Testing @todo
+
+* We should be able to assign a framework to a project.
+
+  This kind of already done
+
+* we should be able to refer to values in other parts of the papyrusfile using something like:
+
+":::mysql_default_host"
+
+
+
+
 COOL SHIT FOR ROADMAP
 ------------------------
 ?? Are these the enterprise bits? below
 
-A Web interface for making autopilots by drag and drop. blocks of modules in a list, double click or something to edit params.
- would need exposed params done on each module.
+A Web interface for making autopilots by drag and drop. blocks of modules in a list, double click or something to edit
+params would need exposed params done on each module.
 
 A web interface for chaining all boxify, cleofy etc together. This will mean we can create the entire environment,
   for all the projects, with the web interface, and to create a new project off a template takes seconds/minutes
-^^ goes with
+^^ goes with.
+
+Ideally, we have some kind of papyrus creator helper tool and it will just guess the top 10 project types, or we can
+provide it a compatibility model and run by inversion of control or something from other modules.
+                                                                             x
 A web interface to monitor everything else with, so it can check the status of servers. check things are working and take
 notifications then reboot or reprovision if needed. scaling can also get done here.
 
-More work on postinput as the api
+More work on postinput as the api. it should accept multiple formats of input. JSON, Rest, XML would be the most
+important.
 
 A web interface for papyrusfile editing.
 
 Module Manager - should write to papyrus modmgr::disabled::modname or modmgr::disabled::moddir::modname then autoloader should
 ignore those directories
 
-for autopilot execute create shortcuts for a) action execute to just x b) --af --auto for file path c) --dfd --default-dir for default dir so
+for autopilot execute create shortcuts for a) action execute to just x b) --af --auto for file path c) --dfd
+--default-dir for default dir so
 cleopatra auto x --af="thisone.php" --dfd
 is much shorter
 
 ask zend to show me how to do autofill by tab at command line and also coloured command line output (that might be stack overflow)
+
+can we do this? this would make the autopilots look tasty
+
+[
+ ["Logging"] => ["log"][["log-message"] = ["Lets begin Configuration of a Designers Workstation"]
+ ["PHPModules"] => ["ensure"]
+ ["Logging"] => ["log"][["log-message"] = ["Lets ensure Apache Server is installed"]
+]
 
 
 IN PROGRESS
