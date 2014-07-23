@@ -8,7 +8,7 @@ class PharoahToolsUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04", "13.10", "14.04", "14.10") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -21,11 +21,13 @@ class PharoahToolsUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensurePharoah", "params" => array("Dapperstrano")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharoah", "params" => array("Testingkamen")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharoah", "params" => array("Cleopatra")) ),
+            array("method"=> array("object" => $this, "method" => "ensurePharoah", "params" => array("JRush")) ),
         );
         // @todo cleopatra wont uninstall itself, that sounds wrong and is unlikely to work anyway
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "removePharoah", "params" => array("Testingkamen")) ),
             array("method"=> array("object" => $this, "method" => "removePharoah", "params" => array("Dapperstrano")) ),
+            array("method"=> array("object" => $this, "method" => "removePharoah", "params" => array("JRush")) ),
         );
         $this->programDataFolder = "";
         $this->programNameMachine = "pharoahtools"; // command and app dir name
@@ -35,7 +37,7 @@ class PharoahToolsUbuntu extends BaseLinuxApp {
     }
 
     public function askStatus() {
-        return $this->askStatusByArray(array( "cleopatra", "dapperstrano", "testingkamen" )) ;
+        return $this->askStatusByArray(array( "cleopatra", "dapperstrano", "testingkamen", "jrush" )) ;
     }
 
     public function ensurePharoah($pharoah) {
