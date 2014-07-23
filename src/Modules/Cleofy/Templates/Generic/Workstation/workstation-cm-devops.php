@@ -42,6 +42,8 @@ class AutoPilotConfigured extends AutoPilot {
          * Pear --
          *
          * -- Build Servers/CI Tools --
+         * ThoughtWorks Go @todo Module ready but check it install doesnt break anything
+         * Teamcity @todo Module ready but check it install doesnt break anything
          * Jenkins --
          * JenkinsSudo --
          * JenkinsPlugins --
@@ -70,19 +72,25 @@ class AutoPilotConfigured extends AutoPilot {
          *
          * -- IDE's and Developer Tools --
          * DeveloperTools --
-         * IntelliJ
-         * PHPStorm
+         * IntelliJ --
+         * PHPStorm --
          *
+         * // // //
+         *
+         * -- Security Tools --
          * Network Security (Nagios)
-         * Nagios
-         * ThoughtWorks Go
-         * Zenoss
-         * Teamcity
+         * Nagios todo
          *
-         * Docker Manager
+         * -- Infrastructure Tools --
+         * Foreman todo
          *
+         * -- Containerisation --
+         * Docker Manager todo
          *
-         * ---------------- Dapper PostInput Autopilot for
+         * -- Autopilots --
+         * Dapper PostInput Autopilot todo
+         * Jenkins RP Autopilot todo
+         * Foreman RP Autopilot todo
          *
          */
 
@@ -140,6 +148,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RubySystem" => array( "ensure" => array("guess" => true ),),),
                 array ( "Java" => array( "ensure" => array("guess" => true ),),),
                 array ( "NodeJS" => array( "ensure" => array("guess" => true ),),),
+                array ( "Python" => array( "ensure" => array("guess" => true ),),),
 
                 /* Tools */
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some Standard, Network and Media Tools are installed" ),),),
@@ -226,10 +235,9 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure IntelliJ IDE is installed"),),),
                 array ( "IntelliJ" => array( "ensure" => array("guess" => true ),),),
 
-
-
-
-
+                // PHPStorm
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPStorm IDE is installed"),),),
+                array ( "PHPStorm" => array( "ensure" => array("guess" => true ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
