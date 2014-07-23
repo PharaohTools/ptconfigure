@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class IntelliJ extends Base {
+class WireframeSketcher extends Base {
 
 }

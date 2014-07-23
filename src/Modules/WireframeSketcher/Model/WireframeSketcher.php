@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class IntelliJ extends BaseModelFactory {
+class WireframeSketcher extends BaseModelFactory {
 
 }
