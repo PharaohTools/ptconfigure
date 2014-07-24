@@ -5,7 +5,6 @@ Namespace Core ;
 class AutoPilotConfigured extends AutoPilot {
 
     public $steps ;
-    protected $myUser ;
 
     public function __construct() {
         $this->setSteps();
@@ -20,8 +19,12 @@ class AutoPilotConfigured extends AutoPilot {
          * ------------------------
          *
          * Intended:
+         *
+         * -- Sudo --
+         * SudoNoPass
+         *
          * -- LAMP --
-         * PHP Configuration for Developers (@todo)
+         * PHP Configuration for Developers todo
          *
          * -- Other Languages --
          * Ruby --
@@ -98,6 +101,12 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a standalone server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
+                /* Passwordless Sudo */
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow Sudo without Password" ),),),
+                array ( "SudoNoPass" => array( "ensure" => array(
+                    "install-user-name" => $this->myUser
+                ),),),
+
                 /* LAMP Start */
 
                 // PHP Modules
@@ -131,8 +140,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "MysqlAdmins" => array( "install" => array (
                     "root-user" => "root",
                     "root-pass" => "cleopatra",
-                    "new-user" => "dave",
-                    "new-pass" => "golden",
+                    // "new-user" => "dave",
+                    // "new-pass" => "golden",
                     "mysql-host" => "127.0.0.1"
                 ) ) ),
 

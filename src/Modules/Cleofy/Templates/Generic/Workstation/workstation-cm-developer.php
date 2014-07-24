@@ -5,7 +5,6 @@ Namespace Core ;
 class AutoPilotConfigured extends AutoPilot {
 
     public $steps ;
-    protected $myUser ;
 
     public function __construct() {
         $this->setSteps();
@@ -95,6 +94,12 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a standalone server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+
+                /* Passwordless Sudo */
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets allow Sudo without Password" ),),),
+                array ( "SudoNoPass" => array( "ensure" => array(
+                    "install-user-name" => $this->myUser
+                ),),),
 
                 /* LAMP Start */
 
