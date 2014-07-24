@@ -7,6 +7,7 @@ class AutoPilotConfigured extends AutoPilot {
     public $steps ;
 
     public function __construct() {
+        parent::__construct() ;
         $this->setInstallUser() ;
         $this->setSteps();
     }
