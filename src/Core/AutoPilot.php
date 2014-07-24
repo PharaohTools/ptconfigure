@@ -10,7 +10,11 @@ class AutoPilot extends Base {
     protected $appHomeDir ;
     protected $myUser ;
 
-    public function __construct() {
+    public function __construct($params = array()) {
+        global $argv ;
+        $argv_or_array = (isset($argv)) ? $argv : array() ;
+        $argv_and_params = array_merge($argv_or_array, $params) ;
+        parent::__construct($argv_and_params);
         $this->setProperties();
     }
 
