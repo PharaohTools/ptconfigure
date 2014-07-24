@@ -105,16 +105,20 @@ Go to http://www.pharaoh-tools.org.uk for more
 
 ## Available Commands:
 
+- DummyLinuxModule - Dummy Linux Module
+- GameBlocks - Game Blocks Server Management Functions
 - AWSCloudFormation - The AWS CloudFormation CLI Tools
 - AWSCloudWatch - The AWS CloudWatch CLI Tools
 - AWSEC2 - AWS EC2 Server Management Functions
 - ApacheConf - Apache Conf - Install a Apache Configuration
 - ApacheModules - Apache Modules - Commonly used modules for Apache
+- ApacheReverseProxyModules - Apache Reverse Proxy Modules - Reverse Proxy/Load Balancer Modules for Apache
 - ApacheServer - Apache Server - Install or remove the Apache Server
 - Apt - Add, Remove or Modify Apts
 - Autopilot - Cleopatra Autopilot - User Defined Installations
 - Behat - Behat - The PHP BDD Testing Suite
 - Boxify - Boxify Wrapper - Create Cloud Instances
+- Citadel - Citadel Server - Install or remove the Citadel Server
 - Cleofy - Cleopatra Cleofyer - Creates default autopilots for your project
 - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra
 - Copy - Copy Functionality
@@ -128,15 +132,18 @@ Go to http://www.pharaoh-tools.org.uk for more
 - Firefox14 - Firefox 14 - A version of Firefox highly tested with Selenium Server
 - Firefox17 - Firefox 17 - A version of Firefox highly tested with Selenium Server
 - Firewall - Add, Remove or Modify Firewalls
+- GIMP - GIMP - The Image Editor
 - Gem - Ruby Gems Package Manager
 - Generator - Dapperstrano Autopilot Generator - Generate Autopilot files interactively
 - GitBucket - Git Bucket - The Git SCM Management Web Application
+- GitKeySafe - Git Key-Safe - Install a script for git to allow specifying ssh keys during commands
 - GitLab - Git Lab - The Git SCM Management Web Application
 - GitTools - Git Tools - Tools for working with Git SCM
+- HAProxy - HA Proxy Server - Install or remove the HA Proxy Server
 - Hostname - View or Modify Hostname
 - InstallPackage - Cleopatra Predefined Installers
 - IntelliJ - IntelliJ - A great IDE from JetBrains
-- Invoke - SSH
+- Invoke - SSH Invocation Functions
 - JRush - JRush - The Joomla command line utility from Golden Contact
 - Java - Java JDK 1.7
 - Jenkins - Jenkins - The Java Build Server
@@ -145,10 +152,13 @@ Go to http://www.pharaoh-tools.org.uk for more
 - LigHTTPDServer - LigHTTPD Server - Install or remove the LigHTTPD Server
 - Logging - Logging - Output errors to the logging
 - MediaTools - Media Tools - Tools to help view and manage Media files
+- ModuleManager - Manage the modules used in Cleopatra
 - MysqlAdmins - Mysql Admins - Install administrative users for Mysql
 - MysqlServer - Mysql Server - The Mysql RDBMS Server
+- MysqlServerGalera - Mysql Server Galera - The Galera Clustering compatible version of Mysql RDBMS Server
 - MysqlTools - Mysql Tools - For administering and developing with Mysql
 - NagiosServer - Nagios Server - Install or remove the Nagios Server
+- NetworkTools - Network Tools - Tools for working with Networks
 - NginxServer - Nginx Server - Install or remove the Nginx Server
 - NodeJS - Node JS - The Server Side Javascript Engine
 - PHPAPC - PHP APC - Commonly used PHP APC
@@ -156,16 +166,22 @@ Go to http://www.pharaoh-tools.org.uk for more
 - PHPConf - PHP Conf - Install a PHP Configuration
 - PHPMD - PHP Mess Detector - The static analysis tool
 - PHPModules - PHP Modules - Commonly used PHP Modules
+- PHPStorm - PHPStorm - A great IDE from JetBrains
 - PHPUnit - PHP Unit - The PHP Implementation of the XUnit Unit Testing standard
 - PackageManager - Native Package Manager Wrapper - Install OS neutral packages
+- PaloAlto - Palo Alto Firewall Management Functions
 - PapyrusEditor - Papyrus Editor Web Interface
-- Parallax - Parallax - The parallel execution tool from Golden Contact
+- Parallax - Parallax - Execute commands in parallel
 - Pear - Pear Package Manager
+- Phake - Phake - The PHP task creation tool (Make/Rake)
+- PharoahTools - Pharoah Tools - Gotta Install them all
 - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP
+- Phrankinsense - Phrankinsense - The Pharoah Tools Project Management Solution
 - Port - Test a Port to see if its responding
 - PostInput - HTTP Post/Get Input Interface
 - PostgresServer - Postgres Server - The Postgres RDBMS Server
 - Python - Python - The programming language
+- Ra - Ra - The Pharoah Tools Build Server
 - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
 - RubyRVM - Ruby RVM - The Ruby version manager
 - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
@@ -173,7 +189,7 @@ Go to http://www.pharaoh-tools.org.uk for more
 - SFTP - SFTP Functionality
 - SVN - SVN - The Source Control Manager
 - SeleniumServer - The Selenium Web Browser controlling server
-- Service - View or Modify Service
+- Service - Start, Stop or Restart a Service
 - SshEncrypt - Mysql Admins - Install administrative users for Mysql
 - SshHarden - Apply security functions to the SSH accounts/setup of the machine
 - SshKeyInstall - Install SSH Public Keys to a user account
@@ -181,8 +197,12 @@ Go to http://www.pharaoh-tools.org.uk for more
 - StandardTools - Standard Tools for any Installation
 - SudoNoPass - Configure Passwordless Sudo for any User
 - SystemDetection - System Detection - Detect the Running Operating System
-- Templating - Templating
-- Testingkamen - Testingkamen - Upgrade or Re-install Testingkamen
-- UbuntuCompiler - Ubuntu Compiler - For Compiling Linux Programs
+- Teamcity - Teamcity - The Jetbrains Build Server
+- Templating - Install files with placeholders replaced at runtime
+- Testingkamen - Upgrade or Re-install Testingkamen
+- ThoughtWorksGo - The Continuous Delivery server from ThoughtWorks
+- UbuntuCompiler - For Compiling Linux Programs
 - User - Add, Remove or Modify Users
+- VSphere - VMWare VSphere - Server Management Functions
+- WireframeSketcher - Wireframe Sketcher - the Wireframing application
 - Yum - Add, Remove or Modify Yum Packages
