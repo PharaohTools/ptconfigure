@@ -5,8 +5,8 @@ Namespace Core;
 class View {
 
   public function executeView($view, Array $viewVars) {
-      $baseMod = new \Model\Base($viewVars["extraParams"]) ;
-      $params = $baseMod->params ;
+      $baseMod = new \Model\Base($viewVars["route"]["extraParams"]) ;
+      $viewVars["params"] = $baseMod->params ;
       $vvLayoutCond1 = (isset($viewVars["params"]["output-format"])
           && $viewVars["params"]["output-format"] == "HTML") ;
       $vvLayoutCond2 = (isset($viewVars["params"]["output-format"])
@@ -19,7 +19,7 @@ class View {
               $viewVars["layout"] = "blank" ; }
           else {
               $viewVars["layout"] = "default" ; } }
-      $templateData = $this->loadTemplate ($view, $params) ;
+      $templateData = $this->loadTemplate ($view, $viewVars) ;
       $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
       $this->renderAll($data) ;
   }
@@ -39,7 +39,6 @@ class View {
     if (isset($pageVars["params"]["output-format"])) {
       $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
     $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
-    echo $viewFileName . "\n" ;
     if ($this->loadViewFile($viewFileName, $pageVars) == true) {
       return ob_get_clean(); }
     else {
