@@ -7,6 +7,7 @@ class AutoPilotConfigured extends AutoPilot {
     public $steps ;
 
     public function __construct() {
+        $this->setInstallUser() ;
         $this->setSteps();
     }
 
@@ -246,7 +247,14 @@ class AutoPilotConfigured extends AutoPilot {
 
             );
 
+    }
 
+    protected function setInstallUser() {
+        if (isset($this->params["install-user-name"])) {
+            $this->myUser = $this->params["install-user-name"] ; }
+        else {
+            $question = "Enter install user name for Passwordless Sudo:" ;
+            $this->myUser = self::askForInput($question, true) ; }
     }
 
 }
