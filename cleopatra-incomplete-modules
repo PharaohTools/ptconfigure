@@ -15,7 +15,15 @@ Cleopatra Modules to be created
 
 COOL SHIT FOR ROADMAP
 ------------------------
+
 ?? Are these the enterprise bits? below
+
+can we fire up say 1000 boxes and manage them? we can be moree scaley than puppet out of the box. they're 200-300.
+if we run locally in hhvm, we can set each box an equal space (to compare with phil dibowitz fb speech 15 mins)
+15 * 60 = 900 / 10000 = 0.09 of a second per box. if eeach box can report statuus info to bastion in that time
+hhvm can be locally set to wait and fire off at its time slice.
+
+load balance our cleo infinitely?
 
 A Web interface for making autopilots by drag and drop. blocks of modules in a list, double click or something to edit
 params would need exposed params done on each module.
