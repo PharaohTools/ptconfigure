@@ -5,30 +5,32 @@ Namespace Core;
 class View {
 
   public function executeView($view, Array $viewVars) {
+      $baseMod = new \Model\Base($viewVars["extraParams"]) ;
+      $params = $baseMod->params ;
       $vvLayoutCond1 = (isset($viewVars["params"]["output-format"])
           && $viewVars["params"]["output-format"] == "HTML") ;
       $vvLayoutCond2 = (isset($viewVars["params"]["output-format"])
           && $viewVars["params"]["output-format"] != "cli"
           && $viewVars["params"]["output-format"] != "HTML") ;
-    if (!isset($viewVars["layout"])) {
-        if ($vvLayoutCond1) {
-            $viewVars["layout"] = "DefaultHTML" ; }
-        else if ($vvLayoutCond2) {
-            $viewVars["layout"] = "blank" ; }
-        else {
-            $viewVars["layout"] = "default" ; } }
-    $templateData = $this->loadTemplate ($view, $viewVars) ;
-    $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
-    $this->renderAll($data) ;
+      if (!isset($viewVars["layout"])) {
+          if ($vvLayoutCond1) {
+              $viewVars["layout"] = "DefaultHTML" ; }
+          else if ($vvLayoutCond2) {
+              $viewVars["layout"] = "blank" ; }
+          else {
+              $viewVars["layout"] = "default" ; } }
+      $templateData = $this->loadTemplate ($view, $params) ;
+      $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
+      $this->renderAll($data) ;
   }
 
   public function loadLayout ($layout, $templateData, Array $pageVars) {
-    ob_start();
-    $viewFileName = ucfirst($layout)."Layout.tpl.php";
-    if ($this->loadViewFile($viewFileName, $pageVars, $templateData) == true) {
-      return ob_get_clean(); }
-    else {
-      die ("View Layout Not Found\n"); }
+      ob_start();
+      $viewFileName = ucfirst($layout)."Layout.tpl.php";
+      if ($this->loadViewFile($viewFileName, $pageVars, $templateData) == true) {
+          return ob_get_clean(); }
+      else {
+          die ("View Layout Not Found\n"); }
   }
 
   public function loadTemplate ($view, Array $pageVars) {
