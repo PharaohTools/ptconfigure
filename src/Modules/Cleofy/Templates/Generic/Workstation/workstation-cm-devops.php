@@ -99,7 +99,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a standalone server on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a DevOps Workstation"),),),
 
                 /* Passwordless Sudo */
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow Sudo without Password" ),),),
@@ -248,7 +248,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PHPStorm IDE is installed"),),),
                 array ( "PHPStorm" => array( "ensure" => array("guess" => true ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuration of a DevOps Workstation complete"),),),
 
         );
 

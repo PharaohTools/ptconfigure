@@ -247,7 +247,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Wireframe Sketcher is installed"),),),
                 array ( "WireframeSketcher" => array( "ensure" => array("guess" => true ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring a standalone server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuration of a Designers Workstation complete"),),),
 
             );
 
