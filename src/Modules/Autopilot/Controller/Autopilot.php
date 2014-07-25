@@ -13,7 +13,7 @@ class Autopilot extends Base {
         $action = $pageVars["route"]["action"];
         if ($action=="install" || $action=="execute" || $action=="x") {
             if ( isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"]) > 0 ) {
-                $autoPilot = $this->loadAutoPilot($thisModel->params);
+                $autoPilot = $this->loadAutoPilot($thisModel->params["autopilot-file"]);
                 if ( $autoPilot!==null ) {
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
