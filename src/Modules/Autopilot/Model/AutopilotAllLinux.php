@@ -20,7 +20,6 @@ class AutopilotAllLinux extends BaseLinuxApp {
     }
 
     protected function addAliasParams() {
-
         $dfd = "" ;
         if (isset($this->params["dfd"])) {
             $dfd = getcwd()."/build/config/cleopatra/cleofy/autopilots/" ; }
