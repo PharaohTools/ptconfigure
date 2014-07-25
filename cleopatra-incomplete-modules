@@ -3,12 +3,10 @@ Cleopatra Modules to be created
 * CSS Regression Testing @todo
 
 * We should be able to assign a framework to a project.
-
   This kind of already done
 
 * we should be able to refer to values in other parts of the papyrusfile using something like:
-
-":::mysql_default_host"
+  ":::mysql_default_host"
 
 
 
@@ -18,23 +16,23 @@ COOL SHIT FOR ROADMAP
 
 ?? Are these the enterprise bits? below
 
-can we fire up say 1000 boxes and manage them? we can be moree scaley than puppet out of the box. they're 200-300.
-if we run locally in hhvm, we can set each box an equal space (to compare with phil dibowitz fb speech 15 mins)
-15 * 60 = 900 / 10000 = 0.09 of a second per box. if eeach box can report statuus info to bastion in that time
-hhvm can be locally set to wait and fire off at its time slice.
+can we fire up say 1000 boxes and manage them? we can be more scaley than puppet out of the box. they're 200-300.
+If we run locally in HHVM, we can set each box an equal space (to compare with phil dibowitz fb speech 15 mins)
+15 * 60 = 900 / 10000 = 0.09 of a second per box. if each box can report status info to bastion in that time
+HHVM can be locally set to wait and fire off at its time slice.
 
 load balance our cleo infinitely?
 
 A Web interface for making autopilots by drag and drop. blocks of modules in a list, double click or something to edit
 params would need exposed params done on each module.
 
-A web interface for chaining all boxify, cleofy etc together. This will mean we can create the entire environment,
+A web interface for chaining all Boxify, Cleofy etc together. This will mean we can create the entire environment,
   for all the projects, with the web interface, and to create a new project off a template takes seconds/minutes
 ^^ goes with.
 
 Ideally, we have some kind of papyrus creator helper tool and it will just guess the top 10 project types, or we can
 provide it a compatibility model and run by inversion of control or something from other modules.
-                                                                             x
+
 A web interface to monitor everything else with, so it can check the status of servers. check things are working and take
 notifications then reboot or reprovision if needed. scaling can also get done here.
 
@@ -46,8 +44,8 @@ A web interface for papyrusfile editing.
 Module Manager - should write to papyrus modmgr::disabled::modname or modmgr::disabled::moddir::modname then autoloader should
 ignore those directories
 
-for autopilot execute create shortcuts for a) action execute to just x b) --af --auto for file path c) --dfd
---default-dir for default dir so
+for autopilot execute create shortcuts for a) action execute to just x b) --af --auto for file path c) --dfd, --default-dir
+for default dir so
 cleopatra auto x --af="thisone.php" --dfd
 is much shorter
 
@@ -56,9 +54,9 @@ ask zend to show me how to do autofill by tab at command line and also coloured 
 can we do this? this would make the autopilots look tasty
 
 [
- ["Logging"] => ["log"][["log-message"] = ["Lets begin Configuration of a Designers Workstation"]
- ["PHPModules"] => ["ensure"]
- ["Logging"] => ["log"][["log-message"] = ["Lets ensure Apache Server is installed"]
+  ["Logging"] => ["log"][["log-message"] = "Lets begin Configuration of a Designers Workstation",
+  ["PHPModules"] => "ensure",
+  ["Logging"] => ["log"][["log-message"] = "Lets ensure Apache Server is installed",
 ]
 
 
@@ -70,7 +68,8 @@ that might mean autoloader goes into its own module so it can have params
 
 Logging - all calls to logging should also state what module, environment and server they are running from/on
 
-Can we inject into the host shell every 3 seconds or so from the SSH client we're connecting to?
+Can we inject into the host shell every 3 seconds or so from the SSH client we're connecting to? that way long
+executing scripts can be monitored properly
 
 Cleo SSH invoke doesn't work interactively yet. We should try to use native php ssh extension first with
 seclib style as a failover
@@ -80,8 +79,7 @@ Make a cron job or something to return the origin SSH prompt
 A new concept
 ----------------
 One composerised, we can keep client installs lightweight by building cleo from dependencies in the autopilot.
-step one, logging, then get the dependencies for that
-next, packagemanager, etc, then dependencies.
+step one, logging, then get the dependencies for that next, packagemanager, etc, then dependencies.
 Then, once that is one, we actually run the autopilot.
 Is this any good, is it any quicker since composer is slow, is it more secure, by not including modules which you
 don't need but could be abused.
@@ -91,7 +89,16 @@ Disallow making more than one environment with the same name this causes infra c
 AWStats is uber cool and should be here
 https://help.ubuntu.com/community/AWStats
 
+
+
 DONE
+----------------------------------
+----------------------------------
+----------------------------------
+
+
+
+
 SSH Private key encryption thing
 ----------------------------------
 Any box requiring this should have an environment variable or file
