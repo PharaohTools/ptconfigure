@@ -16,6 +16,17 @@ class AutopilotAllLinux extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
+        $this->addAliasParams() ;
+    }
+
+    protected function addAliasParams() {
+        $dfd = "" ;
+        if (isset($this->params["dfd"])) {
+            $dfd = getcwd()."/build/config/cleopatra/cleofy/autopilots/" ; }
+        if (isset($this->params["af"])) {
+            $this->params["autopilot-file"] = $dfd.$this->params["af"] ; }
+        if (isset($this->params["auto"])) {
+            $this->params["autopilot-file"] = $dfd.$this->params["auto"] ; }
     }
 
 }
