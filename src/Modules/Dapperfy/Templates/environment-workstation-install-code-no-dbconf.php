@@ -15,7 +15,6 @@ class AutoPilotConfigured extends AutoPilot {
 
     public function __construct() {
 	    $this->setSteps();
-        $this->setVHostTemplate();
     }
 
     /* Steps */

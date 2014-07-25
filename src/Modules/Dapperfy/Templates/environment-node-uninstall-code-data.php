@@ -15,9 +15,6 @@ class AutoPilotConfigured extends AutoPilot {
 
     public function __construct() {
 	    $this->setSteps();
-        $this->setRevisionFolderName();
-        $this->calculateVHostDocRoot();
-        $this->setVHostTemplate();
     }
 
     /* Steps */
