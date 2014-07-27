@@ -5,7 +5,8 @@ Namespace Core;
 class View {
 
   public function executeView($view, Array $viewVars) {
-      $baseMod = new \Model\Base($viewVars["route"]["extraParams"]) ;
+      $ep = (isset($viewVars["route"]["extraParams"])) ? $viewVars["route"]["extraParams"] : array() ;
+      $baseMod = new \Model\Base($ep) ;
       $viewVars["params"] = $baseMod->params ;
       $vvLayoutCond1 = (isset($viewVars["params"]["output-format"])
           && $viewVars["params"]["output-format"] == "HTML") ;
