@@ -19,7 +19,6 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Creating a medium, web only set of environments"),),),
 
-                // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add all Boxes and Environments in Parallel" ),),),
                 array ( "Parallax" => array("cli" => array(
                     "command-1"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}boxify-add-bastion.php\"",
