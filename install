@@ -73,8 +73,10 @@ class Installer {
     }
 
     private function copyFilesToProgramDataFolder(){
+        $command = 'cp -r '.dirname(__FILE__).'/.* '.$this->programDataFolder;
+        self::executeAndOutput($command, "Program Data folder populated with hidden files");
         $command = 'cp -r '.dirname(__FILE__).'/* '.$this->programDataFolder;
-        return self::executeAndOutput($command, "Program Data folder populated");
+        return self::executeAndOutput($command, "Program Data folder populated with other files");
     }
 
     private function deleteExecutorIfExists(){
