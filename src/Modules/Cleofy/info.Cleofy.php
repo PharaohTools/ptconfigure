@@ -40,8 +40,18 @@ class CleofyInfo extends CleopatraBase {
 
         - tiny
         Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
-        a project with a "tiny" style infreastructure.
+        a project with a "tiny" style infrastructure.
         example: cleopatra cleofy tiny
+
+        - medium
+        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        a project with a "medium" style infrastructure.
+        example: cleopatra cleofy medium
+
+        - medium-web
+        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        a project with a "medium" style infrastructure, with web but not database.
+        example: cleopatra cleofy medium-web
 
         - db-cluster
         Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
