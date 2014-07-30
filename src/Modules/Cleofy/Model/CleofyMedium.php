@@ -62,35 +62,43 @@ class CleofyMedium extends Base {
     }
 
     private function doCleofy() {
-      $templatesDir = str_replace("Model", "Templates/EnvSpecific", dirname(__FILE__) ) ;
-      $templates = scandir($templatesDir);
-      foreach ($this->environments as $environment) {
-        foreach ($templates as $template) {
-          if (!in_array($template, array(".", ".."))) {
-              $templatorFactory = new \Model\Templating();
-              $templator = $templatorFactory->getModel($this->params);
-              $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-              $autosDir = getcwd().'/build/config/cleopatra/cleofy/autopilots/generated';
-              $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
-              $templator->template(
-                  file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
-                  array(
-                      "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
-                      "env_name" => $environment["any-app"]["gen_env_name"],
-                      "first_server_target" => $environment["servers"][0]["target"],
-                      "stage_web_nodes_env" => $this->getEnvName("stage web") ,
-                      "stage_db_nodes_env" => $this->getEnvName("stage database") ,
-                      "prod_web_nodes_env" => $this->getEnvName("prod web") ,
-                      "prod_db_nodes_env" => $this->getEnvName("prod database") ,
-                  ),
-                  $targetLocation );
-          echo $targetLocation."\n"; } } }
+        $templatesDir = str_replace("Model", "Templates/EnvSpecific", dirname(__FILE__) ) ;
+        $templates = scandir($templatesDir);
+        foreach ($this->environments as $environment) {
+
+            if (isset($this->params["environment-name"])) {
+                if ($this->params["environment-name"] != $environment["any-app"]["gen_env_name"]) {
+                    $tx = "Skipping Environment {$environment["any-app"]["gen_env_name"]} " ;
+                    $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
+                    echo $tx;
+                    continue ; } }
+
+            foreach ($templates as $template) {
+                if (!in_array($template, array(".", ".."))) {
+                    $templatorFactory = new \Model\Templating();
+                    $templator = $templatorFactory->getModel($this->params);
+                    $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                    $autosDir = getcwd().'/build/config/cleopatra/cleofy/autopilots/generated';
+                    $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                    $templator->template(
+                        file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
+                        array(
+                            "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                            "env_name" => $environment["any-app"]["gen_env_name"],
+                            "first_server_target" => $environment["servers"][0]["target"],
+                            "web_nodes_env" => $this->getEnvName("Web") ,
+                            "db_nodes_env" => $this->getEnvName("Database") ,
+                        ),
+                        $targetLocation );
+                echo $targetLocation."\n"; } } }
     }
 
     public function getEnvName($envType) {
+        $envType = strtolower($envType) ;
         if (isset($this->params["$envType-nodes-env"])) {
             $this->params["$envType-nodes-environment"] = $this->params["$envType-nodes-env"] ; }
-        if (isset($this->params["$envType-nodes-environment"])) { return $this->params["$envType-nodes-environment"] ; }
+        if (isset($this->params["$envType-nodes-environment"])) {
+            return $this->params["$envType-nodes-environment"] ; }
         $question = "Enter name of environment with your ".ucfirst($envType)." nodes" ;
         $this->params["$envType-nodes-environment"] = $this->askForInput($question) ;
         return $this->params["$envType-nodes-environment"] ;

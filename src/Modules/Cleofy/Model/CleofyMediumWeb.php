@@ -62,9 +62,17 @@ class CleofyMediumWeb extends Base {
     }
 
     private function doCleofy() {
-      $templatesDir = str_replace("Model", "Templates/EnvSpecific", dirname(__FILE__) ) ;
-      $templates = scandir($templatesDir);
-      foreach ($this->environments as $environment) {
+        $templatesDir = str_replace("Model", "Templates/EnvSpecific", dirname(__FILE__) ) ;
+        $templates = scandir($templatesDir);
+        foreach ($this->environments as $environment) {
+
+            if (isset($this->params["environment-name"])) {
+                if ($this->params["environment-name"] != $environment["any-app"]["gen_env_name"]) {
+                    $tx = "Skipping Environment {$environment["any-app"]["gen_env_name"]} " ;
+                    $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
+                    echo $tx;
+                    continue ; } }
+
         foreach ($templates as $template) {
           if (!in_array($template, array(".", ".."))) {
               $templatorFactory = new \Model\Templating();
