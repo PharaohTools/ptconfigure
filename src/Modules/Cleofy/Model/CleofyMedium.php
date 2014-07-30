@@ -78,8 +78,10 @@ class CleofyMedium extends Base {
                       "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
                       "env_name" => $environment["any-app"]["gen_env_name"],
                       "first_server_target" => $environment["servers"][0]["target"],
-                      "web_nodes_env" => $this->getEnvName("web") ,
-                      "db_nodes_env" => $this->getEnvName("database") ,
+                      "stage_web_nodes_env" => $this->getEnvName("stage web") ,
+                      "stage_db_nodes_env" => $this->getEnvName("stage database") ,
+                      "prod_web_nodes_env" => $this->getEnvName("prod web") ,
+                      "prod_db_nodes_env" => $this->getEnvName("prod database") ,
                   ),
                   $targetLocation );
           echo $targetLocation."\n"; } } }

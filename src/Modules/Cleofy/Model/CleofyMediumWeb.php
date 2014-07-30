@@ -3,7 +3,7 @@
 Namespace Model;
 
 // @todo shouldnt this extend base templater? is it missing anything?
-class CleofyMedium extends Base {
+class CleofyMediumWeb extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
