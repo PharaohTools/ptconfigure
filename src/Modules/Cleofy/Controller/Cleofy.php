@@ -32,7 +32,6 @@ class Cleofy extends Base {
             "workstation" => "Workstation" ) ;
 
         if (in_array($action, array_keys($actionsToModelGroups))) {
-            var_dump("atmg: ", $actionsToModelGroups, "atmg key:", $actionsToModelGroups[$action]) ;
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, $actionsToModelGroups[$action]) ;
             $this->content["result"] = $thisModel->askWhetherToCleofy();
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
