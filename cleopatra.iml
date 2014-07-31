@@ -4,6 +4,17 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHARS">
+        <CLASSES>
+          <root url="phar://$MODULE_DIR$/src/Modules/AWSEC2/Libraries/aws.phar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="phar://$MODULE_DIR$/src/Modules/AWSEC2/Libraries/aws.phar" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
 
