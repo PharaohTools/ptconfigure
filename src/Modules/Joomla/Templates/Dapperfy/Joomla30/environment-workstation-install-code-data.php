@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
               array ( "Logging" => array( "log" => array( "log-message" => "Next create our host file entry for our local URL"), ) ),
               array ( "HostEditor" => array( "add" => array (
                   "guess" => true,
-                  "host-name" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>.local",
+                  "host-name" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
               ), ), ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Next create our virtual host"), ) ),
