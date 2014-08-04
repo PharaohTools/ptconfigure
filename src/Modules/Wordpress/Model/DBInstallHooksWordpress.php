@@ -28,8 +28,7 @@ class DBInstallHooksWordpress extends Base {
     }
 
     protected function askForUrl($dbiObject){
-        if (isset($dbiObject->params["hook-url"])) {
-            return $dbiObject->params["hook-url"] ;}
+        if (isset($dbiObject->params["hook-url"])) { return $dbiObject->params["hook-url"] ; }
         $question = 'What is the URL of this site for WP Options? ';
         $input = self::askForInput($question, true);
         return $input ;
