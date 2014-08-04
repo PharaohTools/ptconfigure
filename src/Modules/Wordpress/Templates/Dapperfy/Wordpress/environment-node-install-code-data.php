@@ -84,7 +84,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array("log-message" => "Now lets install our database"), ), ),
-                array ( "DBInstall" => array( "install" => array(
+                array ( "DBInstall" => array( "wordpress-install" => array(
                     "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
                     "mysql-host" => "<%tpl.php%>dap_db_ip_address</%tpl.php%>",
                     "mysql-user" => "<%tpl.php%>dap_db_app_user_name</%tpl.php%>",
@@ -93,6 +93,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "mysql-platform" => "<%tpl.php%>dap_db_platform</%tpl.php%>",
                     "mysql-admin-user" => "<%tpl.php%>dap_db_admin_user_name</%tpl.php%>",
                     "mysql-admin-pass" => "<%tpl.php%>dap_db_admin_user_pass</%tpl.php%>",
+                    "hook-url" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "The application is installed now so lets do our versioning" ), ), ),

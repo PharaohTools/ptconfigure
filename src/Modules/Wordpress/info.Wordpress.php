@@ -6,7 +6,7 @@ class WordpressInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Wordpress - Integration and Templates fo Wordpress";
+    public $name = "Wordpress - Integration and Templates for Wordpress";
 
     public function _construct() {
       parent::__construct();
@@ -32,11 +32,16 @@ class WordpressInfo extends Base {
         return array("wordpress-conf", "wordpress-reset");
     }
 
+    public function dbInstallActions() {
+        return array("wordpress-install", "wp-install");
+    }
+
     public function helpDefinitions() {
         return array(
             "Builderfy"=>$this->builderfyHelpDefinition(),
             "Dapperfy"=>$this->dapperfyHelpDefinition(),
-            "DBConfigure"=>$this->dbConfigureHelpDefinition());
+            "DBConfigure"=>$this->dbConfigureHelpDefinition(),
+            "DBInstall"=>$this->dbInstallHelpDefinition());
     }
 
     public function helpDefinition() {
@@ -110,6 +115,22 @@ HELPDATA;
   for it which are tailored to Wordpress.
 
   dapperstrano dbconf wordpress-conf --yes --guess
+HELPDATA;
+        return $help ;
+    }
+
+    public function dbInstallHelpDefinition() {
+        $help = <<<"HELPDATA"
+
+--------------
+  Wordpress Module:
+
+  The Wordpress module extends DBInstall by adding wordpress-install
+
+  Wordpress module adds the actions wordpress-install and wp-install to DBInstall, requiresd to allow the Post DB
+  Install hooks for Wordpress, the DB restore won't work correctly without
+
+  dapperstrano dbinstall wordpress-install --yes --guess
 HELPDATA;
         return $help ;
     }

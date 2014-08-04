@@ -73,4 +73,22 @@ class Wordpress extends Base {
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 
+    public function executeDBInstall($pageVars) {
+
+        $action = $pageVars["route"]["action"];
+
+        if ($action == "wordpress-install" || $action == "wp-install") {
+            $thisModel = $this->getModelAndCheckDependencies("DBInstall", $pageVars) ;
+            // if we don't have an object, its an array of errors
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $wpDBInstallHooks = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "WordpressDBIHooks") ;
+            $thisModel->setPlatformDBIHooks($wpDBInstallHooks);
+            $thisModel->params["action"] = $action ;
+            $this->content["result"] = $thisModel->askWhetherToInstallDB();
+            return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "Invalid DBInstall Wordpress Action";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+    }
+
 }
