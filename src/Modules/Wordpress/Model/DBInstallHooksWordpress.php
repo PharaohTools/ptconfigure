@@ -35,6 +35,7 @@ class DBInstallHooksWordpress extends Base {
         return $input ;
     }
 
+    // @todo dont use print, use logging or something better
     protected function wpOptionsUpdater($dbiObject) {
         $dbc = mysqli_connect($dbiObject->dbHost, $dbiObject->dbRootUser, $dbiObject->dbRootPass);
         echo (mysqli_error($dbc));
