@@ -19,6 +19,7 @@ class DBConfigureInfo extends Base {
           $this->getExtraRoutes()
       ) );
     }
+
     public function routeAliases() {
       return array("dbconfigure"=>"DBConfigure", "db-configure"=>"DBConfigure", "db-conf"=>"DBConfigure");
     }
