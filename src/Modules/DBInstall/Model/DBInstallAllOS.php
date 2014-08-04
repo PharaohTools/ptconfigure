@@ -14,12 +14,13 @@ class DBInstallAllOS extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $dbHost ;
-    private $dbUser ;
-    private $dbPass ;
-    private $dbName ;
-    private $dbRootUser ;
-    private $dbRootPass ;
+    public $platformHooks = null ;
+    public $dbHost ;
+    public $dbUser ;
+    public $dbPass ;
+    public $dbName ;
+    public $dbRootUser ;
+    public $dbRootPass ;
 
     public function askWhetherToInstallDB(\Model\DBConfigure $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
@@ -64,8 +65,38 @@ class DBInstallAllOS extends Base {
             $this->dbRootPass = $this->askForRootDBPass();
             $this->databaseCreator();
             $this->userCreator(); }
+        $this->doInstallHook("pre") ;
         $this->sqlInstaller();
+        $this->doInstallHook("post") ;
         return "Seems Fine...";
+    }
+
+    // @todo add logging of install hook outputs
+    protected function doInstallHook($hook) {
+        $hook = strtolower($hook) ;
+        if (in_array($hook, array("pre", "post"))) {
+            if (!is_null($this->platformHooks)) {
+                if (is_object($this->platformHooks)) {
+                    if (method_exists($this->platformHooks, "{$hook}InstallHook")) {
+                        $fullMethodName = "{$hook}InstallHook" ;
+                        $this->platformHooks->$fullMethodName($this) ;
+                        return ; }
+                    else {
+                        echo "error 1" ;
+                        // no install hook specified
+                        return ; } }
+                else {
+                    echo "error 2" ;
+                    // platform hooks is set but is not an object
+                    return ; } }
+             else {
+                 echo "error 3" ;
+                // no platform hooks model
+                return ; } }
+         else {
+             echo "error 4" ;
+            // non existent hook
+            return ; }
     }
 
     protected function performDBInstallationWithNoConfig() {
@@ -82,8 +113,18 @@ class DBInstallAllOS extends Base {
             if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
             $this->databaseCreator();
             $this->userCreator(); }
+        $this->doInstallHook("pre") ;
         $this->sqlInstaller();
+        $this->doInstallHook("post") ;
         return "Seems Fine...";
+    }
+
+    public function setPlatformDBIHooks($platformHooks = null) {
+        if ($platformHooks != null) {
+            $this->platformHooks = $platformHooks; }
+        else if ($this->platformHooks == null) {
+            $this->platformHooks = null ; }
+        return;
     }
 
     protected function performDBSave(\Model\DBConfigure $dbConfigObject=null){
