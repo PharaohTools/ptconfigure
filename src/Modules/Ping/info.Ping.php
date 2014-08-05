@@ -28,8 +28,23 @@ class PingInfo extends CleopatraBase {
   Ping, ping
 
         - once
-        ping a target
-        example: cleopatra port is-responding --port-number="25"
+        ping a target once
+        example: cleopatra ping once --yes --guess
+            --target=www.google.com # url/ip to ping test
+            --interval=5 # no seconds to wait between requests, will guess 2
+
+        - ten
+        ping a target ten times
+        example: cleopatra ping ten --yes --guess
+            --target=www.google.com # url/ip to ping test
+            --interval=5 # no seconds to wait between requests, will guess 2
+
+        - until-responding
+        ping a target for a set amount of time until it responds
+        example: cleopatra ping once --yes --guess
+            --target=www.google.com # url/ip to ping test
+            --interval=5 # no seconds to wait between requests, will guess 2
+            --max-wait=100 # no seconds in total to keep trying, will guess 60
 
 HELPDATA;
       return $help ;
