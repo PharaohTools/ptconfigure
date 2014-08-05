@@ -14,21 +14,21 @@ class PingInfo extends CleopatraBase {
 
     public function routesAvailable() {
         // return array( "Ping" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "Ping" => array("help", "status", "is-responding") );
+        return array( "Ping" => array("help", "once", "ten", "until-responding") );
     }
 
     public function routeAliases() {
-      return array("port"=>"Ping");
+      return array("ping"=>"Ping");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to test the status of ports
 
-  Ping, port
+  Ping, ping
 
-        - is-responding
-        Test if a port is responding
+        - once
+        ping a target
         example: cleopatra port is-responding --port-number="25"
 
 HELPDATA;
