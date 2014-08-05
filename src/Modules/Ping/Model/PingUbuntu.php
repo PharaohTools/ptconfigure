@@ -33,21 +33,24 @@ class PingUbuntu extends BaseLinuxApp {
     }
 
     protected function performPingOnce() {
-        require_once ("../Libraries/JJG/Ping.php") ;
+        $libDir = str_replace("Model", "Libraries", dirname(__FILE__) ) ;
+        require_once ("{$libDir}/JJG/Ping.php") ;
         $this->setTarget();
         $this->setInterval();
         $this->doOnePing();
     }
 
     protected function performTenPings() {
-        require_once ("../Libraries/JJG/Ping.php") ;
+        $libDir = str_replace("Model", "Libraries", dirname(__FILE__) ) ;
+        require_once ("{$libDir}/JJG/Ping.php") ;
         $this->setTarget();
         $this->setInterval();
         $this->doTenPings();
     }
 
     protected function performPingsUntil() {
-        require_once ("../Libraries/JJG/Ping.php") ;
+        $libDir = str_replace("Model", "Libraries", dirname(__FILE__) ) ;
+        require_once ("{$libDir}/JJG/Ping.php") ;
         $this->setTarget();
         $this->setInterval();
         $this->setMaxWait();
@@ -74,11 +77,11 @@ class PingUbuntu extends BaseLinuxApp {
 
     protected function setMaxWait() {
         if (isset($this->params["guess"])) {
-            $this->maxWait = "2" ; }
+            $this->maxWait = "60" ; }
         else if (isset($this->params["max-wait"])) {
             $this->maxWait = $this->params["max-wait"]; }
         else {
-            $this->maxWait = self::askForInput("Enter Max Wait: ", true); }
+            $this->maxWait = self::askForInput("Enter Max Wait Time: ", true); }
     }
 
     private function doOnePing() {
@@ -101,7 +104,8 @@ class PingUbuntu extends BaseLinuxApp {
             if ($latency !== false) {
                 $logging->log('Ping Latency is ' . $latency . ' ms') ; }
             else {
-                $logging->log("Ping Host could not be reached.") ; }
+                $time = $i * $this->interval ;
+                $logging->log("Ping Host could not be reached") ; }
             sleep($this->interval) ; }
     }
 
@@ -116,7 +120,7 @@ class PingUbuntu extends BaseLinuxApp {
                 $logging->log('Ping Latency is ' . $latency . ' ms') ;
                 break ; }
             else {
-                $logging->log("Ping Host could not be reached.") ; }
+                $logging->log("Ping Host could not be reached after $totalTime seconds") ; }
             sleep($this->interval) ;
             $totalTime = $totalTime + $this->interval ; }
     }
