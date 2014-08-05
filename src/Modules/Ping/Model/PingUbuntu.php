@@ -67,19 +67,19 @@ class PingUbuntu extends BaseLinuxApp {
     }
 
     protected function setInterval() {
-        if (isset($this->params["guess"])) {
-            $this->interval = "2" ; }
-        else if (isset($this->params["interval"])) {
+        if (isset($this->params["interval"])) {
             $this->interval = $this->params["interval"]; }
+        else if (isset($this->params["guess"])) {
+            $this->interval = "2" ; }
         else {
             $this->interval = self::askForInput("Enter Interval: ", true); }
     }
 
     protected function setMaxWait() {
-        if (isset($this->params["guess"])) {
-            $this->maxWait = "60" ; }
-        else if (isset($this->params["max-wait"])) {
+        if (isset($this->params["max-wait"])) {
             $this->maxWait = $this->params["max-wait"]; }
+        else if (isset($this->params["guess"])) {
+            $this->maxWait = "60" ; }
         else {
             $this->maxWait = self::askForInput("Enter Max Wait Time: ", true); }
     }
