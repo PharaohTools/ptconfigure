@@ -92,7 +92,7 @@ class PingUbuntu extends BaseLinuxApp {
         if ($latency !== false) {
             $logging->log('Ping Latency is ' . $latency . ' ms') ; }
         else {
-            $logging->log("Ping Host could not be reached.") ;}
+            $logging->log("Ping Host {$this->target} could not be reached.") ;}
     }
 
     private function doTenPings() {
@@ -105,7 +105,7 @@ class PingUbuntu extends BaseLinuxApp {
                 $logging->log('Ping Latency is ' . $latency . ' ms') ; }
             else {
                 $time = $i * $this->interval ;
-                $logging->log("Ping Host could not be reached") ; }
+                $logging->log("Ping Host {$this->target} could not be reached after $i iterations and $time seconds") ; }
             sleep($this->interval) ; }
     }
 
@@ -114,15 +114,17 @@ class PingUbuntu extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $ping = new \JJG\Ping($this->target);
         $totalTime = 0 ;
+        $i = 0;
         while ($totalTime < $this->maxWait) {
             $latency = $ping->ping();
             if ($latency !== false) {
                 $logging->log('Ping Latency is ' . $latency . ' ms') ;
                 break ; }
             else {
-                $logging->log("Ping Host could not be reached after $totalTime seconds") ; }
+                $logging->log("Ping Host {$this->target} could not be reached after $i iterations and $totalTime seconds") ; }
             sleep($this->interval) ;
-            $totalTime = $totalTime + $this->interval ; }
+            $totalTime = $totalTime + $this->interval ;
+            $i++; }
     }
 
 }
