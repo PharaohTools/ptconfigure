@@ -9,6 +9,18 @@ Cleopatra Modules to be created
   ":::mysql_default_host"
 
 
+BUG FOUND
+-------------
+must add a check to make sure that the remote prompt is actually updated. This can include checking the remote users
+login shell is bash, and checking that the prompt is correct in the environment variable.
+If it isn't, SSH will hang expecting to see it.
+
+
+BUG FOUND
+----------
+we should pick the commands that can be sudo-oed without a passwod.
+update the sudonopass module to let us pick individual commands, or default to ALL
+
 
 
 COOL SHIT FOR ROADMAP
