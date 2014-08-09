@@ -33,12 +33,7 @@ class VirtualboxUbuntu extends BaseLinuxApp {
 
     protected function getInstallCommands() {
         $ray = array(
-            array("command" => array(
-                "cd /tmp" ,
-                "wget -q -O - http://pkg.virtualbox-ci.org/debian/virtualbox-ci.org.key | sudo apt-key add -",
-                "echo deb http://pkg.virtualbox-ci.org/debian binary/ > /etc/apt/sources.list.d/virtualbox.list",
-                "apt-get update -y",
-                "apt-get install -y virtualbox") )
+            array("command" => array( "apt-get install -y virtualbox") )
         ) ;
         if (isset($this->params["with-http-port-proxy"]) && $this->params["with-http-port-proxy"]==true) {
             $dapperAuto = $this->getDapperAutoPath() ;
