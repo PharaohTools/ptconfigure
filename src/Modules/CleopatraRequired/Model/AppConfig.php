@@ -66,7 +66,7 @@ class AppConfig {
         $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
         $appConfigSerialized = serialize($appConfigArray);
         file_put_contents($pfile, $appConfigSerialized);
-        chmod($pfile, 0777);
+        // chmod($pfile, 0777);
     }
 
     public static function setAppVariable($variable, $value, $listAdd=null) {
