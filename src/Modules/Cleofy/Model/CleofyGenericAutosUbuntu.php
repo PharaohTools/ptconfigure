@@ -47,7 +47,8 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
             "medium" => "{$dir}Generic/Medium",
             "dbcluster" => "{$dir}Generic/DBCluster",
             "db-cluster" => "{$dir}Generic/DBCluster",
-            "workstation" => "{$dir}Generic/Workstation"
+            "workstation" => "{$dir}Generic/Workstation",
+            "phlagrant" => "{$dir}Generic/Phlagrant"
         );
     }
 
