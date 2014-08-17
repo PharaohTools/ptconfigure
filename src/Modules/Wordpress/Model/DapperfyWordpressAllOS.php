@@ -89,7 +89,9 @@ class DapperfyWordpressAllOS extends DapperfyAllOS {
                         $templatorFactory = new \Model\Templating();
                         $templator = $templatorFactory->getModel($this->params);
                         $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.
+                            'dapperstrano'.DIRECTORY_SEPARATOR.'dapperfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.
+                            'generated';
                         $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
                         $templator->template(
                             file_get_contents($templatesDir1.DIRECTORY_SEPARATOR.$template),
@@ -103,7 +105,9 @@ class DapperfyWordpressAllOS extends DapperfyAllOS {
                         $templatorFactory = new \Model\Templating();
                         $templator = $templatorFactory->getModel($this->params);
                         $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.
+                            'dapperstrano'.DIRECTORY_SEPARATOR.'dapperfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.
+                            'generated';
                         $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
                         $templator->template(
                             file_get_contents($templatesDir2.DIRECTORY_SEPARATOR.$template),
