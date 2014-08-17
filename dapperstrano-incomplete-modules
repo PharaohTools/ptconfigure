@@ -7,6 +7,18 @@ Dapperfy must use templateing like clefoy does
 
 remove references to $this->baseTempDir
 
+BUG FOUND
+-----------
+Github SSH prompt on first Connect!!
+write a flag file to ignore on first connection... or it'll hang waiting
+
+BUG FOUND
+-----------
+Github SSH prompt on first Connect!!
+write a flag file to ignore on first connection... or it'll hang waiting
+
+
+
 Concepts
 --------
 database should use templating for config
