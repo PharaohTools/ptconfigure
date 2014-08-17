@@ -13,6 +13,7 @@ class PortUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
+    protected $ipAddress ;
     protected $portNumber ;
     protected $actionsToMethods = array( "is-responding" => "performPortCheck" ) ;
 
@@ -27,8 +28,20 @@ class PortUbuntu extends BaseLinuxApp {
     }
 
     protected function performPortCheck() {
+        $this->setIp();
         $this->setPort();
         return $this->getPortStatus();
+    }
+
+    public function setIp($ipAddress = null) {
+        if (isset($ipAddress)) {
+            $this->ipAddress = $ipAddress; }
+        else if (isset($this->params["ip-address"])) {
+            $this->ipAddress = $this->params["ip-address"]; }
+        else if (isset($this->params["ip"])) {
+            $this->ipAddress = $this->params["ip"]; }
+        else {
+            $this->ipAddress = self::askForInput("Enter IP Adress:", true); }
     }
 
     public function setPort($portNumber = null) {
@@ -43,16 +56,16 @@ class PortUbuntu extends BaseLinuxApp {
     }
 
     private function getPortStatus() {
-        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        if ($socket === false) { throw new Exception("Cannot create socket"); }
-        $result = @socket_connect($socket, '127.0.0.1', $this->number);
+        // @todo fsockopen takes a while, fixed with 5 sec timeout?
+        $result = fsockopen($this->ipAddress, $this->portNumber, $errno, $errstr, 5);
+
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($result !== false) {
             $logging->log("Port {$this->portNumber} is responding") ;
             return true; }
         else {
-            $logging->log("Port {$this->portNumber} is not responding") ;
+            $logging->log("Port {$this->portNumber} is not responding. Error: $errno, $errstr") ;
             return false;}
     }
 
