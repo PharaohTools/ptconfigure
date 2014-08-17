@@ -30,7 +30,7 @@ your Ruby CI setup, Dapperstrano is a must for your PHP CI.
 ## Installation
 
 The preferred way to install any of the Pharoah apps (including this) is through cleopatra. If you install cleopatra
-on your machine (http://github.com/phpengine/cleopatra), then you can install dapperstrano using the following:
+on your machine (http://git.pharoah-tools.org.uk/phpengine/cleopatra), then you can install dapperstrano using the following:
 
 sudo cleopatra dapperstrano install --yes --guess
 
@@ -41,11 +41,11 @@ To install dapperstrano cli on your machine without cleopatra do the following:
 
 sudo apt-get install php5 git
 
-git clone https://github.com/phpengine/dapperstrano && sudo php dapperstrano/install-silent
+git clone https://git.pharoah-tools.org.uk/phpengine/dapperstrano && sudo php dapperstrano/install-silent
 
 or...
 
-git clone https://github.com/phpengine/dapperstrano && sudo php dapperstrano/install
+git clone https://git.pharoah-tools.org.uk/phpengine/dapperstrano && sudo php dapperstrano/install
 (if you want to choose the install location)
 
 ... that's it, now the dapperstrano command should be available at the command line for you.
