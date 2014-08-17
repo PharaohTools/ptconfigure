@@ -3,7 +3,8 @@ Cleopatra Modules to be created
 * CSS Regression Testing @todo
 
 * We should be able to assign a framework to a project.
-  This kind of already done
+  This kind of already done in dap_db_platform, maybe that should like below point to something at project level,
+  instead of rewriting it for environment level
 
 * we should be able to refer to values in other parts of the papyrusfile using something like:
   ":::mysql_default_host"
@@ -18,8 +19,8 @@ If it isn't, SSH will hang expecting to see it.
 
 BUG FOUND
 ----------
-we should pick the commands that can be sudo-oed without a passwod.
-update the sudonopass module to let us pick individual commands, or default to ALL
+We should pick the commands that can be sudo-oed without a password. update the sudonopass module to let us pick
+individual commands, or default to ALL
 
 
 
@@ -61,14 +62,17 @@ for default dir so
 cleopatra auto x --af="thisone.php" --dfd
 is much shorter
 
-ask zend to show me how to do autofill by tab at command line and also coloured command line output (that might be stack overflow)
+ask zend to show me how to do autofill by tab at command line and also coloured command line output (that might be stack
+overflow) If we cant do it in PHP, then can we do it in Bash, with some kind of connector method to something generated
+by PHP defining what it should look like/act like, in essence another CLI front end? how does that affect real time display
+of stuff?
 
 can we do this? this would make the autopilots look tasty
 
 [
-  ["Logging"] => ["log"][["log-message"] = "Lets begin Configuration of a Designers Workstation",
-  ["PHPModules"] => "ensure",
-  ["Logging"] => ["log"][["log-message"] = "Lets ensure Apache Server is installed",
+  [0]["Logging"]["log"][["log-message"] = "Lets begin Configuration of a Designers Workstation",
+  [1]["PHPModules"] => "ensure",
+  [2]["Logging"]["log"][["log-message"] => "Lets ensure Apache Server is installed",
 ]
 
 
@@ -170,7 +174,7 @@ DONE - SVN - SVN - The Source Control Manager
 Boxify Almost complete - Works smoothly on DigitalOcean, but there is a Problem. The SSH keys dont work,
 even when adding them manually via the digital ocean interface, cant login
 so, use Environmrntconfig with --keep-current-environemnts and --no-manual-servers to create an empty env.
-Then use boxify, and we can Invoke cli --env-name straight after .
+Then use boxi fy, and we can Invoke cli --env-name straight after .
 This does work, but i think i had a dodgy
 
 BOX-MANAGER-SUPERCLASS
