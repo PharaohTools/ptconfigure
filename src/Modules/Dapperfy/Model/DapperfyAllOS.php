@@ -99,13 +99,20 @@ class DapperfyAllOS extends Base {
             else {
                 $replacements = $defaultReplacements ; }
 
+            // There is probably a better way to do this, that can allow preprocessing any of the params
+            if (isset($replacements[""])) {
+
+            }
+
             if (!isset($this->params["no-autopilot-creation"])) {
                 foreach ($templates as $template) {
                     if (!in_array($template, array(".", ".."))) {
                         $templatorFactory = new \Model\Templating();
                         $templator = $templatorFactory->getModel($this->params);
                         $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.DIRECTORY_SEPARATOR.'autopilots';
+                        $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.
+                            'dapperstrano'.DIRECTORY_SEPARATOR.'dapperfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.
+                            'generated';
                         $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
                         $templator->template(
                             file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
