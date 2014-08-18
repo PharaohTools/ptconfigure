@@ -53,11 +53,11 @@ class EnvironmentConfigGenericAutosUbuntu extends BaseLinuxApp {
         ) ;
         $this->defaultEnvironments["phlagrant-host"] = array(
             "any-app" => array("gen_env_name" => "phlagrant-host", "gen_env_tmp_dir" => "/tmp/"),
-            "servers" => array(array("target" => "127.0.0.1", "user" => "any", "password" => "any") ),
+            "servers" => array(array("target" => "127.0.0.1", "user" => "phlagrant", "password" => "phlagrant") ),
         ) ;
         $this->defaultEnvironments["phlagrant-box"] = array(
             "any-app" => array("gen_env_name" => "phlagrant-box", "gen_env_tmp_dir" => "/tmp/"),
-            "servers" => array(array("target" => "127.0.0.1", "user" => "phlagrant", "password" => "any") ),
+            "servers" => array(array("target" => "127.0.0.1", "user" => "phlagrant", "password" => "phlagrant") ),
         ) ;
     }
 
