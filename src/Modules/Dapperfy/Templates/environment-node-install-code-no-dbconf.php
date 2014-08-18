@@ -37,6 +37,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "repository-url" => "<%tpl.php%>dap_git_repo_url</%tpl.php%>",
                     "custom-clone-dir" => $this->getTime(),
                     "custom-branch" => "<%tpl.php%>dap_git_custom_branch</%tpl.php%>",
+                    <%tpl.php%>dap_git_key_string</%tpl.php%>
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets initialize our new download directory as a dapper project"), ) ),
@@ -50,7 +51,6 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-ip-port" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
                     "vhe-template" => $this->getTemplate(),
-                    "vhe-file-ext" => "",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "The application is installed now so lets do our versioning" ), ), ),
