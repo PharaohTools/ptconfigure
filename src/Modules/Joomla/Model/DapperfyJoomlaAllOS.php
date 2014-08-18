@@ -56,7 +56,7 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
         $templatesDir1 = str_replace("Model", "Templates", $templatesDir1 ) ;
         $templates1 = scandir($templatesDir1);
 
-        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/".ucfirst($this->platform), dirname(__FILE__) ) ;
+        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/Joomla30".ucfirst($this->platform), dirname(__FILE__) ) ;
         $templates2 = scandir($templatesDir2);
         // $templates = array_merge($templates2, $templates1) ;
         foreach ($this->environments as $environment) {

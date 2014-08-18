@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DapperfyJoomlaAllOS extends DapperfyAllOS {
+class DapperfyJoomlaPhlagrantAllOS extends DapperfyAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -40,21 +40,16 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
               array("var"=>"dap_git_repo_ssh_key", "friendly_text"=>"Optional Private SSH Key for Git Repo"),
               array("var"=>"dap_git_custom_branch", "friendly_text"=>"Git Custom Branch"),
               array("var"=>"dap_apache_vhost_url", "friendly_text"=>"Apache VHost URL (Don't Include http://)"),
-              array("var"=>"dap_apache_vhost_ip", "friendly_text"=>"Apache VHost Hostname/IP"),
-              array("var"=>"dap_version_num_revisions", "friendly_text"=>"How many revisions to keep"),
           ) );
 
     }
 
 
     public function doDapperfy() {
-        $templatesDir1 = str_replace("Joomla", "Dapperfy", dirname(__FILE__) ) ;
-        $templatesDir1 = str_replace("Model", "Templates", $templatesDir1 ) ;
-        $templates1 = scandir($templatesDir1);
 
-        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/".ucfirst($this->platform), dirname(__FILE__) ) ;
+        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/Joomla30Phlagrant", dirname(__FILE__) ) ;
         $templates2 = scandir($templatesDir2);
-        // $templates = array_merge($templates2, $templates1) ;
+
         foreach ($this->environments as $environment) {
 
             if (isset($this->params["environment-name"])) {
@@ -76,13 +71,13 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
                     "dap_db_name" => "ph_db",
                     "dap_db_admin_user_name" => "root",
                     "dap_db_admin_user_pass" => "cleopatra",
+                    "dap_apache_vhost_ip" => "0.0.0.0"
                 ) ;
 
             if (isset($environment["dapper"])) {
                 $replacements = array_merge($defaultReplacements, $environment["dapper"]) ; }
             else {
                 $replacements = $defaultReplacements ; }
-
 
             if (!isset($this->params["no-autopilot-creation"])) {
 

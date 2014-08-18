@@ -25,7 +25,7 @@ class JoomlaInfo extends Base {
     }
 
     public function dapperfyActions() {
-        return array( "joomla", "joomla15", "joomla30" );
+        return array( "joomla", "joomla15", "joomla30", "joomla30-phlagrant", "joomla-phlagrant" );
     }
 
     public function dbConfigureActions() {
@@ -91,9 +91,13 @@ HELPDATA;
   The Joomla module extends Dapperfy by providing Templates for automated deployment Autopilots that will be configured
   for your particular Joomla site. This module adds the 'joomla' action to dapperfy.
 
-  - joomla
+  - joomla, joomla30
   create joomla tailored automated deployment dapperstrano autopilots
   example: dapperstrano dapperfy joomla --yes --guess
+
+  - joomla-phlagrant, joomla30-phlagrant
+  create joomla tailored automated deployment dapperstrano autopilots for your Phlagrant Virtual Machines
+  example: dapperstrano dapperfy joomla-phlagrant --yes --guess
 HELPDATA;
         return $help ;
     }
