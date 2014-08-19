@@ -101,8 +101,8 @@ class AutoPilotConfigured extends AutoPilot {
  <VirtualHost ****IP ADDRESS****:80>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
- 	DocumentRoot ****WEB ROOT****/src
- 	<Directory ****WEB ROOT****/src>
+ 	DocumentRoot ****WEB ROOT****src
+ 	<Directory ****WEB ROOT****src>
  		Options Indexes FollowSymLinks MultiViews
  		AllowOverride All
  		Order allow,deny
@@ -112,24 +112,24 @@ class AutoPilotConfigured extends AutoPilot {
    CustomLog /var/log/apache2/access.log combined
  </VirtualHost>
 
- NameVirtualHost ****IP ADDRESS****:443
- <VirtualHost ****IP ADDRESS****:443>
- 	 ServerAdmin webmaster@localhost
- 	 ServerName ****SERVER NAME****
- 	 DocumentRoot ****WEB ROOT****/src
+# NameVirtualHost ****IP ADDRESS****:443
+# <VirtualHost ****IP ADDRESS****:443>
+# 	 ServerAdmin webmaster@localhost
+# 	 ServerName ****SERVER NAME****
+# 	 DocumentRoot ****WEB ROOT****src
    # SSLEngine on
  	 # SSLCertificateFile /etc/apache2/ssl/ssl.crt
    # SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
    # SSLCertificateChainFile /etc/apache2/ssl/bundle.crt
- 	 <Directory ****WEB ROOT****/src>
- 		 Options Indexes FollowSymLinks MultiViews
-		AllowOverride All
-		Order allow,deny
-		allow from all
-	</Directory>
-  ErrorLog /var/log/apache2/error.log
-  CustomLog /var/log/apache2/access.log combined
-  </VirtualHost>
+# 	 <Directory ****WEB ROOT****src>
+# 		 Options Indexes FollowSymLinks MultiViews
+#		AllowOverride All
+#		Order allow,deny
+#		allow from all
+#	</Directory>
+#  ErrorLog /var/log/apache2/error.log
+#  CustomLog /var/log/apache2/access.log combined
+#  </VirtualHost>
 TEMPLATE;
 
         return $template ;
