@@ -17,8 +17,7 @@ class AutoPilotConfigured extends AutoPilot {
 	    $this->setSteps();
     }
 
-    /* Steps */
-    private function setSteps() {
+    protected function setSteps() {
 
 	    $this->steps =
 	      array(
@@ -29,6 +28,7 @@ class AutoPilotConfigured extends AutoPilot {
               array ( "HostEditor" => array( "add" => array (
                   "guess" => true,
                   "host-name" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
+                  "host-ip" => $this->getCurrentTargetFromPapyrus(),
               ), ), ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Dapperstrano Application Configuration of Virtual Machine Host Complete", ), ), ),
@@ -36,4 +36,11 @@ class AutoPilotConfigured extends AutoPilot {
 	      );
 
 	  }
+
+    protected function getCurrentTargetFromPapyrus() {
+        $pf = \Model\AppConfig::getProjectVariable("phlagrant-box", true) ;
+        if (is_array($pf) && count($pf)>0) {
+            return $pf["target"] ; }
+        return null ;
+    }
 }
