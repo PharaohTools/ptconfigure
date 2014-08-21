@@ -24,11 +24,20 @@ class AutoPilotConfigured extends AutoPilot {
                     "install-user-name" => "phlagrant"
                 ),),),
 
+                // Copy SSH Private Key
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
+                array ( "SFTP" => array( "put" => array(
+                    "source" => "/home/{$this->myUser}/.ssh/id_rsa",
+                    "target" => "/home/phlagrant/.ssh/id_rsa"
+                ),),),
+
                 // All Pharoes
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
                 array ( "Cleopatra" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
                 array ( "Dapperstrano" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
+                array ( "Testingkamen" => array( "ensure" => array(),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
