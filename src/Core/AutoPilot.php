@@ -25,9 +25,8 @@ class AutoPilot extends Base {
 
     protected function setMyUser() {
         $this->myUser = self::executeAndLoad("whoami") ;
-        $this->myUser = substr("\n", "", $this->myUser) ;
-        $this->myUser = substr("\r", "", $this->myUser) ;
-
+        $this->myUser = str_replace("\n", "", $this->myUser) ;
+        $this->myUser = str_replace("\r", "", $this->myUser) ;
     }
 
 }
