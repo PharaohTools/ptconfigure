@@ -25,7 +25,7 @@ class VarnishUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "varnish"; // command and app dir name
         $this->programNameFriendly = " ! Varnish !"; // 12 chars
         $this->programNameInstaller = "Varnish";
-        $this->statusCommand = "command varnish" ;
+        $this->statusCommand = "which varnishd" ;
         $this->versionInstalledCommand = "sudo apt-cache policy varnish" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy varnish" ;
         $this->versionLatestCommand = "sudo apt-cache policy varnish" ;
