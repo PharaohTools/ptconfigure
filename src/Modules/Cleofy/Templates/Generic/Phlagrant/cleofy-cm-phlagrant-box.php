@@ -25,7 +25,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Copy SSH Private Key
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets push over our user SSH Keys" ),),),
                 array ( "SFTP" => array( "put" => array(
                     "source" => "/home/{$this->myUser}/.ssh/id_rsa",
                     "target" => "/home/phlagrant/.ssh/id_rsa"
