@@ -85,7 +85,7 @@ class InvokeAllLinux extends Base {
     private function loadServerData() {
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
         if (isset($this->params["servers"])) {
-            $this->servers = $this->params["servers"]; }
+            $this->servers = unserialize($this->params["servers"]); }
         else if (isset($this->params["environment-name"])) {
             $names = $this->getEnvironmentNames($allProjectEnvs) ;
             $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"]; }
@@ -109,24 +109,31 @@ class InvokeAllLinux extends Base {
 
     private function loadSSHConnections() {
         echo 'Attempting to load SSH connections... ';
-        foreach ($this->servers as &$server) {
+        foreach ($this->servers as $srvId => &$server) {
+            if (isset($this->params["environment-box-id-include"])) {
+                if ($srvId != $this->params["environment-box-id-include"] ) {
+                    echo "Skipping {$$server["name"]} for box id Include constraint\n" ;
+                    continue ; } }
+            if (isset($this->params["environment-box-id-ignore"])) {
+                if ($srvId == $this->params["environment-box-id-ignore"] ) {
+                    echo "Skipping {$$server["name"]} for box id Ignore constraint\n" ;
+                    continue ; } }
             $attempt = $this->attemptSSH2Connection($server) ;
             if ($attempt == null) {
                 echo 'Connection to Server '.$server["target"].' failed. '; }
             else {
                 $server["ssh2Object"] = $attempt ;
-                echo $this->changeBashPromptToPharoah($server["ssh2Object"]);
-                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharoah Remote SSH on ...'.$server["target"].'"', true ) ; } }
+                echo $this->changeBashPromptToPharaoh($server["ssh2Object"]);
+                echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
     }
 
-    // @todo it currently looks for both pword and password lets stick to one
     private function attemptSSH2Connection($server) {
         if (!class_exists('Net_SSH2')) {
             $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
             $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
             require_once($ssh2File) ; }
-        $ssh = new \Net_SSH2($server["target"], 22, $this->params["timeout"]);
+        $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]);
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
         $pword = $this->getKeyIfAvailable($pword);
@@ -222,7 +229,7 @@ QUESTION;
             return ; }
         $question = 'Please Enter remote SSH Port';
         $input = self::askForInput($question, true) ;
-        $this->params["timeout"] = $input ;
+        $this->params["port"] = $input ;
     }
 
     private function askForServerTarget(){
@@ -253,7 +260,7 @@ QUESTION;
         return ($input=="") ? false : $input ;
     }
 
-    private function changeBashPromptToPharoah( $sshObject ) {
+    private function changeBashPromptToPharaoh( $sshObject ) {
         $command = 'echo "export PS1=PHAROAHPROMPT" > ~/.bash_login ' ;
         return $sshObject->exec("$command\n") ;
     }
