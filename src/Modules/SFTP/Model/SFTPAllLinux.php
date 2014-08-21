@@ -14,7 +14,7 @@ class SFTPAllLinux extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $servers = array();
+    protected $servers = array();
 
     public function askWhetherToSFTPPut() {
         return $this->performSFTPPut();
@@ -27,6 +27,8 @@ class SFTPAllLinux extends Base {
     public function performSFTPPut() {
         if ($this->askForSFTPExecute() != true) { return false; }
         $this->populateServers() ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $sourceDataPath = $this->getSourceFilePath("local") ;
         $sourceData = $this->attemptToLoad($sourceDataPath) ;
         if (is_null($sourceData)) {
@@ -35,24 +37,24 @@ class SFTPAllLinux extends Base {
             $logging->log("SFTP Put will cancel, no source file") ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote") ;
-        echo "Opening SFTP Connections...\n."  ;
+        $logging->log("Opening SFTP Connections...") ;
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
-                    echo "Skipping {$$server["name"]} for box id Include constraint\n" ;
+                    $logging->log("Skipping {$$server["name"]} for box id Include constraint") ;
                     continue ; } }
             if (isset($this->params["environment-box-id-ignore"])) {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
-                    echo "Skipping {$$server["name"]} for box id Ignore constraint\n" ;
+                    $logging->log("Skipping {$$server["name"]} for box id Ignore constraint") ;
                     continue ; } }
-            echo "[".$server["target"]."] Executing SFTP Put...\n"  ;
-            echo $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
-            echo "[".$server["target"]."] SFTP Put Completed...\n" ; }
-        echo "All SFTP Puts Completed\n";
+            $logging->log("[".$server["target"]."] Executing SFTP Put...")  ;
+            $logging->log($this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData)) ;
+            $logging->log("[".$server["target"]."] SFTP Put Completed...") ; }
+        $logging->log("All SFTP Puts Completed");
         return true;
     }
 
-    private function attemptToLoad($sourceDataPath){
+    protected function attemptToLoad($sourceDataPath){
         if (file_exists($sourceDataPath)) {
             return file_get_contents($sourceDataPath) ; }
         else {
@@ -64,31 +66,46 @@ class SFTPAllLinux extends Base {
         $this->populateServers();
         $sourceDataPath = $this->getSourceFilePath("remote");
         $targetPath = $this->getTargetFilePath("local");
-        echo "Opening SFTP Connections...\n"  ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Opening SFTP Connections...");
         foreach ($this->servers as &$server) {
-            echo "[".$server["target"]."] Executing SFTP Get...\n"  ;
-            echo $this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath) ;
-            echo "[".$server["target"]."] SFTP Get Completed...\n"  ; }
-        echo "All SFTP Gets Completed\n";
+            $logging->log("[".$server["target"]."] Executing SFTP Get...");
+            $logging->log($this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath)) ;
+            $logging->log("[".$server["target"]."] SFTP Get Completed..."); }
+        $logging->log("All SFTP Gets Completed");
         return true;
     }
 
-    private function doSFTPPut($sftpObject, $remoteFile, $data) {
+    protected function doSFTPPut($sftpObject, $remoteFile, $data) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $result = "" ;
         if ($sftpObject instanceof \Net_SFTP) {
-            $result = $sftpObject->put($remoteFile, $data); }
+            if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
+                $dn = dirname($remoteFile) ;
+                if ($sftpObject->_is_dir($dn)==false) {
+                    $logging->log("Target directory does not exist, so creating...");
+                    $sftpObject->mkdir($dn) ; } }
+            $result .= $sftpObject->put($remoteFile, $data);
+            $ar = $sftpObject->getSFTPErrors() ;
+            foreach ($ar as $s) {
+                $result .= "$s\n" ; } }
         else {
             // @todo make this a log
-            echo "No SFTP Object, Connection likely failed\n";
+            $logging->log("No SFTP Object, Connection likely failed");
             $result = false; }
         return $result ;
     }
 
-    private function doSFTPGet($sftpObject, $remoteFile, $localFile = false) {
+    protected function doSFTPGet($sftpObject, $remoteFile, $localFile = false) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if ($sftpObject instanceof \Net_SFTP) {
             $result = $sftpObject->get($remoteFile, $localFile); }
         else {
             // @todo make this a log
-            echo "No SFTP Object\n";
+            $logging->log("No SFTP Object");
             $result = false; }
         return $result ;
     }
@@ -100,7 +117,7 @@ class SFTPAllLinux extends Base {
         $this->loadSFTPConnections();
     }
 
-    private function loadServerData() {
+    protected function loadServerData() {
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
         if (isset($this->params["servers"])) {
             $this->servers = unserialize($this->params["servers"]); }
@@ -117,7 +134,7 @@ class SFTPAllLinux extends Base {
             $this->askForServerInfo(); }
     }
 
-    private function getEnvironmentNames($envs) {
+    protected function getEnvironmentNames($envs) {
         $eNames = array() ;
         foreach ($envs as $envKey => $env) {
             $envName = $env["any-app"]["gen_env_name"] ;
@@ -125,12 +142,14 @@ class SFTPAllLinux extends Base {
         return $eNames ;
     }
 
-    private function loadSFTPConnections() {
-        echo "Attempting to load SFTP connections...\n";
+    protected function loadSFTPConnections() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to load SFTP connections...");
         foreach ($this->servers as &$server) {
             $attempt = $this->attemptSFTPConnection($server) ;
             if ($attempt == null) {
-                echo "Connection to Server {$server["target"]} failed.\n";
+                $logging->log("Connection to Server {$server["target"]} failed.");
                 $server["sftpObject"] = null ; }
             else {
                 $server["sftpObject"] = $attempt ; } }
@@ -138,7 +157,7 @@ class SFTPAllLinux extends Base {
     }
 
     // @todo it currently looks for both pword and password lets stick to one
-    private function attemptSFTPConnection($server) {
+    protected function attemptSFTPConnection($server) {
         if (!class_exists('Net_SSH2')) {
             // Always load SSH2 class from here as SFTP class tries to load it wrongly
             $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
@@ -156,7 +175,7 @@ class SFTPAllLinux extends Base {
         return null;
     }
 
-    private function getKeyIfAvailable($pword) {
+    protected function getKeyIfAvailable($pword) {
         if (substr($pword, 0, 1) == '~') {
             $home = $_SERVER['HOME'] ;
             $pword = str_replace('~', $home, $pword) ; }
@@ -171,13 +190,13 @@ class SFTPAllLinux extends Base {
         return $pword ;
     }
 
-    private function askForSFTPExecute(){
+    protected function askForSFTPExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'SFTP on Server group?';
         return self::askYesOrNo($question);
     }
 
-    private function askForServerInfo(){
+    protected function askForServerInfo(){
         $startQuestion = <<<QUESTION
 ***********************************
 *   Due to a software limitation, *
@@ -203,7 +222,7 @@ QUESTION;
             $serverAddingExecution = self::askYesOrNo($question); }
     }
 
-    private function askForTimeout(){
+    protected function askForTimeout(){
         if (isset($this->params["timeout"])) { return ; }
         if (isset($this->params["guess"])) {
             $this->params["timeout"] = 100 ;
@@ -213,7 +232,7 @@ QUESTION;
         $this->params["timeout"] = $input ;
     }
 
-    private function askForPort(){
+    protected function askForPort(){
         if (isset($this->params["port"])) { return ; }
         if (isset($this->params["guess"])) {
             $this->params["port"] = 22 ;
@@ -223,25 +242,25 @@ QUESTION;
         $this->params["port"] = $input ;
     }
 
-    private function askForServerTarget(){
+    protected function askForServerTarget(){
         $question = 'Please Enter SSH Server Target Host Name/IP';
         $input = self::askForInput($question, true) ;
         return  $input ;
     }
 
-    private function askForServerUser(){
+    protected function askForServerUser(){
         $question = 'Please Enter SSH User';
         $input = self::askForInput($question, true) ;
         return  $input ;
     }
 
-    private function askForServerPassword(){
+    protected function askForServerPassword(){
         $question = 'Please Enter Server Password or Key Path';
         $input = self::askForInput($question) ;
         return  $input ;
     }
 
-    private function getSourceFilePath($flag = null){
+    protected function getSourceFilePath($flag = null){
         if (isset($this->params["source"])) { return $this->params["source"] ; }
         if (isset($flag)) { $question = "Enter $flag source file path" ; }
         else { $question = "Enter source file path"; }
@@ -249,7 +268,7 @@ QUESTION;
         return ($input=="") ? false : $input ;
     }
 
-    private function getTargetFilePath($flag = null){
+    protected function getTargetFilePath($flag = null){
         if (isset($this->params["target"])) { return $this->params["target"] ; }
         if (isset($flag)) { $question = "Enter $flag target file path" ; }
         else { $question = "Enter target file path"; }
