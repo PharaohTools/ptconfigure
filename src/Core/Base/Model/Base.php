@@ -110,7 +110,10 @@ COMPLETION;
     protected function setCmdLineParams($params) {
         $cmdParams = array();
         foreach ($params as $paramKey => $paramValue) {
-            if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
+            if (is_array($paramValue)) {
+                // if the value is a php array, the param must be already formatted so do nothing
+            }
+            else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
                 $equalsPos = strpos($paramValue, "=") ;
                 $paramKey = substr($paramValue, 2, $equalsPos-2) ;
                 $paramValue = substr($paramValue, $equalsPos+1, strlen($paramValue)) ; }
