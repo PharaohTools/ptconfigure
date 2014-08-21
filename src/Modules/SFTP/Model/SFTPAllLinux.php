@@ -35,8 +35,16 @@ class SFTPAllLinux extends Base {
             $logging->log("SFTP Put will cancel, no source file") ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote") ;
-        echo "Opening SFTP Connections...\n"  ;
-        foreach ($this->servers as &$server) {
+        echo "Opening SFTP Connections...\n."  ;
+        foreach ($this->servers as $srvId => &$server) {
+            if (isset($this->params["environment-box-id-include"])) {
+                if ($srvId != $this->params["environment-box-id-include"] ) {
+                    echo "Skipping {$$server["name"]} for box id Include constraint\n" ;
+                    continue ; } }
+            if (isset($this->params["environment-box-id-ignore"])) {
+                if ($srvId == $this->params["environment-box-id-ignore"] ) {
+                    echo "Skipping {$$server["name"]} for box id Ignore constraint\n" ;
+                    continue ; } }
             echo "[".$server["target"]."] Executing SFTP Put...\n"  ;
             echo $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
             echo "[".$server["target"]."] SFTP Put Completed...\n" ; }
@@ -86,6 +94,8 @@ class SFTPAllLinux extends Base {
     }
 
     public function populateServers() {
+        $this->askForTimeout();
+        $this->askForPort();
         $this->loadServerData();
         $this->loadSFTPConnections();
     }
@@ -93,7 +103,7 @@ class SFTPAllLinux extends Base {
     private function loadServerData() {
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
         if (isset($this->params["servers"])) {
-            $this->servers = $this->params["servers"]; }
+            $this->servers = unserialize($this->params["servers"]); }
         else if (isset($this->params["environment-name"])) {
             $names = $this->getEnvironmentNames($allProjectEnvs) ;
             $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"]; }
@@ -138,7 +148,7 @@ class SFTPAllLinux extends Base {
             $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
             $sftpFile = $srcFolder."/seclib/Net/SFTP.php" ;
             require_once($sftpFile) ; }
-        $sftp = new \Net_SFTP($server["target"]);
+        $sftp = new \Net_SFTP($server["target"], $this->params["port"], $this->params["timeout"]);
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
         $pword = $this->getKeyIfAvailable($pword);
@@ -191,6 +201,26 @@ QUESTION;
             $question = 'Add Another Server?';
             if ( count($this->servers)<1) { $question .= "You need to enter at least one server\n"; }
             $serverAddingExecution = self::askYesOrNo($question); }
+    }
+
+    private function askForTimeout(){
+        if (isset($this->params["timeout"])) { return ; }
+        if (isset($this->params["guess"])) {
+            $this->params["timeout"] = 100 ;
+            return ; }
+        $question = 'Please Enter SSH Timeout in seconds';
+        $input = self::askForInput($question, true) ;
+        $this->params["timeout"] = $input ;
+    }
+
+    private function askForPort(){
+        if (isset($this->params["port"])) { return ; }
+        if (isset($this->params["guess"])) {
+            $this->params["port"] = 22 ;
+            return ; }
+        $question = 'Please Enter remote SSH Port';
+        $input = self::askForInput($question, true) ;
+        $this->params["port"] = $input ;
     }
 
     private function askForServerTarget(){
