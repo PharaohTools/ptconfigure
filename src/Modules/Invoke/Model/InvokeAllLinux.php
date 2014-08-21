@@ -85,7 +85,7 @@ class InvokeAllLinux extends Base {
     private function loadServerData() {
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
         if (isset($this->params["servers"])) {
-            $this->servers = $this->params["servers"]; }
+            $this->servers = unserialize($this->params["servers"]); }
         else if (isset($this->params["environment-name"])) {
             $names = $this->getEnvironmentNames($allProjectEnvs) ;
             $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"]; }
@@ -128,13 +128,12 @@ class InvokeAllLinux extends Base {
         return true;
     }
 
-    // @todo it currently looks for both pword and password lets stick to one
     private function attemptSSH2Connection($server) {
         if (!class_exists('Net_SSH2')) {
             $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
             $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
             require_once($ssh2File) ; }
-        $ssh = new \Net_SSH2($server["target"], 22, $this->params["timeout"]);
+        $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]);
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
         $pword = $this->getKeyIfAvailable($pword);
@@ -230,7 +229,7 @@ QUESTION;
             return ; }
         $question = 'Please Enter remote SSH Port';
         $input = self::askForInput($question, true) ;
-        $this->params["timeout"] = $input ;
+        $this->params["port"] = $input ;
     }
 
     private function askForServerTarget(){
