@@ -6,7 +6,7 @@ class VirtualboxInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Virtualbox - The Java Build Server";
+    public $name = "Virtualbox - The local Virtual Machine Solution";
 
     public function __construct() {
       parent::__construct();
@@ -22,7 +22,7 @@ class VirtualboxInfo extends CleopatraBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Virtualbox, the popular Build Server.
+  This command allows you to install Virtualbox, the popular Virtual Machine Solution.
 
   Virtualbox, virtualbox
 
