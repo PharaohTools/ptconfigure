@@ -10,6 +10,7 @@ class AutoPilotConfigured extends AutoPilot {
     protected $sftpParams ;
 
     public function __construct() {
+        parent::__construct() ;
         $this->loadPapyrusLocal();
         $this->setSftpParams();
         $this->setSteps();
@@ -31,6 +32,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "port" => $this->sftpParams["port"],
                     "timeout" => $this->sftpParams["timeout"],
                     "servers" => $this->sftpParams["servers"],
+                    "mkdir" => true
                 ),),),
 
                 array ( "Logging" => array( "log" => array(
