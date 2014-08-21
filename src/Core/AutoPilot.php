@@ -20,7 +20,13 @@ class AutoPilot extends Base {
 
     protected function setProperties() {
         $this->appHomeDir = dirname(dirname(dirname(__FILE__))) ;
+        $this->setMyUser();
+    }
+
+    protected function setMyUser() {
         $this->myUser = self::executeAndLoad("whoami") ;
+        $this->myUser = str_replace("\n", "", $this->myUser) ;
+        $this->myUser = str_replace("\r", "", $this->myUser) ;
     }
 
 }
