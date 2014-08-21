@@ -22,7 +22,7 @@ class DapperfyJoomlaPhlagrantAllOS extends DapperfyAllOS {
 
     public function askToScreenWhetherToDapperfy() {
         if (isset($this->params["yes"])) { return true ; }
-        $question = 'Dapperfy This for Joomla?';
+        $question = 'Dapperfy This for Joomla on Phlagrant?';
         return self::askYesOrNo($question, true);
     }
 
@@ -59,9 +59,11 @@ class DapperfyJoomlaPhlagrantAllOS extends DapperfyAllOS {
                     echo $tx;
                     continue ; } }
 
+            $servers = (isset($environment["servers"])) ? $environment["servers"] : array() ;
+
             $defaultReplacements =
                 array(
-                    "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                    "gen_srv_array_text" => $this->getServerArrayText($servers) ,
                     "env_name" => $environment["any-app"]["gen_env_name"],
                     "dap_db_platform" => $this->platform,
                     "gen_env_tmp_dir" => $environment["any-app"]["gen_env_tmp_dir"],
