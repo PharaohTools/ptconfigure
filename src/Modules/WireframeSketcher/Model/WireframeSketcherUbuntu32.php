@@ -20,13 +20,10 @@ class WireframeSketcherUbuntu32 extends BaseLinuxApp {
         $this->installCommands = array (
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
-                    "cd /tmp" ,
-                    "git clone https://github.com/phpengine/cleopatra-wireframe-sketcher-32.git wireframe-sketcher",
-                    "rm -rf ****PROGDIR****",
-                    "mkdir -p ****PROGDIR****",
-                    "mv /tmp/wireframe-sketcher/* ****PROGDIR****",
-                    "chmod -R 777 ****PROGDIR****",
-                    "rm -rf /tmp/wireframe-sketcher" ) ),
+                "cd /tmp" ,
+                "git clone https://github.com/phpengine/cleopatra-wireframe-sketcher-32.git wireframe-sketcher",
+                "sudo dpkg -i wireframe-sketcher/WireframeSketcher-4.3.1_i386.deb",
+                "sudo rm WireframeSketcher-4.3.1_i386.deb" ) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
