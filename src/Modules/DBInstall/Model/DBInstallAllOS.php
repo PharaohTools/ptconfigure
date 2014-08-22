@@ -349,8 +349,11 @@ class DBInstallAllOS extends Base {
         $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
         $mysqliResult = $mysqli->query('show databases;');
         $dbs = array();
-        while ($db = $mysqliResult->fetch_array()) {
-            $dbs[] = $db[0];}
+        if (is_object($mysqliResult)) {
+            while ($db = $mysqliResult->fetch_array()) {
+                $dbs[] = $db[0];} }
+        else {
+            echo "Database Result Error: ".$mysqli->connect_error ; }
         $dbsTrimmed = array_diff($dbs, array("test", "mysql", "information_schema", "performance_schema"));
         $i=0;
         $dbsSorted = array();
