@@ -21,6 +21,7 @@ class DBInstallAllOS extends Base {
     public $dbName ;
     public $dbRootUser ;
     public $dbRootPass ;
+    public $dbFilePath = "db/database.sql";
 
     public function askWhetherToInstallDB(\Model\DBConfigure $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
@@ -53,6 +54,7 @@ class DBInstallAllOS extends Base {
 
     protected function performDBInstallationWithConfig(\Model\DBConfigure $dbConfigObject) {
         if ( !$this->askForDBInstall() ) { return false; }
+        $this->setDBFilePath();
         $this->dbHost = $dbConfigObject->getProperty("dbHost");
         $this->dbUser = $dbConfigObject->getProperty("dbUser");
         $this->dbPass = $dbConfigObject->getProperty("dbPass");
@@ -196,6 +198,11 @@ class DBInstallAllOS extends Base {
     protected function askForDBInstall(){
         $question = 'Do you want to install a database?' ;
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
+    }
+
+    protected function setDBFilePath(){
+        if (isset($this->params["db-file-path"])) {
+            $this->dbFilePath = $this->params["db-file-path"] ; }
     }
 
     protected function askForDBSave(){
@@ -378,10 +385,10 @@ class DBInstallAllOS extends Base {
     }
 
     protected function databaseSaver() {
-        $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > db/database.sql --no-create-db ; " ;
+        $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$this->dbFilePath} --no-create-db ; " ;
         echo $comm."\n" ;
         $this->executeAndOutput($comm, "Database Dumping...") ;
-    }
+    }  # db/database.sql
 
     protected function userCreator() {
         $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
@@ -425,7 +432,7 @@ class DBInstallAllOS extends Base {
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
         if ($lastChar != '/') { $path .= '/' ; }
-        $sqlFileToExecute = $path."db/database.sql" ;
+        $sqlFileToExecute = $path.$this->dbFilePath ;
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->dbUser.' -p'.$this->dbPass.' ';
         $command .= $this->dbName.' < '.$sqlFileToExecute;
         self::executeAndOutput($command);
