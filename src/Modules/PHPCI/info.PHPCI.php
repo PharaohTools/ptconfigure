@@ -13,7 +13,8 @@ class PHPCIInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "PHPCI" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "PHPCI" =>  array_merge(parent::routesAvailable(), array("install", "config-default", "default-config",
+        "install-default-database") ) );
     }
 
     public function routeAliases() {
@@ -29,6 +30,16 @@ class PHPCIInfo extends CleopatraBase {
         - install
         Installs PHPCI through apt-get
         example: cleopatra phpci install
+
+        - config-default, default-config
+        Installs PHPCI through apt-get
+        example: cleopatra phpci config-default --yes --guess
+
+        - install-default-database
+        Installs PHPCI through apt-get
+        example: cleopatra phpci install-default-database --yes --guess
+            --mysql-admin-user="root" # guess will provide root
+            --mysql-admin-pass="some-pass" # guess will provide cleopatra
 
 HELPDATA;
       return $help ;
