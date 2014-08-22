@@ -9,11 +9,11 @@ class PHPCIDefaultConfUbuntu extends BaseTemplater {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("12.04", "12.10") ;
+    public $versions = array("12.04", "12.10", "13.04", "13.10", "14.04", "14.10", ) ;
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Default") ;
+    public $modelGroup = array("DefaultConf") ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -26,9 +26,9 @@ class PHPCIDefaultConfUbuntu extends BaseTemplater {
         );
         $this->uninstallCommands = array();
         $this->programDataFolder = "/opt/PHPCIDefaultConf"; // command and app dir name
-        $this->programNameMachine = "phpconf"; // command and app dir name
-        $this->programNameFriendly = "PHP Conf!"; // 12 chars
-        $this->programNameInstaller = "PHP Conf";
+        $this->programNameMachine = "phpcidefaultconf"; // command and app dir name
+        $this->programNameFriendly = "PHPCI Defaults"; // 12 chars
+        $this->programNameInstaller = "PHP CI Default Configuration";
         $this->targetLocation = "/opt/phpci/phpci/PHPCI/config.yml" ;
         $this->initialize();
     }
