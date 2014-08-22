@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ComposerInfo extends ComposerBase {
+class ComposerInfo extends CleopatraBase {
 
     public $hidden = false;
 
@@ -17,18 +17,18 @@ class ComposerInfo extends ComposerBase {
     }
 
     public function routeAliases() {
-      return array("cleo"=>"Composer", "cleopatra"=>"Composer");
+      return array("composer"=>"Composer");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to update Composer.
 
-  Composer, cleo, cleopatra
+  Composer, composer
 
         - install
-        Installs the latest version of cleopatra
-        example: cleopatra cleopatra install
+        Installs the latest version of composer
+        example: cleopatra composer install
 
 HELPDATA;
       return $help ;
