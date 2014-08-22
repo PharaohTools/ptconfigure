@@ -15,6 +15,7 @@ class BaseLinuxApp extends Base {
         $this->populateCompletion();
     }
 
+    // @todo surely this can go its in every model. DEPRECATE
     public function initialize() {
         $this->populateTitle();
     }
