@@ -15,6 +15,9 @@ class PHPCIDefaultDBInstallUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("DefaultDBInstall") ;
 
+    public $dbRootUser ;
+    public $dbRootPass ;
+
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "PHPCI";
@@ -24,57 +27,42 @@ class PHPCIDefaultDBInstallUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "phpci"; // command and app dir name
         $this->programNameFriendly = " ! PHPCI !"; // 12 chars
         $this->programNameInstaller = "PHPCI";
-        $this->statusCommand = "sudo phpci -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy phpci" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy phpci" ;
-        $this->versionLatestCommand = "sudo apt-cache policy phpci" ;
         $this->initialize();
     }
 
     protected function getInstallCommands() {
         $ray = array(
-            array("method"=> array( "object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-mcrypt"))) ),
-            array("method"=> array( "object" => $this, "method" => "getDBAdminUser", "params" => array("Apt", array("php5-mcrypt"))) ),
-            array("method"=> array( "object" => $this, "method" => "getDBAdminPass", "params" => array("Apt", array("php5-mcrypt"))) ),
-            array("method"=> array( "object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-mcrypt"))) ),
+            array("method"=> array( "object" => $this, "method" => "askForRootDBUser", "params" => array()) ),
+            array("method"=> array( "object" => $this, "method" => "askForRootDBPass", "params" => array()) ),
+            array("method"=> array( "object" => $this, "method" => "doDbInstall", "params" => array()) ),
         ) ;
         return $ray ;
     }
 
-    public function ensureMySQL() {
-        // @todo add logging
-        $mysqlFactory = new \Model\MysqlServer();
-        $mysql = $mysqlFactory->getModel($this->params);
-        $mysql->ensureInstalled();
+    public function doDBInstall() {
+        $command = 'sudo dapperstrano dbinstall install --yes --mysql-host="127.0.0.1" --mysql-admin-user="'.$this->dbRootUser.'"' .
+            ' --mysql-admin-pass="'.$this->dbRootPass.'" --mysql-user="phpci" --mysql-pass="phpci_pass" --mysql-db="phpci"' .
+            ' --parent-path="/opt/cleopatra/cleopatra/src/Modules/PHPCI/" --db-file-path="db/database.sql"' ;
+        self::executeAndOutput($command);
     }
 
-    public function getDBAdminUser() {
-        // @todo add logging
-        $mysqlFactory = new \Model\MysqlServer();
-        $mysql = $mysqlFactory->getModel($this->params);
-        $mysql->ensureInstalled();
+    public function askForRootDBUser(){
+        if (isset($this->params["mysql-admin-user"])) { $this->dbRootUser = $this->params["mysql-admin-user"] ; }
+        if (isset($this->params["guess"])) {
+            $this->dbRootUser = "root" ;
+            return ; }
+        $question = 'What\'s the MySQL Admin User?';
+        $this->dbRootUser = self::askForInput($question, true);
     }
 
-    public function getDBAdminPass() {
-        // @todo add logging
-        $mysqlFactory = new \Model\MysqlServer();
-        $mysql = $mysqlFactory->getModel($this->params);
-        $mysql->ensureInstalled();
+    public function askForRootDBPass(){
+        if (isset($this->params["mysql-admin-pass"])) { $this->dbRootPass = $this->params["mysql-admin-pass"] ; }
+        if (isset($this->params["guess"])) {
+            $this->dbRootPass = "cleopatra" ;
+            return ; }
+        $question = 'What\'s the MySQL Admin Password?';
+        $this->dbRootPass = self::askForInput($question, true);
     }
 
-    public function versionInstalledCommandTrimmer($text) {
-        $done = substr($text, 23, 15) ;
-        return $done ;
-    }
-
-    public function versionLatestCommandTrimmer($text) {
-        $done = substr($text, 42, 23) ;
-        return $done ;
-    }
-
-    public function versionRecommendedCommandTrimmer($text) {
-        $done = substr($text, 42, 23) ;
-        return $done ;
-    }
 
 }
