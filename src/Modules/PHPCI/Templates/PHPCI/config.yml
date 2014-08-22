@@ -1,4 +1,4 @@
 b8:
-    database: { servers: { read: 127.0.0.1, write: 127.0.0.1 }, name: phpci, username: phpci, password: phpci_pass }
+    database: { servers: { read: <tpl.php>db_read_host</tpl.php>, write: <tpl.php>db_write_host</tpl.php> }, name: <tpl.php>db_name</tpl.php>, username: <tpl.php>db_username</tpl.php>, password: <tpl.php>db_pass</tpl.php> }
 phpci:
-    url: 'http://www.phpci.local'
+    url: '<tpl.php>phpci_url</tpl.php>'
