@@ -23,7 +23,8 @@ class WireframeSketcherUbuntu64 extends BaseLinuxApp {
                 "cd /tmp" ,
                 "git clone https://github.com/phpengine/cleopatra-wireframe-sketcher-64.git wireframe-sketcher",
                 "sudo dpkg -i wireframe-sketcher/WireframeSketcher-4.3.1_amd64.deb",
-                "sudo rm WireframeSketcher-4.3.1_amd64.deb" ) ),
+                "sudo apt-get install -f -y",
+                "sudo rm -rf wireframe-sketcher" ) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) )
         );
         $this->uninstallCommands = array(
