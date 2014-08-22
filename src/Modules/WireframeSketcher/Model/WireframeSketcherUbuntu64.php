@@ -2,14 +2,14 @@
 
 Namespace Model;
 
-class WireframeSketcherUbuntu extends BaseLinuxApp {
+class WireframeSketcherUbuntu64 extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
     public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
-    public $architectures = array("32", "64") ;
+    public $architectures = array("64") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
@@ -21,7 +21,7 @@ class WireframeSketcherUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
                     "cd /tmp" ,
-                    "git clone https://github.com/phpengine/cleopatra-wireframe-sketcher wireframe-sketcher",
+                    "git clone https://github.com/phpengine/cleopatra-wireframe-sketcher-64.git wireframe-sketcher",
                     "rm -rf ****PROGDIR****",
                     "mkdir -p ****PROGDIR****",
                     "mv /tmp/wireframe-sketcher/* ****PROGDIR****",
