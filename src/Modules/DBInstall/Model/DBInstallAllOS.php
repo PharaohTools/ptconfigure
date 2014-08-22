@@ -385,10 +385,11 @@ class DBInstallAllOS extends Base {
     }
 
     protected function databaseSaver() {
-        $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$this->dbFilePath} --no-create-db ; " ;
+        $fp = (isset($this->params["parent-path"])) ? $this->params["parent-path"].$this->dbFilePath : $this->dbFilePath ;
+        $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$fp} --no-create-db ; " ;
         echo $comm."\n" ;
         $this->executeAndOutput($comm, "Database Dumping...") ;
-    }  # db/database.sql
+    }
 
     protected function userCreator() {
         $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
