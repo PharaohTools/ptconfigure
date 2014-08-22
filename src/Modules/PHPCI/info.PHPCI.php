@@ -17,18 +17,18 @@ class PHPCIInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("jenkins"=>"PHPCI");
+      return array("phpci"=>"PHPCI");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install PHPCI, the popular Build Server.
 
-  PHPCI, jenkins
+  PHPCI, phpci
 
         - install
         Installs PHPCI through apt-get
-        example: cleopatra jenkins install
+        example: cleopatra phpci install
 
 HELPDATA;
       return $help ;

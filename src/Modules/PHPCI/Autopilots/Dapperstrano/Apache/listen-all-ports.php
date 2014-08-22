@@ -14,32 +14,38 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        $template_vhost_path = dirname(dirname(dirname(dirname(__FILE__))))."/Templates/ApacheVHost/all-ports-14.04.conf" ;
+        $template_vhost = file_get_contents($template_vhost_path);
+
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Reverse Proxy from 8080 to 80"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Web Server for PHPCI"),),),
+
+                // Install Host Entry
+                array ( "HostEditor" => array( "add" => array(
+                    "host-ip" => "127.0.0.1",
+                    "host-name" => "www.phpci.local",
+                ),),),
 
                 // Install Apache Reverse Proxy
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
-                array ( "ApacheVHostEditor" => array( "add-balancer" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our Apache VHost" ),),),
+                array ( "ApacheVHostEditor" => array( "add" => array(
                     "guess" => true,
-                    // "vhe-url" => "", this variable is pumped in from parent
-                    // "vhe-ip-port" => "", this variable is pumped in from parent
-                    "vhe-cluster-name" => "phpci-proxy",
-                    // @todo we should let it guess this, and make sure the ubuntu 14 mode provide s correct result
-                    // ubuntu 14 dapper model should guess .conf whether its centos or ubuntu, past ubuntu 2.4
-                    "vhe-file-ext" => ".conf",
-                    "vhe-default-template-name" => "http",
+                    "vhe-docroot" => "/opt/phpci/phpci/public/",
+                    "vhe-url" => "www.phpci.local",
+                    "vhe-ip-port" => "127.0.0.1:80",
+                    "vhe-template" => $template_vhost,
                     "environment-name" => "local"
                 ),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application", ), ), ),
                 array ( "ApacheControl" => array( "restart" => array(
                     "guess" => true,
                 ), ), ),
 
                 // End
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuration of a Reverse Proxy from 8080 to 80 complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuration of a Web Server for PHPCI complete"),),),
 
             );
 
