@@ -43,6 +43,11 @@ class EnvironmentConfigAllLinux extends Base {
         return $this->doList() ;
     }
 
+    public function askWhetherToListLocalEnvironments() {
+        if ($this->askToScreenWhetherToEnvironmentConfig("List Local") != true) { return false; }
+        return $this->doList("local") ;
+    }
+
     public function askToScreenWhetherToEnvironmentConfig($type = "Configure") {
         $question = $type.' Environments Here?';
         $question .= ($type == "Delete") ? "\nWARNING: Deleting an environment from papyrus is final. You may be looking for boxify box-destroy instead" : "" ;
@@ -158,8 +163,11 @@ class EnvironmentConfigAllLinux extends Base {
             $logging->log("No environments exist here. Nothing to delete.") ; }
     }
 
-    public function doList() {
-        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+    public function doList($scope = "project") {
+        if ($scope == "project") {
+            $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments"); }
+        else if ($scope == "local") {
+            $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments"); }
         return $allProjectEnvs ;
     }
 
