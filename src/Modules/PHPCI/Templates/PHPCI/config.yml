@@ -1,0 +1,4 @@
+b8:
+    database: { servers: { read: 127.0.0.1, write: 127.0.0.1 }, name: phpci, username: phpci, password: phpci_pass }
+phpci:
+    url: 'http://www.phpci.local'
