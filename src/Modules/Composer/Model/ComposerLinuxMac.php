@@ -14,20 +14,21 @@ class ComposerLinuxMac extends BasePHPApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
+    // @todo needs status and version, or is that extended from basephpapp?
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Composer";
         $this->fileSources = array(
           array(
-              "http://git.pharoah-tools.org.uk/git/phpengine/cleopatra.git",
-              "cleopatra",
+              "https://github.com/phpengine/composer-phar.git",
+              "composer",
               null // can be null for none
           )
         );
-        $this->programNameMachine = "cleopatra"; // command and app dir name
+        $this->programNameMachine = "composer"; // command and app dir name
         $this->programNameFriendly = " Composer! "; // 12 chars
         $this->programNameInstaller = "Composer - Update to latest version";
-        $this->programExecutorTargetPath = 'cleopatra/src/Bootstrap.php';
+        $this->programExecutorTargetPath = 'composer/composer.phar';
         $this->initialize();
     }
 
