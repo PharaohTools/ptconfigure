@@ -6,20 +6,21 @@ class AppConfig {
 
     private static function checkSettingsExistOrCreateIt($pfile = null) {
         $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
-        if (!file_exists($pfile)) { touch($pfile); }
+        if (!file_exists($pfile)) { touch($pfile) ; }
         return true;
     }
 
-    public static function setProjectVariable($variable, $value, $listAdd=null, $listAddKey=null) {
-        if (self::checkSettingsExistOrCreateIt()) {
-            $appConfigArray = self::loadProjectFile();
+    public static function setProjectVariable($variable, $value, $listAdd=null, $listAddKey=null, $isLocal=false) {
+        $pFile = ($isLocal) ? 'papyrusfilelocal' : 'papyrusfile' ;
+        if (self::checkSettingsExistOrCreateIt($pFile)) {
+            $appConfigArray = self::loadProjectFile($isLocal);
             if ( $listAdd == true && $listAddKey==null ) {
                 if ( isset($appConfigArray[$variable]) && is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
                     $appConfigArray[$variable][] = $value ; } }
             else if ( $listAdd == true && $listAddKey!=null ) {
                 $appConfigArray[$variable][$listAddKey] = $value ; }
             else { $appConfigArray[$variable] = $value ; }
-            self::saveProjectFile( $appConfigArray ) ; }
+            self::saveProjectFile( $appConfigArray, null, $isLocal ) ; }
     }
 
     /*
@@ -28,9 +29,9 @@ class AppConfig {
      *  to delete a plain variable call deleteProjectVariable($variable)
      *
      */
-    public static function deleteProjectVariable($variable, $key=null, $value=null) {
+    public static function deleteProjectVariable($variable, $key=null, $value=null, $isLocal=false) {
         if (self::checkSettingsExistOrCreateIt()) {
-            $appConfigArray = self::loadProjectFile();
+            $appConfigArray = self::loadProjectFile($isLocal);
             if ( isset($key) ) {
                 // if variable is array without keys, delete entry by value
                 if ($key=="any" && isset($value)) {
@@ -42,19 +43,21 @@ class AppConfig {
                     unset($appConfigArray[$variable][$key]) ; } }
             else {
                 unset($appConfigArray[$variable]) ; }
-            self::saveProjectFile( $appConfigArray ) ; }
+            self::saveProjectFile( $appConfigArray, null, $isLocal ) ; }
     }
 
-    public static function getProjectVariable($variable) {
+    public static function getProjectVariable($variable, $isLocal=false) {
         $value = null;
-        if (self::checkSettingsExistOrCreateIt()) {
-            $appConfigArray = self::loadProjectFile();
+        $pFile = ($isLocal == true) ? 'papyrusfilelocal' : 'papyrusfile' ;
+        if (self::checkSettingsExistOrCreateIt($pFile)) {
+            $appConfigArray = self::loadProjectFile($pFile, $isLocal);
             $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ; }
         return $value;
     }
 
-    public static function loadProjectFile($pfile = null) {
-        $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
+    public static function loadProjectFile($pfile = null, $isLocal = false) {
+        if ($isLocal == true) { $pfile = 'papyrusfilelocal' ; }
+        if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
         if (file_exists($pfile)) {
             $appConfigArraySerialized = file_get_contents($pfile);
             $decoded = unserialize($appConfigArraySerialized);
@@ -62,8 +65,9 @@ class AppConfig {
         return array();
     }
 
-    public static function saveProjectFile($appConfigArray, $pfile = null) {
-        $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
+    public static function saveProjectFile($appConfigArray, $pfile = null, $isLocal = false) {
+        if ($isLocal == true) { $pfile = 'papyrusfilelocal' ; }
+        if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
         $appConfigSerialized = serialize($appConfigArray);
         file_put_contents($pfile, $appConfigSerialized);
         // chmod($pfile, 0777);
