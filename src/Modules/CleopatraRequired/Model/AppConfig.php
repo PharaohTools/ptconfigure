@@ -2,6 +2,9 @@
 
 Namespace Model;
 
+// @todo my use of $isLocal and $pfile vars in this file have a programming age of about nine.
+// @todo actually, cant I just do this in json or something - this is very convoluted to save variables
+
 class AppConfig {
 
     private static function checkSettingsExistOrCreateIt($pfile = null) {
@@ -13,9 +16,9 @@ class AppConfig {
     public static function setProjectVariable($variable, $value, $listAdd=null, $listAddKey=null, $isLocal=false) {
         $pFile = ($isLocal) ? 'papyrusfilelocal' : 'papyrusfile' ;
         if (self::checkSettingsExistOrCreateIt($pFile)) {
-            $appConfigArray = self::loadProjectFile($isLocal);
+            $appConfigArray = self::loadProjectFile($pFile);
             if ( $listAdd == true && $listAddKey==null ) {
-                if ( isset($appConfigArray[$variable]) && is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
+                if ( is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
                     $appConfigArray[$variable][] = $value ; } }
             else if ( $listAdd == true && $listAddKey!=null ) {
                 $appConfigArray[$variable][$listAddKey] = $value ; }
@@ -30,8 +33,9 @@ class AppConfig {
      *
      */
     public static function deleteProjectVariable($variable, $key=null, $value=null, $isLocal=false) {
-        if (self::checkSettingsExistOrCreateIt()) {
-            $appConfigArray = self::loadProjectFile($isLocal);
+        $pFile = ($isLocal) ? 'papyrusfilelocal' : 'papyrusfile' ;
+        if (self::checkSettingsExistOrCreateIt($pFile)) {
+            $appConfigArray = self::loadProjectFile($pFile);
             if ( isset($key) ) {
                 // if variable is array without keys, delete entry by value
                 if ($key=="any" && isset($value)) {
@@ -50,7 +54,7 @@ class AppConfig {
         $value = null;
         $pFile = ($isLocal == true) ? 'papyrusfilelocal' : 'papyrusfile' ;
         if (self::checkSettingsExistOrCreateIt($pFile)) {
-            $appConfigArray = self::loadProjectFile($pFile, $isLocal);
+            $appConfigArray = self::loadProjectFile($pFile);
             $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ; }
         return $value;
     }
