@@ -54,6 +54,8 @@ class PapyrusEditorAll extends BaseLinuxApp {
         unset($parsed["action"]);
         unset($parsed["control"]);
         unset($parsed["output-format"]);
+        unset($parsed["searchval"]);
+        unset($parsed["replaceval"]);
         return $parsed ;
     }
 
