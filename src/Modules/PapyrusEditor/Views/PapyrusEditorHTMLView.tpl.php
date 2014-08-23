@@ -24,10 +24,40 @@
 
         else if (isset($_REQUEST["doLoad"]) && $_REQUEST["doLoad"]=="on") {
 
+            echo '<div class="body_head"> ' ;
             echo '<p> Papyrus File load location: '.$_REQUEST["papyrus_location"].' </p> ' ;
             $p_save_loc = (isset($_REQUEST["papyrus_save_location"])) ? $_REQUEST["papyrus_save_location"] : null ;
             echo '<p> Papyrus File save location: <input size="60" type="text" name="papyrus_save_location" value="'.$p_save_loc.'" /> </p>' ;
+            echo '
+                <div class="papyrus-editor-plugin">
+                       <label for="searchval">Search For:</label><input size="10" name="searchval" id="searchval"/>
+                       <label for="replaceval">Replace With:</label><input size="10" name="replaceval" id="replaceval"/>
+                       <button type="button" onclick="searchAndReplace()">Click me</button>
+                </div>
+            </div>
 
+
+
+        <script type="text/javascript">
+
+            function searchAndReplace() {
+                var inputs = document.getElementsByTagName(\'input\');
+                for (var i = 0; i < inputs.length; i += 1) {
+                    if (inputs[i].type != "submit" && inputs[i].type != "Submit") {
+                        if (inputs[i].id != "searchval" && inputs[i].id != "replaceval") {
+                            var searchval = document.getElementById(\'searchval\');
+                            var replaceval = document.getElementById(\'replaceval\');
+                            if (inputs[i].value.indexOf(searchval.value) != -1) {
+                                inputs[i].value = inputs[i].value.replace(searchval.value, replaceval.value);
+                            } } } }
+                alert("Search and Replace Complete");
+            }
+
+        </script>
+
+            ';
+
+            echo '<div class="body_body"> ' ;
             foreach ($pageVars["current_papyrus"] as $papy_key => $papy_val) {
                 echo '<div>' ;
                 echo '  <p>+'.$papy_key.'</p>' ;
@@ -48,8 +78,7 @@
                                                  echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']['.$papy_subsubsubkey.']['.$papy_subsubsubsubkey.']" value="'.$papy_subsubsubsubval.'" /> </p>' ; } }
                                          else {
                                              echo '  <p>---'.$papy_subsubsubkey.'' ;
-                                             echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']['.$papy_subsubsubkey.']" value="'.$papy_subsubsubval.'" /> </p>' ; } }
-                                     $i++; }
+                                             echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']['.$papy_subsubsubkey.']" value="'.$papy_subsubsubval.'" /> </p>' ; } } }
                                  else {
                                      echo '  <p>--'.$papy_subsubkey.'</p>' ;
                                      echo '   <input size="60" name="'.$papy_key.'['.$papy_subkey.']['.$papy_subsubkey.']" value="'.$papy_subsubval.'" /> </p>' ; } } }
@@ -61,6 +90,8 @@
                     echo '   <input size="60" name="'.$papy_key.'" value="'.$papy_val.'" />' ; }
 
                 echo '</div>' ; }
+
+            echo ' </div> ';
 
             echo '  <input type="hidden" name="doSave" value="on" />' ;
             echo '  <input type="submit" value="Save this file" />' ;

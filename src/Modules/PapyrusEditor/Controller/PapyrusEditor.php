@@ -19,6 +19,14 @@ class PapyrusEditor extends Base {
             $this->content["layout"] = "PapyrusEditorHTML" ;
             return array ("type"=>"view", "view"=>"papyrusEditor", "pageVars"=>$this->content); }
 
+        if ($action=="install-interface") {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "InstallPapyrusEditorInterface") ;
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+            if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
+            $this->content["appInstall"] = $thisModel->askWhetherToInstallInterface();
+            return array ("type"=>"view", "view"=>"gameBlocksInterface", "pageVars"=>$this->content); }
+
         if ($action=="help") {
             $helpModel = new \Model\Help();
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
@@ -28,8 +36,8 @@ class PapyrusEditor extends Base {
     }
 
     private function setLoadOrSave(&$thisModel) {
-        if ($_REQUEST["doLoad"] == "on") { $this->content["current_papyrus"] = $thisModel->getPapyrus(); }
-        if ($_REQUEST["doSave"] == "on") { $this->content["saved_papyrus"] = $thisModel->savePapyrus(); }
+        if (isset($_REQUEST["doLoad"]) && $_REQUEST["doLoad"] == "on") { $this->content["current_papyrus"] = $thisModel->getPapyrus(); }
+        if (isset($_REQUEST["doSave"]) && $_REQUEST["doSave"] == "on") { $this->content["saved_papyrus"] = $thisModel->savePapyrus(); }
     }
 
 }

@@ -37,14 +37,14 @@ class PapyrusEditorAll extends BaseLinuxApp {
     }
 
     public function savePapyrus() {
-        $config = $this->parseRequest() ;
+        $config = $this->parseRequestForSave() ;
         $pfile = $_REQUEST["papyrus_save_location"] ;
         \Model\AppConfig::saveProjectFile($config, $pfile) ;
         $current = \Model\AppConfig::loadProjectFile($pfile) ;
         return $current ;
     }
 
-    private function parseRequest() {
+    private function parseRequestForSave() {
         $parsed = $_REQUEST ;
         unset($parsed["papyrus_location"]);
         unset($parsed["papyrus_default_location"]);
@@ -54,6 +54,19 @@ class PapyrusEditorAll extends BaseLinuxApp {
         unset($parsed["action"]);
         unset($parsed["control"]);
         unset($parsed["output-format"]);
+        return $parsed ;
+    }
+
+    public function searchReplacePapyrus() {
+        $config = $this->parseRequestForSave() ;
+        $pfile = $_REQUEST["papyrus_save_location"] ;
+        \Model\AppConfig::saveProjectFile($config, $pfile) ;
+        $current = \Model\AppConfig::loadProjectFile($pfile) ;
+        return $current ;
+    }
+
+    protected function parseRequestForSearchReplace() {
+        $parsed = $_REQUEST ;
         return $parsed ;
     }
 

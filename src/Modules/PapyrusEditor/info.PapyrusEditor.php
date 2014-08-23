@@ -13,7 +13,7 @@ class PapyrusEditorInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "PapyrusEditor" =>  array("help", "start") );
+      return array( "PapyrusEditor" =>  array("help", "start", "install-interface") );
     }
 
     public function routeAliases() {
