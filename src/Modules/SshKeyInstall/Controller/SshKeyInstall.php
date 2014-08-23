@@ -20,7 +20,7 @@ class SshKeyInstall extends Base {
         if (in_array($action, array("public-key") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"sshharden", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"sshKeyInstall", "pageVars"=>$this->content); }
 
     }
 
