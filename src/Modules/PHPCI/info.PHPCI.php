@@ -6,7 +6,7 @@ class PHPCIInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "PHPCI - The Java Build Server";
+    public $name = "PHPCI - The PHP Build Server";
 
     public function __construct() {
       parent::__construct();
