@@ -17,7 +17,7 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
     protected $userName ;
     protected $userHomeDir ;
     protected $publicKey ;
-    protected $actionsToMethods = array("public-key" => "askPublicKeyInstall") ;
+    protected $actionsToMethods = array("find-key-path" => "askPrivateKeyName") ;
 
     public function __construct($params) {
         parent::__construct($params);
