@@ -29,6 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "First lets SFTP over our Dapper Autopilot"
                 ), ) ),
                 array ( "SFTP" => array( "put" => array(
+                    "guess" => true,
                     "source" => getcwd()."/build/config/dapperstrano/autopilots/<%tpl.php%>env_name</%tpl.php%>-node-install-enforce-revisions.php",
                     "target" => "<%tpl.php%>gen_env_tmp_dir</%tpl.php%><%tpl.php%>env_name</%tpl.php%>-node-install-enforce-revisions.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
