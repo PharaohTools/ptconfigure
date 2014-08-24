@@ -23,6 +23,14 @@
                 display: block ;
             }
 
+            p {
+                font-family: Helvetica, Arial ;
+                text-align: center ;
+                font-size: 11pt;
+                margin: 0px;
+                padding: 1px;
+            }
+
             .content {
                 margin: 0 auto;
                 width: 800px;
@@ -87,24 +95,16 @@
         </style>
 
         <script type="text/javascript">
-
-            alert("loaded");
             function searchAndReplace() {
-                alert("more");
                 var inputs = document.getElementsByTagName('input');
                 for (var i = 0; i < inputs.length; i += 1) {
                     if (inputs[i].type != "submit" && inputs[i].type != "Submit") {
-
                         if (inputs[i].id != "searchval" && inputs[i].id != "replaceval") {
                             var searchval = document.getElementById('searchval');
                             var replaceval = document.getElementById('replaceval');
                             var str = inputs[i].value ;
-                            inputs[i].value = str.replace(searchval, replaceval);
-                            alert( "changed: "+searchval+replaceval)
-
-                        }
-                    } }​​​ }
-
+                            inputs[i].value = str.replace(searchval, replaceval); } } }​​​
+            }
         </script>
 
     </head>
