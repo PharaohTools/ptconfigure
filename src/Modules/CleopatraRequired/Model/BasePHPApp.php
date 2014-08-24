@@ -82,7 +82,7 @@ class BasePHPApp extends Base {
     $this->saveExecutorFile();
     $this->deleteInstallationFiles();
     $this->changePermissions();
-    $this->setInstallFlagStatus(true) ;
+    // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
     if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
     $this->showCompletion();
   }
@@ -95,7 +95,7 @@ class BasePHPApp extends Base {
     $this->programExecutorFolder = $this->askForProgramExecutorFolder();
     $this->deleteProgramDataFolderAsRootIfExists();
     $this->deleteExecutorIfExists();
-    $this->setInstallFlagStatus(false) ;
+    // $this->setInstallFlagStatus(false) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
     $this->showCompletion();
   }
 
