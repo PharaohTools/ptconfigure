@@ -160,10 +160,11 @@ class BuilderfyLinuxManualProduction extends BuilderfyLinux {
     protected function templateAutopilots() {
         $templatesDir = str_replace("Model", "Templates/Autopilots", dirname(__FILE__) ) ;
         $template = $templatesDir . "/environment-invoke-manual-production.php" ;
+        $servers = (isset($environment["servers"])) ? $environment["servers"] : array() ;
         foreach ($this->environments as $environment) {
             $defaultReplacements =
                 array(
-                    "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                    "gen_srv_array_text" => $this->getServerArrayText($servers) ,
                     "env_name" => $environment["any-app"]["gen_env_name"],
                     "gen_env_tmp_dir" => $environment["any-app"]["gen_env_tmp_dir"] ) ;
             $replacements = array_merge($defaultReplacements, $this->getBuildConfigVars()) ;
