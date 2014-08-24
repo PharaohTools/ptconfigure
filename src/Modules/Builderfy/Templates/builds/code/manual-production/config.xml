@@ -78,7 +78,7 @@
     <hudson.tasks.Shell>
       <command>#!/bin/bash
 cd $WORKSPACE/deployed
-echo "We're just deploying"
+echo "We're just deploying"</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
 <command>#!/bin/bash
