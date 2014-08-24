@@ -265,6 +265,11 @@ COMPLETION;
         return $this->askWhetherToDoAction($action);
     }
 
+    public function ensureTrailingSlash($str) {
+        if (substr($str, -1, 1) != DIRECTORY_SEPARATOR) { $str .= DIRECTORY_SEPARATOR ; }
+        return $str ;
+    }
+
     protected function askWhetherToPerformActionToScreen($action){
         $question = "Perform ".$this->programNameInstaller." $action?";
         return self::askYesOrNo($question);
