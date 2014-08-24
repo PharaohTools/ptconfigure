@@ -20,6 +20,14 @@ class ApacheVHostEditorUbuntu14 extends ApacheVHostEditorUbuntuUpto13AndCentos {
         parent::__construct($params) ;
     }
 
+    public function enableVHost(){
+        if (isset($this->params["vhe-file-ext"]) && strlen($this->params["vhe-file-ext"])>0 ) {
+            $command = 'a2ensite '.$this->url.$this->params["vhe-file-ext"]; }
+        else {
+            $command = 'a2ensite '.$this->url.".conf" ; }
+        return self::executeAndOutput($command, "$command done");
+    }
+
     public function setBalancerVHostTemplates() {
 
         $clusterName = $this->askForClusterName() ;
