@@ -206,7 +206,7 @@ if not doing versions
         $this->doInstallCommand();
         if ($this->programDataFolder) {
             $this->changePermissions($this->programDataFolder); }
-        $this->setInstallFlagStatus(true) ;
+        // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
         $this->showCompletion();
         return true;
@@ -215,7 +215,7 @@ if not doing versions
     public function unInstall() {
         $this->showTitle();
         $this->doUnInstallCommand();
-        $this->setInstallFlagStatus(false) ;
+        // $this->setInstallFlagStatus(false) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         $this->showCompletion();
         return true;
     }
