@@ -204,9 +204,9 @@ COMPLETION;
     // @todo update this method to use model factory
     protected function setInstallFlagStatus($bool) {
         if ($bool) {
-            AppConfig::setProjectVariable("installed-modules", $this->getModuleName(), true); }
+            \Model\AppConfig::setProjectVariable("installed-modules", $this->getModuleName(), true); }
         else {
-            AppConfig::deleteProjectVariable("installed-modules", "any", $this->programNameMachine); }
+            \Model\AppConfig::deleteProjectVariable("installed-modules", "any", $this->programNameMachine); }
     }
 
     public function askStatus() {
