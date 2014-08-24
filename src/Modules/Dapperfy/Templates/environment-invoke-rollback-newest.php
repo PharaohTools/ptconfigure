@@ -30,7 +30,7 @@ class AutoPilotConfigured extends AutoPilot {
             ), ) ),
             array ( "SFTP" => array( "put" => array(
                 "guess" => true,
-                "source" => getcwd()."/build/config/dapperstrano/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-node-install-rollback-newest.php",
+                "source" => getcwd()."/build/config/dapperstrano/dapperfy/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-node-install-rollback-newest.php",
                 "target" => "<%tpl.php%>gen_env_tmp_dir</%tpl.php%><%tpl.php%>env_name</%tpl.php%>-node-install-rollback-newest.php",
                 "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
             ) , ) , ) ,
