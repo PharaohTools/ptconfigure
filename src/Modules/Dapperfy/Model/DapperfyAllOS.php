@@ -100,9 +100,11 @@ class DapperfyAllOS extends Base {
                 $replacements = $defaultReplacements ; }
 
             // There is probably a better way to do this, that can allow preprocessing any of the params
-            if (isset($replacements[""])) {
-
-            }
+            if (isset($replacements["dap_git_repo_ssh_key"]) && strlen($replacements["dap_git_repo_ssh_key"])>0) {
+                $str = '"private-key" => "'.$replacements["dap_git_repo_ssh_key"].'" ';
+                $replacements["dap_git_key_string"] = $str ; }
+            else {
+                $replacements["dap_git_key_string"] = "" ; }
 
             if (!isset($this->params["no-autopilot-creation"])) {
                 foreach ($templates as $template) {
