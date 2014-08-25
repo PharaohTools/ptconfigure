@@ -126,8 +126,11 @@ class HostEditorAllLinuxMac extends Base {
             $ipOccurs = substr_count($line, $ipEntry) ;
             $uriOccurs = substr_count($line, $uri) ;
             $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
-            if ( !$bothOccur )  {
-                $newHostFileData .= $line."\n"; } }
+            if (isset($this->params["guess"])) {
+                if ($uriOccurs) {
+                    $newHostFileData .= $line."\n";
+                    continue ; } }
+            if ( !$bothOccur )  { $newHostFileData .= $line."\n"; } }
         $this->hostFileData = $newHostFileData;
         $this->deleteHostFileEntryFromProjectFile();
     }
