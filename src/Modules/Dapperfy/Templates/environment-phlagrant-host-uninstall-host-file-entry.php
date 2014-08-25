@@ -25,10 +25,9 @@ class AutoPilotConfigured extends AutoPilot {
               array ( "Logging" => array( "log" => array( "log-message" => "Starting Dapperstrano Application Configuration of Virtual Machine Host"), ) ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Create our host file entry for our local URL"), ) ),
-              array ( "HostEditor" => array( "add" => array (
+              array ( "HostEditor" => array( "rm" => array (
                   "guess" => true,
                   "host-name" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
-                  "host-ip" => $this->getCurrentTargetFromPapyrus(),
               ), ), ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Dapperstrano Application Configuration of Virtual Machine Host Complete", ), ), ),
