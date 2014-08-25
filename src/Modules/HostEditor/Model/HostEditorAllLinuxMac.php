@@ -100,6 +100,8 @@ class HostEditorAllLinuxMac extends Base {
     private function moveHostFileAsRoot(){
         $command = 'sudo mv '.$this->baseTempDir.'/hostfile/hosts /etc/hosts';
         self::executeAndOutput($command);
+        $command = 'sudo rm -rf '.$this->baseTempDir.'/hostfile';
+        self::executeAndOutput($command);
     }
 
     private function hostFileDataAdd($ipEntry, $uri){
