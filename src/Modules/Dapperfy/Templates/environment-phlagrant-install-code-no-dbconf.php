@@ -12,14 +12,11 @@ Namespace Core ;
 class AutoPilotConfigured extends AutoPilot {
 
     public $steps ;
-    private $time ;
 
     public function __construct() {
-        $this->setTime() ;
         $this->setSteps();
     }
 
-    /* Steps */
     private function setSteps() {
 
         $this->steps =
@@ -29,33 +26,17 @@ class AutoPilotConfigured extends AutoPilot {
                     "proj-container" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>"
                 ), ) , ) ,
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Next lets do our git clone" ), ) ),
-                array ( "GitClone" => array( "clone" => array (
-                    "guess" => true,
-                    "change-owner-permissions" => false,
-                    "repository-url" => "<%tpl.php%>dap_git_repo_url</%tpl.php%>",
-                    "custom-clone-dir" => $this->getTime(),
-                    "custom-branch" => "<%tpl.php%>dap_git_custom_branch</%tpl.php%>",
-                    <%tpl.php%>dap_git_key_string</%tpl.php%>
-                ), ), ),
-
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets initialize our new download directory as a dapper project"), ) ),
                 array ( "Project" => array( "init" => array(), ) , ) ,
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next create our virtual host"), ) ),
                 array ( "ApacheVHostEditor" => array( "add" => array (
                     "guess" => true,
-                    "vhe-docroot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
+                    "vhe-docroot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>",
                     "vhe-url" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
                     "vhe-ip-port" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
                     "vhe-template" => $this->getTemplate(),
-                ), ), ),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "The application is installed now so lets do our versioning" ), ), ),
-                array ( "Version" => array( "latest" => array(
-                    "container" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>",
-                    "limit" => "<%tpl.php%>dap_version_num_revisions</%tpl.php%>"
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
@@ -67,23 +48,15 @@ class AutoPilotConfigured extends AutoPilot {
             );
     }
 
-    private function setTime() {
-        $this->time = time() ;
-    }
-
-    private function getTime() {
-        return $this->time ;
-    }
-
     private function getTemplate() {
         $template =
             <<<'TEMPLATE'
- NameVirtualHost ****IP ADDRESS****:80
- <VirtualHost ****IP ADDRESS****:80>
+ NameVirtualHost 0.0.0.0:80
+ <VirtualHost 0.0.0.0:80>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
- 	DocumentRoot ****WEB ROOT****/src
- 	<Directory ****WEB ROOT****/src>
+ 	DocumentRoot ****WEB ROOT****src
+ 	<Directory ****WEB ROOT****src>
  		Options Indexes FollowSymLinks MultiViews
  		AllowOverride All
  		Order allow,deny
@@ -93,16 +66,16 @@ class AutoPilotConfigured extends AutoPilot {
    CustomLog /var/log/apache2/access.log combined
  </VirtualHost>
 
- NameVirtualHost ****IP ADDRESS****:443
- <VirtualHost ****IP ADDRESS****:443>
+ NameVirtualHost 0.0.0.0:443
+ <VirtualHost 0.0.0.0:443>
  	 ServerAdmin webmaster@localhost
  	 ServerName ****SERVER NAME****
- 	 DocumentRoot ****WEB ROOT****/src
+ 	 DocumentRoot ****WEB ROOT****src
    # SSLEngine on
    # SSLCertificateFile /etc/apache2/ssl/ssl.crt
    # SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
    # SSLCertificateChainFile /etc/apache2/ssl/bundle.crt
- 	 <Directory ****WEB ROOT****/src>
+ 	 <Directory ****WEB ROOT****src>
  		 Options Indexes FollowSymLinks MultiViews
 		AllowOverride All
 		Order allow,deny
