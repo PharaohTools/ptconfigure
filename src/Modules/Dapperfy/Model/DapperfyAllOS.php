@@ -58,7 +58,7 @@ class DapperfyAllOS extends Base {
     }
 
     public function getEnvironments() {
-        $environmentConfigModelFactory = new EnvironmentConfig() ;
+        $environmentConfigModelFactory = new \Model\EnvironmentConfig() ;
         $environmentConfigModel = $environmentConfigModelFactory->getModel($this->params) ;
         $environmentConfigModel->askWhetherToEnvironmentConfig($this->environmentReplacements) ;
         $this->environments = $environmentConfigModel->environments ;
