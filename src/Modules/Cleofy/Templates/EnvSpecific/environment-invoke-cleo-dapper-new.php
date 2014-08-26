@@ -44,7 +44,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
 cd /tmp
-git clone http://git.pharoah-tools.org.uk/git/phpengine/cleopatra.git
+git clone http://git.pharaoh-tools.com/git/phpengine/cleopatra.git
 sudo php cleopatra/install-silent
 sudo cleopatra autopilot execute --autopilot-file="/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php"
 rm /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php

@@ -51,7 +51,7 @@ class SFTPAllLinux extends Base {
             $logging->log($this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData)) ;
             $logging->log("[".$server["target"]."] SFTP Put Completed...") ; }
         $logging->log("All SFTP Puts Completed");
-        return true;
+        return "All SFTP Puts Completed";
     }
 
     protected function attemptToLoad($sourceDataPath){

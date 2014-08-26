@@ -19,7 +19,7 @@ class PhlagrantAllLinux extends BasePHPApp {
         $this->autopilotDefiner = "Phlagrant";
         $this->fileSources = array(
           array(
-            "http://git.pharoah-tools.org.uk/git/phpengine/phlagrant.git",
+            "http://git.pharaoh-tools.com/git/phpengine/phlagrant.git",
             "phlagrant",
             null // can be null for none
           )

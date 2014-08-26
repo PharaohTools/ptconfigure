@@ -189,8 +189,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "JenkinsSudoNoPass" => array( "ensure" => array(),),),
 
                 // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure all Pharoah Tools exist" ),),),
-                array ( "PharoahTools" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure all Pharaoh Tools exist" ),),),
+                array ( "PharaohTools" => array( "ensure" => array(),),),
 
                 // Drush
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Drush for Drupal" ),),),

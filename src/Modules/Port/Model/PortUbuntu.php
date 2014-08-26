@@ -57,16 +57,15 @@ class PortUbuntu extends BaseLinuxApp {
 
     private function getPortStatus() {
         // @todo fsockopen takes a while, fixed with 5 sec timeout?
-        $result = fsockopen($this->ipAddress, $this->portNumber, $errno, $errstr, 5);
-
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ($result !== false) {
+        $result = @fsockopen($this->ipAddress, $this->portNumber, $errno, $errstr, 5);
+        if (is_resource($result)) {
             $logging->log("Port {$this->portNumber} is responding") ;
             return true; }
         else {
             $logging->log("Port {$this->portNumber} is not responding. Error: $errno, $errstr") ;
-            return false;}
+            return false; }
     }
 
 }

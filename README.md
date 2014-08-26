@@ -23,11 +23,11 @@ Currently, all of the Modules work on Ubuntu 12, most on 13, and a few on Centos
 On your Mac, Linux, Unix or Windows Machine, you'll need to install Git and PHP5. If you don't have either, google
 them they are easy to install. To install cleopatra cli on your machine do the following at the command line.
 
-git clone http://git.pharoah-tools.org.uk/git/phpengine/cleopatra.git && sudo php cleopatra/install-silent
+git clone http://git.pharaoh-tools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install-silent
 
 or...
 
-git clone http://git.pharoah-tools.org.uk/git/phpengine/cleopatra.git && sudo php cleopatra/install (If you want to choose the install dir)
+git clone http://git.pharaoh-tools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install (If you want to choose the install dir)
 
 ... that's it, now the cleopatra command should be available at the command line for you.
 
@@ -152,14 +152,14 @@ Go to http://www.pharaoh-tools.org.uk for more
 - Parallax - Parallax - Execute commands in parallel
 - Pear - Pear Package Manager
 - Phake - Phake - The PHP task creation tool (Make/Rake)
-- PharoahTools - Pharoah Tools - Gotta Install them all
+- PharaohTools - Pharaoh Tools - Gotta Install them all
 - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP
-- Phrankinsense - Phrankinsense - The Pharoah Tools Project Management Solution
+- Phrankinsense - Phrankinsense - The Pharaoh Tools Project Management Solution
 - Port - Test a Port to see if its responding
 - PostInput - HTTP Post/Get Input Interface
 - PostgresServer - Postgres Server - The Postgres RDBMS Server
 - Python - Python - The programming language
-- Ra - Ra - The Pharoah Tools Build Server
+- Ra - Ra - The Pharaoh Tools Build Server
 - RubyBDD - Ruby BDD Suite - Install Common Gems for Cucumber, Calabash, Capybara and Saucelabs
 - RubyRVM - Ruby RVM - The Ruby version manager
 - RubySystem - Ruby RVM System wide - The Ruby version manager system wide version
