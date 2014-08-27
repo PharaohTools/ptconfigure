@@ -152,4 +152,4 @@ database should be split into
 
 AWS - EC2 In cleopatra
 
-Pharoah exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)
+Pharaoh exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)

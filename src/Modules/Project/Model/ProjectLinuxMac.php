@@ -74,7 +74,7 @@ class ProjectLinuxMac extends Base  {
     }
 
     private function projectInitialize() {
-        if ($this->checkIsPharoahProject() == false) {
+        if ($this->checkIsPharaohProject() == false) {
             $command = 'touch papyrusfile';
             self::executeAndOutput($command, "Project file created"); }
     }
@@ -92,7 +92,7 @@ class ProjectLinuxMac extends Base  {
         self::executeAndOutput($command, "Project Container file created");
     }
 
-    public static function checkIsPharoahProject($dir = null) {
+    public static function checkIsPharaohProject($dir = null) {
         if ($dir == null) {
           return file_exists('papyrusfile'); }
         else {

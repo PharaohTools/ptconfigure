@@ -113,6 +113,8 @@ class HostEditorAllLinuxMac extends Base {
             $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
             if ( $bothOccur )  {
                 return; }
+            else if ( $uriOccurs )  {
+                continue ; }
             else {
                 $newHostFileData .= $line."\n"; } }
         $this->hostFileData .= "$ipEntry          $uri\n";
@@ -127,9 +129,7 @@ class HostEditorAllLinuxMac extends Base {
             $uriOccurs = substr_count($line, $uri) ;
             $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
             if (isset($this->params["guess"])) {
-                if ($uriOccurs) {
-                    $newHostFileData .= $line."\n";
-                    continue ; } }
+                if ($uriOccurs) { continue ; } }
             if ( !$bothOccur )  { $newHostFileData .= $line."\n"; } }
         $this->hostFileData = $newHostFileData;
         $this->deleteHostFileEntryFromProjectFile();
@@ -138,7 +138,7 @@ class HostEditorAllLinuxMac extends Base {
     private function writeHostFileEntryToProjectFile(){
         $projectFactory = new \Model\Project();
         $projectModel = $projectFactory->getModel($this->params);
-        if ($projectModel::checkIsPharoahProject()) {
+        if ($projectModel::checkIsPharaohProject()) {
             $appSettingsFactory = new \Model\AppSettings();
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
             $appConfig::setProjectVariable("host-entries", array("$this->uri" => "$this->ipAddress", true) );  }
@@ -147,13 +147,14 @@ class HostEditorAllLinuxMac extends Base {
     private function deleteHostFileEntryFromProjectFile(){
         $projectFactory = new \Model\Project();
         $projectModel = $projectFactory->getModel($this->params);
-        if ($projectModel::checkIsPharoahProject()) {
+        if ($projectModel::checkIsPharaohProject()) {
             $appSettingsFactory = new \Model\AppSettings();
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
             $allHostFileEntries = $appConfig::getProjectVariable("host-entries");
             if ($allHostFileEntries instanceof \stdClass) { $allHostFileEntries = new \ArrayObject($allHostFileEntries); }
             for ($i = 0; $i<=count($allHostFileEntries) ; $i++ ) {
-                if (isset($allHostFileEntries[$i]) && array_key_exists($allHostFileEntries[$i], $this->uri)) {
+
+                if (isset($allHostFileEntries[$i]) && is_array($allHostFileEntries[$i]) && array_key_exists($this->uri, $allHostFileEntries[$i])) {
                     unset($allHostFileEntries[$i]); } }
             $appConfig::setProjectVariable("host-entries", $allHostFileEntries); }
     }

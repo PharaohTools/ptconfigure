@@ -112,7 +112,7 @@ class VersionLinuxMac extends Base {
             $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
             if ( is_dir($fullDirPath) == null ) {
               unset ($allEntries[$currentKey]); } // remove entry from array if not directory
-            else if ($project::checkIsPharoahProject($fullDirPath) == false) {
+            else if ($project::checkIsPharaohProject($fullDirPath) == false) {
               unset ($allEntries[$currentKey]); } // remove entry from array if directory not a project
             else if ($oneEntry=="." || $oneEntry=="..") {
               unset ($allEntries[$currentKey]); }// remove entry from array if its dot notation

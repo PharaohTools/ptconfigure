@@ -1,8 +1,7 @@
-# Dapperstrano, Pharoah Tools
+# Dapperstrano, Pharaoh Tools
 
 
 ## About:
-
 
 
 Automated Deployment, Web App Versioning and Infrastructure by Code in PHP. Dapperstrano deploys PHP Applications in a
@@ -14,7 +13,7 @@ deployment patterns to your systems with one or two PHP files, or quickly set up
 Dapperstrano is modular. object oriented and extendible, you can pretty easily write your own module if you want
 functionality we haven't yet covered. Feel free to submit us pull requests.
 
-This is part of the Pharoah Tools suite, which covers Configuration Management, Test Automation Management, Automated
+This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
 Its easy to write modules for any Operating System but we've begun with Ubuntu and adding more as soon as possible.
@@ -29,8 +28,8 @@ your Ruby CI setup, Dapperstrano is a must for your PHP CI.
 
 ## Installation
 
-The preferred way to install any of the Pharoah apps (including this) is through cleopatra. If you install cleopatra
-on your machine (http://git.pharoah-tools.org.uk/phpengine/cleopatra), then you can install dapperstrano using the following:
+The preferred way to install any of the Pharaoh apps (including this) is through cleopatra. If you install cleopatra
+on your machine (http://git.pharaoh-tools.com/phpengine/cleopatra), then you can install dapperstrano using the following:
 
 sudo cleopatra dapperstrano install --yes --guess
 
@@ -41,11 +40,11 @@ To install dapperstrano cli on your machine without cleopatra do the following:
 
 sudo apt-get install php5 git
 
-git clone https://git.pharoah-tools.org.uk/phpengine/dapperstrano && sudo php dapperstrano/install-silent
+git clone https://git.pharaoh-tools.com/phpengine/dapperstrano && sudo php dapperstrano/install-silent
 
 or...
 
-git clone https://git.pharoah-tools.org.uk/phpengine/dapperstrano && sudo php dapperstrano/install
+git clone https://git.pharaoh-tools.com/phpengine/dapperstrano && sudo php dapperstrano/install
 (if you want to choose the install location)
 
 ... that's it, now the dapperstrano command should be available at the command line for you.

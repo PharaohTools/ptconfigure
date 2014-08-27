@@ -24,7 +24,7 @@ class AutoPilotConfigured extends AutoPilot {
 
               array ( "Logging" => array( "log" => array( "log-message" => "Starting Dapperstrano Application Configuration of Virtual Machine Host"), ) ),
 
-              array ( "Logging" => array( "log" => array( "log-message" => "Create our host file entry for our local URL"), ) ),
+              array ( "Logging" => array( "log" => array( "log-message" => "Remove our host file entry for our local URL"), ) ),
               array ( "HostEditor" => array( "rm" => array (
                   "guess" => true,
                   "host-name" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",

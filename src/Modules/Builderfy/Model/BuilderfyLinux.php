@@ -50,7 +50,7 @@ class BuilderfyLinux extends BaseLinuxApp {
     public function performInstallBuildInProject() {
         $projectFactory = new \Model\Project();
         $projectModel = $projectFactory->getModel($this->params);
-        if ( !$projectModel::checkIsPharoahProject() ) {
+        if ( !$projectModel::checkIsPharaohProject() ) {
             $loggingFactory = new \Model\Logging() ;
             $log = $loggingFactory->getModel($this->params) ;
             $log->log("Error: No papyrusfile found") ;
