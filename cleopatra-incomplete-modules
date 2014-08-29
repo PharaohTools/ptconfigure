@@ -9,10 +9,26 @@ Cleopatra Modules to be created
 * we should be able to refer to values in other parts of the papyrusfile using something like:
   ":::mysql_default_host"
 
+Check for Broken Packages, ability to update
+
+Bob is like phake
+http://www.christophh.net/2012/01/20/introduction-to-bob/
+
+All of Pharaoh
+-------------------
+Add lots of route aliases
+for instance
+cleopatra digital-ocean box-destroy
+cleopatra digital-ocean destroy-box
+cleopatra digital-ocean destroy-boxes
+should all just work the same. Makes using the app at the command line way easier.
+
 
 BUG FOUND
 -------------
-I must add a no-dependencies option/flag to
+I must add a no-dependencies option/flag to installs. Usually you want dependencies so it installs straight away. but there
+might be a reason not to. for instance, myysql would be a prerequisite of mysqltools, but we might have just got that from
+galera. maybe the mysql module cannot check for galera, and the dependency will attempt to execute.
 
 
 BUG FOUND
@@ -72,12 +88,12 @@ overflow) If we cant do it in PHP, then can we do it in Bash, with some kind of 
 by PHP defining what it should look like/act like, in essence another CLI front end? how does that affect real time display
 of stuff?
 
-can we do this? this would make the autopilots look tasty
+can we do this? this would make the autopilots look tasty . PHP 5.4 Lets us do this I think
 
 [
-  [0]["Logging"]["log"][["log-message"] = "Lets begin Configuration of a Designers Workstation",
-  [1]["PHPModules"] => "ensure",
-  [2]["Logging"]["log"][["log-message"] => "Lets ensure Apache Server is installed",
+  ["Logging" => ["log"][["log-message"] = "Lets begin Configuration of a Designers Workstation",
+  ["PHPModules" => ["ensure"]],
+  ["Logging"]["log"][["log-message"] => "Lets ensure Apache Server is installed",
 ]
 
 
