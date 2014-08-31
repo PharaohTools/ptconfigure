@@ -76,9 +76,10 @@ class ParallaxCli extends BaseLinuxApp {
         $tempScript = $this->makeCommandFile($command);
         $outfile = $this->getFileToWrite("final");
         $cmd = 'cleopatra parallax child --command-to-execute="sh '.$tempScript.'" --output-file="'.$outfile.'" > /dev/null &';
+          error_log($cmd);
         shell_exec($cmd);
         $allPlxOuts[] = array($tempScript, $outfile);
-        $commandInitWait = (isset($this->params["execution-wait"])) ? $this->params["execution-wait"] : 2 ;
+        $commandInitWait = (isset($this->params["execution-wait"])) ? $this->params["execution-wait"] : 5 ;
         sleep($commandInitWait); }
       $copyPlxOuts = $allPlxOuts;
       $fileData = "";
@@ -102,8 +103,8 @@ class ParallaxCli extends BaseLinuxApp {
             $fileData .= file_get_contents($fileToScan);
             $ignores[] = $i;
               // remove our child output file and temp script
-              unlink($copyPlxOuts[$i][0]);
-              unlink($copyPlxOuts[$i][1]); }}
+              self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][0]);
+              self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][1]); }}
         echo ".";
         sleep(3); }
 
