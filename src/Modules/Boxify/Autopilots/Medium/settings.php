@@ -3,6 +3,7 @@
 $parent = dirname(__FILE__).'/' ;
 
 $prefix = "default-project" ;
+$ssh_key_name = "goldenballs" ;
 $priv_ssh_key = "/home/golden/.ssh/id_rsa" ; // Depends on your setup.
 $provider = "Rackspace" ; // Digital Ocean || Rackspace
 $image_id = "ffd597d6-2cc4-4b43-b8f4-b1006715b84e" ; // ubuntu 12 D4 = 3101045, rs 14.04 = ffd597d6-2cc4-4b43-b8f4-b1006715b84e
@@ -27,7 +28,7 @@ $region_id_web_nodes = $region_id_load_balancer = $region_id ;
 $size_id_bastion = $size_id_git = $size_id_jenkins = $size_id_db_nodes = $size_id_db_balancer = $size_id_web_nodes =
 $size_id_load_balancer = $size_id ;
 
-$size_id_jenkins = "62" ; // Jenkins is larger as behat was getting memory issues on install
+$size_id_jenkins = "3" ; // Jenkins is larger as behat was getting memory issues on install
 
 $user_name_bastion = $user_name_git = $user_name_jenkins = $user_name_db_nodes = $user_name_db_balancer = $user_name_web_nodes =
 $user_name_load_balancer = $user_name ;
