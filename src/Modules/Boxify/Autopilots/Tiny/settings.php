@@ -3,11 +3,12 @@
 $parent = dirname(__FILE__).'/' ;
 
 $prefix = "default-project" ;
+$ssh_key_name = "goldenballs" ;
 $priv_ssh_key = "/home/golden/.ssh/id_rsa" ; // Depends on your setup.
 $provider = "DigitalOcean" ; // Digital Ocean || Rackspace
 $image_id = "3101045" ; //
 $region_id = "2" ; // DO = 2, RS = LON,
-$size_id = "66" ;  // DO = 66, RS =
+$size_id = "66" ;  // DO = 66, RS = 2
 $user_name = "root" ; // This depends on your image
 $box_amount = "1" ; //
 $wait_time = "900" ; // wait 15 minutes if needed for boxes to complete
@@ -26,7 +27,7 @@ $region_id_staging = $region_id_production = $region_id ;
 
 $size_id_bastion = $size_id_git = $size_id_jenkins = $size_id_staging =
 $size_id_production = $size_id ;
-$size_id_jenkins = "62" ; // Jenkins is larger as behat was getting memory issues on install
+$size_id_jenkins = "62" ; // DO = 62, RS = 3 Jenkins is larger as behat was getting memory issues on install
 
 $user_name_bastion = $user_name_git = $user_name_jenkins =
 $user_name_staging = $user_name_production = $user_name ;
