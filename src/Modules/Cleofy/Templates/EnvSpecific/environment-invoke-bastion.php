@@ -22,6 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "First lets SFTP over our Bastion Server CM Autopilot"
                 ), ) ),
                 array ( "SFTP" => array( "put" => array(
+                    "guess" => true,
                     "source" => getcwd()."/build/config/cleopatra/cleofy/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php",
                     "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-bastion.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"

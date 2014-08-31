@@ -22,6 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "First lets SFTP over our Build Server CM Autopilot"
                 ), ), ),
                 array ( "SFTP" => array( "put" => array(
+                    "guess" => true,
                     "source" => getcwd()."/build/config/cleopatra/cleofy/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php" ,
                     "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
@@ -30,6 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "Next lets SFTP over our Papyrus File"
                 ), ), ),
                 array ( "SFTP" => array( "put" => array(
+                    "guess" => true,
                     "source" => getcwd()."/papyrusfile" ,
                     "target" => "/tmp/papyrusfile",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",

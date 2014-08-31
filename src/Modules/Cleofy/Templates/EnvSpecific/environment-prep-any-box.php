@@ -22,6 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "About to send php-zip-ensure.sh to ensure PHP and Zip",
                 ), ), ),
                 array ( "SFTP" => array( "put" => array(
+                    "guess" => true,
                     "source" => "{$this->appHomeDir}/src/Modules/PHPPrep/Scripts/php-zip-ensure.sh",
                     "remote" => "/tmp/php-zip-ensure.sh",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",

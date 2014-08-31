@@ -22,6 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "First lets SFTP over our Papyrusfile, for environment details to confgure HA Proxy with",
                 ), ), ),
                 array ( "SFTP" => array( "put" =>  array(
+                    "guess" => true,
                     "source" => getcwd()."/papyrusfile",
                     "target" => "/tmp/papyrusfile",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
@@ -30,6 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "log-message" => "Next lets SFTP over our DB Load Balancer CM Autopilot",
                 ), ), ),
                 array ( "SFTP" => array( "put" =>  array(
+                    "guess" => true,
                     "source" => getcwd()."/build/config/cleopatra/cleofy/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-cm-db-load-balancer.php",
                     "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-db-load-balancer.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
