@@ -56,6 +56,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
                             $serverData["name"] = (isset( $serverData["prefix"]) && strlen( $serverData["prefix"])>0)
                                 ? $serverData["prefix"].'-'.$serverData["envName"].'-'.$serverData["sCount"]
                                 : $serverData["envName"].'-'.$serverData["sCount"] ;
+                            $serverData["sshKeyIds"] = $this->getSshKeyIds();
                             $response = $this->getNewServerFromDigitalOcean($serverData) ;
                             // var_dump("response", $response) ;
                             $this->addServerToPapyrus($envName, $response); } } } }
@@ -140,7 +141,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $callVars["size_id"] = $serverData["sizeID"];
         $callVars["image_id"] = $serverData["imageID"];
         $callVars["region_id"] = $serverData["regionID"];
-        $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
+        $callVars["ssh_key_ids"] = $serverData["sshKeyIds"] ; //
         $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
         $callOut = $this->digitalOceanCall($callVars, $curlUrl);
         $loggingFactory = new \Model\Logging();
@@ -173,6 +174,15 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         \Model\AppConfig::setProjectVariable("environments", $environments);
     }
 
+    private function getSshKeyIds() {
+        if (isset($this->params["ssh-key-ids"])) {
+            return $this->params["ssh-key-ids"] ; }
+        if (isset($this->params["ssh-key-name"])) {
+            return $this->getSshKeyIdFromName($this->params["ssh-key-name"]) ; }
+        if (isset($this->params["guess"]) || isset($this->params["use-all-ssh-keys"])) {
+            return $this->getAllSshKeyIdsString() ; }
+    }
+
     private function getAllSshKeyIdsString() {
         if (isset($this->params["ssh-key-ids"])) {
             return $this->params["ssh-key-ids"] ; }
@@ -184,6 +194,15 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
             $sshKeys[] = $sshKey->id ; }
         $keysString = implode(",", $sshKeys) ;
         return $keysString;
+    }
+
+    private function getSshKeyIdFromName($name) {
+        $curlUrl = "https://api.digitalocean.com/v1/ssh_keys" ;
+        $sshKeysObject =  $this->digitalOceanCall(array(), $curlUrl);
+        foreach($sshKeysObject->ssh_keys as $sshKey) {
+            if ($sshKey->name == $name) {
+                return $sshKey->id ; } }
+        return null;
     }
 
     private function getDropletData($dropletId) {
