@@ -43,6 +43,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "max-box-info-wait-time" => $wait_time,
                     "wait-until-active" => true,
                     "max-active-wait-time" => $wait_time,
+                    "parallax" => true
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating medium-staging-db-balancer environment complete"),),),
