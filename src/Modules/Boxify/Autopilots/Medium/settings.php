@@ -3,13 +3,13 @@
 $parent = dirname(__FILE__).'/' ;
 
 $prefix = "default-project" ;
-$priv_ssh_key = "/home/golden/.ssh/id_rsa" ;
-$provider = "DigitalOcean" ;
-$image_id = "3101045" ;
-$region_id = "2" ;
-$size_id = "66" ;
-$user_name = "root" ;
-$box_amount = "1" ;
+$priv_ssh_key = "/home/golden/.ssh/id_rsa" ; // Depends on your setup.
+$provider = "Rackspace" ; // Digital Ocean || Rackspace
+$image_id = "ffd597d6-2cc4-4b43-b8f4-b1006715b84e" ; // ubuntu 12 D4 = 3101045, rs 14.04 = ffd597d6-2cc4-4b43-b8f4-b1006715b84e
+$region_id = "LON" ; // DO = 2, RS = LON,
+$size_id = "2" ;  // DO = 66, RS = 2
+$user_name = "root" ; // This depends on your image
+$box_amount = "1" ; //
 $wait_time = "900" ; // wait 15 minutes if needed for boxes to complete
 
 $priv_ssh_key_bastion = $priv_ssh_key_git = $priv_ssh_key_jenkins = $priv_ssh_key_db_nodes = $priv_ssh_key_db_balancer =

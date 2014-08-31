@@ -38,6 +38,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "size-id" => "$size_id_jenkins",
                     "server-prefix" => $prefix,
                     "box-user-name" => "$user_name_jenkins",
+                    "ssh-key-name" => "$ssh_key_name",
                     "private-ssh-key-path" => "$priv_ssh_key_jenkins",
                     "wait-for-box-info" => true,
                     "max-box-info-wait-time" => $wait_time,
