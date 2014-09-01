@@ -15,14 +15,24 @@ class PECLUbuntu extends BasePackager {
     public $modelGroup = array("Default") ;
     protected $packagerName = "PECL";
 
+    public $actionsToMethods =
+        array(
+            "pkg-install" => "performInstall",
+            "pkg-ensure" => "performInstall",
+            "pkg-remove" => "performRemove",
+            "pkg-exists" => "performExistenceCheck",
+            "channel-discover" => "channelDiscover",
+            "channel-delete" => "channelDelete",
+        ) ;
+
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "PECL";
         $this->programDataFolder = "";
-        $this->programNameMachine = "apt"; // command and app dir name
+        $this->programNameMachine = "pecl"; // command and app dir name
         $this->programNameFriendly = "!PECL!!"; // 12 chars
         $this->programNameInstaller = "PECL";
-        $this->statusCommand = "apt-get" ;
+        $this->statusCommand = "pecl" ;
         $this->initialize();
     }
 
@@ -30,7 +40,7 @@ class PECLUbuntu extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad("sudo apt-cache policy {$package}") ;
+            $out = $this->executeAndLoad("sudo pecl info {$package}") ;
             if (strpos($out, "Installed: (none)") != false) { $passing = false ; } }
         return $passing ;
     }
@@ -49,7 +59,7 @@ class PECLUbuntu extends BasePackager {
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            $out = $this->executeAndOutput("sudo apt-get install $package -y --force-yes");
+            $out = $this->executeAndOutput("sudo pecl install $package -y");
             if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
             else if (strpos($out, "is already the newest version.") != false) {
@@ -64,7 +74,7 @@ class PECLUbuntu extends BasePackager {
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo apt-get remove $packageName -y --force-yes");
+        $out = $this->executeAndOutput("sudo pecl-get remove $packageName -y --force-yes");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -79,7 +89,7 @@ class PECLUbuntu extends BasePackager {
     }
 
     public function update($autopilot = null) {
-        $out = $this->executeAndOutput("sudo apt-get update -y");
+        $out = $this->executeAndOutput("sudo pecl-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -89,7 +99,7 @@ class PECLUbuntu extends BasePackager {
     }
 
     public function versionCompatible($autopilot = null) {
-        $out = $this->executeAndOutput("sudo apt-get update -y");
+        $out = $this->executeAndOutput("sudo pecl-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);

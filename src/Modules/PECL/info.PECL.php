@@ -20,7 +20,7 @@ class PECLInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-        return array("apt"=>"PECL");
+        return array("pecl"=>"PECL");
     }
 
     public function packagerName() {
@@ -29,37 +29,37 @@ class PECLInfo extends CleopatraBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify apts
+  This command allows you to modify create or modify pecls
 
-  PECL, apt
+  PECL, pecl
 
         - create
-        Create a new system apt, overwriting if it exists
-        example: cleopatra apt create --aptname="somename"
+        Create a new system pecl, overwriting if it exists
+        example: cleopatra pecl create --peclname="somename"
 
         - remove
-        Remove a system apt
-        example: cleopatra apt remove --aptname="somename"
+        Remove a system pecl
+        example: cleopatra pecl remove --peclname="somename"
 
         - set-password
-        Set the password of a system apt
-        example: cleopatra apt set-password --aptname="somename" --new-password="somepassword"
+        Set the password of a system pecl
+        example: cleopatra pecl set-password --peclname="somename" --new-password="somepassword"
 
         - exists
-        Check the existence of a apt
-        example: cleopatra apt exists --aptname="somename"
+        Check the existence of a pecl
+        example: cleopatra pecl exists --peclname="somename"
 
         - show-groups
-        Show groups to which a apt belongs
-        example: cleopatra apt show-groups --aptname="somename"
+        Show groups to which a pecl belongs
+        example: cleopatra pecl show-groups --peclname="somename"
 
         - add-to-group
-        Add apt to a group
-        example: cleopatra apt add-to-group --aptname="somename" --groupname="somegroupname"
+        Add pecl to a group
+        example: cleopatra pecl add-to-group --peclname="somename" --groupname="somegroupname"
 
         - remove-from-group
-        Remove apt from a group
-        example: cleopatra apt remove-from-group --aptname="somename" --groupname="somegroupname"
+        Remove pecl from a group
+        example: cleopatra pecl remove-from-group --peclname="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;
