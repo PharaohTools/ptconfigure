@@ -123,7 +123,7 @@ class InvokeAllLinux extends Base {
                     continue ; } }
             $attempt = $this->attemptSSH2Connection($server) ;
             if ($attempt == null) {
-                $logging->log("Connection to Server {$server["target"]} failed."); }
+                $logging->log("Connection to Server {$server["target"]} failed.");  }
             else {
                 $server["ssh2Object"] = $attempt ;
                 $logging->log("Connection to Server {$server["target"]} successful.");
