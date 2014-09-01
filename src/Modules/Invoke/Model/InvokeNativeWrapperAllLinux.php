@@ -43,9 +43,30 @@ class InvokeNativeWrapperAllLinux extends Base {
     public function exec($command) {
         $stream = ssh2_exec($this->connection, $command);
         stream_set_blocking( $stream, true );
-        $out = fread($stream,4096);
+        stream_set_timeout ( $stream, 100 );
+        $out = stream_get_contents ( $stream );
+        // $out = fread($stream,4096);
         fclose($stream);
         return $out ;
+    }
+
+    public function cmd ( $cmd, $returnOutput = false ) {
+        // $this->logAction ( "Executing command $cmd" );
+        $stream = ssh2_exec ( $this->connection, $cmd );
+
+        if ( FALSE === $stream ) {
+            $this->logAction ( "Unable to execute command $cmd" );
+        }
+        $this->logAction ( "$cmd was executed" );
+
+        stream_set_blocking ( $stream, true );
+        stream_set_timeout ( $stream, 100 );
+        $this->lastLog = stream_get_contents ( $stream );
+
+        $this->logAction ( "$cmd output: {$this->lastLog}" );
+        fclose ( $stream );
+        $this->log .= $this->lastLog . "\n";
+        return ( $returnOutput ) ? $this->lastLog : $this;
     }
 
     protected function doSSHCommand( $sshObject, $command, $first=null ) {
