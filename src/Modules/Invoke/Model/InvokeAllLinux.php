@@ -109,22 +109,25 @@ class InvokeAllLinux extends Base {
     }
 
     private function loadSSHConnections() {
-        echo 'Attempting to load SSH connections... ';
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to load SSH connections...");
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
-                    echo "Skipping {$server["name"]} for box id Include constraint\n" ;
+                    $logging->log("Skipping {$server["name"]} for box id Include constraint") ;
                     continue ; } }
             if (isset($this->params["environment-box-id-ignore"])) {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
-                    echo "Skipping {$server["name"]} for box id Ignore constraint\n" ;
+                    $logging->log("Skipping {$server["name"]} for box id Ignore constraint") ;
                     continue ; } }
             $attempt = $this->attemptSSH2Connection($server) ;
             if ($attempt == null) {
-                echo 'Connection to Server '.$server["target"].' failed. '; }
+                $logging->log("Connection to Server {$server["target"]} failed."); }
             else {
                 $server["ssh2Object"] = $attempt ;
-                if (isset($this->isNativeSSH) && $this->isNativeSSH==true) {
+                $logging->log("Connection to Server {$server["target"]} successful.");
+                if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) || $this->isNativeSSH != true)) {
                     echo $this->changeBashPromptToPharaoh($server["ssh2Object"]); }
                 echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
