@@ -22,9 +22,19 @@ class BoxifyInfo extends CleopatraBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to Boxify a Box Management wrapper.
+  This command provides a generic Box Management wrapper around all of the Box Providers (Cloud and Otherwise) so that we have a
+  generic way to create and destroy boxes.
 
   Boxify, boxify
+
+        - install-generic-autopilots
+        Install the generic Boxify autopilot templates for a Tiny or Medium (Current Default) set of Environments
+        example: cleopatra boxify install-generic-autopilots
+        example: cleopatra boxify install-generic-autopilots
+                    --yes
+                    --guess # will set --destination-dir=*this dir +*build/config/cleopatra/boxify/autopilots/
+                    --template-group=tiny
+                    --destination-dir=*path-to-destination*
 
         - box-add
         Installs a Box through a cloud provider
@@ -36,6 +46,7 @@ class BoxifyInfo extends CleopatraBase {
             --region-id="2" // DO = 2, RAX = LON
             --box-amount=1 // An Integer number of boxes to create
             --force-name="a-box-name" // optional, will override other options for name creation. may cause a conflict if creating more than 1 box.
+            --parallax // optional, when adding more than one box, if the provider supports it we can execute all requests in parallel
 
         - box-remove
         Removes a Box from the papyrus
@@ -52,16 +63,6 @@ class BoxifyInfo extends CleopatraBase {
         example: cleopatra boxify list-papyrus --yes
         example: cleopatra boxify list-papyrus --yes --environment-name="staging"
 
-        - install-generic-autopilots
-        Install the generic Boxify autopilot templates for a Tiny or Medium (Current Default) set of Environments
-        example: cleopatra boxify install-generic-autopilots
-        example: cleopatra boxify install-generic-autopilots
-                    --yes
-                    --guess # will set --destination-dir=*this dir +*build/config/cleopatra/boxify/autopilots/
-                    --template-group=tiny
-                    --destination-dir=*path-to-destination*
-
-  A environment manager wrapper that will allow you to install environments on any system
 
 HELPDATA;
     return $help ;
