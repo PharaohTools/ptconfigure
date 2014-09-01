@@ -15,6 +15,7 @@ class SFTPAllLinux extends Base {
     public $modelGroup = array("Default") ;
 
     protected $servers = array();
+    protected $isNativeSSH ;
 
     public function askWhetherToSFTPPut() {
         return $this->performSFTPPut();
@@ -81,18 +82,28 @@ class SFTPAllLinux extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $result = "" ;
-        if ($sftpObject instanceof \Net_SFTP) {
-            if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
-                $dn = dirname($remoteFile) ;
-                if ($sftpObject->_is_dir($dn)==false) {
-                    $logging->log("Target directory does not exist, so creating...");
-                    $sftpObject->mkdir($dn) ; } }
-            $result .= $sftpObject->put($remoteFile, $data);
-            $ar = $sftpObject->getSFTPErrors() ;
-            foreach ($ar as $s) {
-                $result .= "$s\n" ; } }
+        if (is_object($sftpObject)) {
+            if (isset($this->isNativeSSH) && $this->isNativeSSH==true) {
+                if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
+                    $dn = dirname($remoteFile) ;
+                    if ($sftpObject->_is_dir($dn)==false) {
+                        $logging->log("Target directory does not exist, so creating...");
+                        $sftpObject->mkdir($dn) ; } }
+                $result .= $sftpObject->put($remoteFile, $data);
+                $ar = $sftpObject->getSFTPErrors() ;
+                foreach ($ar as $s) {
+                    $result .= "$s\n" ; } }
+            else {
+                if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
+                    $dn = dirname($remoteFile) ;
+                    if ($sftpObject->_is_dir($dn)==false) {
+                        $logging->log("Target directory does not exist, so creating...");
+                        $sftpObject->mkdir($dn) ; } }
+                $result .= $sftpObject->put($remoteFile, $data);
+                $ar = $sftpObject->getSFTPErrors() ;
+                foreach ($ar as $s) {
+                    $result .= "$s\n" ; } } }
         else {
-            // @todo make this a log
             $logging->log("No SFTP Object, Connection likely failed");
             $result = false; }
         return $result ;
@@ -146,33 +157,54 @@ class SFTPAllLinux extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting to load SFTP connections...");
-        foreach ($this->servers as &$server) {
+        foreach ($this->servers as $srvId => &$server) {
+            if (isset($this->params["environment-box-id-include"])) {
+                if ($srvId != $this->params["environment-box-id-include"] ) {
+                    $logging->log("Skipping {$server["name"]} for box id Include constraint") ;
+                    continue ; } }
+            if (isset($this->params["environment-box-id-ignore"])) {
+                if ($srvId == $this->params["environment-box-id-ignore"] ) {
+                    $logging->log("Skipping {$server["name"]} for box id Ignore constraint") ;
+                    continue ; } }
             $attempt = $this->attemptSFTPConnection($server) ;
             if ($attempt == null) {
                 $logging->log("Connection to Server {$server["target"]} failed.");
                 $server["sftpObject"] = null ; }
             else {
+                $logging->log("Connection to Server {$server["target"]} successful.");
                 $server["sftpObject"] = $attempt ; } }
-        return true;
+            return true;
     }
 
     // @todo it currently looks for both pword and password lets stick to one
     protected function attemptSFTPConnection($server) {
-        if (!class_exists('Net_SSH2')) {
-            // Always load SSH2 class from here as SFTP class tries to load it wrongly
-            $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
-            $ssh2File = $srcFolder."/seclib/Net/SSH2.php" ;
-            require_once($ssh2File) ; }
-        if (!class_exists('Net_SFTP')) {
-            $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
-            $sftpFile = $srcFolder."/seclib/Net/SFTP.php" ;
-            require_once($sftpFile) ; }
-        $sftp = new \Net_SFTP($server["target"], $this->params["port"], $this->params["timeout"]);
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
-        $pword = $this->getKeyIfAvailable($pword);
-        if ($sftp->login($server["user"], $pword) == true) { return $sftp; }
-        return null;
+        if (function_exists("ssh2_connect")) {
+            $this->isNativeSSH = true ;
+            $sftpFactory = new \Model\SFTP();
+            $sftp = $sftpFactory->getModel($this->params, "NativeWrapper" ) ;
+            $sftp->target = $server["target"] ;
+            $sftp->port = $this->params["port"];
+            $sftp->timeout = $this->params["timeout"] ;
+            if ($sftp->login($server["user"], $pword) == true) { return $sftp; }
+            return null; }
+        else {
+            if (!class_exists('Net_SSH2')) {
+                // Always load SSH2 class from here as SFTP class tries to load it wrongly
+                $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
+                $ssh2File = $srcFolder."/seclib/Net/SSH2.php" ;
+                require_once($ssh2File) ; }
+            if (!class_exists('Net_SFTP')) {
+                $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
+                $sftpFile = $srcFolder."/seclib/Net/SFTP.php" ;
+                require_once($sftpFile) ; }
+            $sftp = new \Net_SFTP($server["target"], $this->params["port"], $this->params["timeout"]);
+            $pword = (isset($server["pword"])) ? $server["pword"] : false ;
+            $pword = (isset($server["password"])) ? $server["password"] : $pword ;
+            $pword = $this->getKeyIfAvailable($pword);
+            if ($sftp->login($server["user"], $pword) == true) { return $sftp; }
+            return null; }
     }
 
     protected function getKeyIfAvailable($pword) {

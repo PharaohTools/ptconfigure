@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class InvokeNativeWrapperAllLinux extends Base {
+class SFTPNativeWrapperAllLinux extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
