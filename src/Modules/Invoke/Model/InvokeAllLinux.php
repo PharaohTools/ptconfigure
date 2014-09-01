@@ -16,6 +16,7 @@ class InvokeAllLinux extends Base {
 
     private $servers = array();
     private $sshCommands;
+    protected $isNativeSSH ;
 
     public function askWhetherToInvokeSSHShell() {
         return $this->performInvokeSSHShell();
@@ -112,18 +113,19 @@ class InvokeAllLinux extends Base {
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
-                    echo "Skipping {$$server["name"]} for box id Include constraint\n" ;
+                    echo "Skipping {$server["name"]} for box id Include constraint\n" ;
                     continue ; } }
             if (isset($this->params["environment-box-id-ignore"])) {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
-                    echo "Skipping {$$server["name"]} for box id Ignore constraint\n" ;
+                    echo "Skipping {$server["name"]} for box id Ignore constraint\n" ;
                     continue ; } }
             $attempt = $this->attemptSSH2Connection($server) ;
             if ($attempt == null) {
                 echo 'Connection to Server '.$server["target"].' failed. '; }
             else {
                 $server["ssh2Object"] = $attempt ;
-                echo $this->changeBashPromptToPharaoh($server["ssh2Object"]);
+                if (isset($this->isNativeSSH) && $this->isNativeSSH==true) {
+                    echo $this->changeBashPromptToPharaoh($server["ssh2Object"]); }
                 echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
     }
@@ -132,6 +134,7 @@ class InvokeAllLinux extends Base {
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
         if (function_exists("ssh2_connect")) {
+            $this->isNativeSSH = true ;
             $sshFactory = new \Model\Invoke();
             $ssh = $sshFactory->getModel($this->params, "NativeWrapper" ) ;
             $ssh->target = $server["target"] ;
@@ -275,6 +278,8 @@ QUESTION;
     }
 
     private function doSSHCommand( $sshObject, $command, $first=null ) {
+        if ($this->isNativeSSH) {
+            return $sshObject->exec($command) ; }
         $returnVar = ($first==null) ? "" : $sshObject->read("PHAROAHPROMPT") ;
         $sshObject->write("$command\n") ;
         $returnVar .= $sshObject->read("PHAROAHPROMPT") ;
