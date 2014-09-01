@@ -28,7 +28,14 @@ class BoxifyInfo extends CleopatraBase {
 
         - box-add
         Installs a Box through a cloud provider
-        example: cleopatra boxify box-add --environment-name="staging" --server-prefix="my-app-staging" --provider="DigitalOcean" --image-id="3101045" --size-id="66" --region-id="2"
+        example: cleopatra boxify box-add --environment-name="*environment*"
+            --server-prefix="my-app"
+            --provider="DigitalOcean" // DigitalOcean, Rackspace, VSphere
+            --image-id="3101045" // DO=3101045 , RAX=ffd597d6-2cc4-4b43-b8f4-b1006715b84e
+            --size-id="66" // DO = 66, RAX = 2
+            --region-id="2" // DO = 2, RAX = LON
+            --box-amount=1 // An Integer number of boxes to create
+            --force-name="a-box-name" // optional, will override other options for name creation. may cause a conflict if creating more than 1 box.
 
         - box-remove
         Removes a Box from the papyrus
@@ -36,7 +43,9 @@ class BoxifyInfo extends CleopatraBase {
 
         - box-destroy
         Removes a Box from both papyrus and the cloud provider
-        example: cleopatra boxify box-destroy --environment-name="staging" --server-prefix="" --provider="apt-get"
+        example: cleopatra boxify box-destroy --environment-name="staging"
+            --destroy-all-boxes
+            --destroy
 
         - list-papyrus
         List all servers in papyrus, or those of a particular environment
