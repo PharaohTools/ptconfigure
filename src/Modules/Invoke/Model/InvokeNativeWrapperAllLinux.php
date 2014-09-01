@@ -70,10 +70,10 @@ class InvokeNativeWrapperAllLinux extends Base {
     }
 
     protected function doSSHCommand( $sshObject, $command, $first=null ) {
-        $returnVar = ($first==null) ? "" : $sshObject->read("PHAROAHPROMPT") ;
+        $returnVar = ($first==null) ? "" : $sshObject->read("PHARAOHPROMPT") ;
         $sshObject->write("$command\n") ;
-        $returnVar .= $sshObject->read("PHAROAHPROMPT") ;
-        return str_replace("PHAROAHPROMPT", "", $returnVar) ;
+        $returnVar .= $sshObject->read("PHARAOHPROMPT") ;
+        return str_replace("PHARAOHPROMPT", "", $returnVar) ;
     }
 
 }

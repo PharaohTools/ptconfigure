@@ -207,7 +207,7 @@ class InvokeAllLinux extends Base {
 *   Due to a software limitation, *
 *    The user that you use here   *
 *  will have their command prompt *
-*    changed to PHAROAHPROMPT     *
+*    changed to PHARAOHPROMPT     *
 *  ... I'm working on that one... *
 *  Exit program to stop (CTRL+C)  *
 ***********************************
@@ -276,17 +276,17 @@ QUESTION;
     }
 
     private function changeBashPromptToPharaoh( $sshObject ) {
-        $command = 'echo "export PS1=PHAROAHPROMPT" > ~/.bash_login ' ;
+        $command = 'echo "export PS1=PHARAOHPROMPT" > ~/.bash_login ' ;
         return $sshObject->exec("$command\n") ;
     }
 
     private function doSSHCommand( $sshObject, $command, $first=null ) {
         if ($this->isNativeSSH) {
             return $sshObject->exec($command) ; }
-        $returnVar = ($first==null) ? "" : $sshObject->read("PHAROAHPROMPT") ;
+        $returnVar = ($first==null) ? "" : $sshObject->read("PHARAOHPROMPT") ;
         $sshObject->write("$command\n") ;
-        $returnVar .= $sshObject->read("PHAROAHPROMPT") ;
-        return str_replace("PHAROAHPROMPT", "", $returnVar) ;
+        $returnVar .= $sshObject->read("PHARAOHPROMPT") ;
+        return str_replace("PHARAOHPROMPT", "", $returnVar) ;
     }
 
 }

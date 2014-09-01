@@ -234,7 +234,7 @@ class SFTPAllLinux extends Base {
 *   Due to a software limitation, *
 *    The user that you use here   *
 *  will have their command prompt *
-*    changed to PHAROAHPROMPT     *
+*    changed to PHARAOHPROMPT     *
 *  ... I'm working on that one... *
 *  Exit program to stop (CTRL+C)  *
 ***********************************
