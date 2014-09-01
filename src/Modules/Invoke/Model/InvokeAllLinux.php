@@ -128,17 +128,26 @@ class InvokeAllLinux extends Base {
         return true;
     }
 
-    private function attemptSSH2Connection($server) {
-        if (!class_exists('Net_SSH2')) {
-            $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
-            $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
-            require_once($ssh2File) ; }
-        $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]);
+    protected function attemptSSH2Connection($server) {
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
-        $pword = $this->getKeyIfAvailable($pword);
-        if ($ssh->login($server["user"], $pword) == true) { return $ssh; }
-        return null;
+        if (function_exists("ssh2_connect")) {
+            $sshFactory = new \Model\Invoke();
+            $ssh = $sshFactory->getModel($this->params, "NativeWrapper" ) ;
+            $ssh->target = $server["target"] ;
+            $ssh->port = $this->params["port"];
+            $ssh->timeout = $this->params["timeout"] ;
+            if ($ssh->login($server["user"], $pword) == true) { return $ssh; }
+            return null; }
+        else {
+            if (!class_exists('Net_SSH2')) {
+                $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
+                $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
+                require_once($ssh2File) ;
+                $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]); }
+            $pword = $this->getKeyIfAvailable($pword);
+            if ($ssh->login($server["user"], $pword) == true) { return $ssh; }
+            return null; }
     }
 
     private function getKeyIfAvailable($pword) {
