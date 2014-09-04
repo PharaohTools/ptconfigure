@@ -20,8 +20,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Destroying of a medium set of environments"),),),
 
                 // DB Nodes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the DB Node Boxes" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the DB Node DNSes" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-db-nodes",
                     "provider-name" => "DigitalOcean",
@@ -32,8 +32,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // DB Load Balancer
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the DB Load Balancer Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the DB Load Balancer DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-db-balancer",
                     "provider-name" => "DigitalOcean",

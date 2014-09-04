@@ -20,7 +20,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a tiny set of environments"),),),
 
                 // Bastion
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-bastion",
@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-bastion",
                     "provider-name" => $provider,
@@ -45,7 +45,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Git
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a GitBucket Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a GitBucket DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-git",
@@ -54,7 +54,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-git",
                     "provider-name" => $provider,
@@ -70,7 +70,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Jenkins
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
@@ -79,7 +79,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
                     "provider-name" => $provider,
@@ -95,7 +95,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Staging
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
@@ -104,7 +104,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
                     "provider-name" => $provider,
@@ -120,7 +120,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Production
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Production Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Production DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-prod",
@@ -129,7 +129,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-prod",
                     "provider-name" => $provider,

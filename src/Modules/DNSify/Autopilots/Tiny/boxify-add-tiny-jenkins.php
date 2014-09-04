@@ -20,7 +20,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of Jenkins in a tiny set of environments"),),),
 
                 // Jenkins
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
                     "provider-name" => $provider,

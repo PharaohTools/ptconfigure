@@ -27,8 +27,8 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Staging Web Nodes Boxes" ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Staging Web Nodes DNSes" ),),),
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-web-nodes",
                     "provider-name" => "$provider_web_nodes",

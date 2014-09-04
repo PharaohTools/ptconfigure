@@ -25,7 +25,7 @@ class DNSifyListingUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "DNSify";
-        $this->programNameMachine = "boxify"; // command and app dir name
+        $this->programNameMachine = "dnsify"; // command and app dir name
         $this->programNameFriendly = "DNSify!"; // 12 chars
         $this->programNameInstaller = "DNSify your Environments";
         $this->initialize();
@@ -34,7 +34,7 @@ class DNSifyListingUbuntu extends BaseLinuxApp {
     public function performListing() {
         if (isset($this->params["environment-name"])) {
             $this->setEnvironment($this->params["environment-name"]); }
-        return $this->listBoxes();
+        return $this->listDNSes();
     }
 
     public function setEnvironment($environmentName = null) {
@@ -48,7 +48,7 @@ class DNSifyListingUbuntu extends BaseLinuxApp {
             $this->environmentName = self::askForInput("Enter Environment Name:", true); }
     }
 
-    protected function listBoxes() {
+    protected function listDNSes() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $returns = array() ;

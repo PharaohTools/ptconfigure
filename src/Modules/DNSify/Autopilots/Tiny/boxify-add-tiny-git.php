@@ -17,10 +17,10 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Gitbucket Box in a tiny set of environments"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Gitbucket DNS in a tiny set of environments"),),),
 
                 // Git
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a GitBucket Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a GitBucket DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-git",
@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-git",
                     "provider-name" => $provider,

@@ -27,8 +27,8 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Production Primary DB Box" ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add the Production Primary DB DNS" ),),),
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-db-balancer",
                     "provider-name" => "$provider_db_balancer",

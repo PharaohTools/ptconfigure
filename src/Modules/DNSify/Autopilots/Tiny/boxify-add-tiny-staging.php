@@ -20,7 +20,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of Staging Server in a tiny set of environments"),),),
 
                 // Staging
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Staging DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
                     "provider-name" => $provider,

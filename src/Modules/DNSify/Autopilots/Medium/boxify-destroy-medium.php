@@ -23,8 +23,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Destroying of a medium set of environments"),),),
 
                 // Bastion
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Bastion Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Bastion DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-bastion",
                     "provider-name" => $this->params["provider"],
@@ -35,8 +35,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Git
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the GitBucket Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the GitBucket DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-git",
                     "provider-name" => $this->params["provider"],
@@ -47,8 +47,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Jenkins
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-jenkins",
                     "provider-name" => $this->params["provider"],
@@ -59,8 +59,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Staging DB Nodes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging DB Node Boxes" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging DB Node DNSes" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-db-nodes",
                     "provider-name" => $this->params["provider"],
@@ -71,8 +71,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Staging DB Primary
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Primary DB Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Primary DB DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-db-balancer",
                     "provider-name" => $this->params["provider"],
@@ -83,8 +83,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Staging Web Nodes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Web Node Boxes" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Web Node DNSes" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-web-nodes",
                     "provider-name" => $this->params["provider"],
@@ -95,8 +95,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Staging Load Balancer
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Load Balancer Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Load Balancer DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-load-balancer",
                     "provider-name" => $this->params["provider"],
@@ -107,8 +107,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Production DB Nodes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production DB Node Boxes" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production DB Node DNSes" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-db-nodes",
                     "provider-name" => $this->params["provider"],
@@ -119,8 +119,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Production DB Primary
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Primary DB Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Primary DB DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-db-balancer",
                     "provider-name" => $this->params["provider"],
@@ -131,8 +131,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Production Web Nodes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Web Node Boxes" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Web Node DNSes" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-web-nodes",
                     "provider-name" => $this->params["provider"],
@@ -143,8 +143,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Production Load Balancer
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Load Balancer Box" ),),),
-                array ( "Boxify" => array("box-destroy" => array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Load Balancer DNS" ),),),
+                array ( "DNSify" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-load-balancer",
                     "provider-name" => $this->params["provider"],

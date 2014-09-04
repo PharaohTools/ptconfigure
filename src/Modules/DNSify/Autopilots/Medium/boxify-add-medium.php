@@ -20,7 +20,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a medium set of environments"),),),
 
                 // Bastion
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Bastion DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "medium-bastion",
@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-bastion",
                     "provider-name" => "DigitalOcean",
@@ -45,7 +45,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Git
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a GitBucket Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a GitBucket DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "medium-git",
@@ -54,7 +54,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-git",
                     "provider-name" => "DigitalOcean",
@@ -70,7 +70,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 // Jenkins
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins Box" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins DNS" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
                     "environment-name" => "medium-jenkins",
@@ -79,7 +79,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-jenkins",
                     "provider-name" => "DigitalOcean",
@@ -104,7 +104,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-db-balancer",
                     "provider-name" => "DigitalOcean",
@@ -129,7 +129,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-db-nodes",
                     "provider-name" => "DigitalOcean",
@@ -154,7 +154,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-web-nodes",
                     "provider-name" => "DigitalOcean",
@@ -179,7 +179,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-staging-load-balancer",
                     "provider-name" => "DigitalOcean",
@@ -204,7 +204,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-db-balancer",
                     "provider-name" => "DigitalOcean",
@@ -229,7 +229,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-db-nodes",
                     "provider-name" => "DigitalOcean",
@@ -255,7 +255,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-web-nodes",
                     "provider-name" => "DigitalOcean",
@@ -280,7 +280,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "Boxify" => array("box-add" => array(
+                array ( "DNSify" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "medium-prod-load-balancer",
                     "provider-name" => "DigitalOcean",

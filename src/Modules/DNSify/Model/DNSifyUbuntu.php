@@ -19,36 +19,49 @@ class DNSifyUbuntu extends BaseLinuxApp {
     protected $requestingModule ;
     protected $actionsToMethods =
         array(
-            "box-add" => "performBoxAdd",
-            "box-destroy" => "performBoxDestroy",
-            "box-remove" => "performBoxRemove",
+            "ensure-domain-exists" => "ensureDNSDomainExists",
+            "ensure-domain-empty" => "ensureDNSDomainEmpty",
+            "ensure-record-exists" => "ensureDNSRecordExists",
+            "ensure-record-empty" => "ensureDNSRecordEmpty",
         ) ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "DNSify";
-        $this->programNameMachine = "boxify"; // command and app dir name
+        $this->programNameMachine = "dnsify"; // command and app dir name
         $this->programNameFriendly = "DNSify!"; // 12 chars
         $this->programNameInstaller = "DNSify your Environments";
         $this->initialize();
     }
 
-    public function performBoxAdd($providerName = null, $environmentName = null, $boxAmount = null) {
+    public function ensureDNSDomainExists($providerName = null, $environmentName = null, $boxAmount = null) {
         $this->setEnvironment($environmentName);
         $this->setProvider($providerName);
-        $this->setBoxAmount($boxAmount);
-        return $this->addBox();
+        $this->setDNSAmount($boxAmount);
+        return $this->addDNS();
     }
 
-    public function performBoxRemove($providerName = null, $environmentName = null) {
+    public function ensureDNSDomainEmpty($providerName = null, $environmentName = null) {
         $this->setEnvironment($environmentName);
-        return $this->removeBoxes();
+        return $this->removeDNSes();
     }
 
-    public function performBoxDestroy($providerName = null, $environmentName = null) {
+    public function ensureDNSRecordExists($providerName = null, $environmentName = null, $boxAmount = null) {
         $this->setEnvironment($environmentName);
         $this->setProvider($providerName);
-        return $this->destroyBoxes();
+        $this->setDNSAmount($boxAmount);
+        return $this->addDNS();
+    }
+
+    public function ensureDNSRecordEmpty($providerName = null, $environmentName = null) {
+        $this->setEnvironment($environmentName);
+        return $this->removeDNSes();
+    }
+
+    public function performDNSDestroy($providerName = null, $environmentName = null) {
+        $this->setEnvironment($environmentName);
+        $this->setProvider($providerName);
+        return $this->destroyDNSes();
     }
 
     public function setEnvironment($environmentName = null) {
@@ -73,7 +86,7 @@ class DNSifyUbuntu extends BaseLinuxApp {
             $this->providerName = self::askForInput("Enter Provider Name:", true); }
     }
 
-    public function setBoxAmount($boxAmount = null) {
+    public function setDNSAmount($boxAmount = null) {
         if (isset($boxAmount)) {
             $this->boxAmount = $boxAmount; }
         else if (isset($this->params["boxamount"])) {
@@ -81,39 +94,39 @@ class DNSifyUbuntu extends BaseLinuxApp {
         else if (isset($this->params["box-amount"])) {
             $this->boxAmount = $this->params["box-amount"]; }
         else {
-            $this->boxAmount = self::askForInput("Enter number of Boxes:", true); }
+            $this->boxAmount = self::askForInput("Enter number of DNSes:", true); }
     }
 
-    protected function addBox() {
+    protected function addDNS() {
         $provider = $this->getProvider();
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $returns = array() ;
-        $logging->log("Adding Boxes") ;
-        $result = $provider->addBox() ;
+        $logging->log("Adding DNSes") ;
+        $result = $provider->addDNS() ;
         $returns[] = $result ;
         return (in_array(false, $returns)) ? false : true ;
     }
 
-    protected function removeBoxes() {
+    protected function removeDNSes() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        foreach($this->boxAmount as $oneBox) {
-            $logging->log("Removing Box $oneBox") ;
-            $this->setEnvironmentStatusInCleovars($oneBox, false) ; }
+        foreach($this->boxAmount as $oneDNS) {
+            $logging->log("Removing DNS $oneDNS") ;
+            $this->setEnvironmentStatusInCleovars($oneDNS, false) ; }
         return true ;
     }
 
-    protected function destroyBoxes() {
-        $provider = $this->getProvider("BoxDestroy");
+    protected function destroyDNSes() {
+        $provider = $this->getProvider("DNSDestroy");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Destroying Boxes in environment $this->environmentName") ;
-        $return = $provider->destroyBox() ;
+        $logging->log("Destroying DNSes in environment $this->environmentName") ;
+        $return = $provider->destroyDNS() ;
         return $return ;
     }
 
-    protected function getProvider($modGroup = "BoxAdd") {
+    protected function getProvider($modGroup = "DNSAdd") {
         $infoObjects = \Core\AutoLoader::getInfoObjects();
         $allProviders = array();
         foreach($infoObjects as $infoObject) {
