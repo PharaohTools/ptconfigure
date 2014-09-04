@@ -6,7 +6,7 @@ class JoomlaInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Joomla - Integration and Templates fo Joomla";
+    public $name = "Joomla - Integration and Templates for Joomla";
 
     public function _construct() {
       parent::__construct();
