@@ -48,6 +48,13 @@ class Drupal extends Base {
             $this->content["result"] = $thisModel->askWhetherToDapperfy();
             return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
+        if (in_array($action, array("drupal-phlagrant", "drupal7-phlagrant"))) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyDrupalPhlagrant") ;
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $thisModel->platform = "drupal7";
+            $this->content["result"] = $thisModel->askWhetherToDapperfy();
+            return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
+
         $this->content["messages"][] = "Invalid Dapperfy Drupal Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }

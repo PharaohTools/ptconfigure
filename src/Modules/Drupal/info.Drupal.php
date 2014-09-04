@@ -6,7 +6,7 @@ class DrupalInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Drupal - Integration and Templates fo Drupal";
+    public $name = "Drupal - Integration and Templates for Drupal";
 
     public function _construct() {
       parent::__construct();
@@ -25,7 +25,8 @@ class DrupalInfo extends Base {
     }
 
     public function dapperfyActions() {
-        return array( "drupal" );
+        // return array( "drupal" );
+        return array( "drupal", "drupal7", "drupal-phlagrant", "drupal7-phlagrant" );
     }
 
     public function dbConfigureActions() {
