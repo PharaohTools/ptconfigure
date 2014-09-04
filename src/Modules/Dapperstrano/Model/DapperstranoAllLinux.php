@@ -19,7 +19,7 @@ class DapperstranoAllLinux extends BasePHPApp {
         $this->autopilotDefiner = "Dapperstrano";
         $this->fileSources = array(
           array(
-              "http://git.pharaoh-tools.com/git/phpengine/dapperstrano.git",
+              "http://git.pharaohtools.com/git/phpengine/dapperstrano.git",
               "dapperstrano",
               null // can be null for none
           )
