@@ -14,7 +14,7 @@ class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
     // Model Group
     public $modelGroup = array("DapperfyDrupalPhlagrant") ;
 
-    public $platform = "joomla30" ;
+    public $platform = "drupal7" ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -43,6 +43,9 @@ class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
           ) );
 
     }
+
+
+
 
 
     public function doDapperfy() {
