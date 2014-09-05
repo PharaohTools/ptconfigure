@@ -19,27 +19,23 @@ class VNCUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "VNC";
         $this->installCommands = $this->getInstallCommands() ;
         $this->uninstallCommands = array(
-            // @todo make this package -add
-            array("command" => array( "sudo apt-get remove -y virtualbox") )
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "vncserver")) ),
         ) ;
-        $this->programDataFolder = "/var/lib/virtualbox"; // command and app dir name
-        $this->programNameMachine = "virtualbox"; // command and app dir name
+        $this->programDataFolder = "/opt/vnc"; // command and app dir name
+        $this->programNameMachine = "vnc"; // command and app dir name
         $this->programNameFriendly = " ! VNC !"; // 12 chars
         $this->programNameInstaller = "VNC";
         $this->statusCommand = "command vboxmanage" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy virtualbox" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy virtualbox" ;
-        $this->versionLatestCommand = "sudo apt-cache policy virtualbox" ;
+        $this->versionInstalledCommand = "sudo apt-cache policy vncserver" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy vncserver" ;
+        $this->versionLatestCommand = "sudo apt-cache policy vncserver" ;
         $this->initialize();
     }
 
-    // @todo this should definitely be using a package manager module
     protected function getInstallCommands() {
         $ray = array(
-            array("command" => array( "sudo apt-get install -y virtualbox") )
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "vncserver")) ),
         ) ;
-        if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
-            array_push($ray, array("command" => array( "sudo apt-get install virtualbox-guest-additions-iso") ) ) ; }
         return $ray ;
     }
 

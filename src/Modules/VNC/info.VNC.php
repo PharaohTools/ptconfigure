@@ -6,7 +6,7 @@ class VNCInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "VNC - The local Virtual Machine Solution";
+    public $name = "VNC - The Display Manager Solution";
 
     public function __construct() {
       parent::__construct();
@@ -17,18 +17,18 @@ class VNCInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("virtualbox"=>"VNC");
+      return array("vnc"=>"VNC");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install VNC, the popular Virtual Machine Solution.
 
-  VNC, virtualbox
+  VNC, vnc
 
         - install
         Installs VNC through apt-get
-        example: cleopatra virtualbox install
+        example: cleopatra vnc install
 
 HELPDATA;
       return $help ;
