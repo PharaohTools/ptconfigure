@@ -17,17 +17,17 @@ class VNCPasswdInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("vnc"=>"VNCPasswd");
+      return array("vncpasswd"=>"VNCPasswd", "vnc-passwd"=>"VNCPasswd");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install VNCPasswd, the popular Remote/Local Desktop Manager Solution.
 
-  VNCPasswd, vnc
+  VNCPasswd, vncpasswd, vnc-passwd
 
         - install
-        Installs VNCPasswd through apt-get
+        Installs VNCPasswd through a package manager
         example: cleopatra vnc install
 
 HELPDATA;
