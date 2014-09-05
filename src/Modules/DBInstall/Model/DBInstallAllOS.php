@@ -389,8 +389,10 @@ class DBInstallAllOS extends Base {
 
     protected function databaseSaver() {
         $fp = (isset($this->params["parent-path"])) ? $this->params["parent-path"].$this->dbFilePath : $this->dbFilePath ;
+        // @todo this should make the db dir if it doesnt exist
+        // $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$fp} --no-create-db ; " ;
+        // $this->executeAndOutput($comm, "Creating db dir...") ;
         $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$fp} --no-create-db ; " ;
-        echo $comm."\n" ;
         $this->executeAndOutput($comm, "Database Dumping...") ;
     }
 
