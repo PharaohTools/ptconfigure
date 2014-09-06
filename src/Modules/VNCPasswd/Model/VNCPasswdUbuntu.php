@@ -74,8 +74,6 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
 
     protected function runScript() {
 
-        var_dump($this->myUser, $this->vncUser, $this->vncPass);
-
         if ($this->myUser == $this->vncUser) {
             // no su
             $command = array(
@@ -109,13 +107,6 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
                 "exit",
             ) ;
             self::executeAsShell($command) ; ; }
-//        $ray3 =
-//        array_push($ray, $ray2) ;
-//        array_push($ray, $ray3) ;
-
-//        var_dump($ray) ;
-
-        // return $ray ;
     }
 
 
