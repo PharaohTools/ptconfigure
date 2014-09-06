@@ -50,6 +50,8 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
     public function askForVNCPass(){
         if (isset($this->params["vnc-pass"])) {
             $this->vncPass = $this->params["vnc-pass"]; }
+        else if (isset($this->params["guess"])) {
+            $this->vncPass = $this->vncUser; }
         else {
             $question = "Enter VNC Pass:";
             $this->vncPass = self::askForInput($question, true); }
