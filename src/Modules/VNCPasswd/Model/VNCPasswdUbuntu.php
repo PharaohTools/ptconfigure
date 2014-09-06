@@ -37,7 +37,16 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function askForVNCUserName(){
+    public function doThese() {
+        var_dump($this->params) ;
+        $this->setMyUser();
+        $this->askForVNCUserName();
+        $this->askForVNCPass();
+        $this->runScript();
+
+    }
+
+    protected function askForVNCUserName(){
         if (isset($this->params["vnc-user"])) {
             $this->vncUser = $this->params["vnc-user"]; }
         else if (isset($this->params["guess"])) {
@@ -47,11 +56,11 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
             $this->vncUser = self::askForInput($question, true); }
     }
 
-    public function askForVNCPass(){
+    protected function askForVNCPass(){
         if (isset($this->params["vnc-pass"])) {
             $this->vncPass = $this->params["vnc-pass"]; }
         else if (isset($this->params["guess"])) {
-            $this->vncPass = $this->vncUser; }
+            $this->vncPass = "cleopatra"; }
         else {
             $question = "Enter VNC Pass:";
             $this->vncPass = self::askForInput($question, true); }
@@ -63,34 +72,59 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
         $this->myUser = str_replace("\r", "", $this->myUser) ;
     }
 
-    protected function getInstallCommands() {
-        $ray = array(
-            array("method"=> array("object" => $this, "method" => "setMyUser", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForVNCUserName", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "askForVNCPass", "params" => array()) ),
+    protected function runScript() {
 
-        ) ;
+        var_dump($this->myUser, $this->vncUser, $this->vncPass);
 
         if ($this->myUser == $this->vncUser) {
             // no su
-            $ray2 = array("command"=> array(
-                "echo {$this->vncPass} >/tmp/vnc-file",
-                "echo {$this->vncPass} >>/tmp/vnc-file",
-                "vncpasswd </tmp/vnc-file >/tmp/vncpasswd.1 2>/tmp/vncpasswd.2",
-                "rm /tmp/vnc-file",
-            ) ) ; }
+            $command = array(
+                '/usr/bin/expect <<EOF',
+                'spawn "/usr/bin/vnc4passwd"',
+                'expect "Password:"',
+                'send "'.$this->vncPass.'\r"',
+                'expect "Verify:"',
+                'send "'.$this->vncPass.'\r"',
+                'expect eof',
+                "exit",
+                "EOF"
+            ) ;
+            self::executeAsShell($command) ;
+        }
 
         else {
             // su
-            $ray2 = array("command"=> array(
-                "sudo su {$this->vncUser}",
-                "echo {$this->vncPass} >/tmp/vnc-file",
-                "echo {$this->vncPass} >>/tmp/vnc-file",
-                "vncpasswd </tmp/vnc-file >/tmp/vncpasswd.1 2>/tmp/vncpasswd.2",
-                "rm /tmp/vnc-file",
-            ) ) ; }
-        array_push($ray, $ray2) ;
 
+            // no su
+            $command = array(
+                'sudo -H -u '.$this->vncUser.' /usr/bin/expect <<EOF',
+                'spawn "/usr/bin/vnc4passwd"',
+                'expect "Password:"',
+                'send "'.$this->vncPass.'\r"',
+                'expect "Verify:"',
+                'send "'.$this->vncPass.'\r"',
+                'expect eof',
+                "exit",
+                "EOF",
+                "exit",
+            ) ;
+            self::executeAsShell($command) ; ; }
+//        $ray3 =
+//        array_push($ray, $ray2) ;
+//        array_push($ray, $ray3) ;
+
+//        var_dump($ray) ;
+
+        // return $ray ;
+    }
+
+
+    protected function getInstallCommands() {
+        $ray = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "expect")) ),
+            array("method"=> array("object" => $this, "method" => "doThese", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "expect")) ),
+        ) ;
         return $ray ;
     }
 
