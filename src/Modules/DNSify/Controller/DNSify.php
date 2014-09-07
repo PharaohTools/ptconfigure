@@ -22,19 +22,21 @@ class DNSify extends Base {
             // if we don't have an object, its an array of errors
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $this->content["result"] = $thisModel->askAction($action);
-            return array ("type"=>"view", "view"=>"dnsifyGenAutos", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"DNSifyGenAutos", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("box-add", "box-remove", "box-destroy") )) {
+        if (in_array($action, array("ensure-domain-exists", "ensure-domain-empty", "ensure-record-exists",
+            "ensure-record-empty", "list-records", "list-domains") )) {
             $this->content["result"] = $thisModel->askAction($action);
+            $this->content["route"] = $pageVars["route"];
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"dnsify", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"DNSify", "pageVars"=>$this->content); }
 
         if (in_array($action, array("list-papyrus") )) {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Listing") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"dnsifyList", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"DNSifyList", "pageVars"=>$this->content); }
 
     }
 
