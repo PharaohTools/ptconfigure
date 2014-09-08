@@ -34,7 +34,7 @@ class Firefox14Ubuntu extends BaseLinuxApp {
             "rm -rf ****PROG EXECUTOR****" )
     );
     $this->programDataFolder = "/opt/firefox14"; // command and app dir name
-    $this->programNameMachine = "firefox14"; // command and app dir name
+    $this->programNameMachine = "firefox"; // command and app dir name
     $this->programNameFriendly = " Firefox 14 "; // 12 chars
     $this->programNameInstaller = "Firefox 14";
     $this->programExecutorFolder = "/usr/bin";
