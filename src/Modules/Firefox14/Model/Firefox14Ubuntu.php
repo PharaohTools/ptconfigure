@@ -18,13 +18,13 @@ class Firefox14Ubuntu extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "Firefox14";
     $this->installCommands = array(
-        array( "command" =>
+        array( "command" => array(
             "cd /tmp" ,
             "git clone https://github.com/phpengine/cleopatra-firefox14 firefox14",
             "rm -rf ****PROGDIR****",
             "mkdir -p ****PROGDIR****",
             "mv /tmp/firefox14/* ****PROGDIR****",
-            "rm -rf /tmp/firefox14" ),
+            "rm -rf /tmp/firefox14" ) ),
         array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
         array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
     );

@@ -18,13 +18,13 @@ class Firefox17Ubuntu extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "Firefox17";
     $this->installCommands = array(
-        array( "command" =>
+        array( "command" => array(
             "cd /tmp" ,
             "git clone https://github.com/phpengine/cleopatra-firefox17 firefox17",
             "rm -rf ****PROGDIR****",
             "mkdir -p ****PROGDIR****",
             "mv /tmp/firefox17/* ****PROGDIR****",
-            "rm -rf /tmp/firefox17" ),
+            "rm -rf /tmp/firefox17" ) ),
         array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
         array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
     );
