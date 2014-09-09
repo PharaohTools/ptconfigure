@@ -29,9 +29,9 @@ class Firefox14Ubuntu extends BaseLinuxApp {
         array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
     );
     $this->uninstallCommands = array(
-        array( "command" =>
+        array( "command" =>  array(
             "rm -rf ****PROGDIR****",
-            "rm -rf ****PROG EXECUTOR****" )
+            "rm -rf ****PROG EXECUTOR****" ) )
     );
     $this->programDataFolder = "/opt/firefox14"; // command and app dir name
     $this->programNameMachine = "firefox"; // command and app dir name
