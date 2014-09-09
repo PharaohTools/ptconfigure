@@ -25,7 +25,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
                 "cd /tmp" ,
                 "mkdir -p /tmp/selenium" ,
                 "cd /tmp/selenium" ,
-                "wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar",
+                "wget http://selenium-release.storage.googleapis.com/2.41/selenium-server-standalone-2.41.0.jar",
                 "mkdir -p ****PROGDIR****",
                 "mv /tmp/selenium/* ****PROGDIR****",
                 "rm -rf /tmp/selenium/",
