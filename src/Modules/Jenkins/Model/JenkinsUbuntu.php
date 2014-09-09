@@ -19,7 +19,8 @@ class JenkinsUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "Jenkins";
         $this->installCommands = $this->getInstallCommands();
-        $this->uninstallCommands = array( "apt-get remove -y jenkins" );
+        $this->uninstallCommands =
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "jenkins")) ) ;
         $this->programDataFolder = "/var/lib/jenkins"; // command and app dir name
         $this->programNameMachine = "jenkins"; // command and app dir name
         $this->programNameFriendly = " ! Jenkins !"; // 12 chars
@@ -37,8 +38,8 @@ class JenkinsUbuntu extends BaseLinuxApp {
                 "cd /tmp" ,
                 "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
                 "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
-                "apt-get update -y",
-                "apt-get install -y jenkins") )
+                "apt-get update -y" ) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "jenkins")) ),
         ) ;
         if (isset($this->params["with-http-port-proxy"]) && $this->params["with-http-port-proxy"]==true) {
             $dapperAuto = $this->getDapperAutoPath() ;
