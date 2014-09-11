@@ -23,11 +23,11 @@ Currently, all of the Modules work on Ubuntu 12, most on 13, and a few on Centos
 On your Mac, Linux, Unix or Windows Machine, you'll need to install Git and PHP5. If you don't have either, google
 them they are easy to install. To install cleopatra cli on your machine do the following at the command line.
 
-git clone http://git.pharaoh-tools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install-silent
+git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install-silent
 
 or...
 
-git clone http://git.pharaoh-tools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install (If you want to choose the install dir)
+git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install (If you want to choose the install dir)
 
 ... that's it, now the cleopatra command should be available at the command line for you.
 
