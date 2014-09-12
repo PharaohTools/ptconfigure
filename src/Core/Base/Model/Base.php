@@ -38,7 +38,7 @@ class Base {
     protected function populateTitle() {
         $this->titleData = <<<TITLE
 *******************************
-*   Golden Contact Computing  *
+*        Pharaoh Tools        *
 *         $this->programNameFriendly        *
 *******************************
 
@@ -57,7 +57,7 @@ TITLE;
         $this->completionData = <<<COMPLETION
 ... All done!
 *******************************
-Thanks for installing , visit www.gcsoftshop.co.uk for more
+Thanks for installing , visit www.pharaohtools.com for more
 
 COMPLETION;
     }
