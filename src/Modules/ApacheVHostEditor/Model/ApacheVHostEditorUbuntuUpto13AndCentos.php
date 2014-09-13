@@ -281,7 +281,7 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
     }
 
     protected function createVHost() {
-        $tmpDir = '/tmp/'.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR;
+        $tmpDir = '/tmp'.DIRECTORY_SEPARATOR.'vhosttemp'.DIRECTORY_SEPARATOR;
         if (!file_exists($tmpDir)) {mkdir ($tmpDir, 0777, true);}
         return file_put_contents($tmpDir.'/'.$this->url.$this->fileExtension, $this->vHostTemplate);
     }
