@@ -266,7 +266,7 @@ class DBConfigureAllOS extends Base {
         $lastChar = substr($parent, ($len-1), $len);
         if ($lastChar != '/') { $parent .= '/' ; }
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent."/".$this->platformVars->getProperty("settingsFileLocation").'/'
+          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
         echo "Moving new settings file ".$location." in...\n" ;
@@ -281,7 +281,7 @@ class DBConfigureAllOS extends Base {
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
           ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
-        $lastChar = substr($location, ($len-1), $len);
+        $lastChar = substr($location, ($len-1), 1);
         if ($lastChar != '/') { $location .= '/' ; }
         $location .= $this->platformVars->getProperty("settingsFileName");
         $command    = 'rm -f '.$location ;
