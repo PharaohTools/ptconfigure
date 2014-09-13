@@ -30,9 +30,12 @@ class Base {
     protected $versionLatestCommand;
 
     public function __construct($params) {
-      $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
-      $this->autopilotDefiner = $this->getModuleName() ;
-      $this->setCmdLineParams($params);
+        if (PHP_OS =="Windows") {
+            $this->tempDir =  'C:\tmp'; }
+        else {
+            $this->tempDir =  '/tmp'; }
+        $this->autopilotDefiner = $this->getModuleName() ;
+        $this->setCmdLineParams($params);
     }
 
     protected function populateTitle() {
