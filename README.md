@@ -20,12 +20,17 @@ Currently, all of the Modules work on Ubuntu 12, most on 13, and a few on Centos
     
 ## Installation
 
-On your Mac, Linux, Unix or Windows Machine, you'll need to install Git and PHP5. If you don't have either, google
-them they are easy to install. To install cleopatra cli on your machine do the following at the command line.
+First you'll need to install Git and PHP5. If you don't have either, google them - they're easy to install. To install
+cleopatra cli on your On your Mac, Linux or Unix Machine silently do the following:
 
 git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install-silent
 
-or...
+or on Windows ...
+
+git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install-windows-silent
+
+
+If you need to
 
 git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && sudo php cleopatra/install (If you want to choose the install dir)
 
@@ -78,7 +83,7 @@ to set up your Digital Ocean account first.
 
 Use invoke cli or env-config list to see your boxes
 
-Go to http://www.pharaoh-tools.org.uk for more
+Go to http://www.pharaohtools.com for more
 
 
 ## Available Commands:
