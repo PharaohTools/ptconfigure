@@ -6,8 +6,8 @@ $prefix = "default-project" ;
 $ssh_key_name = "goldenballs" ;
 $priv_ssh_key = "/home/golden/.ssh/id_rsa" ; // Depends on your setup.
 $provider = "DigitalOcean" ; // Digital Ocean || Rackspace
-$image_id = "3101045" ; //
-$region_id = "2" ; // DO = 2, RS = LON,
+$image_id = "3101045" ; // DO = , RAX = , AWS = ami-32b46b45
+$region_id = "2" ; // DO = 2, RS = LON, AWS = eu-west01
 $size_id = "66" ;  // DO = 66, RS = 2
 $user_name = "root" ; // This depends on your image
 $box_amount = "1" ; //
