@@ -16,10 +16,12 @@ class Installer {
     private $programNameFriendly = " Cleopatra! "; // 12 chars
 
     public function __construct() {
-        $this->populateStartDirectory();
-        $this->populateTitle();
-        $this->populateCompletion();
-        $this->populateExecutorFile();
+        // USE THE FULL DIRECTORY_SEPARATOR HERE AS THE CONSTANTS AREN'T SET UNTIL AFTER REQUIRE
+        require("src".DIRECTORY_SEPARATOR."Constants.php") ;
+        $this->populateStartDirectory() ;
+        $this->populateTitle() ;
+        $this->populateCompletion() ;
+        $this->populateExecutorFile() ;
     }
 
     public function installProgram() {
@@ -45,17 +47,27 @@ class Installer {
     }
 
     private function askForProgramDataFolder() {
-        $this->programDataFolder = DIRECTORY_SEPARATOR."opt".DIRECTORY_SEPARATOR.$this->programNameMachine.DIRECTORY_SEPARATOR.$this->programNameMachine ;
+        if (PHP_OS == "Windows") {
+            $this->programDataFolder = 'C:'.DS.'Program Files'.DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
 
     private function askForProgramExecutorFolder(){
-        $this->programExecutorFolder = "/usr/bin" ;
+        if (PHP_OS == "Windows") {
+            $this->programDataFolder = 'C:'.DS.'system32' ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $this->programExecutorFolder = DS.'usr'.DS.'bin' ; }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
+        if (PHP_OS == "Windows") {
+            $command = "del -r " ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $command = "rm -rf " ; }
         if ( is_dir($this->programDataFolder)) {
-            $command = 'rm -rf '.$this->programDataFolder;
-            self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
+            $fullCommand = $command.$this->programDataFolder;
+            self::executeAndOutput($fullCommand, "Program Data Folder $this->programDataFolder Deleted if existed"); }
         return true;
     }
 
@@ -65,33 +77,49 @@ class Installer {
     }
 
     private function copyFilesToProgramDataFolder(){
-        $command = 'cp -r '.dirname(__FILE__).'/.git '.$this->programDataFolder;
-        self::executeAndOutput($command, "Program Data folder populated with hidden files");
-        $command = 'cp -r '.dirname(__FILE__).'/* '.$this->programDataFolder;
-        return self::executeAndOutput($command, "Program Data folder populated with other files");
+        if (PHP_OS == "Windows") {
+            $command = "copy -r " ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $command = "cp -r " ; }
+
+        $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
+        self::executeAndOutput($command2, "Program Data folder populated with hidden files");
+        $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder;
+        return self::executeAndOutput($command3, "Program Data folder populated with other files");
     }
 
     private function deleteExecutorIfExists(){
-        $command = 'rm -f '.$this->programExecutorFolder.'/'.$this->programNameMachine;
-        self::executeAndOutput($command, "Program Executor Deleted  if existed");
+        if (PHP_OS == "Windows") {
+            $command = "del -r " ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $command = "rm -rf " ; }
+        $fullCommand = $command.$this->programExecutorFolder.DS.$this->programNameMachine;
+        self::executeAndOutput($fullCommand, "Program Executor Deleted  if existed");
         return true;
     }
 
     private function deleteInstallationFiles(){
-        $command = 'rm -rf '.$this->startDirectory.DIRECTORY_SEPARATOR.$this->programNameMachine;
-        self::executeAndOutput($command);
+        if (PHP_OS == "Windows") {
+            $command = "del -r " ; }
+        // else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+        else {
+            $command = "rm -rf " ; }
+        $fullCommand = $command.$this->startDirectory.DS.$this->programNameMachine;
+        self::executeAndOutput($fullCommand);
     }
 
     private function saveExecutorFile(){
         $this->populateExecutorFile();
-        return file_put_contents($this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine, $this->bootStrapData);
+        return file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine, $this->bootStrapData);
     }
 
     private function changePermissions(){
-        $command = "chmod -R 775 $this->programDataFolder";
-        self::executeAndOutput($command);
-        $command = "chmod 775 $this->programExecutorFolder/$this->programNameMachine";
-        self::executeAndOutput($command);
+        // @todo does windows need something like this?
+        if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $command = "chmod -R 775 $this->programDataFolder";
+            self::executeAndOutput($command);
+            $command = "chmod 775 $this->programExecutorFolder".DS.$this->programNameMachine;
+            self::executeAndOutput($command); }
     }
 
     private function askForInput($question, $required=null) {
@@ -128,14 +156,18 @@ COMPLETION;
     }
 
     private function populateExecutorFile() {
-        $this->bootStrapData = "#!".DIRECTORY_SEPARATOR."usr".DIRECTORY_SEPARATOR."bin".DIRECTORY_SEPARATOR."php\n
-<?php\n
-require('".$this->programDataFolder.DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."Bootstrap.php"."');\n
+        if (PHP_OS == "Windows") {
+            $this->bootStrapData = "" ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ; }
+        $this->bootStrapData .=
+"<?php\n
+require('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\n
 ?>";
     }
 
     private function populateStartDirectory() {
-        $this->startDirectory = str_replace("/$this->programNameMachine", "", dirname(__FILE__));
+        $this->startDirectory = str_replace(DS."$this->programNameMachine", "", dirname(__FILE__));
     }
 
     private function stripNewLines($inputLine) {
