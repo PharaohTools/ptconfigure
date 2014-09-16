@@ -48,7 +48,7 @@ class SFTPAllLinux extends Base {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
                     $logging->log("Skipping {$$server["name"]} for box id Ignore constraint") ;
                     continue ; } }
-            if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
+            if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
                 $logging->log("[".$server["target"]."] Executing SFTP Put...")  ;
                 $logging->log($this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData)) ;
                 $logging->log("[".$server["target"]."] SFTP Put Completed...") ; }
