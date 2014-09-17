@@ -103,7 +103,7 @@ class Installer {
 
     private function deleteExecutorIfExists(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = "del -r " ; }
+            $command = "del " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "rm -rf " ; }
         if (file_exists($command.$this->programExecutorFolder.DS.$this->programNameMachine)) {
@@ -114,10 +114,10 @@ class Installer {
 
     private function deleteInstallationFiles(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = "del -r " ; }
+            $command = "del " ; }
         // else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
         else {
-            $command = "rm -rf " ; }
+            $command = "sudo rm -rf " ; }
         $fullCommand = $command.$this->startDirectory.DS.$this->programNameMachine;
         self::executeAndOutput($fullCommand);
     }
@@ -134,19 +134,6 @@ class Installer {
             self::executeAndOutput($command);
             $command = "chmod 775 $this->programExecutorFolder".DS.$this->programNameMachine;
             self::executeAndOutput($command); }
-    }
-
-    private function askForInput($question, $required=null) {
-        $fp = fopen('php://stdin', 'r');
-        $last_line = false;
-        while (!$last_line) {
-            print "$question\n";
-            $inputLine = fgets($fp, 1024);
-            if ($required && strlen($inputLine)==0 ) {
-                print "You must enter a value. Please try again.\n"; }
-            else {$last_line = true;} }
-        $inputLine = $this->stripNewLines($inputLine);
-        return $inputLine;
     }
 
     private function populateTitle() {
@@ -182,12 +169,6 @@ require('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\n
 
     private function populateStartDirectory() {
         $this->startDirectory = str_replace(DS."$this->programNameMachine", "", dirname(__FILE__));
-    }
-
-    private function stripNewLines($inputLine) {
-        $inputLine = str_replace("\n", "", $inputLine);
-        $inputLine = str_replace("\r", "", $inputLine);
-        return $inputLine;
     }
 
     private function executeAndOutput($command, $message=null) {
