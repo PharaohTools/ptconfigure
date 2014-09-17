@@ -47,7 +47,7 @@ class Installer {
 
     private function askForProgramDataFolder() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->programDataFolder = 'C:'.DS.'Program Files'.DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
+            $this->programDataFolder = 'C:'.DS.'Program Files'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
