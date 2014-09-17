@@ -18,6 +18,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
     // @todo ensure wget is installed
     public function __construct($params) {
         parent::__construct($params);
+        $sv = $this->askForSeleniumVersion();
         $this->autopilotDefiner = "SeleniumServer";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
@@ -25,12 +26,12 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
                 "cd /tmp" ,
                 "mkdir -p /tmp/selenium" ,
                 "cd /tmp/selenium" ,
-                "wget http://selenium-release.storage.googleapis.com/2.41/selenium-server-standalone-2.41.0.jar",
+                "wget http://selenium-release.storage.googleapis.com/$sv/selenium-server-standalone-$sv.0.jar",
                 "mkdir -p ****PROGDIR****",
                 "mv /tmp/selenium/* ****PROGDIR****",
                 "rm -rf /tmp/selenium/",
                 "cd ****PROGDIR****",
-                "mv selenium-server-standalone-2.41.0.jar selenium-server.jar" ) ) ,
+                "mv selenium-server-standalone-$sv.0.jar selenium-server.jar" ) ) ,
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
@@ -57,6 +58,16 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         $javaFactory = new \Model\Java();
         $java = $javaFactory->getModel($this->params);
         $java->ensureInstalled();
+    }
+
+    protected function askForSeleniumVersion(){
+        $ao = array("2.39", "2.40", "2.41", "2.42", "2.43") ;
+        if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
+            return $this->params["version"] ; }
+        if (isset($this->params["guess"])) {
+            return array_pop($ao) ; }
+        $question = 'Enter Selenium Version';
+        return self::askForArrayOption($question, $ao, true);
     }
 
 }
