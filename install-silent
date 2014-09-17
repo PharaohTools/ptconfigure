@@ -42,6 +42,7 @@ class Installer {
     }
 
     private function showCompletion() {
+        echo "we're here 5" ;
         print $this->completionData ;
         exit();
     }
@@ -103,7 +104,7 @@ class Installer {
     }
 
     private function deleteExecutorIfExists(){
-        // echo "we're here 1" ;
+        echo "we're here 1" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "del " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
@@ -115,6 +116,7 @@ class Installer {
     }
 
     private function deleteInstallationFiles(){
+        echo "we're here 3" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "del " ; }
         // else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
@@ -125,12 +127,16 @@ class Installer {
     }
 
     private function saveExecutorFile(){
-        // echo "we're here 2" ;
+        echo "we're here 2" ;
         $this->populateExecutorFile();
-        return file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine, $this->bootStrapData);
+            $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $fname .= $this->programExecutorFolder.DS.$this->programNameMachine.".bat" ; }
+        return file_put_contents($fname, $this->bootStrapData);
     }
 
     private function changePermissions(){
+        echo "we're here 4" ;
         // @todo does windows need something like this?
         if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "chmod -R 775 $this->programDataFolder";
@@ -165,8 +171,10 @@ COMPLETION;
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ; }
         $this->bootStrapData .=
-"<?php\n
-require('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\n
+"<?php
+
+require('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');
+
 ?>";
     }
 
