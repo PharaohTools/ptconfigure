@@ -43,11 +43,13 @@ class InvokeNativeWrapperAllLinux extends Base {
     public function exec($command) {
         $stream = ssh2_exec($this->connection, $command);
         stream_set_blocking( $stream, true );
-        stream_set_timeout ( $stream, 100 );
-        $out = stream_get_contents ( $stream );
-        // $out = fread($stream,4096);
+        $all = "" ;
+        while ( !feof($stream) ) {
+            $abit = stream_get_contents ($stream) ;
+            $all .= $abit ;
+            echo $abit ; }
         fclose($stream);
-        return $out ;
+        return $all ;
     }
 
     public function cmd ( $cmd, $returnOutput = false ) {
