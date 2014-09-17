@@ -57,7 +57,11 @@ class Installer {
     private function askForProgramExecutorFolder(){
         var_dump(getenv('SystemRoot') ) ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->programExecutorFolder = getenv('SystemRoot') ; }
+            $sr = getenv('SystemRoot') ;
+            if (file_exists($sr.DS.'System32')) {
+                $this->programExecutorFolder = $sr.DS.'System32' ; }
+            else {
+                $this->programExecutorFolder = $sr.DS.'system32' ; } }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programExecutorFolder = DS.'usr'.DS.'bin' ; }
     }
