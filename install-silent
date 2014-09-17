@@ -101,8 +101,9 @@ class Installer {
             $command = "del -r " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "rm -rf " ; }
-        $fullCommand = $command.$this->programExecutorFolder.DS.$this->programNameMachine;
-        self::executeAndOutput($fullCommand, "Program Executor Deleted if existed");
+        if (file_exists($command.$this->programExecutorFolder.DS.$this->programNameMachine)) {
+            $fullCommand = $command.$this->programExecutorFolder.DS.$this->programNameMachine;
+            self::executeAndOutput($fullCommand, "Program Executor Deleted if existed"); }
         return true;
     }
 
