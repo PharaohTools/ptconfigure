@@ -16,7 +16,7 @@ class Installer {
     private $programNameFriendly = " Cleopatra! "; // 12 chars
 
     public function __construct() {
-        define ("DS", DIRECTORY_SEPARATOR) ;
+        require ("src".DIRECTORY_SEPARATOR."Constants.php") ;
         $this->populateStartDirectory() ;
         $this->populateTitle() ;
         $this->populateCompletion() ;
@@ -55,7 +55,6 @@ class Installer {
     }
 
     private function askForProgramExecutorFolder(){
-        var_dump(getenv('SystemRoot') ) ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $sr = getenv('SystemRoot') ;
             if (file_exists($sr.DS.'System32')) {
@@ -80,9 +79,8 @@ class Installer {
     private function makeProgramDataFolderIfNeeded(){
         if (!file_exists($this->programDataFolder)) {
             echo "No Program dir found\n" ;
-            self::executeAndOutput("mkdir -p ".$this->programDataFolder) ;
-            // mkdir($this->programDataFolder,  0777, true);
-            }
+            // self::executeAndOutput("mkdir -p ".$this->programDataFolder) ;
+            mkdir($this->programDataFolder,  0777, true); }
     }
 
     private function copyFilesToProgramDataFolder(){
