@@ -62,7 +62,7 @@ class Installer {
 
     private function deleteProgramDataFolderAsRootIfExists(){
         if (PHP_OS == "Windows") {
-            $command = "del -r " ; }
+            $command = "rmdir /S /Q " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "rm -rf " ; }
         if ( is_dir($this->programDataFolder)) {
@@ -81,7 +81,6 @@ class Installer {
             $command = "copy -r " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "cp -r " ; }
-
         $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
         self::executeAndOutput($command2, "Program Data folder populated with hidden files");
         $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder;
