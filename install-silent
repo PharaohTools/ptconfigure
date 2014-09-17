@@ -43,6 +43,7 @@ class Installer {
 
     private function showCompletion() {
         print $this->completionData ;
+        exit();
     }
 
     private function askForProgramDataFolder() {
@@ -102,7 +103,7 @@ class Installer {
     }
 
     private function deleteExecutorIfExists(){
-        echo "we're here 1" ;
+        // echo "we're here 1" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "del " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
@@ -124,7 +125,7 @@ class Installer {
     }
 
     private function saveExecutorFile(){
-        echo "we're here 2" ;
+        // echo "we're here 2" ;
         $this->populateExecutorFile();
         return file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine, $this->bootStrapData);
     }
