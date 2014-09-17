@@ -74,7 +74,9 @@ class Installer {
 
     private function makeProgramDataFolderIfNeeded(){
         if (!file_exists($this->programDataFolder)) {
-            mkdir($this->programDataFolder,  0777, true); }
+            self::executeAndOutput("mkdir -p ".$this->programDataFolder) ;
+            // mkdir($this->programDataFolder,  0777, true);
+            }
     }
 
     private function copyFilesToProgramDataFolder(){
