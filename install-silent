@@ -16,8 +16,7 @@ class Installer {
     private $programNameFriendly = " Cleopatra! "; // 12 chars
 
     public function __construct() {
-        // USE THE FULL DIRECTORY_SEPARATOR HERE AS THE CONSTANTS AREN'T SET UNTIL AFTER REQUIRE
-        require("src".DIRECTORY_SEPARATOR."Constants.php") ;
+        define ("DS", DIRECTORY_SEPARATOR) ;
         $this->populateStartDirectory() ;
         $this->populateTitle() ;
         $this->populateCompletion() ;
