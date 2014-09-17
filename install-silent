@@ -73,7 +73,7 @@ class Installer {
     }
 
     private function makeProgramDataFolderIfNeeded(){
-        if (!is_dir($this->programDataFolder)) {
+        if (!file_exists($this->programDataFolder)) {
             echo "No Program dir found\n" ;
             self::executeAndOutput("mkdir -p ".$this->programDataFolder) ;
             // mkdir($this->programDataFolder,  0777, true);
