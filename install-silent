@@ -54,8 +54,10 @@ class Installer {
     }
 
     private function askForProgramExecutorFolder(){
-        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+        if (in_array(PHP_OS, array("Windows"))) {
             $this->programExecutorFolder = 'C:'.DS.'system32' ; }
+        else if (in_array(PHP_OS, array("WINNT"))) {
+            $this->programExecutorFolder = 'C:'.DS.'System32' ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programExecutorFolder = DS.'usr'.DS.'bin' ; }
     }
@@ -82,8 +84,10 @@ class Installer {
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "cp -r " ; }
         $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
+        echo $command2 . "\n" ;
         self::executeAndOutput($command2, "Program Data folder populated with hidden files");
         $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder;
+        echo $command3 . "\n" ;
         return self::executeAndOutput($command3, "Program Data folder populated with other files");
     }
 
