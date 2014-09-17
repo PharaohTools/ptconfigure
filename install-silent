@@ -55,9 +55,9 @@ class Installer {
     }
 
     private function askForProgramExecutorFolder(){
-        var_dump(getenv('%SystemRoot%') ) ;
+        var_dump(getenv('SystemRoot') ) ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->programExecutorFolder = getenv('%SystemRoot%') ; }
+            $this->programExecutorFolder = getenv('SystemRoot') ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programExecutorFolder = DS.'usr'.DS.'bin' ; }
     }
@@ -128,9 +128,9 @@ class Installer {
     private function saveExecutorFile(){
         echo "we're here 2" ;
         $this->populateExecutorFile();
-            $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
+        $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $fname .= $this->programExecutorFolder.DS.$this->programNameMachine.".bat" ; }
+            $fname .= ".bat" ; }
         return file_put_contents($fname, $this->bootStrapData);
     }
 
