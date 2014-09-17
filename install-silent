@@ -82,10 +82,14 @@ class Installer {
             $command = "copy -r " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "cp -r " ; }
-        $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
-        echo $command2 . "\n" ;
-        self::executeAndOutput($command2, "Program Data folder populated with hidden files");
-        $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder;
+        if (is_dir(dirname(__FILE__).DS.'.git')) {
+            $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
+            echo $command2 . "\n" ;
+            self::executeAndOutput($command2, "Program Data folder populated with hidden files"); }
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $command3 = $command.dirname(__FILE__).' '.dirname($this->programDataFolder); ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ; }
         echo $command3 . "\n" ;
         return self::executeAndOutput($command3, "Program Data folder populated with other files");
     }
