@@ -86,7 +86,7 @@ class Installer {
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "runas /noprofile /user:Administrator copy " ;
-            $command3 = $command.dirname(__FILE__).' '.dirname($this->programDataFolder); ; }
+            $command3 = $command.dirname(__FILE__).' '.dirname($this->programDataFolder); }
 
         // else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
         else {
@@ -130,10 +130,15 @@ class Installer {
     private function saveExecutorFile(){
         echo "we're here 2" ;
         $this->populateExecutorFile();
-        $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $fname .= ".bat" ; }
-        return file_put_contents($fname, $this->bootStrapData);
+            file_put_contents(BASE_TEMP_DIR."bootstrap", $this->bootStrapData);
+            $command = "runas /noprofile /user:Administrator copy " ;
+            $command .= BASE_TEMP_DIR."bootstrap".' '.dirname($this->programExecutorFolder.".bat");
+            self::executeAndOutput($command);
+            unlink(BASE_TEMP_DIR."bootstrap") ; }
+        else {
+            $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
+            return file_put_contents($fname, $this->bootStrapData); }
     }
 
     private function changePermissions(){
