@@ -94,57 +94,62 @@ class Installer {
             $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ; }
 
         echo $command3 . "\n" ;
-        self::executeAndOutput($command3, "Program Data folder populated with other files");
+        self::executeAndOutput($command3, "Program Data folder populated with other files\n");
 
         if (is_dir(dirname(__FILE__).DS.'.git')) {
             $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
             echo $command2 . "\n" ;
-            self::executeAndOutput($command2, "Program Data folder populated with hidden files"); }
+            self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); }
 
         return true;
     }
 
     private function deleteExecutorIfExists(){
-        echo "we're here 1" ;
-        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = "del " ; }
-        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
-            $command = "rm -rf " ; }
-        if (file_exists($command.$this->programExecutorFolder.DS.$this->programNameMachine)) {
-            $fullCommand = $command.$this->programExecutorFolder.DS.$this->programNameMachine;
-            self::executeAndOutput($fullCommand, "Program Executor Deleted if existed"); }
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) { $extension = ".bat" ; }
+        else { $extension = "" ; }
+        if (file_exists($this->programExecutorFolder.DS.$this->programNameMachine.$extension)) {
+            if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+                $command = "del " ; }
+            else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+                $command = "rm -rf " ; }
+            echo "Adding executor ".$command.$this->programExecutorFolder.DS.$this->programNameMachine.$extension."...\n" ;
+            $fullCommand = $command.$this->programExecutorFolder.DS.$this->programNameMachine.$extension;
+            self::executeAndOutput($fullCommand, "Old Program Executor Deleted\n"); }
         return true;
     }
 
     private function deleteInstallationFiles(){
-        echo "we're here 3" ;
+        echo "Changing shell to parent directory...\n" ;
+        $cdup = 'cd '.dirname(__FILE__);
+        self::executeAndOutput($cdup);
+        echo "Deleting install files...\n" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "del " ; }
-        // else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
         else {
             $command = "sudo rm -rf " ; }
-        $fullCommand = $command.$this->startDirectory.DS.$this->programNameMachine;
+        $fullCommand = $command.$this->startDirectory;
         self::executeAndOutput($fullCommand);
     }
 
     private function saveExecutorFile(){
-        echo "we're here 2" ;
         $this->populateExecutorFile();
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            echo "Saving executor file {$this->programExecutorFolder}.bat to {$this->programExecutorFolder} ...\n" ;
             file_put_contents(BASE_TEMP_DIR."bootstrap", $this->bootStrapData);
             $command = "runas /noprofile /user:Administrator copy " ;
             $command .= BASE_TEMP_DIR."bootstrap".' '.dirname($this->programExecutorFolder.".bat");
             self::executeAndOutput($command);
             unlink(BASE_TEMP_DIR."bootstrap") ; }
         else {
+            echo "Saving executor file {$this->programExecutorFolder}.bat to {$this->programExecutorFolder} ...\n" ;
             $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
             return file_put_contents($fname, $this->bootStrapData); }
     }
 
     private function changePermissions(){
-        echo "we're here 4" ;
         // @todo does windows need something like this?
         if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            echo "Changing *NIX based permissions...\n" ;
             $command = "chmod -R 775 $this->programDataFolder";
             self::executeAndOutput($command);
             $command = "chmod 775 $this->programExecutorFolder".DS.$this->programNameMachine;
