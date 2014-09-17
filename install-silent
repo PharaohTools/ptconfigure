@@ -47,21 +47,21 @@ class Installer {
     }
 
     private function askForProgramDataFolder() {
-        if (PHP_OS == "Windows") {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->programDataFolder = 'C:'.DS.'Program Files'.DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
 
     private function askForProgramExecutorFolder(){
-        if (PHP_OS == "Windows") {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->programDataFolder = 'C:'.DS.'system32' ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programExecutorFolder = DS.'usr'.DS.'bin' ; }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
-        if (PHP_OS == "Windows") {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "rmdir /S /Q " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "rm -rf " ; }
@@ -77,7 +77,7 @@ class Installer {
     }
 
     private function copyFilesToProgramDataFolder(){
-        if (PHP_OS == "Windows") {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "copy -r " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "cp -r " ; }
@@ -88,17 +88,17 @@ class Installer {
     }
 
     private function deleteExecutorIfExists(){
-        if (PHP_OS == "Windows") {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "del -r " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "rm -rf " ; }
         $fullCommand = $command.$this->programExecutorFolder.DS.$this->programNameMachine;
-        self::executeAndOutput($fullCommand, "Program Executor Deleted  if existed");
+        self::executeAndOutput($fullCommand, "Program Executor Deleted if existed");
         return true;
     }
 
     private function deleteInstallationFiles(){
-        if (PHP_OS == "Windows") {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "del -r " ; }
         // else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
         else {
@@ -155,7 +155,7 @@ COMPLETION;
     }
 
     private function populateExecutorFile() {
-        if (PHP_OS == "Windows") {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->bootStrapData = "" ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ; }
