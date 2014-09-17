@@ -79,9 +79,11 @@ class Installer {
 
     private function makeProgramDataFolderIfNeeded(){
         if (!file_exists($this->programDataFolder)) {
-            echo "No Program dir found\n" ;
-            // self::executeAndOutput("mkdir -p ".$this->programDataFolder) ;
-            mkdir($this->programDataFolder,  0777, true); }
+            echo "No Program dir found, creating {$this->programDataFolder}\n" ;
+            if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+                self::executeAndOutput("mkdir ".$this->programDataFolder) ; }
+            else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+                self::executeAndOutput("mkdir -p ".$this->programDataFolder) ; } }
     }
 
     private function copyFilesToProgramDataFolder(){
