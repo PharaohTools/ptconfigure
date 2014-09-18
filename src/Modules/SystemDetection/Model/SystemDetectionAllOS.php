@@ -123,7 +123,8 @@ class SystemDetectionAllOS extends Base {
 
     private function setIPAddresses() {
         if ($this->os == "Linux") {
-            $ifComm = "sudo ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
+            $ifComm = 'ip addr list | awk \'/inet /{sub(/\/[0-9]+/,"",$2); print $2}\' ';
+            // $ifComm = "sudo ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
             exec($ifComm, $outputArray);
             foreach($outputArray as $outputLine ) {
                 $this->ipAddresses[] = $outputLine ; } }
