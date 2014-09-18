@@ -96,7 +96,7 @@ class SystemDetectionAllOS extends Base {
                 exec("lsb_release -a 2> /dev/null", $output_array);
                 $this->version = substr($output_array[2], 9) ; }
             if (in_array($this->distro, array("CentOS")) ) {
-                exec("cat /etc/centos-release", $output_array);
+                exec("cat /etc/*-release", $output_array);
                 $this->version = substr($output_array[0], 15, 3) ; } }
         if ($this->os == "Darwin") {
             exec("sw_vers | grep 'ProductVersion:' | grep -o '[0-9]*\.[0-9]*\.[0-9]*'", $output_array);
@@ -123,7 +123,11 @@ class SystemDetectionAllOS extends Base {
 
     private function setIPAddresses() {
         if ($this->os == "Linux") {
-            $ifComm = 'ip addr list | awk \'/inet /{sub(/\/[0-9]+/,"",$2); print $2}\' ';
+            if ($this->distro == "CentOS") {
+                // Centos has no network tools at all for some crazy reason, install them now
+                // @todo surely captain, there must be a better way
+                $this->ensureNetTools() ; }
+            $ifComm = 'sudo ip addr list | awk \'/inet /{sub(/\/[0-9]+/,"",$2); print $2}\' ';
             // $ifComm = "sudo ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
             exec($ifComm, $outputArray);
             foreach($outputArray as $outputLine ) {
@@ -138,7 +142,12 @@ class SystemDetectionAllOS extends Base {
             exec($ifComm, $outputArray);
             foreach($outputArray as $outputLine ) {
                 $this->ipAddresses[] = $outputLine ; } }
+    }
 
+    public function ensureNetTools() {
+        $netToolsFactory = new \Model\NetworkTools();
+        $netTools = $netToolsFactory->getModel($this->params);
+        $netTools->ensureInstalled();
     }
 
 }
