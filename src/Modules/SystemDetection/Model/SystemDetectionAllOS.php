@@ -126,7 +126,9 @@ class SystemDetectionAllOS extends Base {
             if ($this->distro == "CentOS") {
                 // Centos has no network tools at all for some crazy reason, install them now
                 // @todo surely captain, there must be a better way
-                $this->ensureNetTools() ; }
+                exec('yum install net-tools -y', $outputArray);
+                // $this->ensureNetTools() ;
+            }
             $ifComm = 'sudo ip addr list | awk \'/inet /{sub(/\/[0-9]+/,"",$2); print $2}\' ';
             // $ifComm = "sudo ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
             exec($ifComm, $outputArray);
