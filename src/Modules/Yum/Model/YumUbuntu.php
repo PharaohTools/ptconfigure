@@ -41,7 +41,7 @@ class YumUbuntu extends BasePackager {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         foreach ($packageName as $package) {
-            $out = $this->executeAndOutput("sudo yum-get install $packageName -y --force-yes");
+            $out = $this->executeAndOutput("sudo yum install $packageName -y --force-yes");
             if (strpos($out, "ldconfig deferred processing now taking place") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
                 return false ; }
@@ -55,7 +55,7 @@ class YumUbuntu extends BasePackager {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo yum-get remove -y $packageName");
+        $out = $this->executeAndOutput("sudo yum remove -y $packageName");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -70,7 +70,7 @@ class YumUbuntu extends BasePackager {
     }
 
     public function update($autopilot = null) {
-        $out = $this->executeAndOutput("sudo yum-get update -y");
+        $out = $this->executeAndOutput("sudo yum update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
