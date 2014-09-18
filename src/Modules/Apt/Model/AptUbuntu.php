@@ -41,6 +41,7 @@ class AptUbuntu extends BasePackager {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
+            // @todo multiple versioned packages should work!!
             $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
             $logging->log($lmsg) ;
             \BootStrap::setExitCode(1) ;
