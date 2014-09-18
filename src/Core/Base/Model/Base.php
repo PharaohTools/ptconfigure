@@ -112,6 +112,9 @@ COMPLETION;
 
     protected function setCmdLineParams($params) {
         $cmdParams = array();
+        if (!is_array($params)) {
+            var_dump($params) ;
+            debug_print_backtrace() ; }
         foreach ($params as $paramKey => $paramValue) {
             if (is_array($paramValue)) {
                 // if the value is a php array, the param must be already formatted so do nothing
