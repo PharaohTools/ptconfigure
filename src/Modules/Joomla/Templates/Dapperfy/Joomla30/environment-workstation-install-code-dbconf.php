@@ -39,8 +39,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-url" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
                     "vhe-ip-port" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
-                    "vhe-template" => $this->getTemplate(),
-                    "vhe-file-ext" => "",
+                    "vhe-template" => $this->getTemplate()
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next ensure our db file configuration is reset to blank" ), ), ),
