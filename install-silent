@@ -129,7 +129,7 @@ class Installer {
             $command = "del " ; }
         else {
             $command = "sudo rm -rf " ; }
-        $fullCommand = $command.$this->startDirectory;
+        $fullCommand = $command.$this->startDirectory.DS.$this->programNameMachine;
         echo $fullCommand."\n" ;
         self::executeAndOutput($fullCommand);
     }
