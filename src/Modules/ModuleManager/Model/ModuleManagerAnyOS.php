@@ -46,9 +46,10 @@ class ModuleManagerAnyOS extends BasePHPApp {
     }
 
     protected function getModuleSource() {
-        if (isset($this->params['module-source'])) { return $this->params['module-source'] ; }
-        $question = "Enter the Git Repository URL of your module:";
-        return self::askForInput($question, true);
+//        if (isset($this->params['module-source'])) { return $this->params['module-source'] ; }
+//        $question = "Enter the Git Repository URL of your module:";
+//        return self::askForInput($question, true);
+        return "" ;
     }
 
 }
