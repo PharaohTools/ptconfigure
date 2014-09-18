@@ -130,6 +130,7 @@ class Installer {
         else {
             $command = "sudo rm -rf " ; }
         $fullCommand = $command.$this->startDirectory;
+        echo $fullCommand."\n" ;
         self::executeAndOutput($fullCommand);
     }
 
