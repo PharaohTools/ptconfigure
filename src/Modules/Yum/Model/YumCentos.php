@@ -35,7 +35,7 @@ class YumCentos extends BasePackager {
         return $passing ;
     }
 
-    public function installPackage($packageName, $autopilot = null) {
+    public function installPackage($packageName, $version=null, $versionAccuracy=null) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $loggingFactory = new \Model\Logging();
@@ -53,7 +53,7 @@ class YumCentos extends BasePackager {
         return true ;
     }
 
-    public function removePackage($packageName, $autopilot = null) {
+    public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         $out = $this->executeAndOutput("sudo yum remove -y $packageName");
         $loggingFactory = new \Model\Logging();
@@ -69,7 +69,7 @@ class YumCentos extends BasePackager {
         return true ;
     }
 
-    public function update($autopilot = null) {
+    public function update() {
         $out = $this->executeAndOutput("sudo yum update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
