@@ -96,7 +96,7 @@ class Installer {
             $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ; }
 
         echo $command3 . "\n" ;
-        self::executeAndOutput($command3, "Program Data folder populated with other files\n");
+        self::executeAndOutput($command3, "Program Data folder populated with program files\n");
 
         if (is_dir(dirname(__FILE__).DS.'.git')) {
             $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
