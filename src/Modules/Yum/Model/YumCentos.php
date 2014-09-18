@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class YumUbuntu extends BasePackager {
+class YumCentos extends BasePackager {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $linuxType = array("Redhat") ;
+    public $distros = array("CentOS") ;
+    public $versions = array("5", "6", "7") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -30,8 +30,8 @@ class YumUbuntu extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad("sudo yum-cache policy {$package}") ;
-            if (strpos($out, "Installed: (none)") != false) { $passing = false ; } }
+            $out = $this->executeAndLoad("sudo yum list installed | grep *{$package}*") ;
+            $passing = (strlen($out) > 0)  ? true : false ; }
         return $passing ;
     }
 
