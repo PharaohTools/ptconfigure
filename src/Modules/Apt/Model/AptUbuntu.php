@@ -79,7 +79,7 @@ class AptUbuntu extends BasePackager {
         return true ;
     }
 
-    public function update($autopilot = null) {
+    public function update() {
         $out = $this->executeAndOutput("sudo apt-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
@@ -89,7 +89,7 @@ class AptUbuntu extends BasePackager {
         return true ;
     }
 
-    public function versionCompatible($autopilot = null) {
+    public function versionCompatible() {
         $out = $this->executeAndOutput("sudo apt-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
