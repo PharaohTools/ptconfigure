@@ -91,7 +91,6 @@ class Installer {
             $command = "runas /noprofile /user:Administrator copy " ;
             $command3 = $command.dirname(__FILE__).' '.dirname($this->programDataFolder); }
 
-        // else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
         else {
             $command = "sudo cp -r " ;
             $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ; }
