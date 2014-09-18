@@ -19,12 +19,14 @@ class NetworkToolsCentos extends BaseLinuxApp {
         $this->autopilotDefiner = "NetworkTools";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "net-tools")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "traceroute")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "netstat")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "lsof")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "telnet")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "ps")) ),
         );
         $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "net-tools")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "traceroute")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "netstat")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "lsof")) ),
@@ -39,7 +41,7 @@ class NetworkToolsCentos extends BaseLinuxApp {
     }
 
     public function askStatus() {
-        return $this->askStatusByArray(array("traceroute", "netstat", "lsof",  "telnet", "ps")) ;
+        return $this->askStatusByArray(array("net-tools", "traceroute", "netstat", "lsof",  "telnet", "ps")) ;
     }
 
 }
