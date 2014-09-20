@@ -42,7 +42,6 @@ class Installer {
     }
 
     private function showCompletion() {
-        echo "we're here 5" ;
         print $this->completionData ;
         exit();
     }
@@ -78,7 +77,9 @@ class Installer {
     }
 
     private function makeProgramDataFolderIfNeeded(){
-        if (!file_exists($this->programDataFolder)) {
+        echo "what dir? ".$this->programDataFolder."\n" ;
+        echo "is a dir? ".is_dir($this->programDataFolder)."\n" ;
+        if (!is_dir($this->programDataFolder)) {
             echo "No Program dir found, creating {$this->programDataFolder}\n" ;
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
                 self::executeAndOutput("mkdir ".$this->programDataFolder) ; }
