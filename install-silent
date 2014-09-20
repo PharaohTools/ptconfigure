@@ -126,7 +126,7 @@ class Installer {
         self::executeAndOutput($cdup);
         echo "Deleting install files...\n" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = "del " ; }
+            $command = "rmdir /S /Q " ; }
         else {
             $command = "sudo rm -rf " ; }
         $fullCommand = $command.$this->startDirectory.DS.$this->programNameMachine;
