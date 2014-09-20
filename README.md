@@ -27,7 +27,7 @@ git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && sudo php cl
 
 or on Windows ...
 
-git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && php cleopatra/install-silent
+git clone http://git.pharaohtools.com/git/phpengine/cleopatra.git && php cleopatra\install-silent
 
 
 If you need to
