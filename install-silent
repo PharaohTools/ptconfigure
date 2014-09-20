@@ -28,7 +28,7 @@ class Installer {
         $this->askForProgramDataFolder();
         $this->askForProgramExecutorFolder();
         $this->deleteProgramDataFolderAsRootIfExists();
-        $this->makeProgramDataFolderIfNeeded();
+        $this->makeProgramDataFolder();
         $this->copyFilesToProgramDataFolder();
         $this->deleteExecutorIfExists();
         $this->saveExecutorFile();
@@ -76,15 +76,12 @@ class Installer {
         return true;
     }
 
-    private function makeProgramDataFolderIfNeeded(){
-        echo "what dir? ".$this->programDataFolder."\n" ;
-        echo "is a dir? ".is_dir($this->programDataFolder)."\n" ;
-        if (!is_dir($this->programDataFolder)) {
+    private function makeProgramDataFolder(){
             echo "No Program dir found, creating {$this->programDataFolder}\n" ;
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
                 self::executeAndOutput("mkdir ".$this->programDataFolder) ; }
             else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
-                self::executeAndOutput("mkdir -p ".$this->programDataFolder) ; } }
+                self::executeAndOutput("mkdir -p ".$this->programDataFolder) ; }
     }
 
     private function copyFilesToProgramDataFolder(){
