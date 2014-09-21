@@ -30,7 +30,7 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "vnc"; // command and app dir name
         $this->programNameFriendly = " ! VNCPasswd !"; // 12 chars
         $this->programNameInstaller = "VNCPasswd";
-        $this->statusCommand = "command gfgdtyy" ; // @todo this should always fail
+        $this->statusCommand = "command gfgdtyy" ; // @todo this should always fail for now
         $this->versionInstalledCommand = "sudo apt-cache policy vnc4server" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy vnc4server" ;
         $this->versionLatestCommand = "sudo apt-cache policy vnc4server" ;
@@ -42,7 +42,6 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
         $this->askForVNCUserName();
         $this->askForVNCPass();
         $this->runScript();
-
     }
 
     protected function askForVNCUserName(){
