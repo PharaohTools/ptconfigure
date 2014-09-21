@@ -1,5 +1,7 @@
 Cleopatra Modules to be created
 
+pharoah_php_home env var o se locaion of php ex 2 use
+
 * CSS Regression Testing @todo
 
 * We should be able to assign a framework to a project.
