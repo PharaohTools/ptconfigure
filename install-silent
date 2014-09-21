@@ -141,6 +141,7 @@ class Installer {
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
             $command = "runas /noprofile /user:Administrator copy " ;
             $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder.DS ;
+            echo $command ;
             self::executeAndOutput($command);
             echo "Removing temp file ".$this->programNameMachine.".bat" ;
             //unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
@@ -183,15 +184,12 @@ COMPLETION;
 
     private function populateExecutorFile() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->bootStrapData = "" ; }
+            $this->bootStrapData =
+"<?php\r\nrequire('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\r\n?>"; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
-            $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ; }
-        $this->bootStrapData .=
-"<?php
-
-require('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');
-
-?>";
+            $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ;
+            $this->bootStrapData .=
+"<?php\n\nrequire('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\n\n?>"; }
     }
 
     private function populateStartDirectory() {
