@@ -79,7 +79,8 @@ class Installer {
     private function makeProgramDataFolder(){
             echo "No Program dir found, creating {$this->programDataFolder}\n" ;
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-                self::executeAndOutput("mkdir ".$this->programDataFolder) ; }
+                $comm = "runas /noprofile /user:Administrator \"mkdir \"{$this->programDataFolder}\"\"" ;
+                self::executeAndOutput($comm) ; }
             else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
                 self::executeAndOutput("mkdir -p ".$this->programDataFolder) ; }
     }
@@ -87,7 +88,7 @@ class Installer {
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "runas /noprofile /user:Administrator \"copy " ;
-            $command3 = '"'.$command.dirname(__FILE__).'" "'.dirname($this->programDataFolder).'\""' ; }
+            $command3 = $command." \"".dirname(__FILE__)."\" \"".dirname($this->programDataFolder)."\"\"" ; }
 
         else {
             $command = "sudo cp -r " ;
