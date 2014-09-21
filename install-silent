@@ -86,8 +86,8 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = "runas /noprofile /user:Administrator copy " ;
-            $command3 = $command.dirname(__FILE__).' '.dirname($this->programDataFolder); }
+            $command = "runas /noprofile /user:Administrator \"copy " ;
+            $command3 = '"'.$command.dirname(__FILE__).'" "'.dirname($this->programDataFolder).'\""' ; }
 
         else {
             $command = "sudo cp -r " ;
@@ -139,8 +139,8 @@ class Installer {
             echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
             echo (is_int(file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Temp file written\n" : "Temp file failed writing" ;
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
-            $command = "runas /noprofile /user:Administrator copy " ;
-            $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder.DS ;
+            $command = "runas /noprofile /user:Administrator \"copy " ;
+            $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.DS.'\""' ;
             echo $command ;
             self::executeAndOutput($command);
             echo "Removing temp file ".$this->programNameMachine.".bat" ;
