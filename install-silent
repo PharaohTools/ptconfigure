@@ -137,7 +137,7 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Saving executor file {$this->programNameMachine}.bat to {$this->programExecutorFolder} ...\n" ;
             echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
-            echo (file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData)) ? "Temp file written\n" : "Temp file failed writing" ;
+            echo (is_int(file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Temp file written\n" : "Temp file failed writing" ;
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
             $command = "runas /noprofile /user:Administrator copy " ;
             $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder.DS ;
