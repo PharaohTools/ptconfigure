@@ -1,1 +1,1 @@
-src\Modules\WinElevate\Scripts\install-elevate.bat
+%cd%\cleopatra\cleopatra\src\Modules\WinElevate\Scripts\install-elevate.bat
