@@ -1,0 +1,1 @@
+C:\Users\davida\cleoffiles\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c copy "C:\Users\davida\cleoffiles\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe" "C:\Windows\System32\"
