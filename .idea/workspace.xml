@@ -1,240 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/VNCPasswd/Model/VNCPasswdUbuntu.php" afterPath="$PROJECT_DIR$/src/Modules/VNCPasswd/Model/VNCPasswdUbuntu.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleopatra-incomplete-modules" afterPath="$PROJECT_DIR$/cleopatra-incomplete-modules" />
+    <list default="true" id="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" name="Default" comment="new cleo-winstall for installing the elevate command">
+      <change type="DELETED" beforePath="C:\Users\davida\cleoffiles\cleopatra\cleo-elevate-install.bat" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleopatra.iml" afterPath="$PROJECT_DIR$/cleopatra.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cleovars" afterPath="$PROJECT_DIR$/src/cleovars" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install-silent" afterPath="$PROJECT_DIR$/install-silent" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cleopatra.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411252155074" ignored="false" />
-    <file path="/a.dummy" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411068386888" ignored="false" />
-    <file path="/VirtualboxUbuntu.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1409951860191" ignored="false" />
-    <file path="/VNCPasswdUbuntu.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410231984740" ignored="false" />
-    <file path="/Base.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411057381210" ignored="false" />
-    <file path="/var/www/workplace-systems/README.md" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410278035225" ignored="false" />
-    <file path="/README.md" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410863680293" ignored="false" />
-    <file path="/var/www/workplace-systems/build/config/cleopatra/cleofy/autopilots/generic/Phlagrant/cleofy-cm-phlagrant-box.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410952518757" ignored="false" />
-    <file path="/cleofy-cm-phlagrant-box.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1409997518952" ignored="false" />
-    <file path="$PROJECT_DIR$/../../phlagrant/phlagrant/src/Modules/Up/Model/UpModifyVMAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410114659865" ignored="false" />
-    <file path="/UpModifyVMAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410012228713" ignored="false" />
-    <file path="/var/www/workplace-systems/Phlagrantfile" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410913779169" ignored="false" />
-    <file path="/var/www/phlagrant-box/src/doDownload.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410093641895" ignored="false" />
-    <file path="/doDownload.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410027656036" ignored="false" />
-    <file path="/var/www/phlagrant-box/src/showBoxes.html" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410093914563" ignored="false" />
-    <file path="/showBoxes.html" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410093914563" ignored="false" />
-    <file path="/info.Rackspace.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410102940524" ignored="false" />
-    <file path="/RackspaceDomain.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410113597518" ignored="false" />
-    <file path="/Rackspace.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410104338903" ignored="false" />
-    <file path="/RackspaceDNSAPIView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410103068585" ignored="false" />
-    <file path="/DNSifyUbuntu.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410110364817" ignored="false" />
-    <file path="/DNSifyView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410114317501" ignored="false" />
-    <file path="/var/www/workplace-systems/build/config/dapperstrano/dapperfy/autopilots/generated/phlagrant-box-phlagrant-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410230237876" ignored="false" />
-    <file path="/var/www/workplace-systems/build/config/dapperstrano/dapperfy/autopilots/custom/phlagrant-host-phlagrant-host-uninstall-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410228695918" ignored="false" />
-    <file path="/var/www/workplace-systems/build/config/dapperstrano/dapperfy/autopilots/custom/phlagrant-box-jenkins-vhost.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410232754498" ignored="false" />
-    <file path="/var/www/workplace-systems/build/tests/behat/features/first.feature" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410252661517" ignored="false" />
-    <file path="/first.feature" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410252659417" ignored="false" />
-    <file path="/var/www/workplace-systems/build/tests/behat/features/bootstrap/FeatureContext.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410252580760" ignored="false" />
-    <file path="/FeatureContext.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410252552714" ignored="false" />
-    <file path="/var/www/workplace-systems/build/tests/behat/behat.yml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411041667795" ignored="false" />
-    <file path="/behat.yml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410900984351" ignored="false" />
-    <file path="/var/www/workplace-systems/build/config/jenkins/config.xml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410256242825" ignored="false" />
-    <file path="/var/www/drupal-hello/build/config/cleopatra/cleofy/autopilots/custom/Phlagrant/cleofy-cm-cap-workstation.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410270675303" ignored="false" />
-    <file path="/var/www/drupal-hello/build/config/cleopatra/cleofy/autopilots/generic/Phlagrant/cleofy-cm-phlagrant-box.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410270994450" ignored="false" />
-    <file path="/var/www/rackspace-test/build/config/cleopatra/boxify/autopilots/generic/DBCluster/settings.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410551868105" ignored="false" />
-    <file path="/var/www/rackspace-test/build/config/cleopatra/boxify/autopilots/generic/DBCluster/boxify-add-db-cluster-parallel.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410552190704" ignored="false" />
-    <file path="/var/www/rackspace-test/build/config/cleopatra/boxify/autopilots/generic/DBCluster/boxify-add-db-nodes.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410552507563" ignored="false" />
-    <file path="/boxify-add-db-nodes.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410552235183" ignored="false" />
-    <file path="/var/www/rackspace-test/build/config/cleopatra/boxify/autopilots/generic/DBCluster/boxify-add-db-load-balancer.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410552672351" ignored="false" />
-    <file path="/var/www/pharaoh-tools/Phlagrantfile" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410632097497" ignored="false" />
-    <file path="/IndexView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410560252138" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/tests/phpunit/xml/report.xml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/reports/phpunit/html/index.html" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/reports/phpunit/html/bootstrap.php.html" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/reports/phpunit/junit/ci-junit.xml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/dapperstrano/builderfy/autopilots/generated/git-invoke-continuous-staging-to-production.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/reports/phpunit/html/index.dashboard.html" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/dapperstrano/builderfy/autopilots/generated/git-invoke-continuous-staging.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083590" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/cleopatra/cleofy/autopilots/generic/Workstation/workstation-cm-developer.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083590" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/cleopatra/cleofy/autopilots/generic/Workstation/workstation-cm-designer.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083590" ignored="false" />
-    <file path="/var/www/pharaoh-tools/db/database.sql" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083590" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/dapperstrano/builderfy/autopilots/generated/git-invoke-manual-production.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083590" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/cleopatra/cleofy/autopilots/generic/Workstation/workstation-cm-devops.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083590" ignored="false" />
-    <file path="/var/www/pharaoh-tools/db/db.sql" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083590" ignored="false" />
-    <file path="/var/www/pharaoh-tools/db/old-data.sql" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/src/configuration.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410567083589" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/cleopatra/cleofy/autopilots/generic/Phlagrant/cleofy-cm-phlagrant-box.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410632853548" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/firefox/profiles.ini" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410633679208" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/jenkins/create_job.sh" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410632935347" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/jenkins/config-no-vnc.xml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410632973298" ignored="false" />
-    <file path="/config-no-vnc.xml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410632973298" ignored="false" />
-    <file path="/var/www/pharaoh-tools/build/config/jenkins/config.xml" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410633005031" ignored="false" />
-    <file path="/var/www/pharaohtools/Phlagrantfile" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410666123005" ignored="false" />
-    <file path="$PROJECT_DIR$/../../phlagrant/phlagrant/src/Modules/Invoke/Model/InvokeAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410642830143" ignored="false" />
-    <file path="/InvokeAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410642712141" ignored="false" />
-    <file path="$PROJECT_DIR$/../../phlagrant/phlagrant/src/Modules/SFTP/Model/SFTPAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410907660136" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Invoke/Model/InvokeAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410646866099" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/custom/phlagrant-box-jenkins-vhost.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410665763796" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/custom/phlagrant-host-phlagrant-host-install-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410665876242" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/custom/phlagrant-host-phlagrant-host-uninstall-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410665878270" ignored="false" />
-    <file path="/BaseAWSEC2AllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410821253879" ignored="false" />
-    <file path="/AWSEC2BoxAdd.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410828624205" ignored="false" />
-    <file path="/AWSEC2List.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410828837153" ignored="false" />
-    <file path="/AWSEC2ListView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410830476646" ignored="false" />
-    <file path="/install-silent" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411260774700" ignored="false" />
-    <file path="/UserView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410869680238" ignored="false" />
-    <file path="/User.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410869437338" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/SFTP/Model/SFTPAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410905617691" ignored="false" />
-    <file path="$PROJECT_DIR$/../../phlagrant/phlagrant/src/Modules/SFTP/Model/SFTPNativeWrapperAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410912285416" ignored="false" />
-    <file path="/SFTPNativeWrapperAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410907709711" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/SFTP/Model/SFTPNativeWrapperAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410907771831" ignored="false" />
-    <file path="/InvokeNativeWrapperAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410922753256" ignored="false" />
-    <file path="$PROJECT_DIR$/../../phlagrant/phlagrant/src/Modules/Invoke/Model/InvokeNativeWrapperAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410922864488" ignored="false" />
-    <file path="/var/www/workplace-systems/papyrusfile" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410922197921" ignored="false" />
-    <file path="/SeleniumServerAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410980896623" ignored="false" />
-    <file path="/Constants.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410989872916" ignored="false" />
-    <file path="/BaseLinuxApp.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1410981738611" ignored="false" />
-    <file path="/ModuleManagerAnyOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411052398935" ignored="false" />
-    <file path="/SystemDetectionAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411055538105" ignored="false" />
-    <file path="/YumCentos.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411058302325" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/Controller/Dapperfy.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411068182923" ignored="false" />
-    <file path="/Dapperfy.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411067172200" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Dapperfy/info.Dapperfy.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411068004346" ignored="false" />
-    <file path="/info.Dapperfy.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411067325319" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Joomla/Controller/Joomla.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411068273470" ignored="false" />
-    <file path="/Joomla.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411068228896" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-invoke-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-workstation-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-invoke-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-install-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-install-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-workstation-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-invoke-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-workstation-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-invoke-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-invoke-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-invoke-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350675" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-invoke-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-phlagrant-host-uninstall-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-workstation-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-install-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-invoke-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-phlagrant-host-install-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-invoke-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-invoke-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-workstation-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-invoke-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-workstation-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-workstation-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-install-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-invoke-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-install-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-workstation-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-install-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-phlagrant-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-invoke-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-phlagrant-host-uninstall-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-invoke-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-phlagrant-host-uninstall-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-invoke-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-phlagrant-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-workstation-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-workstation-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-workstation-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-invoke-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-phlagrant-host-install-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-phlagrant-host-uninstall-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-install-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-workstation-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-install-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350676" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-invoke-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-invoke-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-install-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-phlagrant-host-uninstall-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-workstation-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-install-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-phlagrant-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-phlagrant-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-invoke-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-install-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-install-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-workstation-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-install-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-phlagrant-host-install-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-invoke-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-node-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-workstation-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-workstation-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-invoke-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-invoke-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-install-rollback-previous.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-workstation-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-invoke-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-workstation-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-install-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-workstation-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-phlagrant-host-install-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-node-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-invoke-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-invoke-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-workstation-uninstall-code.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-staging-invoke-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350677" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-invoke-enforce-revisions.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-phlagrant-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/shared-temp-production-node-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-node-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-workstation-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-workstation-install-code-no-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-invoke-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-phlagrant-host-install-host-file-entry.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-node-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-invoke-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-invoke-rollback-newest.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/workstation-workstation-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/tiny-jenkins-workstation-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="/var/www/pharaohtools/build/config/dapperstrano/dapperfy/autopilots/generated/mail-workstation-uninstall-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411073350678" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Joomla/Templates/Dapperfy/Joomla30/environment-node-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411068399524" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Joomla/Templates/Dapperfy/Joomla30/environment-node-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411072806826" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Joomla/Templates/Dapperfy/Joomla30/environment-workstation-install-code-data.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411068419556" ignored="false" />
-    <file path="$PROJECT_DIR$/../../dapperstrano/dapperstrano/src/Modules/Joomla/Templates/Dapperfy/Joomla30/environment-workstation-install-code-dbconf.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411072777590" ignored="false" />
-    <file path="/var/www/workplace-tests/tests/behat/features/bootstrap/FeatureContext.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411247910328" ignored="false" />
-    <file path="/var/www/workplace-tests/tests/behat/features/bootstrap/SanityTestContext.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411248332559" ignored="false" />
-    <file path="/SanityTestTrait.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411190699286" ignored="false" />
-    <file path="/var/www/workplace-tests/tests/behat/features/bootstrap/SanityTestTrait.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411190722379" ignored="false" />
-    <file path="/var/www/workplace-tests/tests/behat/features/bootstrap/SessionControlContext.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411248372029" ignored="false" />
-    <file path="/var/www/workplace-tests/tests/behat/features/bootstrap/DefaultPageChecksContext.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411248614403" ignored="false" />
-    <file path="/SanityTestAssociate.feature" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411248063298" ignored="false" />
-    <file path="/var/www/workplace-tests/tests/behat/features/SanityTestAssociate.feature" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411248063298" ignored="false" />
-    <file path="/DefaultPageChecksContext.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411248614407" ignored="false" />
-    <file path="/cleopatra-incomplete-modules" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1411276489037" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,8 +24,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
         <option name="NOTIFY_UNCAUGHT" value="true" />
@@ -286,8 +60,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules />
-    <ui_properties />
+    <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -298,7 +72,8 @@
       <file leaf-file-name="SeleniumServerAllLinux.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Modules/SeleniumServer/Model/SeleniumServerAllLinux.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="0" selection-start="2097" selection-end="2444" vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.0" vertical-offset="901" max-vertical-offset="1462">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -307,7 +82,8 @@
       <file leaf-file-name="SystemDetectionAllOS.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="129" column="19" selection-start="4889" selection-end="4889" vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2193" max-vertical-offset="2737">
+              <caret line="129" column="19" selection-start-line="129" selection-start-column="19" selection-end-line="129" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -316,7 +92,8 @@
       <file leaf-file-name="VNCPasswdUbuntu.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Modules/VNCPasswd/Model/VNCPasswdUbuntu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="91" selection-start="1330" selection-end="1330" vertical-scroll-proportion="-0.625">
+            <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="2125">
+              <caret line="32" column="91" selection-start-line="32" selection-start-column="91" selection-end-line="32" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -325,28 +102,31 @@
       <file leaf-file-name="install-silent" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/install-silent">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="125" column="88" selection-start="5305" selection-end="5305" vertical-scroll-proportion="-3.7916667">
+            <state vertical-scroll-proportion="-13.230769" vertical-offset="557" max-vertical-offset="3859">
+              <caret line="53" column="44" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cleopatra-incomplete-modules" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="cleopatra-incomplete-modules" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="49" selection-start="82" selection-end="82" vertical-scroll-proportion="0.054446463">
+            <state vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="13770">
+              <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="22" selection-start="1479" selection-end="1479" vertical-scroll-proportion="-16.034483">
+            <state vertical-scroll-proportion="0.23882681" vertical-offset="322" max-vertical-offset="3247">
+              <caret line="29" column="96" selection-start-line="29" selection-start-column="66" selection-end-line="29" selection-end-column="96" />
               <folding />
             </state>
           </provider>
@@ -355,7 +135,8 @@
       <file leaf-file-name="AptUbuntu.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Modules/Apt/Model/AptUbuntu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="61" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="1819">
+              <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -392,18 +173,20 @@
         <option value="$PROJECT_DIR$/src/Modules/Yum/Model/YumCentos.php" />
         <option value="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseComposerApp.php" />
         <option value="$PROJECT_DIR$/src/Modules/VNCPasswd/Model/VNCPasswdUbuntu.php" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/install-silent" />
         <option value="$PROJECT_DIR$/cleopatra-incomplete-modules" />
+        <option value="$PROJECT_DIR$/cleo-winstall.bat" />
+        <option value="$PROJECT_DIR$/cleo-elevate-install.bat" />
+        <option value="$PROJECT_DIR$/install-silent" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="24" />
-    <option name="width" value="1301" />
-    <option name="height" value="744" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -419,7 +202,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -465,18 +248,82 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WinElevate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WinElevate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="/var/www/aws-php-sample/sample.php" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RecentsManager">
@@ -502,6 +349,16 @@
       <method />
     </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <module name="cleopatra" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -554,89 +411,53 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Amazon EC2" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14655173" sideWeight="0.48465267" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14625" sideWeight="0.48465267" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985657" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51534736" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Amazon EC2" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="CHECK_NEW_TODO" value="true" />
     <option name="myTodoPanelSettings">
-      <value>
-        <are-packages-shown value="false" />
-        <are-modules-shown value="false" />
-        <flatten-packages value="false" />
-        <is-autoscroll-to-source value="false" />
-      </value>
+      <TodoPanelSettings />
     </option>
-    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
-    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
-    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
-    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
-    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
-    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
-    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
-    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
-    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
-    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
-    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
-    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
-    <option name="LIMIT_HISTORY" value="true" />
-    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
-    <option name="UPDATE_FILTER_SCOPE_NAME" />
-    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
-    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
-    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated win install silent" />
-    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
-    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
-    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
-    <option name="ACTIVE_VCS_NAME" />
-    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
-    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
-    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
-    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
-    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="updated win install instructions" />
     <MESSAGE value="updated win install silent" />
+    <MESSAGE value="readme includes new windows elevate instructions" />
+    <MESSAGE value="new cleo-winstall for installing the elevate command" />
+    <MESSAGE value="fixed path for winstall" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed path for winstall" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -644,77 +465,42 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeNativeWrapperAllLinux.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="10" selection-start="1404" selection-end="1762" vertical-scroll-proportion="-10.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ModuleManager/Model/ModuleManagerAnyOS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="1" selection-start="1732" selection-end="1732" vertical-scroll-proportion="-12.75" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/SeleniumServer/Model/SeleniumServerAllLinux.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="2097" selection-end="2444" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/NetworkTools/Model/NetworkToolsUbuntu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/Base/Info/Base.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="5.4166665" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="37" selection-start="3597" selection-end="3597" vertical-scroll-proportion="-9.75">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1462">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="19" selection-start="4889" selection-end="4889" vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2193" max-vertical-offset="2737">
+          <caret line="129" column="19" selection-start-line="129" selection-start-column="19" selection-end-line="129" selection-end-column="19" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/NetworkTools/Model/NetworkToolsCentos.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="55" selection-start="2418" selection-end="2418" vertical-scroll-proportion="-16.25" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Apt/Model/AptUbuntu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="61" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Yum/Model/YumCentos.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="86" selection-start="1412" selection-end="1412" vertical-scroll-proportion="-11.25" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Behat/Model/BehatAllLinux.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="40" selection-start="65" selection-end="65" vertical-scroll-proportion="-2.5" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseComposerApp.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="72" selection-start="2599" selection-end="2599" vertical-scroll-proportion="-14.375" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/VNCPasswd/Model/VNCPasswdUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="91" selection-start="1330" selection-end="1330" vertical-scroll-proportion="-0.625">
+        <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="2125">
+          <caret line="32" column="91" selection-start-line="32" selection-start-column="91" selection-end-line="32" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/install-silent">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2125" max-vertical-offset="3723">
+          <caret line="125" column="40" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="13770">
+          <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -724,21 +510,138 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="22" selection-start="1479" selection-end="1479" vertical-scroll-proportion="-16.034483">
+        <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="3332">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/install-silent">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Apt/Model/AptUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="88" selection-start="5305" selection-end="5305" vertical-scroll-proportion="-3.7916667">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="1819">
+          <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeNativeWrapperAllLinux.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="51" column="10" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/ModuleManager/Model/ModuleManagerAnyOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.75" vertical-offset="0" max-vertical-offset="0">
+          <caret line="54" column="1" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/SeleniumServer/Model/SeleniumServerAllLinux.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="901" max-vertical-offset="1462">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/NetworkTools/Model/NetworkToolsUbuntu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Base/Info/Base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.4166665" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.75" vertical-offset="0" max-vertical-offset="0">
+          <caret line="116" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/SystemDetection/Model/SystemDetectionAllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2193" max-vertical-offset="2737">
+          <caret line="129" column="19" selection-start-line="129" selection-start-column="19" selection-end-line="129" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/NetworkTools/Model/NetworkToolsCentos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.25" vertical-offset="0" max-vertical-offset="0">
+          <caret line="43" column="55" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Apt/Model/AptUbuntu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="1819">
+          <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Yum/Model/YumCentos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="0">
+          <caret line="39" column="86" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Behat/Model/BehatAllLinux.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5" vertical-offset="0" max-vertical-offset="0">
+          <caret line="4" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseComposerApp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="0">
+          <caret line="62" column="72" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/VNCPasswd/Model/VNCPasswdUbuntu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="2125">
+          <caret line="32" column="91" selection-start-line="32" selection-start-column="91" selection-end-line="32" selection-end-column="91" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cleopatra-incomplete-modules">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="49" selection-start="82" selection-end="82" vertical-scroll-proportion="0.054446463">
+        <state vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="13770">
+          <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/install-silent">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.230769" vertical-offset="557" max-vertical-offset="3859">
+          <caret line="53" column="44" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23882681" vertical-offset="322" max-vertical-offset="3247">
+          <caret line="29" column="96" selection-start-line="29" selection-start-column="66" selection-end-line="29" selection-end-column="96" />
           <folding />
         </state>
       </provider>
