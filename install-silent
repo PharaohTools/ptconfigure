@@ -79,7 +79,7 @@ class Installer {
     private function makeProgramDataFolder(){
             echo "No Program dir found, creating {$this->programDataFolder}\n" ;
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-                $comm = "runas /noprofile /user:Administrator \"mkdir \"{$this->programDataFolder}\"\"" ;
+                $comm = "runas /noprofile /user:%USERNAME% \"mkdir \"{$this->programDataFolder}\"\"" ;
                 self::executeAndOutput($comm) ; }
             else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
                 $comm = "mkdir -p ".$this->programDataFolder ;
@@ -89,7 +89,7 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = "runas /noprofile /user:Administrator \"copy " ;
+            $command = "runas /noprofile /user:%USERNAME% \"copy " ;
             $command3 = $command." \"".dirname(__FILE__)."\" \"".dirname($this->programDataFolder)."\"\"" ; }
 
         else {
@@ -142,7 +142,7 @@ class Installer {
             echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
             echo (is_int(file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Temp file written\n" : "Temp file failed writing" ;
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
-            $command = "runas /noprofile /user:Administrator \"copy " ;
+            $command = "runas /noprofile /user:%USERNAME% \"copy " ;
             $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.DS.'\""' ;
             echo $command ;
             self::executeAndOutput($command);
