@@ -25,6 +25,7 @@ class Installer {
 
     public function installProgram() {
         $this->showTitle();
+        $this->installElevateOnWindows();
         $this->askForProgramDataFolder();
         $this->askForProgramExecutorFolder();
         $this->deleteProgramDataFolderAsRootIfExists();
@@ -46,10 +47,17 @@ class Installer {
         exit();
     }
 
+    private function installElevateOnWindows() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            echo "Using Windows, so installing elevate command is required - installing now..." ;
+            $comm = getcwd().DS.'\cleopatra\src\Modules\WinElevate\Scripts\install-elevate.bat' ;
+            self::executeAndOutput($comm) ;  }
+    }
+
     private function askForProgramDataFolder() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->programDataFolder = 'C:'.
-            DS.'Program Files'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
+                DS.'Program Files'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
