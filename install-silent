@@ -53,10 +53,8 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so turning off UAC prompts...\n" ;
             $sr = getenv('SystemRoot') ;
-            $comm  = $sr.'\System32\cmd.exe /k' ;
-            echo $comm."\n";
-            self::executeAndOutput($comm) ;
-            $comm .= $sr.'\System32\reg.exe ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f' ;
+            // $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f"' ;
+            $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f"' ;
             echo $comm."\n";
             self::executeAndOutput($comm) ;  }
     }
@@ -66,13 +64,12 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so adding PHP to path...\n" ;
             $path = getenv('PATH') ;
-            $php5path = 'C:\Windows\Program Files\php5' ;
+            $php5path = 'C:\Program Files\php5' ;
             if (strpos($path, $php5path) != false) {
                 echo "PHP is already in the path\n" ;
                 return ; }
             $path .= $php5path ;
-            putenv("PATH=$path");
-            echo getenv("PATH");  }
+            putenv("PATH=$path"); }
     }
 
     private function installElevateOnWindows() {
