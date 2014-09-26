@@ -15,7 +15,6 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
     public $sv ;
 
-    // @todo parameterise the selenium version
     // @todo ensure wget is installed
     public function __construct($params) {
         parent::__construct($params);
