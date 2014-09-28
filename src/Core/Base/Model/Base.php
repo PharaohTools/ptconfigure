@@ -329,14 +329,16 @@ COMPLETION;
 
     /*Versioning starts here*/
     public function getVersion($type = "Installed") {
+        $vt = array("Installed", "installed", "Recommended", "recommended", "Latest", "latest");
+        if (isset($this->params["version-type"]) && in_array($vt, $this->params["version-type"]) ) {
+             $type = $this->params["version-type"] ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (in_array($type, array("Installed", "installed"))) {
-            if (in_array($type, array("Installed", "installed"))) {
-                if ($this->askStatus() != true) {
-                    \Core\BootStrap::setExitCode(1) ;
-                    $logging->log("This program is not installed, so cannot find version") ;
-                    return false; } }
+            if ($this->askStatus() != true) {
+                \Core\BootStrap::setExitCode(1) ;
+                $logging->log("This program is not installed, so cannot find installed version") ;
+                return false; }
             $type = ucfirst($type) ;
             $property = "version{$type}Command" ;
             $trimmer = "{$property}Trimmer" ;
