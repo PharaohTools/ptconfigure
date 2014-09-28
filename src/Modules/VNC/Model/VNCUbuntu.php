@@ -17,9 +17,11 @@ class VNCUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "VNC";
-        $this->installCommands = $this->getInstallCommands() ;
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "vnc4server")) ),
+        ) ;
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "vncserver")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "vnc4server")) ),
         ) ;
         $this->programDataFolder = "/opt/vnc"; // command and app dir name
         $this->programNameMachine = "vnc"; // command and app dir name
@@ -30,13 +32,6 @@ class VNCUbuntu extends BaseLinuxApp {
         $this->versionRecommendedCommand = "sudo apt-cache policy vnc4server" ;
         $this->versionLatestCommand = "sudo apt-cache policy vnc4server" ;
         $this->initialize();
-    }
-
-    protected function getInstallCommands() {
-        $ray = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "vnc4server")) ),
-        ) ;
-        return $ray ;
     }
 
     public function versionInstalledCommandTrimmer($text) {
