@@ -331,7 +331,7 @@ COMPLETION;
     public function getVersion($type = "Installed") {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (in_array($type, array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))) {
+        if (in_array($type, array("Installed", "installed"))) {
             if (in_array($type, array("Installed", "installed"))) {
                 if ($this->askStatus() != true) {
                     \Core\BootStrap::setExitCode(1) ;
