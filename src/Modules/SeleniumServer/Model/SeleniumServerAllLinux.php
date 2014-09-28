@@ -36,6 +36,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         $this->programExecutorTargetPath = "selenium";
         $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/selenium-server.jar';
         $this->statusCommand = "cat /usr/bin/selenium > /dev/null 2>&1";
+        // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.41.0"' ;
         $this->versionRecommendedCommand = 'echo "2.41.0"' ;
         $this->versionLatestCommand = 'echo "2.41.0"' ;
