@@ -39,9 +39,12 @@ class TeamcityUbuntu extends BaseLinuxApp {
     }
 
     public function executeDependencies() {
+        $tempVersion = $this->params["version"] ;
+        unset($this->params["version"]) ;
         $javaFactory = new \Model\Java();
         $java = $javaFactory->getModel($this->params);
         $java->ensureInstalled();
+        $this->params["version"] = $tempVersion ;
     }
 
     public function versionInstalledCommandTrimmer($text) {

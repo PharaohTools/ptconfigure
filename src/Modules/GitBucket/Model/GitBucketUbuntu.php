@@ -63,14 +63,16 @@ class GitBucketUbuntu extends BaseLinuxApp {
         return $path ;
     }
 
-
     public function executeDependencies() {
-        $gitToolsFactory = new \Model\GitTools();
+        $tempVersion = $this->params["version"] ;
+        unset($this->params["version"]) ;
+        $gitToolsFactory = new \Model\GitTools($this->params);
         $gitTools = $gitToolsFactory->getModel($this->params);
         $gitTools->ensureInstalled();
         $javaFactory = new \Model\Java();
         $java = $javaFactory->getModel($this->params);
         $java->ensureInstalled();
+        $this->params["version"] = $tempVersion ;
     }
 
     public function askForRepoHome() {

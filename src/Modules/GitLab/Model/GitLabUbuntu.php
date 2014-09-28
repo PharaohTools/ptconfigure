@@ -226,9 +226,16 @@ class GitLabUbuntu extends BaseLinuxApp {
     $this->initialize();
   }
 
-  private function executeDependencies() {
-    $gitTools = new \Model\GitTools($this->params);
-    $gitTools->install();
-  }
+   public function executeDependencies() {
+        $tempVersion = $this->params["version"] ;
+        unset($this->params["version"]) ;
+        $gitToolsFactory = new \Model\GitTools($this->params);
+        $gitTools = $gitToolsFactory->getModel($this->params);
+        $gitTools->ensureInstalled();
+        $javaFactory = new \Model\Java();
+        $java = $javaFactory->getModel($this->params);
+        $java->ensureInstalled();
+        $this->params["version"] = $tempVersion ;
+   }
 
 }
