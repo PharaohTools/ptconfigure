@@ -25,8 +25,11 @@ class Installer {
 
     public function installProgram() {
         $this->showTitle();
+        $this->turnOffUACOnWindows();
+        $this->addPHPToPath();
         $this->askForProgramDataFolder();
         $this->askForProgramExecutorFolder();
+        $this->installElevateOnWindows();
         $this->deleteProgramDataFolderAsRootIfExists();
         $this->makeProgramDataFolder();
         $this->copyFilesToProgramDataFolder();
@@ -46,10 +49,44 @@ class Installer {
         exit();
     }
 
+    private function turnOffUACOnWindows() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            echo "Using Windows, so turning off UAC prompts...\n" ;
+            $sr = getenv('SystemRoot') ;
+            // $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f"' ;
+            $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f"' ;
+            echo $comm."\n";
+            self::executeAndOutput($comm) ;  }
+    }
+
+    private function addPHPToPath() {
+        // @todo use logic for the correct path
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            echo "Using Windows, so adding PHP to path...\n" ;
+            $path = getenv('PATH') ;
+            $php5path = 'C:\Program Files\php5' ;
+            if (strpos($path, $php5path) != false) {
+                echo "PHP is already in the path\n" ;
+                return ; }
+            $path .= $php5path ;
+            putenv("PATH=$path"); }
+    }
+
+    private function installElevateOnWindows() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            echo "Using Windows, so installing the elevate command is required - installing now...\n" ;
+            $comm  = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c copy "'.getcwd() ;
+            $comm .= '\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe" "'.$this->programExecutorFolder.'"' ;
+
+            // $comm = dirname(__FILE__).'\cleopatra\src\Modules\WinElevate\Scripts\install-elevate.bat' ;
+            echo $comm."\n";
+            self::executeAndOutput($comm) ;  }
+    }
+
     private function askForProgramDataFolder() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->programDataFolder = 'C:'.
-            DS.'Program Files'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
+                DS.'Program Files'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
@@ -58,11 +95,14 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $sr = getenv('SystemRoot') ;
             if (file_exists($sr.DS.'System32')) {
-                $this->programExecutorFolder = $sr.DS.'System32' ; }
+                $this->programExecutorFolder = $sr.DS.'System32' ;
+                return $this->programExecutorFolder ; }
             else {
-                $this->programExecutorFolder = $sr.DS.'system32' ; } }
+                $this->programExecutorFolder = $sr.DS.'system32' ;
+                return $this->programExecutorFolder ; } }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
-            $this->programExecutorFolder = DS.'usr'.DS.'bin' ; }
+            $this->programExecutorFolder = DS.'usr'.DS.'bin' ;
+            return $this->programExecutorFolder ; }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
@@ -77,32 +117,36 @@ class Installer {
     }
 
     private function makeProgramDataFolder(){
-            echo "No Program dir found, creating {$this->programDataFolder}\n" ;
-            if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-                $comm = "runas /noprofile /user:%USERNAME% \"mkdir \"{$this->programDataFolder}\"\"" ;
-                self::executeAndOutput($comm) ; }
-            else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
-                $comm = "mkdir -p ".$this->programDataFolder ;
-                self::executeAndOutput($comm) ; }
-            echo $comm."\n" ;
+        echo "No Program dir found, creating {$this->programDataFolder}\n" ;
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "mkdir '.$this->programDataFolder.'"' ;
+            self::executeAndOutput($comm) ; }
+        else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
+            $comm = "mkdir -p ".$this->programDataFolder ;
+            self::executeAndOutput($comm) ; }
+        echo $comm."\n" ;
     }
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = "runas /noprofile /user:%USERNAME% \"copy " ;
-            $command3 = $command." \"".dirname(__FILE__)."\" \"".dirname($this->programDataFolder)."\"\"" ; }
+            $command = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "copy ' ;
+            $command3 = $command." \"".dirname(__FILE__)."\" \"".dirname($this->programDataFolder)."\"\"" ;
+            echo $command3 . "\n" ;
+            self::executeAndOutput($command3, "Program Data folder populated with program files\n"); }
+        if (is_dir(dirname(__FILE__).DS.'.git')) {
+            $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder ;
+            echo $command2 . "\n" ;
+            self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); }
 
         else {
             $command = "sudo cp -r " ;
-            $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ; }
-
-        echo $command3 . "\n" ;
-        self::executeAndOutput($command3, "Program Data folder populated with program files\n");
-
-        if (is_dir(dirname(__FILE__).DS.'.git')) {
-            $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder;
-            echo $command2 . "\n" ;
-            self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); }
+            $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ;
+            echo $command3 . "\n" ;
+            self::executeAndOutput($command3, "Program Data folder populated with program files\n");
+            if (is_dir(dirname(__FILE__).DS.'.git')) {
+                $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder ;
+                echo $command2 . "\n" ;
+                self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); } }
 
         return true;
     }
@@ -112,7 +156,7 @@ class Installer {
         else { $extension = "" ; }
         if (file_exists($this->programExecutorFolder.DS.$this->programNameMachine.$extension)) {
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-                $command = "del " ; }
+                $command = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c del ' ; }
             else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
                 $command = "rm -rf " ; }
             echo "Adding executor ".$command.$this->programExecutorFolder.DS.$this->programNameMachine.$extension."...\n" ;
@@ -142,13 +186,13 @@ class Installer {
             echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
             echo (is_int(file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Temp file written\n" : "Temp file failed writing" ;
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
-            $command = "runas /noprofile /user:%USERNAME% \"copy " ;
-            $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.DS.'\""' ;
+            $command = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe "copy ' ;
+            $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.'""' ;
             echo $command ;
             self::executeAndOutput($command);
             echo "Removing temp file ".$this->programNameMachine.".bat" ;
             //unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
-            }
+        }
         else {
             echo "Saving executor file {$this->programNameMachine} to {$this->programExecutorFolder} ...\n" ;
             $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
@@ -166,7 +210,7 @@ class Installer {
     }
 
     private function populateTitle() {
-$this->titleData = <<<TITLE
+        $this->titleData = <<<TITLE
 *******************************
 *        Pharaoh Tools        *
 *         $this->programNameFriendly        *
@@ -177,7 +221,7 @@ TITLE;
     }
 
     private function populateCompletion() {
-$this->completionData = <<<COMPLETION
+        $this->completionData = <<<COMPLETION
 ... All done!
 *******************************
 Thanks for installing , visit www.pharaohtools.com for more
@@ -188,11 +232,11 @@ COMPLETION;
     private function populateExecutorFile() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->bootStrapData =
-"<?php\r\nrequire('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\r\n?>"; }
+                "<?php\r\nrequire('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\r\n?>"; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ;
             $this->bootStrapData .=
-"<?php\n\nrequire('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\n\n?>"; }
+                "<?php\n\nrequire('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\n\n?>"; }
     }
 
     private function populateStartDirectory() {
