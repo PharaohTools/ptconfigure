@@ -350,6 +350,20 @@ COMPLETION;
             else {
                 $logging->log("Cannot find version") ;
                 return false; } }
+        else if (in_array($type, array("Recommended", "recommended", "Latest", "latest"))) {
+            $type = ucfirst($type) ;
+            $property = "version{$type}Command" ;
+            $trimmer = "{$property}Trimmer" ;
+            if (isset($this->$property) && method_exists($this, $trimmer)) {
+                $out = $this->executeAndLoad($this->$property);
+                return new \Model\SoftwareVersion($this->$trimmer($out)) ; }
+            else if (isset($this->$property)) {
+                $versionText = $this->executeAndLoad($this->$property);
+                $versionObject = new \Model\SoftwareVersion($versionText) ;
+                return $versionObject ; }
+            else {
+                $logging->log("Cannot find version") ;
+                return false; } }
         else {
             return false; }
     }
