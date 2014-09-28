@@ -37,12 +37,13 @@ class IntelliJUbuntu extends BaseLinuxApp {
         );
         $this->programDataFolder = "/opt/intellij"; // command and app dir name
         $this->programNameMachine = "intellij"; // command and app dir name
-        $this->programNameFriendly = "Intelli J 12"; // 12 chars
-        $this->programNameInstaller = "Intelli J 12";
+        $this->programNameFriendly = "IntelliJ IDE"; // 12 chars
+        $this->programNameInstaller = "IntelliJ IDE";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "intellij.sh";
         $this->programExecutorCommand = $this->programDataFolder.'/'.$this->programExecutorTargetPath;
         $this->statusCommand = "cat /usr/bin/intellij > /dev/null 2>&1";
+        // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "12.1"' ;
         $this->versionRecommendedCommand = 'echo "12.1"' ;
         $this->versionLatestCommand = 'echo "12.1"' ;
