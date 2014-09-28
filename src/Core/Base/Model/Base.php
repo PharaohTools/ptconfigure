@@ -330,7 +330,7 @@ COMPLETION;
     /*Versioning starts here*/
     public function getVersion($type = "Installed") {
         $vt = array("Installed", "installed", "Recommended", "recommended", "Latest", "latest");
-        if (isset($this->params["version-type"]) && in_array($vt, $this->params["version-type"]) ) {
+        if (isset($this->params["version-type"]) && in_array($this->params["version-type"], $vt) ) {
              $type = $this->params["version-type"] ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
