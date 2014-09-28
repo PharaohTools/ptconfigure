@@ -78,4 +78,23 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
             return self::askForArrayOption($question, $ao, true); }
     }
 
+
+    public function versionInstalledCommandTrimmer($text) {
+        $done = str_replace("\n", "", $text) ;
+        $done = str_replace("\r", "", $done) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+        $done = str_replace("\n", "", $text) ;
+        $done = str_replace("\r", "", $done) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+        $done = str_replace("\n", "", $text) ;
+        $done = str_replace("\r", "", $done) ;
+        return $done ;
+    }
+
 }
