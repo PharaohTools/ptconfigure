@@ -20,6 +20,7 @@ class JenkinsPluginsUbuntu extends BaseLinuxApp {
     $this->installCommands = array(
         array("command" => array(
                 "cd /tmp" ,
+            "rm -rf /tmp/jplugins",
                 "git clone https://github.com/phpengine/jenkins-php-plugins jplugins",
                 "rm -rf ****PROGDIR****",
                 "mkdir -p ****PROGDIR****",
