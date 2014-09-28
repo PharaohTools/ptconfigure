@@ -18,6 +18,7 @@ class IntelliJUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "IntelliJ";
         $this->installCommands = array (
+            array("method"=> array("object" => $this, "method" => "askForIntelliJVersion", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
                     "cd /tmp" ,
@@ -46,6 +47,18 @@ class IntelliJUbuntu extends BaseLinuxApp {
         $this->versionRecommendedCommand = 'echo "12.1"' ;
         $this->versionLatestCommand = 'echo "12.1"' ;
         $this->initialize();
+    }
+
+    protected function askForIntelliJVersion(){
+        $ao = array("12", "13") ;
+        if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
+            $this->iv = $this->params["version"] ; }
+        else if (isset($this->params["guess"])) {
+            $index = count($ao)-1 ;
+            $this->iv = $ao[$index] ; }
+        else {
+            $question = 'Enter IntelliJ Version';
+            return self::askForArrayOption($question, $ao, true); }
     }
 
     // todo intellij should ensure java
