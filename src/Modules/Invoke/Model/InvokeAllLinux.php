@@ -133,7 +133,7 @@ class InvokeAllLinux extends Base {
             else {
                 $server["ssh2Object"] = $attempt ;
                 $logging->log("Connection to Server {$server["target"]} successful.");
-                if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) || $this->isNativeSSH != true)) {
+                if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) && $this->isNativeSSH != true)) {
                     echo $this->changeBashPromptToPharaoh($server["ssh2Object"]); }
                 echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;

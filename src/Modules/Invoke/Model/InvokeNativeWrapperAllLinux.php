@@ -27,7 +27,9 @@ class InvokeNativeWrapperAllLinux extends Base {
             $this->privkey = $password  ;
             $connection = ssh2_connect($this->target, $this->port, array('hostkey'=>'ssh-rsa'));
             if ($this->pubkey == null) {
-                // @todo we should highlight somewhere that this public key needs to be set because surely it NOT needed?
+                $loggingFactory = new \Model\Logging();
+                $logging = $loggingFactory->getModel($this->params) ;
+                $logging->log("Native PHP SSH requires the public key to exist longside the private. Using ".$this->privkey.".pub") ;
                 $this->pubkey = $this->privkey.".pub" ; }
             if (ssh2_auth_pubkey_file($connection, $username, $this->pubkey, $this->privkey, 'secret')) {
                 $this->connection = $connection ;
@@ -46,36 +48,9 @@ class InvokeNativeWrapperAllLinux extends Base {
         $all = "" ;
         while ( !feof($stream) ) {
             $abit = stream_get_contents ($stream) ;
-            $all .= $abit ;
-            echo $abit ; }
+            $all .= $abit ; }
         fclose($stream);
         return $all ;
-    }
-
-    public function cmd ( $cmd, $returnOutput = false ) {
-        // $this->logAction ( "Executing command $cmd" );
-        $stream = ssh2_exec ( $this->connection, $cmd );
-
-        if ( FALSE === $stream ) {
-            $this->logAction ( "Unable to execute command $cmd" );
-        }
-        $this->logAction ( "$cmd was executed" );
-
-        stream_set_blocking ( $stream, true );
-        stream_set_timeout ( $stream, 100 );
-        $this->lastLog = stream_get_contents ( $stream );
-
-        $this->logAction ( "$cmd output: {$this->lastLog}" );
-        fclose ( $stream );
-        $this->log .= $this->lastLog . "\n";
-        return ( $returnOutput ) ? $this->lastLog : $this;
-    }
-
-    protected function doSSHCommand( $sshObject, $command, $first=null ) {
-        $returnVar = ($first==null) ? "" : $sshObject->read("PHARAOHPROMPT") ;
-        $sshObject->write("$command\n") ;
-        $returnVar .= $sshObject->read("PHARAOHPROMPT") ;
-        return str_replace("PHARAOHPROMPT", "", $returnVar) ;
     }
 
 }
