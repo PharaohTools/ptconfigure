@@ -36,17 +36,14 @@ class InvokeAllLinux extends Base {
         $commandExecution = true;
         echo "Opening CLI...\n"  ;
         while ($commandExecution == true) {
-            $sshCommand = $this->askForACommand();
-            if ( $sshCommand == false) {
+            $command = $this->askForACommand();
+            if ( $command == false) {
                 $commandExecution = false; }
             else {
                 foreach ($this->servers as &$server) {
-                    if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        echo "[".$server["target"]."] Executing $sshCommand...\n"  ;
-                        echo $this->doSSHCommand($server["ssh2Object"], $sshCommand ) ;
-                        echo "[".$server["target"]."] $sshCommand Completed...\n"  ; }
-                    else {
-                        echo "[".$server["target"]."] Connection failure. Will not execute commands on this box..\n"  ; } } } }
+                    echo "[".$server["target"]."] Executing $command...\n"  ;
+                    echo $this->doSSHCommand($server["ssh2Object"], $command) ;
+                    echo "[".$server["target"]."] $command Completed...\n"  ; } } }
         echo "Shell Completed";
         return true;
     }
@@ -63,7 +60,7 @@ class InvokeAllLinux extends Base {
                     echo $this->doSSHCommand($server["ssh2Object"], $sshCommand ) ;
                     echo "[".$server["target"]."] $sshCommand Completed...\n"  ; }
                 else {
-                    echo "[".$server["target"]."] Connection failure. Will not execute commands on this box..\n"  ; } } }
+                    echo "[".$server["target"]."]Connection failure. Will not execute commands on this box..\n"  ; } } }
         echo "Script by SSH Completed";
         return true;
     }
@@ -80,7 +77,7 @@ class InvokeAllLinux extends Base {
                     echo $this->doSSHCommand($server["ssh2Object"], $sshCommand ) ;
                     echo "[".$server["target"]."] $sshCommand Completed...\n"  ; }
                 else {
-                    echo "[".$server["target"]."] Connection failure. Will not execute commands on this box..\n"  ; } } }
+                    echo "[".$server["target"]."]Connection failure. Will not execute commands on this box..\n"  ; } } }
         echo "Data by SSH Completed\n";
         return true;
     }
@@ -136,7 +133,7 @@ class InvokeAllLinux extends Base {
             else {
                 $server["ssh2Object"] = $attempt ;
                 $logging->log("Connection to Server {$server["target"]} successful.");
-                if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) || $this->isNativeSSH != true)) {
+                if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) && $this->isNativeSSH != true)) {
                     echo $this->changeBashPromptToPharaoh($server["ssh2Object"]); }
                 echo $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...'.$server["target"].'"', true ) ; } }
         return true;
@@ -158,8 +155,8 @@ class InvokeAllLinux extends Base {
             if (!class_exists('Net_SSH2')) {
                 $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
                 $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
-                require_once($ssh2File) ; }
-            $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]);
+                require_once($ssh2File) ;
+                $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]); }
             $pword = $this->getKeyIfAvailable($pword);
             if ($ssh->login($server["user"], $pword) == true) { return $ssh; }
             return null; }
