@@ -155,8 +155,8 @@ class InvokeAllLinux extends Base {
             if (!class_exists('Net_SSH2')) {
                 $srcFolder =  str_replace("/Model", "", dirname(__FILE__) ) ;
                 $ssh2File = $srcFolder."/Libraries/seclib/Net/SSH2.php" ;
-                require_once($ssh2File) ;
-                $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]); }
+                require_once($ssh2File) ;}
+            $ssh = new \Net_SSH2($server["target"], $this->params["port"], $this->params["timeout"]);
             $pword = $this->getKeyIfAvailable($pword);
             if ($ssh->login($server["user"], $pword) == true) { return $ssh; }
             return null; }
