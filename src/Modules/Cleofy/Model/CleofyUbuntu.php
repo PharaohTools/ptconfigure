@@ -72,12 +72,14 @@ class CleofyUbuntu extends Base {
               $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
               $autosDir = getcwd().'/build/config/cleopatra/cleofy/autopilots/generated';
               $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+              $servers = (isset($environment["servers"])) ? $environment["servers"] : array() ;
+              $first_server_target = (isset($environment["servers"][0]["target"])) ? $environment["servers"][0]["target"] : "" ; ;
               $templator->template(
                   file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
                   array(
-                      "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                      "gen_srv_array_text" => $this->getServerArrayText($servers) ,
                       "env_name" => $environment["any-app"]["gen_env_name"],
-                      "first_server_target" => $environment["servers"][0]["target"],
+                      "first_server_target" => $first_server_target,
                       // "web_nodes_env" => $this->getEnvName("web") ,
                       // "db_nodes_env" => $this->getEnvName("database") ,
                   ),
