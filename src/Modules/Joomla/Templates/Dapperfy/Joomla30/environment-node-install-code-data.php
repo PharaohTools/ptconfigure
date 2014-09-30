@@ -47,7 +47,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Next create our virtual host"), ) ),
                 array ( "ApacheVHostEditor" => array( "add" => array (
                     "guess" => true,
-                    "vhe-docroot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}",
+                    "vhe-docroot" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/",
                     "vhe-url" => "<%tpl.php%>dap_apache_vhost_url</%tpl.php%>",
                     "vhe-ip-port" => "<%tpl.php%>dap_apache_vhost_ip</%tpl.php%>",
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
