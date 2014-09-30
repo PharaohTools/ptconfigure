@@ -46,9 +46,9 @@ class InvokeNativeWrapperAllLinux extends Base {
         $stream = ssh2_exec($this->connection, $command);
         stream_set_blocking( $stream, true );
         // $all = "" ;
-        while ( !feof($stream) ) {
-            sleep(1) ;
-            echo "." ; }
+        // while ( !feof($stream) ) {
+        //     sleep(1) ;
+        //     echo "." ; }
         $all = stream_get_contents ($stream) ;
         fclose($stream);
         return $all ;
