@@ -22,7 +22,7 @@ class IntelliJUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
                     "cd /tmp" ,
-                    "git clone https://github.com/phpengine/cleopatra-intellij intellij",
+                    "git clone https://github.com/phpengine/cleopatra-intellij{$this->iv} intellij",
                     "rm -rf ****PROGDIR****",
                     "mkdir -p ****PROGDIR****",
                     "mv /tmp/intellij/* ****PROGDIR****",
@@ -51,12 +51,12 @@ class IntelliJUbuntu extends BaseLinuxApp {
     }
 
     protected function askForIntelliJVersion(){
-        $ao = array("12", "13") ;
-        if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
+        $ao = array("12" => "", "13" => "") ;
+        if (isset($this->params["version"]) && in_array($this->params["version"], array_keys($ao))) {
             $this->iv = $this->params["version"] ; }
         else if (isset($this->params["guess"])) {
-            $index = count($ao)-1 ;
-            $this->iv = $ao[$index] ; }
+            $index = count(array_keys($ao))-1 ;
+            $this->iv = ($index=="12") ? "" : "-".$ao[$index] ; }
         else {
             $question = 'Enter IntelliJ Version';
             return self::askForArrayOption($question, $ao, true); }
