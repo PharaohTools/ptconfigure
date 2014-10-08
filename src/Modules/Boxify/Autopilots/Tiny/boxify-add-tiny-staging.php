@@ -39,6 +39,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "size-id" => $size_id_ ,
                     "server-prefix" => $prefix,
                     "box-user-name" => $user_name_ ,
+                    "ssh-key-name" => "$ssh_key_name",
                     "private-ssh-key-path" => $priv_ssh_key_ ,
                     "wait-for-box-info" => true,
                     "wait-until-active" => true,
