@@ -1,5 +1,10 @@
 Cleopatra Modules to be created
 
+BUG
+
+
+
+
 pharoah_php_home env var o se locaion of php ex 2 use
 
 * CSS Regression Testing @todo
@@ -197,7 +202,7 @@ DONE - SVN - SVN - The Source Control Manager
 Boxify Almost complete - Works smoothly on DigitalOcean, but there is a Problem. The SSH keys dont work,
 even when adding them manually via the digital ocean interface, cant login
 so, use Environmrntconfig with --keep-current-environemnts and --no-manual-servers to create an empty env.
-Then use boxi fy, and we can Invoke cli --env-name straight after .
+Then use boxify, and we can Invoke cli --env-name straight after .
 This does work, but i think i had a dodgy
 
 BOX-MANAGER-SUPERCLASS
