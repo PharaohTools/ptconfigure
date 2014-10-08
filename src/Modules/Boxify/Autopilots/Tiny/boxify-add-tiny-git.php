@@ -39,7 +39,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "size-id" => $size_id_git ,
                     "server-prefix" => $prefix,
                     "box-user-name" => $user_name_git ,
-                    "ssh-key-name" => "$ssh_key_name",
+                    "ssh-key-name" => $ssh_key_name,
                     "private-ssh-key-path" => $priv_ssh_key_git ,
                     "wait-for-box-info" => true,
                     "wait-until-active" => true,
