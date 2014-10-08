@@ -142,7 +142,8 @@ class InvokeAllLinux extends Base {
     protected function attemptSSH2Connection($server) {
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
-        if (function_exists("ssh2_connect")) {
+        //if (function_exists("ssh2_connect")) {
+        if ( 1 === 0) { // @todo native ssh hangs long commands
             $this->isNativeSSH = true ;
             $sshFactory = new \Model\Invoke();
             $ssh = $sshFactory->getModel($this->params, "NativeWrapper" ) ;
