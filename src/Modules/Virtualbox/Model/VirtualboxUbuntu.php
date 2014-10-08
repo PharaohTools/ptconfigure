@@ -38,7 +38,7 @@ class VirtualboxUbuntu extends BaseLinuxApp {
             array("command" => array( "sudo apt-get install -y virtualbox") )
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
-            array_push($ray, array("command" => array( "sudo apt-get install virtualbox-guest-additions-iso") ) ) ; }
+            array_push($ray, array("command" => array( "sudo apt-get install -y virtualbox-guest-additions-iso") ) ) ; }
         return $ray ;
     }
 
