@@ -5,7 +5,8 @@ Namespace Core;
 $bootStrap = new BootStrap();
 
 $argv_or_null = (isset($argv)) ? $argv : null ;
-// @todo document this feature that allows a user to provide a json envoronment variable of paramet
+// @todo document this feature that allows a user to provide a json envoronment variable of parameters
+
 $bootStrapParams = (isset($_ENV['dapper_bootstrap'])) ? json_decode($_ENV['dapper_bootstrap']) : $argv_or_null ;
 $bootStrap->main($bootStrapParams);
 
