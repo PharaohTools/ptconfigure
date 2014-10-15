@@ -13,7 +13,7 @@ class CleofyMediumWeb extends Base {
     public $architectures = array("32", "64") ;
 
     // Model Group
-    public $modelGroup = array("Medium") ;
+    public $modelGroup = array("MediumWeb") ;
 
     private $environments ;
     private $environmentReplacements ;
@@ -73,26 +73,24 @@ class CleofyMediumWeb extends Base {
                     echo $tx;
                     continue ; } }
 
-        foreach ($templates as $template) {
-          if (!in_array($template, array(".", ".."))) {
-              $templatorFactory = new \Model\Templating();
-              $templator = $templatorFactory->getModel($this->params);
-              $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-              $autosDir = getcwd().'/build/config/cleopatra/cleofy/autopilots/generated';
-              $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
-              $templator->template(
-                  file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
-                  array(
-                      "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
-                      "env_name" => $environment["any-app"]["gen_env_name"],
-                      "first_server_target" => $environment["servers"][0]["target"],
-                      "stage_web_nodes_env" => $this->getEnvName("stage web") ,
-                      "stage_db_nodes_env" => $this->getEnvName("stage database") ,
-                      "prod_web_nodes_env" => $this->getEnvName("prod web") ,
-                      "prod_db_nodes_env" => $this->getEnvName("prod database") ,
-                  ),
-                  $targetLocation );
-          echo $targetLocation."\n"; } } }
+            foreach ($templates as $template) {
+              if (!in_array($template, array(".", ".."))) {
+                  $templatorFactory = new \Model\Templating();
+                  $templator = $templatorFactory->getModel($this->params);
+                  $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
+                  $autosDir = getcwd().'/build/config/cleopatra/cleofy/autopilots/generated';
+                  $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
+                  $templator->template(
+                      file_get_contents($templatesDir.DIRECTORY_SEPARATOR.$template),
+                      array(
+                          "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                          "env_name" => $environment["any-app"]["gen_env_name"],
+                          "first_server_target" => $environment["servers"][0]["target"],
+                          "stage_web_nodes_env" => $this->getEnvName("stage web") ,
+                          "prod_web_nodes_env" => $this->getEnvName("prod web") ,
+                      ),
+                      $targetLocation );
+              echo $targetLocation."\n"; } } }
     }
 
     public function getEnvName($envType) {
