@@ -111,14 +111,8 @@ class Base {
         foreach ($autoPilot->steps as $modelArray) {
             $currentKeys = array_keys($modelArray) ;
             $currentKey = $currentKeys[0];
-            //@todo need to specify an autopilot way of choosing model group, maybe use syntax of
-            //SVN::Init or Version::Rollback where the second bit is the model group, and in this line here we
-            if (strpos($currentKey, "::")!=null) {
-                $position = strpos($currentKey, "::");
-                $module = substr($currentKey, 0, $position);
-                $moduleGroup = substr($currentKey, $position+2); }
-            else {
-                $module = $currentKey; }
+            // @todo we should be able to specify an alias as well as a module
+            $module = $currentKey;
             $fullClassName = '\Model\\'.$module;
             $modelFactory = new $fullClassName($params);
             if (isset($moduleGroup)) {
