@@ -42,6 +42,20 @@ class AutoPilotConfigured extends AutoPilot {
                   "vhe-template" => $this->getTemplate(),
               ), ), ),
 
+              array ( "Logging" => array( "log" => array("log-message" => "Lets ensure our Joomla temp and cache directories are writable"), ) ),
+              array ( "RunCommand" => array("install" => array(
+                  "guess" => true,
+                  "command" => "sudo chown -R www-data <%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/src/cache",
+              ),),),
+              array ( "RunCommand" => array("install" => array(
+                  "guess" => true,
+                  "command" => "sudo chown -R www-data <%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/src/tmp",
+              ),),),
+              array ( "RunCommand" => array("install" => array(
+                  "guess" => true,
+                  "command" => "sudo chown -R www-data <%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/src/administrator/cache",
+              ),),),
+
               array ( "Logging" => array( "log" => array( "log-message" => "Next ensure our db file configuration is reset to blank" ), ), ),
               array ( "DBConfigure" => array( "<%tpl.php%>dap_db_platform</%tpl.php%>-reset" => array(
                   "parent-path" => "<%tpl.php%>dap_proj_cont_dir</%tpl.php%>",
