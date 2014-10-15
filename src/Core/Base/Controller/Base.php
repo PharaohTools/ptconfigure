@@ -69,6 +69,11 @@ class Base {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $this->content["versionResult"] = $thisModel->getVersion();
+            return array ("type"=>"view", "view"=>"appVersion", "pageVars"=>$this->content); }
+        if (in_array($action, array("run-at-reboots")) && !in_array($action, $ignored_actions)) {
+            $this->content["params"] = $thisModel->params;
+            $this->content["appName"] = $thisModel->autopilotDefiner;
+            $this->content["appInstallResult"] = $thisModel->runAtReboots();
             return array ("type"=>"view", "view"=>"appVersion", "pageVars"=>$this->content); } }
 
      else if (!isset($thisModel)) {
