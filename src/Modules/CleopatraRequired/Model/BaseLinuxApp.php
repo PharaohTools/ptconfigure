@@ -15,7 +15,7 @@ class BaseLinuxApp extends Base {
         $this->populateCompletion();
     }
 
-    // @todo surely this can go its in every model. DEPRECATE
+    // @todo surely this can go its in every model nd basically pointless. DEPRECATE
     public function initialize() {
         $this->populateTitle();
     }
@@ -218,6 +218,21 @@ if not doing versions
         // $this->setInstallFlagStatus(false) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         $this->showCompletion();
         return true;
+    }
+
+    public function runAtReboots() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if (isset($this->serviceCommand)) {
+            if (!is_array($this->serviceCommand)) { $this->serviceCommand = array($this->serviceCommand) ; }
+            $serviceFactory = new Service();
+            $serviceManager = $serviceFactory->getModel($this->params) ;
+            foreach ($this->serviceCommand as $serviceCommand) {
+                $logging->log("Ensuring {$serviceCommand} Will Run at Reboots") ;
+                $serviceManager->setService($serviceCommand);
+                $serviceManager->runAtReboots(); } }
+        else {
+            $logging->log("This module does not report any services which can run at reboots") ; }
     }
 
     protected function showTitle() {
