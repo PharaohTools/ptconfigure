@@ -95,8 +95,10 @@ class ServiceUbuntu extends BaseLinuxApp {
     public function runAtReboots() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Starting {$this->serviceName} service") ;
-        $this->executeAndOutput("update-rc.d {$this->serviceName} defaults");
+        $logging->log("Removing current {$this->serviceName} service startup links") ;
+        $this->executeAndOutput("sudo update-rc.d -f {$this->serviceName} remove");
+        $logging->log("Adding {$this->serviceName} service startup links") ;
+        $this->executeAndOutput("sudo update-rc.d {$this->serviceName} defaults");
         return true ;
     }
 
