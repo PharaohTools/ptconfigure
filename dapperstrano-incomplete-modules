@@ -1,6 +1,41 @@
 Dapperstrano Incomplete Modules
 -------------------------------------
 
+/opt/dapperstrano/dapperstrano/src/Bootstrap.php
+line 8
+// @todo document this feature that allows a user to provide a json envoronment variable of parameters
+
+/opt/dapperstrano/dapperstrano/src/Core/Base/Controller/Base.php
+// @todo child controllers should specify this
+This is a massive method that specifies what to do as default actions .
+The method is too big, and this should nt be specified in core. This should be specified in the XXXRequired of
+an application, so, we copy this into CleopatraRequired, DapperstranoRequired, TestingkamenRequired etc
+line 114 // @todo we should be able to specify an alias as well as a module
+In an autopilot file we call modules by their exact name. since we have aliases we should be able to use them
+The below line needs to find whatever logic get alias from modulename and use that instead of module = currentKey
+So, it should look like:
+module = getModuleNameFromAliasIfNeeded($currentKey);
+
+
+/opt/dapperstrano/dapperstrano/src/Core/Base/Info/Base.php
+line 16 // @todo some app settings class should contain this instead, so an individual pyramid app can specify those
+this should nt be specified in core. This should be specified in the XXXRequired of
+an application, so, we copy this into CleopatraRequired, DapperstranoRequired, TestingkamenRequired etc
+
+
+
+
+
+
+
+
+
+
+--------------------------
+Below is all in trello
+--------------------------
+
+
 ModelGroups should be more modular.
 
 Dapperfy must use templateing like clefoy does
