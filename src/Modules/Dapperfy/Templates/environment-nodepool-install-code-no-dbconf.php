@@ -67,9 +67,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array("log-message" => "Our deployment is done" ), ), ),
             );
 
-
     }
-
 
     private function setTime() {
         $this->time = time() ;
@@ -84,8 +82,8 @@ class AutoPilotConfigured extends AutoPilot {
             <<<'TEMPLATE'
  NameVirtualHost ****IP ADDRESS****:80
  <VirtualHost ****IP ADDRESS****:80>
-   ServerAdmin webmaster@localhost
- 	ServerName ****SERVER NAME****
+    ServerAdmin webmaster@localhost
+ 	ServerName ****IP ADDRESS****
  	DocumentRoot ****WEB ROOT****/src
  	<Directory ****WEB ROOT****/src>
  		Options Indexes FollowSymLinks MultiViews
@@ -100,7 +98,7 @@ class AutoPilotConfigured extends AutoPilot {
  NameVirtualHost ****IP ADDRESS****:443
  <VirtualHost ****IP ADDRESS****:443>
  	 ServerAdmin webmaster@localhost
- 	 ServerName ****SERVER NAME****
+ 	 ServerName ****IP ADDRESS****
  	 DocumentRoot ****WEB ROOT****/src
    # SSLEngine on
  	 # SSLCertificateFile /etc/apache2/ssl/ssl.crt
