@@ -67,6 +67,7 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
                 "unzip -o chromedriver_linux{$arch}.zip",
                 'echo \'PATH=$PATH:/opt/chromedriver\' >> /etc/profile',
                 'echo \'export PATH\' >> /etc/profile',
+                'echo \'export PATH\' >> /etc/bash.bashrc',
                 '. /etc/profile'
               ) ;
         $this->executeAsShell($comms) ;
