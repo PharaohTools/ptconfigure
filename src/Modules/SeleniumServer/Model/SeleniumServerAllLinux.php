@@ -57,15 +57,32 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
 
     public function doInstallCommands() {
         $comms = array(
-                "cd /tmp" ,
-                "mkdir -p /tmp/selenium" ,
-                "cd /tmp/selenium" ,
-                "wget http://selenium-release.storage.googleapis.com/{$this->sv}/selenium-server-standalone-{$this->sv}.0.jar",
-                "mkdir -p {$this->programDataFolder}",
-                "mv /tmp/selenium/* {$this->programDataFolder}",
-                "rm -rf /tmp/selenium/",
-                "cd {$this->programDataFolder}",
-                "mv selenium-server-standalone-{$this->sv}.0.jar selenium-server.jar" ) ;
+            "cd /tmp" ,
+            "mkdir -p /tmp/selenium" ,
+            "cd /tmp/selenium" ,
+            "wget http://selenium-release.storage.googleapis.com/{$this->sv}/selenium-server-standalone-{$this->sv}.0.jar",
+            "mkdir -p {$this->programDataFolder}",
+            "mv /tmp/selenium/* {$this->programDataFolder}",
+            "rm -rf /tmp/selenium/",
+            "cd {$this->programDataFolder}",
+            "mv selenium-server-standalone-{$this->sv}.0.jar selenium-server.jar" ) ;
+        $this->executeAsShell($comms) ;
+    }
+
+    public function startSelenium() {
+        $silentFlag = (isset($this->params["silent"])) ? " &" : "" ;
+        if (isset($this->params["with-chrome-driver"])) {
+            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver" : "" ;
+            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
+            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
+            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
+        else {
+            $cdFlag = "" ; }
+        $comms = array(
+            'java -jar ' . $this->programDataFolder . "/selenium-server.jar {$cdFlag}{$silentFlag}",
+            "rm -rf /tmp/selenium/",
+            "cd {$this->programDataFolder}",
+            "mv selenium-server-standalone-{$this->sv}.0.jar selenium-server.jar" ) ;
         $this->executeAsShell($comms) ;
     }
 
@@ -81,6 +98,10 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
             return self::askForArrayOption($question, $ao, true); }
     }
 
+    protected function askForChromeDriverPath(){
+        $question = 'Enter Chrome Driver Version';
+        return self::askForInput($question, true);
+    }
 
     public function versionInstalledCommandTrimmer($text) {
         $done = str_replace("\n", "", $text) ;
