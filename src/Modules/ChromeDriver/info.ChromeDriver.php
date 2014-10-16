@@ -17,8 +17,8 @@ class ChromeDriverInfo extends CleopatraBase {
   }
 
   public function routeAliases() {
-    return array("chromedriver-server"=>"ChromeDriver", "chromedriver"=>"ChromeDriver",
-      "chromedriver-srv"=>"ChromeDriver", "chromedriverserver"=>"ChromeDriver");
+    return array("chrome-driver"=>"ChromeDriver", "chromedriver"=>"ChromeDriver",
+      "chromedriver-server"=>"ChromeDriver", "chromedriverserver"=>"ChromeDriver");
   }
 
   public function helpDefinition() {
