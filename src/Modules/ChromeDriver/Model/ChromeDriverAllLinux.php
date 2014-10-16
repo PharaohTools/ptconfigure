@@ -62,7 +62,7 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
                 "mv /tmp/chromedriver/* {$this->programDataFolder}",
                 "rm -rf /tmp/chromedriver/",
                 "cd {$this->programDataFolder}",
-                "unzip chromedriver_linux{$arch}.zip -o",
+                "unzip -o chromedriver_linux{$arch}.zip",
                 'echo \'PATH=$PATH:/opt/chromedriver\' >> /etc/profile',
                 'echo \'export PATH\' >> /etc/profile',
                 '. /etc/profile'
