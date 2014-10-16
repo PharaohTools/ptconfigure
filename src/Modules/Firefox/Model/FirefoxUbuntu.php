@@ -34,13 +34,6 @@ class FirefoxUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function apacheRestart() {
-        $serviceFactory = new Service();
-        $serviceManager = $serviceFactory->getModel($this->params) ;
-        $serviceManager->setService("apache2");
-        $serviceManager->restart();
-    }
-
     public function versionInstalledCommandTrimmer($text) {
         $candidateStarts = strpos($text, "Installed: ") ;
         $candidateEnds = $candidateStarts + 11 ;
