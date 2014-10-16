@@ -223,13 +223,13 @@ if not doing versions
     public function runAtReboots() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (isset($this->serviceCommand)) {
-            if (!is_array($this->serviceCommand)) { $this->serviceCommand = array($this->serviceCommand) ; }
+        if (isset($this->rebootsCommand)) {
+            if (!is_array($this->rebootsCommand)) { $this->rebootsCommand = array($this->rebootsCommand) ; }
             $serviceFactory = new Service();
             $serviceManager = $serviceFactory->getModel($this->params) ;
-            foreach ($this->serviceCommand as $serviceCommand) {
-                $logging->log("Ensuring {$serviceCommand} Will Run at Reboots") ;
-                $serviceManager->setService($serviceCommand);
+            foreach ($this->rebootsCommand as $rebootsCommand) {
+                $logging->log("Ensuring {$rebootsCommand} Will Run at Reboots") ;
+                $serviceManager->setService($rebootsCommand);
                 $serviceManager->runAtReboots(); } }
         else {
             $logging->log("This module does not report any services which can run at reboots") ; }
