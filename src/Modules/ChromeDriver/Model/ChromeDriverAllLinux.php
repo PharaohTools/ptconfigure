@@ -41,9 +41,6 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
     public function executeDependencies() {
         $tempVersion = $this->params["version"] ;
         unset($this->params["version"]) ;
-        $gitToolsFactory = new \Model\GitTools($this->params);
-        $gitTools = $gitToolsFactory->getModel($this->params);
-        $gitTools->ensureInstalled();
         $javaFactory = new \Model\Java();
         $java = $javaFactory->getModel($this->params);
         $java->ensureInstalled();
