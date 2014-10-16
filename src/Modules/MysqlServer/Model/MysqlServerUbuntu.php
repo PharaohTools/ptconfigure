@@ -53,17 +53,17 @@ class MysqlServerUbuntu extends BaseLinuxApp {
     }
 
     public function versionInstalledCommandTrimmer($text) {
-        $done = substr($text, 24, 17) ;
+        $done = substr($text, 27, 23) ;
         return $done ;
     }
 
     public function versionLatestCommandTrimmer($text) {
-        $done = substr($text, 47, 17) ;
+        $done = substr($text, 64, 23) ;
         return $done ;
     }
 
     public function versionRecommendedCommandTrimmer($text) {
-        $done = substr($text, 47, 17) ;
+        $done = substr($text, 64, 23) ;
         return $done ;
     }
 
