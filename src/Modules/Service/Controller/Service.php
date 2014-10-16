@@ -22,6 +22,9 @@ class Service extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"service", "pageVars"=>$this->content); }
 
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+
     }
 
 }
