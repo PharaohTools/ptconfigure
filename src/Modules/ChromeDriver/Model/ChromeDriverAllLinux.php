@@ -32,9 +32,9 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
         $this->programNameInstaller = "ChromeDriver Server";
         $this->statusCommand = "cat /usr/bin/chromedriver > /dev/null 2>&1";
         // @todo dont hardcode the installed version
-        $this->versionInstalledCommand = 'echo "2.43.0"' ;
-        $this->versionRecommendedCommand = 'echo "2.43.0"' ;
-        $this->versionLatestCommand = 'echo "2.43.0"' ;
+        $this->versionInstalledCommand = 'echo "2.9"' ;
+        $this->versionRecommendedCommand = 'echo "2.9"' ;
+        $this->versionLatestCommand = 'echo "2.9"' ;
         $this->initialize();
     }
 
