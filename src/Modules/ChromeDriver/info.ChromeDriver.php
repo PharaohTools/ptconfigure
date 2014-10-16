@@ -6,7 +6,7 @@ class ChromeDriverInfo extends CleopatraBase {
 
   public $hidden = false;
 
-  public $name = "The Selenium Web Browser controlling server";
+  public $name = "The Chrome Browser remote controlling server";
 
   public function __construct() {
     parent::__construct();
@@ -17,8 +17,8 @@ class ChromeDriverInfo extends CleopatraBase {
   }
 
   public function routeAliases() {
-    return array("selenium-server"=>"ChromeDriver", "selenium"=>"ChromeDriver",
-      "selenium-srv"=>"ChromeDriver", "seleniumserver"=>"ChromeDriver");
+    return array("chromedriver-server"=>"ChromeDriver", "chromedriver"=>"ChromeDriver",
+      "chromedriver-srv"=>"ChromeDriver", "chromedriverserver"=>"ChromeDriver");
   }
 
   public function helpDefinition() {
@@ -28,12 +28,12 @@ class ChromeDriverInfo extends CleopatraBase {
   installing on every box we have, client or server. These include curl,
   vim, drush and zip.
 
-  ChromeDriver, selenium-server, selenium, selenium-srv, seleniumserver
+  ChromeDriver, chromedriver-server, chromedriver, chromedriver-srv, chromedriverserver
 
         - install
         Installs ChromeDriver. Note, you'll also need Java installed
-        as it is a prerequisite for Selenium
-        example: cleopatra selenium install
+        as it is a prerequisite for ChromeDriver
+        example: cleopatra chromedriver install
 
 HELPDATA;
     return $help ;

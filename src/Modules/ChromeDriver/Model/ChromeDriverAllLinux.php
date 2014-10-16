@@ -20,7 +20,7 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "ChromeDriver";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "askForSeleniumVersion", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForChromeDriverVersion", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
@@ -28,14 +28,14 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
         );
         $this->uninstallCommands = array(
             array("command"=> array("rm -rf {$this->programDataFolder}")));
-        $this->programDataFolder = "/opt/selenium"; // command and app dir name
-        $this->programNameMachine = "selenium"; // command and app dir name
-        $this->programNameFriendly = "Selenium Srv"; // 12 chars
-        $this->programNameInstaller = "Selenium Server";
+        $this->programDataFolder = "/opt/chromedriver"; // command and app dir name
+        $this->programNameMachine = "chromedriver"; // command and app dir name
+        $this->programNameFriendly = "ChromeDriver Srv"; // 12 chars
+        $this->programNameInstaller = "ChromeDriver Server";
         $this->programExecutorFolder = "/usr/bin";
-        $this->programExecutorTargetPath = "selenium";
-        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/selenium-server.jar';
-        $this->statusCommand = "cat /usr/bin/selenium > /dev/null 2>&1";
+        $this->programExecutorTargetPath = "chromedriver";
+        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/chromedriver-server.jar';
+        $this->statusCommand = "cat /usr/bin/chromedriver > /dev/null 2>&1";
         // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.43.0"' ;
         $this->versionRecommendedCommand = 'echo "2.43.0"' ;
@@ -56,28 +56,32 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
     }
 
     public function doInstallCommands() {
+        $system = new \Model\SystemDetectionAllOS() ;
+        $arch = $system->architecture ;
         $comms = array(
                 "cd /tmp" ,
-                "mkdir -p /tmp/selenium" ,
-                "cd /tmp/selenium" ,
-                "wget http://selenium-release.storage.googleapis.com/{$this->sv}/selenium-server-standalone-{$this->sv}.0.jar",
+                "mkdir -p /tmp/chromedriver" ,
+                "cd /tmp/chromedriver" ,
+                "wget http://chromedriver.storage.googleapis.com/{$this->sv}/chromedriver_linux{$arch}.zip",
                 "mkdir -p {$this->programDataFolder}",
-                "mv /tmp/selenium/* {$this->programDataFolder}",
-                "rm -rf /tmp/selenium/",
+                "mv /tmp/chromedriver/* {$this->programDataFolder}",
+                "rm -rf /tmp/chromedriver/",
                 "cd {$this->programDataFolder}",
-                "mv selenium-server-standalone-{$this->sv}.0.jar selenium-server.jar" ) ;
+                "unzip chromedriver_linux{$arch}.zip",
+                // "mv chromedriver-server-standalone-{$this->sv}.0.jar chromedriver-server.jar"
+            ) ;
         $this->executeAsShell($comms) ;
     }
 
-    protected function askForSeleniumVersion(){
-        $ao = array("2.39", "2.40", "2.41", "2.42", "2.43") ;
+    protected function askForChromeDriverVersion(){
+        $ao = array("2.0", "2.10", "2.1", "2.11", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9" ) ;
         if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
             $this->sv = $this->params["version"] ; }
         else if (isset($this->params["guess"])) {
             $count = count($ao)-1 ;
             $this->sv = $ao[$count] ; }
         else {
-            $question = 'Enter Selenium Version';
+            $question = 'Enter Chrome Driver Version';
             return self::askForArrayOption($question, $ao, true); }
     }
 
