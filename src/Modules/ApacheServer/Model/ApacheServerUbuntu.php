@@ -31,6 +31,8 @@ class ApacheServerUbuntu extends BaseLinuxApp {
         $this->versionInstalledCommand = "sudo apt-cache policy apache2" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy apache2" ;
         $this->versionLatestCommand = "sudo apt-cache policy apache2" ;
+        $this->serviceCommand = "apache2" ;
+        $this->rebootsCommand = "apache2" ;
         $this->initialize();
     }
 
