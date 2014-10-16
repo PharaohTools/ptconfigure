@@ -23,18 +23,13 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForChromeDriverVersion", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("command"=> array("rm -rf {$this->programDataFolder}")));
         $this->programDataFolder = "/opt/chromedriver"; // command and app dir name
         $this->programNameMachine = "chromedriver"; // command and app dir name
-        $this->programNameFriendly = "ChromeDriver Srv"; // 12 chars
+        $this->programNameFriendly = "ChromeDriver"; // 12 chars
         $this->programNameInstaller = "ChromeDriver Server";
-        $this->programExecutorFolder = "/usr/bin";
-        $this->programExecutorTargetPath = "chromedriver";
-        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/chromedriver-server.jar';
         $this->statusCommand = "cat /usr/bin/chromedriver > /dev/null 2>&1";
         // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.43.0"' ;
@@ -68,8 +63,10 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
                 "rm -rf /tmp/chromedriver/",
                 "cd {$this->programDataFolder}",
                 "unzip chromedriver_linux{$arch}.zip",
-                // "mv chromedriver-server-standalone-{$this->sv}.0.jar chromedriver-server.jar"
-            ) ;
+                'echo \'PATH=$PATH:/opt/chromedriver\' >> /etc/profile',
+                'echo \'export PATH\' >> /etc/profile',
+                '. /etc/profile'
+              ) ;
         $this->executeAsShell($comms) ;
     }
 
