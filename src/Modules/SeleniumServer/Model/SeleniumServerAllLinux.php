@@ -34,7 +34,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         $this->programNameInstaller = "Selenium Server";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "selenium";
-        $this->programExecutorCommand = 'java -jar ' . $this->programDataFolder . '/selenium-server.jar';
+        $this->programExecutorCommand = $this->getExecutorCommand();
         $this->statusCommand = "cat /usr/bin/selenium > /dev/null 2>&1";
         // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.43.0"' ;
@@ -79,11 +79,19 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         else {
             $cdFlag = "" ; }
         $comms = array(
-            'java -jar ' . $this->programDataFolder . "/selenium-server.jar {$cdFlag}{$silentFlag}",
-            "rm -rf /tmp/selenium/",
-            "cd {$this->programDataFolder}",
-            "mv selenium-server-standalone-{$this->sv}.0.jar selenium-server.jar" ) ;
+            'java -jar ' . $this->programDataFolder . "/selenium-server.jar {$cdFlag}{$silentFlag}") ;
         $this->executeAsShell($comms) ;
+    }
+
+    public function getExecutorCommand() {
+        if (isset($this->params["with-chrome-driver"])) {
+            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver" : "" ;
+            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
+            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
+            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
+        else {
+            $cdFlag = "" ; }
+        return 'java -jar ' . $this->programDataFolder . "/selenium-server.jar {$cdFlag}" ;
     }
 
     protected function askForSeleniumVersion(){
