@@ -28,9 +28,9 @@ class ChromeUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "google-chrome-stable")) ), );
         $this->programDataFolder = "/opt/Chrome"; // command and app dir name
         $this->programNameMachine = "google-chrome-stable"; // command and app dir name
-        $this->programNameFriendly = "Chrome!"; // 12 chars
+        $this->programNameFriendly = "GoogleChrome"; // 12 chars
         $this->programNameInstaller = "Chrome";
-        $this->statusCommand = "chrome -v" ;
+        $this->statusCommand = "google-chrome-stable -v" ;
         $this->versionInstalledCommand = "sudo apt-cache policy google-chrome-stable" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy google-chrome-stable" ;
         $this->versionLatestCommand = "sudo apt-cache policy google-chrome-stable" ;
