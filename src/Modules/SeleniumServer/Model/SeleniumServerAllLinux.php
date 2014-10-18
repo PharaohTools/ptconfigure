@@ -72,7 +72,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
     public function startSelenium() {
         $silentFlag = (isset($this->params["silent"])) ? " &" : "" ;
         if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver" : "" ;
+            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedsriver" : "" ;
             $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
             if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
             $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
@@ -85,7 +85,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
 
     public function getExecutorCommand() {
         if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver" : "" ;
+            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedsriver" : "" ;
             $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
             if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
             $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
