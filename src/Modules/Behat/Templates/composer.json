@@ -2,9 +2,10 @@
     "require": {
         "behat/behat": "~2.5",
         "behat/mink": "~1.6",
-        "behat/mink-extension": "~1.1",
-        "behat/mink-goutte-driver": "~1.1",
-        "behat/mink-selenium2-driver": "~1.2"
+        "behat/mink-extension": "1.3.2",
+        "behat/mink-goutte-driver": "1.1.0",
+        "behat/mink-selenium2-driver": "~1.2",
+        "guzzle/http": "*"
     },
     "minimum-stability": "stable",
     "config": {
