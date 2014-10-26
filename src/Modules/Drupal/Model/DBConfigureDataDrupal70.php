@@ -38,7 +38,7 @@ class DBConfigureDataDrupal70 extends DBConfigureAllOS {
     }
 
     public function __call($var1, $var2){
-        return null();
+        return "" ; // @todo what even is this
     }
 
 

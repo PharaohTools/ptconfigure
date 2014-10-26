@@ -41,7 +41,7 @@ class DBConfigureDataJoomla30 extends Base {
     }
 
     public function __call($var1, $var2){
-        return null();
+        return "" ; // @todo what even is this
     }
 
     private function setReplacements(){
@@ -50,7 +50,6 @@ class DBConfigureDataJoomla30 extends Base {
             'public $user ' => '  public $user = "****DB USER****";',
             'public $password ' => '  public $password = "****DB PASS****";',
             'public $host ' => '  public $host = "****DB HOST****";',
-            'public $log_path ' => '  public $log_path = "'.getcwd().'/src/logsy";'
         );
     }
 
