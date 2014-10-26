@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class DBConfigure extends BaseModelFactory {
+class CMSConfigure extends BaseModelFactory {
 
 }

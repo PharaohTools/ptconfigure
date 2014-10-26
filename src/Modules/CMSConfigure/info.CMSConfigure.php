@@ -2,18 +2,18 @@
 
 Namespace Info;
 
-class DBConfigureInfo extends Base {
+class CMSConfigureInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Database Connection Configuration Functions";
+    public $name = "CMS Configuration Functions";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "DBConfigure" => array_merge(
+      return array( "CMSConfigure" => array_merge(
           parent::routesAvailable(),
           array("configure", "config", "conf", "reset"),
           $this->getExtraRoutes()
@@ -21,7 +21,7 @@ class DBConfigureInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("dbconfigure"=>"DBConfigure", "db-configure"=>"DBConfigure", "db-conf"=>"DBConfigure");
+      return array("cmsconfigure"=>"CMSConfigure", "cms-configure"=>"CMSConfigure", "cms-conf"=>"CMSConfigure");
     }
 
     public function helpDefinition() {
@@ -29,17 +29,17 @@ class DBConfigureInfo extends Base {
         $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Databasing Functions.
 
-  DBConfigure, db-configure, dbconfigure, db-conf
+  CMSConfigure, cms-configure, cmsconfigure, cms-conf
 
       - configure, conf
       set up db user & pw for a project, use admins to create new resources as needed.
-      example: dapperstrano db-conf conf drupal
-      example: dapperstrano db-conf conf --yes --platform=joomla30 --mysql-host=127.0.0.1 --mysql-admin-user="" --mysql-user="impi_dv_user" --mysql-pass="impi_dv_pass" --mysql-db="impi_dv_db"
+      example: dapperstrano cms-conf conf joomla
+      example: dapperstrano cms-conf conf --yes --platform=joomla30 --mysql-host=127.0.0.1 --mysql-admin-user=""
 
       - reset
       reset current db to generic values so dapperstrano can write them. may need to be run before db conf.
-      example: dapperstrano db-conf reset drupal
-      example: dapperstrano db-conf reset --yes --platform=joomla30
+      example: dapperstrano cms-conf reset drupal
+      example: dapperstrano cms-conf reset --yes --platform=joomla30
 
       $extraHelp
 HELPDATA;
@@ -53,9 +53,9 @@ HELPDATA;
         foreach ($infos as $info) {
             if (method_exists($info, "helpDefinitions")) {
                 $defNames = array_keys($info->helpDefinitions());
-                if (in_array("DBConfigure", $defNames)) {
+                if (in_array("CMSConfigure", $defNames)) {
                     $defs = $info->helpDefinitions() ;
-                    $thisDef = $defs["DBConfigure"] ;
+                    $thisDef = $defs["CMSConfigure"] ;
                     $extraDefsText .= $thisDef ; } } }
         return $extraDefsText ;
     }
@@ -64,8 +64,8 @@ HELPDATA;
         $extraActions = array() ;
         $infos = \Core\AutoLoader::getInfoObjects() ;
         foreach ($infos as $info) {
-            if (method_exists($info, "dbConfigureActions")) {
-                $extraActions = array_merge($extraActions, $info->dbConfigureActions()); } }
+            if (method_exists($info, "cmsConfigureActions")) {
+                $extraActions = array_merge($extraActions, $info->cmsConfigureActions()); } }
         return $extraActions ;
     }
 

@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DBConfigureDataGCFW2 extends Base {
+class CMSConfigureDataGCFW2 extends Base {
 
     private $settingsFileLocation = 'src/Core'; // no trail slash
     private $settingsFileName = 'Database.php';
@@ -29,7 +29,6 @@ class DBConfigureDataGCFW2 extends Base {
             '$this->dbUser =' => '            $this->dbUser = "****DB USER****" ; // ****DBUSERHOLDER****',
             '$this->dbPass =' => '            $this->dbPass = "****DB PASS****" ; // ****DBPASSHOLDER****',
             '$this->dbHost =' => '            $this->dbHost = "****DB HOST****" ; // ****DBHOSTHOLDER****');
-
     }
 
     private function setExtraConfigReplacements(){
@@ -38,7 +37,6 @@ class DBConfigureDataGCFW2 extends Base {
             '$bootstrapDbUser =' => '$bootstrapDbUser = "****DB USER****" ; ',
             '$bootstrapDbPass =' => '$bootstrapDbPass = "****DB PASS****" ; ',
             '$bootstrapDbHost =' => '$bootstrapDbHost = "****DB HOST****" ; ');
-
     }
 
 }

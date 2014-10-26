@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DBConfigureAllOS extends Base {
+class CMSConfigureAllOS extends Base {
 
     // Compatibility
     public $os = array("any") ;
@@ -75,7 +75,7 @@ class DBConfigureAllOS extends Base {
         if ($platformVars != null) {
             $this->platformVars = $platformVars; }
         else if ($this->platformVars == null) {
-            $this->platformVars = new \Model\DBConfigureDataGCFW2(); }
+            $this->platformVars = new \Model\CMSConfigureDataGCFW2(); }
         return;
     }
 

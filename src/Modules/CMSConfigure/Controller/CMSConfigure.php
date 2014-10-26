@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class DBConfigure extends Base {
+class CMSConfigure extends Base {
 
     public function execute($pageVars) {
 
@@ -10,7 +10,7 @@ class DBConfigure extends Base {
 
         $otherModuleExecutor = $this->getExecutorForAction($action);
         if (!is_null($otherModuleExecutor)) {
-            return $otherModuleExecutor->executeDBConfigure($pageVars) ; }
+            return $otherModuleExecutor->executeCMSConfigure($pageVars) ; }
 
         $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
         // if we don't have an object, its an array of errors
@@ -32,10 +32,10 @@ class DBConfigure extends Base {
     protected function getExecutorForAction($action) {
         $controllers = \Core\AutoLoader::getAllControllers() ;
         foreach ($controllers as $controller) {
-            if (method_exists($controller, "executeDBConfigure"))
+            if (method_exists($controller, "executeCMSConfigure"))
                 $info = \Core\AutoLoader::getSingleInfoObject(substr(get_class($controller), 11)) ;
-            $myDBConfigureRoutes = (isset($info) && method_exists($info, "dbConfigureActions")) ? $info->dbConfigureActions() : array() ;
-            if (in_array($action, $myDBConfigureRoutes)) {
+            $myCMSConfigureRoutes = (isset($info) && method_exists($info, "cmsConfigureActions")) ? $info->cmsConfigureActions() : array() ;
+            if (in_array($action, $myCMSConfigureRoutes)) {
                 return $controller ; } }
         return null ;
     }
