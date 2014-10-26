@@ -49,7 +49,9 @@ class DBConfigureDataJoomla30 extends Base {
             'public $db ' => '  public $db = "****DB NAME****";',
             'public $user ' => '  public $user = "****DB USER****";',
             'public $password ' => '  public $password = "****DB PASS****";',
-            'public $host ' => '  public $host = "****DB HOST****";');
+            'public $host ' => '  public $host = "****DB HOST****";',
+            'public $log_path ' => '  public $log_path = "'.getcwd().'/src/logsy";'
+        );
     }
 
     private function setExtraConfigReplacements(){
