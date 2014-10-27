@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BaseTemplater extends BaseTestInit {
+class BaseTemplater extends Base {
 
     protected $replacements ;
     protected $templateFile ;
