@@ -2,33 +2,37 @@
 
 Namespace Info;
 
-class JenkinsInfo extends CleopatraBase {
+class HHVMInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Jenkins - The Java Build Server";
+    public $name = "HHVM - The PHP Virtual Machine runtime from Facebook";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Jenkins" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "HHVM" =>  array_merge(parent::routesAvailable(), array() ) );
     }
 
     public function routeAliases() {
-      return array("jenkins"=>"Jenkins");
+      return array("hhvm"=>"HHVM");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Jenkins, the popular Build Server.
+  This command allows you to install HHVM, the popular Build Server.
 
-  Jenkins, jenkins
+  HHVM, hhvm
 
         - install
-        Installs Jenkins through apt-get
-        example: cleopatra jenkins install
+        Installs HHVM through package manager
+        example: cleopatra hhvm install
+
+        - uninstall
+        Uninstalls HHVM through package manager
+        example: cleopatra hhvm uninstall
 
 HELPDATA;
       return $help ;

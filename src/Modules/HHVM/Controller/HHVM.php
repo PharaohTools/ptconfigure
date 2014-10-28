@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class Jenkins extends Base {
+class HHVM extends Base {
 
 }

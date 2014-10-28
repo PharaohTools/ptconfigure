@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Jenkins extends BaseModelFactory {
+class HHVM extends BaseModelFactory {
 
 }
