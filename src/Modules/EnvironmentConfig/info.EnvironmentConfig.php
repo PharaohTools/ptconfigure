@@ -35,6 +35,10 @@ class EnvironmentConfigInfo extends CleopatraBase {
         List current environments
         example: cleopatra envconfig list --yes
 
+        - list-local
+        List current local environments
+        example: cleopatra envconfig list-local --yes
+
         - configure, config
         Configure bespoke environments for your project to use
         example: cleopatra envconfig config
