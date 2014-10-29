@@ -18,6 +18,10 @@ class EnvironmentConfig extends Base {
             $this->content["result"] = $thisModel->askWhetherToListEnvironments();
             return array ("type"=>"view", "view"=>"environmentConfigList", "pageVars"=>$this->content); }
 
+        if ($action=="list-local") {
+            $this->content["result"] = $thisModel->askWhetherToListLocalEnvironments();
+            return array ("type"=>"view", "view"=>"environmentConfigList", "pageVars"=>$this->content); }
+
         if ($action=="configure" || $action=="config") {
             $this->content["result"] = $thisModel->askWhetherToEnvironmentConfig();
             return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
