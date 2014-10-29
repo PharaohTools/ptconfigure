@@ -14,7 +14,7 @@ class EnvironmentConfigInfo extends CleopatraBase {
 
     public function routesAvailable() {
       return array( "EnvironmentConfig" =>  array_merge(parent::routesAvailable(), array(
-          "list", "configure", "config", "delete", "del", "configure-default", "config-default") ) );
+          "list", "list-local", "configure", "config", "delete", "del", "configure-default", "config-default") ) );
     }
 
     public function routeAliases() {
