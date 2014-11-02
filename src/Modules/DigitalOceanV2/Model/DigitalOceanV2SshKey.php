@@ -20,8 +20,7 @@ class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
 
     public function performDigitalOceanV2SaveSshKey($params=null){
         if ($this->askForSSHKeyExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanV2APIKey();
-        $this->clientId = $this->askForDigitalOceanV2ClientID();
+        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
         $fileLocation = $this->askForSSHKeyPublicFileLocation();
         $fileData = file_get_contents($fileLocation);
         $keyName = $this->askForSSHKeyNameForDigitalOceanV2();
@@ -53,8 +52,9 @@ class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
         $keyData = str_replace("\n", "", $keyData);
         $callVars["ssh_pub_key"] = urlencode($keyData);
         $callVars["name"] = $keyName;
-        $curlUrl = "https://api.digitalocean.com/v1/ssh_keys/new" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl);
+        $curlUrl = "https://api.digitalocean.com/v2/ssh_keys/new" ;
+        $httpType = "POST" ;
+        return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
     }
 
 }

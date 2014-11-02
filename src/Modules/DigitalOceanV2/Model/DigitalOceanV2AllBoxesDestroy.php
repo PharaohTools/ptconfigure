@@ -16,9 +16,7 @@ class DigitalOceanV2AllBoxesDestroy extends BaseDigitalOceanV2AllOS {
 
     public function destroyAllBoxes() {
         if ($this->askForOverwriteExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanV2APIKey();
-        $this->clientId = $this->askForDigitalOceanV2ClientID();
-
+        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
         $doFactory = new \Model\DigitalOceanV2();
         $listParams = array("yes" => true, "guess" => true, "digital-ocean-v2-list-data-type" => "droplets") ;
         $doListing = $doFactory->getModel($listParams, "Listing") ;
@@ -40,7 +38,7 @@ class DigitalOceanV2AllBoxesDestroy extends BaseDigitalOceanV2AllOS {
     private function destroyServerFromDigitalOceanV2($serverData) {
         $callVars = array() ;
         $callVars["droplet_id"] = $serverData["dropletID"];
-        $curlUrl = "https://api.digitalocean.com/v1/droplets/{$callVars["droplet_id"]}/destroy" ;
+        $curlUrl = "https://api.digitalocean.com/v2/droplets/{$callVars["droplet_id"]}/destroy" ;
         $callOut = $this->digitalOceanV2Call($callVars, $curlUrl);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);

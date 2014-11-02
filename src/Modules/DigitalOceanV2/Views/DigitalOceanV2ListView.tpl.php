@@ -9,16 +9,25 @@ if (is_object($pageVars["digiOceanV2Result"]) || is_array($pageVars["digiOceanV2
             foreach($arrayObjectValue as $dropletEntry) {
                 $outVar .= "id - ".$dropletEntry->id.", ";
                 $outVar .= "name - ".$dropletEntry->name.", ";
-                $outVar .= "image_id - ".$dropletEntry->image_id.", ";
-                $outVar .= "size_id - ".$dropletEntry->size_id.", ";
-                $outVar .= "region_id - ".$dropletEntry->region_id.", ";
-                $outVar .= "backups_active - ".$dropletEntry->backups_active.", ";
-                $outVar .= "ip_address - ".$dropletEntry->ip_address.", ";
-                $outVar .= "private_ip_address - ".$dropletEntry->private_ip_address.", ";
-                $outVar .= "locked - ".$dropletEntry->locked.", ";
+                $outVar .= "image_id - ".$dropletEntry->image->id.", ";
+                $outVar .= "size_id - ".$dropletEntry->size_slug.", ";
+                $outVar .= "region_id - ".$dropletEntry->region->slug.", ";
+                $ba = (isset($dropletEntry->backups_ids) && count($dropletEntry->backups_ids)>0) ?  "Yes" : "No" ;
+                $outVar .= "backups_active - ".$ba.", ";
+
+                foreach ($dropletEntry->networks->v4 as $v4ip) {
+                    if ($v4ip->type == "public") {
+                        $outVar .= "public_ip_address - ".$v4ip->ip_address.", "; } }
+
+                foreach ($dropletEntry->networks->v4 as $v4ip) {
+                    if ($v4ip->type == "private") {
+                        $outVar .= "private_ip_address - ".$v4ip->ip_address.", "; } }
+
+                $lck = ($dropletEntry->locked ==true) ?  "Yes" : "No" ;
+                $outVar .= "locked - ".$lck.", ";
                 $outVar .= "status - ".$dropletEntry->status.", ";
                 $outVar .= "created_at - ".$dropletEntry->created_at;
-                $outVar .= "\n" ; } }
+                $outVar .= "\n\n" ; } }
         else if ($arrayObjectKey == "sizes") {
             foreach($arrayObjectValue as $sizeEntry) {
                 $outVar .= "id - ".$sizeEntry->id.", ";
@@ -57,7 +66,7 @@ if (is_object($pageVars["digiOceanV2Result"]) || is_array($pageVars["digiOceanV2
                 $outVar .= "id - ".$sshKeyEntry->id.", ";
                 $outVar .= "name - ".$sshKeyEntry->name ;
                 $outVar .= "\n" ; } }
-        echo $arrayObjectKey.":\n";
+        echo $arrayObjectKey.":\n\n";
         echo $outVar."\n" ; } }
 else {
     echo "There was a problem listing Data. No results were found"; }

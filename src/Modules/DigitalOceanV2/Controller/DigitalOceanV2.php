@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class DigitalOceanV2V2 extends Base {
+class DigitalOceanV2 extends Base {
 
     public function execute($pageVars) {
 

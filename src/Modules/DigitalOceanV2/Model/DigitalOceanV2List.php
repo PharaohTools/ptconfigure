@@ -24,8 +24,7 @@ class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
 
     protected function performDigitalOceanV2ListData(){
         if ($this->askForListExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanV2APIKey();
-        $this->clientId = $this->askForDigitalOceanV2ClientID();
+        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
         $dataToList = $this->askForDataTypeToList();
         return $this->getDataListFromDigitalOceanV2($dataToList);
     }
@@ -47,8 +46,9 @@ class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
 
     public function getDataListFromDigitalOceanV2($dataToList){
         $callVars = array();
-        $curlUrl = "https://api.digitalocean.com/v1/$dataToList/" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl);
+        $curlUrl = "https://api.digitalocean.com/v2/$dataToList/" ;
+        $httpType = "GET" ;
+        return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
     }
 
 }

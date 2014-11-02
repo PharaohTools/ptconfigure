@@ -20,8 +20,7 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
 
     public function performDigitalOceanV2OverwriteNew($params=null){
         if ($this->askForOverwriteExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanV2APIKey();
-        $this->clientId = $this->askForDigitalOceanV2ClientID();
+        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $serverPrefix = $this->getServerPrefix();
         foreach ($environments as $environment) {
@@ -74,7 +73,7 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
 
     private function getNewServerFromDigitalOceanV2($serverData){
         $callVars = (array) $this->getNewServerCallVarsFromData($serverData) ;
-        $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
+        $curlUrl = "https://api.digitalocean.com/v2/droplets/new" ;
         return $this->digitalOceanV2Call($callVars, $curlUrl);
     }
 
@@ -90,12 +89,12 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
         $callVars["image_id"] = $serverData["imageID"];
         $callVars["region_id"] = $serverData["regionID"];
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
-        $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
+        $curlUrl = "https://api.digitalocean.com/v2/droplets/new" ;
         return $this->digitalOceanV2Call($callVars, $curlUrl);
     }
 
     private function getAllSshKeyIdsString(){
-        $curlUrl = "https://api.digitalocean.com/v1/ssh_keys" ;
+        $curlUrl = "https://api.digitalocean.com/v2/ssh_keys" ;
         $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
         $keysString = "";
         for ($i=0; $i<count($sshKeysObject->ssh_keys); $i++) {
