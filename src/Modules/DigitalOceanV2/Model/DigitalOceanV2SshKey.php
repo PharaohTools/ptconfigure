@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanSshKey extends BaseDigitalOceanAllOS {
+class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -15,17 +15,17 @@ class DigitalOceanSshKey extends BaseDigitalOceanAllOS {
     public $modelGroup = array("SshKey") ;
 
     public function askWhetherToSaveSshKey($params=null) {
-        return $this->performDigitalOceanSaveSshKey($params);
+        return $this->performDigitalOceanV2SaveSshKey($params);
     }
 
-    public function performDigitalOceanSaveSshKey($params=null){
+    public function performDigitalOceanV2SaveSshKey($params=null){
         if ($this->askForSSHKeyExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanAPIKey();
-        $this->clientId = $this->askForDigitalOceanClientID();
+        $this->apiKey = $this->askForDigitalOceanV2APIKey();
+        $this->clientId = $this->askForDigitalOceanV2ClientID();
         $fileLocation = $this->askForSSHKeyPublicFileLocation();
         $fileData = file_get_contents($fileLocation);
-        $keyName = $this->askForSSHKeyNameForDigitalOcean();
-        return $this->saveSshKeyToDigitalOcean($fileData, $keyName);
+        $keyName = $this->askForSSHKeyNameForDigitalOceanV2();
+        return $this->saveSshKeyToDigitalOceanV2($fileData, $keyName);
     }
 
     private function askForSSHKeyExecute(){
@@ -35,26 +35,26 @@ class DigitalOceanSshKey extends BaseDigitalOceanAllOS {
     }
 
     private function askForSSHKeyPublicFileLocation() {
-        if (isset($this->params["digital-ocean-ssh-key-path"]) && $this->params["digital-ocean-ssh-key-path"]==true) {
-            return $this->params["digital-ocean-ssh-key-path"] ; }
+        if (isset($this->params["digital-ocean-v2-ssh-key-path"]) && $this->params["digital-ocean-v2-ssh-key-path"]==true) {
+            return $this->params["digital-ocean-v2-ssh-key-path"] ; }
         $question = 'Enter Location of ssh public key file to upload';
         return self::askForInput($question, true);
     }
 
-    private function askForSSHKeyNameForDigitalOcean(){
-        if (isset($this->params["digital-ocean-ssh-key-name"]) && $this->params["digital-ocean-ssh-key-name"]==true) {
-            return $this->params["digital-ocean-ssh-key-name"] ; }
+    private function askForSSHKeyNameForDigitalOceanV2(){
+        if (isset($this->params["digital-ocean-v2-ssh-key-name"]) && $this->params["digital-ocean-v2-ssh-key-name"]==true) {
+            return $this->params["digital-ocean-v2-ssh-key-name"] ; }
         $question = 'Enter name to store ssh key under on Digital Ocean';
         return self::askForInput($question, true);
     }
 
-    public function saveSshKeyToDigitalOcean($keyData, $keyName){
+    public function saveSshKeyToDigitalOceanV2($keyData, $keyName){
         $callVars = array();
         $keyData = str_replace("\n", "", $keyData);
         $callVars["ssh_pub_key"] = urlencode($keyData);
         $callVars["name"] = $keyName;
         $curlUrl = "https://api.digitalocean.com/v1/ssh_keys/new" ;
-        return $this->digitalOceanCall($callVars, $curlUrl);
+        return $this->digitalOceanV2Call($callVars, $curlUrl);
     }
 
 }

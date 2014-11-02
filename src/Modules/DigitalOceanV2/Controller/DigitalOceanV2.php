@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class DigitalOcean extends Base {
+class DigitalOceanV2V2 extends Base {
 
     public function execute($pageVars) {
 
@@ -16,40 +16,40 @@ class DigitalOcean extends Base {
         if ($action=="box-add") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxAdd") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanResult"] = $thisModel->addBox();
-            return array ("type"=>"view", "view"=>"digitalOceanAPI", "pageVars"=>$this->content); }
+            $this->content["digiOceanV2Result"] = $thisModel->addBox();
+            return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="box-remove") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxRemove") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
             if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
-            $this->content["digiOceanResult"] = $thisModel->askWhetherToSaveOverwriteCurrent();
-            return array ("type"=>"view", "view"=>"digitalOceanAPI", "pageVars"=>$this->content); }
+            $this->content["digiOceanV2Result"] = $thisModel->askWhetherToSaveOverwriteCurrent();
+            return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="box-destroy") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxDestroy") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanResult"] = $thisModel->destroyBox();
-            return array ("type"=>"view", "view"=>"digitalOceanAPI", "pageVars"=>$this->content); }
+            $this->content["digiOceanV2Result"] = $thisModel->destroyBox();
+            return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="box-destroy-all") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxDestroyAll") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanResult"] = $thisModel->destroyAllBoxes();
-            return array ("type"=>"view", "view"=>"digitalOceanAPI", "pageVars"=>$this->content); }
+            $this->content["digiOceanV2Result"] = $thisModel->destroyAllBoxes();
+            return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="save-ssh-key") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "SshKey") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanResult"] = $thisModel->askWhetherToSaveSshKey();
-            return array ("type"=>"view", "view"=>"digitalOceanAPI", "pageVars"=>$this->content); }
+            $this->content["digiOceanV2Result"] = $thisModel->askWhetherToSaveSshKey();
+            return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="list") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Listing") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanResult"] = $thisModel->askWhetherToListData();
-            return array ("type"=>"view", "view"=>"digitalOceanList", "pageVars"=>$this->content); }
+            $this->content["digiOceanV2Result"] = $thisModel->askWhetherToListData();
+            return array ("type"=>"view", "view"=>"digitalOceanV2List", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Digital Ocean Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);

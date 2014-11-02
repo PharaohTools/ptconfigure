@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanAllBoxesDestroy extends BaseDigitalOceanAllOS {
+class DigitalOceanV2AllBoxesDestroy extends BaseDigitalOceanV2AllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -16,19 +16,17 @@ class DigitalOceanAllBoxesDestroy extends BaseDigitalOceanAllOS {
 
     public function destroyAllBoxes() {
         if ($this->askForOverwriteExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanAPIKey();
-        $this->clientId = $this->askForDigitalOceanClientID();
+        $this->apiKey = $this->askForDigitalOceanV2APIKey();
+        $this->clientId = $this->askForDigitalOceanV2ClientID();
 
-        $doFactory = new \Model\DigitalOcean();
-        $listParams = array("yes" => true, "guess" => true, "digital-ocean-list-data-type" => "droplets") ;
+        $doFactory = new \Model\DigitalOceanV2();
+        $listParams = array("yes" => true, "guess" => true, "digital-ocean-v2-list-data-type" => "droplets") ;
         $doListing = $doFactory->getModel($listParams, "Listing") ;
         $allBoxes = $doListing->askWhetherToListData();
 
         foreach($allBoxes->droplets as $box) {
             $serverData["dropletID"] = $box->id ;
-            $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
-        }
-
+            $responses[] = $this->destroyServerFromDigitalOceanV2($serverData) ; }
         return true ;
 
     }
@@ -39,11 +37,11 @@ class DigitalOceanAllBoxesDestroy extends BaseDigitalOceanAllOS {
         return self::askYesOrNo($question);
     }
 
-    private function destroyServerFromDigitalOcean($serverData) {
+    private function destroyServerFromDigitalOceanV2($serverData) {
         $callVars = array() ;
         $callVars["droplet_id"] = $serverData["dropletID"];
         $curlUrl = "https://api.digitalocean.com/v1/droplets/{$callVars["droplet_id"]}/destroy" ;
-        $callOut = $this->digitalOceanCall($callVars, $curlUrl);
+        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;

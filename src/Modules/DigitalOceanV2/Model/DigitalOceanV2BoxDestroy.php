@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
+class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -21,8 +21,8 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
 
     public function destroyBox() {
         if ($this->askForOverwriteExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanAPIKey();
-        $this->clientId = $this->askForDigitalOceanClientID();
+        $this->apiKey = $this->askForDigitalOceanV2APIKey();
+        $this->clientId = $this->askForDigitalOceanV2ClientID();
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $workingEnvironment = $this->getWorkingEnvironment();
 
@@ -50,14 +50,14 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
                             for ($iBox = 0; $iBox < count($environments[$i]["servers"]); $iBox++) {
                                 $serverData = array();
                                 $serverData["dropletID"] = $environments[$i]["servers"][$iBox]["id"] ;
-                                $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
+                                $responses[] = $this->destroyServerFromDigitalOceanV2($serverData) ;
                                 $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]); }
                             return true ; }
                         else if (isset($this->params["destroy-box-id"])) {
                             $responses = array();
                             $serverData = array();
                             $serverData["dropletID"] = $this->params["destroy-box-id"] ;
-                            $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
+                            $responses[] = $this->destroyServerFromDigitalOceanV2($serverData) ;
                             $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]);
                             return true ; }
                         else {
@@ -83,11 +83,11 @@ class DigitalOceanBoxDestroy extends BaseDigitalOceanAllOS {
         return self::askForInput($question);
     }
 
-    private function destroyServerFromDigitalOcean($serverData) {
+    private function destroyServerFromDigitalOceanV2($serverData) {
         $callVars = array() ;
         $callVars["droplet_id"] = $serverData["dropletID"];
         $curlUrl = "https://api.digitalocean.com/v1/droplets/{$callVars["droplet_id"]}/destroy" ;
-        $callOut = $this->digitalOceanCall($callVars, $curlUrl);
+        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;

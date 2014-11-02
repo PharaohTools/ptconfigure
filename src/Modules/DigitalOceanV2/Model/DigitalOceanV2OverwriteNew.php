@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
+class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -15,13 +15,13 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
     public $modelGroup = array("OverwriteNew") ;
 
     public function askWhetherToSaveOverwriteNew($params=null) {
-        return $this->performDigitalOceanOverwriteNew($params);
+        return $this->performDigitalOceanV2OverwriteNew($params);
     }
 
-    public function performDigitalOceanOverwriteNew($params=null){
+    public function performDigitalOceanV2OverwriteNew($params=null){
         if ($this->askForOverwriteExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanAPIKey();
-        $this->clientId = $this->askForDigitalOceanClientID();
+        $this->apiKey = $this->askForDigitalOceanV2APIKey();
+        $this->clientId = $this->askForDigitalOceanV2ClientID();
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $serverPrefix = $this->getServerPrefix();
         foreach ($environments as $environment) {
@@ -38,7 +38,7 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
                     $serverData["imageID"] = $this->getServerGroupImageID();
                     $serverData["sizeID"] = $this->getServerGroupSizeID();
                     $serverData["regionID"] = $this->getServerGroupRegionID();
-                    $newDigitalOceanServer = $this->getNewServerFromDigitalOcean($serverData) ;
+                    $newDigitalOceanV2Server = $this->getNewServerFromDigitalOceanV2($serverData) ;
                     $sCount++; } } }
         $envConfig = new EnvironmentConfig();
         $envConfig->environments = $environments ;
@@ -72,10 +72,10 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
         return self::askForInput($question, true);
     }
 
-    private function getNewServerFromDigitalOcean($serverData){
+    private function getNewServerFromDigitalOceanV2($serverData){
         $callVars = (array) $this->getNewServerCallVarsFromData($serverData) ;
         $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
-        return $this->digitalOceanCall($callVars, $curlUrl);
+        return $this->digitalOceanV2Call($callVars, $curlUrl);
     }
 
     private function getNewServerCallVarsFromData($serverData){
@@ -91,12 +91,12 @@ class DigitalOceanOverwriteNew extends BaseDigitalOceanAllOS {
         $callVars["region_id"] = $serverData["regionID"];
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
         $curlUrl = "https://api.digitalocean.com/v1/droplets/new" ;
-        return $this->digitalOceanCall($callVars, $curlUrl);
+        return $this->digitalOceanV2Call($callVars, $curlUrl);
     }
 
     private function getAllSshKeyIdsString(){
         $curlUrl = "https://api.digitalocean.com/v1/ssh_keys" ;
-        $sshKeysObject =  $this->digitalOceanCall(array(), $curlUrl);
+        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
         $keysString = "";
         for ($i=0; $i<count($sshKeysObject->ssh_keys); $i++) {
             $keysString .= "{$sshKeysObject->ssh_keys[$i]->id}" ;

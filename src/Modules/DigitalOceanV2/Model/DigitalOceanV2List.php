@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanList extends BaseDigitalOceanAllOS {
+class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -19,15 +19,15 @@ class DigitalOceanList extends BaseDigitalOceanAllOS {
     }
 
     public function askWhetherToListData() {
-        return $this->performDigitalOceanListData();
+        return $this->performDigitalOceanV2ListData();
     }
 
-    protected function performDigitalOceanListData(){
+    protected function performDigitalOceanV2ListData(){
         if ($this->askForListExecute() != true) { return false; }
-        $this->apiKey = $this->askForDigitalOceanAPIKey();
-        $this->clientId = $this->askForDigitalOceanClientID();
+        $this->apiKey = $this->askForDigitalOceanV2APIKey();
+        $this->clientId = $this->askForDigitalOceanV2ClientID();
         $dataToList = $this->askForDataTypeToList();
-        return $this->getDataListFromDigitalOcean($dataToList);
+        return $this->getDataListFromDigitalOceanV2($dataToList);
     }
 
     private function askForListExecute(){
@@ -39,16 +39,16 @@ class DigitalOceanList extends BaseDigitalOceanAllOS {
     private function askForDataTypeToList(){
         $question = 'Please choose a data type to list:';
         $options = array("droplets", "sizes", "images", "domains", "regions", "ssh_keys");
-        if (isset($this->params["digital-ocean-list-data-type"]) &&
-            in_array($this->params["digital-ocean-list-data-type"], $options)) {
-            return $this->params["digital-ocean-list-data-type"] ; }
+        if (isset($this->params["digital-ocean-v2-list-data-type"]) &&
+            in_array($this->params["digital-ocean-v2-list-data-type"], $options)) {
+            return $this->params["digital-ocean-v2-list-data-type"] ; }
         return self::askForArrayOption($question, $options, true);
     }
 
-    public function getDataListFromDigitalOcean($dataToList){
+    public function getDataListFromDigitalOceanV2($dataToList){
         $callVars = array();
         $curlUrl = "https://api.digitalocean.com/v1/$dataToList/" ;
-        return $this->digitalOceanCall($callVars, $curlUrl);
+        return $this->digitalOceanV2Call($callVars, $curlUrl);
     }
 
 }

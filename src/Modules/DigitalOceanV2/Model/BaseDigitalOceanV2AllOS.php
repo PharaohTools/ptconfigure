@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BaseDigitalOceanAllOS extends Base {
+class BaseDigitalOceanV2V2AllOS extends Base {
 
     // Compatibility
     public $os = array("any") ;
@@ -17,59 +17,62 @@ class BaseDigitalOceanAllOS extends Base {
     protected $clientId ;
     protected $apiKey ;
 
-    protected function askForDigitalOceanAPIKey(){
-        if (isset($this->params["digital-ocean-api-key"])) { return $this->params["digital-ocean-api-key"] ; }
-        $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-api-key") ;
+    protected function askForDigitalOceanV2AccessToken(){
+        if (isset($this->params["digital-ocean-v2-v2-access-token"])) { return $this->params["digital-ocean-v2-v2-access-token"] ; }
+        $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-v2-v2-access-token") ;
         if ($papyrusVar != null) {
             if (isset($this->params["guess"])) {
                 return $papyrusVar ; }
-            if (isset($this->params["use-project-api-key"]) && $this->params["use-project-api-key"] == true) {
+            if (isset($this->params["use-project-access-token"]) && $this->params["use-project-access-token"] == true) {
                 return $papyrusVar ; }
-            $question = 'Use Project saved Digital Ocean API Key?';
+            $question = 'Use Project saved Digital Ocean Access Token?';
             if (self::askYesOrNo($question, true) == true) { return $papyrusVar ; } }
-        $appVar = \Model\AppConfig::getProjectVariable("digital-ocean-api-key") ;
+        $appVar = \Model\AppConfig::getProjectVariable("digital-ocean-v2-v2-access-token") ;
         if ($appVar != null) {
-            $question = 'Use Application saved Digital Ocean API Key?';
+            $question = 'Use Application saved Digital Ocean Access Token?';
             if (self::askYesOrNo($question, true) == true) {
                 return $appVar ; } }
-        $question = 'Enter Digital Ocean API Key';
+        $question = 'Enter Digital Ocean Access Token';
         return self::askForInput($question, true);
     }
 
-    protected function askForDigitalOceanClientID(){
-        if (isset($this->params["digital-ocean-client-id"])) { return $this->params["digital-ocean-client-id"] ; }
-        $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-client-id") ;
-        if ($papyrusVar != null) {
-            if ($this->params["guess"] == true) { return $papyrusVar ; }
-            if ($this->params["use-project-client-id"] == true) { return $papyrusVar ; }
-            $question = 'Use Project saved Digital Ocean Client ID?';
-            if (self::askYesOrNo($question, true) == true) {
-                return $papyrusVar ; } }
-        $appVar = \Model\AppConfig::getProjectVariable("digital-ocean-client-id") ;
-        if ($appVar != null) {
-            $question = 'Use Application saved Digital Ocean Client ID?';
-            if (self::askYesOrNo($question, true) == true) {
-                return $appVar ; } }
-        $question = 'Enter Digital Ocean Client ID';
-        return self::askForInput($question, true);
-    }
+    protected function digitalOceanV2Call(Array $curlParams, $curlUrl, $httpType){
+        $curlParams["access-token"] = $this->apiKey;
 
-    protected function digitalOceanCall(Array $curlParams, $curlUrl){
-        $curlParams["client_id"] = $this->clientId ;
-        $curlParams["api_key"] = $this->apiKey;
-        \Model\AppConfig::setProjectVariable("digital-ocean-client-id", $this->clientId) ;
-        \Model\AppConfig::setProjectVariable("digital-ocean-api-key", $this->apiKey) ;
+
+
+// in real life you should use something like:
+// curl_setopt($ch, CURLOPT_POSTFIELDS,
+//          http_build_query(array('postvar1' => 'value1')));
+
+        \Model\AppConfig::setProjectVariable("digital-ocean-v2-access-token", $this->apiKey) ;
         $postQuery = "";
         $i = 0;
         foreach ($curlParams as $curlParamKey => $curlParamValue) {
             $postQuery .= ($i==0) ? "" : '&' ;
-            if(is_object($curlParamValue)) {
-                var_dump($curlParamKey, $curlParamValue) ;  }
+            if(is_object($curlParamValue)) { var_dump($curlParamKey, $curlParamValue) ;  }
             $postQuery .= $curlParamKey."=".$curlParamValue;
             $i++; }
+
+
         // echo $curlUrl.'?'.$postQuery ;
+
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $curlUrl.'?'.$postQuery);
+
+        // CURLOPT_POST
+        // CURLOPT_HTTPGET
+        // CURLOPT_HTTPGET
+        // CURLOPT_PUT 	TRUE to HTTP PUT a file. The file to PUT must be set with CURLOPT_INFILE and CURLOPT_INFILESIZE.
+        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+
+
+        curl_setopt($ch, CURLOPT_URL,"http://www.mysite.com/tester.phtml");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,
+            "postvar1=value1&postvar2=value2&postvar3=value3");
+
+        // curl_setopt($ch, CURLOPT_URL, $curlUrl.'?'.$postQuery);
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec ($ch);

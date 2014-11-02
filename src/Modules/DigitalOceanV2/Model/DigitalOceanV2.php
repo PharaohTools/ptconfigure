@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOcean extends BaseModelFactory {
+class DigitalOceanV2 extends BaseModelFactory {
 
     public static function getModel($params, $modGroup="Base") {
         $thisModule = substr(get_called_class(), 6) ;

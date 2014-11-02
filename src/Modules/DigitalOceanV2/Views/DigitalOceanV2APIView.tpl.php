@@ -1,7 +1,7 @@
 <?php
 
-if (is_object($pageVars["digiOceanResult"]) || is_array($pageVars["digiOceanResult"])) {
-    $arrayObject = new \ArrayObject($pageVars["digiOceanResult"]);
+if (is_object($pageVars["digiOceanV2Result"]) || is_array($pageVars["digiOceanV2Result"])) {
+    $arrayObject = new \ArrayObject($pageVars["digiOceanV2Result"]);
     foreach ($arrayObject as $arrayObjectKey => $arrayObjectValue) {
         var_dump($arrayObjectKey);
         if ($arrayObjectKey == "sizes") {
