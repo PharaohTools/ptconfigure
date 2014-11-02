@@ -22,7 +22,7 @@ class CopyInfo extends CleopatraBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles Copy Transfer Functions.
+  This command handles file copying functions.
 
   Copy, copy
 
