@@ -49,7 +49,7 @@ class ChownAllLinux extends Base {
     }
 
     private function getOwner(){
-        if (isset($this->params["group"])) { return $this->params["group"] ; }
+        if (isset($this->params["user"])) { return $this->params["user"] ; }
         else { $question = "Enter ownership user:"; }
         $input = self::askForInput($question, true) ;
         return $input ;

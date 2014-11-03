@@ -39,7 +39,7 @@ class MkdirAllLinux extends Base {
     }
 
     private function getDirectoryPath(){
-        if (isset($this->params["dir"])) { return $this->params["dir"] ; }
+        if (isset($this->params["path"])) { return $this->params["path"] ; }
         else { $question = "Enter directory path:"; }
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;

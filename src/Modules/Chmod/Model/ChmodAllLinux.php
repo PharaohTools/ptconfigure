@@ -42,16 +42,17 @@ class ChmodAllLinux extends Base {
     }
 
     private function getDirectoryPath(){
-        if (isset($this->params["dir"])) { return $this->params["dir"] ; }
+        if (isset($this->params["path"])) { return $this->params["path"] ; }
         else { $question = "Enter directory path:"; }
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;
     }
 
     private function getMode(){
-        if (isset($this->params["guess"])) { return 0777 ; }
+        if (isset($this->params["mode"])) { return $this->params["mode"] ; }
+        else if (isset($this->params["guess"])) { return 0777 ; }
         else { $question = "Enter permissions mode:"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
+        $input = self::askForInput($question, true) ;
+        return $input ;
     }
 }
