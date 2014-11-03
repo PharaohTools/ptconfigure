@@ -23,17 +23,16 @@ class SeleniumServerInfo extends CleopatraBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install a few GC recommended Standard Tools
-  for productivity in your system.  The kinds of tools we found ourselves
-  installing on every box we have, client or server. These include curl,
-  vim, drush and zip.
+  This command allows you to install Selenium Server.
 
   SeleniumServer, selenium-server, selenium, selenium-srv, seleniumserver
 
         - install
-        Installs SeleniumServer. Note, you'll also need Java installed
+        Installs Selenium Server. Note, you'll also need Java installed
         as it is a prerequisite for Selenium
         example: cleopatra selenium install
+        example: cleopatra selenium install --with-chrome-driver # will set the executor command to use default chrome driver
+
 
 HELPDATA;
     return $help ;
