@@ -28,6 +28,9 @@ class CopyAllLinux extends Base {
 
     private function doCopyPut($source, $target) {
         $comm = "cp -r $source $target" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Executing $comm", $this->getModuleName());
         self::executeAndOutput($comm) ;
     }
 

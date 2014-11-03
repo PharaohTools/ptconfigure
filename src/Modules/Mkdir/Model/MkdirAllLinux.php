@@ -26,10 +26,13 @@ class MkdirAllLinux extends Base {
     }
 
     private function doMkdir($dirPath) {
-        $recursive = (isset($this->params["recursive"])) ? true : false ;
-        $mode = $this->getMode() ;
-        $result = mkdir($dirPath, $mode, $recursive);
-        return $result ;
+        $recursive = (isset($this->params["recursive"])) ? "-p " : "" ;
+        $comm = "mkdir $recursive $dirPath" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Executing $comm", $this->getModuleName());
+        self::executeAndOutput($comm) ;
+
     }
 
     private function askForMkdirExecute(){
@@ -45,10 +48,4 @@ class MkdirAllLinux extends Base {
         return ($input=="") ? false : $input ;
     }
 
-    private function getMode(){
-        if (isset($this->params["guess"])) { return 0777 ; }
-        else { $question = "Enter permissions mode:"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
-    }
 }
