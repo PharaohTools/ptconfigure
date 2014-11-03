@@ -5,7 +5,7 @@ Namespace Model;
 class ChgrpAllLinux extends Base {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("Linux", "Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -26,10 +26,10 @@ class ChgrpAllLinux extends Base {
     }
 
     private function doChgrp($dirPath) {
-        $recursive = (isset($this->params["recursive"])) ? true : false ;
-        $mode = $this->getMode() ;
-        $result = chgrp($dirPath, $mode, $recursive);
-        return $result ;
+        $recursive = (isset($this->params["recursive"])) ? "-R " : "" ;
+        $group = $this->getGroup() ;
+        $comm = "chgrp $recursive{$group} $dirPath" ;
+        self::executeAndOutput($comm) ;
     }
 
     private function askForChgrpExecute(){
@@ -45,10 +45,10 @@ class ChgrpAllLinux extends Base {
         return ($input=="") ? false : $input ;
     }
 
-    private function getMode(){
-        if (isset($this->params["guess"])) { return 0777 ; }
-        else { $question = "Enter permissions mode:"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
+    private function getGroup(){
+        if (isset($this->params["group"])) { return $this->params["group"] ; }
+        else { $question = "Enter ownership group:"; }
+        $input = self::askForInput($question, true) ;
+        return $input ;
     }
 }

@@ -26,10 +26,10 @@ class ChownAllLinux extends Base {
     }
 
     private function doChown($dirPath) {
-        $recursive = (isset($this->params["recursive"])) ? true : false ;
-        $mode = $this->getMode() ;
-        $result = mkdir($dirPath, $mode, $recursive);
-        return $result ;
+        $recursive = (isset($this->params["recursive"])) ? "-R " : "" ;
+        $owner = $this->getOwner() ;
+        $comm = "chown $recursive{$owner} $dirPath" ;
+        self::executeAndOutput($comm) ;
     }
 
     private function askForChownExecute(){
@@ -39,16 +39,17 @@ class ChownAllLinux extends Base {
     }
 
     private function getDirectoryPath(){
-        if (isset($this->params["dir"])) { return $this->params["dir"] ; }
-        else { $question = "Enter directory path:"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
+        if (isset($this->params["path"])) { return $this->params["path"] ; }
+        else { $question = "Enter ownership change path:"; }
+        $input = self::askForInput($question, true) ;
+        return $input ;
     }
 
-    private function getMode(){
-        if (isset($this->params["guess"])) { return 0777 ; }
-        else { $question = "Enter permissions mode:"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
+    private function getOwner(){
+        if (isset($this->params["group"])) { return $this->params["group"] ; }
+        else { $question = "Enter ownership user:"; }
+        $input = self::askForInput($question, true) ;
+        return $input ;
     }
+
 }

@@ -5,7 +5,7 @@ Namespace Model;
 class ChmodAllLinux extends Base {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("Linux", "Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -26,10 +26,10 @@ class ChmodAllLinux extends Base {
     }
 
     private function doChmod($dirPath) {
-        $recursive = (isset($this->params["recursive"])) ? true : false ;
+        $recursive = (isset($this->params["recursive"])) ? "-R " : "" ;
         $mode = $this->getMode() ;
-        $result = chmod($dirPath, $mode, $recursive);
-        return $result ;
+        $comm = "chgrp $recursive{$mode} $dirPath" ;
+        self::executeAndOutput($comm) ;
     }
 
     private function askForChmodExecute(){
