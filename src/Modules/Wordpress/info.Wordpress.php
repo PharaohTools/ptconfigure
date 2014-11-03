@@ -128,9 +128,9 @@ HELPDATA;
   The Wordpress module extends DBInstall by adding wordpress-install
 
   Wordpress module adds the actions wordpress-install and wp-install to DBInstall, requiresd to allow the Post DB
-  Install hooks for Wordpress, the DB restore won't work correctly without
+  Install hooks for Wordpress, the DB restore won't work correctly without at least the url.
 
-  dapperstrano dbinstall wordpress-install --yes --guess
+  dapperstrano dbinstall wordpress-install --yes --guess --hook-url=www.site.env
 HELPDATA;
         return $help ;
     }
