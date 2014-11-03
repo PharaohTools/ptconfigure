@@ -57,6 +57,14 @@ class TemplatingLinuxMac extends BaseTemplater {
         return $fData ;
     }
 
+    public function runTemplating() {
+        $this->askForSource() ;
+        $this->askForTarget() ;
+        $this->getParameterReplacements() ;
+        $this->setOverrideReplacements() ;
+        $this->template($this->params["source"], $this->replacements, $this->params["target"]) ;
+    }
+
     protected function askForSource(){
         if (isset($this->params["source"])) { $this->templateFile = $this->params["source"] ; }
         else {
@@ -71,11 +79,11 @@ class TemplatingLinuxMac extends BaseTemplater {
             $this->targetLocation = self::askForInput($question, true); }
     }
 
-    public function runTemplating() {
-        $this->askForSource() ;
-        $this->askForTarget() ;
-        $this->setOverrideReplacements() ;
-        $this->template($this->params["source"], $this->replacements, $this->params["target"]) ;
+    protected function getParameterReplacements(){
+        foreach ($this->params as $paramKey => $paramValue) {
+            if (substr($paramKey, 0, 9) == "template_") {
+                $newKey = substr($paramKey, 9) ;
+                $this->replacements[$newKey] = $paramValue ; } }
     }
 
 }
