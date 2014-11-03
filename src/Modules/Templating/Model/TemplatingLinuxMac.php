@@ -17,7 +17,9 @@ class TemplatingLinuxMac extends BaseTemplater {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Templating";
-        $this->installCommands = array();
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "runTemplating", "params" => array()) ),
+        );
         $this->uninstallCommands = array();
         $this->programDataFolder = "";
         $this->programNameMachine = "templating"; // command and app dir name
@@ -43,7 +45,6 @@ class TemplatingLinuxMac extends BaseTemplater {
             $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
         if (!file_exists(dirname($targetLocation))) {
             mkdir(dirname($targetLocation), 0775, true) ; }
-        file_put_contents($targetLocation, $fData) ;
         if ($perms != null) { exec("chmod $perms $targetLocation") ; }
         if ($owner != null) { exec("chown $owner $targetLocation") ; }
         if ($group != null) { exec("chgrp $group $targetLocation") ; }
@@ -53,6 +54,28 @@ class TemplatingLinuxMac extends BaseTemplater {
         $lookFor = $startTag.$replaceKey.$endTag ;
         $fData = str_replace($lookFor, $replaceValue, $fData) ;
         return $fData ;
+    }
+
+    protected function askForSource(){
+        if (isset($this->params["source"])) { $this->templateFile = $this->params["source"] ; }
+        else {
+            $question = 'Enter Template Source';
+            $this->templateFile = self::askForInput($question, true); }
+    }
+
+    protected function askForTarget(){
+        if (isset($this->params["target"])) { $this->templateFile = $this->params["target"] ; }
+        else {
+            $question = 'Enter Template Target';
+            $this->targetLocation = self::askForInput($question, true); }
+    }
+
+    public function runTemplating() {
+        $this->askForSource() ;
+        $this->askForTarget() ;
+        $this->setOverrideReplacements() ;
+        $this->setTemplate() ;
+        $this->template($this->params["source"], $this->replacements, $this->params["target"]) ;
     }
 
 }
