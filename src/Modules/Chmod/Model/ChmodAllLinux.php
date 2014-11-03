@@ -28,7 +28,7 @@ class ChmodAllLinux extends Base {
     private function doChmod($dirPath) {
         $recursive = (isset($this->params["recursive"])) ? "-R " : "" ;
         $mode = $this->getMode() ;
-        $comm = "chgrp $recursive{$mode} $dirPath" ;
+        $comm = "chmod $recursive{$mode} $dirPath" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Executing $comm", $this->getModuleName());
