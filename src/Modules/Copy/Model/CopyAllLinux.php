@@ -27,8 +27,8 @@ class CopyAllLinux extends Base {
     }
 
     private function doCopyPut($source, $target) {
-        $result = copy($source, $target);
-        return $result ;
+        $comm = "cp -r $source $target" ;
+        self::executeAndOutput($comm) ;
     }
 
     private function askForCopyExecute(){
