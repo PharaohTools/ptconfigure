@@ -5,7 +5,7 @@ Namespace Model;
 class DBInstallHooksWordpress extends Base {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("any") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -27,6 +27,7 @@ class DBInstallHooksWordpress extends Base {
         $this->wpOptionsUpdater($dbiObject) ;
     }
 
+    // @todo mailserver_*, blogname , blogdescription
     protected function askForUrl($dbiObject){
         if (isset($dbiObject->params["hook-url"])) { return $dbiObject->params["hook-url"] ; }
         $question = 'What is the URL of this site for WP Options? ';
