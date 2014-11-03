@@ -13,23 +13,23 @@ class MkdirInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Mkdir" => array_merge(parent::routesAvailable(), array("put") ) );
+      return array( "Mkdir" => array("dir", "help") ) ;
     }
 
     public function routeAliases() {
-      return array("copy" => "Mkdir");
+      return array("mkdir" => "Mkdir");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command handles file copying functions.
 
-  Mkdir, copy
+  Mkdir, mkdir
 
-        - put
+        - dir
         Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra copy put
-        example: cleopatra copy put --yes --source="/tmp/file" --target="/home/user/file"
+        example: cleopatra mkdir dir
+        example: cleopatra mkdir dir --yes --path="/path/to/new/directory"
 
 HELPDATA;
       return $help ;

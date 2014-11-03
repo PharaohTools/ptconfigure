@@ -13,11 +13,11 @@ class ChgrpInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Chgrp" => array_merge(parent::routesAvailable(), array("put") ) );
+      return array( "Chgrp" => array("path", "help") );
     }
 
     public function routeAliases() {
-      return array("copy" => "Chgrp");
+      return array("chgrp" => "Chgrp");
     }
 
   public function helpDefinition() {

@@ -17,7 +17,7 @@ class ChownInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("copy" => "Chown");
+      return array("chown" => "Chown");
     }
 
   public function helpDefinition() {

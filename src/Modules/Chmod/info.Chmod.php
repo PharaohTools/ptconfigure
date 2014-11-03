@@ -17,7 +17,7 @@ class ChmodInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("copy" => "Chmod");
+      return array("chmod" => "Chmod");
     }
 
   public function helpDefinition() {
