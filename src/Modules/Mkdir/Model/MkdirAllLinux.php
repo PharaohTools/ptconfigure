@@ -27,7 +27,7 @@ class MkdirAllLinux extends Base {
 
     private function doMkdir($dirPath) {
         $recursive = (isset($this->params["recursive"])) ? "-p " : "" ;
-        $comm = "mkdir $recursive $dirPath" ;
+        $comm = "mkdir $recursive{$dirPath}" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Executing $comm", $this->getModuleName());
