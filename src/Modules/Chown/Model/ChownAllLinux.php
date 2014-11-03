@@ -29,6 +29,9 @@ class ChownAllLinux extends Base {
         $recursive = (isset($this->params["recursive"])) ? "-R " : "" ;
         $owner = $this->getOwner() ;
         $comm = "chown $recursive{$owner} $dirPath" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Executing $comm", $this->getModuleName());
         self::executeAndOutput($comm) ;
     }
 

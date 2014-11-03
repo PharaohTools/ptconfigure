@@ -29,6 +29,9 @@ class ChgrpAllLinux extends Base {
         $recursive = (isset($this->params["recursive"])) ? "-R " : "" ;
         $group = $this->getGroup() ;
         $comm = "chgrp $recursive{$group} $dirPath" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Executing $comm", $this->getModuleName());
         self::executeAndOutput($comm) ;
     }
 
