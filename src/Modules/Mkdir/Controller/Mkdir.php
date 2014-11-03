@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Copy extends Base {
+class Mkdir extends Base {
 
     public function execute($pageVars) {
 
@@ -16,10 +16,10 @@ class Copy extends Base {
         $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="put") {
-            $this->content["result"] = $thisModel->askWhetherToCopyPut();
-            return array ("type"=>"view", "view"=>"Copy", "pageVars"=>$this->content); }
+            $this->content["result"] = $thisModel->askWhetherToMkdir();
+            return array ("type"=>"view", "view"=>"Mkdir", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Copy Action";
+        $this->content["messages"][] = "Invalid Mkdir Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

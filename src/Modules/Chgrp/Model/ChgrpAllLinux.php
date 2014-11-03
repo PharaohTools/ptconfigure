@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class MkdirAllLinux extends Base {
+class ChgrpAllLinux extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -14,27 +14,27 @@ class MkdirAllLinux extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    public function askWhetherToMkdir() {
-        return $this->performMkdir();
+    public function askWhetherToChgrp() {
+        return $this->performChgrp();
     }
 
-    public function performMkdir() {
-        if ($this->askForMkdirExecute() != true) { return false; }
+    public function performChgrp() {
+        if ($this->askForChgrpExecute() != true) { return false; }
         $dirPath = $this->getDirectoryPath() ;
-        $this->doMkdir($dirPath) ;
+        $this->doChgrp($dirPath) ;
         return true;
     }
 
-    private function doMkdir($dirPath) {
+    private function doChgrp($dirPath) {
         $recursive = (isset($this->params["recursive"])) ? true : false ;
         $mode = $this->getMode() ;
-        $result = mkdir($dirPath, $mode, $recursive);
+        $result = chgrp($dirPath, $mode, $recursive);
         return $result ;
     }
 
-    private function askForMkdirExecute(){
+    private function askForChgrpExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Mkdir files?';
+        $question = 'Chgrp files?';
         return self::askYesOrNo($question);
     }
 

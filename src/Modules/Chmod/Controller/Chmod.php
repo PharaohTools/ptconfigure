@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Mkdir extends Base {
+class Chmod extends Base {
 
     public function execute($pageVars) {
 
@@ -16,10 +16,10 @@ class Mkdir extends Base {
         $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="put") {
-            $this->content["result"] = $thisModel->askWhetherToMkdir();
-            return array ("type"=>"view", "view"=>"Mkdir", "pageVars"=>$this->content); }
+            $this->content["result"] = $thisModel->askWhetherToChmod();
+            return array ("type"=>"view", "view"=>"Chmod", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Mkdir Action";
+        $this->content["messages"][] = "Invalid Chmod Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

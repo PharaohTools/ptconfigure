@@ -2,29 +2,29 @@
 
 Namespace Info;
 
-class CopyInfo extends CleopatraBase {
+class MkdirInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Copy Functionality";
+    public $name = "Mkdir Functionality";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Copy" => array_merge(parent::routesAvailable(), array("put") ) );
+      return array( "Mkdir" => array_merge(parent::routesAvailable(), array("put") ) );
     }
 
     public function routeAliases() {
-      return array("copy" => "Copy");
+      return array("copy" => "Mkdir");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command handles file copying functions.
 
-  Copy, copy
+  Mkdir, copy
 
         - put
         Will ask you for details for servers, then copy a file or directory from local to remote

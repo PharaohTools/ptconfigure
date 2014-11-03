@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Mkdir extends Base {
+class Chgrp extends Base {
 
     public function execute($pageVars) {
 
@@ -16,10 +16,10 @@ class Mkdir extends Base {
         $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="put") {
-            $this->content["result"] = $thisModel->askWhetherToMkdir();
-            return array ("type"=>"view", "view"=>"Mkdir", "pageVars"=>$this->content); }
+            $this->content["result"] = $thisModel->askWhetherToChgrp();
+            return array ("type"=>"view", "view"=>"Chgrp", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Mkdir Action";
+        $this->content["messages"][] = "Invalid Chgrp Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Mkdir extends BaseModelFactory {
+class Chmod extends BaseModelFactory {
 
 }

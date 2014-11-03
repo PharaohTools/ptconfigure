@@ -1,4 +1,4 @@
-Copy Result: <?php
+Mkdir Result: <?php
 $result = ($pageVars["result"] == true) ? "Success" : "Failure" ;
 echo $result ;
 
@@ -7,4 +7,4 @@ echo $result ;
 ?>
 
 ------------------------------
-Copy Finished
+Mkdir Finished

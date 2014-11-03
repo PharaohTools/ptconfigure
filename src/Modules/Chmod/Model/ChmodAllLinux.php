@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class MkdirAllLinux extends Base {
+class ChmodAllLinux extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -14,27 +14,27 @@ class MkdirAllLinux extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    public function askWhetherToMkdir() {
-        return $this->performMkdir();
+    public function askWhetherToChmod() {
+        return $this->performChmod();
     }
 
-    public function performMkdir() {
-        if ($this->askForMkdirExecute() != true) { return false; }
+    public function performChmod() {
+        if ($this->askForChmodExecute() != true) { return false; }
         $dirPath = $this->getDirectoryPath() ;
-        $this->doMkdir($dirPath) ;
+        $this->doChmod($dirPath) ;
         return true;
     }
 
-    private function doMkdir($dirPath) {
+    private function doChmod($dirPath) {
         $recursive = (isset($this->params["recursive"])) ? true : false ;
         $mode = $this->getMode() ;
-        $result = mkdir($dirPath, $mode, $recursive);
+        $result = chmod($dirPath, $mode, $recursive);
         return $result ;
     }
 
-    private function askForMkdirExecute(){
+    private function askForChmodExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Mkdir files?';
+        $question = 'Chmod files?';
         return self::askYesOrNo($question);
     }
 

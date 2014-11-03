@@ -1,4 +1,4 @@
-Mkdir Result: <?php
+Chmod Result: <?php
 $result = ($pageVars["result"] == true) ? "Success" : "Failure" ;
 echo $result ;
 
@@ -7,4 +7,4 @@ echo $result ;
 ?>
 
 ------------------------------
-Mkdir Finished
+Chmod Finished

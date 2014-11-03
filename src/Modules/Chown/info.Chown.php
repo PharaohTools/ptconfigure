@@ -13,7 +13,7 @@ class ChownInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Chown" => array_merge(parent::routesAvailable(), array("put") ) );
+      return array( "Chown" => array("path", "help") );
     }
 
     public function routeAliases() {
@@ -22,14 +22,13 @@ class ChownInfo extends CleopatraBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles file copying functions.
+  This command handles file user ownership changing functions.
 
-  Chown, copy
+  Chown, chown
 
-        - put
-        Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra copy put
-        example: cleopatra copy put --yes --source="/tmp/file" --target="/home/user/file"
+        - path
+        Will change the user ownership of a path
+        example: cleopatra chown path --yes --guess --recursive --path=/a/file/path --owner=golden
 
 HELPDATA;
       return $help ;

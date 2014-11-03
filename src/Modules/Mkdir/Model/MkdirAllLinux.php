@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class CopyAllLinux extends Base {
+class MkdirAllLinux extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -14,39 +14,40 @@ class CopyAllLinux extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    public function askWhetherToCopyPut() {
-        return $this->performCopyPut();
+    public function askWhetherToMkdir() {
+        return $this->performMkdir();
     }
 
-    public function performCopyPut() {
-        if ($this->askForCopyExecute() != true) { return false; }
-        $sourcePath = $this->getSourceFilePath() ;
-        $targetPath = $this->getTargetFilePath() ;
-        $this->doCopyPut($sourcePath, $targetPath) ;
+    public function performMkdir() {
+        if ($this->askForMkdirExecute() != true) { return false; }
+        $dirPath = $this->getDirectoryPath() ;
+        $this->doMkdir($dirPath) ;
         return true;
     }
 
-    private function doCopyPut($source, $target) {
-        $result = copy($source, $target);
+    private function doMkdir($dirPath) {
+        $recursive = (isset($this->params["recursive"])) ? true : false ;
+        $mode = $this->getMode() ;
+        $result = mkdir($dirPath, $mode, $recursive);
         return $result ;
     }
 
-    private function askForCopyExecute(){
+    private function askForMkdirExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Copy files?';
+        $question = 'Mkdir files?';
         return self::askYesOrNo($question);
     }
 
-    private function getSourceFilePath(){
-        if (isset($this->params["source"])) { return $this->params["source"] ; }
-        else { $question = "Enter source file path"; }
+    private function getDirectoryPath(){
+        if (isset($this->params["dir"])) { return $this->params["dir"] ; }
+        else { $question = "Enter directory path:"; }
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;
     }
 
-    private function getTargetFilePath(){
-        if (isset($this->params["target"])) { return $this->params["target"] ; }
-        else { $question = "Enter target file path"; }
+    private function getMode(){
+        if (isset($this->params["guess"])) { return 0777 ; }
+        else { $question = "Enter permissions mode:"; }
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;
     }

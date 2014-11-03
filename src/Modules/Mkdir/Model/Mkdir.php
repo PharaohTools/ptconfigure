@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Copy extends BaseModelFactory {
+class Mkdir extends BaseModelFactory {
 
 }

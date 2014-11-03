@@ -2,34 +2,34 @@
 
 Namespace Info;
 
-class MkdirInfo extends CleopatraBase {
+class ChmodInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Mkdir Functionality";
+    public $name = "Chmod Functionality";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Mkdir" => array_merge(parent::routesAvailable(), array("put") ) );
+      return array( "Chmod" => array("path", "help") );
     }
 
     public function routeAliases() {
-      return array("copy" => "Mkdir");
+      return array("copy" => "Chmod");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles file copying functions.
+  This command handles file permission functions.
 
-  Mkdir, copy
+  Chmod, chmod
 
-        - put
-        Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra copy put
-        example: cleopatra copy put --yes --source="/tmp/file" --target="/home/user/file"
+        - path
+        Will change the file permission mode of a path
+        example: cleopatra chmod path --yes --guess --recursive --path=/a/file/path --mode=0777
+
 
 HELPDATA;
       return $help ;

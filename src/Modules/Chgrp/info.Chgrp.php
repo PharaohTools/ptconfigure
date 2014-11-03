@@ -2,34 +2,34 @@
 
 Namespace Info;
 
-class MkdirInfo extends CleopatraBase {
+class ChgrpInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Mkdir Functionality";
+    public $name = "Chgrp Functionality";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Mkdir" => array_merge(parent::routesAvailable(), array("put") ) );
+      return array( "Chgrp" => array_merge(parent::routesAvailable(), array("put") ) );
     }
 
     public function routeAliases() {
-      return array("copy" => "Mkdir");
+      return array("copy" => "Chgrp");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles file copying functions.
+  This command handles file group ownership changing functions.
 
-  Mkdir, copy
+  Chgrp, chgrp
 
-        - put
-        Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra copy put
-        example: cleopatra copy put --yes --source="/tmp/file" --target="/home/user/file"
+        - path
+        Will change the file group ownership of a path
+        example: cleopatra chgrp path --yes --guess --recursive --path=/a/file/path --group=golden
+
 
 HELPDATA;
       return $help ;
