@@ -58,12 +58,14 @@ class MysqlServerUbuntu extends BaseLinuxApp {
     }
 
     public function versionLatestCommandTrimmer($text) {
-        $done = substr($text, 64, 23) ;
+        if ($this->askStatus() == true) { $done = substr($text, 64, 23) ; }
+        else { $done = substr($text, 47, 23) ;}
         return $done ;
     }
 
     public function versionRecommendedCommandTrimmer($text) {
-        $done = substr($text, 64, 23) ;
+        if ($this->askStatus() == true) { $done = substr($text, 64, 23) ; }
+        else { $done = substr($text, 47, 23) ;}
         return $done ;
     }
 
