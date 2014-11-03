@@ -15,7 +15,7 @@ class Chmod extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="put") {
+        if ($action=="path") {
             $this->content["result"] = $thisModel->askWhetherToChmod();
             return array ("type"=>"view", "view"=>"Chmod", "pageVars"=>$this->content); }
 

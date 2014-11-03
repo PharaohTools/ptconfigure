@@ -15,7 +15,7 @@ class Chgrp extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="put") {
+        if ($action=="path") {
             $this->content["result"] = $thisModel->askWhetherToChgrp();
             return array ("type"=>"view", "view"=>"Chgrp", "pageVars"=>$this->content); }
 

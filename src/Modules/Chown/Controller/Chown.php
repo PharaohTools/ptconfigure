@@ -15,7 +15,7 @@ class Chown extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="put") {
+        if ($action=="path") {
             $this->content["result"] = $thisModel->askWhetherToChown();
             return array ("type"=>"view", "view"=>"Chown", "pageVars"=>$this->content); }
 
