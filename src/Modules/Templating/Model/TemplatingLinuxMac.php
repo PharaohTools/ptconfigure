@@ -45,6 +45,7 @@ class TemplatingLinuxMac extends BaseTemplater {
             $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
         if (!file_exists(dirname($targetLocation))) {
             mkdir(dirname($targetLocation), 0775, true) ; }
+        file_put_contents($targetLocation, $fData) ;
         if ($perms != null) { exec("chmod $perms $targetLocation") ; }
         if ($owner != null) { exec("chown $owner $targetLocation") ; }
         if ($group != null) { exec("chgrp $group $targetLocation") ; }
@@ -74,7 +75,6 @@ class TemplatingLinuxMac extends BaseTemplater {
         $this->askForSource() ;
         $this->askForTarget() ;
         $this->setOverrideReplacements() ;
-        $this->setTemplate() ;
         $this->template($this->params["source"], $this->replacements, $this->params["target"]) ;
     }
 
