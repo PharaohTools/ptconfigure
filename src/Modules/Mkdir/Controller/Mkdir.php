@@ -15,7 +15,7 @@ class Mkdir extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="put") {
+        if ($action=="path") {
             $this->content["result"] = $thisModel->askWhetherToMkdir();
             return array ("type"=>"view", "view"=>"Mkdir", "pageVars"=>$this->content); }
 

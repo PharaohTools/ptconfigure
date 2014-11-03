@@ -13,7 +13,7 @@ class MkdirInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Mkdir" => array("dir", "help") ) ;
+      return array( "Mkdir" => array("path", "help") ) ;
     }
 
     public function routeAliases() {
@@ -26,10 +26,10 @@ class MkdirInfo extends CleopatraBase {
 
   Mkdir, mkdir
 
-        - dir
+        - path
         Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra mkdir dir
-        example: cleopatra mkdir dir --yes --path="/path/to/new/directory"
+        example: cleopatra mkdir path
+        example: cleopatra mkdir path --yes --path="/path/to/new/directory"
 
 HELPDATA;
       return $help ;
