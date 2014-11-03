@@ -9,7 +9,7 @@ class BaseTemplater extends BaseLinuxApp {
     protected $targetLocation ;
 
     protected function setOverrideReplacements() {
-        if (isset($this->params["no-overrides"]) && $this->params["no-overrides"]!==true || !isset($this->params["no-overrides"]) ) {
+        if (isset($this->params["no-overrides"]) && $this->params["no-overrides"] !== true || !isset($this->params["no-overrides"]) ) {
             $newArray = array();
             foreach ($this->replacements as $replacementKey => $replacementValue) {
                 if (isset($this->params["template_{$replacementKey}"])) {
