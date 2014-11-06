@@ -184,7 +184,6 @@ class Installer {
             $command = 'xcopy /s /e /y ' ;
             // $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.'""' ;
             $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder ;
-            echo $command ;
             self::executeAndOutput($command);
             echo "Removing temp file ".$this->programNameMachine.".bat\n" ;
             unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
