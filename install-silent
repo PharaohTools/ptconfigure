@@ -93,7 +93,6 @@ class Installer {
     private function askForProgramExecutorFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $sd = getenv('SystemDrive') ;
-            var_dump($sd) ;
             $this->programExecutorFolder = $sd.DS.'PharaohTools' ;
             return $this->programExecutorFolder ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
@@ -103,12 +102,12 @@ class Installer {
 
     private function winCreateProgramExecutorFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            if (file_exists($this->programExecutorFolder) && is_dir($this->programExecutorFolder)) {
+            if (is_dir($this->programExecutorFolder)) {
                 echo "Executor Folder {$this->programExecutorFolder} already exists, not creating\n" ;
                 return ; }
             echo "Creating {$this->programExecutorFolder}\n" ;
-                $comm = 'mkdir "'.$this->programDataFolder.'"' ;
-                self::executeAndOutput($comm) ;
+            $comm = 'mkdir "'.$this->programDataFolder.'"' ;
+            self::executeAndOutput($comm) ;
             echo $comm."\n" ; }
     }
 
