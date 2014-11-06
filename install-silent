@@ -92,8 +92,9 @@ class Installer {
 
     private function askForProgramExecutorFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $sr = getenv('SystemRoot') ;
-            $this->programExecutorFolder = $sr.DS.'PharaohTools' ;
+            $sd = getenv('SystemDrive') ;
+            var_dump($sd) ;
+            $this->programExecutorFolder = $sd.DS.'PharaohTools' ;
             return $this->programExecutorFolder ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programExecutorFolder = DS.'usr'.DS.'bin' ;
