@@ -107,14 +107,14 @@ class Installer {
             $command = "rmdir /S /Q " ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $command = "rm -rf " ; }
-        if ( is_dir($this->programDataFolder)) {
+        if ( file_exists($this->programDataFolder)) {
             $fullCommand = $command.$this->programDataFolder;
-            self::executeAndOutput($fullCommand, "Program Data Folder $this->programDataFolder Deleted if existed"); }
+            self::executeAndOutput($fullCommand, "Program Data Folder $this->programDataFolder Deleted"); }
         return true;
     }
 
     private function makeProgramDataFolder(){
-        echo "No Program dir found, creating {$this->programDataFolder}\n" ;
+        echo "Creating {$this->programDataFolder}\n" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $comm = 'mkdir "'.$this->programDataFolder.'"' ;
             self::executeAndOutput($comm) ; }
