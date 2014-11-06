@@ -40,6 +40,7 @@ class Installer {
         $this->deleteInstallationFiles();
         $this->changePermissions();
         $this->showCompletion();
+        $this->winCloseAndCompleteInNewWindow();
     }
 
     private function showTitle() {
@@ -249,6 +250,12 @@ COMPLETION;
 
     private function populateStartDirectory() {
         $this->startDirectory = str_replace(DS."$this->programNameMachine", "", dirname(__FILE__));
+    }
+
+    private function winCloseAndCompleteInNewWindow() {
+        echo "Opening cleopatra in new window...\n" ;
+        $command = "start cmd.exe";
+        self::executeAndOutput($command);
     }
 
     private function executeAndOutput($command, $message=null) {
