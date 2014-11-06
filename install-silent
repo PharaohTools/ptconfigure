@@ -31,7 +31,7 @@ class Installer {
         $this->askForProgramExecutorFolder();
         $this->winCreateProgramExecutorFolder();
         $this->winAddProgramExecutorFolderToPath();
-        // $this->installElevateOnWindows();
+        $this->installElevateOnWindows();
         $this->deleteProgramDataFolderAsRootIfExists();
         $this->makeProgramDataFolder();
         $this->copyFilesToProgramDataFolder();
@@ -80,7 +80,7 @@ class Installer {
     private function installElevateOnWindows() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so installing the elevate command is required - installing now...\n" ;
-            $comm  = 'copy '.getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe '.$this->programExecutorFolder ;
+            $comm  = 'copy '.dirname(__FILE__).'\src\Modules\WinElevate\Packages\x8664\elevate.exe '.$this->programExecutorFolder ;
             echo $comm."\n";
             self::executeAndOutput($comm) ;  }
     }
