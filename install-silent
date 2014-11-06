@@ -120,9 +120,9 @@ class Installer {
                 return ; }
             $path .= ';'.$this->programExecutorFolder ;
             $newpath = "PATH=$path" ;
+            var_dump("1", $newpath) ;
             putenv($newpath);
-        var_dump("1", $newpath) ;
-        var_dump("2", getenv('PATH')); }
+            var_dump("2", getenv('PATH')); }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
@@ -149,11 +149,11 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = 'xcopy /q /s /e /y "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
+            $command = 'xcopy /q /s /e /y "'.dirname(__FILE__).'" "'.$this->programDataFolder.DS.$this->programNameMachine.'"' ;
             echo $command . "\n" ;
             self::executeAndOutput($command, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'git')) {
-                $command2 = 'copy '.dirname(__FILE__).DS.'git '.$this->programDataFolder.'\cleopatra' ;
+                $command2 = 'copy '.dirname(__FILE__).DS.'git '.$this->programDataFolder.DS.$this->programNameMachine ;
                 echo $command2 . "\n" ;
                 self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); } }
         else {
