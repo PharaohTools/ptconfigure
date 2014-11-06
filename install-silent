@@ -71,7 +71,10 @@ class Installer {
                 echo "PHP is already in the path\n" ;
                 return ; }
             $path .= ';'.$php5path ;
-            putenv("PATH=$path"); }
+            $comm = 'setx PATH "'.$path.'" /M' ;
+            self::executeAndOutput($comm) ;
+            echo $comm."\n" ;
+        }
     }
 
     private function installElevateOnWindows() {
