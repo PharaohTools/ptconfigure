@@ -118,9 +118,8 @@ class Installer {
             if (strpos($path, $this->programExecutorFolder) != false) {
                 echo "Program Executor directory is already in the path\n" ;
                 return ; }
-            $path .= $this->programExecutorFolder ;
+            $path .= ';'.$this->programExecutorFolder ;
             $newpath = "PATH=$path" ;
-            var_dump($newpath) ;
             putenv($newpath); }
     }
 
