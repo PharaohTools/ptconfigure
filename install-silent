@@ -116,7 +116,7 @@ class Installer {
     private function makeProgramDataFolder(){
         echo "No Program dir found, creating {$this->programDataFolder}\n" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "mkdir '.$this->programDataFolder.'"' ;
+            $comm = 'mkdir '.$this->programDataFolder ;
             self::executeAndOutput($comm) ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $comm = "mkdir -p ".$this->programDataFolder ;
@@ -126,12 +126,11 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "copy ' ;
-            $command3 = $command." \"".dirname(__FILE__)."\" \"".dirname($this->programDataFolder)."\"\"" ;
-            echo $command3 . "\n" ;
-            self::executeAndOutput($command3, "Program Data folder populated with program files\n");
+            $command = 'copy '.dirname(__FILE__).'\* '.$this->programDataFolder ;
+            echo $command . "\n" ;
+            self::executeAndOutput($command, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'git')) {
-                $command2 = $command.dirname(__FILE__).DS.'git '.$this->programDataFolder ;
+                $command2 = 'copy '.dirname(__FILE__).DS.'git '.$this->programDataFolder ;
                 echo $command2 . "\n" ;
                 self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); } }
         else {
@@ -152,7 +151,7 @@ class Installer {
         else { $extension = "" ; }
         if (file_exists($this->programExecutorFolder.DS.$this->programNameMachine.$extension)) {
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-                $command = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c del ' ; }
+                $command = 'del ' ; }
             else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
                 $command = "rm -rf " ; }
             echo "Adding executor ".$command.$this->programExecutorFolder.DS.$this->programNameMachine.$extension."...\n" ;
@@ -182,13 +181,13 @@ class Installer {
             echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
             echo (is_int(file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Temp file written\n" : "Temp file failed writing" ;
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
-            $command = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe "copy ' ;
+            $command = 'copy ' ;
             // $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.'""' ;
-            $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder.'"' ;
+            $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder ;
             echo $command ;
             self::executeAndOutput($command);
             echo "Removing temp file ".$this->programNameMachine.".bat" ;
-            //unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
+            unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
         }
         else {
             echo "Saving executor file {$this->programNameMachine} to {$this->programExecutorFolder} ...\n" ;
