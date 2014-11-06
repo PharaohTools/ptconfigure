@@ -55,7 +55,6 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so turning off UAC prompts...\n" ;
             $sr = getenv('SystemRoot') ;
-            //$comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f"' ;
             $comm = $sr.'\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f' ;
             echo $comm."\n";
             self::executeAndOutput($comm) ;  }
@@ -73,8 +72,7 @@ class Installer {
             $path .= ';'.$php5path ;
             $comm = 'setx PATH "'.$path.'" /M' ;
             self::executeAndOutput($comm) ;
-            echo $comm."\n" ;
-        }
+            echo $comm."\n" ; }
     }
 
     private function installElevateOnWindows() {
@@ -122,16 +120,9 @@ class Installer {
                 echo "Program Executor directory is already in the path\n" ;
                 return ; }
             $path .= ';'.$this->programExecutorFolder ;
-
             $comm = 'setx PATH "'.$path.'" /M' ;
             self::executeAndOutput($comm) ;
-            echo $comm."\n" ;
-
-            //$newpath = "PATH=$path" ;
-            //var_dump("1", $newpath) ;
-            //putenv($newpath);
-            //var_dump("2", getenv('PATH'));
-        }
+            echo $comm."\n" ; }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
@@ -174,7 +165,6 @@ class Installer {
                 $command2 = $command.dirname(__FILE__).DS.'.git '.$this->programDataFolder ;
                 echo $command2 . "\n" ;
                 self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); } }
-
         return true;
     }
 
@@ -210,16 +200,7 @@ class Installer {
         $this->populateExecutorFile();
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Saving executor file {$this->programNameMachine}.bat to {$this->programExecutorFolder} ...\n" ;
-            // echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
-            echo (is_int(file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Executor written\n" : "Temp file failed writing" ;
-//            echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
-//            $command = 'copy ' ;
-//            // $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.'""' ;
-//            $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder.DS.$this->programNameMachine.".bat" ;
-//            self::executeAndOutput($command);
-//            echo "Removing temp file ".$this->programNameMachine.".bat\n" ;
-//            unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
-        }
+            echo (is_int(file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Executor written\n" : "Temp file failed writing" ; }
         else {
             echo "Saving executor file {$this->programNameMachine} to {$this->programExecutorFolder} ...\n" ;
             $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
