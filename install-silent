@@ -119,10 +119,16 @@ class Installer {
                 echo "Program Executor directory is already in the path\n" ;
                 return ; }
             $path .= ';'.$this->programExecutorFolder ;
-            $newpath = "PATH=$path" ;
-            var_dump("1", $newpath) ;
-            putenv($newpath);
-            var_dump("2", getenv('PATH')); }
+
+            $comm = 'setx PATH "'.$path.'" /M' ;
+            self::executeAndOutput($comm) ;
+            echo $comm."\n" ;
+
+            //$newpath = "PATH=$path" ;
+            //var_dump("1", $newpath) ;
+            //putenv($newpath);
+            //var_dump("2", getenv('PATH'));
+        }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
