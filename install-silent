@@ -31,7 +31,7 @@ class Installer {
         $this->askForProgramExecutorFolder();
         $this->winCreateProgramExecutorFolder();
         $this->winAddProgramExecutorFolderToPath();
-        $this->installElevateOnWindows();
+        // $this->installElevateOnWindows();
         $this->deleteProgramDataFolderAsRootIfExists();
         $this->makeProgramDataFolder();
         $this->copyFilesToProgramDataFolder();
