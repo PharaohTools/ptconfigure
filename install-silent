@@ -53,8 +53,8 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so turning off UAC prompts...\n" ;
             $sr = getenv('SystemRoot') ;
-            // $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f"' ;
-            $comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f"' ;
+            //$comm = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c "'.$sr.'\System32\reg.exe ADD ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f"' ;
+            $comm = $sr.'\System32\reg.exe ADD ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f' ;
             echo $comm."\n";
             self::executeAndOutput($comm) ;  }
     }
@@ -75,10 +75,7 @@ class Installer {
     private function installElevateOnWindows() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so installing the elevate command is required - installing now...\n" ;
-            $comm  = getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe -c copy "'.getcwd() ;
-            $comm .= '\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe" "'.$this->programExecutorFolder.'"' ;
-
-            // $comm = dirname(__FILE__).'\cleopatra\src\Modules\WinElevate\Scripts\install-elevate.bat' ;
+            $comm  = 'copy '.getcwd().'\cleopatra\src\Modules\WinElevate\Packages\x8664\elevate.exe '.$this->programExecutorFolder ;
             echo $comm."\n";
             self::executeAndOutput($comm) ;  }
     }
