@@ -70,7 +70,7 @@ class Installer {
             if (strpos($path, $php5path) != false) {
                 echo "PHP is already in the path\n" ;
                 return ; }
-            $path .= $php5path ;
+            $path .= ';'.$php5path ;
             putenv("PATH=$path"); }
     }
 
