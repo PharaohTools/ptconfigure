@@ -83,7 +83,7 @@ class Installer {
     private function askForProgramDataFolder() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->programDataFolder = 'C:'.
-                DS.'Program Files'.DS.$this->programNameMachine ; }
+                DS.'Program Files'.DS.$this->programNameMachineDS.$this->programNameMachine ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
@@ -181,7 +181,7 @@ class Installer {
             echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
             echo (is_int(file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Temp file written\n" : "Temp file failed writing" ;
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
-            $command = 'copy ' ;
+            $command = 'xcopy /s /e /y ' ;
             // $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.'""' ;
             $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder ;
             echo $command ;
