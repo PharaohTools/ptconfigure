@@ -112,7 +112,6 @@ class Installer {
     }
 
     private function winAddProgramExecutorFolderToPath() {
-        // @todo use logic for the correct path
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so adding Executor Directory to path...\n" ;
             $path = getenv('PATH') ;
@@ -120,7 +119,9 @@ class Installer {
                 echo "Program Executor directory is already in the path\n" ;
                 return ; }
             $path .= $this->programExecutorFolder ;
-            putenv("PATH=$path"); }
+            $newpath = "PATH=$path" ;
+            var_dump($newpath) ;
+            putenv($newpath); }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
