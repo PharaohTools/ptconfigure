@@ -29,6 +29,8 @@ class Installer {
         $this->addPHPToPath();
         $this->askForProgramDataFolder();
         $this->askForProgramExecutorFolder();
+        $this->winCreateProgramExecutorFolder();
+        $this->winAddProgramExecutorFolderToPath();
         $this->installElevateOnWindows();
         $this->deleteProgramDataFolderAsRootIfExists();
         $this->makeProgramDataFolder();
@@ -91,15 +93,34 @@ class Installer {
     private function askForProgramExecutorFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $sr = getenv('SystemRoot') ;
-            if (file_exists($sr.DS.'System32')) {
-                $this->programExecutorFolder = $sr.DS.'System32' ;
-                return $this->programExecutorFolder ; }
-            else {
-                $this->programExecutorFolder = $sr.DS.'system32' ;
-                return $this->programExecutorFolder ; } }
+            $this->programExecutorFolder = $sr.DS.'PharaohTools' ;
+            return $this->programExecutorFolder ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programExecutorFolder = DS.'usr'.DS.'bin' ;
             return $this->programExecutorFolder ; }
+    }
+
+    private function winCreateProgramExecutorFolder(){
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            if (file_exists($this->programExecutorFolder) && is_dir($this->programExecutorFolder)) {
+                echo "Executor Folder {$this->programExecutorFolder} already exists, not creating\n" ;
+                return ; }
+            echo "Creating {$this->programExecutorFolder}\n" ;
+                $comm = 'mkdir "'.$this->programDataFolder.'"' ;
+                self::executeAndOutput($comm) ;
+            echo $comm."\n" ; }
+    }
+
+    private function winAddProgramExecutorFolderToPath() {
+        // @todo use logic for the correct path
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            echo "Using Windows, so adding Executor Directory to path...\n" ;
+            $path = getenv('PATH') ;
+            if (strpos($path, $this->programExecutorFolder) != false) {
+                echo "Program Executor directory is already in the path\n" ;
+                return ; }
+            $path .= $this->programExecutorFolder ;
+            putenv("PATH=$path"); }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
@@ -178,7 +199,7 @@ class Installer {
         $this->populateExecutorFile();
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Saving executor file {$this->programNameMachine}.bat to {$this->programExecutorFolder} ...\n" ;
-            echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
+            // echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
             echo (is_int(file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Executor written\n" : "Temp file failed writing" ;
 //            echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
 //            $command = 'copy ' ;
