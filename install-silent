@@ -126,7 +126,7 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = 'copy "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
+            $command = 'xcopy "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
             echo $command . "\n" ;
             self::executeAndOutput($command, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'git')) {
@@ -154,7 +154,7 @@ class Installer {
                 $command = 'del ' ; }
             else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
                 $command = "rm -rf " ; }
-            echo "Adding executor ".$command.$this->programExecutorFolder.DS.$this->programNameMachine.$extension."...\n" ;
+            echo "Deleting old executor ".$this->programExecutorFolder.DS.$this->programNameMachine.$extension."...\n" ;
             $fullCommand = $command.$this->programExecutorFolder.DS.$this->programNameMachine.$extension;
             self::executeAndOutput($fullCommand, "Old Program Executor Deleted\n"); }
         return true;
