@@ -126,7 +126,7 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = 'xcopy /s /e /y "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
+            $command = 'xcopy /q /s /e /y "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
             echo $command . "\n" ;
             self::executeAndOutput($command, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'git')) {
@@ -181,9 +181,9 @@ class Installer {
             echo "Saving temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat first ...\n" ;
             echo (is_int(file_put_contents(BASE_TEMP_DIR.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Temp file written\n" : "Temp file failed writing" ;
             echo "Copying temp file ".BASE_TEMP_DIR.$this->programNameMachine.".bat to ".$this->programExecutorFolder.DS.$this->programNameMachine.".bat ...\n" ;
-            $command = 'xcopy /s /e /y ' ;
+            $command = 'copy ' ;
             // $command .= '"'.BASE_TEMP_DIR.$this->programNameMachine.".bat".'" "'.$this->programExecutorFolder.'""' ;
-            $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder ;
+            $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder.DS.$this->programNameMachine.".bat" ;
             self::executeAndOutput($command);
             echo "Removing temp file ".$this->programNameMachine.".bat\n" ;
             unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
