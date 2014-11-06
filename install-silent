@@ -120,7 +120,9 @@ class Installer {
                 return ; }
             $path .= ';'.$this->programExecutorFolder ;
             $newpath = "PATH=$path" ;
-            putenv($newpath); }
+            putenv($newpath);
+        var_dump("1", $newpath) ;
+        var_dump(getenv("2", 'PATH')); }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
