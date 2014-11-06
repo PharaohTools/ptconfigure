@@ -122,7 +122,7 @@ class Installer {
             $newpath = "PATH=$path" ;
             putenv($newpath);
         var_dump("1", $newpath) ;
-        var_dump(getenv("2", 'PATH')); }
+        var_dump("2", getenv('PATH')); }
     }
 
     private function deleteProgramDataFolderAsRootIfExists(){
