@@ -126,7 +126,7 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = 'xcopy "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
+            $command = 'xcopy /s /e /y "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
             echo $command . "\n" ;
             self::executeAndOutput($command, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'git')) {
