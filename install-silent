@@ -83,7 +83,7 @@ class Installer {
     private function askForProgramDataFolder() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->programDataFolder = 'C:'.
-                DS.'Program Files'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
+                DS.'Program Files'.DS.$this->programNameMachine ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
@@ -116,7 +116,7 @@ class Installer {
     private function makeProgramDataFolder(){
         echo "No Program dir found, creating {$this->programDataFolder}\n" ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $comm = 'mkdir '.$this->programDataFolder ;
+            $comm = 'mkdir "'.$this->programDataFolder.'"' ;
             self::executeAndOutput($comm) ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $comm = "mkdir -p ".$this->programDataFolder ;
@@ -126,11 +126,11 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = 'copy '.dirname(__FILE__).'\* '.$this->programDataFolder ;
+            $command = 'copy "'.dirname(__FILE__).'" "'.$this->programDataFolder.'"' ;
             echo $command . "\n" ;
             self::executeAndOutput($command, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'git')) {
-                $command2 = 'copy '.dirname(__FILE__).DS.'git '.$this->programDataFolder ;
+                $command2 = 'copy '.dirname(__FILE__).DS.'git '.$this->programDataFolder.'\cleopatra' ;
                 echo $command2 . "\n" ;
                 self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); } }
         else {
@@ -186,7 +186,7 @@ class Installer {
             $command .= BASE_TEMP_DIR.$this->programNameMachine.".bat".' '.$this->programExecutorFolder ;
             echo $command ;
             self::executeAndOutput($command);
-            echo "Removing temp file ".$this->programNameMachine.".bat" ;
+            echo "Removing temp file ".$this->programNameMachine.".bat\n" ;
             unlink(BASE_TEMP_DIR.$this->programNameMachine.".bat") ;
         }
         else {
