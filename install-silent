@@ -106,7 +106,7 @@ class Installer {
                 echo "Executor Folder {$this->programExecutorFolder} already exists, not creating\n" ;
                 return ; }
             echo "Creating {$this->programExecutorFolder}\n" ;
-            $comm = 'mkdir "'.$this->programDataFolder.'"' ;
+            $comm = 'mkdir "'.$this->programExecutorFolder.'"' ;
             self::executeAndOutput($comm) ;
             echo $comm."\n" ; }
     }
