@@ -98,8 +98,11 @@ class SystemDetectionAllOS extends Base {
             if (in_array($this->distro, array("CentOS")) ) {
                 exec("cat /etc/*-release", $output_array);
                 $this->version = substr($output_array[0], 15, 3) ; } }
-        if ($this->os == "Darwin") {
+        else if ($this->os == "Darwin") {
             exec("sw_vers | grep 'ProductVersion:' | grep -o '[0-9]*\.[0-9]*\.[0-9]*'", $output_array);
+            $this->version = $output_array[0] ; }
+        else if ($this->os == "WINNT") {
+            exec("ver", $output_array);
             $this->version = $output_array[0] ; }
     }
 
