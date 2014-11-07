@@ -116,7 +116,7 @@ class SystemDetectionAllOS extends Base {
     }
 
     private function setHostname() {
-        if ($this->os == "Linux" || $this->os == "Darwin") {
+        if ($this->os == "Linux" || $this->os == "Darwin" || $this->os =="WINNT") {
             exec("hostname", $output_array);
             $this->hostName = $output_array[0] ; }
     }
