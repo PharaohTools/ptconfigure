@@ -104,14 +104,20 @@ class SystemDetectionAllOS extends Base {
     }
 
     private function setArchitecture() {
-        if(($this->os == "Linux" && in_array($this->distro, array("Ubuntu", "CentOS")) || 
-	        $this->os == "Darwin")) {
-	        $output = exec("arch");
+        if(($this->os == "Linux" && in_array($this->distro, array("Ubuntu", "CentOS")) ||
+            $this->os == "Darwin")) {
+            $output = exec("arch");
             if (strpos($output, "x86_64") !== false ) {
                 $this->architecture = "64" ; }
             if (strpos($output, "i386") !== false ) {
                 $this->architecture = "32" ; }
             if (strpos($output, "i686") !== false ) {
+                $this->architecture = "32" ; } }
+        else if($this->os = "WINNT") {
+            $output = exec("arch");
+            if (strpos($output, "x64") !== false ) {
+                $this->architecture = "64" ; }
+            else {
                 $this->architecture = "32" ; } }
     }
 
