@@ -201,14 +201,15 @@ class Installer {
         $this->populateExecutorFile();
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Saving executor file {$this->programNameMachine}.bat to {$this->programExecutorFolder} ...\n" ;
-            echo (is_int(file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.".bat", $this->bootStrapData))) ? "Executor written\n" : "Temp file failed writing" ; }
+            echo (is_int(file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.".bat", $this->bootStrapData)))
+                ? "Executor written\n" : "Executor failed writing" ; }
         else {
             echo "Saving executor file {$this->programNameMachine} to {$this->programExecutorFolder} ...\n" ;
             $fname = $this->programExecutorFolder.DS.$this->programNameMachine ;
             return file_put_contents($fname, $this->bootStrapData); }
     }
 
-    private function changePermissions(){
+    private function changePermissions() {
         // @todo does windows need something like this?
         if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             echo "Changing *NIX based permissions...\n" ;
@@ -225,7 +226,6 @@ class Installer {
 *         $this->programNameFriendly        *
 *******************************
 
-
 TITLE;
     }
 
@@ -241,7 +241,7 @@ COMPLETION;
     private function populateExecutorFile() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->bootStrapData =
-                "<?php\r\nrequire('".$this->programDataFolder.DS."src".DS."Bootstrap.php"."');\r\n?>"; }
+                "@echo off\r\n\r\nphp ".$this->programDataFolder.DS."src".DS."Bootstrap.php".'" %*' ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ;
             $this->bootStrapData .=
