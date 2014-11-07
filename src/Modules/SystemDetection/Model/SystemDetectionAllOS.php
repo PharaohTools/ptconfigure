@@ -113,7 +113,7 @@ class SystemDetectionAllOS extends Base {
                 $this->architecture = "32" ; }
             if (strpos($output, "i686") !== false ) {
                 $this->architecture = "32" ; } }
-        else if($this->os = "WINNT") {
+        else if ($this->os == "WINNT") {
             $output = exec("arch");
             if (strpos($output, "x64") !== false ) {
                 $this->architecture = "64" ; }
