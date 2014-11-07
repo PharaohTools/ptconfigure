@@ -103,7 +103,7 @@ class SystemDetectionAllOS extends Base {
             $this->version = $output_array[0] ; }
         else if ($this->os == "WINNT") {
             exec("ver", $output_array);
-            $this->version = $output_array[0] ; }
+            $this->version = $output_array[1] ; }
     }
 
     private function setArchitecture() {
