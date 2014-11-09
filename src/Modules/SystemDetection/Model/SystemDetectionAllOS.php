@@ -116,7 +116,7 @@ class SystemDetectionAllOS extends Base {
             if (strpos($output, "i686") !== false ) {
                 $this->architecture = "32" ; } }
         else if (in_array($this->os, array("Windows", "WINNT"))) {
-            $output = exec("wmic OS get OSArchitecture");
+            $output = self::executeAndLoad("wmic OS get OSArchitecture");
             if (strpos($output, "64") !== false ) {
                 $this->architecture = "64" ; }
             else {
