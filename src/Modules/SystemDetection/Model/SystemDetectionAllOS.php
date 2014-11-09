@@ -33,8 +33,7 @@ class SystemDetectionAllOS extends Base {
                 break ;
             case "Darwin" :
                 $this->distro = $this->getMacDistro() ;
-                break ;
-        }
+                break ; }
     }
 
     private function setLinuxType() {
@@ -136,7 +135,6 @@ class SystemDetectionAllOS extends Base {
                 // Centos has no network tools at all for some crazy reason, install them now
                 // @todo surely captain, there must be a better way
                 exec('yum install net-tools -y', $outputArray);
-                // $this->ensureNetTools() ;
             }
             $ifComm = 'sudo ip addr list | awk \'/inet /{sub(/\/[0-9]+/,"",$2); print $2}\' ';
             // $ifComm = "sudo ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
@@ -153,12 +151,6 @@ class SystemDetectionAllOS extends Base {
             exec($ifComm, $outputArray);
             foreach($outputArray as $outputLine ) {
                 $this->ipAddresses[] = $outputLine ; } }
-    }
-
-    public function ensureNetTools() {
-        $netToolsFactory = new \Model\NetworkTools();
-        $netTools = $netToolsFactory->getModel($this->params);
-        $netTools->ensureInstalled();
     }
 
 }
