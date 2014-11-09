@@ -30,7 +30,7 @@ class WinExeWindows extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad("wmic") ;
+            $out = $this->executeAndLoad("where /R {$progDir} *{$package}*") ;
             if (strpos($out, $package) !== false) { $passing = false ; } }
         return $passing ;
     }
