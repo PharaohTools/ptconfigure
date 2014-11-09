@@ -6,8 +6,8 @@ class VirtualboxWindows extends BaseWindowsApp {
 
     // Compatibility
     public $os = array("Windows") ;
-    public $linuxType = array() ;
-    public $distros = array() ;
+    public $linuxType = array("None") ;
+    public $distros = array("None") ;
     public $versions = array("6") ;
     public $architectures = array("any") ;
 
