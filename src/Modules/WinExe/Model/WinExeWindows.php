@@ -30,12 +30,12 @@ class WinExeWindows extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad("sudo winexe-cache policy {$package}") ;
-            if (strpos($out, "Installed: (none)") != false) { $passing = false ; } }
+            $out = $this->executeAndLoad("wmic") ;
+            if (strpos($out, $package) !== false) { $passing = false ; } }
         return $passing ;
     }
 
-    public function installPackage($packageName, $version=null, $versionAccuracy=null) {
+    public function installPackage($packageName, $version=null, $versionAccuracy=null, $requestingModel=null) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $loggingFactory = new \Model\Logging();
@@ -50,7 +50,9 @@ class WinExeWindows extends BasePackager {
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            $out = $this->executeAndOutput("sudo winexe-get install $package -y --force-yes");
+            unlink($this->tempDir."temp.exe") ;
+            file_get_contents($requestingModel->packageUrl, $this->tempDir."temp.exe") ;
+            $out = $this->executeAndOutput($this->tempDir."temp.exe");
             if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
             else if (strpos($out, "is already the newest version.") != false) {
