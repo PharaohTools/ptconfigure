@@ -8,7 +8,7 @@ class VirtualboxUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04", "14.04") ;
+    public $versions = array( array("11.04" => "+") ) ;
     public $architectures = array("any") ;
 
     // Model Group
