@@ -26,7 +26,7 @@ class VirtualboxWindows extends BaseWindowsApp {
         $this->programNameMachine = "virtualbox"; // command and app dir name
         $this->programNameFriendly = " ! Virtualbox !"; // 12 chars
         $this->programNameInstaller = "Virtualbox";
-        $this->statusCommand = "command vboxmanage" ;
+        $this->statusCommand = "where.exe VBoxManage" ;
         $this->versionInstalledCommand = "sudo apt-cache policy virtualbox" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy virtualbox" ;
         $this->versionLatestCommand = "sudo apt-cache policy virtualbox" ;
