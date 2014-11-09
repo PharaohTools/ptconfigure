@@ -17,6 +17,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
     protected $packagerName ;
     protected $moduleName ;
     protected $requestingModule ;
+    protected $requestingModel ;
     protected $version ;
     protected $versionAccuracy ;
     protected $actionsToMethods =
@@ -41,6 +42,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
         $this->setModule($module);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
+        $this->setModel($module) ;
         return $this->installPackages();
     }
 
@@ -50,6 +52,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
         $this->setModule($module);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
+        $this->setModel($module) ;
         return $this->ensureInstalled();
     }
 
@@ -59,6 +62,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
         $this->setModule($module);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
+        $this->setModel($module) ;
         return $this->removePackages();
     }
 
@@ -68,6 +72,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
         $this->setModule($module);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
+        $this->setModel($module) ;
         return $this->isInstalled();
     }
 
@@ -105,6 +110,10 @@ class PackageManagerAllOS extends BaseLinuxApp {
             $this->versionAccuracy = $versionAccuracy; }
         else if (isset($this->params["version-accuracy"])) {
             $this->versionAccuracy = $this->params["version-accuracy"]; }
+    }
+
+    public function setModel($requestingModel = null) {
+        $this->requestingModel = (isset($requestingModel)) ? $requestingModel : null ;
     }
 
     public function setModule($moduleName = null) {
