@@ -72,8 +72,7 @@ class Installer {
                 return ; }
             $path .= ';'.$php5path ;
             $comm = 'setx PATH "'.$path.'" /M' ;
-            self::executeAndOutput($comm) ;
-            echo $comm."\n" ; }
+            self::executeAndOutput($comm) ; }
     }
 
     private function installElevateOnWindows() {
