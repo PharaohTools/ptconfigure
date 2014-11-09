@@ -36,43 +36,43 @@ class PackageManagerAllOS extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function performPackageInstall($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
+    public function performPackageInstall($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
-        $this->setModule($module);
+        $this->setModule($requestingModel);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
-        $this->setModel($module) ;
+        $this->setModel($requestingModel) ;
         return $this->installPackages();
     }
 
-    public function performPackageEnsure($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
+    public function performPackageEnsure($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
-        $this->setModule($module);
+        $this->setModule($requestingModel);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
-        $this->setModel($module) ;
+        $this->setModel($requestingModel) ;
         return $this->ensureInstalled();
     }
 
-    public function performPackageRemove($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
+    public function performPackageRemove($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
-        $this->setModule($module);
+        $this->setModule($requestingModel);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
-        $this->setModel($module) ;
+        $this->setModel($requestingModel) ;
         return $this->removePackages();
     }
 
-    public function performPackageExistenceCheck($packagerName=null, $packageName=null, $module=null, $version=null, $versionAccuracy=null) {
+    public function performPackageExistenceCheck($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
         $this->setPackage($packageName);
         $this->setPackager($packagerName);
-        $this->setModule($module);
+        $this->setModule($requestingModel);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
-        $this->setModel($module) ;
+        $this->setModel($requestingModel) ;
         return $this->isInstalled();
     }
 
@@ -134,7 +134,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
         if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
         $returns = array() ;
         foreach($this->packageName as $onePackage) {
-            $result = $packager->installPackage($onePackage, $this->version, $this->versionAccuracy) ;
+            $result = $packager->installPackage($onePackage, $this->version, $this->versionAccuracy, $this->requestingModel) ;
             if ($result == true) { $this->setPackageStatusInCleovars($onePackage, true) ; } ;
             $returns[] = $result ; }
         return (in_array(false, $returns)) ? false : true ;
@@ -153,7 +153,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
                 $logging->log("Not removing Package $onePackage, it's required by these Modules: $moduleString") ; }
             else {
                 $logging->log("Removing Package $onePackage") ;
-                $returns[] = $packager->removePackage($onePackage) ; } }
+                $returns[] = $packager->removePackage($onePackage, $this->requestingModel) ; } }
         return (in_array(false, $returns)) ? false : true ;
     }
 
