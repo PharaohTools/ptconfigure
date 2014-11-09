@@ -31,8 +31,8 @@ class SystemDetectionAllOS extends Base {
             $this->distro = $this->getLinuxDistro() ; }
         else if ( "Darwin"  ) {
             $this->distro = $this->getMacDistro() ; }
-        else if (in_array($this->os, array("Windows", "WINNT"))) {
-            $this->distro = "None"; }
+        else {
+            $this->distro = "None" ; }
     }
 
     private function setLinuxType() {
