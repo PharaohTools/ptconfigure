@@ -23,6 +23,7 @@ class Base {
     protected $programExecutorFolder;
     protected $programExecutorTargetPath;
     protected $tempDir;
+    protected $defaultStatusCommandPrefix ;
     protected $statusCommand;
     protected $statusCommandExpects;
     protected $versionInstalledCommand;
@@ -220,7 +221,7 @@ COMPLETION;
         else if (isset($this->statusCommand) && !is_null($this->statusCommand)) {
             $status = ($this->executeAndGetReturnCode("$this->statusCommand") == 0) ? true : false ; }
         else {
-            $status = ($this->executeAndGetReturnCode("command -v $this->programNameMachine") == 0) ? true : false ; }
+            $status = ($this->executeAndGetReturnCode("{$this->defaultStatusCommandPrefix} {$this->programNameMachine}") == 0) ? true : false ; }
         return $status ;
     }
 
