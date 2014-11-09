@@ -100,7 +100,7 @@ class SystemDetectionAllOS extends Base {
         else if ($this->os == "Darwin") {
             exec("sw_vers | grep 'ProductVersion:' | grep -o '[0-9]*\.[0-9]*\.[0-9]*'", $output_array);
             $this->version = $output_array[0] ; }
-        else if ($this->os == "WINNT") {
+        else if (in_array($this->os, array("Windows", "WINNT"))) {
             exec("ver", $output_array);
             $this->version = $output_array[1] ; }
     }
@@ -115,8 +115,8 @@ class SystemDetectionAllOS extends Base {
                 $this->architecture = "32" ; }
             if (strpos($output, "i686") !== false ) {
                 $this->architecture = "32" ; } }
-        else if ($this->os == "WINNT") {
-            $output = exec("arch");
+        else if (in_array($this->os, array("Windows", "WINNT"))) {
+            $output = exec("wmic OS get OSArchitecture");
             if (strpos($output, "64") !== false ) {
                 $this->architecture = "64" ; }
             else {
@@ -124,7 +124,7 @@ class SystemDetectionAllOS extends Base {
     }
 
     private function setHostname() {
-        if ($this->os == "Linux" || $this->os == "Darwin" || $this->os =="WINNT") {
+        if (in_array($this->os, array("Windows", "WINNT", "Darwin", "Linux"))) {
             exec("hostname", $output_array);
             $this->hostName = $output_array[0] ; }
     }
