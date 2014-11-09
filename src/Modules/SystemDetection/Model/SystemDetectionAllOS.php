@@ -101,7 +101,7 @@ class SystemDetectionAllOS extends Base {
             $this->version = $output_array[0] ; }
         else if (in_array($this->os, array("Windows", "WINNT"))) {
             exec("ver", $output_array);
-            $verString = substr($output_array[1], strpos($output_array[1], "[Version ")+9, strlen($output_array[1])-1) ;
+            $verString = substr($output_array[1], strpos($output_array[1], "[Version ")+9, (strlen($output_array[1])-1 - strpos($output_array[1], "[Version ")+9)) ;
             $versionObject = new \Model\SoftwareVersion($verString) ;
             $this->version =  $versionObject->fullVersionNumber; }
     }
