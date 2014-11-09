@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PackageManagerUbuntu extends BaseLinuxApp {
+class PackageManagerAllOS extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
