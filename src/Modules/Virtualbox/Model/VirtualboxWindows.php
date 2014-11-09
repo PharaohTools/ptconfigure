@@ -5,7 +5,7 @@ Namespace Model;
 class VirtualboxWindows extends BaseWindowsApp {
 
     // Compatibility
-    public $os = array("Windows", "WINNT") ;
+    public $os = array("Windows") ;
     public $linuxType = array("None") ;
     public $distros = array("None") ;
     public $versions = array("6") ;
@@ -22,7 +22,6 @@ class VirtualboxWindows extends BaseWindowsApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $progDir = str_replace(" (x86)", "", getenv('ProgramFiles'));
         $this->autopilotDefiner = "Virtualbox";
         $this->installCommands = $this->getInstallCommands() ;
         $this->uninstallCommands = array( array("command" => array( "sudo apt-get remove -y virtualbox") ) ) ;
@@ -30,7 +29,7 @@ class VirtualboxWindows extends BaseWindowsApp {
         $this->programNameMachine = "virtualbox"; // command and app dir name
         $this->programNameFriendly = " ! Virtualbox !"; // 12 chars
         $this->programNameInstaller = "Virtualbox";
-        $this->statusCommand = 'where.exe /R "'.$progDir.'" *VBoxManage.exe*' ;
+        $this->statusCommand = "where.exe VBoxManage" ;
         $this->versionInstalledCommand = "sudo apt-cache policy virtualbox" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy virtualbox" ;
         $this->versionLatestCommand = "sudo apt-cache policy virtualbox" ;
