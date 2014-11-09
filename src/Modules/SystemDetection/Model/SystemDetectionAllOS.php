@@ -107,13 +107,6 @@ class SystemDetectionAllOS extends Base {
                 ((strlen($output_array[1])-1) - (strpos($output_array[1], "[Version ")+9))
             ) ;
             $versionObject = new \Model\SoftwareVersion($verString) ;
-            var_dump(
-                $output_array[1],
-                (strpos($output_array[1], "[Version ")+9),
-                ((strlen($output_array[1])-1) - (strpos($output_array[1], "[Version ")+9)),
-                $versionObject->fullVersionNumber,
-                $versionObject->shortVersionNumber
-            ) ;
             $this->version =  $versionObject->fullVersionNumber; }
     }
 
