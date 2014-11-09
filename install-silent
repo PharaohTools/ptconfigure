@@ -72,7 +72,8 @@ class Installer {
                 return ; }
             $path .= ';'.$php5path ;
             $comm = 'setx PATH "'.$path.'" /M' ;
-            self::executeAndOutput($comm) ; }
+            self::executeAndOutput($comm) ;
+            echo $comm."\n" ; }
     }
 
     private function installElevateOnWindows() {
@@ -149,7 +150,7 @@ class Installer {
 
     private function copyFilesToProgramDataFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $command = 'xcopy /h /q /s /e /y "'.dirname(__FILE__).'" "'.$this->programDataFolder.DS.'"' ;
+            $command = 'xcopy /q /s /e /y "'.dirname(__FILE__).'" "'.$this->programDataFolder.DS.'"' ;
             echo $command . "\n" ;
             self::executeAndOutput($command, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'git')) {
@@ -158,7 +159,7 @@ class Installer {
                 self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); } }
         else {
             $command = "sudo cp -r " ;
-            $command3 = $command.dirname(__FILE__).DS.'. '.$this->programDataFolder ;
+            $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ;
             echo $command3 . "\n" ;
             self::executeAndOutput($command3, "Program Data folder populated with program files\n");
             if (is_dir(dirname(__FILE__).DS.'.git')) {
