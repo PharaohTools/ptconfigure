@@ -29,7 +29,7 @@ class SystemDetectionAllOS extends Base {
     private function setDistro() {
         if ($this->os == "Linux" ) {
             $this->distro = $this->getLinuxDistro() ; }
-        else if ( "Darwin"  ) {
+        else if ($this->os == "Darwin"  ) {
             $this->distro = $this->getMacDistro() ; }
         else {
             $this->distro = "None" ; }
