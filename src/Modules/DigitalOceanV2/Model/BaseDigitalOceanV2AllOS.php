@@ -15,6 +15,8 @@ class BaseDigitalOceanV2AllOS extends Base {
     public $modelGroup = array("Base") ;
 
     protected $accessToken ;
+    // set api url
+    protected $_apiURL = 'https://api.digitalocean.com';
 
     protected function askForDigitalOceanV2AccessToken(){
         if (isset($this->params["digital-ocean-v2-access-token"])) { return $this->params["digital-ocean-v2-access-token"] ; }
@@ -35,7 +37,7 @@ class BaseDigitalOceanV2AllOS extends Base {
         return self::askForInput($question, true);
     }
 
-    protected function digitalOceanV2Call(Array $curlParams, $curlUrl, $httpType){
+    protected function digitalOceanV2Call(Array $curlParams, $curlUrl, $httpType='GET'){
 
         \Model\AppConfig::setProjectVariable("digital-ocean-v2-access-token", $this->accessToken) ;
         $postQuery = "";

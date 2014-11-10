@@ -52,7 +52,7 @@ class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
         $keyData = str_replace("\n", "", $keyData);
         $callVars["ssh_pub_key"] = urlencode($keyData);
         $callVars["name"] = $keyName;
-        $curlUrl = "https://api.digitalocean.com/v2/ssh_keys/new" ;
+        $curlUrl = $this->_apiURL."/v2/account/keys" ;
         $httpType = "POST" ;
         return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
     }
