@@ -200,8 +200,8 @@ class Installer {
     private function saveExecutorFile(){
         $this->populateExecutorFile();
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            echo "Saving executor file {$this->programNameMachine}.bat to {$this->programExecutorFolder} ...\n" ;
-            echo (is_int(file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.".bat", $this->bootStrapData)))
+            echo "Saving executor file {$this->programNameMachine}.cmd to {$this->programExecutorFolder} ...\n" ;
+            echo (is_int(file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.".cmd", $this->bootStrapData)))
                 ? "Executor written\n" : "Executor failed writing" ; }
         else {
             echo "Saving executor file {$this->programNameMachine} to {$this->programExecutorFolder} ...\n" ;
@@ -241,7 +241,7 @@ COMPLETION;
     private function populateExecutorFile() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->bootStrapData =
-                "@echo off\r\n\r\nphp ".$this->programDataFolder.DS."src".DS."Bootstrap.php".'" %*' ; }
+                "@echo off\r\n\r\nphp \"".$this->programDataFolder.DS."src".DS."Bootstrap.php".'" %*' ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ;
             $this->bootStrapData .=
