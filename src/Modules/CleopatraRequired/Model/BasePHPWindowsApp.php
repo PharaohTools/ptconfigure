@@ -69,14 +69,14 @@ class BasePHPWindowsApp extends BasePHPApp {
     }
 
     protected function deleteTempAsRootIfExists(){
-        if ( is_dir($this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine)) {
-            $command = 'rmdir /s /q '.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine;
-            self::executeAndOutput($command, "Temp files at ".$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine." Deleted"); }
+        if ( is_dir(BASE_TEMP_DIR.$this->programNameMachine)) {
+            $command = 'rmdir /s /q '.BASE_TEMP_DIR.$this->programNameMachine;
+            self::executeAndOutput($command, "Temp files at ".BASE_TEMP_DIR.$this->programNameMachine." Deleted"); }
         return true;
     }
 
     protected function deleteInstallationFiles(){
-        $command = 'rmdir /s /q '.$this->tempDir.DS.$this->programNameMachine;
+        $command = 'rmdir /s /q '.BASE_TEMP_DIR.$this->programNameMachine;
         self::executeAndOutput($command, "Installation files deleted");
     }
 
