@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PortUbuntu extends BaseLinuxApp {
+class PortAllOS extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
