@@ -34,7 +34,6 @@ class BasePHPWindowsApp extends BasePHPApp {
 
     protected function deleteProgramDataFolderAsRootIfExists() {
         if ( file_exists($this->programDataFolder)) {
-            echo "it exists: {$this->programDataFolder}" ;
             $command = 'rmdir /s /q "'.$this->programDataFolder.'"';
             self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted"); }        
         echo "No existing Directory at {$this->programDataFolder} to remove\n" ;
@@ -49,7 +48,7 @@ class BasePHPWindowsApp extends BasePHPApp {
     }
 
     protected function copyFilesToProgramDataFolder() {
-        $command = 'xcopy /h /q /s /e /y "'.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine.'" '.
+        $command = 'xcopy /h /q /s /e /y "'.BASE_TEMP_DIR.$this->programNameMachine.'" '.
             '"'.$this->programDataFolder.'"';
         echo $command."\n" ;
         return self::executeAndOutput($command, "Program Data folder populated");
