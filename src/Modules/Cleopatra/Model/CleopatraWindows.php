@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class CleopatraLinuxMac extends BasePHPApp {
+class CleopatraWindows extends BasePHPWindowsApp {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("Windows", "WINNT") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
