@@ -11,19 +11,19 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     $outputArray = array();
     exec($command, $outputArray);
     define('VBOXMGCOMM', "\"{$outputArray[0]}\" ") ;
-    define('CLEOCOMM', "cleopatra.bat") ;
     define('PFILESDIR', $pf) ;
-    define('DAPPCOMM', "dapperstrano.bat") ;
-    define('PHLCOMM', "phlagrant.bat") ;
+    define('CLEOCOMM', "cleopatra.cmd") ;
+    define('DAPPCOMM', "dapperstrano.cmd") ;
+    define('PHLCOMM', "phlagrant.cmd") ;
     define('BOXDIR', 'C:\\PharaohTools\boxes') ;
     define("DS", "\\");
     define("BASE_TEMP_DIR", getenv("SystemDrive").'\Temp\\'); }
 else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
     define('VBOXMGCOMM', "vboxmanage ") ;
-    define('CLEOCOMM', "cleopatra ") ;
     define('PFILESDIR', "/opt/") ;
+    define('CLEOCOMM', "cleopatra ") ;
     define('DAPPCOMM', "dapperstrano ") ;
-    define('PHLCOMM', "phlagrant.bat") ;
+    define('PHLCOMM', "phlagrant") ;
     define('BOXDIR', DS.'phlagrant/boxes'.'\\') ;
     define("DS", "/");
     define("BASE_TEMP_DIR", '/tmp/'); }
