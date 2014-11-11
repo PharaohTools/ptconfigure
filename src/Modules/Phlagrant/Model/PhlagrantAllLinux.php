@@ -5,7 +5,7 @@ Namespace Model;
 class PhlagrantAllLinux extends BasePHPApp {
 
     // Compatibility
-    public $os = array("any") ;
+    public $os = array("Linux", "Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
