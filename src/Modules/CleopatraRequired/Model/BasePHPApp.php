@@ -14,13 +14,13 @@ class BasePHPApp extends Base {
 
     public function initialize() {
         $this->populateTitle();
-        $this->versionInstalledCommand = "git --git-dir=/opt/{$this->programNameMachine}/{$this->programNameMachine}/.git --work-tree=/{$this->programNameMachine} tag" ;
-        $this->versionRecommendedCommand = "git --git-dir=/opt/{$this->programNameMachine}/{$this->programNameMachine}/.git --work-tree=/{$this->programNameMachine} tag" ;
-        $this->versionLatestCommand = "git --git-dir=/opt/{$this->programNameMachine}/{$this->programNameMachine}/.git --work-tree=/{$this->programNameMachine} tag" ;
+        $this->versionInstalledCommand = "git --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $this->versionRecommendedCommand = "git --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $this->versionLatestCommand = "git --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
     }
 
     protected function populateStartDirectory() {
-        $this->startDirectory = str_replace("/$this->programNameMachine", "", $this->tempDir);
+        $this->startDirectory = str_replace(DS."$this->programNameMachine", "", $this->tempDir);
     }
 
     public function askWhetherToInstallPHPApp() {
@@ -236,7 +236,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $fileSource[3] = true) { $command .= '--recursive ';}
       if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
       $command .= escapeshellarg($fileSource[0]).' ';
-      $command .= ' '.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine;
+      $command .= ' '.BASE_TEMP_DIR.$this->programNameMachine;
       if ($fileSource[1] != null) { $command .= DIRECTORY_SEPARATOR.$fileSource[1];}
       echo $command;
       $data .= self::executeAndLoad($command); }
