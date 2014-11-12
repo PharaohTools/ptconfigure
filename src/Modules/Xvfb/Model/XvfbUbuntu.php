@@ -8,7 +8,7 @@ class XvfbUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04", "14.04") ;
+    public $versions = array( array("11.04" => "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -18,19 +18,19 @@ class XvfbUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "Xvfb";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "vnc4server")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "xvfb")) ),
         ) ;
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "vnc4server")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "xvfb")) ),
         ) ;
-        $this->programDataFolder = "/opt/vnc"; // command and app dir name
-        $this->programNameMachine = "vnc"; // command and app dir name
+        $this->programDataFolder = "/opt/xvfb"; // command and app dir name
+        $this->programNameMachine = "xvfb"; // command and app dir name
         $this->programNameFriendly = " ! Xvfb !"; // 12 chars
         $this->programNameInstaller = "Xvfb";
-        $this->statusCommand = "which vncserver" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy vnc4server" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy vnc4server" ;
-        $this->versionLatestCommand = "sudo apt-cache policy vnc4server" ;
+        $this->statusCommand = "which xvfb" ;
+        $this->versionInstalledCommand = "sudo apt-cache policy xvfb4server" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy xvfb4server" ;
+        $this->versionLatestCommand = "sudo apt-cache policy xvfb4server" ;
         $this->initialize();
     }
 

@@ -17,18 +17,18 @@ class XvfbInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("vnc"=>"Xvfb");
+      return array("xvfb"=>"Xvfb");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install Xvfb, the popular Virtual Machine Solution.
 
-  Xvfb, vnc
+  Xvfb, xvfb
 
         - install
         Installs Xvfb through apt-get
-        example: cleopatra vnc install
+        example: cleopatra xvfb install
 
 HELPDATA;
       return $help ;
