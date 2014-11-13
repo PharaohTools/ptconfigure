@@ -19,10 +19,10 @@ class FirefoxUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "Firefox";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "firefox")) ),
-            array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
+        );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "firefox")) ),
-            array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
+        );
         $this->programDataFolder = "/opt/Firefox"; // command and app dir name
         $this->programNameMachine = "firefox"; // command and app dir name
         $this->programNameFriendly = "Firefox!"; // 12 chars
