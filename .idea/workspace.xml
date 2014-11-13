@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" name="Default" comment="new cleo-winstall for installing the elevate command">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2AllBoxesDestroy.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2AllBoxesDestroy.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxDestroy.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxDestroy.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2List.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2List.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2OverwriteNew.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2OverwriteNew.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2SshKey.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2SshKey.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleopatra.iml" afterPath="$PROJECT_DIR$/cleopatra.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php" afterPath="$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Rackspace/Controller/Rackspace.php" afterPath="$PROJECT_DIR$/src/Modules/Rackspace/Controller/Rackspace.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxAdd.php" afterPath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxAdd.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxDestroy.php" afterPath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxDestroy.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDomain.php" afterPath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDomain.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceList.php" afterPath="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceList.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/papyrusfile" afterPath="$PROJECT_DIR$/papyrusfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cleopatra.iws" />
@@ -75,55 +74,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BaseDigitalOceanV2AllOS.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php">
+      <file leaf-file-name="Rackspace.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Controller/Rackspace.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="56" selection-start="447" selection-end="447" vertical-scroll-proportion="-12.0" vertical-offset="0" max-vertical-offset="1620">
+            <state line="11" column="12" selection-start="422" selection-end="422" vertical-scroll-proportion="26.666666" vertical-offset="918" max-vertical-offset="2088">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DigitalOceanV2List.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2List.php">
+      <file leaf-file-name="BaseRackspaceAllOS.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="62" selection-start="1606" selection-end="1648" vertical-scroll-proportion="-14.666667" vertical-offset="432" max-vertical-offset="1062">
+            <state line="28" column="27" selection-start="768" selection-end="768" vertical-scroll-proportion="-4.45977" vertical-offset="116" max-vertical-offset="2304">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DigitalOceanV2OverwriteNew.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2OverwriteNew.php">
+      <file leaf-file-name="RackspaceBoxAdd.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxAdd.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="48" selection-start="3177" selection-end="3177" vertical-scroll-proportion="-6.6666665" vertical-offset="1170" max-vertical-offset="2016">
+            <state line="103" column="35" selection-start="4832" selection-end="4832" vertical-scroll-proportion="-20.413794" vertical-offset="60" max-vertical-offset="5202">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DigitalOceanV2SshKey.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2SshKey.php">
+      <file leaf-file-name="RackspaceBoxDestroy.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxDestroy.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="34" selection-start="2255" selection-end="2255" vertical-scroll-proportion="-36.0" vertical-offset="0" max-vertical-offset="1170">
+            <state line="52" column="51" selection-start="2088" selection-end="2088" vertical-scroll-proportion="-2.6206896" vertical-offset="708" max-vertical-offset="2430">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DigitalOceanV2BoxAdd.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php">
+      <file leaf-file-name="RackspaceAllBoxesDestroy.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceAllBoxesDestroy.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="143" column="48" selection-start="6332" selection-end="6332" vertical-scroll-proportion="-7.3333335" vertical-offset="2376" max-vertical-offset="5364">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1044">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="RackspaceList.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceList.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
+            <state line="54" column="92" selection-start="1959" selection-end="1964" vertical-scroll-proportion="0.60271645" vertical-offset="617" max-vertical-offset="1260">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RackspaceDomain.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDomain.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="41" selection-start="457" selection-end="478" vertical-scroll-proportion="-7.3333335" vertical-offset="108" max-vertical-offset="3744">
               <folding />
             </state>
           </provider>
@@ -170,7 +178,13 @@
         <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2OverwriteNew.php" />
         <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2SshKey.php" />
         <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Controller/Rackspace.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDomain.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxDestroy.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxAdd.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceList.php" />
       </list>
     </option>
   </component>
@@ -275,6 +289,80 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Rackspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Rackspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Rackspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cleopatra" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="DigitalOceanV2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -302,132 +390,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DigitalOceanV2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DigitalOcean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DigitalOcean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DigitalOcean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DigitalOcean" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -670,128 +632,164 @@
         <state line="44" column="0" selection-start="2067" selection-end="2067" vertical-scroll-proportion="0.32247558" vertical-offset="594" max-vertical-offset="2520" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Controller/DigitalOceanV2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.0" vertical-offset="576" max-vertical-offset="1152">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Views/DigitalOceanListView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1107492" vertical-offset="682" max-vertical-offset="1296">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1107492" vertical-offset="682" max-vertical-offset="1296" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Views/DigitalOceanAPIView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Controller/DigitalOcean.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="39" selection-start="255" selection-end="255" vertical-scroll-proportion="-0.6472546" vertical-offset="551" max-vertical-offset="1152">
-          <folding />
-        </state>
+        <state line="9" column="39" selection-start="255" selection-end="255" vertical-scroll-proportion="-0.6472546" vertical-offset="551" max-vertical-offset="1152" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Model/DigitalOceanSshKey.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="20.074074" vertical-offset="542" max-vertical-offset="1170">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="20.074074" vertical-offset="542" max-vertical-offset="1170" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Model/DigitalOcean.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Model/DigitalOceanAllBoxesDestroy.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="35" selection-start="1558" selection-end="1558" vertical-scroll-proportion="-3.321839" vertical-offset="503" max-vertical-offset="1044">
-          <folding />
-        </state>
+        <state line="44" column="35" selection-start="1558" selection-end="1558" vertical-scroll-proportion="-3.321839" vertical-offset="503" max-vertical-offset="1044" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Model/DigitalOceanList.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="47" selection-start="1638" selection-end="1665" vertical-scroll-proportion="0.6921824" vertical-offset="421" max-vertical-offset="1062">
-          <folding />
-        </state>
+        <state line="47" column="47" selection-start="1638" selection-end="1665" vertical-scroll-proportion="0.6921824" vertical-offset="421" max-vertical-offset="1062" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Model/BaseDigitalOceanAllOS.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="23" selection-start="2505" selection-end="2505" vertical-scroll-proportion="0.24459234" vertical-offset="861" max-vertical-offset="1566">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2AllBoxesDestroy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="34" selection-start="1509" selection-end="1509" vertical-scroll-proportion="1.25" vertical-offset="0" max-vertical-offset="972">
-          <folding />
-        </state>
+        <state line="56" column="23" selection-start="2505" selection-end="2505" vertical-scroll-proportion="0.24459234" vertical-offset="861" max-vertical-offset="1566" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxDestroy.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="72" selection-start="4247" selection-end="4247" vertical-scroll-proportion="0.281198" vertical-offset="1415" max-vertical-offset="2016">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="56" selection-start="447" selection-end="447" vertical-scroll-proportion="-12.0" vertical-offset="0" max-vertical-offset="1620">
-          <folding />
-        </state>
+        <state line="88" column="72" selection-start="4247" selection-end="4247" vertical-scroll-proportion="0.281198" vertical-offset="1415" max-vertical-offset="2016" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2List.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="62" selection-start="1606" selection-end="1648" vertical-scroll-proportion="-14.666667" vertical-offset="432" max-vertical-offset="1062">
-          <folding />
-        </state>
+        <state line="46" column="62" selection-start="1606" selection-end="1648" vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="1062" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2OverwriteNew.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="48" selection-start="3177" selection-end="3177" vertical-scroll-proportion="-6.6666665" vertical-offset="1170" max-vertical-offset="2016">
-          <folding />
-        </state>
+        <state line="75" column="48" selection-start="3177" selection-end="3177" vertical-scroll-proportion="0.0" vertical-offset="1170" max-vertical-offset="2016" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2SshKey.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="34" selection-start="2255" selection-end="2255" vertical-scroll-proportion="-36.0" vertical-offset="0" max-vertical-offset="1170">
-          <folding />
-        </state>
+        <state line="54" column="34" selection-start="2255" selection-end="2255" vertical-scroll-proportion="0.0" vertical-offset="972" max-vertical-offset="1170" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="641" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="56" selection-start="447" selection-end="447" vertical-scroll-proportion="-0.75" vertical-offset="756" max-vertical-offset="1620" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="21" selection-start="8223" selection-end="8223" vertical-scroll-proportion="0.359375" vertical-offset="2385" max-vertical-offset="2988">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="48" selection-start="6332" selection-end="6332" vertical-scroll-proportion="-7.3333335" vertical-offset="2376" max-vertical-offset="5364">
-          <folding />
-        </state>
+        <state line="217" column="50" selection-start="9524" selection-end="9553" vertical-scroll-proportion="1.53125" vertical-offset="3024" max-vertical-offset="5364" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2AllBoxesDestroy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="76" selection-start="1483" selection-end="1551" vertical-scroll-proportion="0.5625" vertical-offset="396" max-vertical-offset="972" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Controller/DigitalOceanV2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="54" selection-start="2611" selection-end="2611" vertical-scroll-proportion="0.375" vertical-offset="540" max-vertical-offset="1152" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
+        <state line="1" column="5" selection-start="12" selection-end="12" vertical-scroll-proportion="0.029220778" vertical-offset="0" max-vertical-offset="616">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/Rackspace.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="589">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Controller/Rackspace.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="12" selection-start="422" selection-end="422" vertical-scroll-proportion="26.666666" vertical-offset="918" max-vertical-offset="2088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxDestroy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="51" selection-start="2088" selection-end="2088" vertical-scroll-proportion="-2.6206896" vertical-offset="708" max-vertical-offset="2430">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxAdd.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="35" selection-start="4832" selection-end="4832" vertical-scroll-proportion="-20.413794" vertical-offset="60" max-vertical-offset="5202">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="27" selection-start="768" selection-end="768" vertical-scroll-proportion="-4.45977" vertical-offset="116" max-vertical-offset="2304">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceAllBoxesDestroy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1044">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/Core_c.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="6" selection-start="151" selection-end="151" vertical-scroll-proportion="0.25" vertical-offset="0" max-vertical-offset="6264">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDomain.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="41" selection-start="457" selection-end="478" vertical-scroll-proportion="-7.3333335" vertical-offset="108" max-vertical-offset="3744">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="92" selection-start="1959" selection-end="1964" vertical-scroll-proportion="0.60271645" vertical-offset="617" max-vertical-offset="1260">
           <folding />
         </state>
       </provider>
