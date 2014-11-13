@@ -27,15 +27,15 @@ class XvfbUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "xvfb"; // command and app dir name
         $this->programNameFriendly = " ! Xvfb !"; // 12 chars
         $this->programNameInstaller = "Xvfb";
-        $this->statusCommand = "which xvfb" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy xvfb4server" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy xvfb4server" ;
-        $this->versionLatestCommand = "sudo apt-cache policy xvfb4server" ;
+        $this->statusCommand = "which xvfb-run" ;
+        $this->versionInstalledCommand = "sudo apt-cache policy xvfb" ;
+        $this->versionRecommendedCommand = "sudo apt-cache policy xvfb" ;
+        $this->versionLatestCommand = "sudo apt-cache policy xvfb" ;
         $this->initialize();
     }
 
     public function versionInstalledCommandTrimmer($text) {
-        $done = substr($text, 23, 15) ;
+        $done = substr($text, 19, 19) ;
         return $done ;
     }
 
