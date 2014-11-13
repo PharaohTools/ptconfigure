@@ -141,7 +141,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $callVars["image_id"] = $serverData["imageID"];
         $callVars["region_id"] = $serverData["regionID"];
         $callVars["ssh_keys"] = $serverData["sshKeyIds"] ;
-        $curlUrl = "https://api.digitalocean.com/v2/droplets" ;
+        $curlUrl = $this->_apiURL."/v2/droplets/" ;
         $httpType = "POST" ;
         /*
          * curl -X POST "https://api.digitalocean.com/v2/droplets" \
@@ -182,17 +182,55 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
     private function getSshKeyIds() {
         if (isset($this->params["ssh-key-ids"])) {
-            return $this->params["ssh-key-ids"] ; }
+            return $this->params["ssh-key-ids"] ;
+        }
+        if (isset($this->params["ssh-key-id"])) {
+            return $this->getSshKeyInfoByKeyId($this->params["ssh-key-id"]) ;
+        }
+        if (isset($this->params["ssh-key-fingerprint"])) {
+            return $this->getSshKeyInfoByKeyFingerprint($this->params["ssh-key-fingerprint"]) ;
+        }
         if (isset($this->params["ssh-key-name"])) {
-            return $this->getSshKeyIdFromName($this->params["ssh-key-name"]) ; }
+            return $this->getSshKeyIdFromName($this->params["ssh-key-name"]) ;
+        }
         if (isset($this->params["guess"]) || isset($this->params["use-all-ssh-keys"])) {
-            return $this->getAllSshKeyIdsString() ; }
+            return $this->getAllSshKeyIdsString() ;
+        }
     }
 
+    /**
+     * Get key information via ssh-key-id
+     * @param $keyID
+     * @return mixed
+     */
+    private function getSshKeyInfoByKeyId($keyID){
+        $curlUrl = $this->_apiURL."/v2/account/keys/".$keyID;
+        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+
+        return $sshKeysObject;
+    }
+
+    /**
+     * Get key information via ssh-key-fingerprint
+     * @param $keyFingerprint
+     * @return mixed
+     */
+    private function getSshKeyInfoByKeyFingerprint($keyFingerprint){
+        $curlUrl = $this->_apiURL."/v2/account/keys/".$keyFingerprint;
+        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+
+        return $sshKeysObject;
+    }
+
+    /**
+     * Get all ssh key from a account
+     * @return string
+     */
     private function getAllSshKeyIdsString() {
         if (isset($this->params["ssh-key-ids"])) {
-            return $this->params["ssh-key-ids"] ; }
-        $curlUrl = "https://api.digitalocean.com/v2/ssh_keys" ;
+            return $this->params["ssh-key-ids"] ;
+        }
+        $curlUrl = $this->_apiURL."/v2/account/keys" ;
         $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
         $sshKeys = array();
         // @todo use the list call to get ids, this uses name
@@ -203,7 +241,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     }
 
     private function getSshKeyIdFromName($name) {
-        $curlUrl = "https://api.digitalocean.com/v2/ssh_keys" ;
+        $curlUrl = $this->_apiURL."/v2/account/keys";
         $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
         foreach($sshKeysObject->ssh_keys as $sshKey) {
             if ($sshKey->name == $name) {
@@ -211,8 +249,13 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         return null;
     }
 
+    /**
+     * Get droplet information via droplet-id
+     * @param $dropletId
+     * @return mixed
+     */
     private function getDropletData($dropletId) {
-        $curlUrl = "https://api.digitalocean.com/v2/droplets/$dropletId" ;
+        $curlUrl = $this->_apiURL."/v2/droplets/$dropletId" ;
         $dropletObject =  $this->digitalOceanV2Call(array(), $curlUrl);
         return $dropletObject;
     }

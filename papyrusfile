@@ -1,1 +1,1 @@
-a:2:{s:12:"host-entries";a:1:{s:0:"";s:0:"";}s:13:"virtual-hosts";s:33:"www.cleo-papyrus-editor.tld.local";}
+a:3:{s:12:"host-entries";a:1:{s:0:"";s:0:"";}s:13:"virtual-hosts";s:33:"www.cleo-papyrus-editor.tld.local";s:29:"digital-ocean-v2-access-token";s:64:"8e4d71a521bb5582703199aa961eb38ad25b6d816070ce134ba41821abab6b03";}

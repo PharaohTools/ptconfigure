@@ -85,8 +85,8 @@ class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
     private function destroyServerFromDigitalOceanV2($serverData) {
         $callVars = array() ;
         $callVars["droplet_id"] = $serverData["dropletID"];
-        $curlUrl = "https://api.digitalocean.com/v2/droplets/{$callVars["droplet_id"]}/destroy" ;
-        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl);
+        $curlUrl = $this->_apiURL."/v2/droplets/{$callVars["droplet_id"]}" ;
+        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl,'DELETE');
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
