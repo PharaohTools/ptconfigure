@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class Firefox24 extends Base {
+class Firefox33 extends Base {
 
 }

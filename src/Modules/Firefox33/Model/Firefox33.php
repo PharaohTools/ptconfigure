@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Firefox24 extends BaseModelFactory {
+class Firefox33 extends BaseModelFactory {
 
 }

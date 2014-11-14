@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class Firefox24Ubuntu extends BaseLinuxApp {
+class Firefox33Ubuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array(array("11.04" => "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -16,15 +16,15 @@ class Firefox24Ubuntu extends BaseLinuxApp {
 
   public function __construct($params) {
     parent::__construct($params);
-    $this->autopilotDefiner = "Firefox24";
+    $this->autopilotDefiner = "Firefox33";
     $this->installCommands = array(
         array( "command" => array(
             "cd /tmp" ,
-            "git clone https://github.com/phpengine/Firefox24 firefox24",
+            "git clone https://github.com/phpengine/firefox33 firefox33",
             "rm -rf ****PROGDIR****",
             "mkdir -p ****PROGDIR****",
-            "mv /tmp/firefox24/* ****PROGDIR****",
-            "rm -rf /tmp/firefox24" ) ),
+            "mv /tmp/firefox33/* ****PROGDIR****",
+            "rm -rf /tmp/firefox33" ) ),
         array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
         array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
     );
@@ -33,10 +33,10 @@ class Firefox24Ubuntu extends BaseLinuxApp {
             "rm -rf ****PROGDIR****",
             "rm -rf ****PROG EXECUTOR****" ) )
     );
-    $this->programDataFolder = "/opt/firefox24"; // command and app dir name
+    $this->programDataFolder = "/opt/firefox33"; // command and app dir name
     $this->programNameMachine = "firefox"; // command and app dir name
-    $this->programNameFriendly = " Firefox 24 "; // 12 chars
-    $this->programNameInstaller = "Firefox 24";
+    $this->programNameFriendly = " Firefox 33 "; // 12 chars
+    $this->programNameInstaller = "Firefox 33";
     $this->programExecutorFolder = "/usr/bin";
     $this->programExecutorTargetPath = "firefox-bin";
     $this->programExecutorCommand = $this->programDataFolder.'/'.$this->programExecutorTargetPath;
