@@ -6,7 +6,7 @@
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
         "behat/mink-zombie-driver": "*",
-        "guzzle/http": "*",
+        "guzzle/http": "*"
     },
     "config": {
         "bin-dir": "bin"
