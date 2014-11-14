@@ -98,7 +98,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
     }
 
     protected function askForSeleniumVersion(){
-        $ao = array("2.39", "2.40", "2.41", "2.42", "2.43") ;
+        $ao = array("2.39", "2.40", "2.41", "2.42", "2.43", "2.44") ;
         if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
             $this->sv = $this->params["version"] ; }
         else if (isset($this->params["guess"])) {
