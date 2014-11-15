@@ -16,7 +16,7 @@ class Process extends Base {
         $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="kill") {
-            $this->content["result"] = $thisModel->askWhetherToProcessPut();
+            $this->content["result"] = $thisModel->askWhetherToProcessKill();
             return array ("type"=>"view", "view"=>"Process", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Process Action";
