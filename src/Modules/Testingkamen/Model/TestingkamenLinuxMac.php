@@ -19,7 +19,7 @@ class TestingkamenLinuxMac extends BasePHPApp {
         $this->autopilotDefiner = "Testingkamen";
         $this->fileSources = array(
           array(
-              "http://git.pharaohtools.com/git/phpengine/testingkamen.git",
+              "https://github.com/PharaohTools/testingkamen.git",
               "testingkamen",
               null // can be null for none
           )

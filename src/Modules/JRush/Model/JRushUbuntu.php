@@ -20,7 +20,7 @@ class JRushUbuntu extends BasePHPApp {
         $this->autopilotDefiner = "JRush";
         $this->fileSources = array(
           array(
-            "http://git.pharaohtools.com/git/phpengine/jrush.git",
+            "https://github.com/PharaohTools/jrush.git",
             "jrush",
             null // can be null for none
           )
