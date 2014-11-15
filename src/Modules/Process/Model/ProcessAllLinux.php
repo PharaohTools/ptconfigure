@@ -39,7 +39,7 @@ class ProcessAllLinux extends Base {
 
     private function doProcessKillByPsax() {
         $names = $this->getNames() ;
-        $comm = "ps ax | grep \"{$this->params["name"]}\"" ;
+        $comm = "ps ax | grep \"{$this->params["name1"]}\"" ;
         $psaxout = self::executeAndLoad($comm) ;
         $lines = explode("\n", $psaxout) ;
         foreach ($lines as $line) {
