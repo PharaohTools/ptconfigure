@@ -45,6 +45,7 @@ class ProcessAllLinux extends Base {
         foreach ($lines as $line) {
             foreach ($names as $name) {
                 if (strpos($line, $name) !== false && strpos($line, " grep ") == false ) {
+//                    var_dump($line, $name) ;
                     $id = $this->getIdFromPsaxLine($line) ;
                     $this->doSingleProcessKillById($id) ; } } }
     }
@@ -91,7 +92,7 @@ class ProcessAllLinux extends Base {
 
     private function getNames(){
         $names = array() ;
-        for ($i = 0; $i<100; $i++) {
+        for ($i = 1; $i<100; $i++) {
             if (isset($this->params["name$i"])) { $names[] = $this->params["name$i"] ; }
             else { break ; } }
         return $names;
@@ -99,7 +100,7 @@ class ProcessAllLinux extends Base {
 
     private function getIds(){
         $ids = array() ;
-        for ($i = 0; $i<100; $i++) {
+        for ($i = 1; $i<100; $i++) {
             if (isset($this->params["id$i"])) { $names[] = $this->params["id$i"] ; }
             else { break ; } }
         return $ids;
