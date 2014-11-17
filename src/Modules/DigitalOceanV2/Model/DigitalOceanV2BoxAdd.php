@@ -158,12 +158,12 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
     private function addServerToPapyrus($envName, $data) {
         $dropletData = $this->getDropletData($data->droplet->id);
-        if (!isset($dropletData->ip_address) && isset($this->params["wait-for-box-info"])) {
+        if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
             $dropletData = $this->waitForBoxInfo($data->droplet->id); }
-        if (($dropletData->status != "active") && isset($this->params["wait-until-active"])) {
+        if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
             $dropletData = $this->waitUntilActive($data->droplet->id); }
         $server = array();
-        $server["target"] = $dropletData->droplet->ip_address;
+        $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;;
         $server["user"] = $this->getUsernameOfBox() ;
         $server["password"] = $this->getSSHKeyLocation() ;
         $server["provider"] = "DigitalOceanV2";
@@ -268,7 +268,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Attempt $i2 for droplet $dropletId box info...") ;
             $dropletData = $this->getDropletData($dropletId);
-            if (isset($dropletData->droplet->ip_address)) {
+            if (isset($dropletData->droplet->networks->v4[0]->ip_address;)) {
                 return $dropletData ; }
             sleep (10);
             $i2++; }

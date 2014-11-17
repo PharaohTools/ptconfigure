@@ -42,26 +42,38 @@ class BaseDigitalOceanV2AllOS extends Base {
         \Model\AppConfig::setProjectVariable("digital-ocean-v2-access-token", $this->accessToken) ;
         $postQuery = "";
         $i = 0;
-        foreach ($curlParams as $curlParamKey => $curlParamValue) {
+        /*foreach ($curlParams as $curlParamKey => $curlParamValue) {
             $postQuery .= ($i==0) ? "" : '&' ;
             if(is_object($curlParamValue)) { var_dump($curlParamKey, $curlParamValue) ;  }
             $postQuery .= $curlParamKey."=".$curlParamValue;
-            $i++; }
+            $i++; }*/
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$curlUrl);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($curlParams));
+        //curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($curlParams));
         switch ($httpType){
             case "POST":
+                $postQuery['name'] = $curlParams['name'] ;
+                $postQuery['region'] = $curlParams['region_id'] ;
+                $postQuery['size'] = $curlParams['size_id'] ;
+                $postQuery['image'] = $curlParams['image_id'];
+                $postQuery['ssh_keys'] = (isset($curlParams['ssh_keys'])) ? $curlParams['ssh_keys'] : null ;
+                $postData = json_encode($postQuery);
+
+                curl_setopt($ch, CURLOPT_POSTFIELDS,$postData);
                 curl_setopt($ch, CURLOPT_POST, 1);
                 break;
             case "GET":
+                curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($curlParams));
+                $postData = http_build_query($curlParams);
                 curl_setopt($ch, CURLOPT_HTTPGET, 1);
                 break;
             case "PUT":
                 curl_setopt($ch, CURLOPT_PUT, 1);
                 break;
             case "DELETE":
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                $postData = "";
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
                 break;
             default :
@@ -71,7 +83,7 @@ class BaseDigitalOceanV2AllOS extends Base {
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 "Authorization: Bearer {$this->accessToken}",
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen(http_build_query($curlParams)))
+                'Content-Length: ' . strlen($postData))
         );
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
