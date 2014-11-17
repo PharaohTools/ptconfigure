@@ -45,7 +45,7 @@ class ProcessAllLinux extends Base {
         foreach ($lines as $line) {
             foreach ($names as $name) {
                 if (strpos($line, $name) !== false && strpos($line, " grep ") == false ) {
-//                    var_dump($line, $name) ;
+                    var_dump($line) ;
                     $id = $this->getIdFromPsaxLine($line) ;
                     $this->doSingleProcessKillById($id) ; } } }
     }
