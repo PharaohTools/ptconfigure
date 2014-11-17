@@ -268,7 +268,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Attempt $i2 for droplet $dropletId box info...") ;
             $dropletData = $this->getDropletData($dropletId);
-            if (isset($dropletData->droplet->networks->v4[0]->ip_address;)) {
+            if (isset($dropletData->droplet->networks->v4[0]->ip_address)) {
                 return $dropletData ; }
             sleep (10);
             $i2++; }
