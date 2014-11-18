@@ -23,6 +23,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $this->accessToken = $this->askForDigitalOceanV2AccessToken();
         $serverPrefix = $this->getServerPrefix();
         $environments = \Model\AppConfig::getProjectVariable("environments");
+
         $workingEnvironment = $this->getWorkingEnvironment();
 
         foreach ($environments as $environment) {
@@ -56,8 +57,10 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                                 ? $serverData["prefix"].'-'.$serverData["envName"].'-'.$serverData["sCount"]
                                 : $serverData["envName"].'-'.$serverData["sCount"] ;
                             $serverData["sshKeyIds"] = $this->getSshKeyIds();
+
                             $response = $this->getNewServerFromDigitalOceanV2($serverData) ;
-                            // var_dump("response", $response) ;
+
+
                             $this->addServerToPapyrus($envName, $response); } } } }
 
                 return true ; }
@@ -137,9 +140,9 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     private function getNewServerFromDigitalOceanV2($serverData) {
         $callVars = array() ;
         $callVars["name"] = $serverData["name"];
-        $callVars["size_id"] = $serverData["sizeID"];
-        $callVars["image_id"] = $serverData["imageID"];
-        $callVars["region_id"] = $serverData["regionID"];
+        $callVars["size"] = $serverData["sizeID"];
+        $callVars["image"] = $serverData["imageID"];
+        $callVars["region"] = $serverData["regionID"];
         $callVars["ssh_keys"] = $serverData["sshKeyIds"] ;
         $curlUrl = $this->_apiURL."/v2/droplets/" ;
         $httpType = "POST" ;
@@ -157,13 +160,19 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     }
 
     private function addServerToPapyrus($envName, $data) {
+
         $dropletData = $this->getDropletData($data->droplet->id);
+
         if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
             $dropletData = $this->waitForBoxInfo($data->droplet->id); }
         if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
             $dropletData = $this->waitUntilActive($data->droplet->id); }
         $server = array();
-        $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;;
+
+        $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
+
+
+
         $server["user"] = $this->getUsernameOfBox() ;
         $server["password"] = $this->getSSHKeyLocation() ;
         $server["provider"] = "DigitalOceanV2";
@@ -257,6 +266,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     private function getDropletData($dropletId) {
         $curlUrl = $this->_apiURL."/v2/droplets/$dropletId" ;
         $dropletObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+
         return $dropletObject;
     }
 
