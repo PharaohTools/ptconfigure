@@ -17,10 +17,13 @@ class File extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array() )) {
+        if (in_array($action, array("exists", "append", "should-have-line") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"file", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
 
