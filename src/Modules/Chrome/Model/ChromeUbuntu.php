@@ -33,7 +33,7 @@ class ChromeUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "google-chrome-stable"; // command and app dir name
         $this->programNameFriendly = "GoogleChrome"; // 12 chars
         $this->programNameInstaller = "Chrome";
-        $this->statusCommand = "google-chrome-stable -v" ;
+        $this->statusCommand = "which google-chrome-stable" ;
         $this->versionInstalledCommand = "sudo apt-cache policy google-chrome-stable" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy google-chrome-stable" ;
         $this->versionLatestCommand = "sudo apt-cache policy google-chrome-stable" ;
