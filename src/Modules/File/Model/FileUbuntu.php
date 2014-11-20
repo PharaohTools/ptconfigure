@@ -18,6 +18,8 @@ class FileAllOS extends BaseLinuxApp {
         array(
             "exists" => "performFileExistenceCheck",
             "append" => "performAppendLine",
+            "create" => "performCreation",
+            "delete" => "performDeletion",
             "should-have-line" => "performShouldHaveLine",
         ) ;
 
@@ -33,14 +35,26 @@ class FileAllOS extends BaseLinuxApp {
 
     protected function performFileExistenceCheck() {
         $this->setFile();
-        $this->setSearchLine();
+        return $this->exists();
+    }
+
+    protected function performDeletion() {
+        $this->setFile();
+        $this->filedelete();
+        return ($this->exists()==false) ? true : false ;
+    }
+
+    protected function performCreation() {
+        $this->setFile();
+
         return $this->exists();
     }
 
     protected function performAppendLine() {
         $this->setFile();
         $this->setSearchLine();
-        return $this->exists();
+        $this->append();
+        return true ;
     }
 
     protected function performShouldHaveLine() {
@@ -72,6 +86,9 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function read() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Reading File {$this->fileName}", $this->getModuleName()) ;
         return file_get_contents($this->fileName);
     }
 
@@ -80,7 +97,33 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function write($content) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Writing File {$this->fileName}", $this->getModuleName()) ;
         file_put_contents($this->fileName, $content);
+        return $this;
+    }
+
+    public function create() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Creating File {$this->fileName}", $this->getModuleName()) ;
+        touch($this->fileName);
+        return $this;
+    }
+
+    public function filedelete() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Deleting File {$this->fileName}", $this->getModuleName()) ;
+        $system = new \Model\SystemDetection();
+        $thisSystem = $system->getModel($this->params);
+        if (!in_array($thisSystem->os, array("Windows", "WINNT") ) ) {
+            $comm = "del -y " ; }
+        else {
+            $comm = "rm -f " ; }
+        $comm .= $this->fileName ;
+        self::executeAndOutput($comm, $this->fileName." Deleted") ;
         return $this;
     }
 
@@ -91,8 +134,7 @@ class FileAllOS extends BaseLinuxApp {
                 $newContent = preg_replace($needle->regexp, $newNeedle, $content); }
             else {
                 $newContent = str_replace($needle, $newNeedle, $content); }
-            $this->write($newContent);
-        }
+            $this->write($newContent); }
         return $this;
     }
 
@@ -103,8 +145,8 @@ class FileAllOS extends BaseLinuxApp {
             return strstr($this->read(), $needle); }
     }
 
-    public function append($newContent) {
-        $this->write($this->read() . $newContent);
+    public function append() {
+        $this->write($this->read() . $this->params["searchline"]);
     }
 
     public function chmod($string) {
@@ -129,7 +171,8 @@ class FileAllOS extends BaseLinuxApp {
             $this->append($lines); }
     }
 
-    public function shouldHaveLine($string) {
+    public function shouldHaveLine() {
+        $string = $this->params["searchline"] ;
         if (!($string instanceof RegExp)) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
