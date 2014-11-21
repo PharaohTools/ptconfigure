@@ -88,8 +88,6 @@ class BaseDigitalOceanV2AllOS extends Base {
                 $postQuery['image'] = $curlParams['image_id'];
                 $postQuery['ssh_keys'] = (isset($curlParams['ssh_keys'])) ? $curlParams['ssh_keys'] : null ;
                 $postData = json_encode($postQuery);
-
-
                 curl_setopt($ch, CURLOPT_POSTFIELDS,$postData);
                 curl_setopt($ch, CURLOPT_POST, 1);
                 break;
@@ -122,7 +120,6 @@ class BaseDigitalOceanV2AllOS extends Base {
         $server_output = curl_exec ($ch);
         curl_close ($ch);
         $callObject = json_decode($server_output);
-
 
         return $callObject;
     }
