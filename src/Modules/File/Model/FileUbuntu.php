@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class FileUbuntu extends BaseLinuxApp {
+class FileAllOS extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -16,7 +16,9 @@ class FileUbuntu extends BaseLinuxApp {
     protected $fileName ;
     protected $actionsToMethods =
         array(
-            // "create" => "performFileCreate",
+            "exists" => "performFileExistenceCheck",
+            "append" => "performAppendLine",
+            "should-have-line" => "performShouldHaveLine",
         ) ;
 
     public function __construct($params) {
@@ -31,18 +33,42 @@ class FileUbuntu extends BaseLinuxApp {
 
     protected function performFileExistenceCheck() {
         $this->setFile();
+        $this->setSearchLine();
+        return $this->exists();
+    }
+
+    protected function performAppendLine() {
+        $this->setFile();
+        $this->setSearchLine();
+        return $this->exists();
+    }
+
+    protected function performShouldHaveLine() {
+        $this->setFile();
+        $this->setSearchLine();
         return $this->exists();
     }
 
     public function setFile($fileName = null) {
         if (isset($fileName)) {
             $this->fileName = $fileName; }
-        else if (isset($this->params["filename"])) {
-            $this->fileName = $this->params["filename"]; }
-        else if (isset($autopilot["filename"])) {
-            $this->fileName = $autopilot["filename"]; }
+        else if (isset($this->params["file"])) {
+            $this->fileName = $this->params["file"]; }
+        else if (isset($autopilot["file"])) {
+            $this->fileName = $autopilot["file"]; }
         else {
-            $this->fileName = self::askForInput("Enter Filename:", true); }
+            $this->fileName = self::askForInput("Enter File Path:", true); }
+    }
+
+    public function setSearchLine($searchLine = null) {
+        if (isset($searchLine)) {
+            $this->fileName = $searchLine; }
+        else if (isset($this->params["searchline"])) {
+            $this->fileName = $this->params["searchline"]; }
+        else if (isset($autopilot["searchline"])) {
+            $this->fileName = $autopilot["searchline"]; }
+        else {
+            $this->fileName = self::askForInput("Enter line of text to search for:", true); }
     }
 
     public function read() {
