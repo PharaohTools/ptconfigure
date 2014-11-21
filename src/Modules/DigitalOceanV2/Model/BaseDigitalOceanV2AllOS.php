@@ -37,7 +37,7 @@ class BaseDigitalOceanV2AllOS extends Base {
         return self::askForInput($question, true);
     }
 
-    protected function digitalOceanV2Call(Array $curlParams, $curlUrl, $httpType='GET'){
+    protected function digitalOceanV2Call(Array $curlParams, $curlUrl, $httpType='GET') {
 
         \Model\AppConfig::setProjectVariable("digital-ocean-v2-access-token", $this->accessToken) ;
 
@@ -76,6 +76,9 @@ class BaseDigitalOceanV2AllOS extends Base {
 //                $postQuery['ssh_keys']  =   (isset($curlParams['ssh_keys'])) ? $curlParams['ssh_keys'] : null ;
                 $postData = json_encode($curlParams);
 
+        // @todo zahedul I added the below bracket, because the structure of the page was wrong
+        }
+
         //curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($curlParams));
         switch ($httpType){
             case "POST":
@@ -99,15 +102,8 @@ class BaseDigitalOceanV2AllOS extends Base {
                 curl_setopt($ch, CURLOPT_PUT, 1);
                 break;
             case "DELETE":
-
-
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-
-                 $postData = "";
-
                 $postData = "";
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-
                 break;
             default :
                 break;
