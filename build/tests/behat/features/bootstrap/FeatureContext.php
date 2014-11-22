@@ -75,7 +75,7 @@ class FeatureContext extends BehatContext
      */
     public function iRunTheApplicationCommandInTheShellWithParameterString($str)
     {
-        $command = CLEOCOMM." {$str}" ;
+        $command = CLEOCOMM." $str" ;
         exec($command, $output);
         $this->output = trim(implode("\n", $output));
     }
@@ -85,6 +85,7 @@ class FeatureContext extends BehatContext
      */
     public function iShouldSeeOnlyTheModulesWhichAreCompatibleWithThisSystem()
     {
+        //@todo this functionality wont be 110 accurate without unit testing that method it calls from model
         $iao = new \Model\IndexAllOS(array()) ;
         $method = new ReflectionMethod('\Model\IndexAllOS', 'findOnlyCompatibleModuleNames');
         $method->setAccessible(true);
