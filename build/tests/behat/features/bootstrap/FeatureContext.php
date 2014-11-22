@@ -90,7 +90,7 @@ class FeatureContext extends BehatContext
         $method->setAccessible(true);
         $compats = $method->invokeArgs($iao,array(array()));
         foreach ($compats as $compat) {
-            if ($compat["hidden"] != true) {
+            if ($compat["hidden"] !== true) {
             if (strpos($this->output, $compat["command"]) === false) {
                 throw new \Exception("Expected compatible module {$compat["command"]} not found."); } } }
     }
