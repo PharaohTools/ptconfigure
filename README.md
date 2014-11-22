@@ -25,9 +25,9 @@ cleopatra cli on your On your Mac, Linux or  Unix Machine silently do the follow
 
 git clone https://github.com/PharaohTools/cleopatra.git && sudo php cleopatra/install-silent
 
-or on Windows ...
+or on Windows, open a terminal with the "Run as Administrator" option...
 
-git clone https://github.com/PharaohTools/cleopatra.git && cleopatra\cleo-winstall.bat && php cleopatra\install-silent
+git clone https://github.com/PharaohTools/cleopatra.git && php cleopatra\install-silent
 
 ... that's it, now the cleopatra command should be available at the command line for you.
 
@@ -42,7 +42,6 @@ cleopatra
 
 ...This will give you a list of the available modules...
 
-
 Then you can use
 
 cleopatra *ModuleName* help
@@ -54,29 +53,11 @@ You'll be able to automate any action from any available module into an autopilo
 working on a web front end, but you can also use JSON output and the PostInput module to use any module from an API.
 
 
-## Or a quick example
+## Or some examples
 
-These 5 commands will fire you up 5 boxes on Digital Ocean, and configure the systems as a Bastion Server, a Git Server,
-a Jenkins Build Server, a Standalone PHP/Mysql Staging Server, and a Standalone PHP/Mysql Production Server. You'll need
-to set up your Digital Ocean account first.
+The following URL contains a bunch of tutorials
 
- # create a directory, or use a current web project as your new Pharaoh project
- mkdir /var/www/my-test-project && cd /var/www/my-test-project
-
- # boxify
- cleopatra autopilot execute /opt/cleopatra/cleopatra/src/Modules/Boxify/Autopilots/boxify-add-tiny.php
- (will ask for api key and client id the first time)
-
- # cleofy - create some standard templates for
- cleopatra cleofy standard --yes --guess
-
- # The "tiny" set of Server Configuration, comes with a script to kick off the invokers for all the environments
- cp /opt/cleopatra/cleopatra/src/Modules/Boxify/Scripts/cm-all-tiny.sh .
-
- # Run it all
- sudo sh cm-all-tiny.sh
-
-Use invoke cli or env-config list to see your boxes
+http://www.pharaohtools.com/tutorials
 
 Go to http://www.pharaohtools.com for more
 
