@@ -25,3 +25,6 @@ foreach ($pageVars["modulesInfo"] as $moduleInfo) {
 }
 
 ?>
+
+---------------------------------------
+Visit www.pharaohtools.com for more
