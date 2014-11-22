@@ -2,9 +2,6 @@ Cleopatra Modules to be created
 
 BUG
 
-
-
-
 pharoah_php_home env var o se locaion of php ex 2 use
 
 * CSS Regression Testing @todo
@@ -16,10 +13,11 @@ pharoah_php_home env var o se locaion of php ex 2 use
 * we should be able to refer to values in other parts of the papyrusfile using something like:
   ":::mysql_default_host"
 
-Check for Broken Packages, ability to update
+Check for Broken Packages, ability to update - DONE
 
 Bob is like phake
 http://www.christophh.net/2012/01/20/introduction-to-bob/
+
 
 All of Pharaoh
 -------------------
@@ -34,7 +32,7 @@ should all just work the same. Makes using the app at the command line way easie
 BUG FOUND
 -------------
 I must add a no-dependencies option/flag to installs. Usually you want dependencies so it installs straight away. but there
-might be a reason not to. for instance, myysql would be a prerequisite of mysqltools, but we might have just got that from
+might be a reason not to. for instance, mysql would be a prerequisite of mysqltools, but we might have just got that from
 galera. maybe the mysql module cannot check for galera, and the dependency will attempt to execute.
 
 
