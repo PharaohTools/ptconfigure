@@ -20,19 +20,6 @@ class DummyLinuxModuleInfo extends Base {
     return array("DummyLinuxModule"=>"DummyLinuxModule", "dummylinuxmodule"=>"DummyLinuxModule");
   }
 
-  public function autoPilotVariables() {
-    return array(
-      "DummyLinuxModule" => array(
-        "DummyLinuxModule" => array(
-          "programDataFolder" => "/opt/DummyLinuxModule", // command and app dir name
-          "programNameMachine" => "DummyLinuxModule", // command and app dir name
-          "programNameFriendly" => "DummyLinuxModule", // 12 chars
-          "programNameInstaller" => "Dummy Linux Module",
-        ),
-      )
-    );
-  }
-
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This is a dummy Linux module that doesn't execute any commands.
