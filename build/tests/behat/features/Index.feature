@@ -5,7 +5,7 @@ Feature: Executing the program index page
 
   Scenario: Execute with no parameters
     Given I run the application command in the shell
-    Then I should see all of the modules which are not hidden or disabled
+    Then I should see all of the modules which are not hidden
 
   Scenario: Execute with no parameters
     Given I run the application command in the shell
@@ -21,4 +21,4 @@ Feature: Executing the program index page
 
   Scenario: Execute with "--compatible-only" parameter
     Given I run the application command in the shell with parameter string "--compatible-only"
-    Then I should see only the modules which are compatible with this system...
+    Then I should see only the modules which are compatible with this system
