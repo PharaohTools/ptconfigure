@@ -20,5 +20,5 @@ Feature: Executing the program index page
     Then I should see only the modules which are compatible with this system
 
   Scenario: Execute with "--compatible-only" parameter
-    Given I run the application command in the shell with parameter string "--only-compatible"
+    Given I run the application command in the shell with parameter string "--compatible-only"
     Then I should see only the modules which are compatible with this system...

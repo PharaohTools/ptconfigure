@@ -1,97 +1,43 @@
 <?php
 
-use Behat\Behat\Context\ContextInterface;
-use Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\MinkContext;
+use Behat\Behat\Context\BehatContext,
+    Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\PyStringNode,
+    Behat\Gherkin\Node\TableNode;
 
-/**
- * Behat context class.
- */
-class FeatureContext extends MinkContext implements ContextInterface
+class FeatureContext extends BehatContext
 {
+    private $output;
 
-    protected $session ;
-
-    /**
-     * Initializes context. Every scenario gets it's own context object.
-     *
-     * @param array $parameters Suite parameters (set them up through behat.yml)
-     */
-    public function __construct(array $parameters)
+    /** @Given /^I am in a directory "([^"]*)"$/ */
+    public function iAmInADirectory($dir)
     {
-        // $this->useContext('default_context', new \DefaultContext());
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
+        chdir($dir);
     }
 
-    /**
-     * @Then /^I should see the site logo$/
-     */
-    public function iShouldSeeTheSiteLogo()
+    /** @Given /^I have a file named "([^"]*)"$/ */
+    public function iHaveAFileNamed($file)
     {
-        $page = $this->getMainContext()->getSession()->getPage() ;
-        $page->find('css', 'html.no-js body.home.page.page-id-5.page-template.page-template-page-home-php div#header header div.container h1 a img');
+        touch($file);
     }
 
-    /**
-     * @Then /^I should see the site menu$/
-     */
-    public function iShouldSeeTheSiteMenu()
+    /** @When /^I run "([^"]*)"$/ */
+    public function iRun($command)
     {
-        $page = $this->getMainContext()->getSession()->getPage() ;
-        $page->find('css', 'html.no-js body.home.page.page-id-5.page-template.page-template-page-home-php div#header header div.container nav');
+        exec($command, $output);
+        $this->output = trim(implode("\n", $output));
     }
 
-    /**
-     * @Then /^I should see slider$/
-     */
-    public function iShouldSeeSlider()
+    /** @Then /^I should get:$/ */
+    public function iShouldGet(PyStringNode $string)
     {
-        $page = $this->getMainContext()->getSession()->getPage() ;
-        $page->find('css', 'input#edit-name');
-        $page->find('css', 'input#edit-pass');
+        if ((string) $string !== $this->output) {
+            throw new Exception(
+                "Actual output is:\n" . $this->output
+            );
+        }
     }
-
-    /**
-     * @Then /^I enter my username in the username field$/
-     */
-    public function iEnterMyUsernameInTheUsernameField()
-    {
-        $page = $this->getMainContext()->getSession()->getPage() ;
-        $el = $page->find('css', 'input#edit-name');
-        $el->setValue("ishouldhiredave") ;
-    }
-
-    /**
-     *@Given /^I enter my password in the password field$/
-     */
-    public function iEnterMyPasswordInThePasswordField()
-    {
-        $page = $this->getMainContext()->getSession()->getPage() ;
-        $el = $page->find('css', 'input#edit-pass');
-        $el->setValue("rightnow") ;
-    }
-
-    /**
-     * @Then /^I submit the login form$/
-     */
-    public function iSubmitTheLoginForm()
-    {
-        $page = $this->getMainContext()->getSession()->getPage() ;
-        $el = $page->find('css', 'input#edit-submit');
-        $el->press();
-    }
-
-    /**
-     * @Then /^I should see a greeting message$/
-     */
-    public function iShouldSeeAGreetingMessage()
-    {
-        $page = $this->getMainContext()->getSession()->getPage() ;
-        $el = $page->find('css', 'html.js body div.region.region-page-top div#toolbar.toolbar.overlay-displace-top.clearfix.toolbar-processed div.toolbar-menu.clearfix ul#toolbar-user li.account.first a');
-        $plainText = $el->getText();
-        if ($plainText != "Hello ishouldhiredave") {
-            throw new Exception('Incorrect Greeting Message'); };
-    }
-
 }
