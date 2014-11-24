@@ -8,7 +8,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array(array("11.04" => "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -18,10 +18,10 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "PHPModules";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-gd", "php5-imagick", "php5-curl", "php5-mysql"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-gd", "php5-imagick", "php5-curl", "php5-mysql", "php5-memcache", "php5-memcached"))) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("php5-gd", "php5-imagick", "php5-curl", "php5-mysql"))) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("php5-gd", "php5-imagick", "php5-curl", "php5-mysql", "php5-memcache", "php5-memcached"))) ),
         );
         $this->programDataFolder = "/opt/PHPModules"; // command and app dir name
         $this->programNameMachine = "phpmodules"; // command and app dir name
