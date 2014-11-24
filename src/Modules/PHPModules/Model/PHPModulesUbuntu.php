@@ -33,7 +33,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     public function askStatus() {
         $modsTextCmd = 'sudo php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
-        $modsToCheck = array("gd", "imagick", "curl", "mysql") ;
+        $modsToCheck = array("gd", "imagick", "curl", "mysql", "memcache", "memcached") ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
