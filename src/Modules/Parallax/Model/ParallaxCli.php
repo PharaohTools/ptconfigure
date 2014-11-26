@@ -80,35 +80,55 @@ class ParallaxCli extends BaseLinuxApp {
         $allPlxOuts[] = array($tempScript, $outfile);
         $commandInitWait = (isset($this->params["execution-wait"])) ? $this->params["execution-wait"] : 5 ;
         sleep($commandInitWait); }
-      $copyPlxOuts = $allPlxOuts;
-      $fileData = "";
-      $ignores = array();
-      sleep(3);
 
-      while (count($this->commandResults) < count($allPlxOuts)) {
-        for ($i=0; $i<count($copyPlxOuts); $i++) {
-          if (in_array($i, $ignores)) {
-              continue; }
-          $fileToScan = $copyPlxOuts[$i][1];
-          $file = new \SplFileObject($fileToScan);
-          $file->seek(1);
-          $completionStatus = substr($file->current(), 10, 1);
-          if ($completionStatus=="1") {
-            $file->seek(0);
-            echo "Completed task: ".substr($file->current(), 9);
-            $file->seek(2);
-            $exitStatus = substr($file->current(), 13, 1);
-            $this->commandResults[] = $exitStatus;
-            $fileData .= file_get_contents($fileToScan);
-            $ignores[] = $i;
-              // remove our child output file and temp script
-              self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][0]);
-              self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][1]); }}
-        echo ".";
-        sleep(3); }
+        $fileData = $this->runAndGroupOutput($allPlxOuts) ;
 
         $anyFailures = in_array("1", $this->commandResults);
         return array ($fileData, $anyFailures);
+    }
+
+    private function runAndGroupOutput($allPlxOuts) {
+
+        $copyPlxOuts = $allPlxOuts;
+        $fileData = "";
+        $ignores = array();
+        sleep(3);
+
+        while (count($this->commandResults) < count($allPlxOuts)) {
+            for ($i=0; $i<count($copyPlxOuts); $i++) {
+                if (in_array($i, $ignores)) {
+                    continue; }
+                $fileToScan = $copyPlxOuts[$i][1];
+                $file = new \SplFileObject($fileToScan);
+                $file->seek(1);
+                $completionStatus = substr($file->current(), 10, 1);
+                if ($completionStatus=="1") {
+                    $file->seek(0);
+                    echo "Completed task: ".substr($file->current(), 9);
+                    $file->seek(2);
+                    $exitStatus = substr($file->current(), 13, 1);
+                    $this->commandResults[] = $exitStatus;
+                    $fileData .= file_get_contents($fileToScan);
+                    $ignores[] = $i;
+                    $this->completeSingle($copyPlxOuts, $i) ; } }
+            echo ".";
+            sleep(3); }
+
+        return $fileData ;
+
+    }
+
+    private function completeSingle($copyPlxOuts, $i) {
+        if ($this->params["output"]=="default-log") {
+            self::executeAndOutput("mkdir -p ".$copyPlxOuts[$i][0]);
+
+
+        }
+        else if () {}
+        else if () {}
+        else {
+            self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][0]);
+            self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][1]); }
     }
 
     private function makeCommandFile($command) {
