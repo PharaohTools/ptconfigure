@@ -4,6 +4,8 @@
  * Pharaoh Tools Constants
  */
 
+define('PHARAOH_APP', "cleopatra") ;
+
 if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     $sd = getenv('SystemDrive') ;
     $pf = getenv('ProgramFiles') ;
