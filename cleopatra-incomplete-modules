@@ -366,57 +366,29 @@ vsftpd
 
 
 
-Terminator Module
--------------------
-http://software.jessies.org/downloads/mac/terminator.zip
-http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.deb
-http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.deb
-http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.rpm
-http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.rpm
-http://software.jessies.org/downloads/windows/terminator.msi
-
+Console
+Terminator Module http://software.jessies.org/downloads/mac/terminator.zip, http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.deb, http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.deb, http://software.jessies.org/downloads/debian/org.jessies.terminator.i386.rpm, http://software.jessies.org/downloads/debian/org.jessies.terminator.x86_64.rpm, http://software.jessies.org/downloads/windows/terminator.msi
 
 phpDocumentor
-phpDocumentor (also known as phpdoc and phpdocu) is a documentation tool for your PHP source code. It has an innumerable
-amount of features, including the ability to output in HTML, PDF, CHM and XML DocBook formats, and has both a Web-based
-and command-line interface as well as source-code highlighting. To learn more about phpDocumentor, check out the
-online manual.
-- pear channel-discover pear.phpdoc.org
-- pear install phpdoc/phpDocumentor
-10 Minutes
+phpDocumentor (also known as phpdoc and phpdocu) is a documentation tool for your PHP source code. It has an innumerable amount of features, including the ability to output in HTML, PDF, CHM and XML DocBook formats, and has both a Web-based and command-line interface as well as source-code highlighting. To learn more about phpDocumentor, check out the online manual. - pear channel-discover pear.phpdoc.org - pear install phpdoc/phpDocumentor 10 Minutes
 
 PHP Code Beautifier
-PHP_Beautifier
-PHP Beautifier is a PEAR package for automatically formatting and “beautifying” PHP 4 and PHP 5 source code.
-pear install PHP_Beautifier
-10 Minutes
+PHP_Beautifier PHP Beautifier is a PEAR package for automatically formatting and “beautifying” PHP 4 and PHP 5 source code. pear install PHP_Beautifier 30 Minutes
 
 Phing
-Phing is a popular project version-control system for PHP. It is a useful tool for organizing and maintaining different
-builds of your project.
-Windows and Linux, 2 hours
+Phing is a popular project version-control system for PHP. It is a useful tool for organizing and maintaining different builds of your project. Windows and Linux, 2 hours
 
 phpMyAdmin
-If you’re working with PHP, there’s a big chance you’re set up in a LAMP configuration. phpMyAdmin is Web-based tool for
-managing, building, importing, exporting and exploring MySQL databases.
-ensure mysql
-inst mysql admins
-dapper phpmyadmin
-Windows and Linux, 6 hours
+If you’re working with PHP, there’s a big chance you’re set up in a LAMP configuration. phpMyAdmin is Web-based tool for managing, building, importing, exporting and exploring MySQL databases. ensure mysql, inst mysql admins, dapper phpmyadmin, Windows and Linux, 6 hours
 
 PECL
-PECL is a directory of all known PHP extensions and a hosting facility for downloading and developing PHP extensions.
-As a Package Manager
-2 hours
+PECL is a directory of all known PHP extensions and a hosting facility for downloading and developing PHP extensions. As a Package Manager 2 hours
 
 PHP-GTK
-PHP-GTK is a PHP extension for the GTK+ toolkit (a robust toolkit for developing GUIs). It is a suite of useful OOP
-functions and classes to help you rapidly build cross-platform, client-side GUI’s for your application.
-1 Hour if PECL or PEAR
+PHP-GTK is a PHP extension for the GTK+ toolkit (a robust toolkit for developing GUIs). It is a suite of useful OOP functions and classes to help you rapidly build cross-platform, client-side GUI’s for your application. 1 Hour if PECL or PEAR
 
 PHPSpec
-PHPSpec is a simple and intuitive PHP framework. It follows the Behavior-Driven Development principle and therefore
-allows you to write behavior-oriented code, oftentimes in plain English.
+PHPSpec is a simple and intuitive PHP framework. It follows the Behavior-Driven Development principle and therefore allows you to write behavior-oriented code, oftentimes in plain English.
 
 
 
@@ -460,16 +432,10 @@ PHP DOX
 An AJAX-powered PHP documentation search engine that enables you to search titles from all PHP documentation pages.
 
 PHPCodeBeautifier
-PHPCodeBeautifier is a tool that saves you from hours of reformatting code to suit your own way of presenting it. A GUI
-version allows you to process files visually; a command-line version can be batched or integrated with other tools
-(like CVS, SubVersion, IDE, etc.); and there is also an integrated tool of PHPEdit.
-http://www.waterproof.fr/download/phpCodeBeautifier/phpCB-1.0.1-linux.tgz
-Windows and Linux, 2 hours
+PHPCodeBeautifier is a tool that saves you from hours of reformatting code to suit your own way of presenting it. A GUI version allows you to process files visually; a command-line version can be batched or integrated with other tools (like CVS, SubVersion, IDE, etc.); and there is also an integrated tool of PHPEdit. http://www.waterproof.fr/download/phpCodeBeautifier/phpCB-1.0.1-linux.tgz Windows and Linux, 2 hours
 
 Minify!
-Minify is a PHP 5 app that can combine multiple CSS or JavaScript files, compress their content (i.e. remove unnecessary
- white space and comments) and serve the results with HTTP encoding (via Gzip/deflate) and headers that allow optimal
- client-side caching. This will help you follow several of Yahoo!’s Rules for High Performance Websites.
+Minify is a PHP 5 app that can combine multiple CSS or JavaScript files, compress their content (i.e. remove unnecessary white space and comments) and serve the results with HTTP encoding (via Gzip/deflate) and headers that allow optimal client-side caching. This will help you follow several of Yahoo!’s Rules for High Performance Websites.
 
 
 IDE's
