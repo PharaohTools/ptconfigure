@@ -120,12 +120,12 @@ class ParallaxCli extends BaseLinuxApp {
 
     private function completeSingle($copyPlxOuts, $i, $fileData) {
         $logfilename = time() ;
-        if ($this->params["output"]=="default-log") {
-            $dir = "build".DS."logs".DS.PHARAOH_APP.DS."parallax".DS ;
+        if (isset($this->params["output"]) && $this->params["output"]=="custom-log" && isset($this->params["log"]) ) {
+            $dir = $this->params["log"].DS ;
             self::executeAndOutput("mkdir -p ".$dir) ;
             file_put_contents($dir.$logfilename, $fileData) ; }
-        else if (isset($this->params["output"]) && $this->params["output"]=="custom-log" && isset($this->params["log"]) ) {
-            $dir = $this->params["log"].DS ;
+        else if (isset($this->params["guess"])) {
+            $dir = "build".DS."logs".DS.PHARAOH_APP.DS."parallax".DS ;
             self::executeAndOutput("mkdir -p ".$dir) ;
             file_put_contents($dir.$logfilename, $fileData) ; }
         self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][0]);
