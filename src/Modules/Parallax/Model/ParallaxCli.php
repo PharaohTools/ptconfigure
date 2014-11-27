@@ -109,7 +109,7 @@ class ParallaxCli extends BaseLinuxApp {
                     $this->completeSingle($copyPlxOuts, $i, $fd) ; } }
             echo ".";
             sleep(3); }
-        if (isset($this->params["quiet"])) { $fileData = "Quiet output..." ; }
+        if (isset($this->params["quiet"])) { return "Quiet output..." ; }
         return $fileData ;
     }
 
