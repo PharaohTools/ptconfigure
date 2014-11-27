@@ -78,7 +78,7 @@ class ParallaxCli extends BaseLinuxApp {
             $cmd = 'cleopatra parallax child --command-to-execute="sh '.$tempScript.'" --output-file="'.$outfile.'" > /dev/null &';
             shell_exec($cmd);
             $allPlxOuts[] = array($tempScript, $outfile);
-            $commandInitWait = (isset($this->params["execution-wait"])) ? $this->params["execution-wait"] : 3 ;
+            $commandInitWait = (isset($this->params["execution-wait"])) ? $this->params["execution-wait"] : 1 ;
             sleep($commandInitWait); }
         $fileData = $this->runAndGroupOutput($allPlxOuts) ;
         $anyFailures = in_array("1", $this->commandResults);
@@ -86,16 +86,13 @@ class ParallaxCli extends BaseLinuxApp {
     }
 
     private function runAndGroupOutput($allPlxOuts) {
-
         $copyPlxOuts = $allPlxOuts;
         $fileData = "";
         $ignores = array();
         sleep(3);
-
         while (count($this->commandResults) < count($allPlxOuts)) {
             for ($i=0; $i<count($copyPlxOuts); $i++) {
-                if (in_array($i, $ignores)) {
-                    continue; }
+                if (in_array($i, $ignores)) { continue; }
                 $fileToScan = $copyPlxOuts[$i][1];
                 $file = new \SplFileObject($fileToScan);
                 $file->seek(1);
@@ -106,24 +103,24 @@ class ParallaxCli extends BaseLinuxApp {
                     $file->seek(2);
                     $exitStatus = substr($file->current(), 13, 1);
                     $this->commandResults[] = $exitStatus;
-                    $fileData .= file_get_contents($fileToScan);
+                    $fd = file_get_contents($fileToScan);
+                    $fileData .= $fd ;
                     $ignores[] = $i;
-                    $this->completeSingle($copyPlxOuts, $i, $fileData) ; } }
+                    $this->completeSingle($copyPlxOuts, $i, $fd) ; } }
             echo ".";
             sleep(3); }
-
+        if (isset($this->params["quiet"])) { $fileData = "Quiet output..." ; }
         return $fileData ;
-
     }
 
     private function completeSingle($copyPlxOuts, $i, $fileData) {
-        $logfilename = time() ;
+        $logfilename = time()."_".mt_rand(100, 99999999999).".log" ;
         if (isset($this->params["output"]) && $this->params["output"]=="custom-log" && isset($this->params["log"]) ) {
             $dir = $this->params["log"].DS ;
             self::executeAndOutput("mkdir -p ".$dir) ;
             file_put_contents($dir.$logfilename, $fileData) ; }
         else if (isset($this->params["guess"])) {
-            $dir = "build".DS."logs".DS.PHARAOH_APP.DS."parallax".DS ;
+            $dir = getcwd().DS."build".DS."logs".DS.PHARAOH_APP.DS."parallax".DS ;
             self::executeAndOutput("mkdir -p ".$dir) ;
             file_put_contents($dir.$logfilename, $fileData) ; }
         self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][0]);
