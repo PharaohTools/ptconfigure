@@ -173,8 +173,8 @@ class BasePHPApp extends Base {
         $pathStr = "" ;
         foreach ($arrayOfPaths as $path) {
             $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ; }
-        $this->bootStrapData = "#!/usr/bin/php\n
-<?php\n
+        $this->bootStrapData = "#!/usr/bin/php
+<?php
 set_include_path('" . $pathStr . "'.get_include_path() );
 require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTargetPath."');\n
 ?>";
