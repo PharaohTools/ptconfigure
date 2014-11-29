@@ -19,7 +19,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Bastion DNS" ),),),
-                array ( "DNSify" => array("box-destroy" => array(
+                array ( "Task" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-bastion",
                     "provider-name" => $provider,
@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Git
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the GitBucket DNS" ),),),
-                array ( "DNSify" => array("box-destroy" => array(
+                array ( "Task" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-git",
                     "provider-name" => $provider,
@@ -43,7 +43,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Jenkins
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins DNS" ),),),
-                array ( "DNSify" => array("box-destroy" => array(
+                array ( "Task" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
                     "provider-name" => $provider,
@@ -55,7 +55,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Staging
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging DNS" ),),),
-                array ( "DNSify" => array("box-destroy" => array(
+                array ( "Task" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
                     "provider-name" => $provider,
@@ -67,7 +67,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // Production
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production DNS" ),),),
-                array ( "DNSify" => array("box-destroy" => array(
+                array ( "Task" => array("box-destroy" => array(
                     "guess" => true,
                     "environment-name" => "tiny-prod",
                     "provider-name" => $provider,

@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "DNSify" => array("box-add" => array(
+                array ( "Task" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-prod",
                     "provider-name" => $provider,

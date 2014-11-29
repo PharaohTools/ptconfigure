@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DNSifyUbuntu extends BaseLinuxApp {
+class TaskUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -29,33 +29,10 @@ class DNSifyUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "DNSify";
-        $this->programNameMachine = "dnsify"; // command and app dir name
-        $this->programNameFriendly = "DNSify!"; // 12 chars
-        $this->programNameInstaller = "DNSify your Environments";
+        $this->programNameMachine = "task"; // command and app dir name
+        $this->programNameFriendly = "Task!"; // 12 chars
+        $this->programNameInstaller = "Task your Environments";
         $this->initialize();
-    }
-
-    public function ensureDNSDomainExists($providerName = null) {
-        $this->setProvider($providerName);
-        $this->getDomainName() ;
-        return $this->addDNS("domain");
-    }
-
-    public function ensureDNSDomainEmpty($providerName = null, $environmentName = null) {
-        $this->setProvider($providerName);
-        $this->setEnvironment($environmentName);
-        return $this->removeDNS();
-    }
-
-    public function ensureDNSRecordExists($providerName = null) {
-        $this->setProvider($providerName);
-        $this->getDomainName() ;
-        $this->getRecordName() ;
-        $this->getRecordType() ;
-        $this->getRecordData() ;
-        $this->getRecordTTL() ;
-        return $this->addDNS("record");
     }
 
     public function ensureDNSRecordEmpty($providerName = null, $environmentName = null) {

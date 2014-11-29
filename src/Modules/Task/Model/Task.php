@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class DNSify extends BaseModelFactory {
+class Task extends BaseModelFactory {
 
 }

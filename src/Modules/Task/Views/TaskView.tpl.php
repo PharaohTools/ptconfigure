@@ -37,4 +37,4 @@ else if ($pageVars["route"]["action"]=="list-records") {
 ?>
 
 ------------------------------
-DNSifying Finished
+Task Finished

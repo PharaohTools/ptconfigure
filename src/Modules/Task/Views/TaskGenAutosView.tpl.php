@@ -1,4 +1,4 @@
-DNSify Listing:
+Task Listing:
 --------------------------------------------
 
 <?php
@@ -7,4 +7,4 @@ DNSify Listing:
 ?>
 
 ------------------------------
-DNSify Listing Finished
+Task Listing Finished

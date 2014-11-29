@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DNSifyListingUbuntu extends BaseLinuxApp {
+class TaskListingUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -19,38 +19,68 @@ class DNSifyListingUbuntu extends BaseLinuxApp {
     protected $requestingModule ;
     protected $actionsToMethods =
         array(
-            "list-papyrus" => "performListing",
+            "list" => "performListing",
         ) ;
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "DNSify";
-        $this->programNameMachine = "dnsify"; // command and app dir name
-        $this->programNameFriendly = "DNSify!"; // 12 chars
-        $this->programNameInstaller = "DNSify your Environments";
+        $this->autopilotDefiner = "Task";
+        $this->programNameMachine = "task"; // command and app dir name
+        $this->programNameFriendly = "Task!"; // 12 chars
+        $this->programNameInstaller = "Task your Environments";
         $this->initialize();
     }
 
-    public function performListing() {
-        if (isset($this->params["environment-name"])) {
-            $this->setEnvironment($this->params["environment-name"]); }
-        return $this->listDNSes();
-    }
-
-    public function setEnvironment($environmentName = null) {
-        if (isset($environmentName)) {
-            $this->environmentName = $environmentName; }
-        else if (isset($this->params["environmentname"])) {
-            $this->environmentName = $this->params["environmentname"]; }
-        else if (isset($this->params["environment-name"])) {
-            $this->environmentName = $this->params["environment-name"]; }
-        else {
-            $this->environmentName = self::askForInput("Enter Environment Name:", true); }
-    }
-
-    protected function listDNSes() {
+    protected function performListing() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Listing Tasks...", $this->getModuleName());
+
+        // tasks from Taskfile
+
+        // tasks from other Modules
+
+        $allTasks = array() ;
+        $allTasks["modules"] ;
+        $allTasks["modules"] ;
+        $allTasks["modules"] ;
+    }
+
+    protected function getTaskfileTasks() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        // tasks from Taskfile
+        if (file_exists("Taskfile")) {
+            $logging->log("Found Taskfile...", $this->getModuleName());
+            $logging->log("Loading Taskfile...", $this->getModuleName());
+            try {
+                require_once ("Taskfile") ; }
+            catch (new \Exception($e)) {
+                $logging->log("Unable to load Taskfile, error $e...", $this->getModuleName()); } }
+        else {
+            $logging->log("No Taskfile found", $this->getModuleName());
+            return array() ; }
+        $taskObject = new \Taskfile() ;
+        $tasks = $taskObject->tasks ;
+        return $tasks ;
+    }
+
+    protected function getModuleTasks() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
+        // tasks from Taskfile
+        if (file_exists("Taskfile")) {
+            $logging->log("Found Taskfile...", $this->getModuleName());
+            $logging->log("Loading Taskfile...", $this->getModuleName());
+            try {
+                require_once ("Taskfile") ; }
+            catch (\Exception($e)) {
+                $logging->log("Unable to load Taskfile, error $e...", $this->getModuleName()); } }
+        else {
+            $logging->log("No Taskfile found", $this->getModuleName());
+            return array() ; }
+
         $returns = array() ;
         $envs = \Model\AppConfig::getProjectVariable("environments");
         return (is_null($envs)) ? null : $envs ;

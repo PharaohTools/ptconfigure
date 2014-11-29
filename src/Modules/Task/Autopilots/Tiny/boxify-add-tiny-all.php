@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "DNSify" => array("box-add" => array(
+                array ( "Task" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-bastion",
                     "provider-name" => $provider,
@@ -54,7 +54,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "DNSify" => array("box-add" => array(
+                array ( "Task" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-git",
                     "provider-name" => $provider,
@@ -79,7 +79,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "DNSify" => array("box-add" => array(
+                array ( "Task" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-jenkins",
                     "provider-name" => $provider,
@@ -104,7 +104,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "DNSify" => array("box-add" => array(
+                array ( "Task" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-staging",
                     "provider-name" => $provider,
@@ -129,7 +129,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "no-manual-servers" => true,
                     "add-single-environment" => true,
                 ),),),
-                array ( "DNSify" => array("box-add" => array(
+                array ( "Task" => array("box-add" => array(
                     "guess" => true,
                     "environment-name" => "tiny-prod",
                     "provider-name" => $provider,
