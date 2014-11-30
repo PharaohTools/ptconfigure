@@ -65,19 +65,6 @@ class TaskListingBase extends BaseLinuxApp {
         return $tasks ;
     }
 
-    protected static function getStaticTaskfileTasks($taskFile = "Taskfile") {
-        if (file_exists($taskFile)) {
-            try {
-                require_once ($taskFile) ; }
-            catch (\Exception $e) {
-                echo "Error loading Taskfile $taskFile, error $e\n" ; } }
-        else {
-            return array() ; }
-        $taskObject = new \Model\Taskfile() ;
-        $tasks = $taskObject->tasks ;
-        return $tasks ;
-    }
-
     protected function getTaskfile() {
         if (isset($this->params["Taskfile"])) { $taskFile = $this->params["Taskfile"] ; }
         else { $taskFile = "Taskfile" ; }

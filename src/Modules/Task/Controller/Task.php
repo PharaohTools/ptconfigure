@@ -6,11 +6,15 @@ class Task extends Base {
 
     public function execute($pageVars) {
 
-        $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
-        // if we don't have an object, its an array of errors
-        if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-
         $action = $pageVars["route"]["action"];
+
+        $taskFileExecutor = $this->getExecutorForAction($action);
+        if (!is_null($otherModuleExecutor)) {
+            return $otherModuleExecutor->executeTask($pageVars) ; }
+
+        $otherModuleExecutor = $this->getExecutorForAction($action);
+        if (!is_null($otherModuleExecutor)) {
+            return $otherModuleExecutor->executeTask($pageVars) ; }
 
         if ($action=="help") {
             $helpModel = new \Model\Help();
@@ -24,10 +28,28 @@ class Task extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"TaskList", "pageVars"=>$this->content); }
 
-        if ($action != "") {
-            $this->content["result"] = $thisModel->askAction($action);
-            return array ("type"=>"view", "view"=>"TaskGenAutos", "pageVars"=>$this->content); }
+    }
 
+    protected function getTaskfileTaskForAction($action) {
+        $controllers = \Core\AutoLoader::getAllControllers() ;
+        foreach ($controllers as $controller) {
+            if (method_exists($controller, "executeDapperfy"))
+                $info = \Core\AutoLoader::getSingleInfoObject(substr(get_class($controller), 11)) ;
+            $myDapperfyRoutes = (isset($info) && method_exists($info, "dapperfyActions")) ? $info->dapperfyActions() : array() ;
+            if (in_array($action, $myDapperfyRoutes)) {
+                return $controller ; } }
+        return null ;
+    }
+
+    protected function getExecutorForAction($action) {
+        $controllers = \Core\AutoLoader::getAllControllers() ;
+        foreach ($controllers as $controller) {
+            if (method_exists($controller, "executeDapperfy"))
+                $info = \Core\AutoLoader::getSingleInfoObject(substr(get_class($controller), 11)) ;
+            $myDapperfyRoutes = (isset($info) && method_exists($info, "dapperfyActions")) ? $info->dapperfyActions() : array() ;
+            if (in_array($action, $myDapperfyRoutes)) {
+                return $controller ; } }
+        return null ;
     }
 
 }

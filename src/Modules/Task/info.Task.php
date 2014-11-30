@@ -13,8 +13,12 @@ class TaskInfo extends CleopatraBase {
   }
 
   public function routesAvailable() {
-    return array( "Task" =>  array_merge(parent::routesAvailable(), array("ensure-domain-exists", "ensure-domain-empty",
-        "ensure-record-exists", "ensure-record-empty",) ) );
+    $ray = array( "Task" =>  array_merge(
+        $this->getModuleTasks(),
+        $this->getTaskfileTasks(),
+        array("list", "help")
+    ) );
+    return $ray ;
   }
 
   public function routeAliases() {
@@ -23,19 +27,41 @@ class TaskInfo extends CleopatraBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command provides a generic DNS Management wrapper around all of the DNS Providers (Cloud and Otherwise) so that we have a
-  generic way to create and destroy boxes.
+  This command provides a way to aggregate functionality into simple to access task commands.
 
   Task, task
 
         - list
-        List all servers in papyrus, or those of a particular environment
-        example: cleopatra task list-papyrus --yes
-        example: cleopatra task list-papyrus --yes --environment-name="staging"
+        List available tasks
+        example: cleopatra task list --yes
+        example: cleopatra task list --yes --guess
 
 
 HELPDATA;
     return $help ;
   }
+
+    protected function getModuleTasks() {
+        $extraActions = array() ;
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "taskActions")) {
+                $extraActions = array_merge($extraActions, $info->taskActions()); } }
+        return $extraActions ;
+    }
+
+    protected static function getTaskfileTasks($taskFile = "Taskfile") {
+        if (file_exists($taskFile)) {
+            try {
+                require_once ($taskFile) ; }
+            catch (\Exception $e) {
+                echo "Error loading Taskfile $taskFile, error $e\n" ; } }
+        else {
+            return array() ; }
+        $taskObject = new \Model\Taskfile() ;
+        $tftasks = array_keys($taskObject::$tasks) ;
+        return $tftasks ;
+    }
+
 
 }
