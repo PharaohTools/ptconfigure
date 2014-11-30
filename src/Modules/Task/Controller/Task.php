@@ -8,11 +8,11 @@ class Task extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        $taskFileExecutor = $this->getExecutorForAction($action);
-        if (!is_null($otherModuleExecutor)) {
-            return $otherModuleExecutor->executeTask($pageVars) ; }
+        $taskFileExecutor = $this->getTaskfileTaskForAction($action);
+        if (!is_null($taskFileExecutor)) {
+            return $taskFileExecutor->executeTFTask($pageVars, $action) ; }
 
-        $otherModuleExecutor = $this->getExecutorForAction($action);
+        $otherModuleExecutor = $this->getModuleExecutorForAction($action);
         if (!is_null($otherModuleExecutor)) {
             return $otherModuleExecutor->executeTask($pageVars) ; }
 
@@ -31,17 +31,25 @@ class Task extends Base {
     }
 
     protected function getTaskfileTaskForAction($action) {
-        $controllers = \Core\AutoLoader::getAllControllers() ;
-        foreach ($controllers as $controller) {
-            if (method_exists($controller, "executeDapperfy"))
-                $info = \Core\AutoLoader::getSingleInfoObject(substr(get_class($controller), 11)) ;
-            $myDapperfyRoutes = (isset($info) && method_exists($info, "dapperfyActions")) ? $info->dapperfyActions() : array() ;
-            if (in_array($action, $myDapperfyRoutes)) {
-                return $controller ; } }
+        $tftasks = self::getTaskfileTasks();
+        if (in_array($action, $tftasks)) { return new \Controller\TaskExecutor(); }
         return null ;
     }
 
-    protected function getExecutorForAction($action) {
+    protected static function getTaskfileTasks($taskFile = "Taskfile") {
+        if (file_exists($taskFile)) {
+            try {
+                require_once ($taskFile) ; }
+            catch (\Exception $e) {
+                echo "Error loading Taskfile $taskFile, error $e\n" ; } }
+        else {
+            return array() ; }
+        $taskObject = new \Model\Taskfile() ;
+        $tftasks = array_keys($taskObject::$tasks) ;
+        return $tftasks ;
+    }
+
+    protected function getModuleExecutorForAction($action) {
         $controllers = \Core\AutoLoader::getAllControllers() ;
         foreach ($controllers as $controller) {
             if (method_exists($controller, "executeDapperfy"))
