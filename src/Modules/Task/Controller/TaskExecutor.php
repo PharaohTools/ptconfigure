@@ -18,7 +18,7 @@ class TaskExecutor extends Base {
                     else if (is_array($params) && isset($params[0])) { $af = $params[0] ; }
                     else { $af = $params["af"] ; }
                     $logging->log("Cleopatra Task Runner","Task") ;
-                    exec(CLEOCOMM.'autopilot execute --af="'.$af.'"') ;
+                    exec(CLEOCOMM.'autopilot execute --af="'.$af.'"', $this->content["result"]) ;
                     break ;
                 case "dapperstrano" :
                     if (is_string($params)) { $af = $params ; }
@@ -26,7 +26,7 @@ class TaskExecutor extends Base {
                     else if (is_array($params) && isset($params[0])) { $af = $params[0] ; }
                     else { $af = $params["af"] ; }
                     $logging->log("Dapperstrano Task Runner","Task") ;
-                    exec(DAPPCOMM.'autopilot execute --af="'.$af.'"') ;
+                    exec(DAPPCOMM.'autopilot execute --af="'.$af.'"', $this->content["result"]) ;
                     break ;
                 case "log" :
                     $logging->log("Logging Task Runner","Task") ;
@@ -34,10 +34,12 @@ class TaskExecutor extends Base {
                     else if (is_array($params) && isset($params["log"])) { $log = $params["log"] ; }
                     else if (is_array($params) && isset($params[0])) { $log = $params[0] ; }
                     else { $log = "No Log Provided" ; }
-                    $logging->log($log,"Task") ;
+                    $this->content["result"] = $logging->log($log,"Task") ;
                     break ;
                 default :
-                    $logging->log("Undefined Task Runner $taskRunner requested", "Task") ;
+                    $msg ="Undefined Task Runner $taskRunner requested" ;
+                    $this->content["result"] = $msg ;
+                    $logging->log($msg, "Task") ;
                     break ;
             }
         }
