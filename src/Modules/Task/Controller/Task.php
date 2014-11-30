@@ -52,10 +52,10 @@ class Task extends Base {
     protected function getModuleExecutorForAction($action) {
         $controllers = \Core\AutoLoader::getAllControllers() ;
         foreach ($controllers as $controller) {
-            if (method_exists($controller, "executeDapperfy"))
+            if (method_exists($controller, "executeTask"))
                 $info = \Core\AutoLoader::getSingleInfoObject(substr(get_class($controller), 11)) ;
-            $myDapperfyRoutes = (isset($info) && method_exists($info, "dapperfyActions")) ? $info->dapperfyActions() : array() ;
-            if (in_array($action, $myDapperfyRoutes)) {
+            $myTaskRoutes = (isset($info) && method_exists($info, "taskActions")) ? $info->taskActions() : array() ;
+            if (in_array($action, $myTaskRoutes)) {
                 return $controller ; } }
         return null ;
     }
