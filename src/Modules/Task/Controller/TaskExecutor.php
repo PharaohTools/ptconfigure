@@ -10,29 +10,33 @@ class TaskExecutor extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $taskRunners = $tasks[$task] ;
-        foreach ($taskRunners as $taskRunner => $params) {
+        foreach ($taskRunners as $taskRunnerKey => $params) {
+            $taskRunner = array_keys($params);
+            $taskRunner = $taskRunner[0];
+            //var_dump($taskRunner) ;
             switch ($taskRunner) {
                 case "cleopatra" :
-                    if (is_string($params)) { $af = $params ; }
-                    else if (is_array($params) && isset($params["af"])) { $af = $params["af"] ; }
-                    else if (is_array($params) && isset($params[0])) { $af = $params[0] ; }
-                    else { $af = $params["af"] ; }
+                    if (is_string($params[$taskRunner])) { $af = $params[$taskRunner] ; }
+                    else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["af"])) { $af = $params[$taskRunner]["af"] ; }
+                    else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
+                    else { $af = $params[$taskRunner][0] ; }
                     $logging->log("Cleopatra Task Runner","Task") ;
                     exec(CLEOCOMM.'autopilot execute --af="'.$af.'"', $this->content["result"]) ;
                     break ;
                 case "dapperstrano" :
-                    if (is_string($params)) { $af = $params ; }
-                    else if (is_array($params) && isset($params["af"])) { $af = $params["af"] ; }
-                    else if (is_array($params) && isset($params[0])) { $af = $params[0] ; }
-                    else { $af = $params["af"] ; }
+                    if (is_string($params[$taskRunner])) { $af = $params[$taskRunner] ; }
+                    else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["af"])) { $af = $params[$taskRunner]["af"] ; }
+                    else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
+                    else { $af = $params[$taskRunner]["af"] ; }
                     $logging->log("Dapperstrano Task Runner","Task") ;
                     exec(DAPPCOMM.'autopilot execute --af="'.$af.'"', $this->content["result"]) ;
                     break ;
                 case "log" :
                     $logging->log("Logging Task Runner","Task") ;
-                    if (is_string($params)) { $log = $params ; }
-                    else if (is_array($params) && isset($params["log"])) { $log = $params["log"] ; }
-                    else if (is_array($params) && isset($params[0])) { $log = $params[0] ; }
+                    var_dump($params[$taskRunner]);
+                    if (is_string($params[$taskRunner])) { $log = $params[$taskRunner] ; }
+                    else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["log"])) { $log = $params[$taskRunner]["log"] ; }
+                    else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $log = $params[$taskRunner][0] ; }
                     else { $log = "No Log Provided" ; }
                     $this->content["result"] = $logging->log($log,"Task") ;
                     break ;
