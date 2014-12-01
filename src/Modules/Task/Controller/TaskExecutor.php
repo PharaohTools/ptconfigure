@@ -16,7 +16,6 @@ class TaskExecutor extends Base {
             //var_dump($taskRunner) ;
             switch ($taskRunner) {
                 case "cleopatra" :
-                    var_dump($params[$taskRunner]) ;
                     if (is_string($params[$taskRunner])) { $af = $params[$taskRunner] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["af"])) { $af = $params[$taskRunner]["af"] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
