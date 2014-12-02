@@ -14,7 +14,7 @@ foreach ($pageVars["result"] as $taskType => $details) {
                 foreach ($taskStepVal[$keys[0]] as $paramKey => $paramVal) {
                     $strs[] = "[{$paramKey}] => [{$paramVal}]" ; }
                 $str = "[".implode(", ", $strs)."]" ;
-                echo $str ; } } }
+                echo $str." \n" ; } } }
     echo "\n" ; }
 ?>
 

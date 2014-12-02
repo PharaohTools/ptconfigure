@@ -6,7 +6,8 @@ class TaskExecutor extends Base {
 
     public function executeTFTask($pageVars, $task) {
 
-        $tasks = $this->getTaskfileTasks() ;
+        $sourceParams = implode(" ", $this->formatParams($pageVars["route"]["extraParams"])) ;
+        $tasks = $this->getTaskfileTasks($pageVars["route"]["extraParams"]) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $taskRunners = $tasks[$task] ;
@@ -21,7 +22,14 @@ class TaskExecutor extends Base {
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
                     else { $af = $params[$taskRunner][0] ; }
                     $logging->log("Cleopatra Task Runner","Task") ;
-                    exec(CLEOCOMM.'autopilot execute --af="'.$af.'"', $this->content["result"]) ;
+
+                    $this->params["autopilot-file"] = $af ;
+                    $auto = new \Controller\Autopilot();
+                    $route = array("control" => "Autopilot", "action" => "install", "extraParams" => $pageVars["route"]["extraParams"]) ;
+                    $emptyPageVars = array("messages"=>array(), "route"=>$route);
+                    $auto->execute($emptyPageVars);
+
+                    // exec(CLEOCOMM.'autopilot execute --af="'.$af.'" '.$sourceParams, $this->content["result"]) ;
                     break ;
                 case "dapperstrano" :
                     if (is_string($params[$taskRunner])) { $af = $params[$taskRunner] ; }
@@ -29,11 +37,10 @@ class TaskExecutor extends Base {
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
                     else { $af = $params[$taskRunner]["af"] ; }
                     $logging->log("Dapperstrano Task Runner","Task") ;
-                    exec(DAPPCOMM.'autopilot execute --af="'.$af.'"', $this->content["result"]) ;
+                    exec(DAPPCOMM.'autopilot execute --af="'.$af.'" '.$sourceParams, $this->content["result"]) ;
                     break ;
                 case "log" :
                     $logging->log("Logging Task Runner","Task") ;
-                    var_dump($params[$taskRunner]);
                     if (is_string($params[$taskRunner])) { $log = $params[$taskRunner] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["log"])) { $log = $params[$taskRunner]["log"] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $log = $params[$taskRunner][0] ; }
@@ -45,19 +52,11 @@ class TaskExecutor extends Base {
                     $this->content["result"] = $msg ;
                     $logging->log($msg, "Task") ;
                     break ;
-            }
-        }
-
+            } }
         return array ("type"=>"view", "view"=>"Task", "pageVars"=>$this->content);
     }
 
-    protected function getTaskfileTaskForAction($action) {
-        $tftasks = self::getTaskfileTasks();
-        if (in_array($action, $tftasks)) { return new \Controller\TaskExecutor(); }
-        return null ;
-    }
-
-    protected static function getTaskfileTasks($taskFile = "Taskfile") {
+    protected static function getTaskfileTasks($pageVars, $taskFile = "Taskfile") {
         if (file_exists($taskFile)) {
             try {
                 require_once ($taskFile) ; }
@@ -65,9 +64,20 @@ class TaskExecutor extends Base {
                 echo "Error loading Taskfile $taskFile, error $e\n" ; } }
         else {
             return array() ; }
-        $taskObject = new \Model\Taskfile() ;
+
+        $taskObject = new \Model\Taskfile(self::formatParams($pageVars)) ;
         $tftasks = $taskObject::$tasks ;
         return $tftasks ;
+    }
+
+    private static function formatParams($params) {
+        $newParams = array();
+        foreach($params as $origParamKey => $origParamVal) {
+            $newParams[] = '--'.$origParamKey.'='.$origParamVal ; }
+        $newParams[] = '--yes' ;
+        $newParams[] = "--hide-title=yes";
+        $newParams[] = "--hide-completion=yes";
+        return $newParams ;
     }
 
 }

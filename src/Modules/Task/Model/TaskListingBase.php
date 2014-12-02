@@ -60,7 +60,7 @@ class TaskListingBase extends BaseLinuxApp {
         else {
             $logging->log("No Taskfile found", $this->getModuleName());
             return array() ; }
-        $taskObject = new \Model\Taskfile() ;
+        $taskObject = new \Model\Taskfile($this->params) ;
         $tasks = $taskObject::$tasks ;
         return $tasks ;
     }
