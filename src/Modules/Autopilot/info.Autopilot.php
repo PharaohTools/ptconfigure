@@ -13,7 +13,7 @@ class AutopilotInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "Autopilot" =>  array_merge(parent::routesAvailable(), array("install", "execute", "x") ) );
+      return array( "Autopilot" =>  array_merge(parent::routesAvailable(), array("install", "execute", "x","test") ) );
     }
 
     public function routeAliases() {
@@ -31,6 +31,10 @@ class AutopilotInfo extends CleopatraBase {
     - install, execute, x
     execute all of the defined modules in your Autopilot file
     example: cleopatra autopilot x --autopilot-file=*path-to-file*
+
+    - test
+    execute all of the steps defined as tests in your Autopilot file
+    example: cleopatra autopilot test --autopilot-file=*path-to-file*
 
 HELPDATA;
       return $help ;
