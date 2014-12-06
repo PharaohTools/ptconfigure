@@ -19,6 +19,7 @@ class ServiceUbuntu extends BaseLinuxApp {
             "start" => "performServiceStart",
             "stop" => "performServiceStop",
             "restart" => "performServiceRestart",
+            "is-running" => "performServiceIsRunningCheck",
             "ensure-running" => "performServiceEnsureRunning",
             "run-at-reboots" => "performServiceRunAtReboots"
         ) ;
@@ -51,6 +52,11 @@ class ServiceUbuntu extends BaseLinuxApp {
     protected function performServiceEnsureRunning() {
         $this->setService();
         return $this->ensureRunning();
+    }
+
+    protected function performServiceIsRunningCheck() {
+        $this->setService();
+        return $this->isRunning();
     }
 
     protected function performServiceRunAtReboots() {
@@ -90,6 +96,20 @@ class ServiceUbuntu extends BaseLinuxApp {
             $logging->log("Starting {$this->serviceName} service") ;
             $this->executeAndOutput("service {$this->serviceName} start"); }
         return true ;
+    }
+
+    public function isRunning() {
+        $status = $this->executeAndLoad("service {$this->serviceName} status 2> /dev/null");
+        if(strpos($status, 'running') != false) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Service {$this->serviceName} is running...") ;
+            return true ; }
+        else {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Service {$this->serviceName} is not running...") ;
+            return false ; }
     }
 
     public function runAtReboots() {
