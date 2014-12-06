@@ -50,11 +50,11 @@ TITLE;
     }
 
     protected function populateTinyTitle() {
-        $this->titleData = "$this->programNameInstaller Starting\n";
+        $this->titleData = "" ; // "$this->programNameInstaller Starting\n";
     }
 
     protected function populateTinyCompletion() {
-        $this->completionData = "$this->programNameInstaller Complete\n";
+        $this->completionData = "" ; // "$this->programNameInstaller Complete\n";
     }
 
     protected function populateCompletion() {
