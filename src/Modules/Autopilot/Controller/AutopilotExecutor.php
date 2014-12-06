@@ -6,17 +6,19 @@ use Core\View;
 
 class AutopilotExecutor extends Base {
 
-    public function execute($pageVars, $autopilot ) {
+    public function execute($pageVars, $autopilot, $test = false ) {
         $params = $pageVars["route"]["extraParams"];
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
         // if we don't have an object, its an array of errors
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
-        $this->content["package-friendly"] = "Autopilot";
+        $this->content["package-friendly"] = ($test) ? "Autopilot Test Suite" : "Autopilot" ;
         $this->registeredModels = $autopilot->steps ;
         $this->checkForRegisteredModels($params);
-        $this->content["autoExec"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
+        $this->content["autoExec"] = ($test) ?
+            $this->executeMyTestsAutopilot($autopilot, $thisModel->params):
+            $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
         return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
@@ -40,6 +42,30 @@ class AutopilotExecutor extends Base {
         return $dataFromThis ;
     }
 
+    protected function executeMyTestsAutopilot($autoPilot, $autopilotParams) {
+        $dataFromThis = "";
+        if (isset($autoPilot->tests) && is_array($autoPilot->tests) && count($autoPilot->tests)>0) {
+            foreach ($autoPilot->tests as $modelArray) {
+                $currentControls = array_keys($modelArray) ;
+                $currentControl = $currentControls[0] ;
+                $currentActions = array_keys($modelArray[$currentControl]) ;
+                $currentAction = $currentActions[0] ;
+                $modParams = $modelArray[$currentControl][$currentAction] ;
+                $of = array("output-format" => "AUTO") ;
+                $modParams = $this->formatParams(array_merge($modParams, $autopilotParams, $of)) ;
+                $params = array() ;
+                $params["route"] =
+                    array(
+                        "extraParams" => $modParams ,
+                        "control" => $currentControl ,
+                        "action" => $currentAction ,
+                    ) ;
+                $dataFromThis .= $this->executeControl($currentControl, $params); } }
+        else {
+            $dataFromThis = "No Tests defined in autopilot";  }
+        return $dataFromThis ;
+    }
+
     private function formatParams($params) {
         $newParams = array();
         foreach($params as $origParamKey => $origParamVal) {
@@ -54,7 +80,9 @@ class AutopilotExecutor extends Base {
         $control = new \Core\Control();
         $controlResult = $control->executeControl($controlToExecute, $pageVars);
         if ($controlResult["type"]=="view") {
-            return $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
+            $of = array("params" => array("output-format" => "AUTO")) ;
+            $modParams = array_merge($controlResult["pageVars"], $of) ;
+            return $this->executeView( $controlResult["view"], $modParams ); }
         else if ($controlResult["type"]=="control") {
             $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); }
     }
