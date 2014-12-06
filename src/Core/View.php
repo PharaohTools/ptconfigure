@@ -40,6 +40,7 @@ class View {
     if (isset($pageVars["params"]["output-format"])) {
       $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
     $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
+
     if ($this->loadViewFile($viewFileName, $pageVars) == true) {
       return ob_get_clean(); }
     else {
