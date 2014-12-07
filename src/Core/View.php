@@ -14,12 +14,9 @@ class View {
           && $viewVars["params"]["output-format"] != "cli"
           && $viewVars["params"]["output-format"] != "HTML") ;
       if (!isset($viewVars["layout"])) {
-          if ($vvLayoutCond1) {
-              $viewVars["layout"] = "DefaultHTML" ; }
-          else if ($vvLayoutCond2) {
-              $viewVars["layout"] = "blank" ; }
-          else {
-              $viewVars["layout"] = "default" ; } }
+          if ($vvLayoutCond1) { $viewVars["layout"] = "DefaultHTML" ; }
+          else if ($vvLayoutCond2) { $viewVars["layout"] = "blank" ; }
+          else { $viewVars["layout"] = "default" ; } }
       $templateData = $this->loadTemplate ($view, $viewVars) ;
       $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
       $this->renderAll($data) ;
