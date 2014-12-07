@@ -37,7 +37,7 @@ class PingUbuntu extends BaseLinuxApp {
         require_once ("{$libDir}/JJG/Ping.php") ;
         $this->setTarget();
         $this->setInterval();
-        $this->doOnePing();
+        return $this->doOnePing();
     }
 
     protected function performTenPings() {
@@ -45,7 +45,7 @@ class PingUbuntu extends BaseLinuxApp {
         require_once ("{$libDir}/JJG/Ping.php") ;
         $this->setTarget();
         $this->setInterval();
-        $this->doTenPings();
+        return $this->doTenPings();
     }
 
     protected function performPingsUntil() {
@@ -54,7 +54,7 @@ class PingUbuntu extends BaseLinuxApp {
         $this->setTarget();
         $this->setInterval();
         $this->setMaxWait();
-        $this->doPingsUntil();
+        return $this->doPingsUntil();
     }
 
     protected function setTarget($target = null) {
@@ -90,9 +90,11 @@ class PingUbuntu extends BaseLinuxApp {
         $ping = new \JJG\Ping($this->target);
         $latency = $ping->ping();
         if ($latency !== false) {
-            $logging->log('Ping Latency is ' . $latency . ' ms') ; }
+            $logging->log('Ping Latency is ' . $latency . ' ms') ;
+            return true; }
         else {
-            $logging->log("Ping Host {$this->target} could not be reached.") ;}
+            $logging->log("Ping Host {$this->target} could not be reached.") ;
+            return false; }
     }
 
     private function doTenPings() {
@@ -102,11 +104,14 @@ class PingUbuntu extends BaseLinuxApp {
         for ($i = 0; $i < 10; $i ++) {
             $latency = $ping->ping();
             if ($latency !== false) {
-                $logging->log('Ping Latency is ' . $latency . ' ms') ; }
+                $logging->log('Ping Latency is ' . $latency . ' ms') ;
+            $foundSuccess = true; }
             else {
                 $time = $i * $this->interval ;
                 $logging->log("Ping Host {$this->target} could not be reached after $i iterations and $time seconds") ; }
             sleep($this->interval) ; }
+        if (isset ($foundSuccess) && $foundSuccess==true) { return true ; }
+        return false ;
     }
 
     private function doPingsUntil() {
@@ -119,12 +124,13 @@ class PingUbuntu extends BaseLinuxApp {
             $latency = $ping->ping();
             if ($latency !== false) {
                 $logging->log('Ping Latency is ' . $latency . ' ms') ;
-                break ; }
+                return true ; }
             else {
                 $logging->log("Ping Host {$this->target} could not be reached after $i iterations and $totalTime seconds") ; }
             sleep($this->interval) ;
             $totalTime = $totalTime + $this->interval ;
             $i++; }
+        return false ;
     }
 
 }
