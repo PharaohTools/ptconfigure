@@ -39,12 +39,17 @@ class View {
     $outputFormat = "" ;
     if (isset($pageVars["params"]["output-format"])) {
       $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
-    $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
-
+      $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
+      if (isset($pageVars["params"]["output-format"])  && $pageVars["params"]["output-format"]=="AUTO") {
+          $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
+      $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
     if ($this->loadViewFile($viewFileName, $pageVars) == true) {
-      return ob_get_clean(); }
+        return ob_get_clean(); }
+    else if (substr($viewFileName, strlen($viewFileName)-16, 16) =="AUTOView.tpl.php" && $this->loadViewFile("DefaultAUTOView.tpl.php", $pageVars) == true) {
+        return ob_get_clean(); }
     else {
-      die ("View Template $viewFileName for $outputFormat Not Found\n"); }
+        // @todo no! dont die
+        die ("View Template $viewFileName for $outputFormat Not Found\n"); }
   }
 
   private function renderAll($processedData) {
