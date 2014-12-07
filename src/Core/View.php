@@ -28,6 +28,7 @@ class View {
       if ($this->loadViewFile($viewFileName, $pageVars, $templateData) == true) {
           return ob_get_clean(); }
       else {
+          // @todo no! dont die
           die ("View Layout Not Found\n"); }
   }
 
