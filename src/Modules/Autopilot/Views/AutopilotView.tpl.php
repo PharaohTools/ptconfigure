@@ -1,11 +1,9 @@
-Autopilot Install - <?php echo $pageVars["package-friendly"] ; ?> Installer:
+<?php echo $pageVars["package-friendly"] ; ?> Executor:
 --------------------------------------------
-
 <?php
 
 echo $pageVars["autoExec"] ;
 
 ?>
-
 ------------------------------
-Installer Finished
+Autopilot Executor Finished

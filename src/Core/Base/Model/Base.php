@@ -50,11 +50,11 @@ TITLE;
     }
 
     protected function populateTinyTitle() {
-        $this->titleData = "$this->programNameInstaller Starting\n";
+        $this->titleData = "" ; // "$this->programNameInstaller Starting\n";
     }
 
     protected function populateTinyCompletion() {
-        $this->completionData = "$this->programNameInstaller Complete\n";
+        $this->completionData = "" ; // "$this->programNameInstaller Complete\n";
     }
 
     protected function populateCompletion() {
@@ -222,6 +222,10 @@ COMPLETION;
             $status = ($this->executeAndGetReturnCode("$this->statusCommand") == 0) ? true : false ; }
         else {
             $status = ($this->executeAndGetReturnCode("{$this->defaultStatusCommandPrefix} {$this->programNameMachine}") == 0) ? true : false ; }
+        $inst = ($status == true) ? "Installed" : "Not Installed " ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Module ".$this->getModuleName()." reports itself as {$inst}") ;
         return $status ;
     }
 

@@ -14,7 +14,7 @@ class ServiceInfo extends CleopatraBase {
 
     public function routesAvailable() {
         // return array( "Service" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "Service" => array("help", "status", "start", "stop", "restart", "ensure-running", "run-at-reboots") );
+        return array( "Service" => array("help", "status", "start", "stop", "restart", "ensure-running", "is-running", "run-at-reboots") );
     }
 
     public function routeAliases() {
@@ -43,6 +43,10 @@ class ServiceInfo extends CleopatraBase {
         Ensure a system service is running. If it is already running, dont attempt to start it
         If it is not running, start it
         example: cleopatra service ensure-running --service-name="apache2"
+
+        - is-running
+        Checks whether a system service is running.
+        example: cleopatra service is-running --service-name="apache2"
 
         - run-at-reboots
         Ensure a system service will auto start on reboots.

@@ -11,13 +11,14 @@ class Autopilot extends Base {
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
         $action = $pageVars["route"]["action"];
-        if ($action=="install" || $action=="execute" || $action=="x") {
+        if ( in_array($action, array("install", "execute", "x", "test") ) ) {
             if ( isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"]) > 0 ) {
                 $autoPilot = $this->loadAutoPilot($thisModel->params);
                 if ( $autoPilot!==null ) {
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
                     $autoPilot->params = $thisModel->params ;
+                    if ($action =="test") { return $autoPilotExecutor->execute($pageVars, $autoPilot, true); }
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
                 else {
                     $this->content["messages"][] = "There was a problem with the autopilot file specified"; } }

@@ -14,12 +14,9 @@ class View {
           && $viewVars["params"]["output-format"] != "cli"
           && $viewVars["params"]["output-format"] != "HTML") ;
       if (!isset($viewVars["layout"])) {
-          if ($vvLayoutCond1) {
-              $viewVars["layout"] = "DefaultHTML" ; }
-          else if ($vvLayoutCond2) {
-              $viewVars["layout"] = "blank" ; }
-          else {
-              $viewVars["layout"] = "default" ; } }
+          if ($vvLayoutCond1) { $viewVars["layout"] = "DefaultHTML" ; }
+          else if ($vvLayoutCond2) { $viewVars["layout"] = "blank" ; }
+          else { $viewVars["layout"] = "default" ; } }
       $templateData = $this->loadTemplate ($view, $viewVars) ;
       $data = $this->loadLayout ( $viewVars["layout"], $templateData, $viewVars) ;
       $this->renderAll($data) ;
@@ -31,6 +28,7 @@ class View {
       if ($this->loadViewFile($viewFileName, $pageVars, $templateData) == true) {
           return ob_get_clean(); }
       else {
+          // @todo no! dont die
           die ("View Layout Not Found\n"); }
   }
 
@@ -39,11 +37,17 @@ class View {
     $outputFormat = "" ;
     if (isset($pageVars["params"]["output-format"])) {
       $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
-    $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
+      $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
+      if (isset($pageVars["params"]["output-format"])  && $pageVars["params"]["output-format"]=="AUTO") {
+          $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
+      $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
     if ($this->loadViewFile($viewFileName, $pageVars) == true) {
-      return ob_get_clean(); }
+        return ob_get_clean(); }
+    else if (substr($viewFileName, strlen($viewFileName)-16, 16) =="AUTOView.tpl.php" && $this->loadViewFile("DefaultAUTOView.tpl.php", $pageVars) == true) {
+        return ob_get_clean(); }
     else {
-      die ("View Template $viewFileName for $outputFormat Not Found\n"); }
+        // @todo no! dont die
+        die ("View Template $viewFileName for $outputFormat Not Found\n"); }
   }
 
   private function renderAll($processedData) {

@@ -20,7 +20,7 @@ class Ping extends Base {
         if (in_array($action, array("once", "ten", "until-responding") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"port", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"ping", "pageVars"=>$this->content); }
 
     }
 

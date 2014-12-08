@@ -1,7 +1,5 @@
 Single App Installer:
 --------------------------------------------
-
-
 <?php
 
 if (isset($pageVars["appName"]) && isset($pageVars["appInstallResult"])) {
@@ -15,6 +13,5 @@ else {
     echo "No Data.\n";
 }
 ?>
-
 ------------------------------
 Installer Finished
