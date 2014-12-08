@@ -9,7 +9,7 @@ class BasePHPWindowsApp extends BasePHPApp {
     }
 
     protected function askForProgramDataFolder() {
-        $progDir = str_replace(" (x86)", "", getenv('ProgramFiles'));
+        $progDir = PFILESDIR;
         if (isset($this->params["program-data-directory"])) { return $this->params["program-data-directory"] ; }
         $question = 'What is the program data directory?';
         $question .= ' Found "'.$progDir.DS.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
