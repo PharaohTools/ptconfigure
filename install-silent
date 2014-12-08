@@ -66,7 +66,7 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so adding PHP to path...\n" ;
             $path = getenv('PATH') ;
-            $php5path = 'C:\Program Files\php5' ;
+            $php5path = 'C:\php5' ;
             if (strpos($path, $php5path) != false) {
                 echo "PHP is already in the path\n" ;
                 return ; }
@@ -87,7 +87,7 @@ class Installer {
     private function askForProgramDataFolder() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->programDataFolder = 'C:'.
-                DS.'Program Files'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
+                DS.'PharaohTools'.DS.$this->programNameMachine.DS.$this->programNameMachine ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programDataFolder = DS."opt".DS.$this->programNameMachine.DS.$this->programNameMachine ; }
     }
