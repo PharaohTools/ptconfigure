@@ -8,7 +8,7 @@ class WinExeWindows extends BasePackager {
     public $os = array("Windows", "WINNT") ;
     public $linuxType = array() ;
     public $distros = array();
-    public $versions = [ ["11.04" => "+" ] ] ;
+    public $versions = array( array("11.04" => "+" ) ) ;
     public $architectures = array("any") ;
 
     // Model Group
