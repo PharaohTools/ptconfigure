@@ -13,8 +13,8 @@ class BasePHPWindowsApp extends BasePHPApp {
         if (isset($this->params["program-data-directory"])) { return $this->params["program-data-directory"] ; }
         $question = 'What is the program data directory?';
         $question .= ' Found "'.$progDir.DS.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
-        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? $progDir.DS.$this->programNameMachine : self::askForInput($question);
-        return ($input=="") ? $progDir.DS.$this->programNameMachine : $input ;
+        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? $progDir.$this->programNameMachine : self::askForInput($question);
+        return ($input=="") ? $progDir.$this->programNameMachine : $input ;
     }
 
     protected function askForProgramExecutorFolder(){        
