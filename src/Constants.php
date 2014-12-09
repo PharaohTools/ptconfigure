@@ -14,7 +14,7 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     $outputArray = array();
     exec($command, $outputArray);
     define('VBOXMGCOMM', "\"{$outputArray[0]}\" ") ;
-    define('PFILESDIR', $sd.'\\PharaohTools\\') ;
+    define('PFILESDIR', $sd."\\PharaohTools\\") ;
     define('CLEOCOMM', "cleopatra.cmd") ;
     define('DAPPCOMM', "dapperstrano.cmd") ;
     define('PHLCOMM', "phlagrant.cmd") ;
