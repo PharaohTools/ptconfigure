@@ -11,6 +11,7 @@ class TaskExecutor extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $taskRunners = $tasks[$task] ;
+        $this->content["result"] = array() ;
         foreach ($taskRunners as $taskRunnerKey => $params) {
             $taskRunner = array_keys($params);
             $taskRunner = $taskRunner[0];
@@ -22,14 +23,15 @@ class TaskExecutor extends Base {
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
                     else { $af = $params[$taskRunner][0] ; }
                     $logging->log("Cleopatra Task Runner","Task") ;
-
                     $this->params["autopilot-file"] = $af ;
                     $auto = new \Controller\Autopilot();
-                    $route = array("control" => "Autopilot", "action" => "install", "extraParams" => $pageVars["route"]["extraParams"]) ;
+                    $ep = array_merge( $this->params, $pageVars["route"]["extraParams"]) ;
+                    $route = array("control" => "Autopilot", "action" => "install", "extraParams" => $ep) ;
                     $emptyPageVars = array("messages"=>array(), "route"=>$route);
-                    $auto->execute($emptyPageVars);
-
-                    // exec(CLEOCOMM.'autopilot execute --af="'.$af.'" '.$sourceParams, $this->content["result"]) ;
+                    $ax = $auto->execute($emptyPageVars);
+                    if (isset($ax["pageVars"]["messages"])) { $this->content["result"][] = $ax["pageVars"]["messages"] ; }
+                    else if (isset($ax["pageVars"]["autoExec"])) { $this->content["result"][] = $ax["pageVars"]["autoExec"] ; }
+                    else { $this->content["result"][] = "Unreadable Output" ;}
                     break ;
                 case "dapperstrano" :
                     if (is_string($params[$taskRunner])) { $af = $params[$taskRunner] ; }
@@ -45,11 +47,12 @@ class TaskExecutor extends Base {
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["log"])) { $log = $params[$taskRunner]["log"] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $log = $params[$taskRunner][0] ; }
                     else { $log = "No Log Provided" ; }
-                    $this->content["result"] = $logging->log($log,"Task") ;
+                    $this->content["result"][] = "Logging Task: $log"; ;
+                    $logging->log($log,"Task") ;
                     break ;
                 default :
                     $msg ="Undefined Task Runner $taskRunner requested" ;
-                    $this->content["result"] = $msg ;
+                    $this->content["result"][] = $msg ;
                     $logging->log($msg, "Task") ;
                     break ;
             } }
