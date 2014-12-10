@@ -39,10 +39,10 @@ class Autopilot extends Base {
 
     private function loadAutoPilot($params){
         $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
-        $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
+        $autoPilotFilePath = getcwd().DS.$autoPilotFileName;
         $defaultFolderToCheck = str_replace("src/Controller",
           "build/config/cleopatra", dirname(__FILE__));
-        $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
+        $defaultName = $defaultFolderToCheck.DS.$autoPilotFileName.".php";
         if (file_exists($autoPilotFileName)) {
             require_once($autoPilotFileName); }
         else if (file_exists($defaultName)) {
@@ -51,6 +51,14 @@ class Autopilot extends Base {
           include_once("autopilot-".$defaultName); }
         else if (file_exists($autoPilotFilePath)) {
             require_once($autoPilotFilePath); }
+        // if a class exists by the name of the file use the name
+        $bn = basename( $autoPilotFileName ) ;
+        $fname = str_replace(".php", "", $bn);
+        $c2c = '\Core\\'.$fname;
+        if (class_exists($c2c)) {
+            $autoPilot = new $c2c($params) ;
+            return $autoPilot; }
+        // else use default
         $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
           new \Core\AutoPilotConfigured($params) : null ;
         return $autoPilot;
