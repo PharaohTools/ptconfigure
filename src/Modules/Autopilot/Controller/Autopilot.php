@@ -21,8 +21,10 @@ class Autopilot extends Base {
                     if ($action =="test") { return $autoPilotExecutor->execute($pageVars, $autoPilot, true); }
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
                 else {
+                    \Core\BootStrap::setExitCode(1);
                     $this->content["messages"][] = "There was a problem with the autopilot file specified"; } }
             else {
+                \Core\BootStrap::setExitCode(1);
                 $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
 
         else if ($action=="help") {
@@ -31,6 +33,7 @@ class Autopilot extends Base {
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
         else {
+            \Core\BootStrap::setExitCode(1);
             $this->content["messages"][] = "Invalid Action - Action does not Exist for Autopilot"; }
 
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
