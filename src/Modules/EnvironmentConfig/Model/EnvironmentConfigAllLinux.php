@@ -3,6 +3,8 @@
 Namespace Model;
 
 // @todo This class should become two, one for Configuring the Environments section and one for config papyrus general
+use Core\BootStrap;
+
 class EnvironmentConfigAllLinux extends Base {
 
     // Compatibility
@@ -68,10 +70,11 @@ class EnvironmentConfigAllLinux extends Base {
 
     public function getDefaultEnvironmentReplacements() {
         return array( "any-app" => array(
-                array( "var" =>"gen_env_name", "friendly_text" =>"Name of this Environment"),
-                array( "var" =>"gen_env_tmp_dir", "friendly_text" =>"Default Temp Dir (should usually be /tmp/)"),) );
+            array( "var" =>"gen_env_name", "friendly_text" =>"Name of this Environment"),
+            array( "var" =>"gen_env_tmp_dir", "friendly_text" =>"Default Temp Dir (should usually be /tmp/)"),) );
     }
 
+    // @todo hahahahahahaha
     public function doQuestions() {
         $envSuffix = array_keys($this->environmentReplacements);
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
@@ -82,14 +85,23 @@ class EnvironmentConfigAllLinux extends Base {
                 $useProjEnvs = self::askYesOrNo($question, true); }
             if ($useProjEnvs == true ) {
                 $this->environments = $allProjectEnvs;
-                $i = 0;
+                // $i = 0;
                 foreach ($this->environments as $oneEnvironmentIndex => $oneEnvironment) {
+                    echo $oneEnvironmentIndex."\n" ;
                     if (isset($this->params["environment-name"])) {
                         if ($this->params["environment-name"] != $oneEnvironment["any-app"]["gen_env_name"]) {
                             $tx = "Skipping Environment {$oneEnvironment["any-app"]["gen_env_name"]} " ;
                             $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
                             echo $tx;
-                            continue ; } }
+                            continue ; }
+                        else {
+                            if (isset($this->params["keep-current-environments"]) && $this->params["keep-current-environments"]==true) {
+                                echo "This environment already exists, you've selected keep-current-environments so we won't modify it\n";
+                                \Core\BootStrap::setExitCode(1); }
+                            else {
+                                $q  = "This environment already exists, Do you want to modify it?" ;
+                                if (self::askYesOrNo($q)==false) { continue ; } } } }
+                    // if ($flag == "set") echo "ruckspin" ;
                     $curEnvGroupRay = array_keys($this->environmentReplacements) ;
                     $curEnvGroup = $curEnvGroupRay[0] ;
                     $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?
@@ -101,19 +113,20 @@ class EnvironmentConfigAllLinux extends Base {
                     if (isset($this->params["guess"]) && $this->params["guess"]==true) {
                         continue ; }
                     if (self::askYesOrNo($q)==true) {
-                        $this->populateAnEnvironment($i, "any-app" ) ;
+                        $this->populateAnEnvironment($oneEnvironmentIndex, "any-app" ) ;
                         continue ; }
                     if ( isset($oneEnvironment[$curEnvGroup]) ) {
                         $q  = "Do you want to modify entries for group $curEnvGroup in " ;
                         $q .= "environment $envName" ;
                         if (self::askYesOrNo($q)==true) {
-                            $this->populateAnEnvironment($i, $curEnvGroup) ; } }
+                            $this->populateAnEnvironment($oneEnvironmentIndex, $curEnvGroup) ; } }
                     else {
                         echo "Settings for ".$curEnvGroup." not setup for environment " .
                             "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
-                        $ix = ($oneEnvironmentIndex != null) ? $oneEnvironmentIndex : $i ;
-                        $this->populateAnEnvironment($ix, $curEnvGroup) ; }
-                    $i++; } } }
+                        //$ix = ($oneEnvironmentIndex != null) ? $oneEnvironmentIndex : $i ;
+                        $this->populateAnEnvironment($oneEnvironmentIndex, $curEnvGroup) ; }
+                    //$i++;
+                } } }
         $i = 0;
         $more_envs = true;
         while ($more_envs == true) {
@@ -128,7 +141,7 @@ class EnvironmentConfigAllLinux extends Base {
                 else {
                     $question = 'Do you want to add another environment?';
                     if (isset($this->params["add-single-environment"])) {
-                        $add_another_env = true ; }
+                        $add_another_env = false ; }
                     else {
                         $add_another_env = self::askYesOrNo($question); }
                     if ($add_another_env == true) {
