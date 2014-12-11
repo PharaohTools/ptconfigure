@@ -85,7 +85,6 @@ class EnvironmentConfigAllLinux extends Base {
                 $useProjEnvs = self::askYesOrNo($question, true); }
             if ($useProjEnvs == true ) {
                 $this->environments = $allProjectEnvs;
-                // $i = 0;
                 foreach ($this->environments as $oneEnvironmentIndex => $oneEnvironment) {
                     if (isset($this->params["environment-name"])) {
                         if ($this->params["environment-name"] != $oneEnvironment["any-app"]["gen_env_name"]) {
@@ -96,11 +95,11 @@ class EnvironmentConfigAllLinux extends Base {
                         else {
                             if (isset($this->params["keep-current-environments"]) && $this->params["keep-current-environments"]==true) {
                                 echo "This environment already exists, you've selected keep-current-environments so we won't modify it\n";
-                                \Core\BootStrap::setExitCode(1); }
+                                \Core\BootStrap::setExitCode(1);
+                            continue ; }
                             else {
                                 $q  = "This environment already exists, Do you want to modify it?" ;
                                 if (self::askYesOrNo($q)==false) { continue ; } } } }
-                    // if ($flag == "set") echo "ruckspin" ;
                     $curEnvGroupRay = array_keys($this->environmentReplacements) ;
                     $curEnvGroup = $curEnvGroupRay[0] ;
                     $envName = (isset($oneEnvironment["any-app"]["gen_env_name"])) ?
@@ -122,13 +121,11 @@ class EnvironmentConfigAllLinux extends Base {
                     else {
                         echo "Settings for ".$curEnvGroup." not setup for environment " .
                             "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
-                        //$ix = ($oneEnvironmentIndex != null) ? $oneEnvironmentIndex : $i ;
                         $this->populateAnEnvironment($oneEnvironmentIndex, $curEnvGroup) ; }
-                    //$i++;
                 } } }
         $i = 0;
         $more_envs = true;
-        while ($more_envs == true) {
+        while ($more_envs === true) {
             if (count($this->environments)==0) {
                 $this->populateAnEnvironment($i, $envSuffix[0]);
                 if (isset($this->params["add-single-environment"])) {
@@ -136,6 +133,13 @@ class EnvironmentConfigAllLinux extends Base {
                 $more_envs = false ; }
             else {
                 if (isset($this->params["guess"]) && (!isset($this->params["add-single-environment"])) ) {
+                    $more_envs = false; }
+                else if (isset($this->params["add-single-environment"])) {
+                    if (isset($this->params["environment-name"]) && $this->isEnvironment($this->params["environment-name"])) {
+                        echo "This environment already exists, so we'll leave it as is.\n";
+                        break ; }
+                    $i = count($this->environments) ;
+                    $this->populateAnEnvironment($i, $envSuffix[0]);
                     $more_envs = false; }
                 else {
                     $question = 'Do you want to add another environment?';
@@ -152,6 +156,13 @@ class EnvironmentConfigAllLinux extends Base {
                     else {
                         $more_envs = false; } } }
             $i++; }
+    }
+
+    private function isEnvironment($env) {
+        foreach ($this->environments as $oneEnvironment) {
+                if ($env == $oneEnvironment["any-app"]["gen_env_name"]) {
+                    return true ; } }
+        return false ;
     }
 
     public function doDelete() {
