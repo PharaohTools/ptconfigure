@@ -2,6 +2,7 @@
 
 Namespace Controller ;
 
+use Core\BootStrap;
 use Core\View;
 
 class AutopilotExecutor extends Base {
@@ -38,7 +39,11 @@ class AutopilotExecutor extends Base {
                     "control" => $currentControl ,
                     "action" => $currentAction ,
                 ) ;
-            $dataFromThis .= $this->executeControl($currentControl, $params); }
+            $dataFromThis .= $this->executeControl($currentControl, $params);
+            if ( BootStrap::getExitCode() !== 0 ) {
+                $dataFromThis .= "Received exit code: ".BootStrap::getExitCode();
+                break ; }
+        }
         return $dataFromThis ;
     }
 
