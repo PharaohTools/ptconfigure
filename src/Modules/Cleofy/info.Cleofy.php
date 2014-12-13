@@ -38,11 +38,6 @@ class CleofyInfo extends CleopatraBase {
         your project.
         example: cleopatra cleofy standard
 
-        - phlagrant
-        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
-        your Phlagrant project.
-        example: cleopatra cleofy standard
-
         - tiny
         Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
         a project with a "tiny" style infrastructure.
@@ -72,7 +67,7 @@ class CleofyInfo extends CleopatraBase {
         example: cleopatra cleofy install-generic-autopilots
                     --yes
                     --guess # will set --destination-dir=*this dir +*build/config/cleopatra/cleofy/autopilots/
-                    --template-group=tiny # tiny, medium, dbcluster || db-cluster, workstation
+                    --template-group=tiny # tiny, medium, dbcluster, phlagrant || db-cluster, workstation
                     --destination-dir=*path-to-destination*
 
 HELPDATA;

@@ -29,7 +29,7 @@ class Cleofy extends Base {
 
         $actionsToModelGroups = array(
             "medium" => "Medium", "medium-web" => "MediumWeb", "db-cluster" => "DBCluster", "tiny" => "Tiny",
-            "workstation" => "Workstation", "phlagrant" => "Phlagrant" ) ;
+            "workstation" => "Workstation") ;
 
         if (in_array($action, array_keys($actionsToModelGroups))) {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, $actionsToModelGroups[$action]) ;

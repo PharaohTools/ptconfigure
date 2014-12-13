@@ -41,14 +41,14 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
 
     public function setTemplateGroupsToDirs() {
         $dir = str_replace("Model", "", __DIR__) ;
-        $dir = $dir.'Templates/' ;
+        $dir = $dir.'Templates".DS."' ;
         $this->templateGroupsToDirs = array(
-            "tiny" => "{$dir}Generic/Tiny",
-            "medium" => "{$dir}Generic/Medium",
-            "dbcluster" => "{$dir}Generic/DBCluster",
-            "db-cluster" => "{$dir}Generic/DBCluster",
-            "workstation" => "{$dir}Generic/Workstation",
-            "phlagrant" => "{$dir}Generic/Phlagrant"
+            "tiny" => "{$dir}Generic".DS."Tiny",
+            "medium" => "{$dir}Generic".DS."Medium",
+            "dbcluster" => "{$dir}Generic".DS."DBCluster",
+            "db-cluster" => "{$dir}Generic".DS."DBCluster",
+            "workstation" => "{$dir}Generic".DS."Workstation",
+            "phlagrant" => "{$dir}Generic".DS."Phlagrant"
         );
     }
 
@@ -74,7 +74,7 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["destination-dir"])) {
             $this->destination = $this->params["destination-dir"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd()."/build/config/cleopatra/cleofy/autopilots/generic/" ;
+            $defaultdir = getcwd().DS."build".DS."config".DS."cleopatra".DS."cleofy".DS."autopilots".DS."generic" ;
             if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
             $this->destination = $defaultdir ; }
         else {
