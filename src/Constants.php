@@ -15,9 +15,9 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     exec($command, $outputArray);
     define('VBOXMGCOMM', "\"{$outputArray[0]}\" ") ;
     define('PFILESDIR', $sd."\\PharaohTools\\") ;
-    define('CLEOCOMM', PFILESDIR.'cleopatra.cmd"') ;
-    define('DAPPCOMM',  PFILESDIR."dapperstrano.cmd") ;
-    define('PHLCOMM',  PFILESDIR."phlagrant.cmd") ;
+    define('CLEOCOMM', '"'.PFILESDIR.'cleopatra.cmd"') ;
+    define('DAPPCOMM', '"'.PFILESDIR."dapperstrano.cmd") ;
+    define('PHLCOMM', '"'.PFILESDIR."phlagrant.cmd") ;
     define("DS", "\\");
     define("BASE_TEMP_DIR", getenv("SystemDrive").'\Temp\\'); }
 else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
