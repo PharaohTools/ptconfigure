@@ -136,7 +136,9 @@ class EnvironmentConfigAllLinux extends Base {
                     $more_envs = false; }
                 else if (isset($this->params["add-single-environment"])) {
                     if (isset($this->params["environment-name"]) && $this->isEnvironment($this->params["environment-name"])) {
-                        echo "This environment already exists, so we'll leave it as is.\n";
+                        $m = "This environment already exists, and you've specified that you're adding a single ".
+                             "environment, so we won't add any more.\n";
+                        echo $m ;
                         break ; }
                     $i = count($this->environments) ;
                     $this->populateAnEnvironment($i, $envSuffix[0]);
