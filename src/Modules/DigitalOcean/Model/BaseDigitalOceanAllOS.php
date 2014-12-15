@@ -40,8 +40,8 @@ class BaseDigitalOceanAllOS extends Base {
         if (isset($this->params["digital-ocean-client-id"])) { return $this->params["digital-ocean-client-id"] ; }
         $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-client-id") ;
         if ($papyrusVar != null) {
-            if ($this->params["guess"] == true) { return $papyrusVar ; }
-            if ($this->params["use-project-client-id"] == true) { return $papyrusVar ; }
+            if (isset($this->params["guess"]) && $this->params["guess"] == true) { return $papyrusVar ; }
+            if (isset($this->params["use-project-client-id"]) && $this->params["use-project-client-id"] == true) { return $papyrusVar ; }
             $question = 'Use Project saved Digital Ocean Client ID?';
             if (self::askYesOrNo($question, true) == true) {
                 return $papyrusVar ; } }
