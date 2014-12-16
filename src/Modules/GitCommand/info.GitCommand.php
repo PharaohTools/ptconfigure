@@ -6,32 +6,39 @@ class GitCommandInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "GitCommand Source Control Clone Functions";
+    public $name = "Git Commands";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "GitCommand" => array_merge(parent::routesAvailable(), array("clone", "co") ) );
+      return array( "GitCommand" => array_merge(parent::routesAvailable(), array(
+          "create-checkout-branch", "delete-branch", "ensure-branch", "add", "commit", "push", "pull") ) );
     }
 
     public function routeAliases() {
-      return array("git-clone" => "GitCommand", "gitclone" => "GitCommand");
+      return array("git-command" => "GitCommand", "gitcommand" => "GitCommand");
     }
 
     public function helpDefinition() {
-      $help = <<<"HELPDATA"
-  This command is part of Default Modules and handles Checkout Functions.
+      $help = "
+  This command is handles Git Commands
 
-  clone, co
+  Git, GitCommand, git-command, gitcommand
 
-          - perform a checkout into configured projects folder. If you don't want to specify target dir but do want
-          to specify a branch, then enter the text "none" as that parameter.
-          example: dapperstrano git co https://github.com/phpengine/yourmum {optional target dir} {optional branch}
-          example: dapperstrano git co https://github.com/phpengine/yourmum none {optional branch}
+  - create-checkout-branch
+      create a new branch
+      example: dapperstrano git create-branch --branch=*branchname*
 
-HELPDATA;
+  delete-branch
+  ensure-branch
+  add
+  commit
+  push
+  pull
+
+" ;
       return $help ;
     }
 

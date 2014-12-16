@@ -14,9 +14,10 @@ class GitCommand extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        if ($action == "clone" || $action == "co") {
-            $this->content["checkOutResult"] = $thisModel->checkoutProject();
-            return array ("type"=>"view", "view"=>"gitClone", "pageVars"=>$this->content); }
+        if (in_array($action, array("create-branch", "delete-branch", "ensure-branch", "add", "commit", "push", "pull") )) {
+            $this->content["result"] = $thisModel->askAction($action);
+            $this->content["appName"] = $thisModel->programNameInstaller ;
+            return array ("type"=>"view", "view"=>"boxify", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid GitCommand Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
