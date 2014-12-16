@@ -58,8 +58,8 @@ HELPDATA;
                 echo "Error loading Taskfile $taskFile, error $e\n" ; } }
         else {
             return array() ; }
-        $taskObject = new \Model\Taskfile(array()) ;
-        $tftasks = array_keys($taskObject::$tasks) ;
+        $taskObject = new \Model\Taskfile(array("silent"=>true)) ;
+        $tftasks = array_keys($taskObject->tasks) ;
         return $tftasks ;
     }
 
