@@ -28,8 +28,8 @@ class GitCommandInfo extends Base {
   Git, GitCommand, git-command, gitcommand
 
   - create-checkout-branch
-      create a new branch
-      example: dapperstrano git create-branch --branch=*branchname*
+    create a new branch
+    example: ".PHARAOH_APP." git create-checkout-branch --branch=*branchname*
 
   delete-branch
   ensure-branch

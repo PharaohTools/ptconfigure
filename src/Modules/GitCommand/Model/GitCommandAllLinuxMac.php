@@ -78,7 +78,7 @@ class GitCommandAllLinuxMac extends Base {
     }
 
     protected function doCreateCheckoutBranch() {
-        $command = $this->getGitCommand().'checkout -b '.$this->params["branch"] ;
+        $command = $this->getGitCommand().' checkout -b '.$this->params["branch"] ;
         return self::executeAndGetReturnCode($command);
     }
 
@@ -90,12 +90,12 @@ class GitCommandAllLinuxMac extends Base {
         if (!$exists) {
             $logging->log("Branch {$this->params["branch"]} does not exist, failing...", $this->getModuleName());
             return false ; }
-        $command = $this->getGitCommand().'branch -d '.$this->params["branch"] ;
+        $command = $this->getGitCommand().' branch -d '.$this->params["branch"] ;
         return self::executeAndGetReturnCode($command);
     }
 
     protected function doEnsureBranch() {
-        $branches = self::executeAndLoad($this->getGitCommand().'branch');
+        $branches = self::executeAndLoad($this->getGitCommand().' branch');
         $exists = (strpos($branches, "{$this->params["branch"]}\n") !== false) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -103,7 +103,7 @@ class GitCommandAllLinuxMac extends Base {
             $logging->log("Branch {$this->params["branch"]} already exists, continuing...", $this->getModuleName());
             return true ; }
         $logging->log("Branch {$this->params["branch"]} does not exist, creating...", $this->getModuleName());
-        $command = $this->getGitCommand().'checkout -b '.$this->params["branch"] ;
+        $command = $this->getGitCommand().' checkout -b '.$this->params["branch"] ;
         return self::executeAndGetReturnCode($command);
     }
 
