@@ -69,7 +69,7 @@ class TaskExecutor extends Base {
             catch (\Exception $e) {
                 echo "Error loading Taskfile $taskFile, error $e\n" ; } }
         else { return array() ; }
-        $taskObject = new \Model\Taskfile(self::formatParams($pageVars)) ;
+        $taskObject = new \Model\Taskfile(self::formatParams(array_merge(array("silent"=>true),$pageVars))) ;
         $tftasks = $taskObject->tasks ;
         return $tftasks ;
     }
