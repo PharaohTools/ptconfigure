@@ -45,7 +45,7 @@ class Task extends Base {
         else {
             return array() ; }
         $taskObject = new \Model\Taskfile(array()) ;
-        $tftasks = array_keys($taskObject::$tasks) ;
+        $tftasks = array_keys($taskObject->tasks) ;
         return $tftasks ;
     }
 
