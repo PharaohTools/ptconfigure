@@ -16,6 +16,7 @@ class GitCommandAllLinuxMac extends Base {
 
     protected $actionsToMethods =
         array(
+            "checkout-branch" => "checkoutBranch",
             "create-checkout-branch" => "createCheckoutBranch",
             "delete-branch" => "deleteBranch",
             "ensure-branch" => "ensureBranch",
@@ -34,6 +35,14 @@ class GitCommandAllLinuxMac extends Base {
     }
 
     public function createCheckoutBranch(){
+        if ($this->askWhetherToDoCommand() != true) { return false; }
+        $this->askForBranch();
+        $out = $this->doCreateCheckoutBranch(true);
+        $this->changeToProjectDirectory();
+        return $out;
+    }
+
+    public function checkoutBranch(){
         if ($this->askWhetherToDoCommand() != true) { return false; }
         $this->askForBranch();
         $out = $this->doCreateCheckoutBranch();
@@ -77,20 +86,27 @@ class GitCommandAllLinuxMac extends Base {
             return 'git' ; }
     }
 
-    protected function doCreateCheckoutBranch() {
-        $command = $this->getGitCommand().' checkout -b '.$this->params["branch"] ;
+    protected function doCreateCheckoutBranch($create = null) {
+        $flag = ($create) ? "-b " : "" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to create branch {$this->params["branch"]}", $this->getModuleName());
+        $command = $this->getGitCommand().' checkout '.$flag.$this->params["branch"] ;
         return self::executeAndGetReturnCode($command);
     }
 
     protected function doDeleteBranch() {
-        $branches = self::executeAndLoad($this->getGitCommand().'branch');
+        $branches = self::executeAndLoad($this->getGitCommand().' branch');
         $exists = (strpos($branches, "{$this->params["branch"]}\n") !== false) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (!$exists) {
             $logging->log("Branch {$this->params["branch"]} does not exist, failing...", $this->getModuleName());
-            return false ; }
+            \Core\BootStrap::setExitCode(1);
+            return 1 ; }
+        $logging->log("Branch {$this->params["branch"]} exists, deleting...", $this->getModuleName());
         $command = $this->getGitCommand().' branch -d '.$this->params["branch"] ;
+        echo $command . "\n" ;
         return self::executeAndGetReturnCode($command);
     }
 
