@@ -13,8 +13,8 @@ class GitCommandInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "GitCommand" => array_merge(parent::routesAvailable(), array(
-          "create-checkout-branch", "delete-branch", "ensure-branch", "add", "commit", "push", "pull") ) );
+      return array( "GitCommand" => array_merge(parent::routesAvailable(), array( "help",
+          "create-checkout-branch", "delete-branch", "ensure-branch", "ensure=delete-branch", "add", "commit", "push", "pull") ) );
     }
 
     public function routeAliases() {
@@ -23,7 +23,7 @@ class GitCommandInfo extends Base {
 
     public function helpDefinition() {
       $help = "
-  This command is handles Git Commands
+  This command handles Git Functionality
 
   Git, GitCommand, git-command, gitcommand
 
