@@ -26,6 +26,9 @@ class TaskExecutor extends Base {
                     $this->params["autopilot-file"] = $af ;
                     $auto = new \Controller\Autopilot();
                     $ep = array_merge( $this->params, $pageVars["route"]["extraParams"]) ;
+
+                    var_dump("ep:", $ep) ;
+
                     $route = array("control" => "Autopilot", "action" => "install", "extraParams" => $ep) ;
                     $emptyPageVars = array("messages"=>array(), "route"=>$route);
                     $ax = $auto->execute($emptyPageVars);
@@ -65,11 +68,9 @@ class TaskExecutor extends Base {
                 require_once ($taskFile) ; }
             catch (\Exception $e) {
                 echo "Error loading Taskfile $taskFile, error $e\n" ; } }
-        else {
-            return array() ; }
-
+        else { return array() ; }
         $taskObject = new \Model\Taskfile(self::formatParams($pageVars)) ;
-        $tftasks = $taskObject::$tasks ;
+        $tftasks = $taskObject->tasks ;
         return $tftasks ;
     }
 
