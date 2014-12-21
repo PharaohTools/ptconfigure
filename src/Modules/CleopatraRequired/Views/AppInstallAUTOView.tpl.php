@@ -1,6 +1,6 @@
 <?php echo $pageVars["module"] ; ?>: <?php
-$result_summary = ($pageVars["result"] == true) ? "Success" : "Failure" ;
+$result_summary = (isset($pageVars["result"]) && $pageVars["result"] == true) ? "Success" : "Failure" ;
 echo $result_summary."\n" ;
-if (is_string($pageVars["result"])) {
+if (isset($pageVars["result"]) && is_string($pageVars["result"])) {
     echo $pageVars["result"]."\n" ; }
 ?>
