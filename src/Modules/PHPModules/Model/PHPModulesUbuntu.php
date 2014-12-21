@@ -34,7 +34,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         $modsTextCmd = 'sudo php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $pax = $this->packages ;
-        foreach ($pax as &$pack) { $pack = substr($pack, 4) ; }
+        foreach ($pax as &$pack) { $pack = substr($pack, 5) ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
