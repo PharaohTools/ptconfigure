@@ -14,8 +14,12 @@ class PortAllOS extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
     protected $ipAddress ;
+    protected $iptype ;
     protected $portNumber ;
-    protected $actionsToMethods = array( "is-responding" => "performPortCheck" ) ;
+    protected $actionsToMethods = array(
+        "is-responding" => "performPortCheck",
+        "process" => "performPortServiceCheck"
+    ) ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -31,6 +35,12 @@ class PortAllOS extends BaseLinuxApp {
         $this->setIp();
         $this->setPort();
         return $this->getPortStatus();
+    }
+
+    protected function performPortServiceCheck() {
+        $this->setPort();
+        $this->setIpType();
+        return $this->getPortService();
     }
 
     public function setIp($ipAddress = null) {
@@ -55,6 +65,19 @@ class PortAllOS extends BaseLinuxApp {
             $this->portNumber = self::askForInput("Enter Port Number:", true); }
     }
 
+    public function setIpType($iptype = null) {
+        if (isset($iptype)) {
+            $this->iptype = $iptype; }
+        else if (isset($this->params["ip-type"])) {
+            $this->iptype = $this->params["ip-type"]; }
+        else if (isset($this->params["iptype"])) {
+            $this->iptype = $this->params["iptype"]; }
+        else if (isset($this->params["guess"])) {
+            $this->iptype = "IPv4"; }
+        else {
+            $this->iptype = self::askForArrayOption("Enter IP Type:",array("IPv4", "IPv6"), true); }
+    }
+
     private function getPortStatus() {
         // @todo fsockopen takes a while, fixed with 5 sec timeout?
         $loggingFactory = new \Model\Logging();
@@ -65,6 +88,30 @@ class PortAllOS extends BaseLinuxApp {
             return true; }
         else {
             $logging->log("Port {$this->portNumber} is not responding. Error: $errno, $errstr") ;
+            return false; }
+    }
+
+    private function getPortService() {
+        // @todo fsockopen takes a while, fixed with 5 sec timeout?
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $comm = 'sudo lsof -i :'.$this->portNumber.' | grep LISTEN';
+        $tx = self::executeAndLoad($comm) ;
+        $process = substr($tx, 0, strpos($tx, " ")) ;
+        $statcomm = 'echo $?';
+        $stat = self::executeAndLoad($statcomm) ;
+        $stat = str_replace("\n", "", $stat) ;
+
+        if ($stat != "0") {
+            \Core\BootStrap::setExitCode(1);
+            $logging->log("Port process command execution failed.") ;
+            return true; }
+
+        if (isset($tx)) {
+            $logging->log("Port {$this->portNumber} is being used by the process {$process}") ;
+            return true; }
+        else {
+            $logging->log("Port {$this->portNumber} is not being used by a process") ;
             return false; }
     }
 
