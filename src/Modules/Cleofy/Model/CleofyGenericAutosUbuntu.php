@@ -41,7 +41,7 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
 
     public function setTemplateGroupsToDirs() {
         $dir = str_replace("Model", "", __DIR__) ;
-        $dir = $dir.'Templates".DS."' ;
+        $dir = $dir.'Templates'.DS ;
         $this->templateGroupsToDirs = array(
             "tiny" => "{$dir}Generic".DS."Tiny",
             "medium" => "{$dir}Generic".DS."Medium",
