@@ -15,9 +15,9 @@
 
   <?php echo $pageVars["appName"] ; ?>: <?php
 
-  $result_summary = (strlen($pageVars["appInstallResult"])>0) ? "Success" : "Failure" ;
+  $result_summary = (strlen($pageVars["result"])>0) ? "Success" : "Failure" ;
   echo $result_summary."\n\n" ;
-  $lines = explode(PHP_EOL, $pageVars["appInstallResult"]);
+  $lines = explode(PHP_EOL, $pageVars["result"]);
   foreach ($lines as $line) {
      echo "<p>$line</p>";
   }

@@ -4,7 +4,7 @@
 
   $jsonArray = array(
     "appName" => $pageVars["appName"] ,
-    "appInstallResult" => $result,
+    "result" => $result,
     "appInstallOutput" => $pageVars["appStatusResult"],
   );
 

@@ -1,11 +1,11 @@
 <?php
 
-  $result = (strlen($pageVars["appInstallResult"])>0) ? "Success" : "Failure" ;
+  $result = (strlen($pageVars["result"])>0) ? "Success" : "Failure" ;
 
   $jsonArray = array(
     "appName" => $pageVars["appName"] ,
-    "appInstallResult" => $result,
-    "appInstallOutput" => $pageVars["appInstallResult"],
+    "result" => $result,
+    "appInstallOutput" => $pageVars["result"],
   );
 
   echo json_encode($jsonArray)."\n";
