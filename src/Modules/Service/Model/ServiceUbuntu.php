@@ -99,8 +99,8 @@ class ServiceUbuntu extends BaseLinuxApp {
     }
 
     public function isRunning() {
-        $status = $this->executeAndLoad("service {$this->serviceName} status 2> /dev/null");
-        if(strpos($status, 'running') != false) {
+        $status = $this->executeAndGetReturnCode("service {$this->serviceName} status");
+        if($status == 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Service {$this->serviceName} is running...") ;
