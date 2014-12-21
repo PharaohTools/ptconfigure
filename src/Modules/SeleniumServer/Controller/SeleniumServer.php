@@ -16,6 +16,7 @@ class SeleniumServer extends Base {
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $newAction = ucfirst($action) ;
             $this->content["result"] = $thisModel->{"ask".$newAction}();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
         return null ;
 
