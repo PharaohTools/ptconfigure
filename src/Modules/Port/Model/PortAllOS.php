@@ -39,7 +39,6 @@ class PortAllOS extends BaseLinuxApp {
 
     protected function performPortServiceCheck() {
         $this->setPort();
-        $this->setIpType();
         return $this->getPortService();
     }
 
@@ -63,19 +62,6 @@ class PortAllOS extends BaseLinuxApp {
             $this->portNumber = $this->params["port"]; }
         else {
             $this->portNumber = self::askForInput("Enter Port Number:", true); }
-    }
-
-    public function setIpType($iptype = null) {
-        if (isset($iptype)) {
-            $this->iptype = $iptype; }
-        else if (isset($this->params["ip-type"])) {
-            $this->iptype = $this->params["ip-type"]; }
-        else if (isset($this->params["iptype"])) {
-            $this->iptype = $this->params["iptype"]; }
-        else if (isset($this->params["guess"])) {
-            $this->iptype = "IPv4"; }
-        else {
-            $this->iptype = self::askForArrayOption("Enter IP Type:",array("IPv4", "IPv6"), true); }
     }
 
     private function getPortStatus() {
