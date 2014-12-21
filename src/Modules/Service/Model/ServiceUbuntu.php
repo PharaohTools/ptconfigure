@@ -108,6 +108,7 @@ class ServiceUbuntu extends BaseLinuxApp {
         else {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
+            \Core\BootStrap::setExitCode(1);
             $logging->log("Service {$this->serviceName} is not running...") ;
             return false ; }
     }
