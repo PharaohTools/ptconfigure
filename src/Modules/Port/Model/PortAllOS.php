@@ -109,6 +109,14 @@ class PortAllOS extends BaseLinuxApp {
 
         if (isset($tx)) {
             $logging->log("Port {$this->portNumber} is being used by the process {$process}") ;
+            if (isset($this->params["expect"])) {
+                $logging->log("Expecting process to be {$this->params["expect"]}") ;
+
+                if ($this->params["expect"] != $process ) {
+                    $logging->log("Wrong process on Port {$this->portNumber}") ;
+                    \Core\BootStrap::setExitCode(1);
+                    return false ; } }
+
             return true; }
         else {
             $logging->log("Port {$this->portNumber} is not being used by a process") ;
