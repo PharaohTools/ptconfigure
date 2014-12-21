@@ -43,37 +43,44 @@ class Base {
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $newAction = ucfirst($action) ;
             $this->content["result"] = $thisModel->{"ask".$newAction}();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
         if ($action=="ensure" && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $this->content["result"] = $thisModel->ensureInstalled();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
         if ($action=="status" && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $newAction = ucfirst($action) ;
             $this->content["appStatusResult"] = $thisModel->{"ask".$newAction}();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
         if (in_array($action, array("init", "initialize")) && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $this->content["result"] = $thisModel->askInit();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
         if (in_array($action, array("exec", "execute")) && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $this->content["result"] = $thisModel->askExec();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
         if (in_array($action, array("version")) && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $this->content["versionResult"] = $thisModel->getVersion();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"appVersion", "pageVars"=>$this->content); }
         if (in_array($action, array("run-at-reboots")) && !in_array($action, $ignored_actions)) {
             $this->content["params"] = $thisModel->params;
             $this->content["appName"] = $thisModel->autopilotDefiner;
             $this->content["result"] = $thisModel->runAtReboots();
+            $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"appVersion", "pageVars"=>$this->content); } }
 
      else if (!isset($thisModel)) {
