@@ -40,8 +40,8 @@ class AutopilotExecutor extends Base {
                     "action" => $currentAction ,
                 ) ;
             $dataFromThis .= $this->executeControl($currentControl, $params);
-            if ( BootStrap::getExitCode() !== 0 ) {
-                $dataFromThis .= "Received exit code: ".BootStrap::getExitCode();
+            if ( \Core\BootStrap::getExitCode() !== 0 ) {
+                $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
                 break ; }
         }
         return $dataFromThis ;
@@ -65,7 +65,10 @@ class AutopilotExecutor extends Base {
                         "control" => $currentControl ,
                         "action" => $currentAction ,
                     ) ;
-                $dataFromThis .= $this->executeControl($currentControl, $params); } }
+                $dataFromThis .= $this->executeControl($currentControl, $params);
+                if ( \Core\BootStrap::getExitCode() !== 0 ) {
+                    $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
+                    break ; } } }
         else {
             $dataFromThis = "No Tests defined in autopilot";  }
         return $dataFromThis ;
@@ -87,7 +90,8 @@ class AutopilotExecutor extends Base {
         if ($controlResult["type"]=="view") {
             $of = array("params" => array("output-format" => "AUTO")) ;
             $modParams = array_merge($controlResult["pageVars"], $of) ;
-            return $this->executeView( $controlResult["view"], $modParams ); }
+            $var = $this->executeView( $controlResult["view"], $modParams );
+            return $var ; }
         else if ($controlResult["type"]=="control") {
             $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); }
     }

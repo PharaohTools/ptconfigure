@@ -37,10 +37,9 @@ class View {
     $outputFormat = "" ;
     if (isset($pageVars["params"]["output-format"])) {
       $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
-      $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
-      if (isset($pageVars["params"]["output-format"])  && $pageVars["params"]["output-format"]=="AUTO") {
-          $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
-      $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
+    if (isset($pageVars["params"]["output-format"])  && $pageVars["params"]["output-format"]=="AUTO") {
+      $outputFormat = strtoupper($pageVars["params"]["output-format"]); }
+    $viewFileName = ucfirst($view).$outputFormat."View.tpl.php";
     if ($this->loadViewFile($viewFileName, $pageVars) == true) {
         return ob_get_clean(); }
     else if (substr($viewFileName, strlen($viewFileName)-16, 16) =="AUTOView.tpl.php" && $this->loadViewFile("DefaultAUTOView.tpl.php", $pageVars) == true) {
@@ -74,7 +73,8 @@ class View {
                   if ( is_dir($modulesParentDirFullPath.DIRECTORY_SEPARATOR.$singleModuleDir)) { // if is a dir
                       $fileNameAndPath = $modulesParentDirFullPath . DIRECTORY_SEPARATOR . $singleModuleDir . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . $viewFileName;
                       if (is_readable($fileNameAndPath)) {
-                          require_once $fileNameAndPath;
+                          // @todo require in exception
+                          require $fileNameAndPath;
                           return true; } } } } }
         else {
             $modulesParentDirFullPath = dirname(__FILE__).DIRECTORY_SEPARATOR."Base".DIRECTORY_SEPARATOR."Views" ;
@@ -85,13 +85,15 @@ class View {
                 if (!in_array($coreViewFile, array(".", ".."))) { // if not dot or double dot
                     $fileNameAndPath = $modulesParentDirFullPath . DIRECTORY_SEPARATOR . $coreViewFile;
                     if (is_readable($fileNameAndPath) && $viewFileName == $coreViewFile) {
-                        require_once $fileNameAndPath;
+                        // @todo require in exception
+                        require $fileNameAndPath;
                         return true; } } }
             foreach ($coreHelpViewFiles as $coreViewFile) {
                 if (!in_array($coreViewFile, array(".", ".."))) { // if not dot or double dot
                     $fileNameAndPath = $modulesParentHelpDirFullPath . DIRECTORY_SEPARATOR . $coreViewFile;
                     if (is_readable($fileNameAndPath) && $viewFileName == $coreViewFile) {
-                        require_once $fileNameAndPath;
+                        // @todo require in exception
+                        require $fileNameAndPath;
                         return true; } } }
 
         }
