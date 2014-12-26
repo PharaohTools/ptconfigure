@@ -6,7 +6,7 @@ class PortInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Test a Port to see if its responding, or which process is using it";
+    public $name = "Test a Port to see which process is listening on it";
 
     public function __construct() {
       parent::__construct();
@@ -23,7 +23,7 @@ class PortInfo extends CleopatraBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to test the status of ports
+  This command allows you to test the status of ports and services running on them
 
   Port, port
 
