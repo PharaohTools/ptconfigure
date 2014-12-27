@@ -90,21 +90,21 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     private function getServerGroupImageID() {
         if (isset($this->params["image-id"])) {
             return $this->params["image-id"] ; }
-        $question = 'Enter Image ID for this Server Group';
+        $question = 'Enter Image ID';
         return self::askForInput($question, true);
     }
 
     private function getServerGroupSizeID() {
         if (isset($this->params["size-id"])) {
             return $this->params["size-id"] ; }
-        $question = 'Enter size ID for this Server Group';
+        $question = 'Enter size ID';
         return self::askForInput($question, true);
     }
 
     private function getServerGroupRegionID() {
         if (isset($this->params["region-id"])) {
             return $this->params["region-id"] ; }
-        $question = 'Enter Region ID for this Server Group';
+        $question = 'Enter Region ID';
         return self::askForInput($question, true);
     }
 
@@ -112,7 +112,8 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         if (isset($this->params["box-amount"])) {
             return $this->params["box-amount"] ; }
         $question = 'Enter number of boxes to add to Environment';
-        return self::askForInput($question, true);
+        $this->params["box-amount"] = self::askForInput($question, true);
+        return $this->params["box-amount"] ;
     }
 
     private function askForSSHKeyIds() {
@@ -128,16 +129,14 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $question = (isset($boxName))
             ? 'Enter SSH username of box '.$boxName
             : 'Enter SSH username of remote box';
-        $this->params["box-user-name"] = self::askForInput($question, true) ;
-        return $this->params["box-user-name"] ;
+        return self::askForInput($question, true) ;
     }
 
     private function getSSHKeyLocation() {
         if (isset($this->params["private-ssh-key-path"])) {
             return $this->params["private-ssh-key-path"] ; }
         $question = 'Enter file path of private SSH Key';
-        $this->params["private-ssh-key-path"] = self::askForInput($question, true) ;
-        return $this->params["private-ssh-key-path"] ;
+        return self::askForInput($question, true) ;
     }
 
     private function getNewServerFromDigitalOceanV2($serverData) {
@@ -203,7 +202,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             return $this->getSshKeyIdFromName($this->params["ssh-key-name"]) ;
         }
         if (isset($this->params["guess"]) || isset($this->params["use-all-ssh-keys"])) {
-            return $this->getAllSshKeyIdsString() ;
+            return $this->getAllSshKeyIdsArray() ;
         }
 
         else {
@@ -237,20 +236,15 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
     /**
      * Get all ssh key from a account
-     * @return string
+     * @return array
      */
-    private function getAllSshKeyIdsString() {
+    private function getAllSshKeyIdsArray() {
         if (isset($this->params["ssh-key-ids"])) {
             return $this->params["ssh-key-ids"] ;
         }
         $curlUrl = $this->_apiURL."/v2/account/keys" ;
         $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
-        $sshKeys = array();
-        // @todo use the list call to get ids, this uses name
-        foreach($sshKeysObject->ssh_keys as $sshKey) {
-            $sshKeys[] = $sshKey->id ; }
-        $keysString = implode(",", $sshKeys) ;
-        return $keysString;
+        return $sshKeysObject->ssh_keys;
     }
 
     private function getSshKeyIdFromName($name) {
