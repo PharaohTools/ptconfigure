@@ -59,8 +59,6 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                             $serverData["sshKeyIds"] = $this->getSshKeyIds();
 
                             $response = $this->getNewServerFromDigitalOceanV2($serverData) ;
-
-
                             $this->addServerToPapyrus($envName, $response); } } } }
 
                 return true ; }
@@ -163,6 +161,8 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
         $dropletData = $this->getDropletData($data->droplet->id);
 
+        var_dump($data) ;
+
         if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
             $dropletData = $this->waitForBoxInfo($data->droplet->id); }
         if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
@@ -170,8 +170,6 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $server = array();
 
         $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
-
-
 
         $server["user"] = $this->getUsernameOfBox() ;
         $server["password"] = $this->getSSHKeyLocation() ;
@@ -204,6 +202,10 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         }
         if (isset($this->params["guess"]) || isset($this->params["use-all-ssh-keys"])) {
             return $this->getAllSshKeyIdsString() ;
+        }
+
+        else {
+
         }
     }
 
