@@ -38,9 +38,9 @@ class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
     private function askForDataTypeToList(){
         $question = 'Please choose a data type to list:';
         $options = array("droplets", "sizes", "images", "domains", "regions", "ssh_keys");
-        if (isset($this->params["digital-ocean-v2-list-data-type"]) &&
-            in_array($this->params["digital-ocean-v2-list-data-type"], $options)) {
-            return $this->params["digital-ocean-v2-list-data-type"] ; }
+        if (isset($this->params["type"]) &&
+            in_array($this->params["type"], $options)) {
+            return $this->params["type"] ; }
         return self::askForArrayOption($question, $options, true);
     }
 
