@@ -45,6 +45,7 @@ class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
     }
 
     public function getDataListFromDigitalOceanV2($dataToList, $callVars = array()){
+        if ($dataToList == "ssh_keys") {$dataToList = "account/keys";}
         $curlUrl = $this->_apiURL."/v2/$dataToList" ;
         $httpType = "GET" ;
         return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
