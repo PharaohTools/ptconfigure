@@ -64,8 +64,9 @@ if (is_object($pageVars["digiOceanV2Result"]) || is_array($pageVars["digiOceanV2
                 $outVar .= "\n" ; } }
         else if ($arrayObjectKey == "ssh_keys") {
             foreach($arrayObjectValue as $sshKeyEntry) {
+                $outVar .= "name: ".$sshKeyEntry->name.", ";
                 $outVar .= "id: ".$sshKeyEntry->id.", ";
-                $outVar .= "name: ".$sshKeyEntry->name ;
+                $outVar .= "fingerprint: ".$sshKeyEntry->fingerprint ;
                 $outVar .= "\n" ; } }
         echo $arrayObjectKey.":\n\n";
         echo $outVar."\n" ; } }
