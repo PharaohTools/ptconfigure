@@ -59,7 +59,7 @@ class DigitalOceanV2Info extends CleopatraBase {
         example: cleopatra digital-ocean-v2 list
         example: cleopatra digital-ocean-v2 list --yes
                     --guess # use project saved connection details if possible
-                    --digital-ocean-v2-list-data-type=sizes # droplets, sizes, images, domains, regions, ssh_keys
+                    --type=sizes # droplets, sizes, images, domains, regions, ssh_keys
 
 HELPDATA;
       return $help ;
