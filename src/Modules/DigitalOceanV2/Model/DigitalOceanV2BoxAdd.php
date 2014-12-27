@@ -115,6 +115,11 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         return self::askForInput($question, true);
     }
 
+    private function askForSSHKeyIds() {
+        $question = 'Enter SSH Key ID\'s, comma separated';
+        return self::askForInput($question, true);
+    }
+
     private function getUsernameOfBox($boxName = null) {
         if (isset($this->params["box-user-name"])) {
             return $this->params["box-user-name"] ; }
@@ -160,9 +165,6 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     private function addServerToPapyrus($envName, $data) {
 
         $dropletData = $this->getDropletData($data->droplet->id);
-
-        var_dump($data) ;
-
         if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
             $dropletData = $this->waitForBoxInfo($data->droplet->id); }
         if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
@@ -205,7 +207,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         }
 
         else {
-
+            return $this->askForSSHKeyIds();
         }
     }
 
