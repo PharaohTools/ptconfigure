@@ -42,24 +42,24 @@ class SshKeygenAllLinux extends BaseLinuxApp {
     }
 
     public function askForKeygenBits() {
-        if (isset($this->params["ssh-keygen-bits"]) ) {
-            $this->keygenBits = $this->params["ssh-keygen-bits"] ; }
+        if (isset($this->params["bits"]) ) {
+            $this->keygenBits = $this->params["bits"] ; }
         else {
             $question = "Enter number of bits for SSH Key (multiple of 1024):";
             $this->keygenBits = self::askForInput($question, true); }
     }
 
     public function askForKeygenType() {
-        if (isset($this->params["ssh-keygen-type"]) ) {
-            $this->keygenType = $this->params["ssh-keygen-type"] ; }
+        if (isset($this->params["type"]) ) {
+            $this->keygenType = $this->params["type"] ; }
         else {
             $question = "Choose Key type (rsa/dsa)";
             $this->keygenType = self::askForArrayOption($question, array("rsa", "dsa"),  true); }
     }
 
     public function askForKeygenPath() {
-        if (isset($this->params["ssh-keygen-path"]) ) {
-            $this->keygenPath = $this->params["ssh-keygen-path"] ; }
+        if (isset($this->params["path"]) ) {
+            $this->keygenPath = $this->params["path"] ; }
         else {
             $question = "Enter path to store private key (public key will be same with .pub):";
             $this->keygenPath = self::askForInput($question, true) ; }
@@ -68,8 +68,8 @@ class SshKeygenAllLinux extends BaseLinuxApp {
     }
 
     public function askForKeygenComment() {
-        if (isset($this->params["ssh-keygen-comment"]) ) {
-            $this->keygenComment = $this->params["ssh-keygen-comment"] ; }
+        if (isset($this->params["comment"]) ) {
+            $this->keygenComment = $this->params["comment"] ; }
         else {
             $question = "Plain text comment appended to public key. None is fine";
             $keygenComment = self::askForInput($question);
@@ -79,11 +79,11 @@ class SshKeygenAllLinux extends BaseLinuxApp {
     public function removeKey() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (file_exists($this->params["ssh-keygen-path"])) {
-            unlink($this->params["ssh-keygen-path"]) ;
-            $logging->log("Removing File at {$this->params["ssh-keygen-path"]} in SSH Keygen") ;
-            unlink($this->params["ssh-keygen-path"].".pub") ;
-            $logging->log("Removing File at {$this->params["ssh-keygen-path"]}.pub in SSH Keygen") ; }
+        if (file_exists($this->params["path"])) {
+            unlink($this->params["path"]) ;
+            $logging->log("Removing File at {$this->params["path"]} in SSH Keygen") ;
+            unlink($this->params["path"].".pub") ;
+            $logging->log("Removing File at {$this->params["path"]}.pub in SSH Keygen") ; }
     }
 
     public function createDirectoryStructure() {
