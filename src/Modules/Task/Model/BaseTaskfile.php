@@ -1,8 +1,27 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: golden
- * Date: 17/12/14
- * Time: 01:53
- * To change this template use File | Settings | File Templates.
- */
+
+Namespace Model ;
+
+class BaseTaskfile extends Base {
+
+    public $tasks = array() ;
+    public $silent = null ;
+
+    public function __construct($params) {
+        if (isset($params["silent"]) && $params["silent"] == true ) { $this->silent = true ; }
+        parent::__construct($params) ;
+    }
+
+    public function getTasks() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel(array());
+        if (method_exists($this, "setTasks")) {
+            $logging->log("Found setTasks method defined in Taskfile, executing","Task") ;
+            $this->setTasks(); }
+        else {
+            $logging->log("No setTasks method defined in Taskfile","Task") ; }
+        return $this->tasks ;
+    }
+
+
+}

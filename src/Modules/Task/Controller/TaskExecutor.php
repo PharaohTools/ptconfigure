@@ -8,11 +8,15 @@ class TaskExecutor extends Base {
 
         $sourceParams = implode(" ", $this->formatParams($pageVars["route"]["extraParams"])) ;
         $tasks = $this->getTaskfileTasks($pageVars["route"]["extraParams"]) ;
+
+        // var_dump($tasks, $pageVars["route"]["extraParams"]) ;
+
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $taskRunners = $tasks[$task] ;
         $this->content["result"] = array() ;
         foreach ($taskRunners as $taskRunnerKey => $params) {
+            var_dump("epa:", "davdfe") ;
             $taskRunner = array_keys($params);
             $taskRunner = $taskRunner[0];
             //var_dump($taskRunner) ;
@@ -22,16 +26,17 @@ class TaskExecutor extends Base {
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["af"])) { $af = $params[$taskRunner]["af"] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
                     else { $af = $params[$taskRunner][0] ; }
-                    $logging->log("Cleopatra Task Runner","Task") ;
+                    $logging->log("Cleopatra Task Runner", "Task") ;
                     $this->params["autopilot-file"] = $af ;
                     $auto = new \Controller\Autopilot();
-                    $ep = array_merge( $this->params, $pageVars["route"]["extraParams"]) ;
 
+                    $ep = array_merge( $this->params, $pageVars["route"]["extraParams"]) ;
                     var_dump("ep:", $ep) ;
 
                     $route = array("control" => "Autopilot", "action" => "install", "extraParams" => $ep) ;
                     $emptyPageVars = array("messages"=>array(), "route"=>$route);
                     $ax = $auto->execute($emptyPageVars);
+
                     if (isset($ax["pageVars"]["messages"])) { $this->content["result"][] = $ax["pageVars"]["messages"] ; }
                     else if (isset($ax["pageVars"]["autoExec"])) { $this->content["result"][] = $ax["pageVars"]["autoExec"] ; }
                     else { $this->content["result"][] = "Unreadable Output" ;}
@@ -70,7 +75,7 @@ class TaskExecutor extends Base {
                 echo "Error loading Taskfile $taskFile, error $e\n" ; } }
         else { return array() ; }
         $taskObject = new \Model\Taskfile(self::formatParams(array_merge(array("silent"=>true),$pageVars))) ;
-        $tftasks = $taskObject->tasks ;
+        $tftasks = $taskObject->getTasks() ;
         return $tftasks ;
     }
 

@@ -8,7 +8,7 @@ class Task extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        $taskFileExecutor = $this->getTaskfileTaskForAction($action);
+        $taskFileExecutor = $this->getTaskfileTaskForAction($pageVars, $action);
         if (!is_null($taskFileExecutor)) {
             return $taskFileExecutor->executeTFTask($pageVars, $action) ; }
 
@@ -30,23 +30,36 @@ class Task extends Base {
 
     }
 
-    protected function getTaskfileTaskForAction($action) {
-        $tftasks = self::getTaskfileTasks();
+    protected function getTaskfileTaskForAction($pageVars, $action) {
+        $tftasks = $this->getTaskfileTasks($pageVars);
         if (in_array($action, $tftasks)) { return new \Controller\TaskExecutor(); }
         return null ;
     }
 
-    protected static function getTaskfileTasks($taskFile = "Taskfile") {
+    protected function getTaskfileTasks($pageVars, $taskFile = "Taskfile") {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($pageVars);
         if (file_exists($taskFile)) {
             try {
                 require_once ($taskFile) ; }
             catch (\Exception $e) {
-                echo "Error loading Taskfile $taskFile, error $e\n" ; } }
+                echo "dave" ;  } }
         else {
-            return array() ; }
-        $taskObject = new \Model\Taskfile(array()) ;
-        $tftasks = array_keys($taskObject->tasks) ;
+            echo "dave 2" ; }
+        $taskObject = new \Model\Taskfile($pageVars) ;
+        $taskObject->params["silent"] = true ;
+        $tftasks = $taskObject->getTasks() ;
         return $tftasks ;
+    }
+
+    private function formatParams($params) {
+        $newParams = array();
+        foreach($params as $origParamKey => $origParamVal) {
+            $newParams[] = '--'.$origParamKey.'='.$origParamVal ; }
+        $newParams[] = '--yes' ;
+        $newParams[] = "--hide-title=yes";
+        $newParams[] = "--hide-completion=yes";
+        return $newParams ;
     }
 
     protected function getModuleExecutorForAction($action) {

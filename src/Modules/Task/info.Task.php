@@ -59,7 +59,7 @@ HELPDATA;
         else {
             return array() ; }
         $taskObject = new \Model\Taskfile(array("silent"=>true)) ;
-        $tftasks = array_keys($taskObject->tasks) ;
+        $tftasks = array_keys($taskObject->getTasks()) ;
         return $tftasks ;
     }
 
