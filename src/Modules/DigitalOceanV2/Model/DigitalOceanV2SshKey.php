@@ -34,15 +34,15 @@ class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
     }
 
     private function askForSSHKeyPublicFileLocation() {
-        if (isset($this->params["digital-ocean-v2-ssh-key-path"]) && $this->params["digital-ocean-v2-ssh-key-path"]==true) {
-            return $this->params["digital-ocean-v2-ssh-key-path"] ; }
+        if (isset($this->params["path"]) && $this->params["path"]==true) {
+            return $this->params["path"] ; }
         $question = 'Enter Location of ssh public key file to upload';
         return self::askForInput($question, true);
     }
 
     private function askForSSHKeyNameForDigitalOceanV2(){
-        if (isset($this->params["digital-ocean-v2-ssh-key-name"]) && $this->params["digital-ocean-v2-ssh-key-name"]==true) {
-            return $this->params["digital-ocean-v2-ssh-key-name"] ; }
+        if (isset($this->params["name"]) && $this->params["name"]==true) {
+            return $this->params["name"] ; }
         $question = 'Enter name to store ssh key under on Digital Ocean';
         return self::askForInput($question, true);
     }
