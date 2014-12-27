@@ -45,6 +45,7 @@ class SshKeygenAllLinux extends BaseLinuxApp {
         if (isset($this->params["bits"]) ) {
             $this->keygenBits = $this->params["bits"] ; }
         else {
+            // @todo check that it actually is a multiple of 1024
             $question = "Enter number of bits for SSH Key (multiple of 1024):";
             $this->keygenBits = self::askForInput($question, true); }
     }
@@ -88,6 +89,7 @@ class SshKeygenAllLinux extends BaseLinuxApp {
 
     public function createDirectoryStructure() {
         if (!file_exists(dirname($this->keygenPath))) {
+            // @todo check if this works or is writable beforehand
             mkdir(dirname($this->keygenPath), 0775, true) ; }
     }
 
