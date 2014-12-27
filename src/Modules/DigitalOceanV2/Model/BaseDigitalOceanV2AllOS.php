@@ -49,9 +49,9 @@ class BaseDigitalOceanV2AllOS extends Base {
         switch ($httpType){
             case "POST":
                 $postQuery['name'] = $curlParams['name'] ;
-                $postQuery['region'] = $curlParams['region_id'] ;
-                $postQuery['size'] = $curlParams['size_id'] ;
-                $postQuery['image'] = $curlParams['image_id'];
+                $postQuery['region'] = $curlParams['region'] ;
+                $postQuery['size'] = $curlParams['size'] ;
+                $postQuery['image'] = $curlParams['image'];
                 $postQuery['ssh_keys'] = (isset($curlParams['ssh_keys'])) ? $curlParams['ssh_keys'] : null ;
                 $postData = json_encode($postQuery);
                 curl_setopt($ch, CURLOPT_POSTFIELDS,$postData);
