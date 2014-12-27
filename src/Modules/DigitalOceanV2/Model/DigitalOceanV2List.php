@@ -26,7 +26,13 @@ class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
         if ($this->askForListExecute() != true) { return false; }
         $this->accessToken = $this->askForDigitalOceanV2AccessToken();
         $dataToList = $this->askForDataTypeToList();
-        return $this->getDataListFromDigitalOceanV2($dataToList);
+//        if ($dataToList == "images") {
+//            // $it = (isset($this->params["guess"]) && $this->params["guess"]==true) ? "None" : $this->askForImageDistroToList() ;
+//            $it = $this->askForImageDistroToList() ;
+//            if ($it != "None") {
+//                return $this->getDataListFromDigitalOceanV2($dataToList,
+//                    array(/*"page"=>"1", */"per_page" =>100, "type" =>"distribution")); } }
+        return $this->getDataListFromDigitalOceanV2($dataToList, array("per_page" =>100));
     }
 
     private function askForListExecute(){
@@ -44,9 +50,17 @@ class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
         return self::askForArrayOption($question, $options, true);
     }
 
-    public function getDataListFromDigitalOceanV2($dataToList){
-        $callVars = array();
-        $curlUrl = $this->_apiURL."/v2/$dataToList/" ;
+    private function askForImageDistroToList(){
+        $question = 'Please choose an image distribution to list:';
+        $options = array("Ubuntu", "Fedora", "CentOS", "Windows", "None");
+        if (isset($this->params["distro"]) &&
+            in_array($this->params["distro"], $options)) {
+            return $this->params["distro"] ; }
+        return self::askForArrayOption($question, $options, true);
+    }
+
+    public function getDataListFromDigitalOceanV2($dataToList, $callVars = array()){
+        $curlUrl = $this->_apiURL."/v2/$dataToList" ;
         $httpType = "GET" ;
         return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
     }
