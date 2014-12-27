@@ -14,18 +14,17 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    protected $userName ;
-    protected $userHomeDir ;
-    protected $publicKey ;
-    protected $actionsToMethods = array("find-key-path" => "askPrivateKeyName") ;
+    protected $key ;
+    protected $searchLocations;
+    protected $actionsToMethods = array("find" => "findKey") ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "SshKeyStore";
         $this->programDataFolder = "";
-        $this->programNameMachine = "sshkeyinstall"; // command and app dir name
-        $this->programNameFriendly = "!SshKey Inst!"; // 12 chars
-        $this->programNameInstaller = "Ssh Key Install";
+        $this->programNameMachine = "sshkeystore"; // command and app dir name
+        $this->programNameFriendly = "SshKey Store"; // 12 chars
+        $this->programNameInstaller = "Ssh Key Store";
         $this->initialize();
     }
 
@@ -37,30 +36,44 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
     }
 
     protected function askWhetherToInstallPublicKeyToScreen(){
-        $question = "Install SSH Public Key?";
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
+        $question = "Find SSH Public Key?";
         return self::askYesOrNo($question);
     }
 
-    public function installPublicKey() {
-        $this->setUsername() ;
-        $this->setUserHome() ;
-        $this->ensureSSHDir() ;
-        $this->ensureAuthUserFile() ;
-        $this->setKey();
-        $this->ensureKeyInstalled() ;
-        $this->restartService() ;
+    public function findKey() {
+
+        $this->setKeyName() ;
+        $this->setSearchLocations() ;
+        $this->setPreferredLocation() ;
+        return $this->doLocationSearch() ;
+
+        // if isset prefer, put that array entry first
+        // foreach location check for keyfile. if found, return it
         return true ;
     }
 
-    protected function setUsername() {
-        if (isset($this->params["username"])) {
-            $this->userName = $this->params["username"]; }
-        else if (isset($this->params["user-name"])) {
-            $this->params["username"] = $this->params["user-name"] ;
-            $this->userName = $this->params["user-name"]; }
+    protected function setSearchLocations() {
+        if (isset($this->params["locations"])) { $searchLocations = explode(",", $this->params["locations"]) ; }
+        else { $searchLocations = array("user", "otheruser", "root", "specify") ; }
+        $this->searchLocations = $searchLocations ;
+    }
+
+    protected function setPreferredLocation() {
+        if (isset($this->params["prefer"])) {
+            foreach ($this->searchLocations as &$loc) {
+                if ($this->params["prefer"] == $loc) {
+                    unset ($loc) ;
+                    $this->searchLocations = array_merge(array($this->params["prefer"]), $this->searchLocations) ;
+                    return ; } } }
+    }
+
+    protected function setKeyName() {
+        if (isset($this->params["key"])) {
+            $this->key = $this->params["key"]; }
         else {
-            $question = "Enter Username to install SSH Key to:";
-            $this->userName = self::askForInput($question, true); }
+            $question = "Enter SSH Key Name:";
+            $this->key = self::askForInput($question, true); }
     }
 
     protected function setUserHome() {
@@ -79,76 +92,19 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
             $this->userHomeDir = self::askForInput($question, true); }
     }
 
-    protected function ensureSSHDir() {
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
-        $sshDir = $this->userHomeDir.'/.ssh' ;
-        if (file_exists($sshDir)) {
-            $console->log("SSH Directory exists, so not creating.") ; }
-        else {
-            $console->log("SSH Directory does not exist, so creating.") ;
-            // @todo do a chown after?
-            $this->setOwnership($sshDir); }
-    }
-
-    protected function ensureAuthUserFile() {
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
-        $authFile = $this->userHomeDir.'/.ssh/authorized_keys' ;
-        if (file_exists($authFile)) {
-            $console->log("$authFile exists, so not creating.") ; }
-        else {
-            $console->log("$authFile does not exist, so creating.") ;
-            touch($authFile);
-            // @todo do a chown after?
-            $this->setOwnership($authFile); }
-    }
-
-    protected function setOwnership($file) {
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
-        if (!file_exists($file)) {
-            $console->log("$file does not exist, so not changing ownership.") ; }
-        else {
-            $console->log("Changing ownership of $file to user {$this->user}.") ;
-            chown($file, $this->userName); }
-    }
-
-    protected function setKey() {
-        if (isset($this->params["public-key-file"]) && file_exists($this->params["public-key-file"])) {
-            $this->publicKey = file_get_contents($this->params["public-key-file"]) ; }
-        else if (isset($this->params["public-key-data"])) {
-            $this->publicKey = $this->params["public-key-data"] ; }
-        else {
-            $question = "Enter Public Key:";
-            $this->publicKey = self::askForInput($question, true); }
-    }
-
-    protected function ensureKeyInstalled() {
-        $authFile = $this->userHomeDir.'/.ssh/authorized_keys' ;
-        $keys = explode("\n", file_get_contents($authFile)) ;
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
-        foreach ($keys as $key) {
-            if ($key == $this->publicKey) {
-                $keyExists = true ;
-                break ; } }
-        if (isset($keyExists) && $keyExists == true) {
-            $console->log("Key already exists, so not adding.") ; }
-        else {
-            $console->log("Key does not exist in file, so adding.") ;
-            $keys[] = $this->publicKey."\n" ;
-            $keyFileData = implode("\n", $keys) ;
-            file_put_contents($authFile, $keyFileData) ;
-            $this->setOwnership($authFile) ; }
-    }
-
-    // @todo will restarting ssh break it all?
-    private function restartService() {
-        $serviceFactory = new \Model\Service();
-        $service = $serviceFactory->getModel($this->params);
-        $service->setService("ssh") ;
-        $service->restart() ;
+    protected function doLocationSearch() {
+        foreach ($this->searchLocations as &$loc) {
+            switch ($loc) {
+                case "user" :
+                    break ;
+                case "otheruser" :
+                    break ;
+                case "root" :
+                    break ;
+                case "specify" :
+                    break ;
+            }
+        }
     }
 
 }

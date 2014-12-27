@@ -6,7 +6,7 @@ class SshKeyStoreInfo extends CleopatraBase {
 
     public $hidden = false;
 
-    public $name = "Install SSH Public Keys to a user account";
+    public $name = "For Storing and Accessing SSH Keys";
 
     public function __construct() {
       parent::__construct();
@@ -14,12 +14,12 @@ class SshKeyStoreInfo extends CleopatraBase {
 
     public function routesAvailable() {
         return array( "SshKeyStore" =>  array_merge(
-            array("help", "status", "securify")
+            array("help", "find")
         ) );
     }
 
     public function routeAliases() {
-        return array("sshkeyinstall"=>"SshKeyStore", "ssh-key-install"=>"SshKeyStore");
+        return array("sshkeystore"=>"SshKeyStore", "ssh-key-store"=>"SshKeyStore");
     }
 
     public function dependencies() {
@@ -28,15 +28,14 @@ class SshKeyStoreInfo extends CleopatraBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install an SSH Public key for a user
+  This command allows you to find credentials for a key on a machine
 
-  SshKeyStore, sshkeyinstall, ssh-key-install
+  SshKeyStore, sshkeystore, ssh-key-store
 
-        - public-key
+        - find
         Add an SSH Public Key to an account
-        example: cleopatra ssh-key-install public-key
-        example: cleopatra ssh-key-install public-key --yes --public-key-data="zzzzz"
-        example: cleopatra ssh-key-install public-key --yes --public-key-file="id_rsa.pub" --user-name=dave
+        example: cleopatra ssh-key-store find --key=daveylad
+        example: cleopatra ssh-key-store find --key=daveylad --prefer=user
 
 HELPDATA;
       return $help ;

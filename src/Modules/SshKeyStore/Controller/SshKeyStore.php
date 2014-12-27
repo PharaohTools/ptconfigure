@@ -17,8 +17,9 @@ class SshKeyStore extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("public-key") )) {
+        if (in_array($action, array("find") )) {
             $this->content["result"] = $thisModel->askAction($action);
+            $this->content["module"] = $thisModel->getModuleName();
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"sshharden", "pageVars"=>$this->content); }
 
