@@ -14,7 +14,7 @@ class SshKeyInstallInfo extends CleopatraBase {
 
     public function routesAvailable() {
         return array( "SshKeyInstall" =>  array_merge(
-            array("help", "status", "securify")
+            array("help", "status", "public-key")
         ) );
     }
 
