@@ -23,7 +23,7 @@ class SshKeyInstallInfo extends CleopatraBase {
     }
 
     public function dependencies() {
-        return array("Service", "Logging");
+        return array("Service", "Logging", "User");
     }
 
     public function helpDefinition() {
