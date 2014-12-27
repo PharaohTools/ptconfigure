@@ -22,10 +22,12 @@ class Autopilot extends Base {
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
                 else {
                     \Core\BootStrap::setExitCode(1);
-                    $this->content["messages"][] = "There was a problem with the autopilot file specified"; } }
+                    $this->content["messages"][] = "There was a problem with the autopilot file specified";
+                    return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); } }
             else {
                 \Core\BootStrap::setExitCode(1);
-                $this->content["messages"][] = "Parameter --autopilot-file is required"; } }
+                $this->content["messages"][] = "Parameter --autopilot-file is required";
+                return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); } }
 
         else if ($action=="help") {
             $helpModel = new \Model\Help();
