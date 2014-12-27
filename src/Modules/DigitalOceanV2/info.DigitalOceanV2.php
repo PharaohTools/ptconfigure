@@ -35,8 +35,14 @@ class DigitalOceanV2Info extends CleopatraBase {
         Lets you add boxes to Digital Ocean, and adds them to your papyrusfile
         example: cleopatra digital-ocean-v2 box-add
                     --yes
-                    --digital-ocean-v2-ssh-key-path="/home/dave/.ssh/bastion.pub"
-                    --digital-ocean-v2-ssh-key-name="bastion"
+                    --server-prefix=dbomb # common prefix to use for these instances
+                    --environment-name=demodave # papyrusfile environment to add instances to - must already exist
+                    --box-amount=1 # number of instances to create
+                    --size-id=512mb # size of instances
+                    --image-id=7111343 # image id to create instances with
+                    --region-id=lon1 # region to create instance in
+                    --wait-until-active # wait until box has an ip address active before moving to the next one (You
+                        usually want this, unless you are asynchronously populating the connection details)
 
         - box-destroy
         Will destroy box/es in an environment for you, and remove them from the papyrus file
@@ -51,8 +57,8 @@ class DigitalOceanV2Info extends CleopatraBase {
         securely and without a password
         example: cleopatra digital-ocean-v2 save-ssh-key
                     --yes
-                    --digital-ocean-v2-ssh-key-path="/home/dave/.ssh/bastion.pub"
-                    --digital-ocean-v2-ssh-key-name="bastion"
+                    --path="/home/dave/.ssh/bastion.pub"
+                    --name="bastion"
 
         - list
         Will display data about your digital ocean account
