@@ -42,8 +42,13 @@ class EnvironmentConfigInfo extends CleopatraBase {
         - configure, config
         Configure bespoke environments for your project to use
         example: cleopatra envconfig config
-        example: cleopatra envconfig config --yes --keep-current-environments --no-manual-servers --add-single-environment
-                   --environment-name="some-name" --tmp-dir=/tmp/
+        # below to create an empty environment to add instances to
+        example: cleopatra envconfig config --yes
+                    --keep-current-environments # do not overwrite the current environments stored in papyrusfile
+                    --no-manual-servers # so it will not ask you to interactively enter connection details of instances
+                    --add-single-environment # otherwise it will loop for more until you specify not to
+                    --environment-name="some-name" # name of the environment to create
+                    --tmp-dir=/tmp/ # we're deprecating this soon
 
         - configure-default, config-default
         Configure default environments for your project to use
