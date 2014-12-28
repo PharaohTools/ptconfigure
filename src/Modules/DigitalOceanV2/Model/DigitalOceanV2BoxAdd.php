@@ -212,7 +212,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             $logging->log("Using all available SSH Keys") ;
             $ray = $this->getAllSshKeyIdsArray() ;
             foreach ($ray as &$sun) {
-                $sun = "{$sun}" ;
+                $sun = "{$sun->id}" ;
             }
             var_dump($ray);
             return $ray ;
