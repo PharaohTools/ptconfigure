@@ -193,20 +193,20 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["ssh-key-ids"])) {
             $logging->log("Found param --ssh-key-ids with value {$this->params["ssh-key-ids"]} for SSH Keys") ;
-            return $this->params["ssh-key-ids"] ;
+            return explode(",", $this->params["ssh-key-ids"]) ;
         }
         if (isset($this->params["ssh-key-id"])) {
             $logging->log("Found param --ssh-key-id with value {$this->params["ssh-key-id"]} for SSH Key") ;
-            return $this->getSshKeyInfoByKeyId($this->params["ssh-key-id"]) ;
+            return array($this->getSshKeyInfoByKeyId($this->params["ssh-key-id"])) ;
         }
         if (isset($this->params["ssh-key-fingerprint"])) {
             $logging->log("Found param --ssh-key-fingerprint with value {$this->params["ssh-key-fingerprint"]} for SSH Keys") ;
-            return $this->getSshKeyInfoByKeyFingerprint($this->params["ssh-key-fingerprint"]) ;
+            return array($this->getSshKeyInfoByKeyFingerprint($this->params["ssh-key-fingerprint"])) ;
         }
         if (isset($this->params["ssh-key-name"])) {
             $id = $this->getSshKeyIdFromName($this->params["ssh-key-name"]) ;
             $logging->log("Found param --ssh-key-name with value {$this->params["ssh-key-name"]} and id {$id} for SSH Keys") ;
-            return $id ;
+            return array($id) ;
         }
         if (isset($this->params["guess"]) || isset($this->params["use-all-ssh-keys"])) {
             $logging->log("Using all available SSH Keys") ;
