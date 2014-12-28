@@ -211,6 +211,9 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         if (isset($this->params["guess"]) || isset($this->params["use-all-ssh-keys"])) {
             $logging->log("Using all available SSH Keys") ;
             $ray = $this->getAllSshKeyIdsArray() ;
+            foreach ($ray as &$sun) {
+                $sun = "{$sun}" ;
+            }
             var_dump($ray);
             return $ray ;
         }
