@@ -15,6 +15,8 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
 
     protected $key ;
+    protected $userName ;
+    protected $userHomeDir ;
     protected $searchLocations;
     protected $actionsToMethods = array("find" => "findKey") ;
 
@@ -50,7 +52,6 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
 
         // if isset prefer, put that array entry first
         // foreach location check for keyfile. if found, return it
-        return true ;
     }
 
     protected function setSearchLocations() {
@@ -70,6 +71,7 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
 
     protected function setKeyName() {
         if (isset($this->params["key"])) {
+            if (substr($this->params["key"], 0, 4) == 'KS::') {$this->params["key"] = substr($this->params["key"], 4) ; }
             $this->key = $this->params["key"]; }
         else {
             $question = "Enter SSH Key Name:";
@@ -78,7 +80,8 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
 
     protected function setUserHome() {
         if (isset($this->userName)) {
-            //@todo a check if the user exists
+            // @todo a check if the user exists
+            // @todo there is no user module
             $userFactory = new \Model\User() ;
             $user = $userFactory->getModel($this->params);
             $user->setUser($this->userName) ;
@@ -86,25 +89,77 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
         else if (isset($this->params["user-home"])) {
             $this->userHomeDir = $this->params["user-home"]; }
         else if (isset($this->params["guess"])) {
-            $this->userHomeDir = '/home/'.$this->params["username"]; }
+            $whoami = self::executeAndLoad("whoami") ;
+            $whoami = str_replace("\n", "", $whoami) ;
+            $whoami = str_replace("\r", "", $whoami) ;
+            $this->userHomeDir = '/home/'.$whoami; }
         else {
             $question = "Enter User home directory:";
             $this->userHomeDir = self::askForInput($question, true); }
     }
 
     protected function doLocationSearch() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Trying keystore keys");
         foreach ($this->searchLocations as &$loc) {
             switch ($loc) {
                 case "user" :
+                    $this->setUserHome() ;
+                    $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
+                    if (file_exists($kp)) {
+                        $logging->log("User key found at $kp");
+                        return $kp ; }
+                    else {
+                        $logging->log("User key not found at $kp"); }
                     break ;
                 case "otheruser" :
+                    $this->userName = (isset($this->params["otheruser"])) ? $this->params["otheruser"] : null ;
+                    $this->setUserHome() ;
+                    $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
+                    if (file_exists($kp)) {
+                        $logging->log("Other User key found at $kp");
+                        return $kp ; }
+                    else {
+                        $logging->log("Other User key not found at $kp"); }
                     break ;
                 case "root" :
+                    $kp = "/root/.ssh".DS.$this->key ;
+                    if (file_exists($kp)) {
+                        $logging->log("Root key found at $kp");
+                        return $kp ; }
+                    else {
+                        $logging->log("Root key not found at $kp"); }
+                    break ;
                     break ;
                 case "specify" :
                     break ;
             }
         }
+        return null;
     }
+
+    /*
+     * [3]=>
+  array(3) {
+    ["any-app"]=>
+    array(2) {
+      ["gen_env_name"]=>
+      string(19) "shared-temp-staging"
+      ["gen_env_tmp_dir"]=>
+      string(5) "/tmp/"
+    }
+    ["servers"]=>
+    array(1) {
+      [0]=>
+      array(6) {
+        ["target"]=>
+        string(12) "178.62.10.22"
+        ["user"]=>
+        string(4) "root"
+        ["password"]=>
+        string(17) "/root/.ssh/id_rsa"
+
+     */
 
 }
