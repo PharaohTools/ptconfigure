@@ -164,6 +164,11 @@ class InvokeAllLinux extends Base {
     }
 
     private function getKeyIfAvailable($pword) {
+        if (substr($pword, 0, 4) == 'KS::') {
+            $ksf = new SshKeyStore();
+            $ks = $ksf->getModel($this->params) ;
+            $ks->params["key"] = $pword ;
+            $pword = $ks->findKey() ; }
         if (substr($pword, 0, 1) == '~') {
             $home = $_SERVER['HOME'] ;
             $pword = str_replace('~', $home, $pword) ; }
