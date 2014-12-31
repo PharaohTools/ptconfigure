@@ -53,7 +53,7 @@ class ApacheServerUbuntu extends BaseLinuxApp {
     }
 
     public function versionLatestCommandTrimmer($text) {
-        if (strpos($text, "Installed: (none)") !== false) { $done = substr($text, 45, 17) ; }
+        if (strpos($text, "Installed: (none)") !== false) { $done = substr($text, 33, 17) ; }
         else { $done = substr($text, 53, 17) ; }
         return $done ;
     }
