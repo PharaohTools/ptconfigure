@@ -45,9 +45,10 @@ class ApacheServerUbuntu extends BaseLinuxApp {
 
     public function versionInstalledCommandTrimmer($text) {
         var_dump($text);
-        $rest = substr($text, 22, 5) ;
+        $rest = substr($text, 22) ;
         $spacepos = strpos($rest, " ") ;
         $done =  substr($rest, 0, $spacepos) ;
+        var_dump($text, $rest, $spacepos,$done);
         return $done ;
     }
 
