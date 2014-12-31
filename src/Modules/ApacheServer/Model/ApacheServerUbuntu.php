@@ -28,7 +28,7 @@ class ApacheServerUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "Apache Server!"; // 12 chars
         $this->programNameInstaller = "Apache Server";
         $this->statusCommand = "sudo which apache2" ;
-        $this->versionInstalledCommand = "sudo which apache2" ;
+        $this->versionInstalledCommand = "sudo apache2 -v" ;
         $this->versionRecommendedCommand = "sudo apt-cache policy apache2" ;
         $this->versionLatestCommand = "sudo apt-cache policy apache2" ;
         $this->serviceCommand = "apache2" ;
@@ -44,6 +44,7 @@ class ApacheServerUbuntu extends BaseLinuxApp {
     }
 
     public function versionInstalledCommandTrimmer($text) {
+        var_dump($text);
         $rest = substr($text, 22, 5) ;
         $spacepos = strpos($rest, " ") ;
         $done =  substr($rest, 0, $spacepos) ;
