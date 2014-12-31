@@ -44,17 +44,17 @@ class ApacheServerUbuntu extends BaseLinuxApp {
     }
 
     public function versionInstalledCommandTrimmer($text) {
-        var_dump($text);
         $rest = substr($text, 23) ;
         $spacepos = strpos($rest, " ") ;
         $done =  substr($rest, 0, $spacepos) ;
-        var_dump($text, $rest, $spacepos,$done);
         return $done ;
     }
 
     public function versionLatestCommandTrimmer($text) {
-        if (strpos($text, "Installed: (none)") !== false) { $done = substr($text, 42, 16) ; }
-        else { $done = substr($text, 52, 16) ; }
+        if (strpos($text, "Installed: (none)") !== false) { $rest = substr($text, 42) ; }
+        else {  $rest = substr($text, 52) ; }
+        $spacepos = strpos($rest, "\n") ;
+        $done =  substr($rest, 0, $spacepos) ;
         return $done ;
     }
 
