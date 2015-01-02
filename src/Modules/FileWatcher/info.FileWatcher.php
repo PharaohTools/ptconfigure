@@ -13,7 +13,7 @@ class FileWatcherInfo extends CleopatraBase {
     }
 
     public function routesAvailable() {
-      return array( "FileWatcher" => array("watch", "help") );
+      return array( "FileWatcher" => array("once", "watchfile", "help") );
     }
 
     public function routeAliases() {
