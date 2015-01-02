@@ -15,7 +15,11 @@ class FileWatcher extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="path") {
+        if ($action=="once") {
+            $this->content["result"] = $thisModel->askWhetherToFileWatcher();
+            return array ("type"=>"view", "view"=>"FileWatcher", "pageVars"=>$this->content); }
+
+        if ($action=="watchfile") {
             $this->content["result"] = $thisModel->askWhetherToFileWatcher();
             return array ("type"=>"view", "view"=>"FileWatcher", "pageVars"=>$this->content); }
 
