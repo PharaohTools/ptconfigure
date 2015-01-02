@@ -37,6 +37,7 @@ class FileWatcherAllLinux extends Base {
         // get value to compare against
         $compareStatus = $this->doComparison($fileToWatch, $versioner, $value);
         $cbStatus = $this->runAllCallbacks($compareStatus, $escalate, $scb, $fcb) ;
+        if ($cbStatus == false) { \Core\BootStrap::setExitCode(1) ; }
         return  $cbStatus;
     }
 
@@ -52,7 +53,7 @@ class FileWatcherAllLinux extends Base {
     }
 
     private function getEscalation(){
-        if (isset($this->params["escalate"])) { return true ; }
+        if (isset($this->params["escalate"]) && $this->params["escalate"]==true) { return true ; }
         else { return false ; }
     }
 
@@ -72,6 +73,11 @@ class FileWatcherAllLinux extends Base {
 
     private function getValue(){
         if (isset($this->params["value"])) { return $this->params["value"] ; }
+        if (isset($this->params["guess"]) &&
+            $this->params["guess"] == true &&
+            isset($this->params["versioner"]) &&
+            $this->params["versioner"] == "git") {
+            return $this->params["value"] ; }
         else { $question = "Enter value to compare to:"; }
         $input = self::askForInput($question, true) ;
         return $input ;
@@ -85,35 +91,48 @@ class FileWatcherAllLinux extends Base {
             $cfout = self::executeAndLoad($changedFilesCommand) ;
             $changedFilesRay = explode("\n", $cfout);
             if (in_array($fileToWatch, $changedFilesRay)) {
-                $logging->log("Changed files does include file we're watching") ;
+                $logging->log("Changed files does include file we're watching", $this->getModuleName()) ;
                 return true; }
             else {
-                $logging->log("Changed files does not include file we're watching") ;
+                $logging->log("Changed files does not include file we're watching", $this->getModuleName()) ;
                 return false; } }
         else {
-            $logging->log("Versioner not recognised, only git is supported") ;
+            $logging->log("Versioner not recognised, only git is supported", $this->getModuleName()) ;
             return false ;}
     }
 
     private function runAllCallbacks($compareStatus, $escalate, $scb, $fcb){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Executing Callbacks", $this->getModuleName()) ;
         if ($compareStatus == true) { // if file changed
             if ($scb !== false) { // and there is a success callback
-                $callbackOut = $this->doCallback($scb, "Success") ; // run callback
-                if ($escalate == true) { return $callbackOut ; } // escalation specified, return callback status
-                else { return true ;  } } // no escalation specified, return status
+                $logging->log("Executing Success Callback", $this->getModuleName()) ;
+                $callbackOut = $this->doCallback($scb) ; // run callback
+                if ($escalate == true) {
+                    $logging->log("Escalating exit status to match Success callback", $this->getModuleName()) ;
+                    return !$callbackOut ; } // escalation specified, return callback status
+                else { return $compareStatus ;  } } // no escalation specified, return status
             else {
-                return true ; } } // no callback specified, so return status
+                return $compareStatus ; } } // no callback specified, so return status
         else { // if file not changed
             if ($fcb !== false) { // and there is a failure callback
-                $callbackOut = $this->doCallback($fcb, "Failure") ; // run callback
-                if ($escalate == true) { return $callbackOut ; } // escalation specified, return callback status
-                else { return true ;  } } // no escalation specified, return status
+                $logging->log("Executing Failure Callback", $this->getModuleName()) ;
+                $callbackOut = $this->doCallback($fcb) ; // run callback
+                if ($escalate == true) {
+                    $logging->log("Escalating exit status to match Failure callback", $this->getModuleName()) ;
+                    return !$callbackOut ; } // escalation specified, return callback status
+                else { return $compareStatus ;  } } // no escalation specified, return status
             else {
-                return true ; } } // no callback specified, so return status
+                return $compareStatus ; } } // no callback specified, so return status
     }
 
-    private function doCallback($comm, $type){
-        return self::executeAndGetReturnCode($comm, "Running ".ucfirst($type)." Callback");
+    private function doCallback($comm){
+        self::executeAndOutput($comm);
+        $comm2 = "echo $?" ;
+        $rc = self::executeAndLoad($comm2) ;
+        $str = str_replace("\n", "", $rc);
+        return $str ;
     }
 
 }
