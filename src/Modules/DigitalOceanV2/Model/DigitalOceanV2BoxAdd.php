@@ -148,12 +148,6 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $callVars["ssh_keys"] = $serverData["sshKeyIds"] ;
         $curlUrl = $this->_apiURL."/v2/droplets/" ;
         $httpType = "POST" ;
-        /*
-         * curl -X POST "https://api.digitalocean.com/v2/droplets" \
-	-d '{"name":"My-Droplet","region":"nyc1","size":"512mb","image":449676389}' \
-	-H "Authorization: Bearer $TOKEN" \
-	-H "Content-Type: application/json"
-         */
         $callOut = $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
