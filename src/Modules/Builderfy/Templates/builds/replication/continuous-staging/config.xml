@@ -77,21 +77,9 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
+echo &quot;Running Cleopatra filewatcher to choose the deployment type based on database changes...&quot;
 cd $WORKSPACE/deployed
-CHANGEDFILES=`git diff --name-only HEAD~1 HEAD`
-echo &quot;CHANGED FILES:&quot;
-echo &quot;$CHANGEDFILES&quot;
-echo &quot;Running Application Installation...&quot;&#xd;
-case &quot;*db/database.sql*&quot; in
-*&quot;$CHANGEDFILES&quot;*)
-echo &quot;Database File database.sql has been changed, so we will install it in our deployment&quot; ;
-echo &quot;sudo dapperstrano autopilot execute --autopilot-file=<%tpl.php%>autopilot-test-invoke-dbinstall-install-file</%tpl.php%>&quot;;
-  sudo dapperstrano autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-test-invoke-dbinstall-install-file</%tpl.php%>&quot;;;
-*)
-echo &quot;Database File database.sql has not been changed, so we will not modify database in our deployment&quot;;
-echo &quot;sudo dapperstrano autopilot execute --autopilot-file=<%tpl.php%>autopilot-test-invoke-dbconf-install-file</%tpl.php%>&quot;;
-sudo dapperstrano autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-test-invoke-dbconf-install-file</%tpl.php%>&quot;;;
-esac</command>
+cleopatra filewatcher once --yes --guess --file=db/database.sql --versioner=git --value=&quot;HEAD~1&quot; --success-callback=&apos;sudo dapperstrano autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-test-invoke-dbinstall-install-file</%tpl.php%>&quot;&apos; --failure-callback=&apos;sudo dapperstrano autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-test-invoke-dbconf-install-file</%tpl.php%>&quot;&apos; --escalate</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
 <command>#!/bin/bash
