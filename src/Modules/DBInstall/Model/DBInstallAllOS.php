@@ -331,11 +331,18 @@ class DBInstallAllOS extends Base {
     }
 
     protected function getDbUsers() {
-        $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
-        $mysqliResult = $mysqli->query('SELECT User from mysql.user;');
-        $users = array();
-        while ($user = $mysqliResult->fetch_array()) {
-            $users[] = $user[0]; }
+        if (class_exists("mysqli")) {
+            $mysqli = new \mysqli($this->dbHost , $this->dbRootUser , $this->dbRootPass );
+            $mysqliResult = $mysqli->query('SELECT User from mysql.user;');
+            $users = array();
+            while ($user = $mysqliResult->fetch_array()) {
+                $users[] = $user[0]; } }
+        else {
+            $dbc = \mysql_connect($this->dbHost , $this->dbRootUser , $this->dbRootPass ) ;
+            $mysqlResult = \mysql_query('SELECT User from mysql.user;', $dbc);
+            $users = array();
+            while ($user = \mysql_fetch_array($mysqlResult)) {
+                $users[] = $user[0]; } }
         $i=0;
         $usersSorted = array();
         foreach ($users as $user) {
