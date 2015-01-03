@@ -26,12 +26,20 @@ class FileWatcherInfo extends CleopatraBase {
 
   FileWatcher, filewatcher, file-watcher
 
-        - change
+        - once
+        Will watch an individual file for changes and perform actions
+        example: cleopatra filewatcher once --yes --guess
+                    --file=relative/path/to/file
+                    --versioner=git # git/svn/cache guess will assume git
+                    --value="HEAD~1" # commit id, or other comparison value
+                    --success-callback='echo "file has changed"' # a callback command to execute upon finding a file change
+                    --failure-callback='echo "file has not changed"' # a callback command to execute upon finding no file changes
+                    --escalate # exit this command using the status of the callback as opposed to the status of the watch check
+
+        - watchfile
         Will watch files for changes and perform actions
-        example: cleopatra filewatcher watch --yes --guess
+        example: cleopatra filewatcher watchfile --yes --guess
                     --watchfile=/path/to/watchfile # guess will assume Watchfile
-                    --versionsource=git # git/svn/cache guess will assume git
-                    --compare=02aeb1c38dec40cede28b36ba200ec3d5b67f22c # commit id, or other comparison value
 
 HELPDATA;
       return $help ;
