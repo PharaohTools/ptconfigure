@@ -5,6 +5,7 @@ Namespace Core;
 class AutoLoader{
 
     public function launch() {
+		require __DIR__.'/../vendor/autoload.php';
         spl_autoload_register('Core\autoLoader::autoLoad');
     }
 
