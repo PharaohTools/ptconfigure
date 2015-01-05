@@ -1,0 +1,11 @@
+{
+    "require": {
+        "phpseclib/phpseclib": "0.3.7",
+        "phpunit/phpunit": "~4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Invoke\\": "src/Modules/Invoke"
+        }
+    }
+}
