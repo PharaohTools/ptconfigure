@@ -3,6 +3,8 @@
 Namespace Model;
 
 use Invoke\Drivers\BashSsh;
+use Invoke\Drivers\PhpSecLib;
+use Invoke\Drivers\Ssh2;
 use Invoke\Server;
 
 class InvokeAllLinux extends Base
@@ -179,7 +181,7 @@ class InvokeAllLinux extends Base
 				$server["ssh2Object"] = $attempt;
 				$logging->log("Connection to Server {$server["target"]} successful.");
 				if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) && $this->isNativeSSH != true)) {
-					echo $this->changeBashPromptToPharaoh($server["ssh2Object"]);
+//					echo $this->changeBashPromptToPharaoh($server["ssh2Object"]);
 				}
 				echo $this->doSSHCommand($server["ssh2Object"],
 					'echo "Pharaoh Remote SSH on ...' . $server["target"] . '"', true);
@@ -195,6 +197,10 @@ class InvokeAllLinux extends Base
 		$pword = (isset($server["password"])) ? $server["password"] : $pword;
 
 		$server = new Server($server['target'], $server['user'], $pword, isset($server['port']) ? $server['port'] : 22);
+
+		$driver = isset($this->params["ssh-driver"]) ? $this->params["ssh-driver"] : 'BashSsh';
+		$driver = 'Invoke\\Drivers\\'.$driver;
+		$server->setDriver(new $driver($server));
 		$server->connect();
 
 		return $server;
@@ -365,15 +371,6 @@ QUESTION;
 	private function doSSHCommand(Server $sshObject, $command, $first = null)
 	{
 		return $sshObject->exec($command);
-
-		if ($this->isNativeSSH) {
-			return $sshObject->exec($command);
-		}
-		$returnVar = ($first == null) ? "" : $sshObject->read("PHARAOHPROMPT");
-		$sshObject->write("$command\n");
-		$returnVar .= $sshObject->read("PHARAOHPROMPT");
-
-		return str_replace("PHARAOHPROMPT", "", $returnVar);
 	}
 
 }
