@@ -18,7 +18,7 @@ class DigitalOceanInfo extends CleopatraBase {
     }
 
     public function routeAliases() {
-      return array("digitalocean"=>"DigitalOcean", "digital-ocean"=>"DigitalOcean");
+      return array("digitaloceanv1"=>"DigitalOcean", "digital-ocean-v1"=>"DigitalOcean");
     }
 
     public function boxProviderName() {
@@ -29,7 +29,7 @@ class DigitalOceanInfo extends CleopatraBase {
        $help = <<<"HELPDATA"
     This is an extension provided for Handling Servers on Digital Ocean.
 
-    DigitalOcean, digitalocean, digital-ocean
+    DigitalOcean, digitaloceanv1, digital-ocean-v1
 
         - box-add
         Lets you add boxes to Digital Ocean, and adds them to your papyrusfile
