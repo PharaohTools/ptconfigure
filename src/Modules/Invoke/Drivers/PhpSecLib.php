@@ -30,7 +30,9 @@ class PhpSecLib implements Driver {
 
 	public function exec($command)
 	{
-		return $this->connection->exec($command);
+		$this->connection->write("$command\n");
+		$output = $this->connection->read('PHARAOHPROMPT');
+		return str_replace("PHARAOHPROMPT", '', $output);
 	}
 
 	public function __call($k, $args = [])
