@@ -45,6 +45,7 @@ class DigitalOceanV2Info extends CleopatraBase {
                     --region-id=lon1 # region to create instance in
                     --wait-until-active # wait until box has an ip address active before moving to the next one (You
                         usually want this, unless you are asynchronously populating the connection details)
+                    --key-path # location of private key path. Keystore values accepted
 
         - box-destroy
         Will destroy box/es in an environment for you, and remove them from the papyrus file
