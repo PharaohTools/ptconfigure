@@ -61,7 +61,8 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["template-group"])) {
             $this->templateGroup = $this->params["template-group"]; }
         else {
-            $this->templateGroup = self::askForArrayOption("Enter Template Group:",array("tiny", "medium"), true) ; }
+            $tgs = array_keys($this->templateGroupsToDirs) ;
+            $this->templateGroup = self::askForArrayOption("Enter Template Group:", $tgs, true) ; }
     }
 
     // @todo generic is not the  right word probably
