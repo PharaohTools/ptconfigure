@@ -1,3 +1,4 @@
+@home
 Feature: Executing the program index page
   As a command line user
   I want to execute the index page

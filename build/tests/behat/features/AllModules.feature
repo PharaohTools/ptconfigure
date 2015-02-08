@@ -1,3 +1,4 @@
+@structure
 Feature: Basic functionality of all mfo
   As a command line user
   I want to execute the index page
