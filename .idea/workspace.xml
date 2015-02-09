@@ -2,11 +2,73 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" name="Default" comment="new cleo-winstall for installing the elevate command">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/AWSCloudFront/Controller/AWSCloudFront.php" afterPath="$PROJECT_DIR$/src/Modules/AWSCloudFront/Controller/AWSCloudFront.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php" afterPath="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cleopatra.iml" afterPath="$PROJECT_DIR$/cleopatra.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cleopatra.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="/Dummy.txt" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1423436125408" ignored="false" />
+    <file path="$PROJECT_DIR$/../enterprise/src/AutoLoad.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420830769971" ignored="false" />
+    <file path="$PROJECT_DIR$/../enterprise/src/Modules/Invoke/Model/InvokeAllLinux.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420830769971" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildHome/Controller/BuildHome.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420845734155" ignored="false" />
+    <file path="/BuildHome.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420831017151" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildHome/Model/BuildHomeAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420860103239" ignored="false" />
+    <file path="/BuildHomeAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420845561727" ignored="false" />
+    <file path="/BuildHomeHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421112316449" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildHome/Views/BuildHomeHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421112323636" ignored="false" />
+    <file path="/a.dummy" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421090623917" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildConfigure/Views/BuildConfigureHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465265247" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildList/Views/BuildListHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420858962995" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Index/Views/IndexHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420848549353" ignored="false" />
+    <file path="/IndexHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420848544074" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Model/PipelineConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420838050578" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Controller/PipelineConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420838050578" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Model/PipelineConfigureAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420838050578" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/info.Pipeline.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420861038087" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Views/PipelineConfigureHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420838050579" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Controller/Pipeline.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420838255799" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Model/PipelineAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465166609" ignored="false" />
+    <file path="/PipelineAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465166055" ignored="false" />
+    <file path="/BuildListHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420858484801" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildList/Controller/BuildList.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420857978132" ignored="false" />
+    <file path="/BuildList.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420857974053" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildList/Model/BuildListAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420858566855" ignored="false" />
+    <file path="/BuildListAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420858452694" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/ApplicationConfigure/Views/BuildConfigureHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420860716129" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/ApplicationConfigure/Model/BuildConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420860716129" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/ApplicationConfigure/Controller/BuildConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420860790590" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/ApplicationConfigure/Model/BuildConfigureAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420860716130" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/ApplicationConfigure/info.BuildConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420860716130" ignored="false" />
+    <file path="/info.Pipeline.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420861028416" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/ApplicationConfigure/info.ApplicationConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1420862718965" ignored="false" />
+    <file path="/CleofyGenericAutosUbuntu.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421023668226" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/PipeRunner/Views/PipeRunnerHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421108438362" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/PostInput/Assets/PipeRunner/js/piperunner.js" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421090679631" ignored="false" />
+    <file path="/piperunner.js" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421090302562" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/PipeRunner/Controller/PipeRunner.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421158546184" ignored="false" />
+    <file path="/PipeRunner.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421119844796" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/PipeRunner/Model/PipeRunnerAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421158423404" ignored="false" />
+    <file path="/PipeRunnerAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421158375297" ignored="false" />
+    <file path="/PipeRunnerHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421108438362" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Constants.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421120401934" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/PipeRunner/Views/PipeRunnerChildCLIView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421120623283" ignored="false" />
+    <file path="/PipeRunnerChildCLIView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421120619189" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/PipeRunner/info.PipeRunner.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421118134185" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Model/PipelineCollaterAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421464390467" ignored="false" />
+    <file path="/PipelineCollaterAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421464281867" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Model/PipelineRepositoryAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421463967721" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildConfigure/Controller/BuildConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421464553859" ignored="false" />
+    <file path="/BuildConfigure.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421464538327" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/BuildConfigure/Model/BuildConfigureAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465423724" ignored="false" />
+    <file path="/BuildConfigureAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465379383" ignored="false" />
+    <file path="/BuildConfigureHTMLView.tpl.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465265247" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Pipeline/Model/PipelineSaverAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465677437" ignored="false" />
+    <file path="/PipelineSaverAllOS.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421465677429" ignored="false" />
+    <file path="$PROJECT_DIR$/../../phrankinsense/phrankinsense/src/Modules/Signup/Controller/Signup.php" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1421958536052" ignored="false" />
+    <file path="/AllModules.feature" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1423436185832" ignored="false" />
+    <file path="/Index.feature" changelist="9f827ef1-0845-4e5b-b65e-1009d6cdb7ab" time="1423436227829" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +128,80 @@
     <favorites_list name="cleopatra" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="info.DigitalOceanV2.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/info.DigitalOceanV2.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="32" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DigitalOceanV2BoxAdd.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="5" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CitadelUbuntu.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Citadel/Model/CitadelUbuntu.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Composer.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Composer/Controller/Composer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="info.DigitalOcean.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/info.DigitalOcean.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="49" selection-start="868" selection-end="868" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhpSecLib.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Drivers/PhpSecLib.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="29" selection-start="561" selection-end="561" vertical-scroll-proportion="-14.583333">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Index.feature" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/tests/behat/features/Index.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AllModules.feature" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build/tests/behat/features/AllModules.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="10" selection-start="10" selection-end="10" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -84,43 +219,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/BaseLinuxApp.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ChromeDriver/Controller/SeleniumServer.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ChromeDriver/info.ChromeDriver.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Service/Controller/Service.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SeleniumServer/Controller/SeleniumServer.php" />
-        <option value="$PROJECT_DIR$/src/Modules/MysqlServer/Model/MysqlServerUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Chrome/Controller/Chrome.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Chrome/Model/ChromeCentos32.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Firefox/Model/FirefoxUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Service/Model/ServiceUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Chrome/Model/ChromeUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ChromeDriver/Model/ChromeDriverAllLinux.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Behat/Templates/composer.json" />
-        <option value="$PROJECT_DIR$/src/Modules/Apt/Controller/Apt.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Parallax/Controller/Parallax.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SeleniumServer/Model/SeleniumServerAllLinux.php" />
-        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2AllBoxesDestroy.php" />
-        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2List.php" />
-        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2OverwriteNew.php" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDomain.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxDestroy.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxAdd.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceList.php" />
-        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxDestroy.php" />
-        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Controller/DigitalOceanV2.php" />
         <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2SshKey.php" />
         <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php" />
         <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDatabase.php" />
         <option value="$PROJECT_DIR$/src/AutoLoad.php" />
         <option value="$PROJECT_DIR$/src/Modules/Rackspace/Controller/Rackspace.php" />
         <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php" />
-        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php" />
         <option value="$PROJECT_DIR$/src/Modules/AWSCloudFront/Model/AWSCloudFront.php" />
         <option value="$PROJECT_DIR$/src/Modules/AWSS3/Model/AWSS3Bucket.php" />
         <option value="$PROJECT_DIR$/src/Modules/AWSCloudFront/info.AWSCloudFront.php" />
         <option value="$PROJECT_DIR$/src/Modules/AWSCloudFront/Controller/AWSCloudFront.php" />
+        <option value="$PROJECT_DIR$/src/Modules/DigitalOcean/info.DigitalOcean.php" />
+        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/info.DigitalOceanV2.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Cleofy/Model/CleofyGenericAutosUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php" />
+        <option value="$PROJECT_DIR$/build/tests/behat/features/AllModules.feature" />
+        <option value="$PROJECT_DIR$/build/tests/behat/features/Index.feature" />
       </list>
     </option>
   </component>
@@ -157,6 +271,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -185,7 +300,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -199,33 +318,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="build" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AWSS3" />
+              <option name="myItemId" value="behat" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -239,45 +340,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="build" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="AWSS3" />
+              <option name="myItemId" value="behat" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AWSS3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
+              <option name="myItemId" value="features" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -291,100 +366,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AWSS3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AWSCloudFront" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AWSCloudFront" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AWSCloudFront" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
+              <option name="myItemId" value="build" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -392,11 +380,11 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -408,17 +396,14 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
-      <method />
-    </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
       <method />
     </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -453,31 +438,31 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28670254" sideWeight="0.38772213" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985657" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Amazon EC2" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.242163" sideWeight="0.38772213" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985657" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Amazon EC2" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61227787" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61227787" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -489,15 +474,63 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
     <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
     </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed path for winstall" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="updated win install instructions" />
     <MESSAGE value="updated win install silent" />
     <MESSAGE value="readme includes new windows elevate instructions" />
     <MESSAGE value="new cleo-winstall for installing the elevate command" />
     <MESSAGE value="fixed path for winstall" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed path for winstall" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -512,273 +545,98 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2AllBoxesDestroy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="76" selection-start="1483" selection-end="1551" vertical-scroll-proportion="0.5625" vertical-offset="396" max-vertical-offset="972" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="5" selection-start="12" selection-end="12" vertical-scroll-proportion="0.029220778" vertical-offset="0" max-vertical-offset="616" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceAllBoxesDestroy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1044" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxDestroy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="51" selection-start="2088" selection-end="2088" vertical-scroll-proportion="1.3220339" vertical-offset="0" max-vertical-offset="2025" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="23" selection-start="4520" selection-end="4520" vertical-scroll-proportion="2.304" vertical-offset="540" max-vertical-offset="5820" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Libraries/vendor/guzzle/http/Guzzle/Http/Exception/BadResponseException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.840796" vertical-offset="507" max-vertical-offset="1110" />
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/Core_c.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="43" selection-start="326" selection-end="371" vertical-scroll-proportion="-7.3644066" vertical-offset="4630" max-vertical-offset="5220" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceSshKey.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1245" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceBoxAdd.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="35" selection-start="4832" selection-end="4832" vertical-scroll-proportion="-3.7542372" vertical-offset="3745" max-vertical-offset="4335" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DeveloperTools/Controller/DeveloperTools.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="627" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Firefox14/Controller/Firefox14.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="627" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/JenkinsPlugins/Controller/JenkinsPlugins.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="627" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Ra/Controller/Ra.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="627" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Service/Model/ServiceUbuntu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="80" selection-start="286" selection-end="286" vertical-scroll-proportion="-2.084577" vertical-offset="1407" max-vertical-offset="2010" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Views/RackspaceListView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.7910448" vertical-offset="477" max-vertical-offset="1080" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Views/RackspaceAPIView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="2" selection-start="895" selection-end="895" vertical-scroll-proportion="0.62189054" vertical-offset="0" max-vertical-offset="603" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Views/DigitalOceanV2ListView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.0149254" vertical-offset="612" max-vertical-offset="1215" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Views/RackspaceDNSAPIView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="29" selection-start="1224" selection-end="1224" vertical-scroll-proportion="0.2881356" vertical-offset="85" max-vertical-offset="675" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceDomain.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="41" selection-start="3232" selection-end="3232" vertical-scroll-proportion="1.0447761" vertical-offset="660" max-vertical-offset="3120">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/RackspaceList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="24" selection-start="842" selection-end="842" vertical-scroll-proportion="0.029850746" vertical-offset="447" max-vertical-offset="1050" />
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_4.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="9" selection-start="5945" selection-end="5945" vertical-scroll-proportion="0.3457627" vertical-offset="2331" max-vertical-offset="16320" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/papyrusfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="76" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="614" />
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_5.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1143" column="9" selection-start="33404" selection-end="33404" vertical-scroll-proportion="0.840796" vertical-offset="16638" max-vertical-offset="17265" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Model/DigitalOceanBoxAdd.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="32" selection-start="8034" selection-end="8034" vertical-scroll-proportion="0.48258707" vertical-offset="2304" max-vertical-offset="3735" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2List.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="50" selection-start="1803" selection-end="1812" vertical-scroll-proportion="0.8159204" vertical-offset="258" max-vertical-offset="885" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Controller/DigitalOcean.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="63" selection-start="859" selection-end="859" vertical-scroll-proportion="0.38135594" vertical-offset="45" max-vertical-offset="960" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/CleopatraRequired/Model/AppConfig.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="27" selection-start="2639" selection-end="2639" vertical-scroll-proportion="0.0" vertical-offset="780" max-vertical-offset="1920" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxDestroy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="61" selection-start="2514" selection-end="2521" vertical-scroll-proportion="0.74119717" vertical-offset="389" max-vertical-offset="1680" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/Model/DigitalOceanBoxDestroy.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="27" selection-start="3350" selection-end="3350" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1695" />
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="487" column="9" selection-start="14839" selection-end="14839" vertical-scroll-proportion="-13.230509" vertical-offset="15111" max-vertical-offset="15885" />
+        <state line="68" column="27" selection-start="3350" selection-end="3350" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Controller/DigitalOceanV2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="1" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="960" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/Rackspace.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="5" selection-start="317" selection-end="317" vertical-scroll-proportion="0.25817555" vertical-offset="0" max-vertical-offset="581" />
+        <state line="22" column="1" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AutoLoad.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="5" selection-start="5995" selection-end="5995" vertical-scroll-proportion="0.60387325" vertical-offset="1007" max-vertical-offset="1635" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Controller/Rackspace.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="13" selection-start="5252" selection-end="5252" vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="3405" />
+        <state line="90" column="5" selection-start="5995" selection-end="5995" vertical-scroll-proportion="0.60387325" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="52" selection-start="3353" selection-end="3353" vertical-scroll-proportion="0.0" vertical-offset="1170" max-vertical-offset="1995" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="88" selection-start="2329" selection-end="2329" vertical-scroll-proportion="-0.6730435" vertical-offset="1317" max-vertical-offset="1920" />
+        <state line="78" column="52" selection-start="3353" selection-end="3353" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2SshKey.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="54" selection-start="2321" selection-end="2321" vertical-scroll-proportion="0.71746576" vertical-offset="421" max-vertical-offset="1005" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="49" selection-start="5347" selection-end="5347" vertical-scroll-proportion="-2.7562277" vertical-offset="3439" max-vertical-offset="4620" />
+        <state line="56" column="54" selection-start="2321" selection-end="2321" vertical-scroll-proportion="0.71746576" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Core/Base/Controller/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="6" selection-start="251" selection-end="251" vertical-scroll-proportion="7.5" vertical-offset="270" max-vertical-offset="2490" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSDynamoDb/Model/AWSDynamoDb.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="599" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSS3/Model/BaseAWSS3AllOS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="24" selection-start="426" selection-end="436" vertical-scroll-proportion="-2.5" vertical-offset="225" max-vertical-offset="1755" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSDynamoDb/Model/AWSDynamoDbDatabase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="47" selection-start="4496" selection-end="4507" vertical-scroll-proportion="-3.8333333" vertical-offset="1738" max-vertical-offset="6630" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSCloudWatch/Controller/AWSCloudWatch.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="599" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSCloudFront/Model/AWSCloudFront.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="1" selection-start="324" selection-end="324" vertical-scroll-proportion="0.30150753" vertical-offset="0" max-vertical-offset="597" />
+        <state line="6" column="6" selection-start="251" selection-end="251" vertical-scroll-proportion="7.5" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Views/DigitalOceanV2APIView.tpl.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="1" selection-start="897" selection-end="897" vertical-scroll-proportion="0.552" vertical-offset="0" max-vertical-offset="625">
+        <state line="23" column="1" selection-start="897" selection-end="897" vertical-scroll-proportion="0.552" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOcean/info.DigitalOcean.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="49" selection-start="868" selection-end="868" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSCloudFront/info.AWSCloudFront.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Cleofy/Model/CleofyGenericAutosUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="231" selection-end="231" vertical-scroll-proportion="0.312" vertical-offset="0" max-vertical-offset="625">
+        <state line="50" column="75" selection-start="1684" selection-end="1684" vertical-scroll-proportion="0.37168142" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/info.DigitalOceanV2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="32" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSCloudFront/Views/AWSCloudFrontAPIView.tpl.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/DigitalOceanV2BoxAdd.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
+        <state line="18" column="5" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSS3/Views/AWSS3APIView.tpl.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Citadel/Model/CitadelUbuntu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="840">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSCloudFront/Controller/AWSCloudFront.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Composer/Controller/Composer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="64" selection-start="1722" selection-end="1722" vertical-scroll-proportion="-16.041666" vertical-offset="65" max-vertical-offset="690">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSS3/Controller/AWSS3.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Drivers/PhpSecLib.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="75" selection-start="1629" selection-end="1650" vertical-scroll-proportion="-5.625" vertical-offset="315" max-vertical-offset="1110">
+        <state line="31" column="29" selection-start="561" selection-end="561" vertical-scroll-proportion="-14.583333">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/AWSS3/Model/AWSS3Bucket.php">
+    <entry file="file://$PROJECT_DIR$/build/tests/behat/features/Index.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="23" selection-start="3873" selection-end="3873" vertical-scroll-proportion="0.020066889" vertical-offset="2103" max-vertical-offset="3495">
+        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/tests/behat/features/AllModules.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="10" selection-start="10" selection-end="10" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
