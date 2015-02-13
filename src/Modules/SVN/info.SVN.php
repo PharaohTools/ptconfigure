@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SVNInfo extends CleopatraBase {
+class SVNInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,15 +29,15 @@ class SVNInfo extends CleopatraBase {
 
         - install
         Installs the latest available (In your package manager) version of SVN
-        example: cleopatra svn install
+        example: ptconfigure svn install
 
         - ensure
         Ensures SVN is installed
-        example: cleopatra svn ensure
+        example: ptconfigure svn ensure
 
         - uninstall
         Installs the latest version of SVN
-        example: cleopatra svn uninstall
+        example: ptconfigure svn uninstall
 
 HELPDATA;
       return $help ;

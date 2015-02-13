@@ -28,7 +28,7 @@ class DummyLinuxModuleInfo extends Base {
 
         - install
         Installs nothing
-        example: cleopatra dummylinuxmodule install
+        example: ptconfigure dummylinuxmodule install
 
 HELPDATA;
     return $help ;

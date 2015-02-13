@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPSSHInfo extends CleopatraBase {
+class PHPSSHInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,7 +28,7 @@ class PHPSSHInfo extends CleopatraBase {
 
         - install
         Installs the PECL PHP SSH Extension.
-        example: cleopatra phpssh install
+        example: ptconfigure phpssh install
 
 HELPDATA;
     return $help ;

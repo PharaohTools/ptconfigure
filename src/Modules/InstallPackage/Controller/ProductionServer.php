@@ -9,12 +9,12 @@ class ProductionServer extends Base {
       $this->content["package-friendly"] = "Production Server";
 
       $this->registeredModels = array (
-        "Cleopatra" ,
+        "PTConfigure" ,
         "StandardTools" ,
         "GitTools" ,
         "PHPModules" ,
         "ApacheModules" ,
-        "Dapperstrano" ,
+        "PTDeploy" ,
         "JRush" ,
         "MysqlServer" ,
         "MysqlAdmins" ,

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class WireframeSketcherInfo extends CleopatraBase {
+class WireframeSketcherInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class WireframeSketcherInfo extends CleopatraBase {
 
         - install
         Installs the latest version of Developer Tools
-        example: cleopatra wireframe-sketcher install
+        example: ptconfigure wireframe-sketcher install
 
 HELPDATA;
       return $help ;

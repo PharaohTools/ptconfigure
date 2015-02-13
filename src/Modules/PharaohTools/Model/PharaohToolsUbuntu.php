@@ -18,15 +18,15 @@ class PharaohToolsUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "PharaohTools";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("Dapperstrano")) ),
-            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("Testingkamen")) ),
-            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("Cleopatra")) ),
+            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTDeploy")) ),
+            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTTest")) ),
+            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTConfigure")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("JRush")) ),
         );
-        // @todo cleopatra wont uninstall itself, that sounds wrong and is unlikely to work anyway
+        // @todo ptconfigure wont uninstall itself, that sounds wrong and is unlikely to work anyway
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("Testingkamen")) ),
-            array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("Dapperstrano")) ),
+            array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("PTTest")) ),
+            array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("PTDeploy")) ),
             array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("JRush")) ),
         );
         $this->programDataFolder = "";
@@ -37,7 +37,7 @@ class PharaohToolsUbuntu extends BaseLinuxApp {
     }
 
     public function askStatus() {
-        return $this->askStatusByArray(array( "cleopatra", "dapperstrano", "testingkamen", "jrush" )) ;
+        return $this->askStatusByArray(array( "ptconfigure", "ptdeploy", "pttest", "jrush" )) ;
     }
 
     public function ensurePharaoh($pharaoh) {

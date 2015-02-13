@@ -53,7 +53,7 @@ class CitadelConfigureUbuntu extends BaseTemplater {
             "listen_stats_enable" => "enable",
             "listen_stats_uri_string" => "stats uri /citadel?stats",
             "listen_stats_realm_string" => 'stats realm Strictly\ Private',
-            "listen_stats_auth_string" => "stats auth cleopatra:cleopatra", # use whole line so we can include multiple
+            "listen_stats_auth_string" => "stats auth ptconfigure:ptconfigure", # use whole line so we can include multiple
             "listen_balance" => "roundrobin",
             "listen_option_string" => "option httpclose\n    option forwardfor",
             "listen_server_string" => $this->getServerString()

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JenkinsInfo extends CleopatraBase {
+class JenkinsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class JenkinsInfo extends CleopatraBase {
 
         - install
         Installs Jenkins through apt-get
-        example: cleopatra jenkins install
+        example: ptconfigure jenkins install
 
 HELPDATA;
       return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class GIMPInfo extends CleopatraBase {
+class GIMPInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -27,7 +27,7 @@ class GIMPInfo extends CleopatraBase {
 
         - install
         Installs GIMP through apt-get
-        example: cleopatra gimp install
+        example: ptconfigure gimp install
 
 HELPDATA;
       return $help ;

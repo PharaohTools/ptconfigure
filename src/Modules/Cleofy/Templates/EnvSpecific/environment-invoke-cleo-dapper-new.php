@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
             ), ) ),
             array ( "SFTP" => array( "put" => array(
                 "guess" => true,
-                "source" => getcwd()."/build/config/cleopatra/cleofy/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php",
+                "source" => getcwd()."/build/config/ptconfigure/cleofy/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php",
                 "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php",
                 "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
             ) , ) , ),
@@ -45,9 +45,9 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
 cd /tmp
-git clone https://github.com/PharaohTools/cleopatra.git
-sudo php cleopatra/install-silent
-sudo cleopatra autopilot execute --autopilot-file="/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php"
+git clone https://github.com/PharaohTools/ptconfigure.git
+sudo php ptconfigure/install-silent
+sudo ptconfigure autopilot execute --autopilot-file="/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php"
 rm /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php
 SSHDATA;
         return $sshData ;

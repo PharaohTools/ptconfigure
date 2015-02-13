@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class MysqlToolsInfo extends CleopatraBase {
+class MysqlToolsInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -29,7 +29,7 @@ class MysqlToolsInfo extends CleopatraBase {
 
         - install
         Installs Mysql Tools through apt-get.
-        example: cleopatra mysql-tools install
+        example: ptconfigure mysql-tools install
 
 HELPDATA;
     return $help ;

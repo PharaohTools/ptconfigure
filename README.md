@@ -1,4 +1,4 @@
-# Cleopatra, Pharaoh Tools
+# PTConfigure, Pharaoh Tools
 
 ## About:
 
@@ -8,7 +8,7 @@ with an Operating System agnostic method of ensuring environment stability.
 This tool is for provisioning software and configurations to your boxes. You can set up complex provisions to your
 systems with one or two PHP files, or quickly set up cloud friendly deployment patterns.
 
-Cleopatra is modular. object oriented and extendible, you can pretty easily write your own module if you want
+PTConfigure is modular. object oriented and extendible, you can pretty easily write your own module if you want
 functionality we haven't yet covered. Feel free to submit us pull requests.
 
 This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
@@ -21,15 +21,15 @@ Currently, all of the Modules work on Ubuntu 12-14, most on Centos and Windows.
 ## Installation
 
 First you'll need to install Git and PHP5. If you don't have either, google them - they're easy to install. To install
-cleopatra cli on your On your Mac, Linux or  Unix Machine silently do the following:
+ptconfigure cli on your On your Mac, Linux or  Unix Machine silently do the following:
 
-git clone https://github.com/PharaohTools/cleopatra.git && sudo php cleopatra/install-silent
+git clone https://github.com/PharaohTools/ptconfigure.git && sudo php ptconfigure/install-silent
 
 or on Windows, open a terminal with the "Run as Administrator" option...
 
-git clone https://github.com/PharaohTools/cleopatra.git && php cleopatra\install-silent
+git clone https://github.com/PharaohTools/ptconfigure.git && php ptconfigure\install-silent
 
-... that's it, now the cleopatra command should be available at the command line for you.
+... that's it, now the ptconfigure command should be available at the command line for you.
 
 
 ## Usage:
@@ -38,13 +38,13 @@ So, there are a few simple commands...
 
 First, you can just use
 
-cleopatra
+ptconfigure
 
 ...This will give you a list of the available modules...
 
 Then you can use
 
-cleopatra *ModuleName* help
+ptconfigure *ModuleName* help
 
 ...This will display the help for that module, and tell you a list of available alias for the module command, and the
 available actions too.
@@ -73,7 +73,7 @@ Go to http://www.pharaohtools.com for more
  - ApacheReverseProxyModules - Apache Reverse Proxy Modules - Reverse Proxy/Load Balancer Modules for Apache
  - ApacheServer - Apache Server - Install or remove the Apache Server
  - Apt - Add, Remove or Modify Apts
- - Autopilot - Cleopatra Autopilot - User Defined Installations
+ - Autopilot - PTConfigure Autopilot - User Defined Installations
  - Behat - Behat - The PHP BDD Testing Suite
  - Boxify - Boxify Wrapper - Create Cloud Instances
  - Chgrp - Chgrp Functionality
@@ -82,12 +82,12 @@ Go to http://www.pharaohtools.com for more
  - Chrome - Chrome - Install or remove Chrome
  - ChromeDriver - The Chrome Browser remote controlling server
  - Citadel - Citadel Server - Install or remove the Citadel Server
- - Cleofy - Cleopatra Cleofyer - Creates default autopilots for your project
- - Cleopatra - Cleopatra - Upgrade or Re-install Cleopatra
+ - Cleofy - PTConfigure Cleofyer - Creates default autopilots for your project
+ - PTConfigure - PTConfigure - Upgrade or Re-install PTConfigure
  - Composer - Composer - Upgrade or Re-install Composer
  - Copy - Copy Functionality
  - DNSify - DNSify Wrapper - Ensure the existence or removal of DNS records
- - Dapperstrano - Dapperstrano - The PHP Automated Website Deployment tool
+ - PTDeploy - PTDeploy - The PHP Automated Website Deployment tool
  - DeveloperTools - Developer Tools - IDE's and other tools for Developers
  - DigitalOcean - Digital Ocean Server Management Functions
  - DigitalOceanV2 - Digital Ocean Server Management Functions - API Version 2
@@ -102,7 +102,7 @@ Go to http://www.pharaohtools.com for more
  - Firewall - Add, Remove or Modify Firewalls
  - GIMP - GIMP - The Image Editor
  - Gem - Ruby Gems Package Manager
- - Generator - Dapperstrano Autopilot Generator - Generate Autopilot files interactively
+ - Generator - PTDeploy Autopilot Generator - Generate Autopilot files interactively
  - GitBucket - Git Bucket - The Git SCM Management Web Application
  - GitKeySafe - Git Key-Safe - Install a script for git to allow specifying ssh keys during commands
  - GitLab - Git Lab - The Git SCM Management Web Application
@@ -110,7 +110,7 @@ Go to http://www.pharaohtools.com for more
  - HAProxy - HA Proxy Server - Install or remove the HA Proxy Server
  - HHVM - HHVM - The PHP Virtual Machine runtime from Facebook
  - Hostname - View or Modify Hostname
- - InstallPackage - Cleopatra Predefined Installers
+ - InstallPackage - PTConfigure Predefined Installers
  - IntelliJ - IntelliJ - A great IDE from JetBrains
  - Invoke - SSH Invocation Functions
  - JRush - JRush - The Joomla command line utility from Golden Contact
@@ -122,7 +122,7 @@ Go to http://www.pharaohtools.com for more
  - Logging - Logging - Output errors to the logging
  - MediaTools - Media Tools - Tools to help view and manage Media files
  - Mkdir - Mkdir Functionality
- - ModuleManager - Manage the modules used in Cleopatra
+ - ModuleManager - Manage the modules used in PTConfigure
  - MongoDB - MongoDB Server - The MongoDB Datastore Server
  - MysqlAdmins - Mysql Admins - Install administrative users for Mysql
  - MysqlServer - Mysql Server - The Mysql RDBMS Server
@@ -148,7 +148,7 @@ Go to http://www.pharaohtools.com for more
  - Pear - Pear Package Manager
  - Phake - Phake - The PHP task creation tool (Make/Rake)
  - PharaohTools - Pharaoh Tools - Gotta Install them all
- - Phlagrant - Phlagrant - The Virtual Machine management solution for PHP
+ - PTVirtualize - PTVirtualize - The Virtual Machine management solution for PHP
  - Phrankinsense - Phrankinsense - The Pharaoh Tools Project Management Solution
  - Ping - Test a Ping to see if its responding
  - Port - Test a Port to see if its responding
@@ -176,7 +176,7 @@ Go to http://www.pharaohtools.com for more
  - SystemDetection - System Detection - Detect the Running Operating System
  - Teamcity - Teamcity - The Jetbrains Build Server
  - Templating - Install files with placeholders or lines replaced at runtime
- - Testingkamen - Upgrade or Re-install Testingkamen
+ - PTTest - Upgrade or Re-install PTTest
  - ThoughtWorksGo - The Continuous Delivery server from ThoughtWorks
  - UbuntuCompiler - For Compiling Linux Programs
  - User - Add, Remove or Modify Users

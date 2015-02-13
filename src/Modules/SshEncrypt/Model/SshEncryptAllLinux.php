@@ -61,7 +61,7 @@ class SshEncryptAllLinux extends BaseLinuxApp {
                 //@todo a check if the file doesn't exist
                 $dirToStrip = dirname($this->params["raw-private-key-path"]) ;
                 $filename = str_replace($dirToStrip, "", $this->params["raw-private-key-path"]) ;
-                $encDir = "build/config/cleopatra/SSH/keys/private/encrypted/" ;
+                $encDir = "build/config/ptconfigure/SSH/keys/private/encrypted/" ;
                 mkdir($encDir, 0777, true) ;
                 $this->targetPrivateKey = $encDir.$filename ;
                 return ; }

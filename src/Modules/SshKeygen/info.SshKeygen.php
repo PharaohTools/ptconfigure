@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SshKeygenInfo extends CleopatraBase {
+class SshKeygenInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,12 +28,12 @@ class SshKeygenInfo extends CleopatraBase {
 
         - install
         Installs a new SSH Key
-        example: cleopatra ssh-keygen install
-        example: cleopatra ssh-keygen install --yes --bits=4096 --type=rsa --path="/home/dave/.ssh/id_rsa" --comment="Daves"
+        example: ptconfigure ssh-keygen install
+        example: ptconfigure ssh-keygen install --yes --bits=4096 --type=rsa --path="/home/dave/.ssh/id_rsa" --comment="Daves"
 
         - uninstall
         Removes an SSH Key
-        example: cleopatra ssh-keygen uninstall
+        example: ptconfigure ssh-keygen uninstall
 
 HELPDATA;
     return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PythonInfo extends CleopatraBase {
+class PythonInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class PythonInfo extends CleopatraBase {
 
         - install
         Installs the latest version of Python
-        example: cleopatra python install
+        example: ptconfigure python install
 
 HELPDATA;
       return $help ;

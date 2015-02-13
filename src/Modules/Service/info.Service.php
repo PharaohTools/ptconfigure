@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ServiceInfo extends CleopatraBase {
+class ServiceInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,28 +29,28 @@ class ServiceInfo extends CleopatraBase {
 
         - start
         Start a system service
-        example: cleopatra service start --service-name="apache2"
+        example: ptconfigure service start --service-name="apache2"
 
         - stop
         Stop a system service
-        example: cleopatra service restart --service-name="apache2"
+        example: ptconfigure service restart --service-name="apache2"
 
         - restart
         Restart a system service
-        example: cleopatra service restart --service-name="apache2"
+        example: ptconfigure service restart --service-name="apache2"
 
         - ensure-running
         Ensure a system service is running. If it is already running, dont attempt to start it
         If it is not running, start it
-        example: cleopatra service ensure-running --service-name="apache2"
+        example: ptconfigure service ensure-running --service-name="apache2"
 
         - is-running
         Checks whether a system service is running.
-        example: cleopatra service is-running --service-name="apache2"
+        example: ptconfigure service is-running --service-name="apache2"
 
         - run-at-reboots
         Ensure a system service will auto start on reboots.
-        example: cleopatra service run-at-reboots --service-name="apache2"
+        example: ptconfigure service run-at-reboots --service-name="apache2"
 
 HELPDATA;
       return $help ;

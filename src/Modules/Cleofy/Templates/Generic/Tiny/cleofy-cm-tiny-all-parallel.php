@@ -22,11 +22,11 @@ class AutoPilotConfigured extends AutoPilot {
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add all Boxes and Environments in Parallel" ),),),
                 array ( "Parallax" => array("cli" => array(
-                    "command-1"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-bastion.php\"",
-                    "command-2"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-git.php\"",
-                    "command-3"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-jenkins.php\"",
-                    "command-4"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging.php\"",
-                    "command-5"  => "cleopatra autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production.php\"",
+                    "command-1"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}cleofy-cm-bastion.php\"",
+                    "command-2"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}cleofy-cm-git.php\"",
+                    "command-3"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}cleofy-cm-jenkins.php\"",
+                    "command-4"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}cleofy-cm-staging.php\"",
+                    "command-5"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}cleofy-cm-production.php\"",
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a Tiny set of environments complete"),),),

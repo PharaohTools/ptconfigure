@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class MongoDBInfo extends CleopatraBase {
+class MongoDBInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -30,12 +30,12 @@ class MongoDBInfo extends CleopatraBase {
 
         - install
         Install MongoDB Server
-        example: cleopatra mongodb install
+        example: ptconfigure mongodb install
 
   Notes, during mongodb install a root password will be set. First, it'll look
   for the parameter --mongodb-root-pass, if this is not set, it'll look in the
-  cleopatra config for a mongodb-default-root-pass setting, and failing both of
-  those it will just set the password for root to cleopatra.
+  ptconfigure config for a mongodb-default-root-pass setting, and failing both of
+  those it will just set the password for root to ptconfigure.
 
 HELPDATA;
     return $help ;

@@ -21,7 +21,7 @@ class PHPStormUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
                     "cd /tmp" ,
-                    "git clone https://github.com/phpengine/cleopatra-phpstorm phpstorm",
+                    "git clone https://github.com/phpengine/ptconfigure-phpstorm phpstorm",
                     "rm -rf ****PROGDIR****",
                     "mkdir -p ****PROGDIR****",
                     "mv /tmp/phpstorm/* ****PROGDIR****",

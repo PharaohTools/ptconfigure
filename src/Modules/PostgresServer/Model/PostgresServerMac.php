@@ -39,7 +39,7 @@ class PostgresServerMac extends BaseLinuxApp {
         else if (AppConfig::getProjectVariable("postgres-default-root-pass") != "") {
             $newRootPass = AppConfig::getProjectVariable("postgres-default-root-pass") ; }
         else {
-            $newRootPass = "cleopatra" ; }
+            $newRootPass = "ptconfigure" ; }
         return $newRootPass;
     }
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class MysqlAdminsInfo extends CleopatraBase {
+class MysqlAdminsInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -29,7 +29,7 @@ class MysqlAdminsInfo extends CleopatraBase {
 
         - install
         Installs Mysql Admin Users.
-        example: cleopatra mysql-admins install
+        example: ptconfigure mysql-admins install
 
 HELPDATA;
     return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class VNCPasswdInfo extends CleopatraBase {
+class VNCPasswdInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class VNCPasswdInfo extends CleopatraBase {
 
         - install
         Installs VNCPasswd through a package manager
-        example: cleopatra vnc install
+        example: ptconfigure vnc install
 
 HELPDATA;
       return $help ;

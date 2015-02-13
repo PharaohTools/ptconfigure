@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PostInputInfo extends CleopatraBase {
+class PostInputInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -22,7 +22,7 @@ class PostInputInfo extends CleopatraBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module provides no commands, and Allows cleopatra to be executed by post commands.
+  This module provides no commands, and Allows ptconfigure to be executed by post commands.
 
 
 HELPDATA;

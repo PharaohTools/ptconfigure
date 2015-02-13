@@ -34,10 +34,10 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "PHPModules" => array( "ensure" => array(),),),
 
                 // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTConfigure" ),),),
+                array ( "PTConfigure" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTDeploy" ),),),
+                array ( "PTDeploy" => array( "ensure" => array(),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 

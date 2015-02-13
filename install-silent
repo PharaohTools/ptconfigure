@@ -12,8 +12,8 @@ class Installer {
     private $bootStrapData;
     private $programDataFolder;
     private $programExecutorFolder;
-    private $programNameMachine = "cleopatra";
-    private $programNameFriendly = " Cleopatra! "; // 12 chars
+    private $programNameMachine = "ptconfigure";
+    private $programNameFriendly = " PTConfigure! "; // 12 chars
 
     public function __construct() {
         require ("src".DIRECTORY_SEPARATOR."Constants.php") ;
@@ -253,7 +253,7 @@ COMPLETION;
     }
 
     private function winCloseAndCompleteInNewWindow() {
-        echo "Opening cleopatra in new window...\n" ;
+        echo "Opening ptconfigure in new window...\n" ;
         $command = "start cmd.exe";
         self::executeAndOutput($command);
     }

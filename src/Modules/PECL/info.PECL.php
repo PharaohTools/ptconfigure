@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PECLInfo extends CleopatraBase {
+class PECLInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -35,31 +35,31 @@ class PECLInfo extends CleopatraBase {
 
         - create
         Create a new system pecl, overwriting if it exists
-        example: cleopatra pecl create --peclname="somename"
+        example: ptconfigure pecl create --peclname="somename"
 
         - remove
         Remove a system pecl
-        example: cleopatra pecl remove --peclname="somename"
+        example: ptconfigure pecl remove --peclname="somename"
 
         - set-password
         Set the password of a system pecl
-        example: cleopatra pecl set-password --peclname="somename" --new-password="somepassword"
+        example: ptconfigure pecl set-password --peclname="somename" --new-password="somepassword"
 
         - exists
         Check the existence of a pecl
-        example: cleopatra pecl exists --peclname="somename"
+        example: ptconfigure pecl exists --peclname="somename"
 
         - show-groups
         Show groups to which a pecl belongs
-        example: cleopatra pecl show-groups --peclname="somename"
+        example: ptconfigure pecl show-groups --peclname="somename"
 
         - add-to-group
         Add pecl to a group
-        example: cleopatra pecl add-to-group --peclname="somename" --groupname="somegroupname"
+        example: ptconfigure pecl add-to-group --peclname="somename" --groupname="somegroupname"
 
         - remove-from-group
         Remove pecl from a group
-        example: cleopatra pecl remove-from-group --peclname="somename" --groupname="somegroupname"
+        example: ptconfigure pecl remove-from-group --peclname="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;

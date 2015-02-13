@@ -20,7 +20,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // Install Keys - Bastion Public Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
                 array ( "Copy" => array( "file" =>
-                    array("from" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+                    array("from" => "build/config/ptconfigure/SSH/keys/public/raw/bastion"),
                     array("to" => "$HOME/.ssh/id_rsa"),
                     // @todo Fix this Standalone Server
                 ),),
@@ -73,12 +73,12 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a build server on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
                 // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
-                array ( "Testingkamen" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTConfigure" ),),),
+                array ( "PTConfigure" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTDeploy" ),),),
+                array ( "PTDeploy" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTTest" ),),),
+                array ( "PTTest" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
                 array ( "Parallax" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jrush for Joomla" ),),),

@@ -32,11 +32,11 @@ class GitLabUbuntu extends BaseLinuxApp {
 //        "libxslt-dev libcurl4-openssl-dev libicu-dev",
 //      "apt-get install -y python python-docutils",
 //
-//      # Fork Cleopatra To
+//      # Fork PTConfigure To
 //      "apt-get install -y git git-core gitk git-cola",
 //
-//      # Fork Cleopatra To install git tools
-//      "cleopatra gittools install --yes=true",
+//      # Fork PTConfigure To install git tools
+//      "ptconfigure gittools install --yes=true",
 
 
         array("method"=> array("object" => $this, "method" => "module", "params" => array("User")) ),
@@ -59,7 +59,7 @@ class GitLabUbuntu extends BaseLinuxApp {
 
       // set up gitlab shell
 
-        array("command" => array("dapperstrano autopilot execute ".__FILE__."../../Templates/dapper-gitlab-shell.php")),
+        array("command" => array("ptdeploy autopilot execute ".__FILE__."../../Templates/dapper-gitlab-shell.php")),
 //      # Go to home directory
 //      "cd /home/git",
 //      # Clone gitlab shell

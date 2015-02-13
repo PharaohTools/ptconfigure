@@ -48,7 +48,7 @@ class MongoDBUbuntu extends BaseLinuxApp {
         else if (AppConfig::getProjectVariable("mongodb-default-root-pass") != "") {
             $newRootPass = AppConfig::getProjectVariable("mongodb-default-root-pass") ; }
         else {
-            $newRootPass = "cleopatra" ; }
+            $newRootPass = "ptconfigure" ; }
         return $newRootPass;
     }
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class DigitalOceanV2Info extends CleopatraBase {
+class DigitalOceanV2Info extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -35,7 +35,7 @@ class DigitalOceanV2Info extends CleopatraBase {
 
         - box-add
         Lets you add boxes to Digital Ocean, and adds them to your papyrusfile
-        example: cleopatra digital-ocean-v2 box-add
+        example: ptconfigure digital-ocean-v2 box-add
                     --yes
                     --server-prefix=dbomb # common prefix to use for these instances
                     --environment-name=demodave # papyrusfile environment to add instances to - must already exist
@@ -49,24 +49,24 @@ class DigitalOceanV2Info extends CleopatraBase {
 
         - box-destroy
         Will destroy box/es in an environment for you, and remove them from the papyrus file
-        example: cleopatra digital-ocean-v2 box-destroy --yes --guess --digital-ocean-v2-ssh-key-path="/home/dave/.ssh/bastion.pub" --digital-ocean-v2-ssh-key-name="bastion"
+        example: ptconfigure digital-ocean-v2 box-destroy --yes --guess --digital-ocean-v2-ssh-key-path="/home/dave/.ssh/bastion.pub" --digital-ocean-v2-ssh-key-name="bastion"
 
         - box-destroy-all
         Will destroy all boxes in your digital ocean account - Careful - its irreversible
-        example: cleopatra digital-ocean-v2 box-destroy-all --yes --guess
+        example: ptconfigure digital-ocean-v2 box-destroy-all --yes --guess
 
         - save-ssh-key
         Will let you save a local ssh key to your Digital Ocean account, so you can ssh in to your nodes
         securely and without a password
-        example: cleopatra digital-ocean-v2 save-ssh-key
+        example: ptconfigure digital-ocean-v2 save-ssh-key
                     --yes
                     --path="/home/dave/.ssh/bastion.pub"
                     --name="bastion"
 
         - list
         Will display data about your digital ocean account
-        example: cleopatra digital-ocean-v2 list
-        example: cleopatra digital-ocean-v2 list --yes
+        example: ptconfigure digital-ocean-v2 list
+        example: ptconfigure digital-ocean-v2 list --yes
                     --guess # use project saved connection details if possible
                     --type=sizes # droplets, sizes, images, domains, regions, ssh_keys
 

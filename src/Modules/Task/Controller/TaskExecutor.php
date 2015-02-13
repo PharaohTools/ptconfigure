@@ -21,12 +21,12 @@ class TaskExecutor extends Base {
             $taskRunner = $taskRunner[0];
             //var_dump($taskRunner) ;
             switch ($taskRunner) {
-                case "cleopatra" :
+                case "ptconfigure" :
                     if (is_string($params[$taskRunner])) { $af = $params[$taskRunner] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["af"])) { $af = $params[$taskRunner]["af"] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
                     else { $af = $params[$taskRunner][0] ; }
-                    $logging->log("Cleopatra Task Runner", "Task") ;
+                    $logging->log("PTConfigure Task Runner", "Task") ;
                     $this->params["autopilot-file"] = $af ;
                     $auto = new \Controller\Autopilot();
 
@@ -41,12 +41,12 @@ class TaskExecutor extends Base {
                     else if (isset($ax["pageVars"]["autoExec"])) { $this->content["result"][] = $ax["pageVars"]["autoExec"] ; }
                     else { $this->content["result"][] = "Unreadable Output" ;}
                     break ;
-                case "dapperstrano" :
+                case "ptdeploy" :
                     if (is_string($params[$taskRunner])) { $af = $params[$taskRunner] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner]["af"])) { $af = $params[$taskRunner]["af"] ; }
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
                     else { $af = $params[$taskRunner]["af"] ; }
-                    $logging->log("Dapperstrano Task Runner","Task") ;
+                    $logging->log("PTDeploy Task Runner","Task") ;
                     exec(DAPPCOMM.'autopilot execute --af="'.$af.'" '.$sourceParams, $this->content["result"]) ;
                     break ;
                 case "log" :

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class IntelliJInfo extends CleopatraBase {
+class IntelliJInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class IntelliJInfo extends CleopatraBase {
 
         - install
         Installs the latest version of Developer Tools
-        example: cleopatra gittools install
+        example: ptconfigure gittools install
 
 HELPDATA;
       return $help ;

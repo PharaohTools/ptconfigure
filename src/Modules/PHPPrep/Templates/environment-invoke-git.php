@@ -22,7 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                 "log-message" => "First lets SFTP over our Git SCM Server CM Autopilot",
             ), ), ),
             array ( "SFTP" => array( "put" =>  array(
-                "source" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-git.php",
+                "source" => "build/config/ptconfigure/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-git.php",
                 "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-git.php",
                 "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
             ), ), ),
@@ -43,7 +43,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-git.php
+sudo ptconfigure autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-git.php
 SSHDATA;
         return $sshData ;
     }

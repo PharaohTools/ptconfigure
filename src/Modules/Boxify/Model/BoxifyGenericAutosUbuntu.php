@@ -72,7 +72,7 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["destination-dir"])) {
             $this->destination = $this->params["destination-dir"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd()."/build/config/cleopatra/boxify/autopilots/generic/" ;
+            $defaultdir = getcwd()."/build/config/ptconfigure/boxify/autopilots/generic/" ;
             if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
             $this->destination = $defaultdir ; }
         else {

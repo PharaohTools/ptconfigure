@@ -115,7 +115,7 @@
 
             <div class="innerPage">
 
-                <h1> GC Cleopatra </h1>
+                <h1> GC PTConfigure </h1>
                 <?php echo $this->renderMessages($pageVars); ?>
                 <?php echo $templateData; ?>
 

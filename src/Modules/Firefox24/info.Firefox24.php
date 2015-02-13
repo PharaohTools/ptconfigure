@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class Firefox24Info extends CleopatraBase {
+class Firefox24Info extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class Firefox24Info extends CleopatraBase {
 
         - install
         Installs the latest version of Firefox 24
-        example: cleopatra firefox24 install
+        example: ptconfigure firefox24 install
 
 HELPDATA;
       return $help ;

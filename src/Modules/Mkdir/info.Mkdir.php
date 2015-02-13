@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class MkdirInfo extends CleopatraBase {
+class MkdirInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,8 +28,8 @@ class MkdirInfo extends CleopatraBase {
 
         - path
         Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra mkdir path
-        example: cleopatra mkdir path --yes --path="/path/to/new/directory"
+        example: ptconfigure mkdir path
+        example: ptconfigure mkdir path --yes --path="/path/to/new/directory"
 
 HELPDATA;
       return $help ;

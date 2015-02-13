@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPAPCInfo extends CleopatraBase {
+class PHPAPCInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,7 +28,7 @@ class PHPAPCInfo extends CleopatraBase {
 
         - install
         Install PHP APC.
-        example: cleopatra phpapc install
+        example: ptconfigure phpapc install
 
 HELPDATA;
     return $help ;

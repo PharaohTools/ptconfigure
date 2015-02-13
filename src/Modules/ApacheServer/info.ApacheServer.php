@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ApacheServerInfo extends CleopatraBase {
+class ApacheServerInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class ApacheServerInfo extends CleopatraBase {
 
         - install
         Installs Apache HTTP Server
-        example: cleopatra apacheserver install
+        example: ptconfigure apacheserver install
 
 HELPDATA;
       return $help ;

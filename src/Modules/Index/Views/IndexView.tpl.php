@@ -1,4 +1,4 @@
-Cleopatra - Pharaoh Tools
+PTConfigure - Pharaoh Tools
 -------------------
 
 Configuration, Infrastructure and Systems Automation Management in PHP.

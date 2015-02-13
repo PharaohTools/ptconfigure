@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SFTPInfo extends CleopatraBase {
+class SFTPInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,15 +28,15 @@ class SFTPInfo extends CleopatraBase {
 
         - put
         Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra sftp put
-        example: cleopatra sftp put --yes --environment-name=staging --source="/tmp/file" --target="/home/user/file"
-        example: cleopatra sftp put --yes --source="/tmp/file" --target="/home/user/file" # will ask for server details
+        example: ptconfigure sftp put
+        example: ptconfigure sftp put --yes --environment-name=staging --source="/tmp/file" --target="/home/user/file"
+        example: ptconfigure sftp put --yes --source="/tmp/file" --target="/home/user/file" # will ask for server details
 
         - get
         Will ask you for details for servers, then copy a file or directory from remote to local
-        example: cleopatra sftp get
-        example: cleopatra sftp get --yes --environment-name=staging --source="/tmp/file" --target="/home/user/file"
-        example: cleopatra sftp get --yes --source="/tmp/file" --target="/home/user/file" # will ask for server details
+        example: ptconfigure sftp get
+        example: ptconfigure sftp get --yes --environment-name=staging --source="/tmp/file" --target="/home/user/file"
+        example: ptconfigure sftp get --yes --source="/tmp/file" --target="/home/user/file" # will ask for server details
 
 HELPDATA;
       return $help ;

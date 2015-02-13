@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class BoxifyInfo extends CleopatraBase {
+class BoxifyInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -29,16 +29,16 @@ class BoxifyInfo extends CleopatraBase {
 
         - install-generic-autopilots
         Install the generic Boxify autopilot templates for a Tiny or Medium (Current Default) set of Environments
-        example: cleopatra boxify install-generic-autopilots
-        example: cleopatra boxify install-generic-autopilots
+        example: ptconfigure boxify install-generic-autopilots
+        example: ptconfigure boxify install-generic-autopilots
                     --yes
-                    --guess # will set --destination-dir=*this dir +*build/config/cleopatra/boxify/autopilots/
+                    --guess # will set --destination-dir=*this dir +*build/config/ptconfigure/boxify/autopilots/
                     --template-group=tiny
                     --destination-dir=*path-to-destination*
 
         - box-add
         Installs a Box through a cloud provider
-        example: cleopatra boxify box-add --environment-name="*environment*"
+        example: ptconfigure boxify box-add --environment-name="*environment*"
             --server-prefix="my-app"
             --provider="DigitalOcean" // DigitalOcean, Rackspace, VSphere
             --image-id="3101045" // DO=3101045 , RAX=ffd597d6-2cc4-4b43-b8f4-b1006715b84e
@@ -50,18 +50,18 @@ class BoxifyInfo extends CleopatraBase {
 
         - box-remove
         Removes a Box from the papyrus
-        example: cleopatra boxify box-remove --environment-name="staging" --environment-version="5.0" --provider="apt-get"
+        example: ptconfigure boxify box-remove --environment-name="staging" --environment-version="5.0" --provider="apt-get"
 
         - box-destroy
         Removes a Box from both papyrus and the cloud provider
-        example: cleopatra boxify box-destroy --environment-name="staging"
+        example: ptconfigure boxify box-destroy --environment-name="staging"
             --destroy-all-boxes
             --destroy
 
         - list-papyrus
         List all servers in papyrus, or those of a particular environment
-        example: cleopatra boxify list-papyrus --yes
-        example: cleopatra boxify list-papyrus --yes --environment-name="staging"
+        example: ptconfigure boxify list-papyrus --yes
+        example: ptconfigure boxify list-papyrus --yes --environment-name="staging"
 
 
 HELPDATA;

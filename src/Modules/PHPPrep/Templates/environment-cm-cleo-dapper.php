@@ -30,12 +30,12 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "PHPModules" => array( "ensure" => array(),),),
 
                 // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
-                array ( "Testingkamen" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTConfigure" ),),),
+                array ( "PTConfigure" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTDeploy" ),),),
+                array ( "PTDeploy" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTTest" ),),),
+                array ( "PTTest" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
                 array ( "Parallax" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jrush for Joomla" ),),),

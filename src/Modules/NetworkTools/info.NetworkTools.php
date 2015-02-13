@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class NetworkToolsInfo extends CleopatraBase {
+class NetworkToolsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class NetworkToolsInfo extends CleopatraBase {
 
         - install
         Installs the latest version of Network Tools
-        example: cleopatra networktools install
+        example: ptconfigure networktools install
 
 HELPDATA;
       return $help ;

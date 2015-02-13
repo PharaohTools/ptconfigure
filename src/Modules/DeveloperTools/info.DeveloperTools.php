@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class DeveloperToolsInfo extends CleopatraBase {
+class DeveloperToolsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -30,7 +30,7 @@ class DeveloperToolsInfo extends CleopatraBase {
 
         - install
         Installs the latest version of Developer Tools
-        example: cleopatra devtools install
+        example: ptconfigure devtools install
 
 HELPDATA;
       return $help ;

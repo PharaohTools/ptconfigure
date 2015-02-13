@@ -51,13 +51,13 @@ class EnvironmentConfigGenericAutosUbuntu extends BaseLinuxApp {
             "any-app" => array("gen_env_name" => "default-local-8080", "gen_env_tmp_dir" => "/tmp/"),
             "servers" => array(array("target" => "127.0.0.1:8080", "user" => "any", "password" => "any") ),
         ) ;
-        $this->defaultEnvironments["phlagrant-host"] = array(
-            "any-app" => array("gen_env_name" => "phlagrant-host", "gen_env_tmp_dir" => "/tmp/"),
-            "servers" => array(array("target" => "127.0.0.1", "user" => "phlagrant", "password" => "phlagrant") ),
+        $this->defaultEnvironments["ptvirtualize-host"] = array(
+            "any-app" => array("gen_env_name" => "ptvirtualize-host", "gen_env_tmp_dir" => "/tmp/"),
+            "servers" => array(array("target" => "127.0.0.1", "user" => "ptvirtualize", "password" => "ptvirtualize") ),
         ) ;
-        $this->defaultEnvironments["phlagrant-box"] = array(
-            "any-app" => array("gen_env_name" => "phlagrant-box", "gen_env_tmp_dir" => "/tmp/"),
-            "servers" => array(array("target" => "127.0.0.1", "user" => "phlagrant", "password" => "phlagrant") ),
+        $this->defaultEnvironments["ptvirtualize-box"] = array(
+            "any-app" => array("gen_env_name" => "ptvirtualize-box", "gen_env_tmp_dir" => "/tmp/"),
+            "servers" => array(array("target" => "127.0.0.1", "user" => "ptvirtualize", "password" => "ptvirtualize") ),
         ) ;
     }
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class TaskInfo extends CleopatraBase {
+class TaskInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -33,8 +33,8 @@ class TaskInfo extends CleopatraBase {
 
         - list
         List available tasks
-        example: cleopatra task list --yes
-        example: cleopatra task list --yes --guess
+        example: ptconfigure task list --yes
+        example: ptconfigure task list --yes --guess
 
 
 HELPDATA;

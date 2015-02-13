@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ApacheModulesInfo extends CleopatraBase {
+class ApacheModulesInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class ApacheModulesInfo extends CleopatraBase {
 
         - install
         Installs common apache Modules
-        example: cleopatra apache-modules install
+        example: ptconfigure apache-modules install
 
 HELPDATA;
       return $help ;

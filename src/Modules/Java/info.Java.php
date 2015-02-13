@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JavaInfo extends CleopatraBase {
+class JavaInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class JavaInfo extends CleopatraBase {
         - install
         Installs a version of Oracle Java JDK 1.7. It will also configure java,
         javac and javaws to be provided by the new Oracle version.
-        example: cleopatra java17 install
+        example: ptconfigure java17 install
 
 HELPDATA;
       return $help ;

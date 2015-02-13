@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class YumInfo extends CleopatraBase {
+class YumInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -32,31 +32,31 @@ class YumInfo extends CleopatraBase {
 
         - create
         Create a new system yum, overwriting if it exists
-        example: cleopatra yum create --yumname="somename"
+        example: ptconfigure yum create --yumname="somename"
 
         - remove
         Remove a system yum
-        example: cleopatra yum remove --yumname="somename"
+        example: ptconfigure yum remove --yumname="somename"
 
         - set-password
         Set the password of a system yum
-        example: cleopatra yum set-password --yumname="somename" --new-password="somepassword"
+        example: ptconfigure yum set-password --yumname="somename" --new-password="somepassword"
 
         - exists
         Check the existence of a yum
-        example: cleopatra yum exists --yumname="somename"
+        example: ptconfigure yum exists --yumname="somename"
 
         - show-groups
         Show groups to which a yum belongs
-        example: cleopatra yum show-groups --yumname="somename"
+        example: ptconfigure yum show-groups --yumname="somename"
 
         - add-to-group
         Add yum to a group
-        example: cleopatra yum add-to-group --yumname="somename" --groupname="somegroupname"
+        example: ptconfigure yum add-to-group --yumname="somename" --groupname="somegroupname"
 
         - remove-from-group
         Remove yum from a group
-        example: cleopatra yum remove-from-group --yumname="somename" --groupname="somegroupname"
+        example: ptconfigure yum remove-from-group --yumname="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;

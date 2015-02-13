@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SshHardenInfo extends CleopatraBase {
+class SshHardenInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -35,7 +35,7 @@ class SshHardenInfo extends CleopatraBase {
 
         - securify
         Add some security to your SSH accounts
-        example: cleopatra ssh-harden securify
+        example: ptconfigure ssh-harden securify
 
 HELPDATA;
       return $help ;

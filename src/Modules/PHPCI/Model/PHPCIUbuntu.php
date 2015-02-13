@@ -78,7 +78,7 @@ class PHPCIUbuntu extends BaseLinuxApp {
             $dapperAuto = $this->getDapperAutoPath("apache") ; }
 
         // add the dapper step
-        $dpc = array("command" => array( "sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto" ) ) ;
+        $dpc = array("command" => array( "sudo ptdeploy autopilot execute --autopilot-file=$dapperAuto" ) ) ;
         array_push($ray, $dpc) ;
 
         return $ray ;
@@ -101,11 +101,11 @@ class PHPCIUbuntu extends BaseLinuxApp {
     private function getDapperAutoPath($webServer) {
         if ($webServer == "apache") {
             // @todo  use system detection factory to check if we're on +=14.04 and load a different vhost if so
-            $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/Apache/listen-all-ports.php'; }
+            $path = dirname(dirname(__FILE__)).'/Autopilots/PTDeploy/Apache/listen-all-ports.php'; }
         else if ($webServer == "nginx") {
-            $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/NGinx/listen-all-ports.php' ; }
+            $path = dirname(dirname(__FILE__)).'/Autopilots/PTDeploy/NGinx/listen-all-ports.php' ; }
         else if ($webServer == "lighttpd") {
-            $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/Lighttpd/listen-all-ports.php' ; }
+            $path = dirname(dirname(__FILE__)).'/Autopilots/PTDeploy/Lighttpd/listen-all-ports.php' ; }
         return $path ;
     }
 

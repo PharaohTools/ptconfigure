@@ -19,7 +19,7 @@ class PHPMDAllLinux extends BasePHPApp {
         $this->autopilotDefiner = "PHPMD";
         $this->fileSources = array(
           array(
-            "https://github.com/phpengine/cleopatra-phpmd.git",
+            "https://github.com/phpengine/ptconfigure-phpmd.git",
             "phpmd",
             null, // custom branch
           ),

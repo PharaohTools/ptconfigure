@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class DNSifyInfo extends CleopatraBase {
+class DNSifyInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -30,16 +30,16 @@ class DNSifyInfo extends CleopatraBase {
 
         - install-generic-autopilots
         Install the generic DNSify autopilot templates for a Tiny or Medium (Current Default) set of Environments
-        example: cleopatra dnsify install-generic-autopilots
-        example: cleopatra dnsify install-generic-autopilots
+        example: ptconfigure dnsify install-generic-autopilots
+        example: ptconfigure dnsify install-generic-autopilots
                     --yes
-                    --guess # will set --destination-dir=*this dir +*build/config/cleopatra/dnsify/autopilots/
+                    --guess # will set --destination-dir=*this dir +*build/config/ptconfigure/dnsify/autopilots/
                     --template-group=tiny
                     --destination-dir=*path-to-destination*
 
         - box-add
         Installs a DNS through a cloud provider
-        example: cleopatra dnsify box-add --environment-name="*environment*"
+        example: ptconfigure dnsify box-add --environment-name="*environment*"
             --server-prefix="my-app"
             --provider="DigitalOcean" // DigitalOcean, Rackspace, VSphere
             --image-id="3101045" // DO=3101045 , RAX=ffd597d6-2cc4-4b43-b8f4-b1006715b84e
@@ -51,18 +51,18 @@ class DNSifyInfo extends CleopatraBase {
 
         - box-remove
         Removes a DNS from the papyrus
-        example: cleopatra dnsify box-remove --environment-name="staging" --environment-version="5.0" --provider="apt-get"
+        example: ptconfigure dnsify box-remove --environment-name="staging" --environment-version="5.0" --provider="apt-get"
 
         - box-destroy
         Removes a DNS from both papyrus and the cloud provider
-        example: cleopatra dnsify box-destroy --environment-name="staging"
+        example: ptconfigure dnsify box-destroy --environment-name="staging"
             --destroy-all-boxes
             --destroy
 
         - list-papyrus
         List all servers in papyrus, or those of a particular environment
-        example: cleopatra dnsify list-papyrus --yes
-        example: cleopatra dnsify list-papyrus --yes --environment-name="staging"
+        example: ptconfigure dnsify list-papyrus --yes
+        example: ptconfigure dnsify list-papyrus --yes --environment-name="staging"
 
 
 HELPDATA;

@@ -2,11 +2,11 @@
 
 Namespace Info;
 
-class CleofyInfo extends CleopatraBase {
+class CleofyInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Cleopatra Cleofyer - Creates default autopilots for your project";
+    public $name = "PTConfigure Cleofyer - Creates default autopilots for your project";
 
     public function __construct() {
         parent::__construct();
@@ -30,44 +30,44 @@ class CleofyInfo extends CleopatraBase {
   Cleofy, cleofy
 
         - list
-        List all of the autopilot files in your build/config/cleopatra/autopilots
-        example: cleopatra cleofy list
+        List all of the autopilot files in your build/config/ptconfigure/autopilots
+        example: ptconfigure cleofy list
 
         - standard
-        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        Create a default set of ptconfigure autopilots in build/config/ptconfigure/autopilots for
         your project.
-        example: cleopatra cleofy standard
+        example: ptconfigure cleofy standard
 
         - tiny
-        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        Create a default set of ptconfigure autopilots in build/config/ptconfigure/autopilots for
         a project with a "tiny" style infrastructure.
-        example: cleopatra cleofy tiny
+        example: ptconfigure cleofy tiny
 
         - medium
-        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        Create a default set of ptconfigure autopilots in build/config/ptconfigure/autopilots for
         a project with a "medium" style infrastructure.
-        example: cleopatra cleofy medium
+        example: ptconfigure cleofy medium
 
         - medium-web
-        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        Create a default set of ptconfigure autopilots in build/config/ptconfigure/autopilots for
         a project with a "medium" style infrastructure, with web but not database.
-        example: cleopatra cleofy medium-web
+        example: ptconfigure cleofy medium-web
 
         - db-cluster
-        Create a default set of cleopatra autopilots in build/config/cleopatra/autopilots for
+        Create a default set of ptconfigure autopilots in build/config/ptconfigure/autopilots for
         your project.
-        example: cleopatra cleofy db-cluster
+        example: ptconfigure cleofy db-cluster
                     --yes
                     --guess
                     --database-nodes-env=*db-nodes-environment-name*
 
         - install-generic-autopilots
         Install the generic Cleofy autopilot templates for a Tiny or Medium (Current Default) set of Environments
-        example: cleopatra cleofy install-generic-autopilots
-        example: cleopatra cleofy install-generic-autopilots
+        example: ptconfigure cleofy install-generic-autopilots
+        example: ptconfigure cleofy install-generic-autopilots
                     --yes
-                    --guess # will set --destination-dir=*this dir +*build/config/cleopatra/cleofy/autopilots/
-                    --template-group=tiny # tiny, medium, dbcluster, phlagrant || db-cluster, workstation
+                    --guess # will set --destination-dir=*this dir +*build/config/ptconfigure/cleofy/autopilots/
+                    --template-group=tiny # tiny, medium, dbcluster, ptvirtualize || db-cluster, workstation
                     --destination-dir=*path-to-destination*
 
 HELPDATA;

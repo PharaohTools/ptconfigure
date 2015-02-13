@@ -21,7 +21,7 @@ class WireframeSketcherUbuntu32 extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
                 "cd /tmp" ,
-                "git clone https://github.com/phpengine/cleopatra-wireframe-sketcher-32.git wireframe-sketcher",
+                "git clone https://github.com/phpengine/ptconfigure-wireframe-sketcher-32.git wireframe-sketcher",
                 "sudo dpkg -i wireframe-sketcher/WireframeSketcher-4.3.1_i386.deb",
                 "sudo apt-get install -f -y",
                 "sudo rm -rf wireframe-sketcher" ) ),

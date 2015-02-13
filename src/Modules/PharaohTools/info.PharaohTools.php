@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PharaohToolsInfo extends CleopatraBase {
+class PharaohToolsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -23,14 +23,14 @@ class PharaohToolsInfo extends CleopatraBase {
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to install the Pharaoh Tools which are ready. These include
-  Cleopatra - this Configuration Management tool, Dapperstrano - the Automated Deployment tool,
-  and Testingkamen, the test configuration and automation tool.
+  PTConfigure - this Configuration Management tool, PTDeploy - the Automated Deployment tool,
+  and PTTest, the test configuration and automation tool.
 
   PharaohTools, pharaohtools, pharaoh-tools
 
         - install
         Installs the latest version of all of the Pharaoh Tools
-        example: cleopatra pharaoh-tools install
+        example: ptconfigure pharaoh-tools install
 
 HELPDATA;
       return $help ;

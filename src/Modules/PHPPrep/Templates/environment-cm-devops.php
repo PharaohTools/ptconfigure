@@ -21,7 +21,7 @@ class AutoPilotConfigured extends AutoPilot {
                 // Install Keys - Bastion Public Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
                 array ( "SshKeyInstall" => array( "file" =>
-                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+                    array("public-key-file" => "build/config/ptconfigure/SSH/keys/public/raw/bastion"),
                     array("user-name" => "{$this->myUser}"),),),
 
                 // SSH Hardening
@@ -53,7 +53,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RunCommand" => array( "restart" =>
                     array("guess" => true),
                     array("username" => "root"),
-                    array("command" => "dapperstrano ApacheCtl restart --yes"),
+                    array("command" => "ptdeploy ApacheCtl restart --yes"),
                     array("background" => "") ) ),
 
                 //Mysql
@@ -62,7 +62,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
                 array ( "MysqlAdmins" => array( "install" =>
                     array("root-user" => "root"),
-                    array("root-pass" => "cleopatra"),
+                    array("root-pass" => "ptconfigure"),
                     array("new-user" => "root"),
                     array("new-pass" => "root"),
                     array("mysql-host" => "127.0.0.1") ) ),

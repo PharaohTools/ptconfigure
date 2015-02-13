@@ -43,12 +43,12 @@ class JenkinsUbuntu extends BaseLinuxApp {
         ) ;
         if (isset($this->params["with-http-port-proxy"]) && $this->params["with-http-port-proxy"]==true) {
             $dapperAuto = $this->getDapperAutoPath() ;
-            $ray[0]["command"][5] = "sudo dapperstrano autopilot execute --autopilot-file=$dapperAuto" ; }
+            $ray[0]["command"][5] = "sudo ptdeploy autopilot execute --autopilot-file=$dapperAuto" ; }
         return $ray ;
     }
 
     private function getDapperAutoPath() {
-        $path = dirname(dirname(__FILE__)).'/Autopilots/Dapperstrano/proxy-8080-to-80.php' ;
+        $path = dirname(dirname(__FILE__)).'/Autopilots/PTDeploy/proxy-8080-to-80.php' ;
         return $path ;
     }
 

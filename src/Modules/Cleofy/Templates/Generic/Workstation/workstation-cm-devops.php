@@ -131,7 +131,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "restart" => array(
                     "guess" => true,
-                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "command" => "ptdeploy ApacheCtl restart --yes",
                     "background" => ""
                 ) ) ),
 
@@ -141,7 +141,7 @@ class AutoPilotConfigured extends AutoPilot {
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
 //                array ( "MysqlAdmins" => array( "install" => array (
 //                    "root-user" => "root",
-//                    "root-pass" => "cleopatra",
+//                    "root-pass" => "ptconfigure",
 //                    "new-user" => "dave",
 //                    "new-pass" => "golden",
 //                    "mysql-host" => "127.0.0.1"

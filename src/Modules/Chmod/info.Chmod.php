@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ChmodInfo extends CleopatraBase {
+class ChmodInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class ChmodInfo extends CleopatraBase {
 
         - path
         Will change the file permission mode of a path
-        example: cleopatra chmod path --yes --guess --recursive --path=/a/file/path --mode=0777
+        example: ptconfigure chmod path --yes --guess --recursive --path=/a/file/path --mode=0777
 
 
 HELPDATA;

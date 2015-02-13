@@ -20,7 +20,7 @@ class JavaUbuntu32 extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),
             array("command" => array(
-                "git clone https://bitbucket.org/phpengine/cleopatra-oraclejava7jdk32 /tmp/oraclejdk" ,
+                "git clone https://bitbucket.org/phpengine/ptconfigure-oraclejava7jdk32 /tmp/oraclejdk" ,
                 "cd /tmp/oraclejdk", 
                 "tar -xvf jdk-1_7-32bit.tar.gz" ,
                 "mkdir -p ****PROGDIR****" ,

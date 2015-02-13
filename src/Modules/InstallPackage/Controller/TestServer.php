@@ -9,12 +9,12 @@ class TestServer extends Base {
       $this->content["package-friendly"] = "Testing Server";
 
       $this->registeredModels = array (
-        "Cleopatra" ,
+        "PTConfigure" ,
         "StandardTools" ,
         "GitTools" ,
         "PHPModules" ,
         "ApacheModules" ,
-        "Dapperstrano" ,
+        "PTDeploy" ,
         "JRush" ,
         "PHPUnit" ,
         "PHPCS" ,

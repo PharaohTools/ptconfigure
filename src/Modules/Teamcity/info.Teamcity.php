@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class TeamcityInfo extends CleopatraBase {
+class TeamcityInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class TeamcityInfo extends CleopatraBase {
 
         - install
         Installs Teamcity from the Jetbrains distributed native package
-        example: cleopatra teamcity install
+        example: ptconfigure teamcity install
 
 HELPDATA;
       return $help ;

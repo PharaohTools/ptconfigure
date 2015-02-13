@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class GemInfo extends CleopatraBase {
+class GemInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -35,31 +35,31 @@ class GemInfo extends CleopatraBase {
 
         - create
         Create a new system gem, overwriting if it exists
-        example: cleopatra gem create --gemname="somename"
+        example: ptconfigure gem create --gemname="somename"
 
         - remove
         Remove a system gem
-        example: cleopatra gem remove --gemname="somename"
+        example: ptconfigure gem remove --gemname="somename"
 
         - set-password
         Set the password of a system gem
-        example: cleopatra gem set-password --gemname="somename" --new-password="somepassword"
+        example: ptconfigure gem set-password --gemname="somename" --new-password="somepassword"
 
         - exists
         Check the existence of a gem
-        example: cleopatra gem exists --gemname="somename"
+        example: ptconfigure gem exists --gemname="somename"
 
         - show-groups
         Show groups to which a gem belongs
-        example: cleopatra gem show-groups --gemname="somename"
+        example: ptconfigure gem show-groups --gemname="somename"
 
         - add-to-group
         Add gem to a group
-        example: cleopatra gem add-to-group --gemname="somename" --groupname="somegroupname"
+        example: ptconfigure gem add-to-group --gemname="somename" --groupname="somegroupname"
 
         - remove-from-group
         Remove gem from a group
-        example: cleopatra gem remove-from-group --gemname="somename" --groupname="somegroupname"
+        example: ptconfigure gem remove-from-group --gemname="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;

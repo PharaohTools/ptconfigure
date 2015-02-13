@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SshKeyInstallInfo extends CleopatraBase {
+class SshKeyInstallInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -34,9 +34,9 @@ class SshKeyInstallInfo extends CleopatraBase {
 
         - public-key
         Add an SSH Public Key to an account
-        example: cleopatra ssh-key-install public-key
-        example: cleopatra ssh-key-install public-key --yes --public-key-data="zzzzz"
-        example: cleopatra ssh-key-install public-key --yes --public-key-file="id_rsa.pub" --user-name=dave
+        example: ptconfigure ssh-key-install public-key
+        example: ptconfigure ssh-key-install public-key --yes --public-key-data="zzzzz"
+        example: ptconfigure ssh-key-install public-key --yes --public-key-file="id_rsa.pub" --user-name=dave
 
 HELPDATA;
       return $help ;

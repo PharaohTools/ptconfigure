@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JenkinsSudoNoPassInfo extends CleopatraBase {
+class JenkinsSudoNoPassInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -32,7 +32,7 @@ class JenkinsSudoNoPassInfo extends CleopatraBase {
 
         - install
         Installs the Jenkins sudo without password entry
-        example: cleopatra jenkins-sudo-nopass install
+        example: ptconfigure jenkins-sudo-nopass install
 
 HELPDATA;
       return $help ;

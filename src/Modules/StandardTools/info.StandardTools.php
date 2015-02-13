@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class StandardToolsInfo extends CleopatraBase {
+class StandardToolsInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -32,7 +32,7 @@ class StandardToolsInfo extends CleopatraBase {
 
         - install
         Installs some standard tools
-        example: cleopatra stdtools install
+        example: ptconfigure stdtools install
 
 HELPDATA;
     return $help ;

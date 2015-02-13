@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ComposerInfo extends CleopatraBase {
+class ComposerInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class ComposerInfo extends CleopatraBase {
 
         - install
         Installs the latest version of composer
-        example: cleopatra composer install
+        example: ptconfigure composer install
 
 HELPDATA;
       return $help ;

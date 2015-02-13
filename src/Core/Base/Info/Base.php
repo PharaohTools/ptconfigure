@@ -11,7 +11,7 @@ class Base {
     public function __construct() {
     }
 
-    // CleopatraBase specifies these
+    // PTConfigureBase specifies these
     public function routesAvailable() {
         return array();
     }

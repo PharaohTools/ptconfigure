@@ -59,7 +59,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
             "listen_stats_enable" => "enable",
             "listen_stats_uri_string" => "stats uri /haproxy?stats",
             "listen_stats_realm_string" => 'stats realm Strictly\ Private',
-            "listen_stats_auth_string" => "stats auth cleopatra:cleopatra", # use whole line so we can include multiple
+            "listen_stats_auth_string" => "stats auth ptconfigure:ptconfigure", # use whole line so we can include multiple
             "listen_stats_appname" => "stats",
             "listen_stats_ip_port" => "0.0.0.0:1936"
         );

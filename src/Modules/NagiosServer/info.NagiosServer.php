@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class NagiosServerInfo extends CleopatraBase {
+class NagiosServerInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class NagiosServerInfo extends CleopatraBase {
 
         - install
         Installs Nagios Network Monitoring Server
-        example: cleopatra nagios-server install
+        example: ptconfigure nagios-server install
 
 HELPDATA;
       return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class GitToolsInfo extends CleopatraBase {
+class GitToolsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -30,7 +30,7 @@ class GitToolsInfo extends CleopatraBase {
 
         - install
         Installs the latest version of Git Tools
-        example: cleopatra gittools install
+        example: ptconfigure gittools install
 
 HELPDATA;
       return $help ;

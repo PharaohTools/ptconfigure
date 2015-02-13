@@ -19,7 +19,7 @@ class PHPCSAllLinux extends BasePHPApp {
         $this->autopilotDefiner = "PHPCS";
         $this->fileSources = array(
           array(
-            "https://github.com/phpengine/cleopatra-phpcs.git",
+            "https://github.com/phpengine/ptconfigure-phpcs.git",
             "phpcs",
             null // can be null for none
           )

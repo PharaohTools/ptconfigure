@@ -48,7 +48,7 @@ class MysqlServerUbuntu extends BaseLinuxApp {
         else if (AppConfig::getProjectVariable("mysql-default-root-pass") != "") {
             $newRootPass = AppConfig::getProjectVariable("mysql-default-root-pass") ; }
         else {
-            $newRootPass = "cleopatra" ; }
+            $newRootPass = "ptconfigure" ; }
         return $newRootPass;
     }
 

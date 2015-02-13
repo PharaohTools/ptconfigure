@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class LigHTTPDServerInfo extends CleopatraBase {
+class LigHTTPDServerInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class LigHTTPDServerInfo extends CleopatraBase {
 
         - install
         Installs LigHTTPD HTTP Server
-        example: cleopatra lighttpd-server install
+        example: ptconfigure lighttpd-server install
 
 HELPDATA;
       return $help ;

@@ -9,12 +9,12 @@ class DevServer extends Base {
       $this->content["package-friendly"] = "Development Server";
 
       $this->registeredModels = array (
-        "Cleopatra" ,
+        "PTConfigure" ,
         "StandardTools" ,
         "GitTools" ,
         "PHPModules" ,
         "ApacheModules" ,
-        "Dapperstrano" ,
+        "PTDeploy" ,
         "JRush" ,
         "PHPUnit" ,
         "PHPCS" ,

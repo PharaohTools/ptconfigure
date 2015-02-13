@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class GitBucketInfo extends CleopatraBase {
+class GitBucketInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class GitBucketInfo extends CleopatraBase {
 
         - install
         Installs the latest version of GitBucket on a system
-        example: cleopatra gitbucket install
+        example: ptconfigure gitbucket install
 
 HELPDATA;
       return $help ;

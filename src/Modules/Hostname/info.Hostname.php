@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class HostnameInfo extends CleopatraBase {
+class HostnameInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,11 +29,11 @@ class HostnameInfo extends CleopatraBase {
 
         - change
         Change the system hostname
-        example: cleopatra hostname change --hostname="my-laptop"
+        example: ptconfigure hostname change --hostname="my-laptop"
 
         - show
         Show the system hostname
-        example: cleopatra hostname show
+        example: ptconfigure hostname show
 
 HELPDATA;
       return $help ;

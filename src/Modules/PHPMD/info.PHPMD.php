@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPMDInfo extends CleopatraBase {
+class PHPMDInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class PHPMDInfo extends CleopatraBase {
 
         - install
         Installs the latest GC Repo version of PHPMD
-        example: cleopatra phpmd install
+        example: ptconfigure phpmd install
 
 HELPDATA;
       return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class RunCommandInfo extends CleopatraBase {
+class RunCommandInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class RunCommandInfo extends CleopatraBase {
 
         - execute
         Execute a Command
-        example: cleopatra run-command --yes --command="ls -lah /tmp" --run-as-user="ubuntu" --background
+        example: ptconfigure run-command --yes --command="ls -lah /tmp" --run-as-user="ubuntu" --background
 
 HELPDATA;
       return $help ;

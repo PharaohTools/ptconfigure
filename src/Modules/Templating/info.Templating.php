@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class TemplatingInfo extends CleopatraBase {
+class TemplatingInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class TemplatingInfo extends CleopatraBase {
 
         - install
         Installs a template
-        example: cleopatra template install
+        example: ptconfigure template install
 
 HELPDATA;
       return $help ;

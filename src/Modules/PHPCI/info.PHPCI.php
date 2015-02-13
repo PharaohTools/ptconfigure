@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPCIInfo extends CleopatraBase {
+class PHPCIInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,23 +29,23 @@ class PHPCIInfo extends CleopatraBase {
 
         - install
         Installs PHPCI through git, with its dependencies
-        example: cleopatra phpci install
+        example: ptconfigure phpci install
 
         - config-default, default-config
         Installs a default config.yml file for PHPCI
-        example: cleopatra phpci config-default --yes --guess
+        example: ptconfigure phpci config-default --yes --guess
 
         - install-default-database
         Installs a default database and user for PHPCI
-        example: cleopatra phpci install-default-database --yes --guess
+        example: ptconfigure phpci install-default-database --yes --guess
             --mysql-admin-user="root" # guess will provide root
-            --mysql-admin-pass="some-pass" # guess will provide cleopatra
+            --mysql-admin-pass="some-pass" # guess will provide ptconfigure
 
   You can install a complete local version of PHPCI with the following:
 
-  sudo cleopatra phpci install --yes --guess
-  sudo cleopatra phpci install-default-database --yes --guess
-  sudo cleopatra phpci config-default --yes --guess
+  sudo ptconfigure phpci install --yes --guess
+  sudo ptconfigure phpci install-default-database --yes --guess
+  sudo ptconfigure phpci config-default --yes --guess
 
 HELPDATA;
       return $help ;

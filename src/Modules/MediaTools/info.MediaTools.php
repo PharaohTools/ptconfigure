@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class MediaToolsInfo extends CleopatraBase {
+class MediaToolsInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -30,7 +30,7 @@ class MediaToolsInfo extends CleopatraBase {
 
         - install
         Installs some media tools
-        example: cleopatra mediatools install
+        example: ptconfigure mediatools install
 
 HELPDATA;
     return $help ;

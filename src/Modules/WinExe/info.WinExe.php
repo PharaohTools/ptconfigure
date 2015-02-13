@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class WinExeInfo extends CleopatraBase {
+class WinExeInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -35,31 +35,31 @@ class WinExeInfo extends CleopatraBase {
 
         - create
         Create a new system winexe, overwriting if it exists
-        example: cleopatra winexe create --winexename="somename"
+        example: ptconfigure winexe create --winexename="somename"
 
         - remove
         Remove a system winexe
-        example: cleopatra winexe remove --winexename="somename"
+        example: ptconfigure winexe remove --winexename="somename"
 
         - set-password
         Set the password of a system winexe
-        example: cleopatra winexe set-password --winexename="somename" --new-password="somepassword"
+        example: ptconfigure winexe set-password --winexename="somename" --new-password="somepassword"
 
         - exists
         Check the existence of a winexe
-        example: cleopatra winexe exists --winexename="somename"
+        example: ptconfigure winexe exists --winexename="somename"
 
         - show-groups
         Show groups to which a winexe belongs
-        example: cleopatra winexe show-groups --winexename="somename"
+        example: ptconfigure winexe show-groups --winexename="somename"
 
         - add-to-group
         Add winexe to a group
-        example: cleopatra winexe add-to-group --winexename="somename" --groupname="somegroupname"
+        example: ptconfigure winexe add-to-group --winexename="somename" --groupname="somegroupname"
 
         - remove-from-group
         Remove winexe from a group
-        example: cleopatra winexe remove-from-group --winexename="somename" --groupname="somegroupname"
+        example: ptconfigure winexe remove-from-group --winexename="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;

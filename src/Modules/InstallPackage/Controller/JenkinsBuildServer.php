@@ -9,12 +9,12 @@ class JenkinsBuildServer extends Base {
       $this->content["package-friendly"] = "Jenkins Build Server";
 
       $this->registeredModels = array (
-        "Cleopatra" ,
+        "PTConfigure" ,
         "StandardTools" ,
         "GitTools" ,
         "PHPModules" ,
         "ApacheModules" ,
-        "Dapperstrano" ,
+        "PTDeploy" ,
         "JRush" ,
         "PHPUnit" ,
         "PHPCS" ,

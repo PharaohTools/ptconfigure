@@ -9,12 +9,12 @@ class DevClient extends Base {
       $this->content["package-friendly"] = "Development Client";
 
       $this->registeredModels = array (
-        "Cleopatra" ,
+        "PTConfigure" ,
         "StandardTools" ,
         "GitTools" ,
         "PHPModules" ,
         "ApacheModules" ,
-        "Dapperstrano" ,
+        "PTDeploy" ,
         "JRush" ,
         "PHPUnit" ,
         "PHPCS" ,

@@ -78,7 +78,7 @@ class GitCommandAllLinuxMac extends Base {
         $this->params["branch"] = self::askForInput($question, true);
     }
 
-    // @todo there needs to be a dependency check for git-safe-key module to be installed by cleopatra
+    // @todo there needs to be a dependency check for git-safe-key module to be installed by ptconfigure
     protected function getGitCommand() {
         if (isset($this->params["private-key"]) && strlen($this->params["private-key"])>0) {
             return 'git-key-safe -i '.$this->params["private-key"] ; }

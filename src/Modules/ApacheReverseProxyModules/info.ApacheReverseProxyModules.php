@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ApacheReverseProxyModulesInfo extends CleopatraBase {
+class ApacheReverseProxyModulesInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -31,7 +31,7 @@ class ApacheReverseProxyModulesInfo extends CleopatraBase {
 
         - install
         Installs Load Balancer/Reverse Proxy Apache Modules
-        example: cleopatra apache-lb-mods install
+        example: ptconfigure apache-lb-mods install
 
 HELPDATA;
       return $help ;

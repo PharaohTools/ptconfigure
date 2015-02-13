@@ -9,12 +9,12 @@ class GitServer extends Base {
       $this->content["package-friendly"] = "Git Server";
 
       $this->registeredModels = array (
-        "Cleopatra" ,
+        "PTConfigure" ,
         "StandardTools" ,
         "GitTools" ,
         "PHPModules" ,
         "ApacheModules" ,
-        "Dapperstrano" ,
+        "PTDeploy" ,
         "SudoNoPass" ,
       );
 

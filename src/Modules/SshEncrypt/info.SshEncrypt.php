@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SshEncryptInfo extends CleopatraBase {
+class SshEncryptInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -32,11 +32,11 @@ class SshEncryptInfo extends CleopatraBase {
 
         - encrypt
         Installs an encrypted SSH Key.
-        example: cleopatra ssh-encrypt install
+        example: ptconfigure ssh-encrypt install
 
         - unencrypt
         Installs an encrypted SSH Key.
-        example: cleopatra ssh-encrypt install
+        example: ptconfigure ssh-encrypt install
 
 HELPDATA;
         return $help ;

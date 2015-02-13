@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SystemDetectionInfo extends CleopatraBase {
+class SystemDetectionInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class SystemDetectionInfo extends CleopatraBase {
 
         - detect
         Detects the Operating System
-        example: cleopatra system-detection detect
+        example: ptconfigure system-detection detect
 
 HELPDATA;
       return $help ;

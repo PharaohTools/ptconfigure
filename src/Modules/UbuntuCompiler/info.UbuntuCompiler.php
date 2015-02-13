@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class UbuntuCompilerInfo extends CleopatraBase {
+class UbuntuCompilerInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,7 +28,7 @@ class UbuntuCompilerInfo extends CleopatraBase {
 
         - install
         Installs Ubuntu Compiling tools through apt-get.
-        example: cleopatra ubuntu-compiler install
+        example: ptconfigure ubuntu-compiler install
 
 HELPDATA;
     return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PhakeInfo extends CleopatraBase {
+class PhakeInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,11 +28,11 @@ class PhakeInfo extends CleopatraBase {
 
         - install
         Installs the latest version of phake
-        example: cleopatra phake install
+        example: ptconfigure phake install
 
         - ensure
         Installs the latest version of phake, only if a version is not installed
-        example: cleopatra phake ensure
+        example: ptconfigure phake ensure
 
 HELPDATA;
       return $help ;

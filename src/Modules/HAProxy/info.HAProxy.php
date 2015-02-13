@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class HAProxyInfo extends CleopatraBase {
+class HAProxyInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,11 +28,11 @@ class HAProxyInfo extends CleopatraBase {
 
         - install
         Installs HA Proxy Server
-        example: cleopatra haproxy install
+        example: ptconfigure haproxy install
 
         - configure
         Configure Load Balancing with HA Proxy Server
-        example: cleopatra haproxy configure
+        example: ptconfigure haproxy configure
 
 HELPDATA;
       return $help ;

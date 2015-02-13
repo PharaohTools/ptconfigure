@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JenkinsPluginsInfo extends CleopatraBase {
+class JenkinsPluginsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -30,7 +30,7 @@ class JenkinsPluginsInfo extends CleopatraBase {
 
         - install
         Installs the latest version of Jenkins Plugins for PHP recommended by Golden Contact
-        example: cleopatra jenkins-plugins install
+        example: ptconfigure jenkins-plugins install
 
 HELPDATA;
       return $help ;

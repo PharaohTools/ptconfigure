@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SudoNoPassInfo extends CleopatraBase {
+class SudoNoPassInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -32,7 +32,7 @@ class SudoNoPassInfo extends CleopatraBase {
 
         - install
         Installs the sudo without password entry
-        example: cleopatra sudo-nopass install
+        example: ptconfigure sudo-nopass install
 
 HELPDATA;
       return $help ;

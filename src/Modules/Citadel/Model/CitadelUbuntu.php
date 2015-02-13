@@ -69,7 +69,7 @@ class CitadelUbuntu extends BaseLinuxApp {
         else if (AppConfig::getProjectVariable("citadel-default-root-user") != "") {
             $newRootPass = AppConfig::getProjectVariable("citadel-default-root-user") ; }
         else {
-            $newRootPass = "cleopatra" ; }
+            $newRootPass = "ptconfigure" ; }
         return $newRootPass;
     }
 
@@ -79,7 +79,7 @@ class CitadelUbuntu extends BaseLinuxApp {
         else if (AppConfig::getProjectVariable("citadel-default-root-pass") != "") {
             $newRootPass = AppConfig::getProjectVariable("citadel-default-root-pass") ; }
         else {
-            $newRootPass = "cleopatra" ; }
+            $newRootPass = "ptconfigure" ; }
         return $newRootPass;
     }
 

@@ -2,11 +2,11 @@
 
 Namespace Info;
 
-class InstallPackageInfo extends CleopatraBase {
+class InstallPackageInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Cleopatra Predefined Installers";
+    public $name = "PTConfigure Predefined Installers";
 
     public function __construct() {
       parent::__construct();
@@ -35,23 +35,23 @@ class InstallPackageInfo extends CleopatraBase {
     - dev-client
       install a dev client machine for you to work on, a bunch of IDE's, DB's and a complete set of the
       tools you need to start work immediately.
-      example: cleopatra install autopilot dev-client
+      example: ptconfigure install autopilot dev-client
 
     - dev-server
       Install the preconfigured list of software for a developers server.
-      example: cleopatra install autopilot dev-server
+      example: ptconfigure install autopilot dev-server
 
     - test-server
       Install the preconfigured list of software for a testing server.
-      example: cleopatra install autopilot test-server
+      example: ptconfigure install autopilot test-server
 
     - build-server
       Install the preconfigured list of software for a build server.
-      example: cleopatra install autopilot test-server
+      example: ptconfigure install autopilot test-server
 
     - production
       Install the preconfigured list of software for a production server.
-      example: cleopatra install autopilot test-server
+      example: ptconfigure install autopilot test-server
 
 HELPDATA;
       return $help ;

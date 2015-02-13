@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ParallaxInfo extends CleopatraBase {
+class ParallaxInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,8 +29,8 @@ class ParallaxInfo extends CleopatraBase {
 
         - cli
         Go through all questions to execute parallel programs
-        example: cleopatra parallax cli
-        example: cleopatra parallax cli --yes --command-1="pwd" --command-2="ls"
+        example: ptconfigure parallax cli
+        example: ptconfigure parallax cli --yes --command-1="pwd" --command-2="ls"
 
         - child
         Unlikely you'll use this, its used by cli to spawn child processes

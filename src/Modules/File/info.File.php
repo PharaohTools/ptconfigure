@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class FileInfo extends CleopatraBase {
+class FileInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,25 +29,25 @@ class FileInfo extends CleopatraBase {
 
         - create
         Create a new system file
-        example: cleopatra file create --file="somename"
+        example: ptconfigure file create --file="somename"
                     --overwrite-existing # overwrite files that exist
                     --data="things to put in the file" # data for putting in the file
 
         - delete
         Delete a system file
-        example: cleopatra file delete --file="somename"
+        example: ptconfigure file delete --file="somename"
 
         - exists
         Check the existence of a file
-        example: cleopatra file exists --filename="somename"
+        example: ptconfigure file exists --filename="somename"
 
         - append
         Append a line to a file
-        example: cleopatra file append --filename="somename" --line="a line"
+        example: ptconfigure file append --filename="somename" --line="a line"
 
         - should-have-line
         Ensure that a file contains a particular line
-        example: cleopatra file should-have-line --filename="somename" --line="a line"
+        example: ptconfigure file should-have-line --filename="somename" --line="a line"
 
 HELPDATA;
       return $help ;

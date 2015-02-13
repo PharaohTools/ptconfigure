@@ -2,11 +2,11 @@
 
 Namespace Info;
 
-class PHPPrepInfo extends CleopatraBase {
+class PHPPrepInfo extends PTConfigureBase {
 
     public $hidden = true;
 
-    public $name = "Cleopatra PHPPrepper - Install PHP to prepare for Pharaoh install";
+    public $name = "PTConfigure PHPPrepper - Install PHP to prepare for Pharaoh install";
 
     public function __construct() {
       parent::__construct();
@@ -29,7 +29,7 @@ class PHPPrepInfo extends CleopatraBase {
         - standard
         Holds PHP
         your project.
-        example: cleopatra phpprep standard
+        example: ptconfigure phpprep standard
 
 HELPDATA;
       return $help ;

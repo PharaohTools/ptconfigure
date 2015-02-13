@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ChromeInfo extends CleopatraBase {
+class ChromeInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class ChromeInfo extends CleopatraBase {
 
         - install
         Installs Chrome
-        example: cleopatra chrome install
+        example: ptconfigure chrome install
 
 HELPDATA;
       return $help ;

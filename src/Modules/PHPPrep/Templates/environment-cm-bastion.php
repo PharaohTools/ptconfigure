@@ -21,19 +21,19 @@ class AutoPilotConfigured extends AutoPilot {
                 // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
                 array ( "SshKeyInstall" => array( "file" => array(
-                    "public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion",
+                    "public-key-file" => "build/config/ptconfigure/SSH/keys/public/raw/bastion",
                     "user-name" => "{$this->myUser}"
                 ), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our DevOps Public Key is installed" ),),),
                 array ( "SshKeyInstall" => array( "file" => array(
-                    "public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion",
+                    "public-key-file" => "build/config/ptconfigure/SSH/keys/public/raw/bastion",
                     "user-name" => "{$this->myUser}"
                 ), ), ),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Private Key is installed" ),),),
                 // @todo if this is run over ssh from another machine (DevOps laptop), the encryption key never needs to be on the target
                 // box might not even need encryption... look at this
                 array ( "Encryption" => array( "uninstall" => array(
-                    "encrypted-data" => "build/config/cleopatra/SSH/keys/private/encrypted/bastion",
+                    "encrypted-data" => "build/config/ptconfigure/SSH/keys/private/encrypted/bastion",
                     "encryption-target-file" => "{$this->myUserHome}/.ssh/bastion",
                     // @todo the key thing
                     "encryption-key" => "{$this->myUser}",
@@ -71,17 +71,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "RunCommand" => array( "restart" => array(
                     "guess" => true,
                     "username" => "root",
-                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "command" => "ptdeploy ApacheCtl restart --yes",
                     "background" => ""
                 ), ), ),
 
                 // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
-                array ( "Testingkamen" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTConfigure" ),),),
+                array ( "PTConfigure" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTDeploy" ),),),
+                array ( "PTDeploy" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTTest" ),),),
+                array ( "PTTest" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Parallax" ),),),
                 array ( "Parallax" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Jrush for Joomla" ),),),

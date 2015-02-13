@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class CitadelInfo extends CleopatraBase {
+class CitadelInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,11 +28,11 @@ class CitadelInfo extends CleopatraBase {
 
         - install
         Installs Citadel Server
-        example: cleopatra citadel install
+        example: ptconfigure citadel install
 
         - configure
         Configure E-Mail with Citadel Server
-        example: cleopatra citadel configure
+        example: ptconfigure citadel configure
 
 HELPDATA;
       return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPConfInfo extends CleopatraBase {
+class PHPConfInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class PHPConfInfo extends CleopatraBase {
 
         - install
         Installs a configuration for PHP
-        example: cleopatra phpconf install
+        example: ptconfigure phpconf install
 
 HELPDATA;
       return $help ;

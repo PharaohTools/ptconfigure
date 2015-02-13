@@ -24,7 +24,7 @@ class IntelliJUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
                     "cd /tmp" ,
-                    "git clone https://github.com/phpengine/cleopatra-intellij{$this->iv} intellij",
+                    "git clone https://github.com/phpengine/ptconfigure-intellij{$this->iv} intellij",
                     "rm -rf ****PROGDIR****",
                     "mkdir -p ****PROGDIR****",
                     "mv /tmp/intellij/* ****PROGDIR****",

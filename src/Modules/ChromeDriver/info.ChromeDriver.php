@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ChromeDriverInfo extends CleopatraBase {
+class ChromeDriverInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -33,7 +33,7 @@ class ChromeDriverInfo extends CleopatraBase {
         - install
         Installs ChromeDriver. Note, you'll also need Java installed
         as it is a prerequisite for ChromeDriver
-        example: cleopatra chromedriver install
+        example: ptconfigure chromedriver install
 
 HELPDATA;
     return $help ;

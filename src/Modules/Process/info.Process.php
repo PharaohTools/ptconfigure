@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ProcessInfo extends CleopatraBase {
+class ProcessInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,10 +28,10 @@ class ProcessInfo extends CleopatraBase {
 
         - kill
         Will ask you for process name, aa file or directory from local to remote
-        example: cleopatra process kill
-        example: cleopatra process kill --yes --name="selenium" --use-psax # default, will look for string in result of
-        example: cleopatra process kill --yes --name="selenium" --use-pkill # will allow pkill to find  by string to kill
-        example: cleopatra process kill --yes
+        example: ptconfigure process kill
+        example: ptconfigure process kill --yes --name="selenium" --use-psax # default, will look for string in result of
+        example: ptconfigure process kill --yes --name="selenium" --use-pkill # will allow pkill to find  by string to kill
+        example: ptconfigure process kill --yes
                                         --guess
                                         --id="1234 # will kill a process by id
                                         --level # will guess a 9

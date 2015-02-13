@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPCSInfo extends CleopatraBase {
+class PHPCSInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class PHPCSInfo extends CleopatraBase {
 
         - install
         Installs the latest version of PHPCS
-        example: cleopatra phpcs install
+        example: ptconfigure phpcs install
 
 HELPDATA;
       return $help ;

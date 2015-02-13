@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPUnitInfo extends CleopatraBase {
+class PHPUnitInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class PHPUnitInfo extends CleopatraBase {
 
         - install
         Installs the latest GC Repo version of PHPUnit
-        example: cleopatra phpunit install
+        example: ptconfigure phpunit install
 
 HELPDATA;
       return $help ;

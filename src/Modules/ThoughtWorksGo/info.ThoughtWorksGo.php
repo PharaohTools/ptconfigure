@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ThoughtWorksGoInfo extends CleopatraBase {
+class ThoughtWorksGoInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,7 +28,7 @@ class ThoughtWorksGoInfo extends CleopatraBase {
 
         - install
         Install the the Thoughtworks Go Server and/or Agent
-        example: cleopatra thoughtworksgo install --yes --guess --install-server --install-agent
+        example: ptconfigure thoughtworksgo install --yes --guess --install-server --install-agent
 
 HELPDATA;
     return $help ;

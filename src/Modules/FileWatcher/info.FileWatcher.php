@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class FileWatcherInfo extends CleopatraBase {
+class FileWatcherInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class FileWatcherInfo extends CleopatraBase {
 
         - once
         Will watch an individual file for changes and perform actions
-        example: cleopatra filewatcher once --yes --guess
+        example: ptconfigure filewatcher once --yes --guess
                     --file=relative/path/to/file
                     --versioner=git # git/svn/cache guess will assume git
                     --value="HEAD~1" # commit id, or other comparison value
@@ -38,7 +38,7 @@ class FileWatcherInfo extends CleopatraBase {
 
         - watchfile
         Will watch files for changes and perform actions
-        example: cleopatra filewatcher watchfile --yes --guess
+        example: ptconfigure filewatcher watchfile --yes --guess
                     --watchfile=/path/to/watchfile # guess will assume Watchfile
 
 HELPDATA;

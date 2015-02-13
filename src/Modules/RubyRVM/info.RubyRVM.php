@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class RubyRVMInfo extends CleopatraBase {
+class RubyRVMInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,7 +28,7 @@ class RubyRVMInfo extends CleopatraBase {
 
         - install
         Installs Ruby RVM
-        example: cleopatra ruby-rvm install
+        example: ptconfigure ruby-rvm install
 
   Ruby is installed the recommended per-user way. To use ruby after the install
   first run "source ~/.rvm/scripts/rvm" to get access to the Ruby install for

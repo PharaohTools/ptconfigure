@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class GitLabInfo extends CleopatraBase {
+class GitLabInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class GitLabInfo extends CleopatraBase {
 
         - install
         Installs the latest version of GitLab on a system
-        example: cleopatra gitlab install
+        example: ptconfigure gitlab install
 
 HELPDATA;
       return $help ;

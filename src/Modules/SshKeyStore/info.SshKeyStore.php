@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SshKeyStoreInfo extends CleopatraBase {
+class SshKeyStoreInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -34,8 +34,8 @@ class SshKeyStoreInfo extends CleopatraBase {
 
         - find
         Add an SSH Public Key to an account
-        example: cleopatra ssh-key-store find --key=daveylad
-        example: cleopatra ssh-key-store find --key=daveylad --prefer=user
+        example: ptconfigure ssh-key-store find --key=daveylad
+        example: ptconfigure ssh-key-store find --key=daveylad --prefer=user
 
 HELPDATA;
       return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class InvokeInfo extends CleopatraBase {
+class InvokeInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,15 +28,15 @@ class InvokeInfo extends CleopatraBase {
 
         - cli
         Will ask you for details for servers, then open a shell for you to execute on multiple servers
-        example: cleopatra invoke cli --environment-name=staging
+        example: ptconfigure invoke cli --environment-name=staging
 
         - script
         Will ask you for details for servers, then execute each line of a provided script file on the remote/s
-        example: cleopatra invoke script --ssh-script="/var/www/project/script.sh" --environment-name=staging
+        example: ptconfigure invoke script --ssh-script="/var/www/project/script.sh" --environment-name=staging
 
         - data
         Execute php variable data on one or more remotes
-        example: cleopatra invoke data --ssh-data="ls -lah" --environment-name=staging
+        example: ptconfigure invoke data --ssh-data="ls -lah" --environment-name=staging
 
 HELPDATA;
       return $help ;

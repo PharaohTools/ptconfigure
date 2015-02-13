@@ -6,7 +6,7 @@ default:
     extensions:
         Behat\MinkExtension\Extension:
             default_session: selenium2
-            base_url:  'http://www.wordpress-phlagrant.vm'
+            base_url:  'http://www.wordpress-ptvirtualize.vm'
             selenium2:
                 browser: chrome
                 wd_host: 127.0.0.1:4444/wd/hub
@@ -15,7 +15,7 @@ firefox-local:
     extensions:
         Behat\MinkExtension\Extension:
             default_session: selenium2
-            base_url:  'http://www.wordpress-phlagrant.vm'
+            base_url:  'http://www.wordpress-ptvirtualize.vm'
             selenium2:
                 browser: firefox
                 wd_host: 127.0.0.1:4444/wd/hub

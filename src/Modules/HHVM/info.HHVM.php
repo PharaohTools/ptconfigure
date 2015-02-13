@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class HHVMInfo extends CleopatraBase {
+class HHVMInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,11 +28,11 @@ class HHVMInfo extends CleopatraBase {
 
         - install
         Installs HHVM through package manager
-        example: cleopatra hhvm install
+        example: ptconfigure hhvm install
 
         - uninstall
         Uninstalls HHVM through package manager
-        example: cleopatra hhvm uninstall
+        example: ptconfigure hhvm uninstall
 
 HELPDATA;
       return $help ;

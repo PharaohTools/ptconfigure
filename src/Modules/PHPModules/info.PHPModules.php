@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPModulesInfo extends CleopatraBase {
+class PHPModulesInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -31,7 +31,7 @@ class PHPModulesInfo extends CleopatraBase {
         Installs some common PHP Modules. These include php5-gd the image libs,
         php5-imagick the image libs, php5-curl the remote file handling libs,
         php5-mysql the libs for handling mysql connections.
-        example: cleopatra phpmods install
+        example: ptconfigure phpmods install
 
 HELPDATA;
     return $help ;

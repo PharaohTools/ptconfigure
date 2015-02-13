@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PostgresServerInfo extends CleopatraBase {
+class PostgresServerInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -30,12 +30,12 @@ class PostgresServerInfo extends CleopatraBase {
 
         - install
         Install some Postgres Server Tools through apt-get.
-        example: cleopatra postgres-server install
+        example: ptconfigure postgres-server install
 
   Notes, during postgres install a root password will be set. First, it'll look
   for the parameter --postgres-root-pass, if this is not set, it'll look in the
-  cleopatra config for a postgres-default-root-pass setting, and failing both of
-  those it will just set the password for root to cleopatra.
+  ptconfigure config for a postgres-default-root-pass setting, and failing both of
+  those it will just set the password for root to ptconfigure.
 
 HELPDATA;
     return $help ;

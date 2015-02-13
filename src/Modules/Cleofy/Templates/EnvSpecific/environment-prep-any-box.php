@@ -36,11 +36,11 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
                 ), ) , ) ,
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "PHP Ensure script executed, lets prepare a Cleopatra Zip file",
+                    "log-message" => "PHP Ensure script executed, lets prepare a PTConfigure Zip file",
                 ), ) , ) ,
                 array ( "CleoZip" => array( "ensure-exists" => array(), ) , ) ,
                 array ( "Logging" => array( "log" =>array(
-                    "log-message" => "Cleopatra Zip file exists, lets transfer it",
+                    "log-message" => "PTConfigure Zip file exists, lets transfer it",
                 ), ), ),
                 array ( "SFTP" => array( "put" => array(
                     "source" => "{$this->appHomeDir}/src/Modules/CleoZip/Files/Cleo.zip",
@@ -52,19 +52,19 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
                 array ( "Invoke" => array( "data" => array(
                     "guess" => true,
-                    "ssh-data" => "unzip /tmp/cleopatra.zip",
+                    "ssh-data" => "unzip /tmp/ptconfigure.zip",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "File unzipped, lets install Cleopatra",
+                    "log-message" => "File unzipped, lets install PTConfigure",
                 ), ), ),
                 array ( "Invoke" => array( "data" => array(
                     "guess" => true,
-                    "ssh-data" => "php /tmp/cleopatra/cleopatra/install-silent",
+                    "ssh-data" => "php /tmp/ptconfigure/ptconfigure/install-silent",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Cleopatra installed, lets send our preparation Autopilot",
+                    "log-message" => "PTConfigure installed, lets send our preparation Autopilot",
                 ), ), ),
                 array ( "SFTP" => array( "put" => array(
                     "source" => "{$this->appHomeDir}/src/Modules/BasePHPEnsure/Autopilots/php-git-ensure.sh",
@@ -76,7 +76,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
                 array ( "Invoke" => array( "data" => array(
                     "guess" => true,
-                    "ssh-data" => "sudo cleopatra autopilot execute /tmp/php-git-ensure.php",
+                    "ssh-data" => "sudo ptconfigure autopilot execute /tmp/php-git-ensure.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" => array(

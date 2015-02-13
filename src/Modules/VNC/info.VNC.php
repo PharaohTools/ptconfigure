@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class VNCInfo extends CleopatraBase {
+class VNCInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class VNCInfo extends CleopatraBase {
 
         - install
         Installs VNC through apt-get
-        example: cleopatra vnc install
+        example: ptconfigure vnc install
 
 HELPDATA;
       return $help ;

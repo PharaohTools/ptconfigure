@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class VirtualboxInfo extends CleopatraBase {
+class VirtualboxInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class VirtualboxInfo extends CleopatraBase {
 
         - install
         Installs Virtualbox through apt-get
-        example: cleopatra virtualbox install
+        example: ptconfigure virtualbox install
 
 HELPDATA;
       return $help ;

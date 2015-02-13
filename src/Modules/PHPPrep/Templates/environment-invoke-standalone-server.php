@@ -37,7 +37,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra install-package prod --yes=true
+sudo ptconfigure install-package prod --yes=true
 SSHDATA;
         return $sshData ;
     }

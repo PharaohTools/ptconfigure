@@ -14,7 +14,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSteps() {
 
         // @todo find a better way to get this filename
-        $reverseProxyAutopilot = "/opt/cleopatra/cleopatra/src/Modules/Jenkins/Autopilots/Dapperstrano/proxy-8080-to-80.php" ;
+        $reverseProxyAutopilot = "/opt/ptconfigure/ptconfigure/src/Modules/Jenkins/Autopilots/PTDeploy/proxy-8080-to-80.php" ;
 
         $this->steps =
             array(
@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
 //                // Install Keys - Bastion Public Key
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
 //                array ( "Copy" => array( "file" =>
-//                    array("from" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+//                    array("from" => "build/config/ptconfigure/SSH/keys/public/raw/bastion"),
 //                    array("to" => "$HOME/.ssh/id_rsa"),
 //                    // @todo Fix the key install!!
 //                ),),
@@ -97,12 +97,12 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "JenkinsSudoNoPass" => array( "install" => array(),),),
 
                 // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
-                array ( "Testingkamen" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTConfigure" ),),),
+                array ( "PTConfigure" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTDeploy" ),),),
+                array ( "PTDeploy" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTTest" ),),),
+                array ( "PTTest" => array( "ensure" => array(),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure JRush for Joomla" ),),),
                 array ( "JRush" => array( "ensure" => array(),),),
 
@@ -147,7 +147,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot".
+                    "command" => "ptdeploy autopilot execute --autopilot-file=$reverseProxyAutopilot".
                                  " --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>".
                                  " --vhe-ip-port=<%tpl.php%>first_server_target</%tpl.php%>:80",
                 ),),),

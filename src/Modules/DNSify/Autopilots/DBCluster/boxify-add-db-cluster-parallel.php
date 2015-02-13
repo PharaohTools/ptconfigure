@@ -22,8 +22,8 @@ class AutoPilotConfigured extends AutoPilot {
                 // Bastion
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add all DNSes and Environments in Parallel" ),),),
                 array ( "Parallax" => array("cli" => array(
-                    "command-1" => "cleopatra autopilot execute --autopilot-file=\"{$parent}dnsify-add-production-db-nodes.php\"",
-                    "command-2" => "cleopatra autopilot execute --autopilot-file=\"{$parent}dnsify-add-production-db-balancer.php\"",
+                    "command-1" => "ptconfigure autopilot execute --autopilot-file=\"{$parent}dnsify-add-production-db-nodes.php\"",
+                    "command-2" => "ptconfigure autopilot execute --autopilot-file=\"{$parent}dnsify-add-production-db-balancer.php\"",
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Creating a Database Cluster of environments complete"),),),

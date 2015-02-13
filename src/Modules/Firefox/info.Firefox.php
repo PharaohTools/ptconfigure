@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class FirefoxInfo extends CleopatraBase {
+class FirefoxInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class FirefoxInfo extends CleopatraBase {
 
         - install
         Installs Firefox
-        example: cleopatra firefox install
+        example: ptconfigure firefox install
 
 HELPDATA;
       return $help ;

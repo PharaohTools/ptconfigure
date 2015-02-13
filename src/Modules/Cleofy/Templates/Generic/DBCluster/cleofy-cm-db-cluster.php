@@ -23,17 +23,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Production DB Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/db-cluster-db-nodes-prep-ubuntu.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/db-cluster-db-nodes-prep-ubuntu.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Production DB Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/db-cluster-db-nodes-invoke-cleo-dapper-new.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/db-cluster-db-nodes-invoke-cleo-dapper-new.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Production DB Nodes Box on the Production DB Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/db-cluster-db-nodes-invoke-db-node.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/db-cluster-db-nodes-invoke-db-node.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Database Nodes environment complete"),),),
 
@@ -42,17 +42,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Production Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/db-cluster-db-balancer-prep-ubuntu.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/db-cluster-db-balancer-prep-ubuntu.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Production Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/db-cluster-db-balancer-invoke-cleo-dapper-new.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/db-cluster-db-balancer-invoke-cleo-dapper-new.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Production Primary DB Box on the Production Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'cleopatra autopilot execute --autopilot-file="build/config/cleopatra/cleofy/autopilots/generated/db-cluster-db-balancer-invoke-db-load-balancer.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/db-cluster-db-balancer-invoke-db-load-balancer.php"',
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Production Primary DB environment complete"),),),

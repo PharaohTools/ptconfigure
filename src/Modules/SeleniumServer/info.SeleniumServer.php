@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class SeleniumServerInfo extends CleopatraBase {
+class SeleniumServerInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -30,8 +30,8 @@ class SeleniumServerInfo extends CleopatraBase {
         - install
         Installs Selenium Server. Note, you'll also need Java installed
         as it is a prerequisite for Selenium
-        example: cleopatra selenium install
-        example: cleopatra selenium install --with-chrome-driver # will set the executor command to use default chrome driver
+        example: ptconfigure selenium install
+        example: ptconfigure selenium install --with-chrome-driver # will set the executor command to use default chrome driver
 
 
 HELPDATA;

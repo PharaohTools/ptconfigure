@@ -48,7 +48,7 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
             "dbcluster" => "{$dir}Generic".DS."DBCluster",
             "db-cluster" => "{$dir}Generic".DS."DBCluster",
             "workstation" => "{$dir}Generic".DS."Workstation",
-            "phlagrant" => "{$dir}Generic".DS."Phlagrant"
+            "ptvirtualize" => "{$dir}Generic".DS."PTVirtualize"
         );
     }
 
@@ -75,7 +75,7 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["destination-dir"])) {
             $this->destination = $this->params["destination-dir"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd().DS."build".DS."config".DS."cleopatra".DS."cleofy".DS."autopilots".DS."generic" ;
+            $defaultdir = getcwd().DS."build".DS."config".DS."ptconfigure".DS."cleofy".DS."autopilots".DS."generic" ;
             if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
             $this->destination = $defaultdir ; }
         else {

@@ -15,7 +15,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSteps() {
 
         // @todo find a better way to get this filename
-        $reverseProxyAutopilot = "/opt/cleopatra/cleopatra/src/Modules/GitBucket/Autopilots/Dapperstrano/proxy-8080-to-80.php" ;
+        $reverseProxyAutopilot = "/opt/ptconfigure/ptconfigure/src/Modules/GitBucket/Autopilots/PTDeploy/proxy-8080-to-80.php" ;
 
         $this->steps =
             array(
@@ -24,17 +24,17 @@ class AutoPilotConfigured extends AutoPilot {
 //                // Install Keys - Bastion Public Key, DevOps Public Key, Bastion Private Key
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
 //                array ( "SshKeyInstall" => array( "file" =>
-//                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+//                    array("public-key-file" => "build/config/ptconfigure/SSH/keys/public/raw/bastion"),
 //                    array("user-name" => "{$this->myUser}"),),),
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our DevOps Public Key is installed" ),),),
 //                array ( "SshKeyInstall" => array( "file" =>
-//                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+//                    array("public-key-file" => "build/config/ptconfigure/SSH/keys/public/raw/bastion"),
 //                    array("user-name" => "{$this->myUser}"),),),
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Private Key is installed" ),),),
 //                // @todo if this is run over ssh from another machine (DevOps laptop), the encryption key never needs to be on the target
 //                // box might not even need encryption... look at this
 //                array ( "Encryption" => array( "uninstall" =>
-//                    array("encrypted-data" => "build/config/cleopatra/SSH/keys/private/encrypted/bastion"),
+//                    array("encrypted-data" => "build/config/ptconfigure/SSH/keys/private/encrypted/bastion"),
 //                    array("encryption-target-file" => "{$this->myUserHome}/.ssh/bastion"),
 //                    // @todo the key thing
 //                    array("encryption-key" => "{$this->myUser}"),
@@ -79,7 +79,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "install" => array(
                     "guess" => true,
-                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "command" => "ptdeploy ApacheCtl restart --yes",
                 ) ) ),
 
                 // Install Git Bucket
@@ -100,7 +100,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets dapper a reverse proxy"),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => "dapperstrano autopilot execute --autopilot-file=$reverseProxyAutopilot --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>",
+                    "command" => "ptdeploy autopilot execute --autopilot-file=$reverseProxyAutopilot --vhe-url=<%tpl.php%>first_server_target</%tpl.php%>",
                 ),),),
 
                 // Firewall

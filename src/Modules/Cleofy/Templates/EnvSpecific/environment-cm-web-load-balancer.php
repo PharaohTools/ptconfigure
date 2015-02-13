@@ -21,7 +21,7 @@ class AutoPilotConfigured extends AutoPilot {
 //                // Install Keys - Bastion Public Key
 //                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure our Bastion Public Key is installed" ),),),
 //                array ( "SshKeyInstall" => array( "file" =>
-//                    array("public-key-file" => "build/config/cleopatra/SSH/keys/public/raw/bastion"),
+//                    array("public-key-file" => "build/config/ptconfigure/SSH/keys/public/raw/bastion"),
 //                    array("user-name" => "{$this->myUser}"),),),
 
                 // SSH Hardening
@@ -60,7 +60,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "install" => array(
                     "guess" => true,
-                    "command" => "dapperstrano ApacheCtl restart --yes",
+                    "command" => "ptdeploy ApacheCtl restart --yes",
                 ) ) ),
 
                 // Firewall

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class LoggingInfo extends CleopatraBase {
+class LoggingInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -38,8 +38,8 @@ class LoggingInfo extends CleopatraBase {
 
         - log
         Logs a message to the console and optionally the php log
-        example: cleopatra logging log --log-message="Here is something logging to the console and error log"
-        example: cleopatra logging log --php-log --log-message="Here is something logging to the console and error log"
+        example: ptconfigure logging log --log-message="Here is something logging to the console and error log"
+        example: ptconfigure logging log --php-log --log-message="Here is something logging to the console and error log"
 
 HELPDATA;
       return $help ;

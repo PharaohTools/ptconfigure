@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ApacheConfInfo extends CleopatraBase {
+class ApacheConfInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -37,7 +37,7 @@ class ApacheConfInfo extends CleopatraBase {
 
         - install
         Installs a configuration for Apache
-        example: cleopatra apacheconf install
+        example: ptconfigure apacheconf install
 
 HELPDATA;
       return $help ;

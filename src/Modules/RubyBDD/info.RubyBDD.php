@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class RubyBDDInfo extends CleopatraBase {
+class RubyBDDInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,7 +28,7 @@ class RubyBDDInfo extends CleopatraBase {
 
         - install
         Installs Ruby BDD Gems
-        example: cleopatra ruby-bdd install
+        example: ptconfigure ruby-bdd install
 
 HELPDATA;
     return $help ;

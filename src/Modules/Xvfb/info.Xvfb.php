@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class XvfbInfo extends CleopatraBase {
+class XvfbInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class XvfbInfo extends CleopatraBase {
 
         - install
         Installs Xvfb through apt-get
-        example: cleopatra xvfb install
+        example: ptconfigure xvfb install
 
 HELPDATA;
       return $help ;

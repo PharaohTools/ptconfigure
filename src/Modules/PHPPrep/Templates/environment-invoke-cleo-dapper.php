@@ -22,7 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array( "log-message" => "First lets SFTP over our Cleo Dapper CM Autopilot"),
             ) ),
             array ( "SFTP" => array( "copy" =>
-                array("original-file" => "build/config/cleopatra/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php" ),
+                array("original-file" => "build/config/ptconfigure/autopilots/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php" ),
                 array("target-file" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php" ),
                 array("environment-name" => "<%tpl.php%>env_name</%tpl.php%>" ),
             ) , ) ,
@@ -42,7 +42,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo cleopatra autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php
+sudo ptconfigure autopilot install /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-cleo-dapper.php
 SSHDATA;
         return $sshData ;
     }

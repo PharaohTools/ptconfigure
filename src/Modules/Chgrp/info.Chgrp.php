@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class ChgrpInfo extends CleopatraBase {
+class ChgrpInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class ChgrpInfo extends CleopatraBase {
 
         - path
         Will change the file group ownership of a path
-        example: cleopatra chgrp path --yes --guess --recursive --path=/a/file/path --group=golden
+        example: ptconfigure chgrp path --yes --guess --recursive --path=/a/file/path --group=golden
 
 
 HELPDATA;

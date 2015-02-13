@@ -22,7 +22,7 @@ class AutopilotAllLinux extends BaseLinuxApp {
     protected function addAliasParams() {
         $dfd = "" ;
         if (isset($this->params["dfd"])) {
-            $dfd = getcwd().DS."build".DS."config".DS."cleopatra".DS."cleofy".DS."autopilots".DS ; }
+            $dfd = getcwd().DS."build".DS."config".DS."ptconfigure".DS."cleofy".DS."autopilots".DS ; }
         if (isset($this->params["af"])) {
             $this->params["autopilot-file"] = $dfd.$this->params["af"] ; }
         if (isset($this->params["auto"])) {

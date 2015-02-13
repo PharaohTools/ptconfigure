@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class NodeJSInfo extends CleopatraBase {
+class NodeJSInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -28,7 +28,7 @@ class NodeJSInfo extends CleopatraBase {
 
         - install
         Installs NodeJS through apt-get.
-        example: cleopatra node-js install
+        example: ptconfigure node-js install
 
 HELPDATA;
     return $help ;

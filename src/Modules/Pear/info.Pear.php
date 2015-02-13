@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PearInfo extends CleopatraBase {
+class PearInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -35,31 +35,31 @@ class PearInfo extends CleopatraBase {
 
         - create
         Create a new system pear, overwriting if it exists
-        example: cleopatra pear create --pearname="somename"
+        example: ptconfigure pear create --pearname="somename"
 
         - remove
         Remove a system pear
-        example: cleopatra pear remove --pearname="somename"
+        example: ptconfigure pear remove --pearname="somename"
 
         - set-password
         Set the password of a system pear
-        example: cleopatra pear set-password --pearname="somename" --new-password="somepassword"
+        example: ptconfigure pear set-password --pearname="somename" --new-password="somepassword"
 
         - exists
         Check the existence of a pear
-        example: cleopatra pear exists --pearname="somename"
+        example: ptconfigure pear exists --pearname="somename"
 
         - show-groups
         Show groups to which a pear belongs
-        example: cleopatra pear show-groups --pearname="somename"
+        example: ptconfigure pear show-groups --pearname="somename"
 
         - add-to-group
         Add pear to a group
-        example: cleopatra pear add-to-group --pearname="somename" --groupname="somegroupname"
+        example: ptconfigure pear add-to-group --pearname="somename" --groupname="somegroupname"
 
         - remove-from-group
         Remove pear from a group
-        example: cleopatra pear remove-from-group --pearname="somename" --groupname="somegroupname"
+        example: ptconfigure pear remove-from-group --pearname="somename" --groupname="somegroupname"
 
 HELPDATA;
       return $help ;

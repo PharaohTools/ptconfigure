@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class JRushInfo extends CleopatraBase {
+class JRushInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class JRushInfo extends CleopatraBase {
 
         - install
         Installs the latest version of jRush
-        example: cleopatra jRush install
+        example: ptconfigure jRush install
 
 HELPDATA;
       return $help ;

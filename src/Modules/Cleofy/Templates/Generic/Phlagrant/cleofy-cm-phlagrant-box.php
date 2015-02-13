@@ -17,20 +17,20 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Phlagrant Box"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a PTVirtualize Box"),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the Phlagrant user can use Sudo without a Password"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure the PTVirtualize user can use Sudo without a Password"),),),
                 array ( "SudoNoPass" => array( "install" => array(
-                    "install-user-name" => "phlagrant"
+                    "install-user-name" => "ptvirtualize"
                 ),),),
 
                 // All Pharoes
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Cleopatra" ),),),
-                array ( "Cleopatra" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Dapperstrano" ),),),
-                array ( "Dapperstrano" => array( "ensure" => array(),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure Testingkamen" ),),),
-                array ( "Testingkamen" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTConfigure" ),),),
+                array ( "PTConfigure" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTDeploy" ),),),
+                array ( "PTDeploy" => array( "ensure" => array(),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTTest" ),),),
+                array ( "PTTest" => array( "ensure" => array(),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
@@ -60,7 +60,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "install" => array(
                     "guess" => true,
-                    "command" => "dapperstrano apachecontrol restart --yes --guess",
+                    "command" => "ptdeploy apachecontrol restart --yes --guess",
                 ) ) ),
 
                 //Mysql
@@ -72,14 +72,14 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure a Mysql Admin User is installed"),),),
                 array ( "MysqlAdmins" => array( "install" => array(
                     "root-user" => "root",
-                    "root-pass" => "cleopatra",
+                    "root-pass" => "ptconfigure",
                     "new-user" => "root",
                     "new-pass" => "root",
                     "mysql-host" => "127.0.0.1"
                 ) ) ),
 
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Cleopatra Configuration Management of your Phlagrant VM complete"
+                    "log-message" => "PTConfigure Configuration Management of your PTVirtualize VM complete"
                 ),),),
 
             );
@@ -91,24 +91,24 @@ class AutoPilotConfigured extends AutoPilot {
         if (isset($this->params["dapperfile"])) { $dfile = $this->params["dapperfile"] ; }
         if (isset($this->params["dapper-auto"])) { $dfile = $this->params["dapper-auto"] ; }
         if (isset($this->params["dapper-autopilot"])) { $dfile = $this->params["dapper-autopilot"] ; }
-        if (isset($this->params["dapperstrano-auto"])) { $dfile = $this->params["dapperstrano-auto"] ; }
-        if (isset($this->params["dapperstrano-autopilot"])) { $dfile = $this->params["dapperstrano-autopilot"] ; }
+        if (isset($this->params["ptdeploy-auto"])) { $dfile = $this->params["ptdeploy-auto"] ; }
+        if (isset($this->params["ptdeploy-autopilot"])) { $dfile = $this->params["ptdeploy-autopilot"] ; }
 
         if (isset($dfile)) {
 
             $a1 = array ( "Logging" => array( "log" => array(
-                "log-message" => "A Dapperstrano Autopilot was also provided, so we'll execute that too"
+                "log-message" => "A PTDeploy Autopilot was also provided, so we'll execute that too"
             ),),) ;
             array_push($this->steps, $a1) ;
 
             $a2 = array ( "RunCommand" => array( "install" => array(
                 "guess" => true,
-                "command" => "sudo dapperstrano auto x --yes --guess --af=$dfile",
+                "command" => "sudo ptdeploy auto x --yes --guess --af=$dfile",
             ) ) ) ;
             array_push($this->steps, $a2) ;
 
             $a3 = array ( "Logging" => array( "log" => array(
-                "log-message" => "Dapperstrano Automated Application Deployment of your Phlagrant VM complete"
+                "log-message" => "PTDeploy Automated Application Deployment of your PTVirtualize VM complete"
             ),),) ;
             array_push($this->steps, $a3) ;
 

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class CopyInfo extends CleopatraBase {
+class CopyInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,8 +28,8 @@ class CopyInfo extends CleopatraBase {
 
         - put
         Will ask you for details for servers, then copy a file or directory from local to remote
-        example: cleopatra copy put
-        example: cleopatra copy put --yes --source="/tmp/file" --target="/home/user/file"
+        example: ptconfigure copy put
+        example: ptconfigure copy put --yes --source="/tmp/file" --target="/home/user/file"
 
 HELPDATA;
       return $help ;

@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class VarnishInfo extends CleopatraBase {
+class VarnishInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class VarnishInfo extends CleopatraBase {
 
         - install
         Installs Varnish through apt-get
-        example: cleopatra varnish install
+        example: ptconfigure varnish install
 
 HELPDATA;
       return $help ;

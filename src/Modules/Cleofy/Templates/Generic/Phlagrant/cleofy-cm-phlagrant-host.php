@@ -21,7 +21,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Phlagrant Host"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a PTVirtualize Host"),),),
 
                 // Copy SSH Private Key
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets push over our user SSH Keys" ),),),
@@ -36,7 +36,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Cleopatra Configuration Management of your Phlagrant Host complete"
+                    "log-message" => "PTConfigure Configuration Management of your PTVirtualize Host complete"
                 ),),),
 
             );
@@ -52,14 +52,14 @@ class AutoPilotConfigured extends AutoPilot {
         $this->sftpParams["guess"] = true ;
         $this->sftpParams["servers"] = serialize(array($srv)) ;
         $this->sftpParams["source"] = "/home/{$this->myUser}/.ssh/id_rsa" ;
-        $this->sftpParams["target"] = "/home/phlagrant/.ssh/id_rsa" ;
+        $this->sftpParams["target"] = "/home/ptvirtualize/.ssh/id_rsa" ;
         $this->sftpParams["port"] = (isset($this->papyrus["port"])) ? $this->papyrus["port"] : 22 ;
         $this->sftpParams["timeout"] = (isset($this->papyrus["timeout"])) ? $this->papyrus["timeout"] : 30 ; # your papyrus should have this from extending base class
     }
 
-    // @todo $boxname should read from the phlagrant file, probably. it should definitely not be hardcoded
+    // @todo $boxname should read from the ptvirtualize file, probably. it should definitely not be hardcoded
     protected function loadPapyrusLocal() {
-        $boxname = "phlagrant-box" ;
+        $boxname = "ptvirtualize-box" ;
         $fp = getcwd()."/papyrusfilelocal" ;
         $pl = file_get_contents($fp) ;
         $pla = unserialize($pl);

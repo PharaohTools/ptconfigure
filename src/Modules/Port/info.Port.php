@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PortInfo extends CleopatraBase {
+class PortInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,11 +29,11 @@ class PortInfo extends CleopatraBase {
 
         - is-responding
         Test if a port is responding
-        example: cleopatra port is-responding --port-number="25"
+        example: ptconfigure port is-responding --port-number="25"
 
         - process
         See which process is using a port
-        example: cleopatra port process --port-number="25"
+        example: ptconfigure port process --port-number="25"
 
 HELPDATA;
       return $help ;

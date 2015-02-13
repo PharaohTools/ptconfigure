@@ -2,11 +2,11 @@
 
 Namespace Info;
 
-class GeneratorInfo extends CleopatraBase {
+class GeneratorInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Dapperstrano Autopilot Generator - Generate Autopilot files interactively";
+    public $name = "PTDeploy Autopilot Generator - Generate Autopilot files interactively";
 
     public function __construct() {
       parent::__construct();
@@ -30,7 +30,7 @@ class GeneratorInfo extends CleopatraBase {
 
         - create
         Go through all modules to create an autopilot
-        example: dapperstrano generate create
+        example: ptdeploy generate create
 
 HELPDATA;
       return $help ;

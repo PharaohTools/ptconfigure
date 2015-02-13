@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PackageManagerInfo extends CleopatraBase {
+class PackageManagerInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -29,15 +29,15 @@ class PackageManagerInfo extends CleopatraBase {
 
         - pkg-install
         Installs a Package through a Package Manager
-        example: cleopatra package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
+        example: ptconfigure package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
 
         - pkg-ensure
         Installs a Package through a Package Manager
-        example: cleopatra package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
+        example: ptconfigure package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
 
         - pkg-remove
         Removes a Package through a Package Manager
-        example: cleopatra package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
+        example: ptconfigure package-manager install --package-name="mysql" --package-version="5.0" --packager="apt-get"
 
   A package manager wrapper that will allow you to install packages on any system
 

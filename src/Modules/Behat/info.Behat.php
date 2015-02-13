@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class BehatInfo extends CleopatraBase {
+class BehatInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -28,7 +28,7 @@ class BehatInfo extends CleopatraBase {
 
         - install
         Installs the latest version of behat
-        example: cleopatra behat install
+        example: ptconfigure behat install
 
 HELPDATA;
       return $help ;

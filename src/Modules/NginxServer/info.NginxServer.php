@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class NginxServerInfo extends CleopatraBase {
+class NginxServerInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -29,7 +29,7 @@ class NginxServerInfo extends CleopatraBase {
 
         - install
         Installs Nginx HTTP Server
-        example: cleopatra nginx-server install
+        example: ptconfigure nginx-server install
 
 HELPDATA;
       return $help ;

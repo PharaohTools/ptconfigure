@@ -20,7 +20,7 @@ class Firefox17Ubuntu extends BaseLinuxApp {
     $this->installCommands = array(
         array( "command" => array(
             "cd /tmp" ,
-            "git clone https://github.com/phpengine/cleopatra-firefox17 firefox17",
+            "git clone https://github.com/phpengine/ptconfigure-firefox17 firefox17",
             "rm -rf ****PROGDIR****",
             "mkdir -p ****PROGDIR****",
             "mv /tmp/firefox17/* ****PROGDIR****",
