@@ -29,7 +29,7 @@ your Ruby CI setup, PTDeploy is a must for your PHP CI.
 ## Installation
 
 The preferred way to install any of the Pharaoh apps (including this) is through ptconfigure. If you install ptconfigure
-on your machine (http://git.pharaoh-tools.com/phpengine/ptconfigure), then you can install deploy using the following:
+on your machine (http://git.pharaohtools.com/phpengine/ptconfigure), then you can install deploy using the following:
 
 sudo ptconfigure deploy install --yes --guess
 
@@ -40,11 +40,11 @@ To install ptdeploy cli on your machine without ptconfigure do the following:
 
 sudo apt-get install php5 git
 
-git clone https://git.pharaoh-tools.com/phpengine/ptdeploy && sudo php ptdeploy/install-silent
+git clone https://git.pharaohtools.com/phpengine/ptdeploy && sudo php ptdeploy/install-silent
 
 or...
 
-git clone https://git.pharaoh-tools.com/phpengine/ptdeploy && sudo php ptdeploy/install
+git clone https://git.pharaohtools.com/phpengine/ptdeploy && sudo php ptdeploy/install
 (if you want to choose the install location)
 
 ... that's it, now the ptdeploy command should be available at the command line for you.
