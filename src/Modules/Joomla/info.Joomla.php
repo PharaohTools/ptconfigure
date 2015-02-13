@@ -25,7 +25,7 @@ class JoomlaInfo extends Base {
     }
 
     public function dapperfyActions() {
-        return array( "joomla", "joomla15", "joomla30", "joomla30-phlagrant", "joomla-phlagrant" );
+        return array( "joomla", "joomla15", "joomla30", "joomla30-ptvirtualize", "joomla-ptvirtualize" );
     }
 
     public function dbConfigureActions() {
@@ -50,13 +50,13 @@ class JoomlaInfo extends Base {
   which are tailored to Joomla.
 
   // dapperfy - create our auto deploy files
-  dapperstrano dapperfy joomla --yes --guess
+  ptdeploy dapperfy joomla --yes --guess
 
   // builderfy - create templates to install build
-  sudo dapperstrano builderfy continuous --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
+  sudo ptdeploy builderfy continuous --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
 
   // execute the build creator
-  dapperstrano autopilot execute build/config/dapperstrano/builderfy/autopilots/tiny-jenkins-invoke-continuous.php
+  ptdeploy autopilot execute build/config/ptdeploy/builderfy/autopilots/tiny-jenkins-invoke-continuous.php
 
 HELPDATA;
         return $help ;
@@ -73,10 +73,10 @@ HELPDATA;
   This module adds the 'joomla' action to builderfy and will let you produce autopilots for it are tailored to Joomla.
 
   // builderfy - create templates to install build
-  sudo dapperstrano builderfy joomla --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
+  sudo ptdeploy builderfy joomla --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
 
   // execute the build creator - you'll be using your jenkins/build environment here
-  dapperstrano autopilot execute build/config/dapperstrano/builderfy/autopilots/*environment-name*-joomla-invoke-continuous.php
+  ptdeploy autopilot execute build/config/ptdeploy/builderfy/autopilots/*environment-name*-joomla-invoke-continuous.php
 
 HELPDATA;
         return $help ;
@@ -92,12 +92,12 @@ HELPDATA;
   for your particular Joomla site. This module adds the 'joomla' action to dapperfy.
 
   - joomla, joomla30
-  create joomla tailored automated deployment dapperstrano autopilots
-  example: dapperstrano dapperfy joomla --yes --guess
+  create joomla tailored automated deployment ptdeploy autopilots
+  example: ptdeploy dapperfy joomla --yes --guess
 
-  - joomla-phlagrant, joomla30-phlagrant
-  create joomla tailored automated deployment dapperstrano autopilots for your Phlagrant Virtual Machines
-  example: dapperstrano dapperfy joomla-phlagrant --yes --guess
+  - joomla-ptvirtualize, joomla30-ptvirtualize
+  create joomla tailored automated deployment ptdeploy autopilots for your PTVirtualize Virtual Machines
+  example: ptdeploy dapperfy joomla-ptvirtualize --yes --guess
 HELPDATA;
         return $help ;
     }
@@ -113,7 +113,7 @@ HELPDATA;
   Joomla module adds the actions joomla30-conf, joomla30-reset, joomla15-conf, joomla15-reset to DBConfigure and will
   let you produce autopilots for it which are tailored to Joomla.
 
-  dapperstrano dbconf joomla30-conf --yes --guess
+  ptdeploy dbconf joomla30-conf --yes --guess
 HELPDATA;
         return $help ;
     }

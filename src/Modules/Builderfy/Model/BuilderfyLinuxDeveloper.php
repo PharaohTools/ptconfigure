@@ -134,7 +134,7 @@ class BuilderfyLinuxDeveloper extends BuilderfyLinux {
         if (isset($this->params["autopilot-install-file"])) {
             return $this->params["autopilot-install-file"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-install-file"] = "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-install.php" ;
+            $this->params["autopilot-install-file"] = "build/config/ptdeploy/autopilots/autopilot-dev-jenkins-install.php" ;
             return $this->params["autopilot-install-file"] ; }
         $question = 'Enter the path of the autopilot install file (Relative to project root)' ;
         $this->params["autopilot-install-file"] = self::askForInput($question) ;
@@ -145,7 +145,7 @@ class BuilderfyLinuxDeveloper extends BuilderfyLinux {
         if (isset($this->params["autopilot-uninstall"])) {
             return $this->params["autopilot-uninstall"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-uninstall"] = "build/config/dapperstrano/autopilots/autopilot-dev-jenkins-uninstall.php" ;
+            $this->params["autopilot-uninstall"] = "build/config/ptdeploy/autopilots/autopilot-dev-jenkins-uninstall.php" ;
             return $this->params["autopilot-uninstall"] ; }
         $question = 'Enter the path of the autopilot uninstall file (Relative to project root)' ;
         $this->params["autopilot-uninstall"] = self::askForInput($question) ;

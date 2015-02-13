@@ -79,12 +79,12 @@
       <command>#!/bin/bash
 cd $WORKSPACE/deployed
 echo &quot;Running Application Installation...&quot;&#xd;
-echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;&#xd;
-sudo dapperstrano autopilot execute &quot;<%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;</command>
+echo &quot;sudo ptdeploy autopilot execute <%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;&#xd;
+sudo ptdeploy autopilot execute &quot;<%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
 <command>#!/bin/bash
-echo &quot;Running Testingkamen Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;&#xd;
+echo &quot;Running PTTest Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;&#xd;
 cd $WORKSPACE/deployed
 # sudo testingkamen autopilot execute &quot;build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php&quot;</command>
     </hudson.tasks.Shell>
@@ -108,8 +108,8 @@ echo &quot;BUILD SUCCESSFUL&quot;</command>
                   <script>#!/bin/bash&#xd;
 echo &quot;Successful Build, deploying to Production&quot;&#xd;
 cd $WORKSPACE/deployed
-echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;&#xd;
-sudo dapperstrano autopilot execute &quot;<%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;</script>
+echo &quot;sudo ptdeploy autopilot execute <%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;&#xd;
+sudo ptdeploy autopilot execute &quot;<%tpl.php%>autopilot-prod-invoke-install-file</%tpl.php%>&quot;</script>
               </hudson.plugins.postbuildtask.TaskProperties>
           </tasks>
       </hudson.plugins.postbuildtask.PostbuildTask>

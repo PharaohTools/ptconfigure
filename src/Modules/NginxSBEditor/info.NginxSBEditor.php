@@ -29,26 +29,26 @@ class NginxSBEditorInfo extends Base {
 
           - add
           create a Server Block
-          example: dapperstrano nginxsbe add
+          example: ptdeploy nginxsbe add
           sb-docroot
           sb-url
           sb-ip-port
 
           - rm
           remove a Server Block
-          example: dapperstrano nginxsbe rm
+          example: ptdeploy nginxsbe rm
 
           - list
           List current Server Blocks
-          example: dapperstrano nginxsbe list
+          example: ptdeploy nginxsbe list
 
           - enable
           enable a Server Block
-          example: dapperstrano nginxsbe enable
+          example: ptdeploy nginxsbe enable
 
           - disable
           disable a Server Block
-          example: dapperstrano nginxsbe disable
+          example: ptdeploy nginxsbe disable
 
 HELPDATA;
       return $help ;

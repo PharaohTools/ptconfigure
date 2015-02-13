@@ -5,7 +5,7 @@
     <body>
 
     <h1>
-        GC Cleopatra
+        GC PTConfigure
     </h1>
 
     <?php echo $this->renderMessages($pageVars); ?>

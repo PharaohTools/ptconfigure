@@ -2,7 +2,7 @@
 
 <head>
   <title>
-    GC Cleopatra
+    GC PTConfigure
   </title>
 </head>
 

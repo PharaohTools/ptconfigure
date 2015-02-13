@@ -48,15 +48,15 @@ class Joomla extends Base {
             $this->content["result"] = $thisModel->askWhetherToDapperfy();
             return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("joomla-phlagrant", "joomla30-phlagrant"))) {
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyJoomlaPhlagrant") ;
+        if (in_array($action, array("joomla-ptvirtualize", "joomla30-ptvirtualize"))) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyJoomlaPTVirtualize") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $thisModel->platform = "joomla30";
             $this->content["result"] = $thisModel->askWhetherToDapperfy();
             return array ("type"=>"view", "view"=>"dapperfy", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("joomla15-phlagrant"))) {
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyJoomlaPhlagrant") ;
+        if (in_array($action, array("joomla15-ptvirtualize"))) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "DapperfyJoomlaPTVirtualize") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $thisModel->platform = "joomla15";
             $this->content["result"] = $thisModel->askWhetherToDapperfy();

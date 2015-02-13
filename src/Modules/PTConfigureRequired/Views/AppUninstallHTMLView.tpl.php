@@ -2,14 +2,14 @@
 
 <head>
   <title>
-    GC Cleopatra
+    GC PTConfigure
   </title>
 </head>
 
 <body>
 
   <h3>
-    Single App Installer:<br />
+    Single App Uninstaller:<br />
     --------------------------------------------
   </h3>
 

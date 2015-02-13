@@ -28,13 +28,13 @@ class CukeConfInfo extends Base {
 
           - configure, config, conf
           modify the url used for cucumber features testing
-          example: dapperstrano cukeconf conf
-          example: dapperstrano cukeconf conf --yes --cucumber-url="www.dave.local"
+          example: ptdeploy cukeconf conf
+          example: ptdeploy cukeconf conf --yes --cucumber-url="www.dave.local"
 
           - reset
-          reset cuke uri to generic values so dapperstrano can write them. may need to be run before cuke conf.
-          example: dapperstrano cukeconf reset
-          example: dapperstrano cukeconf reset --yes
+          reset cuke uri to generic values so ptdeploy can write them. may need to be run before cuke conf.
+          example: ptdeploy cukeconf reset
+          example: ptdeploy cukeconf reset --yes
 
 HELPDATA;
       return $help ;

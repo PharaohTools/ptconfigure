@@ -195,7 +195,7 @@ class NginxSBEditorLinuxMac extends Base {
     private function askForServerBlockTemplateDirectory() {
         $question = 'What is your ServerBlock Template directory? Enter nothing for default templates';
         if ($this->detectServerBlockTemplateFolderExistence()) {
-            $question .= ' Found "'.$this->docRoot.'/build/config/dapperstrano/server-blocks" - Enter nothing to use this';
+            $question .= ' Found "'.$this->docRoot.'/build/config/ptdeploy/server-blocks" - Enter nothing to use this';
             $input = self::askForInput($question);
             return ($input=="") ? $this->ServerBlockTemplateDir : $input ;  }
         else {
@@ -213,7 +213,7 @@ class NginxSBEditorLinuxMac extends Base {
     }
 
     private function detectServerBlockTemplateFolderExistence(){
-        return file_exists( $this->ServerBlockTemplateDir = $this->docRoot."/build/config/dapperstrano/server-blocks");
+        return file_exists( $this->ServerBlockTemplateDir = $this->docRoot."/build/config/ptdeploy/server-blocks");
     }
 
     private function attemptServerBlockWrite($serverBlockEditorAdditionFileSuffix=null){

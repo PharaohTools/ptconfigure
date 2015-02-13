@@ -101,7 +101,7 @@ class AppConfigAllOS extends Base {
     }
 
     private static function loadAppFile() {
-        $appFile = self::getAppBaseDir().DIRECTORY_SEPARATOR.'dapperapp';
+        $appFile = self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptdeployapp';
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayString = file_get_contents($appFile);
         $decoded = unserialize($appConfigArrayString);
@@ -110,7 +110,7 @@ class AppConfigAllOS extends Base {
 
     private static function saveAppFile($appConfigArray) {
         $coded = serialize($appConfigArray);
-        file_put_contents(self::getAppBaseDir().DIRECTORY_SEPARATOR.'dapperapp', $coded);
+        file_put_contents(self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptdeployapp', $coded);
     }
 
     private static function getAppBaseDir() {

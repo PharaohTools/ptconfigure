@@ -29,23 +29,23 @@ class LighttpdControlInfo extends Base {
 
           - start
           Start the Lighttpd server
-          example: dapperstrano lighttpdcontrol start
-          example: dapperstrano lighttpdcontrol start --yes
+          example: ptdeploy lighttpdcontrol start
+          example: ptdeploy lighttpdcontrol start --yes
 
           - stop
           Stop the Lighttpd server
-          example: dapperstrano lighttpdcontrol stop
-          example: dapperstrano lighttpdcontrol stop --yes
+          example: ptdeploy lighttpdcontrol stop
+          example: ptdeploy lighttpdcontrol stop --yes
 
           - restart
           Restart the Lighttpd server
-          example: dapperstrano lighttpdcontrol restart
-          example: dapperstrano lighttpdcontrol restart --yes
+          example: ptdeploy lighttpdcontrol restart
+          example: ptdeploy lighttpdcontrol restart --yes
 
           - reload
           Reloads the Lighttpd server configuration without restarting
-          example: dapperstrano lighttpdcontrol reload
-          example: dapperstrano lighttpdcontrol reload --yes
+          example: ptdeploy lighttpdcontrol reload
+          example: ptdeploy lighttpdcontrol reload --yes
 
 HELPDATA;
       return $help ;

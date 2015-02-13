@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
+class DapperfyDrupalPTVirtualizeAllOS extends DapperfyAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -12,7 +12,7 @@ class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("DapperfyDrupalPhlagrant") ;
+    public $modelGroup = array("DapperfyDrupalPTVirtualize") ;
 
     public $platform = "drupal7" ;
 
@@ -22,7 +22,7 @@ class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
 
     public function askToScreenWhetherToDapperfy() {
         if (isset($this->params["yes"])) { return true ; }
-        $question = 'Dapperfy This for Drupal on Phlagrant?';
+        $question = 'Dapperfy This for Drupal on PTVirtualize?';
         return self::askYesOrNo($question, true);
     }
 
@@ -34,7 +34,7 @@ class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
          * @todo removing the ones that we are not using from the pool so questions are not even asked
         */
         $this->environmentReplacements =
-          array( "dapper" => array(
+          array( "ptdeploy" => array(
               array("var"=>"dap_proj_cont_dir", "friendly_text"=>"Project Container directory, (inc slash)"),
               array("var"=>"dap_git_repo_url", "friendly_text"=>"Git Repo URL"),
               array("var"=>"dap_git_repo_ssh_key", "friendly_text"=>"Optional Private SSH Key for Git Repo"),
@@ -50,7 +50,7 @@ class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
 
     public function doDapperfy() {
 
-        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/Drupal7Phlagrant", dirname(__FILE__) ) ;
+        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/Drupal7PTVirtualize", dirname(__FILE__) ) ;
         $templates2 = scandir($templatesDir2);
 
         foreach ($this->environments as $environment) {
@@ -75,25 +75,25 @@ class DapperfyDrupalPhlagrantAllOS extends DapperfyAllOS {
                     "dap_db_app_user_pass" => "ph_pass",
                     "dap_db_name" => "ph_db",
                     "dap_db_admin_user_name" => "root",
-                    "dap_db_admin_user_pass" => "cleopatra",
+                    "dap_db_admin_user_pass" => "ptconfigure",
                     "dap_apache_vhost_ip" => "0.0.0.0"
                 ) ;
 
-            if (isset($environment["dapper"])) {
-                $replacements = array_merge($defaultReplacements, $environment["dapper"]) ; }
+            if (isset($environment["ptdeploy"])) {
+                $replacements = array_merge($defaultReplacements, $environment["ptdeploy"]) ; }
             else {
                 $replacements = $defaultReplacements ; }
 
             if (!isset($this->params["no-autopilot-creation"])) {
 
-                echo "Drupal Dapperfies for Phlagrant:\n" ;
+                echo "Drupal Dapperfies for PTVirtualize:\n" ;
                 foreach ($templates2 as $template) {
                     if (!in_array($template, array(".", ".."))) {
                         $templatorFactory = new \Model\Templating();
                         $templator = $templatorFactory->getModel($this->params);
                         $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
                         $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.
-                            'dapperstrano'.DIRECTORY_SEPARATOR.'dapperfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.
+                            'ptdeploy'.DIRECTORY_SEPARATOR.'dapperfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.
                             'generated';
                         $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
                         $templator->template(

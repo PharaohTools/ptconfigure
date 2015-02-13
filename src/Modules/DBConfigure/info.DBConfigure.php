@@ -33,13 +33,13 @@ class DBConfigureInfo extends Base {
 
       - configure, conf
       set up db user & pw for a project, use admins to create new resources as needed.
-      example: dapperstrano db-conf conf drupal
-      example: dapperstrano db-conf conf --yes --platform=joomla30 --mysql-host=127.0.0.1 --mysql-admin-user="" --mysql-user="impi_dv_user" --mysql-pass="impi_dv_pass" --mysql-db="impi_dv_db"
+      example: ptdeploy db-conf conf drupal
+      example: ptdeploy db-conf conf --yes --platform=joomla30 --mysql-host=127.0.0.1 --mysql-admin-user="" --mysql-user="impi_dv_user" --mysql-pass="impi_dv_pass" --mysql-db="impi_dv_db"
 
       - reset
-      reset current db to generic values so dapperstrano can write them. may need to be run before db conf.
-      example: dapperstrano db-conf reset drupal
-      example: dapperstrano db-conf reset --yes --platform=joomla30
+      reset current db to generic values so ptdeploy can write them. may need to be run before db conf.
+      example: ptdeploy db-conf reset drupal
+      example: ptdeploy db-conf reset --yes --platform=joomla30
 
       $extraHelp
 HELPDATA;

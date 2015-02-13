@@ -28,7 +28,7 @@ class CukeConfAllOS extends Base {
         $cukeFileEntry = $this->askForCukeModToScreen();
         if (!$cukeFileEntry) { return false; }
         if ( !$this->checkIsDHProject() ) {
-            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
+            return "You don't appear to be in a ptdeploy project. Try: \nptdeploy proj init\n"; }
         $uri = $this->askForCukefileUrl();
         $this->loadCurrentCukeFile();
         $this->cukeFileDataChange( $uri);
@@ -43,7 +43,7 @@ class CukeConfAllOS extends Base {
         $cukeFileEntry = $this->askForCukeResetToScreen();
         if (!$cukeFileEntry) { return false; }
         if ( !$this->checkIsDHProject() ) {
-            return "You don't appear to be in a dapperstrano project. Try: \ndapperstrano proj init\n"; }
+            return "You don't appear to be in a ptdeploy project. Try: \nptdeploy proj init\n"; }
         $this->loadCurrentCukeFile();
         $this->cukeFileReverseDataChange();
         $this->checkCukeFileOkay();

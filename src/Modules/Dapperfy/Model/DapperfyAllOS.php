@@ -38,7 +38,7 @@ class DapperfyAllOS extends Base {
     public function setEnvironmentReplacements() {
 
       $this->environmentReplacements =
-          array( "dapper" => array(
+          array( "ptdeploy" => array(
               array("var"=>"dap_proj_cont_dir", "friendly_text"=>"Project Container directory, (inc slash)"),
               array("var"=>"dap_git_repo_url", "friendly_text"=>"Git Repo URL"),
               array("var"=>"dap_git_repo_ssh_key", "friendly_text"=>"Optional Private SSH Key for Git Repo"),
@@ -94,8 +94,8 @@ class DapperfyAllOS extends Base {
                 "gen_env_tmp_dir" => $environment["any-app"]["gen_env_tmp_dir"]
             ) ;
 
-            if (isset($environment["dapper"])) {
-                $replacements = array_merge($defaultReplacements, $environment["dapper"]) ; }
+            if (isset($environment["ptdeploy"])) {
+                $replacements = array_merge($defaultReplacements, $environment["ptdeploy"]) ; }
             else {
                 $replacements = $defaultReplacements ; }
 
@@ -113,7 +113,7 @@ class DapperfyAllOS extends Base {
                         $templator = $templatorFactory->getModel($this->params);
                         $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
                         $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.
-                            'dapperstrano'.DIRECTORY_SEPARATOR.'dapperfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.
+                            'ptdeploy'.DIRECTORY_SEPARATOR.'dapperfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.
                             'generated';
                         $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
                         $templator->template(

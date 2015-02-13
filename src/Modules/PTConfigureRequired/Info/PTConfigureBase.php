@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class CleopatraBase extends Base {
+class PTConfigureBase extends Base {
 
     public $hidden ;
 

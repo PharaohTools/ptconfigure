@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class EnvironmentConfigInfo extends CleopatraBase {
+class EnvironmentConfigInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -25,24 +25,24 @@ class EnvironmentConfigInfo extends CleopatraBase {
       $help = <<<"HELPDATA"
   This command is part of a default Module and provides you with a method by which you can
   configure environments for your project from the command line. Currently compliant with
-  both Dapperstrano and Cleopatra.
+  both PTDeploy and PTConfigure.
 
 
   EnvironmentConfig, environmentconfig, environment-config, envconfig, env-config
 
         - list
         List current environments
-        example: cleopatra envconfig list --yes
+        example: ptconfigure envconfig list --yes
 
         - configure, config
         Configure the environments for your project to use
-        example: cleopatra envconfig config
-        example: cleopatra envconfig config --keep-current-environments
+        example: ptconfigure envconfig config
+        example: ptconfigure envconfig config --keep-current-environments
 
         - delete, del
         Configure the environments for your project to use
-        example: cleopatra envconfig delete
-        example: cleopatra envconfig del --environment-name="staging"
+        example: ptconfigure envconfig delete
+        example: ptconfigure envconfig del --environment-name="staging"
 
 
 HELPDATA;

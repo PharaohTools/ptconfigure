@@ -29,27 +29,27 @@ class ApacheControlInfo extends Base {
 
           - start
           Start the Apache server
-          example: dapperstrano apachecontrol start
-          example: dapperstrano apachecontrol start --yes --guess
-          example: dapperstrano apachecontrol start --yes --apache-command="apache2"
+          example: ptdeploy apachecontrol start
+          example: ptdeploy apachecontrol start --yes --guess
+          example: ptdeploy apachecontrol start --yes --apache-command="apache2"
 
           - stop
           Stop the Apache server
-          example: dapperstrano apachecontrol stop
-          example: dapperstrano apachecontrol stop --yes --guess
-          example: dapperstrano apachecontrol stop --yes --apache-command="apache2"
+          example: ptdeploy apachecontrol stop
+          example: ptdeploy apachecontrol stop --yes --guess
+          example: ptdeploy apachecontrol stop --yes --apache-command="apache2"
 
           - restart
           Restart the Apache server
-          example: dapperstrano apachecontrol restart
-          example: dapperstrano apachecontrol restart --yes --guess
-          example: dapperstrano apachecontrol restart --yes --apache-command="apache2"
+          example: ptdeploy apachecontrol restart
+          example: ptdeploy apachecontrol restart --yes --guess
+          example: ptdeploy apachecontrol restart --yes --apache-command="apache2"
 
           - reload
           Reloads the Apache server configuration without restarting
-          example: dapperstrano apachecontrol reload
-          example: dapperstrano apachecontrol reload --yes --guess
-          example: dapperstrano apachecontrol reload --yes --apache-command="apache2"
+          example: ptdeploy apachecontrol reload
+          example: ptdeploy apachecontrol reload --yes --guess
+          example: ptdeploy apachecontrol reload --yes --apache-command="apache2"
 
 HELPDATA;
       return $help ;

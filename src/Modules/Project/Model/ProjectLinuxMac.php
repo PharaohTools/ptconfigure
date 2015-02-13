@@ -51,7 +51,7 @@ class ProjectLinuxMac extends Base  {
 
     private function askForProjInitToScreen() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Do you want to initialize this as a dapperstrano project?';
+        $question = 'Do you want to initialize this as a ptdeploy project?';
         return self::askYesOrNo($question);
     }
 
@@ -63,7 +63,7 @@ class ProjectLinuxMac extends Base  {
 
     private function askForProjContainerInitToScreen() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Do you want to initialize this as a dapperstrano project Container?';
+        $question = 'Do you want to initialize this as a ptdeploy project Container?';
         return self::askYesOrNo($question);
     }
 

@@ -131,7 +131,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
         if (isset($this->params["autopilot-prod-invoke-install-file"])) {
             return $this->params["autopilot-prod-invoke-install-file"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-prod-invoke-install-file"] = "build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" ;
+            $this->params["autopilot-prod-invoke-install-file"] = "build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" ;
             return $this->params["autopilot-prod-invoke-install-file"] ; }
         $question = 'Enter the path of the autopilot prod environment invoke install file (Relative to project root)' ;
         $this->params["autopilot-prod-invoke-install-file"] = self::askForInput($question) ;
@@ -142,7 +142,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
         if (isset($this->params["autopilot-prod-invoke-dbconf-install-file"])) {
             return $this->params["autopilot-prod-invoke-dbconf-install-file"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-prod-invoke-dbconf-install-file"] = "build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" ;
+            $this->params["autopilot-prod-invoke-dbconf-install-file"] = "build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" ;
             return $this->params["autopilot-prod-invoke-dbconf-install-file"] ; }
         $question = 'Enter the path of the autopilot prod environment invoke with DB Config install file (Relative to project root)' ;
         $this->params["autopilot-prod-invoke-dbconf-install-file"] = self::askForInput($question) ;
@@ -153,7 +153,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
         if (isset($this->params["autopilot-prod-invoke-dbinstall-install-file"])) {
             return $this->params["autopilot-prod-invoke-dbinstall-install-file"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-prod-invoke-dbinstall-install-file"] = "build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" ;
+            $this->params["autopilot-prod-invoke-dbinstall-install-file"] = "build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" ;
             return $this->params["autopilot-prod-invoke-dbinstall-install-file"] ; }
         $question = 'Enter the path of the autopilot prod environment invoke with DB Install file (Relative to project root)' ;
         $this->params["autopilot-prod-invoke-dbinstall-install-file"] = self::askForInput($question) ;
@@ -164,7 +164,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
         if (isset($this->params["autopilot-test-invoke-install-file"])) {
             return $this->params["autopilot-test-invoke-install-file"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-test-invoke-install-file"] = "build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" ;
+            $this->params["autopilot-test-invoke-install-file"] = "build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" ;
             return $this->params["autopilot-test-invoke-install-file"] ; }
         $question = 'Enter the path of the autopilot test environment invoke install file (Relative to project root)' ;
         $this->params["autopilot-test-invoke-install-file"] = self::askForInput($question) ;
@@ -175,7 +175,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
         if (isset($this->params["autopilot-test-invoke-dbconf-install-file"])) {
             return $this->params["autopilot-test-invoke-dbconf-install-file"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-test-invoke-dbconf-install-file"] = "build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" ;
+            $this->params["autopilot-test-invoke-dbconf-install-file"] = "build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" ;
             return $this->params["autopilot-test-invoke-dbconf-install-file"] ; }
         $question = 'Enter the path of the autopilot test environment invoke with DB Config install file (Relative to project root)' ;
         $this->params["autopilot-test-invoke-dbconf-install-file"] = self::askForInput($question) ;
@@ -186,7 +186,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
         if (isset($this->params["autopilot-test-invoke-dbinstall-install-file"])) {
             return $this->params["autopilot-test-invoke-dbinstall-install-file"] ; }
         if (isset($this->params["guess"])) {
-            $this->params["autopilot-test-invoke-dbinstall-install-file"] = "build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" ;
+            $this->params["autopilot-test-invoke-dbinstall-install-file"] = "build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" ;
             return $this->params["autopilot-test-invoke-dbinstall-install-file"] ; }
         $question = 'Enter the path of the autopilot test environment invoke with DB Install file (Relative to project root)' ;
         $this->params["autopilot-test-invoke-dbinstall-install-file"] = self::askForInput($question) ;
@@ -212,7 +212,7 @@ class BuilderfyLinuxContinuousStagingToProduction extends BuilderfyLinux {
             $templatorFactory = new \Model\Templating();
             $templator = $templatorFactory->getModel($this->params);
             $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-            $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'dapperstrano'.
+            $autosDir = getcwd().DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'ptdeploy'.
                 DIRECTORY_SEPARATOR.'builderfy'.DIRECTORY_SEPARATOR.'autopilots'.DIRECTORY_SEPARATOR.'generated';
             $newFileName = basename($newFileName);
             $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;

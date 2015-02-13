@@ -55,13 +55,13 @@ class WordpressInfo extends Base {
   which are tailored to Wordpress.
 
   // dapperfy - create our auto deploy files
-  dapperstrano dapperfy wordpress --yes --guess
+  ptdeploy dapperfy wordpress --yes --guess
 
   // builderfy - create templates to install build
-  sudo dapperstrano builderfy continuous --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
+  sudo ptdeploy builderfy continuous --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
 
   // execute the build creator
-  dapperstrano autopilot execute build/config/dapperstrano/builderfy/autopilots/tiny-jenkins-invoke-continuous.php
+  ptdeploy autopilot execute build/config/ptdeploy/builderfy/autopilots/tiny-jenkins-invoke-continuous.php
 
 HELPDATA;
         return $help ;
@@ -78,10 +78,10 @@ HELPDATA;
   This module adds the 'wordpress' action to builderfy and will let you produce autopilots for it are tailored to Wordpress.
 
   // builderfy - create templates to install build
-  sudo dapperstrano builderfy wordpress --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/dapperstrano/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/dapperstrano/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
+  sudo ptdeploy builderfy wordpress --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
 
   // execute the build creator - you'll be using your jenkins/build environment here
-  dapperstrano autopilot execute build/config/dapperstrano/builderfy/autopilots/*environment-name*-wordpress-invoke-continuous.php
+  ptdeploy autopilot execute build/config/ptdeploy/builderfy/autopilots/*environment-name*-wordpress-invoke-continuous.php
 
 HELPDATA;
         return $help ;
@@ -97,8 +97,8 @@ HELPDATA;
   for your particular Wordpress site. This module adds the 'wordpress' action to dapperfy.
 
   - wordpress
-  create wordpress tailored automated deployment dapperstrano autopilots
-  example: dapperstrano dapperfy wordpress --yes --guess
+  create wordpress tailored automated deployment ptdeploy autopilots
+  example: ptdeploy dapperfy wordpress --yes --guess
 HELPDATA;
         return $help ;
     }
@@ -114,7 +114,7 @@ HELPDATA;
   Wordpress module adds the actions wordpress-conf, wordpress-reset to DBConfigure and will let you produce autopilots
   for it which are tailored to Wordpress.
 
-  dapperstrano dbconf wordpress-conf --yes --guess
+  ptdeploy dbconf wordpress-conf --yes --guess
 HELPDATA;
         return $help ;
     }
@@ -130,7 +130,7 @@ HELPDATA;
   Wordpress module adds the actions wordpress-install and wp-install to DBInstall, requiresd to allow the Post DB
   Install hooks for Wordpress, the DB restore won't work correctly without at least the url.
 
-  dapperstrano dbinstall wordpress-install --yes --guess --hook-url=www.site.env
+  ptdeploy dbinstall wordpress-install --yes --guess --hook-url=www.site.env
 HELPDATA;
         return $help ;
     }

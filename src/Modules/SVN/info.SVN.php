@@ -28,8 +28,8 @@ class SVNInfo extends Base {
 
           - perform a checkout into configured projects folder. If you don't want to specify target dir but do want
           to specify a branch, then enter the text "none" as that parameter.
-          example: dapperstrano svn co https://svnhub.com/phpengine/yourmum {optional target dir} {optional branch}
-          example: dapperstrano svn co https://svnhub.com/phpengine/yourmum none {optional branch}
+          example: ptdeploy svn co https://svnhub.com/phpengine/yourmum {optional target dir} {optional branch}
+          example: ptdeploy svn co https://svnhub.com/phpengine/yourmum none {optional branch}
 
 HELPDATA;
       return $help ;

@@ -54,7 +54,7 @@ class BuilderfyLinux extends BaseLinuxApp {
             $loggingFactory = new \Model\Logging() ;
             $log = $loggingFactory->getModel($this->params) ;
             $log->log("Error: No papyrusfile found") ;
-            $log->log("Try: \"dapperstrano proj init\" to initialize your project.") ;
+            $log->log("Try: \"ptdeploy proj init\" to initialize your project.") ;
             $this->result = false ;
             return false; }
         $this->dataHandlingType = $this->selectBuildDataHandlingType() ;

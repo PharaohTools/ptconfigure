@@ -30,7 +30,7 @@ class ParallelSshChildInfo extends Base {
 
           - execute
           execute a single command
-          example: dapperstrano parallel-ssh-child execute
+          example: ptdeploy parallel-ssh-child execute
 
 HELPDATA;
       return $help ;

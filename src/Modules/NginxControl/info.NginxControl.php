@@ -29,19 +29,19 @@ class NginxControlInfo extends Base {
 
           - start
           Start the Nginx server
-          example: dapperstrano nginxcontrol start
+          example: ptdeploy nginxcontrol start
 
           - stop
           Stop the Nginx server
-          example: dapperstrano nginxcontrol stop
+          example: ptdeploy nginxcontrol stop
 
           - restart
           Restart the Nginx server
-          example: dapperstrano nginxcontrol restart
+          example: ptdeploy nginxcontrol restart
 
           - reload
           Reloads the Nginx server configuration without restarting
-          example: dapperstrano nginxcontrol reload
+          example: ptdeploy nginxcontrol reload
 
 HELPDATA;
       return $help ;

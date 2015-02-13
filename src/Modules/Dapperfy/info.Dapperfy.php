@@ -6,7 +6,7 @@ class DapperfyInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Dapperstrano Dapperfyer - Automated Application Deployment autopilots for your project";
+    public $name = "PTDeploy Dapperfyer - Automated Application Deployment autopilots for your project";
 
     public function __construct() {
       parent::__construct();
@@ -39,14 +39,14 @@ class DapperfyInfo extends Base {
   Dapperfy, dapperfy
 
         - list
-        List all of the autopilot files in your build/config/dapperstrano/autopilots
-        example: dapperstrano dapperfy list
+        List all of the autopilot files in your build/config/ptdeploy/autopilots
+        example: ptdeploy dapperfy list
 
         - standard
         Create a standard set of autopilots to manage
-        example: dapperstrano dapperfy standard
+        example: ptdeploy dapperfy standard
 
-        The start of the command will be dapperstrano autopilot execute *filename*
+        The start of the command will be ptdeploy autopilot execute *filename*
 
         $extraHelp
 HELPDATA;

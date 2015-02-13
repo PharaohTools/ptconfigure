@@ -6,7 +6,7 @@ class AppSettingsInfo extends Base {
 
     public $hidden = false;
 
-    public $name = "Dapperstrano Application Settings";
+    public $name = "PTDeploy Application Settings";
 
     public function __construct() {
       parent::__construct();
@@ -29,19 +29,19 @@ class AppSettingsInfo extends Base {
 
         - set
         Set a configuration value
-        example: dapperstrano appsettings set
+        example: ptdeploy appsettings set
 
         - get
         Get the value of a setting you have configured
-        example: dapperstrano appsettings get
+        example: ptdeploy appsettings get
 
         - delete
         Delete a setting you have configured
-        example: dapperstrano appsettings delete
+        example: ptdeploy appsettings delete
 
         - list
         Display a list of all default available settings
-        example: dapperstrano appsettings list
+        example: ptdeploy appsettings list
 
 HELPDATA;
       return $help ;

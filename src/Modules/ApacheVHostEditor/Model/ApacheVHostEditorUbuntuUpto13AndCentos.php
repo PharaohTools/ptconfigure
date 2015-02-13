@@ -237,7 +237,7 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
         if (isset($this->params["vhe-template"])) { return "" ; }
         $question = 'What is your VHost Template directory? Enter nothing for default templates';
         if ($this->detectVHostTemplateFolderExistence()) {
-            $question .= ' Found "'.$this->docRoot.'/build/config/dapperstrano/virtual-hosts" - Enter nothing to use this';
+            $question .= ' Found "'.$this->docRoot.'/build/config/ptdeploy/virtual-hosts" - Enter nothing to use this';
             $input = self::askForInput($question);
             return ($input=="") ? $this->vHostTemplateDir : $input ;  }
         else {
@@ -259,7 +259,7 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
     }
 
     protected function detectVHostTemplateFolderExistence(){
-        return file_exists( $this->vHostTemplateDir = $this->docRoot."/build/config/dapperstrano/virtual-hosts");
+        return file_exists( $this->vHostTemplateDir = $this->docRoot."/build/config/ptdeploy/virtual-hosts");
     }
 
     protected function attemptVHostWrite($virtualHostEditorAdditionFileExtension=null){

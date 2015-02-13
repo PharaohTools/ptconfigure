@@ -33,15 +33,15 @@ class DBInstallInfo extends Base {
 
           - install
           install the database for a project. run DBConfigure first to set up users unless you already have them.
-          example: dapperstrano db-install install
+          example: ptdeploy db-install install
 
           - save
           save the database for a project. run DBConfigure first to set up users unless you already have them.
-          example: dapperstrano db-install save
+          example: ptdeploy db-install save
 
           - drop
           drop the database for a project.
-          example: dapperstrano db-install drop
+          example: ptdeploy db-install drop
 
       $extraHelp
 HELPDATA;

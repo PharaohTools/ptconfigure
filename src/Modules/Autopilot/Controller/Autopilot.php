@@ -40,7 +40,7 @@ class Autopilot extends Base {
         $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
         $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
         $defaultFolderToCheck = str_replace("src/Controller",
-          "build/config/dapperstrano/autopilots", dirname(__FILE__));
+          "build/config/ptdeploy/autopilots", dirname(__FILE__));
         $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
         if (file_exists($autoPilotFileName)) {
             require_once($autoPilotFileName); }

@@ -70,12 +70,12 @@ c) Run all tests, push to the main repo <%tpl.php%>target_branch</%tpl.php%> bra
       <command>#!/bin/bash
 cd $WORKSPACE/deployed
 echo &quot;Running Application Installation...&quot;
-echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot_install</%tpl.php%>&quot;
-sudo dapperstrano autopilot execute <%tpl.php%>autopilot_install</%tpl.php%></command>
+echo &quot;sudo ptdeploy autopilot execute <%tpl.php%>autopilot_install</%tpl.php%>&quot;
+sudo ptdeploy autopilot execute <%tpl.php%>autopilot_install</%tpl.php%></command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-echo &quot;Running Testingkamen Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;
+echo &quot;Running PTTest Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;
 cd $WORKSPACE/deployed
 testingkamen autopilot execute build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php</command>
     </hudson.tasks.Shell>
@@ -99,12 +99,12 @@ cd $WORKSPACE/deployed
 if [ $PUSH = &quot;TEST_PUSH_BRANCH&quot; ||  $PUSH = &quot;TEST_PUSH_BRANCH_TAGGED&quot;  ]
 then
     echo &quot;Successful build, set to push, so adding remote...&quot;
-    git remote add dappertarget <%tpl.php%>target_scm_url</%tpl.php%>
+    git remote add ptdeploytarget <%tpl.php%>target_scm_url</%tpl.php%>
 fi
 if [ $PUSH = &quot;TEST_PUSH_BRANCH&quot; ]
 then
     echo &quot;Successful build, set to push, so pushing...&quot;
-    git push dappertarget <%tpl.php%>target_branch</%tpl.php%>
+    git push ptdeploytarget <%tpl.php%>target_branch</%tpl.php%>
 fi
 if [ $PUSH = &quot;TEST_PUSH_BRANCH_TAGGED&quot; ]
 then
@@ -117,7 +117,7 @@ fi
 if [ $PUSH = &quot;TEST_PUSH_BRANCH&quot; ||  $PUSH = &quot;TEST_PUSH_BRANCH_TAGGED&quot;  ]
     then
     echo &quot;Successful build, pushed, so removing remote...&quot;
-    git remote remove dappertarget
+    git remote remove ptdeploytarget
 fi</command>
       </buildStep>
       <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail"/>
@@ -138,8 +138,8 @@ fi</command>
           <script>#!/bin/bash&#xd;
 echo &quot;Running Application Uninstallation...&quot;&#xd;
 cd $WORKSPACE/deployed&#xd;
-echo &quot;sudo dapperstrano autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%>&quot;&#xd;
-sudo dapperstrano autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%></script>
+echo &quot;sudo ptdeploy autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%>&quot;&#xd;
+sudo ptdeploy autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%></script>
         </hudson.plugins.postbuildtask.TaskProperties>
       </tasks>
     </hudson.plugins.postbuildtask.PostbuildTask>

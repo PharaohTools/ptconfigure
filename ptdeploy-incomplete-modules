@@ -1,15 +1,15 @@
-Dapperstrano Incomplete Modules
+PTDeploy Incomplete Modules
 -------------------------------------
 
-/opt/dapperstrano/dapperstrano/src/Bootstrap.php
+/opt/ptdeploy/ptdeploy/src/Bootstrap.php
 line 8
 // @todo document this feature that allows a user to provide a json envoronment variable of parameters
 
-/opt/dapperstrano/dapperstrano/src/Core/Base/Controller/Base.php
+/opt/ptdeploy/ptdeploy/src/Core/Base/Controller/Base.php
 // @todo child controllers should specify this
 This is a massive method that specifies what to do as default actions .
 The method is too big, and this should nt be specified in core. This should be specified in the XXXRequired of
-an application, so, we copy this into CleopatraRequired, DapperstranoRequired, TestingkamenRequired etc
+an application, so, we copy this into PTConfigureRequired, PTDeployRequired, PTTestRequired etc
 line 114 // @todo we should be able to specify an alias as well as a module
 In an autopilot file we call modules by their exact name. since we have aliases we should be able to use them
 The below line needs to find whatever logic get alias from modulename and use that instead of module = currentKey
@@ -17,10 +17,10 @@ So, it should look like:
 module = getModuleNameFromAliasIfNeeded($currentKey);
 
 
-/opt/dapperstrano/dapperstrano/src/Core/Base/Info/Base.php
+/opt/ptdeploy/ptdeploy/src/Core/Base/Info/Base.php
 line 16 // @todo some app settings class should contain this instead, so an individual pyramid app can specify those
 this should nt be specified in core. This should be specified in the XXXRequired of
-an application, so, we copy this into CleopatraRequired, DapperstranoRequired, TestingkamenRequired etc
+an application, so, we copy this into PTConfigureRequired, PTDeployRequired, PTTestRequired etc
 
 
 
@@ -57,12 +57,12 @@ Parameterize/Autopilotize
 -----------------------
 ApacheControl - Apache Server Control - DONE
 ApacheVHostEditor - Apache Virtual Host Functions - DONE
-AppSettings - Dapperstrano Application Settings  - DONE
+AppSettings - PTDeploy Application Settings  - DONE
 Autopilot - Dappestrano Autopilot - User Defined Installations - DONE
 CukeConf - Cucumber Configuration - DONE
 DBConfigure - Database Connection Configuration Functions - DONE
 DBInstall - Database Installation Management Functions - DONE
-Dapperfy - Dapperstrano Dapperfyer - Create some standard autopilots for your project - DONE MOST
+Dapperfy - PTDeploy Dapperfyer - Create some standard autopilots for your project - DONE MOST
 EnvironmentConfig - Environment Configuration - Configure Environments for a project  - DONE
 GitClone - GitClone Source Control Clone Functions - DONE
 HostEditor - Host File Management Functions - DONE
@@ -72,7 +72,7 @@ Logging - Logging - Output errors to the logging - DONE
 NginxControl - Nginx Server Control - DONE
 NginxSBEditor - Nginx Server Block Functions
 ParallelSshChild - Command Execution Functions - WAIT
-Project - Dapperstrano Project Management Functions
+Project - PTDeploy Project Management Functions
 SVN - SVN Source Control Project Checkout/Download Functions - DONE
 SystemDetection - System Detection - Detect the Running Operating System - DONE
 Version - Versioning Functions - DONE
@@ -179,6 +179,6 @@ database should be split into
 
 
 
-AWS - EC2 In cleopatra
+AWS - EC2 In ptconfigure
 
 Pharaoh exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)

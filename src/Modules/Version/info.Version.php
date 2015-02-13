@@ -29,21 +29,21 @@ class VersionInfo extends Base {
 
           - specific
           Will change back the *current* symlink to whichever available version you pick
-          example: dapperstrano version specific --limit=4 --container=/var/www/applications/the-app --version=2
+          example: ptdeploy version specific --limit=4 --container=/var/www/applications/the-app --version=2
 
           - latest
           Will change back the *current* symlink to the latest created version
-          example: dapperstrano version latest
-          example: dapperstrano version latest --limit=3 --container=/var/www/applications/the-app
+          example: ptdeploy version latest
+          example: ptdeploy version latest --limit=3 --container=/var/www/applications/the-app
 
           - rollback
           Will change back the *current* symlink to the latest created version but one
-          example: dapperstrano version rollback
-          example: dapperstrano version rollback --limit=3 --container=/var/www/applications/the-app
+          example: ptdeploy version rollback
+          example: ptdeploy version rollback --limit=3 --container=/var/www/applications/the-app
 
 
       You can also apply a limit to the number of Versions to keep by using the --limit parameter
-          example: dapperstrano version latest --limit=3
+          example: ptdeploy version latest --limit=3
 
 HELPDATA;
       return $help ;

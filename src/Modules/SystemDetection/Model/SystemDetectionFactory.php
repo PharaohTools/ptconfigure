@@ -41,7 +41,7 @@ class SystemDetectionFactory {
             ) {
                 // if just the distro match, we still return it but with a "might not work as expected"
                 // warning during expected models phase
-                $message ="Cleopatra Warning!: Model ".get_class($model)." may not work as expected, since it " .
+                $message ="PTConfigure Warning!: Model ".get_class($model)." may not work as expected, since it " .
                     "doesn't specify exact OS version match";
                 // error_log($message);
                 return $model; }
@@ -52,7 +52,7 @@ class SystemDetectionFactory {
             ) {
                 // if the OS matches, we still return it but with an extra high level warning
                 // during expected models phase
-                $message = "Cleopatra Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
+                $message = "PTConfigure Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
                     "it doesn't specify matching OS version or distro match";
                 // error_log($message);
                 return $model; } }

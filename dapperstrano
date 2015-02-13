@@ -1,3 +1,0 @@
-#!/usr/bin/php
-<?php
-require("src/Bootstrap.php");

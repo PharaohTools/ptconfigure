@@ -12,8 +12,8 @@ class Installer {
     private $bootStrapData;
     private $programDataFolder;
     private $programExecutorFolder;
-    private $programNameMachine = "dapperstrano";
-    private $programNameFriendly = "Dapperstrano"; // 12 chars
+    private $programNameMachine = "ptdeploy";
+    private $programNameFriendly = "PTDeploy"; // 12 chars
 
     public function __construct() {
         $this->populateStartDirectory();
@@ -45,7 +45,7 @@ class Installer {
     }
 
     private function askForProgramDataFolder() {
-        $this->programDataFolder = "/opt/dapperstrano/dapperstrano" ;
+        $this->programDataFolder = "/opt/ptdeploy/ptdeploy" ;
     }
 
     private function askForProgramExecutorFolder(){

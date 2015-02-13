@@ -77,12 +77,12 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
-echo &quot;sudo dapperstrano autopilot execute --autopilot-file=<%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;&#xd;
-sudo dapperstrano autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;</command>
+echo &quot;sudo ptdeploy autopilot execute --autopilot-file=<%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;&#xd;
+sudo ptdeploy autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-test-invoke-install-file</%tpl.php%>&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
 <command>#!/bin/bash
-echo &quot;Running Testingkamen Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;&#xd;
+echo &quot;Running PTTest Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;&#xd;
 cd $WORKSPACE/deployed
 # sudo testingkamen autopilot execute --autopilot-file=&quot;build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php&quot;</command>
     </hudson.tasks.Shell>

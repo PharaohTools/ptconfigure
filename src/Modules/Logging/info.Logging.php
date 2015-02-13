@@ -38,7 +38,7 @@ class LoggingInfo extends Base {
 
         - log
         Logs a message the console or
-        example: cleopatra logging log --php-log --log-message="Here is something logging to the console and error log"
+        example: ptconfigure logging log --php-log --log-message="Here is something logging to the console and error log"
 
 HELPDATA;
       return $help ;
