@@ -5,7 +5,7 @@ Namespace Model;
 class JRushUbuntu extends BasePHPApp {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("any") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -28,7 +28,7 @@ class JRushUbuntu extends BasePHPApp {
         $this->programNameMachine = "jrush"; // command and app dir name
         $this->programNameFriendly = "JRush CLI !!"; // 12 chars
         $this->programNameInstaller = "JRush - Joomla Command Line";
-        $this->programExecutorTargetPath = 'jrush/src/Bootstrap.php';
+        $this->programExecutorTargetPath = 'jrush'.DS.'src'.DS.'Bootstrap.php';
         $this->initialize();
     }
 
