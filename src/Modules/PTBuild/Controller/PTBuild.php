@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class PTConfigure extends Base {
+class PTBuild extends Base {
 
 }

@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class PTConfigure extends BaseModelFactory {
+class PTBuild extends BaseModelFactory {
 
 }

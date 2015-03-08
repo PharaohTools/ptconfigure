@@ -2,33 +2,33 @@
 
 Namespace Info;
 
-class PTConfigureInfo extends PTConfigureBase {
+class PTBuildInfo extends PTBuildBase {
 
     public $hidden = false;
 
-    public $name = "PTConfigure - Upgrade or Re-install PTConfigure";
+    public $name = "PTBuild - Upgrade or Re-install PTBuild";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "PTConfigure" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "PTBuild" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
-      return array("cleo"=>"PTConfigure", "ptconfigure"=>"PTConfigure");
+      return array("cleo"=>"PTBuild", "ptbuild"=>"PTBuild");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update PTConfigure.
+  This command allows you to update PTBuild.
 
-  PTConfigure, cleo, ptconfigure
+  PTBuild, cleo, ptbuild
 
         - install
-        Installs the latest version of ptconfigure
-        example: ptconfigure ptconfigure install
+        Installs the latest version of ptbuild
+        example: ptbuild ptbuild install
 
 HELPDATA;
       return $help ;

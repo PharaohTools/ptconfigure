@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTConfigureWindows extends BasePHPWindowsApp {
+class PTBuildWindows extends BasePHPWindowsApp {
 
     // Compatibility
     public $os = array("Windows", "WINNT") ;
@@ -16,18 +16,18 @@ class PTConfigureWindows extends BasePHPWindowsApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTConfigure";
+        $this->autopilotDefiner = "PTBuild";
         $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/ptconfigure.git",
-              "ptconfigure",
+              "https://github.com/PharaohTools/ptbuild.git",
+              "ptbuild",
               null // can be null for none
           )
         );
-        $this->programNameMachine = "ptconfigure"; // command and app dir name
-        $this->programNameFriendly = " PTConfigure! "; // 12 chars
-        $this->programNameInstaller = "PTConfigure - Update to latest version";
-        $this->programExecutorTargetPath = 'ptconfigure/src/Bootstrap.php';
+        $this->programNameMachine = "ptbuild"; // command and app dir name
+        $this->programNameFriendly = " PTBuild! "; // 12 chars
+        $this->programNameInstaller = "PTBuild - Update to latest version";
+        $this->programExecutorTargetPath = 'ptbuild/src/Bootstrap.php';
         $this->initialize();
     }
 
