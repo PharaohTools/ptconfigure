@@ -2,12 +2,7 @@
 
 Namespace Model;
 
-use Invoke\Drivers\BashSsh;
-use Invoke\Drivers\PhpSecLib;
-use Invoke\Drivers\Ssh2;
-use Invoke\Server;
-
-class InvokeAllLinux extends Base
+class InvokeAllOS extends Base
 {
 
 	// Compatibility
@@ -191,20 +186,44 @@ class InvokeAllLinux extends Base
 		return true;
 	}
 
-	protected function attemptSSH2Connection($server)
-	{
-		$pword = (isset($server["pword"])) ? $server["pword"] : false;
-		$pword = (isset($server["password"])) ? $server["password"] : $pword;
+    protected function attemptSSH2Connection($server) {
+        $pword = (isset($server["pword"])) ? $server["pword"] : false;
+        $pword = (isset($server["password"])) ? $server["password"] : $pword;
+        $invokeFactory = new \Model\Invoke() ;
+        $serverObj = $invokeFactory->getModel($this->params, "Server") ;
+        $serverObj->init($server['target'], $server['user'], $pword, isset($server['port']) ? $server['port'] : 22);
+//      $server = new \Invoke\Server();
+//		$driverString = isset($this->params["driver"]) ? $this->params["driver"] : 'seclib';
+//      $options = array("os" => "DriverBashSSH", "native" => "DriverNativeSSH", "seclib" => "DriverSecLib") ;
+        $driverString = $this->findDriver() ;
+        $driver = $invokeFactory->getModel($this->params, $driverString) ;
+        $driver->setServer($serverObj);
+        $serverObj->setDriver($driver);
+        $serverObj->connect();
+//        var_dump($serverObj) ;
+        return $serverObj;
+    }
 
-		$server = new Server($server['target'], $server['user'], $pword, isset($server['port']) ? $server['port'] : 22);
-
-		$driver = isset($this->params["ssh-driver"]) ? $this->params["ssh-driver"] : 'BashSsh';
-		$driver = 'Invoke\\Drivers\\'.$driver;
-		$server->setDriver(new $driver($server));
-		$server->connect();
-
-		return $server;
-	}
+    private function findDriver() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $optionsKeep = array("os" => "DriverBashSSH", "native" => "DriverNativeSSH", "seclib" => "DriverSecLib") ;
+        $optionsAsk = array_keys($optionsKeep) ;
+        $system = new \Model\SystemDetectionAllOS() ;
+        if (isset($this->params["ssh-driver"]) && in_array($this->params["ssh-driver"], $optionsAsk) ) {
+            if (in_array($system->os, array("WINNT", "Windows")) && $this->params["ssh-driver"] == "os") {
+                $logging->log("Windows does not support requested OS level SSH driver, switching to seclib...");
+                return "DriverSecLib" ; }
+            return $optionsKeep[$this->params["ssh-driver"]]; }
+        if (isset($this->params["guess"]) && $this->params["guess"] == true) {
+            if (in_array($system->os, array("WINNT", "Windows"))) {
+                return "DriverSecLib" ; }
+            return "DriverSecLib"; }
+        $question = 'Which SSH Driver should I use?';
+        $ofound = self::askForArrayOption($question, $optionsAsk);
+        $ofound = $optionsKeep[$ofound] ;
+        return $ofound ;
+    }
 
 	private function askForSSHShellExecute()
 	{
@@ -368,7 +387,7 @@ QUESTION;
 		return $sshObject->exec("$command\n");
 	}
 
-	private function doSSHCommand(Server $sshObject, $command, $first = null)
+	private function doSSHCommand($sshObject, $command, $first = null)
 	{
 		return $sshObject->exec($command);
 	}

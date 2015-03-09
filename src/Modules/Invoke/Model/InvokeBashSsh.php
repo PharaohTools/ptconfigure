@@ -57,8 +57,7 @@ class InvokeBashSsh {
 	 * @param $command
 	 * @return string
 	 */
-	public function exec($command)
-	{
+	public function exec($command) {
 		file_put_contents($this->commandsPipe, $command.PHP_EOL, FILE_APPEND);
 	}
 }
