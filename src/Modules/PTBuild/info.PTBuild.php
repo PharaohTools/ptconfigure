@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PTBuildInfo extends PTBuildBase {
+class PTBuildInfo extends PTConfigureBase {
 
     public $hidden = false;
 
