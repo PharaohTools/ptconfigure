@@ -117,6 +117,7 @@ class InvokeAllOS extends Base
 
 	private function loadServerData()
 	{
+        // @todo if the below is emoty we have no server to connect to so should not continue
 		$allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
 		if (isset($this->params["servers"])) {
 			$this->servers = unserialize($this->params["servers"]);

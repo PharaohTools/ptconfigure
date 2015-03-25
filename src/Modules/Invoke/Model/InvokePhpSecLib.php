@@ -6,14 +6,14 @@ class InvokePhpSecLib extends BaseLinuxApp
 {
 
     // Compatibility
-    public $os = ["any"];
-    public $linuxType = ["any"];
-    public $distros = ["any"];
-    public $versions = ["any"];
-    public $architectures = ["any"];
+    public $os = array("any");
+    public $linuxType = array("any");
+    public $distros = array("any");
+    public $versions = array("any");
+    public $architectures = array("any");
 
     // Model Group
-    public $modelGroup = ["DriverSecLib"];
+    public $modelGroup = array("DriverSecLib");
 
     /**
      * @var Server
