@@ -39,7 +39,7 @@ class InvokeBashSsh {
 	public function connect()
 	{
 		if(file_exists($this->server->password)){
-			$launcher = 'ssh -o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i '.escapeshellarg($this->server->password); }
+			$launcher = 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i '.escapeshellarg($this->server->password); }
         else{
 			$this->checkSshpassPresence();
 			$launcher = 'sshpass -p '.escapeshellarg($this->server->password).' ssh -o UserKnownHostsFile=/dev/null ' .
@@ -47,6 +47,7 @@ class InvokeBashSsh {
 		$this->commandsPipe = tempnam(null, 'ssh');
 		$launcher .= " -T -p {$this->server->port} ";
 		$launcher .= escapeshellarg($this->server->username.'@'.$this->server->host);
+        echo $launcher ;
 		$pipe = "tail -f {$this->commandsPipe}";
 		if(!pcntl_fork()){
 			if (ob_get_level() == 0)
@@ -74,6 +75,25 @@ class InvokeBashSsh {
 		}
 		$this->wait();
 	}
+
+
+//{
+//if(file_exists($this->server->password)){
+//$launcher = 'ssh -o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i '.escapeshellarg($this->server->password); }
+//else{
+//    $launcher = 'sshpass -p '.escapeshellarg($this->server->password).' ssh -o UserKnownHostsFile=/dev/null ' .
+//        '-o StrictHostKeyChecking=no -o PubkeyAuthentication=no'; }
+//$this->commandsPipe = tempnam(null, 'ssh');
+//$launcher .= " -T -p {$this->server->port} ";
+//$launcher .= escapeshellarg($this->server->username.'@'.$this->server->host);
+//$pipe = "tail -f {$this->commandsPipe}";
+//if(!pcntl_fork()){
+//    $fp = popen("$pipe | $launcher" ,"r");
+//    while (!feof($fp)) {
+//        echo fgets($fp, 4096); }
+//    pclose($fp);
+//    exit; }
+//}
 
 	public function shouldPreserveOutput($start)
 	{

@@ -219,7 +219,7 @@ class InvokeAllOS extends Base
         if (isset($this->params["guess"]) && $this->params["guess"] == true) {
             if (in_array($system->os, array("WINNT", "Windows"))) {
                 return "DriverSecLib" ; }
-            return "DriverSecLib"; }
+            return "DriverBashSSH"; }
         $question = 'Which SSH Driver should I use?';
         $ofound = self::askForArrayOption($question, $optionsAsk);
         $ofound = $optionsKeep[$ofound] ;
