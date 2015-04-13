@@ -30,9 +30,13 @@ class HAProxyInfo extends PTConfigureBase {
         Installs HA Proxy Server
         example: ptconfigure haproxy install
 
-        - configure
+        - configure, config
         Configure Load Balancing with HA Proxy Server
         example: ptconfigure haproxy configure
+                    --with-stats # if this flag is included, include the haproxy stats
+                    --environment-name="my-nodes" # your environment containing nodes
+                    --template_target_port #
+                    --listen_ip_port="" # ip and port to listen to
 
 HELPDATA;
       return $help ;
