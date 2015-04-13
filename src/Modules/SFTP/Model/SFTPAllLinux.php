@@ -183,7 +183,8 @@ class SFTPAllLinux extends Base {
     protected function attemptSFTPConnection($server) {
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
-        if (function_exists("ssh2_connect")) {
+        // @ todo native not working
+        if (1 === 0) {
             $this->isNativeSSH = true ;
             $sftpFactory = new \Model\SFTP();
             $sftp = $sftpFactory->getModel($this->params, "NativeWrapper" ) ;
@@ -261,6 +262,7 @@ QUESTION;
             if ( count($this->servers)<1) { $question .= "You need to enter at least one server\n"; }
             $serverAddingExecution = self::askYesOrNo($question); }
     }
+
 
     protected function askForTimeout(){
         if (isset($this->params["timeout"])) { return ; }
