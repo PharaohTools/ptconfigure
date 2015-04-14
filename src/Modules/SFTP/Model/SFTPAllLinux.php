@@ -215,8 +215,7 @@ class SFTPAllLinux extends Base {
         if (substr($pword, 0, 4) == 'KS::') {
             $ksf = new SshKeyStore();
             $ks = $ksf->getModel(array("key" => $pword, "guess" => true)) ;
-            $pword = $ks->findKey() ;
-            return $pword ; }
+            $pword = $ks->findKey() ; }
         if (substr($pword, 0, 1) == '~') {
             $home = $_SERVER['HOME'] ;
             $pword = str_replace('~', $home, $pword) ; }
