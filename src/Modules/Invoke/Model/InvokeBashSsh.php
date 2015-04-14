@@ -47,7 +47,6 @@ class InvokeBashSsh {
 		$this->commandsPipe = tempnam(null, 'ssh');
 		$launcher .= " -T -p {$this->server->port} ";
 		$launcher .= escapeshellarg($this->server->username.'@'.$this->server->host);
-        echo $launcher ;
 		$pipe = "tail -f {$this->commandsPipe}";
 		if(!pcntl_fork()){
 			if (ob_get_level() == 0)
