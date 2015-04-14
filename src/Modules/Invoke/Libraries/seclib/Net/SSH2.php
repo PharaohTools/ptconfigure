@@ -69,7 +69,7 @@
  */
 
 /*GOLDEN CONTACT*/
-$srcFolder =  str_replace("/Net", "", dirname(__FILE__) ) ;
+$srcFolder =  str_replace(DS."Net", "", dirname(__FILE__) ) ;
 
 /**
  * Include Math_BigInteger
@@ -77,7 +77,7 @@ $srcFolder =  str_replace("/Net", "", dirname(__FILE__) ) ;
  * Used to do Diffie-Hellman key exchange and DSA/RSA signature verification.
  */
 if (!class_exists('Math_BigInteger')) {
-             require_once($srcFolder.'/Math/BigInteger.php');
+             require_once($srcFolder.DS.'Math'.DS.'BigInteger.php');
 }
 
 /**

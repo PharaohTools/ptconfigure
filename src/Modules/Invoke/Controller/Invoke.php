@@ -13,6 +13,11 @@ class Invoke extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
+        if ($action=="help") {
+            $helpModel = new \Model\Help();
+            $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
+            return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
+
         if ($action=="cli") {
             $this->content["shlResult"] = $thisModel->askWhetherToInvokeSSHShell();
             return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
