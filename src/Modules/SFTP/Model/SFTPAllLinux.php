@@ -183,7 +183,8 @@ class SFTPAllLinux extends Base {
     protected function attemptSFTPConnection($server) {
         $pword = (isset($server["pword"])) ? $server["pword"] : false ;
         $pword = (isset($server["password"])) ? $server["password"] : $pword ;
-        if (function_exists("ssh2_connect")) {
+        // @ todo native not working
+        if (1 === 0) {
             $this->isNativeSSH = true ;
             $sftpFactory = new \Model\SFTP();
             $sftp = $sftpFactory->getModel($this->params, "NativeWrapper" ) ;
