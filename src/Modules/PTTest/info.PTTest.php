@@ -17,18 +17,18 @@ class PTTestInfo extends PTConfigureBase {
     }
 
     public function routeAliases() {
-      return array("cleo"=>"PTTest", "pttest"=>"PTTest");
+      return array("pttest"=>"PTTest");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command allows you to update PTTest.
 
-  PTTest, cleo, pttest
+  PTTest, pttest
 
         - install
         Installs the latest version of pttest
-        example: pttest pttest install
+        example: ptconfigure pttest install
 
 HELPDATA;
       return $help ;
