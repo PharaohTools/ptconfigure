@@ -76,7 +76,8 @@ class RunCommandUbuntu extends BaseLinuxApp {
             $useNoHup = (strlen($this->params["nohup"]) > 0) ? true : false ;
             $this->nohup = $useNoHup ;
             return ; }
-        if (isset($this->params["nohup"]) && $this->params["nohup"]===false) {
+        if ( (isset($this->params["nohup"]) && $this->params["nohup"]===false) ||
+             (isset($this->params["nohup"]) && $this->params["nohup"]=="false")) {
             $useNoHup = false ;
             $this->nohup = $useNoHup ;
             return ; }
