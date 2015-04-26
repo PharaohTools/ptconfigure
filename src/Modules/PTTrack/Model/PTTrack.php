@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class PTTest extends BaseModelFactory {
+class PTTrack extends BaseModelFactory {
 
 }

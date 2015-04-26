@@ -2,33 +2,33 @@
 
 Namespace Info;
 
-class PTTestInfo extends PTConfigureBase {
+class PTTrackInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Upgrade or Re-install PTTest";
+    public $name = "Upgrade or Re-install PTTrack";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "PTTest" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "PTTrack" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
-      return array("cleo"=>"PTTest", "pttest"=>"PTTest");
+      return array("pttrack"=>"PTTrack");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update PTTest.
+  This command allows you to update PTTrack.
 
-  PTTest, cleo, pttest
+  PTTrack, pttrack
 
         - install
-        Installs the latest version of pttest
-        example: pttest pttest install
+        Installs the latest version of pttrack
+        example: ptconfigure pttrack install
 
 HELPDATA;
       return $help ;

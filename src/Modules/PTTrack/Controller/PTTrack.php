@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class PTTest extends Base {
+class PTTrack extends Base {
 
 }
