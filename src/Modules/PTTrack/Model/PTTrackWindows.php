@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class PTDeployAllLinux extends BasePHPApp {
+class PTTestWindows extends BasePHPWindowsApp {
 
     // Compatibility
-    public $os = array("any") ;
+    public $os = array("Windows", "WINNT") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -16,18 +16,18 @@ class PTDeployAllLinux extends BasePHPApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTDeploy";
+        $this->autopilotDefiner = "PTTest";
         $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/ptdeploy.git",
-              "ptdeploy",
+              "https://github.com/PharaohTools/pttest.git",
+              "pttest",
               null // can be null for none
           )
         );
-        $this->programNameMachine = "ptdeploy"; // command and app dir name
-        $this->programNameFriendly = " PTDeploy "; // 12 chars
-        $this->programNameInstaller = "PTDeploy";
-        $this->programExecutorTargetPath = 'ptdeploy/src/Bootstrap.php';
+        $this->programNameMachine = "pttest"; // command and app dir name
+        $this->programNameFriendly = " PTTest! "; // 12 chars
+        $this->programNameInstaller = "PTTest - Update to latest version";
+        $this->programExecutorTargetPath = 'pttest/src/Bootstrap.php';
         $this->initialize();
     }
 
