@@ -8,7 +8,7 @@ class PTVirtualizeWindows extends BasePHPWindowsApp {
     public $os = array("Windows", "WINNT") ;
     public $linuxType = array("None") ;
     public $distros = array("None") ;
-    public $versions = array(array("5" => "+")) ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group

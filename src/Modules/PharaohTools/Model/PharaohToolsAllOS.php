@@ -44,7 +44,7 @@ class PharaohToolsAllOS extends BaseLinuxApp {
 
     public function askStatus() {
         return $this->askStatusByArray(array(
-            "ptvirtualize", "ptbuild", "ptconfigure", "ptdeploy", "pttest", "pttrack", "jrush"
+            "ptbuild", "ptconfigure", "ptdeploy", "pttest", "pttrack", "ptvirtualize", "jrush"
         ) ) ;
     }
 

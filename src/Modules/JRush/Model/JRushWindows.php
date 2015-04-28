@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTTestWindows extends BasePHPWindowsApp {
+class JRushWindows extends BasePHPWindowsApp {
 
     // Compatibility
     public $os = array("Windows", "WINNT") ;
@@ -16,18 +16,18 @@ class PTTestWindows extends BasePHPWindowsApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTTest";
+        $this->autopilotDefiner = "JRush";
         $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/pttest.git",
-              "pttest",
+              "https://github.com/PharaohTools/jrush.git",
+              "jrush",
               null // can be null for none
           )
         );
-        $this->programNameMachine = "pttest"; // command and app dir name
-        $this->programNameFriendly = " PTTest! "; // 12 chars
-        $this->programNameInstaller = "PTTest - Update to latest version";
-        $this->programExecutorTargetPath = 'pttest/src/Bootstrap.php';
+        $this->programNameMachine = "jrush"; // command and app dir name
+        $this->programNameFriendly = " JRush! "; // 12 chars
+        $this->programNameInstaller = "JRush - Update to latest version";
+        $this->programExecutorTargetPath = 'jrush/src/Bootstrap.php';
         $this->initialize();
     }
 

@@ -16,18 +16,18 @@ class PTDeployWindows extends BasePHPWindowsApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTConfigure";
+        $this->autopilotDefiner = "PTDeploy";
         $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/ptconfigure.git",
-              "ptconfigure",
+              "https://github.com/PharaohTools/ptdeploy.git",
+              "ptdeploy",
               null // can be null for none
           )
         );
-        $this->programNameMachine = "ptconfigure"; // command and app dir name
-        $this->programNameFriendly = " PTConfigure! "; // 12 chars
-        $this->programNameInstaller = "PTConfigure - Update to latest version";
-        $this->programExecutorTargetPath = 'ptconfigure/src/Bootstrap.php';
+        $this->programNameMachine = "ptdeploy"; // command and app dir name
+        $this->programNameFriendly = " PTDeploy! "; // 12 chars
+        $this->programNameInstaller = "PTDeploy - Update to latest version";
+        $this->programExecutorTargetPath = 'ptdeploy/src/Bootstrap.php';
         $this->initialize();
     }
 
