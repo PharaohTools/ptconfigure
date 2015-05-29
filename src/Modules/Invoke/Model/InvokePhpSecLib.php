@@ -88,7 +88,7 @@ class InvokePhpSecLib extends BaseLinuxApp
         }
         if (file_exists($pword)) {
             if (!class_exists('Crypt_RSA')) {
-                $srcFolder = str_replace("/Model", "/Libraries", dirname(__FILE__));
+                $srcFolder = str_replace(DS."Model", DS."Libraries", dirname(__FILE__));
                 $rsaFile = $srcFolder . DS . "seclib" . DS . "Crypt" . DS . "RSA.php";
                 require_once($rsaFile);
             }
