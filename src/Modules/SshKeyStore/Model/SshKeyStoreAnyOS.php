@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class SshKeyStoreUbuntu extends BaseLinuxApp {
+class SshKeyStoreAnyOS extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -89,10 +89,7 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
         else if (isset($this->params["user-home"])) {
             $this->userHomeDir = $this->params["user-home"]; }
         else if (isset($this->params["guess"])) {
-            $whoami = self::executeAndLoad("whoami") ;
-            $whoami = str_replace("\n", "", $whoami) ;
-            $whoami = str_replace("\r", "", $whoami) ;
-            $this->userHomeDir = '/home/'.$whoami; }
+            $this->userHomeDir = $this->guessUserHome(); }
         else {
             $question = "Enter User home directory:";
             $this->userHomeDir = self::askForInput($question, true); }
@@ -106,7 +103,7 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
             switch ($loc) {
                 case "user" :
                     $this->setUserHome() ;
-                    $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
+                    $kp = $this->userHomeDir.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
                         $logging->log("User key found at $kp");
                         return $kp ; }
@@ -116,7 +113,7 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
                 case "otheruser" :
                     $this->userName = (isset($this->params["otheruser"])) ? $this->params["otheruser"] : null ;
                     $this->setUserHome() ;
-                    $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
+                    $kp = $this->userHomeDir.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
                         $logging->log("Other User key found at $kp");
                         return $kp ; }
@@ -124,7 +121,7 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
                         $logging->log("Other User key not found at $kp"); }
                     break ;
                 case "root" :
-                    $kp = "/root/.ssh".DS.$this->key ;
+                    $kp = DS."root".DS.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
                         $logging->log("Root key found at $kp");
                         return $kp ; }
@@ -139,27 +136,36 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
         return null;
     }
 
-    /*
-     * [3]=>
-  array(3) {
-    ["any-app"]=>
-    array(2) {
-      ["gen_env_name"]=>
-      string(19) "shared-temp-staging"
-      ["gen_env_tmp_dir"]=>
-      string(5) "/tmp/"
-    }
-    ["servers"]=>
-    array(1) {
-      [0]=>
-      array(6) {
-        ["target"]=>
-        string(12) "178.62.10.22"
-        ["user"]=>
-        string(4) "root"
-        ["password"]=>
-        string(17) "/root/.ssh/id_rsa"
 
-     */
+    protected function guessUserHome() {
+
+        // have home env var
+//        if ($home = getenv('HOME')) {
+//            return in_array(substr($home, -1), ['/', '\\']) ? $home : $home.DIRECTORY_SEPARATOR;
+//        }
+
+        // *nix OS
+        $sys = new \Model\SystemDetectionAllOS();
+
+        if (!in_array($sys->os, array("Windows", "WINNT")) ) {
+            $username = get_current_user() ?: getenv('USERNAME');
+            return '/home/'.($username ? $username.'/' : '');
+        }
+
+        // Windows
+        $username = get_current_user() ?: getenv('USERNAME');
+        if ($username && is_dir($win7path = 'C:\Users\\'.$username.'\\')) { // is Vista or older
+            return $win7path;
+        } elseif ($username) {
+            return 'C:\Documents and Settings\\'.$username.'\\';
+        }
+
+        // have drive and path env vars
+        if (getenv('HOMEDRIVE') && getenv('HOMEPATH')) {
+            $home = getenv('HOMEDRIVE').getenv('HOMEPATH');
+            return in_array(substr($home, -1), ['/', '\\']) ? $home : $home.DIRECTORY_SEPARATOR;
+        }
+
+    }
 
 }
