@@ -37,11 +37,16 @@ class Autopilot extends Base {
     }
 
     private function loadAutoPilot($params){
-        $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
-        $autoPilotFilePath = getcwd().'/'.$autoPilotFileName;
-        $defaultFolderToCheck = str_replace("src/Controller",
-          "build/config/ptdeploy/autopilots", dirname(__FILE__));
-        $defaultName = $defaultFolderToCheck.'/'.$autoPilotFileName.".php";
+        $params["autopilot-file"] = str_replace("^", "", $params["autopilot-file"] ) ;
+        $autoPilotFileName = $params["autopilot-file"];
+        $sys = new \Model\SystemDetectionAllOS();
+        // @todo windows escape shell command adds in carets that break this
+        if (!in_array($sys->os, array("Windows", "WINNT"))) {
+            $autoPilotFileName = escapeshellcmd($params["autopilot-file"]); }
+        $autoPilotFilePath = getcwd().DS.$autoPilotFileName;
+        $defaultFolderToCheck = str_replace("src".DS."Controller",
+          "build".DS."config".DS."ptdeploy".DS."autopilots", dirname(__FILE__));
+        $defaultName = $defaultFolderToCheck.DS.$autoPilotFileName.".php";
         if (file_exists($autoPilotFileName)) {
             require_once($autoPilotFileName); }
         else if (file_exists($defaultName)) {
