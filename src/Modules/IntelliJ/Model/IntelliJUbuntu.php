@@ -6,10 +6,10 @@ class IntelliJUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
-    public $architectures = array("32", "64") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
+    public $architectures = array("any") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
@@ -24,7 +24,7 @@ class IntelliJUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
             array("command" => array(
                     "cd /tmp" ,
-                    "git clone https://github.com/phpengine/ptconfigure-intellij{$this->iv} intellij",
+                    "git clone https://github.com/PharaohTools/ptconfigure-intellij{$this->iv} intellij",
                     "rm -rf ****PROGDIR****",
                     "mkdir -p ****PROGDIR****",
                     "mv /tmp/intellij/* ****PROGDIR****",
