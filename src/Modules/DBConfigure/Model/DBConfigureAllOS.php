@@ -34,19 +34,29 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function performDBConfiguration(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if ( !$this->askForDBConfig() ) { return false; }
         // @todo $this->tryToDetectPlatform() ; try to autodetect the platform from the proj file before asking for it
         $this->setPlatformVars();
         $this->dbRootUser = $this->askForRootDBUser();
-        if ($this->dbRootUser != "") {
-            $this->dbRootPass = $this->askForRootDBPass(); }
+        if ($this->dbRootUser != "") { $this->dbRootPass = $this->askForRootDBPass(); }
         $this->dbHost = $this->askForDBHost();
         $this->dbUser = $this->askForDBUser();
         $this->dbPass = $this->askForDBPass();
         $this->dbName = $this->askForDBName();
+
         $canIConnect = $this->canIConnect();
         if ($canIConnect!==true) {
-            if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; } }
+            if (!$this->verifyContinueWithNonConnectDetails() ) {
+                $logging->log("Not continuing database configuration, connection details not working", $this->getModuleName());
+                return false; }
+            else {
+                $logging->log("Attempting to execute anyway, with connection details not working", $this->getModuleName());
+            } }
+        else {
+            $logging->log("Database Connection working", $this->getModuleName());  }
+
         $this->loadCurrentSettingsFile();
         $this->settingsFileDataChange();
         if ( !$this->checkSettingsFileOkay() ) { return false; }
@@ -97,7 +107,12 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function verifyContinueWithNonConnectDetails(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $question = 'Cannot connect with these details. Sure you want to continue?';
+        if (isset($this->params["guess"])) {
+            $logging->log("Guessing that we should not attempt to continue with connection details that don't work.", $this->getModuleName());
+            return false ;}
         return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
     }
 
@@ -187,11 +202,18 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function canIConnect(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         error_reporting(0);
+        if (!function_exists("mysqli_connect")) {
+            \Core\BootStrap::setExitCode(1);
+            $logging->log("MySQL PHP Extension not installed, fatal error", $this->getModuleName());
+            return false ; }
         $con = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
         error_reporting(E_ALL ^ E_WARNING);
         if (mysqli_connect_errno($con)) {
-            return "Failed to connect to MySQL: " . mysqli_connect_error(); }
+            $logging->log("Failed to connect to MySQL: " . mysqli_connect_error());
+            return false ; }
         else {
             mysqli_close($con);
             return true;}
@@ -261,6 +283,8 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function createSettingsFile() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         $len = strlen($parent) ;
         $lastChar = substr($parent, ($len-1), $len);
@@ -269,11 +293,13 @@ class DBConfigureAllOS extends Base {
           ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
-        echo "Moving new settings file ".$location." in...\n" ;
+        $logging->log("Moving new settings file ".$location." in", $this->getModuleName()) ;
         return file_put_contents($location, $this->settingsFileData);
     }
 
     protected function removeOldSettingsFile(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         $len = strlen($parent) ;
         $lastChar = substr($parent, ($len-1), $len);
@@ -284,8 +310,10 @@ class DBConfigureAllOS extends Base {
         $lastChar = substr($location, ($len-1), 1);
         if ($lastChar != '/') { $location .= '/' ; }
         $location .= $this->platformVars->getProperty("settingsFileName");
+        // @todo need windows friendly
         $command    = 'rm -f '.$location ;
-        self::executeAndOutput($command, "Removing old settings file ".$location."...\n");
+        $logging->log("Removing old settings file ".$location, $this->getModuleName()) ;
+        self::executeAndOutput($command);
     }
 
 }
