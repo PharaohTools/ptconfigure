@@ -31,7 +31,7 @@ class Base {
     protected $baseTempDir ;
 
     public function __construct($params) {
-        $this->tempDir =  DIRECTORY_SEPARATOR.'tmp';
+        $this->tempDir = BASE_TEMP_DIR;
         $this->baseTempDir =  $this->tempDir ;
         $this->autopilotDefiner = $this->getModuleName() ;
         $this->setCmdLineParams($params);
@@ -48,11 +48,11 @@ TITLE;
     }
 
     protected function populateTinyTitle() {
-        $this->titleData = "$this->programNameInstaller Starting\n";
+        $this->titleData = "" ; // "$this->programNameInstaller Starting\n";
     }
 
     protected function populateTinyCompletion() {
-        $this->completionData = "$this->programNameInstaller Complete\n";
+        $this->completionData = "" ; // "$this->programNameInstaller Complete\n";
     }
 
     protected function populateCompletion() {
