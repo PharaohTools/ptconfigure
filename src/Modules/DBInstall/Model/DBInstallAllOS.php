@@ -21,7 +21,12 @@ class DBInstallAllOS extends Base {
     public $dbName ;
     public $dbRootUser ;
     public $dbRootPass ;
-    public $dbFilePath = "db/database.sql";
+    public $dbFilePath ;
+
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->dbFilePath = "db".DS."database.sql";
+    }
 
     public function askWhetherToInstallDB(\Model\DBConfigure $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
@@ -53,7 +58,11 @@ class DBInstallAllOS extends Base {
     }
 
     protected function performDBInstallationWithConfig(\Model\DBConfigure $dbConfigObject) {
-        if ( !$this->askForDBInstall() ) { return false; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ( !$this->askForDBInstall() ) {
+            $logging->log("DB Installation refused", $this->getModuleName()) ;
+            return false; }
         $this->setDBFilePath();
         $this->dbHost = $dbConfigObject->getProperty("dbHost");
         $this->dbUser = $dbConfigObject->getProperty("dbUser");
@@ -61,8 +70,12 @@ class DBInstallAllOS extends Base {
         $this->dbName = $dbConfigObject->getProperty("dbName");
         $canIConnect = $this->canIConnect();
         if ($canIConnect!==true) {
-            if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; }
-            if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
+            if (!$this->verifyContinueWithNonConnectDetails() ) {
+                $logging->log("Exiting due to incorrect db connection", $this->getModuleName()) ;
+                return false; }
+            if (!$this->useRootToSetUpUserAndDb() ) {
+                $logging->log("Unable to connect with non-root details, and you've declined using root", $this->getModuleName()) ;
+                return false; }
             $this->dbRootUser = $this->askForRootDBUser();
             $this->dbRootPass = $this->askForRootDBPass();
             $this->databaseCreator();
@@ -70,38 +83,42 @@ class DBInstallAllOS extends Base {
         $this->doInstallHook("pre") ;
         $this->sqlInstaller();
         $this->doInstallHook("post") ;
-        return "Seems Fine...";
+        return true;
     }
 
     // @todo add logging of install hook outputs
     protected function doInstallHook($hook) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $hook = strtolower($hook) ;
         if (in_array($hook, array("pre", "post"))) {
             if (!is_null($this->platformHooks)) {
                 if (is_object($this->platformHooks)) {
                     if (method_exists($this->platformHooks, "{$hook}InstallHook")) {
                         $fullMethodName = "{$hook}InstallHook" ;
-                        $this->platformHooks->$fullMethodName($this) ;
-                        return ; }
+                        $res = $this->platformHooks->$fullMethodName($this) ;
+                        return $res; }
                     else {
-                        echo "error 1" ;
-                        // no install hook specified
-                        return ; } }
+                        $logging->log("The specified Database Install Hook {$hook}InstallHook does not exist for this platform", $this->getModuleName());
+                        // no specified install hook exists
+                        return false; } }
                 else {
-                    echo "error 2" ;
+                    $logging->log("Database Install Hooks are set, but not as a readable object", $this->getModuleName());
                     // platform hooks is set but is not an object
-                    return ; } }
-             else {
-                 echo "error 3" ;
+                    return false; } }
+            else {
+                 $logging->log("Database Install Hooks are set, but not as a readable object", $this->getModuleName());
                 // no platform hooks model
-                return ; } }
-         else {
-             echo "error 4" ;
+                return false; ; } }
+        else {
+            $logging->log("Requested DB Install Hook {$hook} is not supported", $this->getModuleName());
             // non existent hook
-            return ; }
+            return false ; }
     }
 
     protected function performDBInstallationWithNoConfig() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if ( !$this->askForDBInstall() ) { return false; }
         $this->dbHost = $this->askForDBHost();
         $this->dbRootUser = $this->askForRootDBUser();
@@ -111,14 +128,18 @@ class DBInstallAllOS extends Base {
         $this->dbName = $this->askForDBFreeFormName();
         $canIConnect = $this->canIConnect();
         if ($canIConnect!==true) {
-            if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; }
-            if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
+            if (!$this->verifyContinueWithNonConnectDetails() ) {
+                $logging->log("Exiting due to incorrect db connection", $this->getModuleName()) ;
+                return false; }
+            if (!$this->useRootToSetUpUserAndDb() ) {
+                $logging->log("Unable to connect with non-root details, and you've declined using root", $this->getModuleName()) ;
+                return false; }
             $this->databaseCreator();
             $this->userCreator(); }
         $this->doInstallHook("pre") ;
         $this->sqlInstaller();
         $this->doInstallHook("post") ;
-        return "Seems Fine...";
+        return true;
     }
 
     public function setPlatformDBIHooks($platformHooks = null) {
@@ -149,7 +170,7 @@ class DBInstallAllOS extends Base {
             $this->dbRootUser = $this->askForRootDBUser();
             $this->dbRootPass = $this->askForRootDBPass(); }
         $this->databaseSaver();
-        return "Seems Fine...";
+        return true;
     }
 
     protected function performDBSaveWithNoConfig() {
@@ -162,7 +183,7 @@ class DBInstallAllOS extends Base {
         if ($canIConnect!==true) {
             if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; } }
         $this->databaseSaver();
-        return "Seems Fine...";
+        return true;
     }
 
     protected function performDBDrop() {
@@ -176,7 +197,7 @@ class DBInstallAllOS extends Base {
 //              $this->loadDBAdminUser(); }
 //            $this->dbUser = $this->askForDBUser();
 //            $this->userDropper(); }
-        return "Seems Fine...";
+        return true;
     }
 
     protected function performAddUser() {
@@ -185,14 +206,14 @@ class DBInstallAllOS extends Base {
             $this->dbPass = $this->askForDBPass();
             $this->dbName = $this->askForDBFixedName();
             $this->userCreator(); }
-        return "Seems Fine...";
+        return true;
     }
 
     protected function performDropUser() {
         if ( $this->askForDBUserDrop() ) {
             $this->dbUser = $this->askForDBUser();
             $this->userDropper(); }
-        return "Seems Fine...";
+        return true;
     }
 
     protected function askForDBInstall(){
@@ -278,7 +299,7 @@ class DBInstallAllOS extends Base {
       $canAdminConnect = $this->canAdminConnect();
       if ($canAdminConnect !== true) {
         echo $canAdminConnect;
-        die(); }
+        return false ;}
     }
 
     protected function askForDBPass(){
@@ -388,15 +409,19 @@ class DBInstallAllOS extends Base {
     }
 
     protected function databaseCreator() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+        $logging->log('Attempting to create database (if it doesn\'t already exist) '.$this->dbName, $this->getModuleName()) ;
         $query = 'create database if not exists '.$this->dbName.';';
-        echo "$query\n";
-        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Creating database '.$this->dbName.' failed', $this->getModuleName()) ;
+            return false ; }
     }
 
     protected function databaseSaver() {
         $fp = (isset($this->params["parent-path"])) ? $this->params["parent-path"].$this->dbFilePath : $this->dbFilePath ;
-        // @todo this should make the db dir if it doesnt exist
+        // @todo this should make the db dir if it doesn't exist
         // $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$fp} --no-create-db ; " ;
         // $this->executeAndOutput($comm, "Creating db dir...") ;
         $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$fp} --no-create-db ; " ;
@@ -404,52 +429,92 @@ class DBInstallAllOS extends Base {
     }
 
     protected function userCreator() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to create/refresh database user...", $this->getModuleName()) ;
         $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
+
+        $logging->log('Attempting to grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\' identified by "{hidden password}";', $this->getModuleName()) ;
         $query = 'grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\' identified by "'.$this->dbPass.'";';
-        echo "$query\n";
-        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Attempting to grant usage to user failed ', $this->getModuleName()) ;
+            return false ; }
+
+        $logging->log('Attempting to grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\' identified by "{hidden password}";', $this->getModuleName()) ;
         $query = 'grant usage on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\' identified by "'.$this->dbPass.'";';
-        echo "$query\n";
-        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Attempting to grant usage to user failed ', $this->getModuleName()) ;
+            return false ; }
+
+        $logging->log('Attempting to grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\'...', $this->getModuleName()) ;
         $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'%\'' ;
-        echo "$query\n";
-        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Attempting to grant all privileges to user failed ', $this->getModuleName()) ;
+            return false ; }
+
+        $logging->log('Attempting to grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\'...', $this->getModuleName()) ;
         $query = 'grant all privileges on '.$this->dbName.'.* to '.$this->dbUser.'@\'localhost\'' ;
-        echo "$query\n";
-        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Attempting to grant all privileges to user failed ', $this->getModuleName()) ;
+            return false ; }
+
+    }
+
+    private function queryOrFalse($dbc, $query){
+        $res = mysqli_query($dbc, $query) ;
+        if ($res == false) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Database query failed: ".mysqli_error($dbc), $this->getModuleName()) ;
+            return false ; }
+        return true ;
     }
 
     protected function userDropper() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
         $query = 'DROP USER \''.$this->dbUser.'\'@\'localhost\'; ' ;
-        echo "$query\n";
-        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Attempting to drop User @localhost failed', $this->getModuleName()) ;
+            return false ; }
         $query = 'DROP USER \''.$this->dbUser.'\'@\'%\'; ' ;
-        echo "$query\n";
-        mysqli_query($dbc, $query) or var_dump (mysqli_error($dbc));
-        print "Database User $this->dbUser dropped\n";
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Attempting to drop User @% failed ', $this->getModuleName()) ;
+            return false ; }
+        $logging->log("Database User $this->dbUser dropped", $this->getModuleName()) ;
+        return true;
     }
 
     protected function dropDB() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $dbc = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
-        echo (mysqli_error($dbc));
         $query = 'DROP DATABASE '.$this->dbName.';';
-        mysqli_query($dbc, $query) ;
-        print "Database $this->dbName dropped\n";
+        if ($this->queryOrFalse($dbc, $query) == false) {
+            $logging->log('Attempting to Drop Database '.$this->dbName.' failed.', $this->getModuleName()) ;
+            return false ; }
+        $logging->log("Database $this->dbName dropped", $this->getModuleName()) ;
+        return true ;
     }
 
     protected function sqlInstaller() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
-		if (isset($this->params["guess"])) { $path = getcwd()."/" ; }
-		if (!isset($path)) { $path = getcwd()."/" ; }
+		if (isset($this->params["guess"])) { $path = getcwd().DS ; }
+		if (!isset($path)) { $path = getcwd().DS ; }
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
-        if ($lastChar != '/') { $path .= '/' ; }
+        if ($lastChar != '/') { $path .= DS ; }
         $sqlFileToExecute = $path.$this->dbFilePath ;
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->dbUser.' -p'.$this->dbPass.' ';
         $command .= $this->dbName.' < '.$sqlFileToExecute;
-        self::executeAndOutput($command);
-        print "Database script executed\n";
+        $logging->log("Attempting to execute Database script", $this->getModuleName()) ;
+        $rc = self::executeAndGetReturnCode($command);
+        $state = ($rc == 0) ? "Success" : "Failure" ;
+        $logging->log("Database Script execution reports $state", $this->getModuleName()) ;
+        return $rc ;
     }
 
 
