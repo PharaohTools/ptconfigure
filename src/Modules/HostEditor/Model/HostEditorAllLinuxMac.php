@@ -27,12 +27,20 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function performHostAddition(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $hostFileEntry = $this->askForHostEntryToScreen();
-        if (!$hostFileEntry) { return false; }
+        if (!$hostFileEntry) {
+            $logging->log("Host file change refused", $this->getModuleName()) ;
+            return false; }
         $this->ipAddress = $this->askForIPEntryToScreen();
-        if ($this->ipAddress=="") {$this->ipAddress="127.0.0.1";}
+        if ($this->ipAddress=="") {
+            $logging->log("Using default Host IP", $this->getModuleName()) ;
+            $this->ipAddress="127.0.0.1"; }
         $this->uri = $this->askForHostfileUri();
-        if ($this->loadCurrentHostFile()==false) { return false; };
+        if (strlen($this->loadCurrentHostFile()) < 1) {
+            $logging->log("Unable to load current Host file", $this->getModuleName()) ;
+            return false; };
         $this->hostFileDataAdd($this->ipAddress, $this->uri);
         $this->checkHostFileOkay();
         $this->createHostFile();
@@ -41,12 +49,16 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function performHostDeletion(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $hostFileDel = $this->askForHostDeletionToScreen();
         if (!$hostFileDel) { return false; }
         $this->ipAddress = $this->askForIPEntryToScreen();
         if ($this->ipAddress=="") {$this->ipAddress="127.0.0.1";}
         $this->uri = $this->askForHostfileUri();
-        $this->loadCurrentHostFile();
+        if (strlen($this->loadCurrentHostFile()) < 1) {
+            $logging->log("Unable to load current Host file", $this->getModuleName()) ;
+            return false; };
         $this->hostFileDataRemove($this->ipAddress, $this->uri);
         $this->checkHostFileOkay();
         $this->createHostFile();
@@ -88,18 +100,19 @@ class HostEditorAllLinuxMac extends Base {
     private function loadCurrentHostFile() {
         $command = 'sudo cat /etc/hosts';
         $this->hostFileData = self::executeAndLoad($command);
+        return (strlen($this->hostFileData)>0) ? true : false ;
     }
 
     private function createHostFile() {
-        $tmpDir = $this->baseTempDir.'/hostfile/';
+        $tmpDir = $this->baseTempDir.DS.'hostfile'.DS;
         if (!file_exists($tmpDir)) { mkdir ($tmpDir, 0777, true); }
         return file_put_contents($tmpDir.'hosts', $this->hostFileData);
     }
 
     private function moveHostFileAsRoot(){
-        $command = 'sudo mv '.$this->baseTempDir.'/hostfile/hosts /etc/hosts';
+        $command = 'sudo mv '.$this->baseTempDir.DS.'hostfile'.DS.'hosts '.DS.'etc'.DS.'hosts';
         self::executeAndOutput($command);
-        $command = 'sudo rm -rf '.$this->baseTempDir.'/hostfile';
+        $command = 'sudo rm -rf '.$this->baseTempDir.DS.'hostfile';
         self::executeAndOutput($command);
     }
 
@@ -108,18 +121,20 @@ class HostEditorAllLinuxMac extends Base {
         $logging = $loggingFactory->getModel($this->params);
         $hostFileLines = explode("\n", $this->hostFileData) ;
         $newHostFileData = "";
+        $logging->log("Attempting to add Host File Entry...", $this->getModuleName()) ;
         foreach ($hostFileLines as $line) {
             $ipOccurs = substr_count($line, $ipEntry) ;
             $uriOccurs = substr_count($line, $uri) ;
             $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
             if ( $bothOccur )  {
-                $logging->log("Host file entry already exists for Host Name {$uri}, with IP {$ipEntry} no need to edit...") ;
+                $logging->log("Host file entry already exists for Host Name {$uri}, with IP {$ipEntry} no need to edit...", $this->getModuleName()) ;
                 return true; }
             else if ( $uriOccurs )  {
-                $logging->log("Host file entry already exists for Host Name {$uri}, with IP {$ipEntry} removing...") ;
+                $logging->log("Host file entry already exists for Host Name {$uri}, with IP {$ipEntry} removing...", $this->getModuleName()) ;
                 continue ; }
             else {
                 $newHostFileData .= $line."\n"; } }
+        $logging->log("Adding requested entry {$uri}, with IP {$ipEntry} to host file data", $this->getModuleName()) ;
         $this->hostFileData .= "$ipEntry          $uri\n";
         $this->writeHostFileEntryToProjectFile();
     }
