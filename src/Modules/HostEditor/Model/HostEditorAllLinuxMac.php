@@ -32,7 +32,7 @@ class HostEditorAllLinuxMac extends Base {
         $this->ipAddress = $this->askForIPEntryToScreen();
         if ($this->ipAddress=="") {$this->ipAddress="127.0.0.1";}
         $this->uri = $this->askForHostfileUri();
-        $this->loadCurrentHostFile();
+        if ($this->loadCurrentHostFile()==false) { return false; };
         $this->hostFileDataAdd($this->ipAddress, $this->uri);
         $this->checkHostFileOkay();
         $this->createHostFile();
@@ -79,16 +79,15 @@ class HostEditorAllLinuxMac extends Base {
         $question = 'What URI do you want to affect to the hostfile?';
         return self::askForInput($question, true);
     }
-
-    private function loadCurrentHostFile() {
-        $command = 'sudo cat /etc/hosts';
-        $this->hostFileData = self::executeAndLoad($command);
-    }
-
     private function checkHostFileOkay() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Please check host file: '.$this->hostFileData."\n\nIs this Okay? ";
         return self::askYesOrNo($question);
+    }
+
+    private function loadCurrentHostFile() {
+        $command = 'sudo cat /etc/hosts';
+        $this->hostFileData = self::executeAndLoad($command);
     }
 
     private function createHostFile() {
@@ -105,6 +104,8 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function hostFileDataAdd($ipEntry, $uri){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $hostFileLines = explode("\n", $this->hostFileData) ;
         $newHostFileData = "";
         foreach ($hostFileLines as $line) {
@@ -112,8 +113,10 @@ class HostEditorAllLinuxMac extends Base {
             $uriOccurs = substr_count($line, $uri) ;
             $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
             if ( $bothOccur )  {
-                return; }
+                $logging->log("Host file entry already exists for Host Name {$uri}, with IP {$ipEntry} no need to edit...") ;
+                return true; }
             else if ( $uriOccurs )  {
+                $logging->log("Host file entry already exists for Host Name {$uri}, with IP {$ipEntry} removing...") ;
                 continue ; }
             else {
                 $newHostFileData .= $line."\n"; } }
@@ -136,15 +139,20 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function writeHostFileEntryToProjectFile(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $projectFactory = new \Model\Project();
         $projectModel = $projectFactory->getModel($this->params);
         if ($projectModel::checkIsPharaohProject()) {
             $appSettingsFactory = new \Model\AppSettings();
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
+            $logging->log("Attempting to write host entry to project file, {$this->uri} {$this->ipAddress}...") ;
             $appConfig::setProjectVariable("host-entries", array("$this->uri" => "$this->ipAddress", true) );  }
     }
 
     private function deleteHostFileEntryFromProjectFile(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $projectFactory = new \Model\Project();
         $projectModel = $projectFactory->getModel($this->params);
         if ($projectModel::checkIsPharaohProject()) {
@@ -153,8 +161,8 @@ class HostEditorAllLinuxMac extends Base {
             $allHostFileEntries = $appConfig::getProjectVariable("host-entries");
             if ($allHostFileEntries instanceof \stdClass) { $allHostFileEntries = new \ArrayObject($allHostFileEntries); }
             for ($i = 0; $i<=count($allHostFileEntries) ; $i++ ) {
-
                 if (isset($allHostFileEntries[$i]) && is_array($allHostFileEntries[$i]) && array_key_exists($this->uri, $allHostFileEntries[$i])) {
+                    $logging->log("Attempting to remove host entry from project file, {$this->uri}...") ;
                     unset($allHostFileEntries[$i]); } }
             $appConfig::setProjectVariable("host-entries", $allHostFileEntries); }
     }
