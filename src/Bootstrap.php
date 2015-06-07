@@ -13,6 +13,7 @@ $bootStrap->main($bootStrapParams);
 class BootStrap {
 
     private static $exitCode ;
+    private $start ;
 
     public function __construct() {
         require_once("Constants.php");
@@ -52,13 +53,15 @@ class BootStrap {
 
     private function exitGracefully() {
         // @note this must be the last executed line as it sets exit code
+        $finish = microtime(true) - $this->start ;
+        echo "[Pharaoh Exit] Execution finished after ".$finish." seconds ".PHP_EOL;
         if (self::$exitCode == null) {
             exit(0) ; }
         else if (!is_int(self::$exitCode)) {
-            echo "[Pharaoh Exit] Non Integer Exit Code Attempted\n" ;
+            echo "[Pharaoh Exit] Non Integer Exit Code Attempted".PHP_EOL; ;
             exit(1) ; }
         else {
-            echo "[Pharaoh Exit] Exiting with exit code: ".self::$exitCode."\n" ;
+            echo "[Pharaoh Exit] Exiting with exit code: ".self::$exitCode.PHP_EOL; ;
             exit(self::$exitCode) ; }
     }
 
