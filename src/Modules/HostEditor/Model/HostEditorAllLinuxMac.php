@@ -135,7 +135,7 @@ class HostEditorAllLinuxMac extends Base {
             else {
                 $newHostFileData .= $line.PHP_EOL ; } }
         $logging->log("Adding requested entry {$uri}, with IP {$ipEntry} to host file data", $this->getModuleName()) ;
-        $this->hostFileData .= "$ipEntry          $uri\n";
+        $this->hostFileData .= "$ipEntry          $uri".PHP_EOL;
         $this->writeHostFileEntryToProjectFile();
     }
 
