@@ -14,7 +14,7 @@ class ProjectLinuxMac extends Base  {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $projectContainerDirectory;
+    protected $projectContainerDirectory;
 
     public function askWhetherToInitializeProject() {
         return $this->performProjectInitialize();
@@ -24,7 +24,7 @@ class ProjectLinuxMac extends Base  {
         return $this->performProjectContainerInitialize();
     }
 
-    private function performProjectInitialize() {
+    protected function performProjectInitialize() {
         $projInit = $this->askForProjModifyToScreen("To initialise Project");
         if ($projInit != true) { return false ; }
         $projInit = $this->askForProjInitToScreen();
@@ -33,7 +33,7 @@ class ProjectLinuxMac extends Base  {
         return "Seems Fine...";
     }
 
-    private function performProjectContainerInitialize() {
+    protected function performProjectContainerInitialize() {
         $projContInit = $this->askForProjContainerModifyToScreen();
         if ($projContInit!=true) { return false; }
         $projContInit = $this->askForProjContainerInitToScreen();
@@ -43,49 +43,52 @@ class ProjectLinuxMac extends Base  {
         return "Seems Fine...";
     }
 
-    private function askForProjModifyToScreen($extra = "") {
+    protected function askForProjModifyToScreen($extra = "") {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to Modify Project Settings '.$extra.'?';
         return self::askYesOrNo($question);
     }
 
-    private function askForProjInitToScreen() {
+    protected function askForProjInitToScreen() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to initialize this as a ptdeploy project?';
         return self::askYesOrNo($question);
     }
 
-    private function askForProjContainerModifyToScreen() {
+    protected function askForProjContainerModifyToScreen() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to Modify Project Container Settings?';
         return self::askYesOrNo($question);
     }
 
-    private function askForProjContainerInitToScreen() {
+    protected function askForProjContainerInitToScreen() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Do you want to initialize this as a ptdeploy project Container?';
         return self::askYesOrNo($question);
     }
 
-    private function askForProjContainerDirectory() {
+    protected function askForProjContainerDirectory() {
         if (isset($this->params["proj-container"])) { return $this->params["proj-container"] ; }
         $question = 'What is your Project Container directory?';
         return self::askForInput($question, true);
     }
 
-    private function projectInitialize() {
+    protected function projectInitialize() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params) ;
         if ($this->checkIsPharaohProject() == false) {
-            $command = 'touch papyrusfile';
-            self::executeAndOutput($command, "Project file created"); }
+            file_put_contents('papyrusfile', "");
+            $logging->log("Project Container file created", $this->getModuleName()); }
     }
 
-    private function projectContainerInitialize() {
+    protected function projectContainerInitialize() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params) ;
         $command = 'mkdir -p '.$this->projectContainerDirectory;
         self::executeAndOutput($command, "Project Container directory created");
         chdir($this->projectContainerDirectory);
         echo getcwd().' space '.$this->projectContainerDirectory;
-        $command = 'cd '.$this->projectContainerDirectory;
-        self::executeAndOutput($command, "Moving to Container");
+        $logging->log("Moving to Container", $this->getModuleName());
         $command = 'pwd '.$this->projectContainerDirectory;
         self::executeAndOutput($command, "Showing Container Directory");
         $command = 'touch dhprojc';
@@ -97,11 +100,6 @@ class ProjectLinuxMac extends Base  {
           return file_exists('papyrusfile'); }
         else {
           return file_exists($dir.DIRECTORY_SEPARATOR.'papyrusfile'); }
-    }
-
-    private function tryToCreateTempFolder(){
-        if (!file_exists('/tmp/'.$this->tempFolder)) {
-          mkdir ('/tmp/'.$this->tempFolder, 0777, true);}
     }
 
 }
