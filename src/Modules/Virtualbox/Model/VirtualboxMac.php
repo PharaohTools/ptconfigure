@@ -36,7 +36,7 @@ class VirtualboxMac extends BaseLinuxApp {
     protected function getInstallCommands() {
         $dmgFile = BASE_TEMP_DIR."virtualbox.dmg" ;
         $ray = array(
-            array("command" => array( "wget http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg $dmgFile") ),
+            array("command" => array( 'curl "http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg" -o "'.$dmgFile.'"') ),
             array("command" => array( "sudo hdiutil attach $dmgFile") ),
             array("command" => array( 'sudo installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /Volumes/Macintosh\ HD') ),
         ) ;
