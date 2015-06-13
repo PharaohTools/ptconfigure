@@ -23,16 +23,13 @@ class PharaohToolsAllOS extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTConfigure")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTDeploy")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTTest")) ),
-            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTTrack")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("JRush")) ),
         );
-        // @todo ptconfigure wont uninstall itself, that sounds wrong and is unlikely to work anyway
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("PTVirtualize")) ),
             array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("PTBuild")) ),
             array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("PTDeploy")) ),
             array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("PTTest")) ),
-            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTTrack")) ),
             array("method"=> array("object" => $this, "method" => "removePharaoh", "params" => array("JRush")) ),
         );
         $this->programDataFolder = "";
