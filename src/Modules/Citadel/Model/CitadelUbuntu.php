@@ -8,7 +8,7 @@ class CitadelUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("12.04", "12.10") ;
+    public $versions = array(array("12.04", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -16,13 +16,14 @@ class CitadelUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "Citadel";
+        $this->autopilotDefiner = "Citadel" ;
         $newRootUser = $this->getNewRootUser() ;
         $newRootPass = $this->getNewRootPass() ;
         $serverIp = $this->getNewServerListenIp() ;
         $this->installCommands = array(
             array("command"=> array(
                 'echo "deb http://ubuntu.citadel.org/ubuntu/ precise main" >> /etc/apt/sources.list"',
+                // @todo
                 'sudo apt-get update"',
             ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "debconf-utils")) ),
