@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class VirtualboxUbuntu extends BaseLinuxApp {
+class VirtualboxMac extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array( array("11.04" => "+") ) ;
+    public $os = array("Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -18,9 +18,9 @@ class VirtualboxUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "Virtualbox";
         $this->installCommands = $this->getInstallCommands() ;
+        // http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg
         $this->uninstallCommands = array(
-            array("command" => array( "sudo apt-get remove -y virtualbox") )
-        ) ;
+            array("command" => array( "sudo apt-get remove -y virtualbox") ) ) ;
         $this->programDataFolder = "/var/lib/virtualbox"; // command and app dir name
         $this->programNameMachine = "virtualbox"; // command and app dir name
         $this->programNameFriendly = " ! Virtualbox !"; // 12 chars
@@ -34,8 +34,11 @@ class VirtualboxUbuntu extends BaseLinuxApp {
 
     // @todo this should definitely be using a package manager module
     protected function getInstallCommands() {
+        $dmgFile = BASE_TEMP_DIR."virtualbox.dmg" ;
         $ray = array(
-            array("command" => array( "sudo apt-get install -y virtualbox") )
+            array("command" => array( "wget http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg $dmgFile") ),
+            array("command" => array( "sudo hdiutil attach $dmgFile") ),
+            array("command" => array( 'sudo installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /Volumes/Macintosh\ HD') ),
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
             array_push($ray, array("command" => array( "sudo apt-get install -y virtualbox-guest-additions-iso") ) ) ; }
