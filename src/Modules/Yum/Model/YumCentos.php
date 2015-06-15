@@ -47,7 +47,7 @@ class YumCentos extends BasePackager {
             \BootStrap::setExitCode(1) ;
             return false ; }
         foreach ($packageName as $package) {
-            $out = $this->executeAndOutput("sudo yum install $packageName -y");
+            $out = $this->executeAndOutput("sudo yum install $package -y");
             if (strpos($out, "Complete!") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
                 return false ; }
