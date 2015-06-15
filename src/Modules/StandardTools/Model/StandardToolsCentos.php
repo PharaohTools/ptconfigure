@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class StandardToolsUbuntu extends BaseLinuxApp {
+class StandardToolsCentos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
