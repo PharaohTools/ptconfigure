@@ -28,9 +28,9 @@ class ApacheServerCentos extends BaseLinuxApp {
       $this->programNameFriendly = "Apache Server!"; // 12 chars
       $this->programNameInstaller = "Apache Server";
       $this->statusCommand = "httpd -v" ;
-//      $this->versionInstalledCommand = "sudo apt-cache policy httpd" ;
-//      $this->versionRecommendedCommand = "sudo apt-cache policy httpd" ;
-//      $this->versionLatestCommand = "sudo apt-cache policy httpd" ;
+      $this->versionInstalledCommand = "sudo yum info httpd" ;
+      $this->versionRecommendedCommand = "sudo yum info httpd" ;
+      $this->versionLatestCommand = "sudo yum info httpd" ;
       $this->initialize();
   }
 
@@ -41,12 +41,15 @@ class ApacheServerCentos extends BaseLinuxApp {
         $serviceManager->restart();
     }
 
-//    public function versionInstalledCommandTrimmer($text) {
-//        $rest = substr($text, 23) ;
-//        $spacepos = strpos($rest, " ") ;
-//        $done =  substr($rest, 0, $spacepos) ;
-//        return $done ;
-//    }
+    public function versionInstalledCommandTrimmer($text) {
+        $lines = explode("\n", $text) ;
+        foreach ($lines as $line) {
+            if (substr($line, 7)=="Version") {
+                $colon = strpos($line, ":");
+                $version = substr($line, $colon+2, strlen($line)-1) ;
+                return $version ; } }
+        return null ;
+    }
 //
 //    public function versionLatestCommandTrimmer($text) {
 //        if (strpos($text, "Installed: (none)") !== false) { $rest = substr($text, 42) ; }
