@@ -60,7 +60,8 @@ class Installer {
             echo "This installer needs to be run with Administrator privileges\n";
             return false ;  }
         else {
-            $isAdmin = (posix_geteuid() == 0) ? true : false ;
+            $uname = exec('whoami');
+            $isAdmin = ($uname == "root") ? true : false ;
             if ($isAdmin == true) { return true; }
             echo "This installer needs to be run with Root privileges\n";
             return false ;  }
@@ -79,8 +80,9 @@ class Installer {
         // @todo use logic for the correct path
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             echo "Using Windows, so adding PHP to path...\n" ;
+            $sd = getenv('SystemDrive') ;
             $path = getenv('PATH') ;
-            $php5path = 'C:\php5' ;
+            $php5path = $sd.'\php5' ;
             if (strpos($path, $php5path) != false) {
                 echo "PHP is already in the path\n" ;
                 return ; }
@@ -172,7 +174,7 @@ class Installer {
                 echo $command2 . "\n" ;
                 self::executeAndOutput($command2, "Program Data folder populated with hidden files\n"); } }
         else {
-            $command = "sudo cp -r " ;
+            $command = "cp -r " ;
             $command3 = $command.dirname(__FILE__).DS.'* '.$this->programDataFolder ;
             echo $command3 . "\n" ;
             self::executeAndOutput($command3, "Program Data folder populated with program files\n");
@@ -205,7 +207,7 @@ class Installer {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $command = "rmdir /S /Q " ; }
         else {
-            $command = "sudo rm -rf " ; }
+            $command = "rm -rf " ; }
         $fullCommand = $command.$this->startDirectory.DS.$this->programNameMachine;
         echo $fullCommand."\n" ;
         self::executeAndOutput($fullCommand);
