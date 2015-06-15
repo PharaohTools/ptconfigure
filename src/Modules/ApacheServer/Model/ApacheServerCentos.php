@@ -2,14 +2,14 @@
 
 Namespace Model;
 
-class ApacheServerCentos32 extends BaseLinuxApp {
+class ApacheServerCentos extends BaseLinuxApp {
 
   // Compatibility
   public $os = array("Linux") ;
   public $linuxType = array("Redhat") ;
   public $distros = array("CentOS") ;
-  public $versions = array("5.9", "6.4") ;
-  public $architectures = array("32") ;
+  public $versions = array( array("5.9", "+")) ;
+  public $architectures = array("any") ;
 
   // Model Group
   public $modelGroup = array("Default") ;
@@ -17,7 +17,10 @@ class ApacheServerCentos32 extends BaseLinuxApp {
   public function __construct($params) {
       parent::__construct($params);
       $this->autopilotDefiner = "ApacheServer";
-      $this->installCommands = array("yum install -y httpd");
+      $this->installCommands = array(
+          array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "httpd")) ),
+          array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array()))
+      );
       $this->uninstallCommands = array("yum remove -y httpd");
       $this->programDataFolder = "/opt/ApacheServer"; // command and app dir name
       $this->programNameMachine = "apacheserver"; // command and app dir name
