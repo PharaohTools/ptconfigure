@@ -44,7 +44,7 @@ class ApacheServerCentos extends BaseLinuxApp {
     public function versionInstalledCommandTrimmer($text) {
         $lines = explode("\n", $text) ;
         foreach ($lines as $line) {
-            if (substr($line, 7)=="Version") {
+            if (substr($line, 0, 7)=="Version") {
                 $colon = strpos($line, ":");
                 $version = substr($line, $colon+2, strlen($line)-1) ;
                 return $version ; } }
