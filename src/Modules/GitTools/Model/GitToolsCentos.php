@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class GitToolsUbuntu extends BaseLinuxApp {
+class GitToolsCentos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
