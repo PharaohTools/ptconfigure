@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class MysqlServerUbuntu extends BaseLinuxApp {
+class MysqlServerCentos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
