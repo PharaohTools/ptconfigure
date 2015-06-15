@@ -107,7 +107,8 @@ if not doing versions
                     $logging->log("No --version-operator is set. Assuming requested version operator is minimum") ;
                     $this->params["version-operator"] = "+" ; }
                 $currentVersion = $this->getVersion() ;
-                $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
+                if ($currentVersion !== false) {
+                    $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ; }
                 if ($currentVersion->isCompatible() == true) {
                     // status 1
                     $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing") ; }
