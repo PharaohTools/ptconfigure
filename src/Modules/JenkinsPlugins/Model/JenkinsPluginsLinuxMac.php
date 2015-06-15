@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class JenkinsPluginsUbuntu extends BaseLinuxApp {
+class JenkinsPluginsLinuxMac extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
