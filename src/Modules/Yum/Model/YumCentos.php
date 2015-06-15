@@ -54,7 +54,7 @@ class YumCentos extends BasePackager {
             else if (strpos($out, "already installed and latest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
-                $logging->log($ltext) ;
+                $logging->log($ltext, $this->getModuleName()) ;
                 return false ; } }
         return true ;
     }
@@ -65,12 +65,12 @@ class YumCentos extends BasePackager {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "Removed:") != false ) {
-            $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}") ;
+            $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}", $this->getModuleName()) ;
             return false ; }
         else if ( strpos($out, "No match for argument: ".$packageName) != false) {
             $ltext  = "Package {$packageName} from the Packager {$this->programNameInstaller} is " ;
             $ltext .= "not installed, so not removed." ;
-            $logging->log($ltext) ;
+            $logging->log($ltext, $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -80,7 +80,7 @@ class YumCentos extends BasePackager {
         if (strpos($out, "No packages marked for update") != false || strpos($out, "No packages marked for update") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }

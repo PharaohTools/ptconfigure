@@ -43,7 +43,7 @@ class AptUbuntu extends BasePackager {
         if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
             // @todo multiple versioned packages should work!!
             $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
-            $logging->log($lmsg) ;
+            $logging->log($lmsg, $this->getModuleName()) ; ;
             \BootStrap::setExitCode(1) ;
             return false ; }
         foreach ($packageName as $package) {
@@ -52,13 +52,13 @@ class AptUbuntu extends BasePackager {
             }
             $out = $this->executeAndOutput("sudo apt-get install $package -y --force-yes");
             if (strpos($out, "Setting up $package") != false) {
-                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
             else if (strpos($out, "is already the newest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
-                $logging->log($ltext) ; }
+                $logging->log($ltext, $this->getModuleName()) ; }
             else if (strpos($out, "ldconfig deferred processing now taking place") == false) {
-                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
                 return false ; } }
         return true ;
     }
@@ -69,12 +69,12 @@ class AptUbuntu extends BasePackager {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
-            $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}") ;
+            $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}", $this->getModuleName()) ;
             return false ; }
         else if ( strpos($out, "is not installed, so not removed") != false) {
             $ltext  = "Package {$packageName} from the Packager {$this->programNameInstaller} is " ;
             $ltext .= "not installed, so not removed." ;
-            $logging->log($ltext) ;
+            $logging->log($ltext, $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -84,7 +84,7 @@ class AptUbuntu extends BasePackager {
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -94,7 +94,7 @@ class AptUbuntu extends BasePackager {
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
