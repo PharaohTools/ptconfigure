@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class GitKeySafeUbuntu extends BaseLinuxApp {
+class GitKeySafeLinuxMac extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
