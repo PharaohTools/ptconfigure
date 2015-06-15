@@ -109,7 +109,7 @@ if not doing versions
                 $currentVersion = $this->getVersion() ;
                 if ($currentVersion !== false) {
                     $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ; }
-                if ($currentVersion->isCompatible() == true) {
+                if (is_object($currentVersion) && $currentVersion->isCompatible() == true) {
                     // status 1
                     $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing") ; }
                 else {
