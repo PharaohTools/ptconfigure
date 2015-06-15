@@ -114,7 +114,7 @@ class Base {
                     $moduleModelFactory = new $fullClassName($params);
                     $compatibleObject = $moduleModelFactory::getModel($params) ;
                     if ( !is_object($compatibleObject) ) {
-                        $errors[] = "Module $currentKey Does not have compatible models for this system\n"; } } }
+                        $errors[] = "Module $currentKey Does not have compatible models for this system"; } } }
             else {
                 $fullClassName = '\Model\\'.$modelClassNameOrArray;
                 if (\Core\AutoLoader::moduleExists($modelClassNameOrArray) == false) {
@@ -123,7 +123,7 @@ class Base {
                     $moduleModelFactory = new $fullClassName($params);
                     $compatibleObject = $moduleModelFactory::getModel($params) ;
                     if ( !is_object($compatibleObject) ) {
-                        $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system\n"; } } } }
+                        $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system"; } } } }
         if ( count($errors) > 0 ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($params) ;
