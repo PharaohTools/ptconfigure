@@ -40,10 +40,16 @@ class YumCentos extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
+            // @todo multiple versioned packages should work!!
+            $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
+            $logging->log($lmsg, $this->getModuleName()) ;
+            \BootStrap::setExitCode(1) ;
+            return false ; }
         foreach ($packageName as $package) {
             $out = $this->executeAndOutput("sudo yum install $packageName -y");
             if (strpos($out, "Complete!") != false) {
-                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
                 return false ; }
             else if (strpos($out, "already installed and latest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
@@ -71,7 +77,7 @@ class YumCentos extends BasePackager {
 
     public function update() {
         $out = $this->executeAndOutput("sudo yum update -y");
-        if (strpos($out, "Done") != false) {
+        if (strpos($out, "No packages marked for update") != false || strpos($out, "No packages marked for update") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
