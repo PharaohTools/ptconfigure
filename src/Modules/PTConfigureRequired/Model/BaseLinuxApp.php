@@ -116,7 +116,6 @@ if not doing versions
                     $recVersion = $this->getVersion("Recommended") ;
                     if ($recVersion !== false) {
                         $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ; }
-                    $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                     if (is_object($recVersion) && $recVersion->isCompatible() == true) {
                         // status 2
                         $logging->log(
