@@ -41,11 +41,11 @@ class YumCentos extends BasePackager {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         foreach ($packageName as $package) {
-            $out = $this->executeAndOutput("sudo yum install $packageName -y --force-yes");
-            if (strpos($out, "ldconfig deferred processing now taking place") != false) {
+            $out = $this->executeAndOutput("sudo yum install $packageName -y");
+            if (strpos($out, "Complete!") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
                 return false ; }
-            else if (strpos($out, "is already the newest version.") != false) {
+            else if (strpos($out, "already installed and latest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
                 $logging->log($ltext) ;
@@ -58,10 +58,10 @@ class YumCentos extends BasePackager {
         $out = $this->executeAndOutput("sudo yum remove -y $packageName");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ( strpos($out, "The following packages will be REMOVED") != false ) {
+        if ( strpos($out, "Removed:") != false ) {
             $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}") ;
             return false ; }
-        else if ( strpos($out, "is not installed, so not removed") != false) {
+        else if ( strpos($out, "No match for argument: ".$packageName) != false) {
             $ltext  = "Package {$packageName} from the Packager {$this->programNameInstaller} is " ;
             $ltext .= "not installed, so not removed." ;
             $logging->log($ltext) ;
