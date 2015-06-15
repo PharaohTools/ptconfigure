@@ -114,8 +114,10 @@ if not doing versions
                     $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing") ; }
                 else {
                     $recVersion = $this->getVersion("Recommended") ;
+                    if ($recVersion !== false) {
+                        $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ; }
                     $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
-                    if ($recVersion->isCompatible()) {
+                    if (is_object($recVersion) && $recVersion->isCompatible() == true) {
                         // status 2
                         $logging->log(
                             "Installed version {$currentVersion->shortVersionNumber} does not match constraints, but ".
