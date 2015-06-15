@@ -31,7 +31,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     }
 
     public function askStatus() {
-        $modsTextCmd = 'sudo php -m';
+        $modsTextCmd = 'php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $pax = $this->packages ;
         foreach ($pax as &$pack) { $pack = substr($pack, 5) ; }

@@ -2,26 +2,26 @@
 
 Namespace Model;
 
-class PHPModulesUbuntu extends BaseLinuxApp {
+class PHPModulesCentos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array(array("11.04" => "+")) ;
+    public $linuxType = array("Redhat") ;
+    public $distros = array("any") ;
+    public $versions = array( array("5.9", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php-apc", "php5-gd", "php5-imagick", "php5-curl", "php5-mysql", "php5-memcache", "php5-memcached", "php5-mongo" ) ;
+    public $packages = array("php-pecl-apc", "gd", "gd-devel", "php-gd", "php-pecl-imagick", "php-curl", "php-mysql", "php-pecl-memcache", "php-pecl-memcache", "php-pecl-mongo" ) ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", $this->packages ) ) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", $this->packages ) ) ),
         );
         $this->programDataFolder = "/opt/PHPModules"; // command and app dir name
         $this->programNameMachine = "phpmodules"; // command and app dir name
@@ -31,7 +31,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     }
 
     public function askStatus() {
-        $modsTextCmd = 'sudo php -m';
+        $modsTextCmd = 'php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $pax = $this->packages ;
         foreach ($pax as &$pack) { $pack = substr($pack, 5) ; }
