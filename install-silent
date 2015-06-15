@@ -25,6 +25,7 @@ class Installer {
 
     public function installProgram() {
         $this->showTitle();
+        if ($this->stopUnlessAdmin()==false) { return false; }
         $this->turnOffUACOnWindows();
         $this->addPHPToPath();
         $this->askForProgramDataFolder();
@@ -50,6 +51,19 @@ class Installer {
     private function showCompletion() {
         print $this->completionData ;
         exit();
+    }
+
+    private function stopUnlessAdmin() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $isAdmin = (getenv('ErrorLevel')==0) ? true : false ;
+            if ($isAdmin == true) { return true; }
+            echo "This installer needs to be run with Administrator privileges\n";
+            return false ;  }
+        else {
+            $isAdmin = (posix_geteuid() == 0) ? true : false ;
+            if ($isAdmin == true) { return true; }
+            echo "This installer needs to be run with Root privileges\n";
+            return false ;  }
     }
 
     private function turnOffUACOnWindows() {
