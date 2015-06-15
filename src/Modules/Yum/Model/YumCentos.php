@@ -7,8 +7,8 @@ class YumCentos extends BasePackager {
     // Compatibility
     public $os = array("Linux") ;
     public $linuxType = array("Redhat") ;
-    public $distros = array("CentOS") ;
-    public $versions = array("5", "6", "7") ;
+    public $distros = array("any") ;
+    public $versions = array(array("5", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
