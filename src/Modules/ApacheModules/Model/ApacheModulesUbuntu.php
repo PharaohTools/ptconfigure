@@ -8,7 +8,7 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("12.04", "12.10") ;
+    public $versions = array(array("12", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -16,7 +16,6 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "ApacheModules";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libxml2-dev")) ),
             array("command"=> "a2enmod rewrite" ),

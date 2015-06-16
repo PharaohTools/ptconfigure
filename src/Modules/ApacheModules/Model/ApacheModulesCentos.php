@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class ApacheModulesUbuntu extends BaseLinuxApp {
+class ApacheModulesCentos7 extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array(array("12", "+")) ;
+    public $linuxType = array("Redhat") ;
+    public $distros = array("Centos") ;
+    public $versions = array(array("6", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -16,21 +16,20 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "ApacheModules";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libxml2-dev")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "libxml2-dev")) ),
             array("command"=> "a2enmod rewrite" ),
             array("command"=> "a2enmod deflate" ),
             array("command"=> "a2enmod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-php5")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "libapache2-mod-php5")) ),
             array("command"=> "a2enmod php5" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libxml2-dev")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "libxml2-dev")) ),
             array("command"=> "a2dismod rewrite" ),
             array("command"=> "a2dismod deflate" ),
             array("command"=> "a2dismod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-php5")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "libapache2-mod-php5")) ),
             array("command"=> "a2dismod php5" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->programDataFolder = "/opt/ApacheModules"; // command and app dir name
@@ -57,8 +56,16 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
     public function apacheRestart() {
         $serviceFactory = new Service();
         $serviceManager = $serviceFactory->getModel($this->params) ;
-        $serviceManager->setService("apache2");
+        $serviceManager->setService("httpd");
         $serviceManager->restart();
+    }
+
+    public function enableModule() {
+        $fileFactory = new File();
+        $file = $fileFactory->getModel($this->params) ;
+        $file->setFile("/etc/httpd/httpd.conf");
+        $file->setService("httpd");
+        $file->restart();
     }
 
 }
