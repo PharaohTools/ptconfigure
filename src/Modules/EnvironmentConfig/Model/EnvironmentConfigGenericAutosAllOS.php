@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class EnvironmentConfigGenericAutosUbuntu extends BaseLinuxApp {
+class EnvironmentConfigGenericAutosAllOS extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -58,6 +58,10 @@ class EnvironmentConfigGenericAutosUbuntu extends BaseLinuxApp {
         $this->defaultEnvironments["ptvirtualize-box"] = array(
             "any-app" => array("gen_env_name" => "ptvirtualize-box", "gen_env_tmp_dir" => "/tmp/"),
             "servers" => array(array("target" => "127.0.0.1", "user" => "ptvirtualize", "password" => "ptvirtualize") ),
+        ) ;
+        $this->defaultEnvironments["testenv"] = array(
+            "any-app" => array("gen_env_name" => "testenv", "gen_env_tmp_dir" => "/tmp/"),
+            "servers" => array(),
         ) ;
     }
 
