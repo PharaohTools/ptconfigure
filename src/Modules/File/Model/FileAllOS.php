@@ -21,11 +21,12 @@ class FileAllOS extends BaseLinuxApp {
             "create" => "performCreation",
             "delete" => "performDeletion",
             "should-have-line" => "performShouldHaveLine",
+            "should-not-have-line" => "performShouldNotHaveLine",
+            "replace-line" => "performReplaceLine",
         ) ;
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "File";
         $this->programDataFolder = "";
         $this->programNameMachine = "file"; // command and app dir name
         $this->programNameFriendly = "!File!!"; // 12 chars
@@ -60,7 +61,20 @@ class FileAllOS extends BaseLinuxApp {
     protected function performShouldHaveLine() {
         $this->setFile();
         $this->setSearchLine();
-        return $this->exists();
+        return $this->shouldHaveLine();
+    }
+
+    protected function performShouldNotHaveLine() {
+        $this->setFile();
+        $this->setSearchLine();
+        return $this->shouldNotHaveLine();
+    }
+
+    protected function performReplaceLine() {
+        $this->setFile();
+        $this->setSearchLine();
+        $this->setReplaceLine();
+        return $this->shouldNotHaveLine();
     }
 
     public function setFile($fileName = null) {
@@ -68,8 +82,6 @@ class FileAllOS extends BaseLinuxApp {
             $this->fileName = $fileName; }
         else if (isset($this->params["file"])) {
             $this->fileName = $this->params["file"]; }
-        else if (isset($autopilot["file"])) {
-            $this->fileName = $autopilot["file"]; }
         else {
             $this->fileName = self::askForInput("Enter File Path:", true); }
     }
@@ -77,10 +89,8 @@ class FileAllOS extends BaseLinuxApp {
     public function setSearchLine($searchLine = null) {
         if (isset($searchLine)) {
             $this->fileName = $searchLine; }
-        else if (isset($this->params["searchline"])) {
-            $this->fileName = $this->params["searchline"]; }
-        else if (isset($autopilot["searchline"])) {
-            $this->fileName = $autopilot["searchline"]; }
+        else if (isset($this->params["search"])) {
+            $this->fileName = $this->params["search"]; }
         else {
             $this->fileName = self::askForInput("Enter line of text to search for:", true); }
     }
@@ -119,7 +129,7 @@ class FileAllOS extends BaseLinuxApp {
         $system = new \Model\SystemDetection();
         $thisSystem = $system->getModel($this->params);
         if (!in_array($thisSystem->os, array("Windows", "WINNT") ) ) {
-            $comm = "del -y " ; }
+            $comm = 'del /S /Q ' ; }
         else {
             $comm = "rm -f " ; }
         $comm .= $this->fileName ;
@@ -138,6 +148,17 @@ class FileAllOS extends BaseLinuxApp {
         return $this;
     }
 
+    public function removeIfPresent($needle) {
+        if ($this->contains($needle)) {
+            $content = $this->read();
+            if ($needle instanceof RegExp) {
+                $newContent = preg_replace($needle->regexp, "", $content); }
+            else {
+                $newContent = str_replace($needle, "", $content); }
+            $this->write($newContent); }
+        return $this;
+    }
+
     public function contains($needle) {
         if ($needle instanceof RegExp) {
             return preg_match($needle->regexp, $this->read()); }
@@ -145,8 +166,9 @@ class FileAllOS extends BaseLinuxApp {
             return strstr($this->read(), $needle); }
     }
 
-    public function append() {
-        $this->write($this->read() . $this->params["searchline"]);
+    public function append($str = null) {
+        if (is_null($str)) {$str = $this->params["search"].PHP_EOL ;}
+        $this->write($this->read() . $str);
     }
 
     public function chmod($string) {
@@ -167,12 +189,26 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function shouldHaveLines($lines) {
-        if(!$this->contains($lines)) {
-            $this->append($lines); }
+        foreach($lines as $line) {
+            $this->shouldHaveLine($line); }
     }
 
-    public function shouldHaveLine() {
-        $string = $this->params["searchline"] ;
+    public function replaceLine($oldline = null, $newline = null) {
+        $string = ($oldline === null) ? $this->params["search"] : $oldline ;
+        $newline = ($newline === null) ? $this->params["replace"] : $newline ;
+        if (!($string instanceof RegExp)) {
+            $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
+        else {
+            $searchString = $string; }
+        if (substr($searchString, -1, 1) != "\n") {
+            $searchString .= "\n"; }
+        if ($this->findString($searchString)) {
+            $this->replaceIfPresent($oldline, $newline); }
+        return $this;
+    }
+
+    public function shouldHaveLine($line = null) {
+        $string = ($line === null) ? $this->params["search"] : $line ;
         if (!($string instanceof RegExp)) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
@@ -180,6 +216,19 @@ class FileAllOS extends BaseLinuxApp {
         if (substr($searchString, -1, 1) != "\n") {
             $searchString .= "\n"; }
         if (!$this->findString($searchString)) {
+            $this->append($string . "\n"); }
+        return $this;
+    }
+
+    public function shouldNotHaveLine($line = null) {
+        $string = ($line === null) ? $this->params["search"] : $line ;
+        if (!($string instanceof RegExp)) {
+            $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
+        else {
+            $searchString = $string; }
+        if (substr($searchString, -1, 1) != "\n") {
+            $searchString .= "\n"; }
+        if ($this->findString($searchString)) {
             $this->append($string . "\n"); }
         return $this;
     }
