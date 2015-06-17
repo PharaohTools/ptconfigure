@@ -17,6 +17,10 @@ class PortCentOS extends PortAllDebianMac {
         $logging->log("Ensuring Redhat based dependency for Port Process check, package lsof", $this->getModuleName()) ;
         $yumFactory = new \Model\Yum();
         $yum = $yumFactory->getModel($this->params);
+        if ($yum->isInstalled("lsof")) {
+            $logging->log("Package lsof is already installed", $this->getModuleName()) ;
+            return true; }
+        $logging->log("Package lsof not installed, installing...", $this->getModuleName()) ;
         return $yum->installPackage("lsof") ;
     }
 
