@@ -82,13 +82,9 @@ class PortAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
-        $tx = self::executeAndLoad($comm) ;
-        $process = substr($tx, 0, strpos($tx, " ")) ;
-        $statcomm = 'echo $?';
-        $stat = self::executeAndLoad($statcomm) ;
-        $stat = str_replace("\n", "", $stat) ;
+        $out = self::executeAndGetReturnCode($comm, true, true) ;
 
-        if ($stat != "0") {
+        if ($out["rc"] != "0") {
             \Core\BootStrap::setExitCode(1);
             $logging->log("Port process command execution failed.") ;
             return true; }
