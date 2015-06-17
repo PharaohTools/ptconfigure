@@ -88,12 +88,12 @@ class ServiceDebian extends BaseLinuxApp {
         if(strpos($status, 'running') != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Service {$this->serviceName} is running...") ; }
+            $logging->log("Service {$this->serviceName} is running...", $this->getModuleName()) ; }
         else {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Service {$this->serviceName} is not running...") ;
-            $logging->log("Starting {$this->serviceName} service") ;
+            $logging->log("Service {$this->serviceName} is not running...", $this->getModuleName()) ;
+            $logging->log("Starting service: {$this->serviceName}", $this->getModuleName()) ;
             $this->executeAndOutput("service {$this->serviceName} start"); }
         return true ;
     }
@@ -103,30 +103,30 @@ class ServiceDebian extends BaseLinuxApp {
         if($status == 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Service {$this->serviceName} is running...") ;
+            $logging->log("Service {$this->serviceName} is running...", $this->getModuleName()) ;
             return true ; }
         else {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             \Core\BootStrap::setExitCode(1);
-            $logging->log("Service {$this->serviceName} is not running...") ;
+            $logging->log("Service {$this->serviceName} is not running...", $this->getModuleName()) ;
             return false ; }
     }
 
     public function runAtReboots() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Removing current {$this->serviceName} service startup links") ;
+        $logging->log("Removing current {$this->serviceName} service startup links", $this->getModuleName()) ;
         $rc1 = $this->executeAndGetReturnCode(SUDOPREFIX."update-rc.d -f {$this->serviceName} remove", true);
-        $logging->log("Adding {$this->serviceName} service startup links") ;
-        $rc2 = $this->executeAndGetReturnCode(UDOPREFIX."update-rc.d {$this->serviceName} defaults", true);
+        $logging->log("Adding {$this->serviceName} service startup links", $this->getModuleName()) ;
+        $rc2 = $this->executeAndGetReturnCode(SUDOPREFIX."update-rc.d {$this->serviceName} defaults", true);
         return ($rc1 == 0 && $rc2 == 0) ? true : false;
     }
 
     public function start() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Starting {$this->serviceName} service") ;
+        $logging->log("Starting {$this->serviceName} service", $this->getModuleName()) ;
         $this->executeAndOutput("service {$this->serviceName} start");
         return true ;
     }
@@ -134,7 +134,7 @@ class ServiceDebian extends BaseLinuxApp {
     public function stop() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Stopping {$this->serviceName} service") ;
+        $logging->log("Stopping {$this->serviceName} service", $this->getModuleName()) ;
         $this->executeAndOutput("service {$this->serviceName} stop");
         return true ;
     }
@@ -142,7 +142,7 @@ class ServiceDebian extends BaseLinuxApp {
     public function restart() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Restarting {$this->serviceName} service") ;
+        $logging->log("Restarting {$this->serviceName} service", $this->getModuleName()) ;
         $this->executeAndOutput("service {$this->serviceName} restart");
         return true ;
     }

@@ -14,7 +14,7 @@ class ServiceCentos extends ServiceDebian {
     public function runAtReboots() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Adding {$this->serviceName} service startup links") ;
+        $logging->log("Adding {$this->serviceName} service startup links", $this->getModuleName()) ;
         $rc = $this->executeAndGetReturnCode(SUDOPREFIX."chkconfig {$this->serviceName} on", true);
         return ($rc == 0) ? true : false;
     }
