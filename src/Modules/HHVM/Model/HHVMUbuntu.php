@@ -25,10 +25,10 @@ class HHVMUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "hhvm"; // command and app dir name
         $this->programNameFriendly = " ! HHVM !"; // 12 chars
         $this->programNameInstaller = "HHVM";
-        $this->statusCommand = "sudo hhvm --version" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy hhvm" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy hhvm" ;
-        $this->versionLatestCommand = "sudo apt-cache policy hhvm" ;
+        $this->statusCommand = SUDOPREFIX."hhvm --version" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy hhvm" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy hhvm" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy hhvm" ;
         $this->initialize();
     }
 
@@ -47,7 +47,7 @@ class HHVMUbuntu extends BaseLinuxApp {
             $ray = array(
                 array("command" => array(
                     "cd /tmp" ,
-                    "sudo add-apt-repository ppa:mapnik/boost",
+                    SUDOPREFIX."add-apt-repository ppa:mapnik/boost",
                     "wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -",
                     "echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list.d/hhvm.list",
                     "apt-get update -y" ) ),

@@ -28,9 +28,9 @@ class PearCentos extends PearUbuntu {
     public function __construct($params) {
         parent::__construct($params);
         // @todo yum version
-        $this->versionInstalledCommand = "sudo apt-cache policy php-pear" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy php-pear" ;
-        $this->versionLatestCommand = "sudo apt-cache policy php-pear" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy php-pear" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy php-pear" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy php-pear" ;
         $this->initialize();
     }
 

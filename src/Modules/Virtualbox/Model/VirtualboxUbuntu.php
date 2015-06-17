@@ -19,26 +19,26 @@ class VirtualboxUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "Virtualbox";
         $this->installCommands = $this->getInstallCommands() ;
         $this->uninstallCommands = array(
-            array("command" => array( "sudo apt-get remove -y virtualbox") )
+            array("command" => array( SUDOPREFIX."apt-get remove -y virtualbox") )
         ) ;
         $this->programDataFolder = "/var/lib/virtualbox"; // command and app dir name
         $this->programNameMachine = "virtualbox"; // command and app dir name
         $this->programNameFriendly = " ! Virtualbox !"; // 12 chars
         $this->programNameInstaller = "Virtualbox";
         $this->statusCommand = "command vboxmanage" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy virtualbox" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy virtualbox" ;
-        $this->versionLatestCommand = "sudo apt-cache policy virtualbox" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy virtualbox" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy virtualbox" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy virtualbox" ;
         $this->initialize();
     }
 
     // @todo this should definitely be using a package manager module
     protected function getInstallCommands() {
         $ray = array(
-            array("command" => array( "sudo apt-get install -y virtualbox") )
+            array("command" => array( SUDOPREFIX."apt-get install -y virtualbox") )
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
-            array_push($ray, array("command" => array( "sudo apt-get install -y virtualbox-guest-additions-iso") ) ) ; }
+            array_push($ray, array("command" => array( SUDOPREFIX."apt-get install -y virtualbox-guest-additions-iso") ) ) ; }
         return $ray ;
     }
 

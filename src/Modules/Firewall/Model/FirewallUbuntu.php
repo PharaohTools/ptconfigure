@@ -99,7 +99,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function enable() {
-        $out = $this->executeAndOutput("sudo ufw --force enable");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw --force enable");
         if (strpos($out, "enabled") == false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -109,7 +109,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function disable() {
-        $out = $this->executeAndOutput("sudo ufw disable");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw disable");
         if (strpos($out, "disabled") == false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -119,7 +119,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function allow() {
-        $out = $this->executeAndOutput("sudo ufw allow $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw allow $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -130,7 +130,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function deny() {
-        $out = $this->executeAndOutput("sudo ufw deny $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw deny $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -141,7 +141,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function reject() {
-        $out = $this->executeAndOutput("sudo ufw reject $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw reject $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -152,7 +152,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function limit() {
-        $out = $this->executeAndOutput("sudo ufw limit $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw limit $this->firewallRule");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -164,7 +164,7 @@ class FirewallUbuntu extends BaseLinuxApp {
 
 
     public function deleteRule() {
-        $out = $this->executeAndOutput("sudo ufw delete $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw delete $this->firewallRule");
         if (strpos($out, "Could not delete non-existent rule") != false ||
             strpos($out, "Rule deleted") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -175,7 +175,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function insert() {
-        $out = $this->executeAndOutput("sudo ufw insert $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw insert $this->firewallRule");
         if (strpos($out, "Skipping inserting existing rule") != false ||
             strpos($out, "Rule inserted") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -196,7 +196,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function setDefault() {
-        $out = $this->executeAndOutput("sudo ufw default $this->defaultPolicy");
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw default $this->defaultPolicy");
         if (strpos($out, "Default incoming policy changed to '{$this->defaultPolicy}'") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);

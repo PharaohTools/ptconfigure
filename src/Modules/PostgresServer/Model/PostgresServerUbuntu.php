@@ -30,9 +30,9 @@ class PostgresServerUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "Postgres Server!"; // 12 chars
         $this->programNameInstaller = "Postgres Server";
         $this->statusCommand = "psql --version" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy postgresql" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy postgresql" ;
-        $this->versionLatestCommand = "sudo apt-cache policy postgresql" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy postgresql" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy postgresql" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy postgresql" ;
         $this->initialize();
     }
 

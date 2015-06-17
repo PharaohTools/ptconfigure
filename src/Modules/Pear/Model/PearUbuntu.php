@@ -33,9 +33,9 @@ class PearUbuntu extends BasePackager {
         $this->programNameFriendly = "!Pear!!"; // 12 chars
         $this->programNameInstaller = "Pear";
         $this->statusCommand = "pear version" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy php-pear" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy php-pear" ;
-        $this->versionLatestCommand = "sudo apt-cache policy php-pear" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy php-pear" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy php-pear" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy php-pear" ;
         $this->initialize();
     }
 
@@ -55,14 +55,14 @@ class PearUbuntu extends BasePackager {
     }
 
     public function isInstalled($packageName) {
-        $out = $this->executeAndLoad("sudo pear list -i | grep {$packageName}") ;
+        $out = $this->executeAndLoad(SUDOPREFIX."pear list -i | grep {$packageName}") ;
         return (strpos($out, $packageName) != false) ? true : false ;
     }
 
     public function installPackage($packageName, $autopilot = null) {
 		$this->channelDiscover();
         $packageName = $this->getPackageName($packageName);
-        $comm = "sudo pear install" ;
+        $comm = SUDOPREFIX."pear install" ;
         if (isset($this->params["required-dependencies"])) { $comm .= ' --onlyreqdeps' ; }
         if (isset($this->params["all-dependencies"])) { $comm .= ' --alldeps' ; }
         $comm .= " -f $packageName" ;
@@ -77,7 +77,7 @@ class PearUbuntu extends BasePackager {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo pear uninstall $packageName");
+        $out = $this->executeAndOutput(SUDOPREFIX."pear uninstall $packageName");
         if (!is_int(strpos($out, "uninstall ok"))) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -94,7 +94,7 @@ class PearUbuntu extends BasePackager {
             if ($channel == null) {
                 $logging->log("No Channel set to add, so not discovering") ;
                 return true ;}
-            $out = $this->executeAndLoad("sudo pear channel-discover $channel");
+            $out = $this->executeAndLoad(SUDOPREFIX."pear channel-discover $channel");
             echo $out."\n" ;
             // var_dump($out, 'Channel "'.$channel.'" is already initialized') ;
             $initString = 'Channel "'.$channel.'" is already initialized'."\n" ;
@@ -111,7 +111,7 @@ class PearUbuntu extends BasePackager {
     public function channelDelete() {
         $channel = $this->setChannel();
         if (!is_null($channel)) {
-            $out = $this->executeAndLoad("sudo pear channel-del $channel");
+            $out = $this->executeAndLoad(SUDOPREFIX."pear channel-del $channel");
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $initString = 'channel-delete: channel "'.$channel.'" does not exist'."\n" ;

@@ -28,9 +28,9 @@ class SVNUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "!Subversion!"; // 12 chars
         $this->programNameInstaller = "SVN";
         $this->statusCommand = "svn --version";
-        $this->versionInstalledCommand = "sudo apt-cache policy subversion" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy subversion" ;
-        $this->versionLatestCommand = "sudo apt-cache policy subversion" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy subversion" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy subversion" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy subversion" ;
         $this->initialize();
     }
 

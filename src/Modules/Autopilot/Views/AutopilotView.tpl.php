@@ -3,6 +3,7 @@
 <?php
 
 echo $pageVars["autoExec"] ;
+echo $pageVars["autoExecTests"] ;
 
 ?>
 ------------------------------

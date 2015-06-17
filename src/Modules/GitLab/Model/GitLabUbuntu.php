@@ -47,7 +47,7 @@ class GitLabUbuntu extends BaseLinuxApp {
         array("method"=> array("object" => $this, "method" => "module", "params" => array("RubySystem", "install", "2.0")) ),
         array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "bundler --no-ri --no-rdoc")) ),
       # Ruby
-//      "sudo apt-get remove -y ruby1.8",
+//      SUDOPREFIX."apt-get remove -y ruby1.8",
 //      "mkdir /tmp/ruby && cd /tmp/ruby",
 //      "curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | tar xz",
 //      "cd ruby-2.0.0-p247",
@@ -74,17 +74,17 @@ class GitLabUbuntu extends BaseLinuxApp {
 //      # with something like 'http://domain.com/'
 //      "su git -c'editor config.yml'",
 //      # Do setup
-//      "sudo -u git -H ./bin/install",
+//      SUDOPREFIX."-u git -H ./bin/install",
 
 
 
       "cd /home/git",
       # Clone GitLab repository
-      "sudo -u git -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab",
+      SUDOPREFIX."-u git -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab",
       # Go to gitlab dir
       "cd /home/git/gitlab",
       # Checkout to stable release
-      "sudo -u git -H git checkout 6-1-stable",
+      SUDOPREFIX."-u git -H git checkout 6-1-stable",
       # Configure it
       "su -c'cd /home/git/gitlab'",
 
@@ -154,7 +154,7 @@ class GitLabUbuntu extends BaseLinuxApp {
 
       "cd /home/git/gitlab",
 
-      "sudo gem install charlock_holmes --version '0.6.9.4'",
+      SUDOPREFIX."gem install charlock_holmes --version '0.6.9.4'",
 
       # For MySQL (note, the option says "without ... postgres")
       "su -c'bundle install --deployment --without development test postgres aws'",

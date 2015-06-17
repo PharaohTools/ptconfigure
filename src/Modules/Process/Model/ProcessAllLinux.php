@@ -54,7 +54,7 @@ class ProcessAllLinux extends Base {
     private function doProcessKillByPkill() {
         $names = $this->getNames() ;
         foreach ($names as $name) {
-            $comm = "sudo pkill $name" ;
+            $comm = SUDOPREFIX."pkill $name" ;
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Executing $comm", $this->getModuleName());
@@ -66,7 +66,7 @@ class ProcessAllLinux extends Base {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Killing process id $id", $this->getModuleName());
         $level = $this->getKillLevel();
-        $comm = "sudo kill -$level $id" ;
+        $comm = SUDOPREFIX."kill -$level $id" ;
         self::executeAndOutput($comm) ;
     }
 

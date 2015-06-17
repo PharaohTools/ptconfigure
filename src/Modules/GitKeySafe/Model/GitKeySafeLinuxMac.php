@@ -29,9 +29,9 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
         $this->programNameFriendly = "Git Key-Safe Server!"; // 12 chars
         $this->programNameInstaller = "Git Key-Safe Server";
         $this->statusCommand = $this->checkGitKeySafeStatus() ; // "command git-key-safe" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy gitkeysafe" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy gitkeysafe" ;
-        $this->versionLatestCommand = "sudo apt-cache policy gitkeysafe" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy gitkeysafe" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy gitkeysafe" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy gitkeysafe" ;
         $this->initialize();
     }
 
@@ -56,7 +56,7 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
 
     public function chmodGitKeySafeScript() {
         $newFileName = "/usr/bin/git-key-safe" ;
-        $cmd = "sudo chmod 775 $newFileName" ;
+        $cmd = SUDOPREFIX."chmod 775 $newFileName" ;
         $this->executeAndOutput($cmd) ;
         echo "Git Key-Safe script $newFileName permissions changed to 775\n";
     }

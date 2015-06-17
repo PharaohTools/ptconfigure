@@ -26,13 +26,13 @@ class GemUbuntu extends BasePackager {
     }
 
     public function isInstalled($packageName) {
-        $out = $this->executeAndLoad("sudo gem list {$packageName} -i") ;
+        $out = $this->executeAndLoad(SUDOPREFIX."gem list {$packageName} -i") ;
         return (strpos($out, "true") != false) ? true : false ;
     }
 
     public function installPackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput("sudo gem install -y $packageName");
+        $returnCode = $this->executeAndOutput(SUDOPREFIX."gem install -y $packageName");
         if ($returnCode !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -43,7 +43,7 @@ class GemUbuntu extends BasePackager {
 
     public function removePackage($packageName, $autopilot = null) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput("sudo gem remove -y $packageName");
+        $returnCode = $this->executeAndOutput(SUDOPREFIX."gem remove -y $packageName");
         if ($returnCode !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);

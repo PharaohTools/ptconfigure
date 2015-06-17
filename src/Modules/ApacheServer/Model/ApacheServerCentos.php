@@ -28,9 +28,9 @@ class ApacheServerCentos extends BaseLinuxApp {
       $this->programNameFriendly = "Apache Server!"; // 12 chars
       $this->programNameInstaller = "Apache Server";
       $this->statusCommand = "httpd -v" ;
-      $this->versionInstalledCommand = "sudo yum info httpd" ;
-      $this->versionRecommendedCommand = "sudo yum info httpd" ;
-      $this->versionLatestCommand = "sudo yum info httpd" ;
+      $this->versionInstalledCommand = SUDOPREFIX."yum info httpd" ;
+      $this->versionRecommendedCommand = SUDOPREFIX."yum info httpd" ;
+      $this->versionLatestCommand = SUDOPREFIX."yum info httpd" ;
       $this->initialize();
   }
 

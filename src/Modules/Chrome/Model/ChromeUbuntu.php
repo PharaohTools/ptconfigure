@@ -21,7 +21,7 @@ class ChromeUbuntu extends BaseLinuxApp {
             array("command"=> array(
                 "wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -" ) ),
             array("command"=> array(
-                "sudo apt-get update -y" ) ),
+                SUDOPREFIX."apt-get update -y" ) ),
             array("method"=> array("object" => $this, "method" => "ensureAptSourceExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array( "Apt", "google-chrome-stable") )),
         );
@@ -34,9 +34,9 @@ class ChromeUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "GoogleChrome"; // 12 chars
         $this->programNameInstaller = "Chrome";
         $this->statusCommand = "which google-chrome-stable" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy google-chrome-stable" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy google-chrome-stable" ;
-        $this->versionLatestCommand = "sudo apt-cache policy google-chrome-stable" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy google-chrome-stable" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy google-chrome-stable" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy google-chrome-stable" ;
         $this->initialize();
     }
 

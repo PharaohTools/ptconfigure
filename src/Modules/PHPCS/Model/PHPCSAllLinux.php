@@ -28,7 +28,7 @@ class PHPCSAllLinux extends BasePHPApp {
         $this->programNameFriendly = "PHP CSniffer"; // 12 chars
         $this->programNameInstaller = "PHP Code Sniffer";
         $this->programExecutorTargetPath = 'phpcs/PHP_CodeSniffer-1.5.0RC1/CodeSniffer.php';
-        $this->statusCommand = "sudo phpcs --version" ;
+        $this->statusCommand = SUDOPREFIX."phpcs --version" ;
         $this->initialize();
     }
 

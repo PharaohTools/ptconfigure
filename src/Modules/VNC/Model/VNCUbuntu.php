@@ -28,9 +28,9 @@ class VNCUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = " ! VNC !"; // 12 chars
         $this->programNameInstaller = "VNC";
         $this->statusCommand = "which vncserver" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy vnc4server" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy vnc4server" ;
-        $this->versionLatestCommand = "sudo apt-cache policy vnc4server" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy vnc4server" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy vnc4server" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy vnc4server" ;
         $this->initialize();
     }
 

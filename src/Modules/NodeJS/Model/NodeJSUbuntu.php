@@ -27,10 +27,10 @@ class NodeJSUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "nodejs"; // command and app dir name
         $this->programNameFriendly = "Node JS!"; // 12 chars
         $this->programNameInstaller = "Node JS";
-        $this->statusCommand = "sudo node -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy nodejs" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy nodejs" ;
-        $this->versionLatestCommand = "sudo apt-cache policy nodejs" ;
+        $this->statusCommand = SUDOPREFIX."node -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy nodejs" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy nodejs" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy nodejs" ;
         $this->initialize();
     }
 

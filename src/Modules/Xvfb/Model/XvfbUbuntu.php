@@ -28,9 +28,9 @@ class XvfbUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = " ! Xvfb !"; // 12 chars
         $this->programNameInstaller = "Xvfb";
         $this->statusCommand = "which xvfb-run" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy xvfb" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy xvfb" ;
-        $this->versionLatestCommand = "sudo apt-cache policy xvfb" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy xvfb" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy xvfb" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy xvfb" ;
         $this->initialize();
     }
 

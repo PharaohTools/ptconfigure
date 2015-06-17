@@ -30,10 +30,10 @@ class HAProxyUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "haproxy"; // command and app dir name
         $this->programNameFriendly = "HA Proxy Server!"; // 12 chars
         $this->programNameInstaller = "HA Proxy Server";
-        $this->statusCommand = "sudo haproxy -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy haproxy" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy haproxy" ;
-        $this->versionLatestCommand = "sudo apt-cache policy haproxy" ;
+        $this->statusCommand = SUDOPREFIX."haproxy -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy haproxy" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy haproxy" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy haproxy" ;
         $this->initialize();
     }
 

@@ -52,8 +52,8 @@ class JavaUbuntu32 extends BaseLinuxApp {
         $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
         $this->programNameInstaller = "The Oracle Java JDK 1.7";
         $this->versionInstalledCommand = 'java -version 2>&1' ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy java" ;
-        $this->versionLatestCommand = "sudo apt-cache policy java" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy java" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy java" ;
         $this->initialize();
     }
 

@@ -31,10 +31,10 @@ class TeamcityUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "teamcity"; // command and app dir name
         $this->programNameFriendly = " ! Teamcity !"; // 12 chars
         $this->programNameInstaller = "Teamcity";
-        $this->statusCommand = "sudo teamcity -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy teamcity" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy teamcity" ;
-        $this->versionLatestCommand = "sudo apt-cache policy teamcity" ;
+        $this->statusCommand = SUDOPREFIX."teamcity -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy teamcity" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy teamcity" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy teamcity" ;
         $this->initialize();
     }
 

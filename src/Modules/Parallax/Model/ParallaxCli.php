@@ -124,7 +124,7 @@ class ParallaxCli extends BaseLinuxApp {
             self::executeAndOutput("mkdir -p ".$dir) ;
             file_put_contents($dir.$logfilename, $fileData) ; }
         self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][0]);
-        self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][1]);
+        self::executeAndOutput(SUDOPREFIX."rm -f ".$copyPlxOuts[$i][1]);
     }
 
     private function makeCommandFile($command) {

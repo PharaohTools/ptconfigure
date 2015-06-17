@@ -23,10 +23,10 @@ class GIMPUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "gimp"; // command and app dir name
         $this->programNameFriendly = " ! GIMP !"; // 12 chars
         $this->programNameInstaller = "GIMP";
-        $this->statusCommand = "sudo gimp -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy gimp" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy gimp" ;
-        $this->versionLatestCommand = "sudo apt-cache policy gimp" ;
+        $this->statusCommand = SUDOPREFIX."gimp -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy gimp" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy gimp" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy gimp" ;
         $this->initialize();
     }
 

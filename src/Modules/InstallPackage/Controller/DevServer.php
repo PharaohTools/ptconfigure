@@ -14,7 +14,6 @@ class DevServer extends Base {
         "GitTools" ,
         "PHPModules" ,
         "ApacheModules" ,
-        "PTDeploy" ,
         "JRush" ,
         "PHPUnit" ,
         "PHPCS" ,
@@ -35,6 +34,7 @@ class DevServer extends Base {
         "MysqlAdmins" ,
         "SudoNoPass" ,
         "MediaTools" ,
+        "PharaohTools" ,
       );
 
       $this->checkForRegisteredModels($pageVars["route"]["extraParams"]);

@@ -28,9 +28,9 @@ class ThoughtWorksGoUbuntu extends BaseLinuxApp {
         $this->programNameInstaller = "ThoughtWorks Go";
         // @todo none of the below will work
         $this->statusCommand = "mysql --version" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy mysql-server" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy mysql-server" ;
-        $this->versionLatestCommand = "sudo apt-cache policy mysql-server" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy mysql-server" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy mysql-server" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy mysql-server" ;
         $this->initialize();
     }
 

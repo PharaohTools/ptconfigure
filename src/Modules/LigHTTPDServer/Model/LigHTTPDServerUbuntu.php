@@ -27,10 +27,10 @@ class LigHTTPDServerUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "lighttpdserver"; // command and app dir name
         $this->programNameFriendly = "LigHTTPD Server!"; // 12 chars
         $this->programNameInstaller = "LigHTTPD Server";
-        $this->statusCommand = "sudo lighttpd -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy lighttpd" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy lighttpd" ;
-        $this->versionLatestCommand = "sudo apt-cache policy lighttpd" ;
+        $this->statusCommand = SUDOPREFIX."lighttpd -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy lighttpd" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy lighttpd" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy lighttpd" ;
         $this->initialize();
     }
 

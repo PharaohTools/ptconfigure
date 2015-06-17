@@ -40,7 +40,7 @@ class PECLUbuntu extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad("sudo pecl info {$package}") ;
+            $out = $this->executeAndLoad(SUDOPREFIX."pecl info {$package}") ;
             if (strpos($out, "Installed: (none)") != false) { $passing = false ; } }
         return $passing ;
     }
@@ -59,7 +59,7 @@ class PECLUbuntu extends BasePackager {
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            $out = $this->executeAndOutput("sudo pecl install $package -y");
+            $out = $this->executeAndOutput(SUDOPREFIX."pecl install $package -y");
             if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
             else if (strpos($out, "is already the newest version.") != false) {
@@ -74,7 +74,7 @@ class PECLUbuntu extends BasePackager {
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo pecl-get remove $packageName -y --force-yes");
+        $out = $this->executeAndOutput(SUDOPREFIX."pecl-get remove $packageName -y --force-yes");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -89,7 +89,7 @@ class PECLUbuntu extends BasePackager {
     }
 
     public function update($autopilot = null) {
-        $out = $this->executeAndOutput("sudo pecl-get update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."pecl-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -99,7 +99,7 @@ class PECLUbuntu extends BasePackager {
     }
 
     public function versionCompatible($autopilot = null) {
-        $out = $this->executeAndOutput("sudo pecl-get update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."pecl-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);

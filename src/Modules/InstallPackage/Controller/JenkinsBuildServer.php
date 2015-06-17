@@ -32,6 +32,7 @@ class JenkinsBuildServer extends Base {
         "MysqlTools" ,
         "MysqlAdmins" ,
         "SudoNoPass"
+
       );
 
       $this->checkForRegisteredModels($pageVars["route"]["extraParams"]);

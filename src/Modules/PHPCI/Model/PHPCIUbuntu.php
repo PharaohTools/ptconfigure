@@ -24,10 +24,10 @@ class PHPCIUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "phpci"; // command and app dir name
         $this->programNameFriendly = " ! PHPCI !"; // 12 chars
         $this->programNameInstaller = "PHPCI";
-        $this->statusCommand = "sudo phpci -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy phpci" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy phpci" ;
-        $this->versionLatestCommand = "sudo apt-cache policy phpci" ;
+        $this->statusCommand = SUDOPREFIX."phpci -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy phpci" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy phpci" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy phpci" ;
         $this->initialize();
     }
 
@@ -41,7 +41,7 @@ class PHPCIUbuntu extends BaseLinuxApp {
             array("method"=> array(
                 "object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-mcrypt"))) ),
             // mcrypt is not automatically installed for cli in 14.04 @todo only do this in 14.04+
-            array("command" => array( "sudo ln -s /etc/php5/mods-available/mcrypt.ini /etc/php5/cli/conf.d/888-mcrypt.ini" ))
+            array("command" => array( SUDOPREFIX."ln -s /etc/php5/mods-available/mcrypt.ini /etc/php5/cli/conf.d/888-mcrypt.ini" ))
         ) ;
 
         // mod rewrite/alternates if needed
@@ -52,16 +52,16 @@ class PHPCIUbuntu extends BaseLinuxApp {
             // lighttpd version of mod rewrite if needed;
         }
         else {
-            $mrw = array("command" => array( "sudo a2enmod rewrite") ) ;
+            $mrw = array("command" => array( SUDOPREFIX."a2enmod rewrite") ) ;
             // enable mod rewrite
             array_push($ray, $mrw) ; }
 
         // ensure composer is installed and then install phpci
         $ray2 = array("method"=> array( "object" => $this, "method" => "ensureComposer", "params" => array()) );
         $ray3 = array("command" => array(
-                    "sudo rm -rf /opt/phpci" ,
-                    "sudo mkdir -p /opt/phpci" ,
-                    "sudo chown -R $whoami /opt/phpci" ,
+                    SUDOPREFIX."rm -rf /opt/phpci" ,
+                    SUDOPREFIX."mkdir -p /opt/phpci" ,
+                    SUDOPREFIX."chown -R $whoami /opt/phpci" ,
                     "cd /opt/phpci" ,
                     "composer create-project block8/phpci phpci --keep-vcs --no-dev" ,
                     // "phpci/console phpci:install"
@@ -78,7 +78,7 @@ class PHPCIUbuntu extends BaseLinuxApp {
             $dapperAuto = $this->getDapperAutoPath("apache") ; }
 
         // add the dapper step
-        $dpc = array("command" => array( "sudo ptdeploy autopilot execute --autopilot-file=$dapperAuto" ) ) ;
+        $dpc = array("command" => array( SUDOPREFIX."ptdeploy autopilot execute --autopilot-file=$dapperAuto" ) ) ;
         array_push($ray, $dpc) ;
 
         return $ray ;

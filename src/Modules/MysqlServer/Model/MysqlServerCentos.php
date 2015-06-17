@@ -37,9 +37,9 @@ class MysqlServerCentos extends BaseLinuxApp {
         $this->programNameFriendly = "MySQL Server!"; // 12 chars
         $this->programNameInstaller = "MySQL Server";
         $this->statusCommand = "mysqld --version" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy mysql-server" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy mysql-server" ;
-        $this->versionLatestCommand = "sudo apt-cache policy mysql-server" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy mysql-server" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy mysql-server" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy mysql-server" ;
         $this->initialize();
     }
 

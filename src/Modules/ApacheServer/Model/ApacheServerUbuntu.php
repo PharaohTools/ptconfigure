@@ -27,10 +27,10 @@ class ApacheServerUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "apacheserver"; // command and app dir name
         $this->programNameFriendly = "Apache Server!"; // 12 chars
         $this->programNameInstaller = "Apache Server";
-        $this->statusCommand = "sudo which apache2" ;
-        $this->versionInstalledCommand = "sudo apache2 -v" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy apache2" ;
-        $this->versionLatestCommand = "sudo apt-cache policy apache2" ;
+        $this->statusCommand = SUDOPREFIX."which apache2" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apache2 -v" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy apache2" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy apache2" ;
         $this->serviceCommand = "apache2" ;
         $this->rebootsCommand = "apache2" ;
         $this->initialize();

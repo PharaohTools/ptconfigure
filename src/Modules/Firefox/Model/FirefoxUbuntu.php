@@ -28,9 +28,9 @@ class FirefoxUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "Firefox!"; // 12 chars
         $this->programNameInstaller = "Firefox";
         $this->statusCommand = "firefox -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy firefox" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy firefox" ;
-        $this->versionLatestCommand = "sudo apt-cache policy firefox" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy firefox" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy firefox" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy firefox" ;
         $this->initialize();
     }
 

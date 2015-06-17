@@ -28,9 +28,9 @@ class RubySystemUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "Ruby System!"; // 12 chars
         $this->programNameInstaller = "Ruby, System Wide";
         $this->statusCommand = "ruby -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy ruby1.9.1" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy ruby1.9.1" ;
-        $this->versionLatestCommand = "sudo apt-cache policy ruby1.9.1" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy ruby1.9.1" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy ruby1.9.1" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy ruby1.9.1" ;
         $this->initialize();
     }
 

@@ -117,9 +117,9 @@ class ServiceLinux extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Removing current {$this->serviceName} service startup links") ;
-        $this->executeAndOutput("sudo update-rc.d -f {$this->serviceName} remove");
+        $this->executeAndOutput(SUDOPREFIX."update-rc.d -f {$this->serviceName} remove");
         $logging->log("Adding {$this->serviceName} service startup links") ;
-        $this->executeAndOutput("sudo update-rc.d {$this->serviceName} defaults");
+        $this->executeAndOutput(SUDOPREFIX."update-rc.d {$this->serviceName} defaults");
         return true ;
     }
 

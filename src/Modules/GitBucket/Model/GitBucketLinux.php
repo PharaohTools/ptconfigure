@@ -52,7 +52,7 @@ class GitBucketLinux extends BaseLinuxApp {
         );
         if (isset($this->params["with-http-port-proxy"]) && $this->params["with-http-port-proxy"] == true) {
             $dapperAuto = $this->getDapperAutoPath() ;
-            $miniray = array("command"=> array("sudo ptdeploy autopilot execute --autopilot-file=$dapperAuto")) ;
+            $miniray = array("command"=> array(SUDOPREFIX."ptdeploy autopilot execute --autopilot-file=$dapperAuto")) ;
             array_push($ray, $miniray)  ;
         }
         return $ray ;

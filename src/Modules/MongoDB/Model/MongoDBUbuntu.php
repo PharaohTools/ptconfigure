@@ -36,9 +36,9 @@ class MongoDBUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "MongoDB Server!"; // 12 chars
         $this->programNameInstaller = "MongoDB Server";
         $this->statusCommand = "mongod --version" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy mongodb" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy mongodb" ;
-        $this->versionLatestCommand = "sudo apt-cache policy mongodb" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy mongodb" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy mongodb" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy mongodb" ;
         $this->initialize();
     }
 

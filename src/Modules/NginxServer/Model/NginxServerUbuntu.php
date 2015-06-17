@@ -27,10 +27,10 @@ class NginxServerUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "nginxserver"; // command and app dir name
         $this->programNameFriendly = "Nginx Server!"; // 12 chars
         $this->programNameInstaller = "Nginx Server";
-        $this->statusCommand = "sudo nginx -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy nginx" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy nginx" ;
-        $this->versionLatestCommand = "sudo apt-cache policy nginx" ;
+        $this->statusCommand = SUDOPREFIX."nginx -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy nginx" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy nginx" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy nginx" ;
         $this->initialize();
     }
 

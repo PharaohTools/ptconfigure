@@ -24,9 +24,9 @@ class CitadelCentos32 extends BaseLinuxApp {
       $this->programNameFriendly = "Citadel Server!"; // 12 chars
       $this->programNameInstaller = "Citadel Server";
       $this->statusCommand = "citadel -v" ;
-//      $this->versionInstalledCommand = "sudo apt-cache policy httpd" ;
-//      $this->versionRecommendedCommand = "sudo apt-cache policy httpd" ;
-//      $this->versionLatestCommand = "sudo apt-cache policy httpd" ;
+//      $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy httpd" ;
+//      $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy httpd" ;
+//      $this->versionLatestCommand = SUDOPREFIX."apt-cache policy httpd" ;
       $this->initialize();
   }
 

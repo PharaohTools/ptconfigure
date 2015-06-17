@@ -30,7 +30,7 @@ class YumCentos extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad("sudo yum list installed | grep *{$package}*") ;
+            $out = $this->executeAndLoad(SUDOPREFIX."yum list installed | grep *{$package}*") ;
             $passing = (strlen($out) > 0)  ? true : false ; }
         return $passing ;
     }
@@ -47,7 +47,7 @@ class YumCentos extends BasePackager {
             \BootStrap::setExitCode(1) ;
             return false ; }
         foreach ($packageName as $package) {
-            $out = $this->executeAndOutput("sudo yum install $package -y");
+            $out = $this->executeAndOutput(SUDOPREFIX."yum install $package -y");
             if (strpos($out, "Complete!") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
                 return false ; }
@@ -61,7 +61,7 @@ class YumCentos extends BasePackager {
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo yum remove -y $packageName");
+        $out = $this->executeAndOutput(SUDOPREFIX."yum remove -y $packageName");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "Removed:") != false ) {
@@ -76,7 +76,7 @@ class YumCentos extends BasePackager {
     }
 
     public function update() {
-        $out = $this->executeAndOutput("sudo yum update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."yum update -y");
         if (strpos($out, "No packages marked for update") != false || strpos($out, "No packages marked for update") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);

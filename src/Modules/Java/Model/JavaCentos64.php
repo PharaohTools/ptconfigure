@@ -16,8 +16,8 @@ class JavaCentos64 extends JavaUbuntu64 {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->versionRecommendedCommand = "sudo apt-cache policy java" ;
-        $this->versionLatestCommand = "sudo apt-cache policy java" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy java" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy java" ;
         $this->initialize();
     }
 

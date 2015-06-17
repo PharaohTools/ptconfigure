@@ -25,10 +25,10 @@ class JenkinsUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "jenkins"; // command and app dir name
         $this->programNameFriendly = " ! Jenkins !"; // 12 chars
         $this->programNameInstaller = "Jenkins";
-        $this->statusCommand = "sudo jenkins -v" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy jenkins" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy jenkins" ;
-        $this->versionLatestCommand = "sudo apt-cache policy jenkins" ;
+        $this->statusCommand = SUDOPREFIX."jenkins -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy jenkins" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy jenkins" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy jenkins" ;
         $this->initialize();
     }
 
@@ -43,7 +43,7 @@ class JenkinsUbuntu extends BaseLinuxApp {
         ) ;
         if (isset($this->params["with-http-port-proxy"]) && $this->params["with-http-port-proxy"]==true) {
             $dapperAuto = $this->getDapperAutoPath() ;
-            $ray[0]["command"][5] = "sudo ptdeploy autopilot execute --autopilot-file=$dapperAuto" ; }
+            $ray[0]["command"][5] = SUDOPREFIX."ptdeploy autopilot execute --autopilot-file=$dapperAuto" ; }
         return $ray ;
     }
 

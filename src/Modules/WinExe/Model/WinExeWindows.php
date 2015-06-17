@@ -67,7 +67,7 @@ class WinExeWindows extends BasePackager {
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput("sudo winexe-get remove $packageName -y --force-yes");
+        $out = $this->executeAndOutput(SUDOPREFIX."winexe-get remove $packageName -y --force-yes");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -82,7 +82,7 @@ class WinExeWindows extends BasePackager {
     }
 
     public function update() {
-        $out = $this->executeAndOutput("sudo winexe-get update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."winexe-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -92,7 +92,7 @@ class WinExeWindows extends BasePackager {
     }
 
     public function versionCompatible() {
-        $out = $this->executeAndOutput("sudo winexe-get update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."winexe-get update -y");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);

@@ -19,26 +19,26 @@ class VarnishUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "Varnish";
         $this->installCommands = $this->getInstallCommands() ;
         $this->uninstallCommands = array(
-            array("command" => array( "sudo apt-get remove -y varnish") )
+            array("command" => array( SUDOPREFIX."apt-get remove -y varnish") )
         ) ;
         $this->programDataFolder = "/var/lib/varnish"; // command and app dir name
         $this->programNameMachine = "varnish"; // command and app dir name
         $this->programNameFriendly = " ! Varnish !"; // 12 chars
         $this->programNameInstaller = "Varnish";
         $this->statusCommand = "which varnishd" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy varnish" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy varnish" ;
-        $this->versionLatestCommand = "sudo apt-cache policy varnish" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy varnish" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy varnish" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy varnish" ;
         $this->initialize();
     }
 
     // @todo this should definitely be using a package manager module
     protected function getInstallCommands() {
         $ray = array(
-            array("command" => array( "sudo apt-get install -y varnish") )
+            array("command" => array( SUDOPREFIX."apt-get install -y varnish") )
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
-            array_push($ray, array("command" => array( "sudo apt-get install varnish-guest-additions-iso") ) ) ; }
+            array_push($ray, array("command" => array( SUDOPREFIX."apt-get install varnish-guest-additions-iso") ) ) ; }
         return $ray ;
     }
 

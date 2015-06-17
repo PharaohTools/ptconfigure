@@ -28,8 +28,8 @@ class PythonUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "!Python!!"; // 12 chars
         $this->programNameInstaller = "Python";
         $this->versionInstalledCommand = "python --version 2>&1" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy python" ;
-        $this->versionLatestCommand = "sudo apt-cache policy python" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy python" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy python" ;
         $this->initialize();
     }
     public function versionInstalledCommandTrimmer($text) {

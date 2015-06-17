@@ -35,15 +35,17 @@ class InvokeSsh2 {
 	/**
 	 * @throws \Exception
 	 */
-	public function connect()
-	{
+	public function connect() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params) ;
+        if (!function_exists("ssh2_connect")) {
+            $logging->log('Native PHP SSH2 Functions are not installed. Cannot use the PHP Native SSH Driver') ;
+            \Core\BootStrap::setExitCode(1) ;
+            return false; }
 		if (!($this->connection = ssh2_connect($this->server->host, $this->server->port))) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params) ;
             $logging->log('Cannot connect to server') ;
             \Core\BootStrap::setExitCode(1) ;
-		}
-
+            return false; }
 		ssh2_auth_password($this->connection, $this->server->username, $this->server->password);
 	}
 

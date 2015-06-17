@@ -24,9 +24,9 @@ class HAProxyCentos32 extends BaseLinuxApp {
       $this->programNameFriendly = "HA Proxy Server!"; // 12 chars
       $this->programNameInstaller = "HA Proxy Server";
       $this->statusCommand = "haproxy -v" ;
-//      $this->versionInstalledCommand = "sudo apt-cache policy httpd" ;
-//      $this->versionRecommendedCommand = "sudo apt-cache policy httpd" ;
-//      $this->versionLatestCommand = "sudo apt-cache policy httpd" ;
+//      $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy httpd" ;
+//      $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy httpd" ;
+//      $this->versionLatestCommand = SUDOPREFIX."apt-cache policy httpd" ;
       $this->initialize();
   }
 

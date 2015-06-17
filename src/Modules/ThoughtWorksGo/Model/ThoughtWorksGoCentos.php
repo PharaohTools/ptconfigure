@@ -38,9 +38,9 @@ class ThoughtWorksGoCentos extends BaseLinuxApp {
         $this->programNameFriendly = "MySQL Server!"; // 12 chars
         $this->programNameInstaller = "MySQL Server";
         $this->statusCommand = "mysql --version" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy mysql-server" ; // @todo this is not centos compatible
-        $this->versionRecommendedCommand = "sudo apt-cache policy mysql-server" ; // @todo this is not centos compatible
-        $this->versionLatestCommand = "sudo apt-cache policy mysql-server" ; // @todo this is not centos compatible
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy mysql-server" ; // @todo this is not centos compatible
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy mysql-server" ; // @todo this is not centos compatible
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy mysql-server" ; // @todo this is not centos compatible
         $this->initialize();
     }
 

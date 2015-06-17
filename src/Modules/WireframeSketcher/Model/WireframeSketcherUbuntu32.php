@@ -22,9 +22,9 @@ class WireframeSketcherUbuntu32 extends BaseLinuxApp {
             array("command" => array(
                 "cd /tmp" ,
                 "git clone https://github.com/phpengine/ptconfigure-wireframe-sketcher-32.git wireframe-sketcher",
-                "sudo dpkg -i wireframe-sketcher/WireframeSketcher-4.3.1_i386.deb",
-                "sudo apt-get install -f -y",
-                "sudo rm -rf wireframe-sketcher" ) ),
+                SUDOPREFIX."dpkg -i wireframe-sketcher/WireframeSketcher-4.3.1_i386.deb",
+                SUDOPREFIX."apt-get install -f -y",
+                SUDOPREFIX."rm -rf wireframe-sketcher" ) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );

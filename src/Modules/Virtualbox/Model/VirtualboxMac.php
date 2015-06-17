@@ -20,15 +20,15 @@ class VirtualboxMac extends BaseLinuxApp {
         $this->installCommands = $this->getInstallCommands() ;
         // http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg
         $this->uninstallCommands = array(
-            array("command" => array( "sudo apt-get remove -y virtualbox") ) ) ;
+            array("command" => array( SUDOPREFIX."apt-get remove -y virtualbox") ) ) ;
         $this->programDataFolder = "/var/lib/virtualbox"; // command and app dir name
         $this->programNameMachine = "virtualbox"; // command and app dir name
         $this->programNameFriendly = " ! Virtualbox !"; // 12 chars
         $this->programNameInstaller = "Virtualbox";
         $this->statusCommand = "command vboxmanage" ;
-        $this->versionInstalledCommand = "sudo apt-cache policy virtualbox" ;
-        $this->versionRecommendedCommand = "sudo apt-cache policy virtualbox" ;
-        $this->versionLatestCommand = "sudo apt-cache policy virtualbox" ;
+        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy virtualbox" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy virtualbox" ;
+        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy virtualbox" ;
         $this->initialize();
     }
 
@@ -37,11 +37,11 @@ class VirtualboxMac extends BaseLinuxApp {
         $dmgFile = BASE_TEMP_DIR."virtualbox.dmg" ;
         $ray = array(
             array("command" => array( 'curl "http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg" -o "'.$dmgFile.'"') ),
-            array("command" => array( "sudo hdiutil attach $dmgFile") ),
+            array("command" => array( SUDOPREFIX."hdiutil attach $dmgFile") ),
             array("command" => array( 'sudo installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /Volumes/Macintosh\ HD') ),
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
-            array_push($ray, array("command" => array( "sudo apt-get install -y virtualbox-guest-additions-iso") ) ) ; }
+            array_push($ray, array("command" => array( SUDOPREFIX."apt-get install -y virtualbox-guest-additions-iso") ) ) ; }
         return $ray ;
     }
 

@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class JenkinsBuildServer extends Base {
+class PharaohBuildServer extends Base {
 
     public function execute($pageVars) {
 

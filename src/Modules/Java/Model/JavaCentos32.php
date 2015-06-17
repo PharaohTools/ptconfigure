@@ -16,8 +16,8 @@ class JavaCentos32 extends JavaUbuntu32 {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->versionRecommendedCommand = "sudo yum info policy java" ;
-        $this->versionLatestCommand = "sudo yum info policy java" ;
+        $this->versionRecommendedCommand = SUDOPREFIX."yum info policy java" ;
+        $this->versionLatestCommand = SUDOPREFIX."yum info policy java" ;
         $this->initialize();
     }
 

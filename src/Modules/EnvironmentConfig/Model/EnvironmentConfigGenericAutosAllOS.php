@@ -66,10 +66,17 @@ class EnvironmentConfigGenericAutosAllOS extends BaseLinuxApp {
     }
 
     public function chooseDefaultEnvironment() {
+
+        if (isset($this->params["env-name"])) {
+            $this->params["environment-name"] = $this->params["env-name"] ;}
+
+        if (isset($this->params["envname"])) {
+            $this->params["environment-name"] = $this->params["envname"] ;}
+
         $options = array_keys($this->defaultEnvironments);
-        if (isset($this->params["default-environment-name"]) &&
-            in_array($this->params["default-environment-name"], $options) ) {
-            $this->chosenEnvironment = $this->params["default-environment-name"] ;
+        if (isset($this->params["environment-name"]) &&
+            in_array($this->params["environment-name"], $options) ) {
+            $this->chosenEnvironment = $this->params["environment-name"] ;
             return; }
         $question = "Pick a default environment name to install:" ;
         $this->chosenEnvironment = self::askForArrayOption($question, $options, true);

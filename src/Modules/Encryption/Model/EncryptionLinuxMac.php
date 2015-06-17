@@ -120,9 +120,9 @@ class EncryptionLinuxMac extends BaseTemplater {
     }
 
     protected function saveAndSetPerms($fileData, $targetLocation=null, $perms="", $owner="", $group="") {
-        if ($perms != "") { exec("sudo chmod $perms $targetLocation"); }
-        if ($owner != "") { exec("sudo chown $owner $targetLocation"); }
-        if ($group != "") { exec("sudo chgrp $group $targetLocation"); }
+        if ($perms != "") { exec(SUDOPREFIX."chmod $perms $targetLocation"); }
+        if ($owner != "") { exec(SUDOPREFIX."chown $owner $targetLocation"); }
+        if ($group != "") { exec(SUDOPREFIX."chgrp $group $targetLocation"); }
         file_put_contents($targetLocation, $fileData) ;
     }
 
