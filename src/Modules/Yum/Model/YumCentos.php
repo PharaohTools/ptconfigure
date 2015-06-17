@@ -30,7 +30,7 @@ class YumCentos extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad(SUDOPREFIX."yum list installed | grep *{$package}*") ;
+            $out = $this->executeAndLoad(SUDOPREFIX."yum list installed | grep {$package}") ;
             $passing = (strlen($out) > 0)  ? true : false ; }
         return $passing ;
     }
