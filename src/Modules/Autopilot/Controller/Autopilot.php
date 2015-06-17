@@ -18,7 +18,7 @@ class Autopilot extends Base {
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
                     $autoPilot->params = $thisModel->params ;
-                    if ($action =="test") { return $autoPilotExecutor->execute($pageVars, $autoPilot, true); }
+                    if ($action =="test" || $thisModel->params["test"]==true) { return $autoPilotExecutor->execute($pageVars, $autoPilot, true); }
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
                 else {
                     \Core\BootStrap::setExitCode(1);
