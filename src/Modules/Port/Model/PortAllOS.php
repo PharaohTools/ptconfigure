@@ -70,10 +70,10 @@ class PortAllOS extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $result = @fsockopen($this->ipAddress, $this->portNumber, $errno, $errstr, 5);
         if (is_resource($result)) {
-            $logging->log("Port {$this->portNumber} is responding") ;
+            $logging->log("Port {$this->portNumber} is responding", $this->getModuleName()) ;
             return true; }
         else {
-            $logging->log("Port {$this->portNumber} is not responding. Error: $errno, $errstr") ;
+            $logging->log("Port {$this->portNumber} is not responding. Error: $errno, $errstr", $this->getModuleName()) ;
             return false; }
     }
 
@@ -81,28 +81,34 @@ class PortAllOS extends BaseLinuxApp {
         // @todo fsockopen takes a while, fixed with 5 sec timeout?
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        if ($this->installDependencies() == false) { return false ;}
         $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
         $out = self::executeAndGetReturnCode($comm, true, true) ;
+        $process = substr($out["out"], 0, strpos($out["out"], " ")) ;
 
         if ($out["rc"] != "0") {
             \Core\BootStrap::setExitCode(1);
-            $logging->log("Port process command execution failed.") ;
+            $logging->log("Port process command execution failed.", $this->getModuleName()) ;
             return true; }
 
         if (isset($tx)) {
-            $logging->log("Port {$this->portNumber} is being used by the process {$process}") ;
+            $logging->log("Port {$this->portNumber} is being used by the process {$process}", $this->getModuleName()) ;
             if (isset($this->params["expect"])) {
-                $logging->log("Expecting process to be {$this->params["expect"]}") ;
+                $logging->log("Expecting process to be {$this->params["expect"]}", $this->getModuleName()) ;
 
                 if ($this->params["expect"] != $process ) {
-                    $logging->log("Wrong process on Port {$this->portNumber}") ;
+                    $logging->log("Wrong process on Port {$this->portNumber}", $this->getModuleName()) ;
                     \Core\BootStrap::setExitCode(1);
                     return false ; } }
 
             return true; }
         else {
-            $logging->log("Port {$this->portNumber} is not being used by a process") ;
+            $logging->log("Port {$this->portNumber} is not being used by a process", $this->getModuleName()) ;
             return false; }
+    }
+
+    protected function installDependencies() {
+        return true ;
     }
 
 }
