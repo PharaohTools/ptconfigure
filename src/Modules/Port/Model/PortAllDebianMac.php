@@ -88,7 +88,7 @@ class PortAllDebianMac extends BaseLinuxApp {
             \Core\BootStrap::setExitCode(1);
             $logging->log("Port process command execution failed.", $this->getModuleName()) ;
             return true; }
-        if (isset($tx)) {
+        if (isset($process)) {
             $logging->log("Port {$this->portNumber} is being used by the process {$process}", $this->getModuleName()) ;
             if (isset($this->params["expect"])) {
                 $logging->log("Expecting process to be {$this->params["expect"]}", $this->getModuleName()) ;
