@@ -48,7 +48,7 @@ class YumCentos extends BasePackager {
             return false ; }
         foreach ($packageName as $package) {
             $out = $this->executeAndOutput(SUDOPREFIX."yum install $package -y");
-            if (strpos($out, "Complete!") == false) {
+            if (strpos($out, "Complete!") == false && strpos($out, "already installed and latest version.") == false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
                 return false ; }
             else if (strpos($out, "already installed and latest version.") != false) {
