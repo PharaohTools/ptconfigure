@@ -44,7 +44,7 @@ class YumCentos extends BasePackager {
             // @todo multiple versioned packages should work!!
             $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
             $logging->log($lmsg, $this->getModuleName()) ;
-            \BootStrap::setExitCode(1) ;
+            \Core\BootStrap::setExitCode(1) ;
             return false ; }
         foreach ($packageName as $package) {
             $out = $this->executeAndOutput(SUDOPREFIX."yum install $package -y");
