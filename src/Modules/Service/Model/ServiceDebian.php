@@ -117,10 +117,10 @@ class ServiceDebian extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Removing current {$this->serviceName} service startup links") ;
-        $this->executeAndOutput(SUDOPREFIX."update-rc.d -f {$this->serviceName} remove");
+        $rc1 = $this->executeAndGetReturnCode(SUDOPREFIX."update-rc.d -f {$this->serviceName} remove", true);
         $logging->log("Adding {$this->serviceName} service startup links") ;
         $this->executeAndOutput(SUDOPREFIX."update-rc.d {$this->serviceName} defaults");
-        return true ;
+        return ($rc1 == 0 && $rc2 == 0) ? true : false;
     }
 
     public function start() {

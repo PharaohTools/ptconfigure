@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ServiceCentos extends BaseLinuxApp {
+class ServiceCentos extends ServiceDebian {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -15,8 +15,8 @@ class ServiceCentos extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Adding {$this->serviceName} service startup links") ;
-        $this->executeAndOutput(SUDOPREFIX."chkconfig {$this->serviceName} on");
-        return true ;
+        $rc = $this->executeAndGetReturnCode(SUDOPREFIX."chkconfig {$this->serviceName} on", true);
+        return ($rc == 0) ? true : false;
     }
 
 }
