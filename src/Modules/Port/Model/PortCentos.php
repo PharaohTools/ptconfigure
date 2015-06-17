@@ -14,7 +14,7 @@ class PortCentOS extends PortAllOS {
     protected function installDependencies() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Installing Redhat based dependency for Port Process check, package lsof", $this->getModuleName()) ;
+        $logging->log("Ensuring Redhat based dependency for Port Process check, package lsof", $this->getModuleName()) ;
         $yumFactory = new \Model\Yum();
         $yum = $yumFactory->getModel($this->params);
         return $yum->installPackage("lsof") ;
