@@ -82,7 +82,7 @@ class PortAllDebianMac extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         if ($this->installDependencies() == false) { return false ;}
         $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
-        $out = self::executeAndGetReturnCode($comm, false, true) ;
+        $out = self::executeAndGetReturnCode($comm, true, true) ;
         $process = substr(implode("\n", $out["output"]), 0, strpos(implode("\n", $out["output"]), " ")) ;
         if ($out["rc"] != "0") {
             \Core\BootStrap::setExitCode(1);
