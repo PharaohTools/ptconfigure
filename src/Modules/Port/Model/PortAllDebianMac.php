@@ -2,11 +2,11 @@
 
 Namespace Model;
 
-class PortAllOS extends BaseLinuxApp {
+class PortAllDebianMac extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("any") ;
-    public $linuxType = array("any") ;
+    public $os = array("Linux", "Darwin") ;
+    public $linuxType = array("Debian") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
     public $architectures = array("any") ;
@@ -64,7 +64,7 @@ class PortAllOS extends BaseLinuxApp {
             $this->portNumber = self::askForInput("Enter Port Number:", true); }
     }
 
-    private function getPortStatus() {
+    protected function getPortStatus() {
         // @todo fsockopen takes a while, fixed with 5 sec timeout?
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -77,30 +77,26 @@ class PortAllOS extends BaseLinuxApp {
             return false; }
     }
 
-    private function getPortService() {
-        // @todo fsockopen takes a while, fixed with 5 sec timeout?
+    protected function getPortService() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($this->installDependencies() == false) { return false ;}
         $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
         $out = self::executeAndGetReturnCode($comm, true, true) ;
         $process = substr($out["out"], 0, strpos($out["out"], " ")) ;
-
         if ($out["rc"] != "0") {
             \Core\BootStrap::setExitCode(1);
             $logging->log("Port process command execution failed.", $this->getModuleName()) ;
             return true; }
-
         if (isset($tx)) {
             $logging->log("Port {$this->portNumber} is being used by the process {$process}", $this->getModuleName()) ;
             if (isset($this->params["expect"])) {
                 $logging->log("Expecting process to be {$this->params["expect"]}", $this->getModuleName()) ;
-
                 if ($this->params["expect"] != $process ) {
                     $logging->log("Wrong process on Port {$this->portNumber}", $this->getModuleName()) ;
                     \Core\BootStrap::setExitCode(1);
                     return false ; } }
-
+            $logging->log("Expected process found", $this->getModuleName()) ;
             return true; }
         else {
             $logging->log("Port {$this->portNumber} is not being used by a process", $this->getModuleName()) ;
