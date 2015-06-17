@@ -37,7 +37,7 @@ class JenkinsCentos extends BaseLinuxApp {
             // @todo maybe this for centos
 //            array("command" => array(
 //                "cd /tmp" ,
-//                "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -",
+//                "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | ".SUDOPREFIX." apt-key add -",
 //                "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
 //                "apt-get update -y" ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "jenkins")) ),

@@ -188,7 +188,7 @@ class GitLabUbuntu extends BaseLinuxApp {
 
       # Start Your GitLab Instance
 
-      # sudo service gitlab start
+      # ".SUDOPREFIX." service gitlab start
       # or
       "/etc/init.d/gitlab restart",
 

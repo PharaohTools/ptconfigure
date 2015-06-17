@@ -38,7 +38,7 @@ class VirtualboxMac extends BaseLinuxApp {
         $ray = array(
             array("command" => array( 'curl "http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg" -o "'.$dmgFile.'"') ),
             array("command" => array( SUDOPREFIX."hdiutil attach $dmgFile") ),
-            array("command" => array( 'sudo installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /Volumes/Macintosh\ HD') ),
+            array("command" => array( SUDOPREFIX.'installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /Volumes/Macintosh\ HD') ),
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
             array_push($ray, array("command" => array( SUDOPREFIX."apt-get install -y virtualbox-guest-additions-iso") ) ) ; }

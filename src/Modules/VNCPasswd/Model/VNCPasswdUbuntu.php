@@ -93,7 +93,7 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
 
             // no su
             $command = array(
-                'sudo -H -u '.$this->vncUser.' /usr/bin/expect <<EOF',
+                SUDOPREFIX.'-H -u '.$this->vncUser.' /usr/bin/expect <<EOF',
                 'spawn "/usr/bin/vnc4passwd"',
                 'expect "Password:"',
                 'send "'.$this->vncPass.'\r"',

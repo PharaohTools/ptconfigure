@@ -40,7 +40,7 @@ class PHPCIDefaultDBInstallUbuntu extends BaseLinuxApp {
     }
 
     public function doDBInstall() {
-        $command = 'sudo ptdeploy dbinstall install --yes --mysql-host="127.0.0.1" --mysql-admin-user="'.$this->dbRootUser.'"' .
+        $command = SUDOPREFIX.'ptdeploy dbinstall install --yes --mysql-host="127.0.0.1" --mysql-admin-user="'.$this->dbRootUser.'"' .
             ' --mysql-admin-pass="'.$this->dbRootPass.'" --mysql-user="phpci" --mysql-pass="phpci_pass" --mysql-db="phpci"' .
             ' --parent-path="/opt/ptconfigure/ptconfigure/src/Modules/PHPCI/" --db-file-path="db/database.sql"' ;
         self::executeAndOutput($command);

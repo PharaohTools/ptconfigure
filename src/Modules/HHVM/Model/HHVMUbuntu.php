@@ -38,8 +38,8 @@ class HHVMUbuntu extends BaseLinuxApp {
             $ray = array(
                 array("command" => array(
                     "cd /tmp" ,
-                    "wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -",
-                    "echo deb http://dl.hhvm.com/ubuntu trusty main | sudo tee /etc/apt/sources.list.d/hhvm.list",
+                    "wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | ".SUDOPREFIX." apt-key add -",
+                    "echo deb http://dl.hhvm.com/ubuntu trusty main | ".SUDOPREFIX." tee /etc/apt/sources.list.d/hhvm.list",
                     "apt-get update -y" ) ),
                 array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "hhvm")) ),
             ) ; }
@@ -48,8 +48,8 @@ class HHVMUbuntu extends BaseLinuxApp {
                 array("command" => array(
                     "cd /tmp" ,
                     SUDOPREFIX."add-apt-repository ppa:mapnik/boost",
-                    "wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -",
-                    "echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list.d/hhvm.list",
+                    "wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | ".SUDOPREFIX." apt-key add -",
+                    "echo deb http://dl.hhvm.com/ubuntu precise main | ".SUDOPREFIX." tee /etc/apt/sources.list.d/hhvm.list",
                     "apt-get update -y" ) ),
                 array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "hhvm")) ),
             ) ; }

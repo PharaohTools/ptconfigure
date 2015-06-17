@@ -42,7 +42,7 @@ class PapyrusEditorInstallInterface extends Base {
 
     public function installInterface() {
         $autofile = str_replace("Model", "Autopilots/PTDeploy/install-papyruseditor-local.php", dirname(__FILE__)) ;
-        $comm  = 'sudo ptdeploy autopilot execute --autopilot-file="'.$autofile.'" --papyruseditor-url="'.$this->url ;
+        $comm  = SUDOPREFIX.'ptdeploy autopilot execute --autopilot-file="'.$autofile.'" --papyruseditor-url="'.$this->url ;
         $comm .= '" --source-dir='.dirname(dirname(__FILE__)) ;
         return $this->executeAndOutput($comm) ;
     }

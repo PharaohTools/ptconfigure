@@ -21,8 +21,8 @@ class MongoDBUbuntu extends BaseLinuxApp {
         $this->installCommands = array(
 //            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "debconf-utils")) ),
 //            array("command"=> array(
-//                    "echo mongodb-server mongodb-server/root_password password $newRootPass | sudo debconf-set-selections",
-//                    "echo mongodb-server mongodb-server/root_password_again password $newRootPass | sudo debconf-set-selections" ) ),
+//                    "echo mongodb-server mongodb-server/root_password password $newRootPass | ".SUDOPREFIX." debconf-set-selections",
+//                    "echo mongodb-server mongodb-server/root_password_again password $newRootPass | ".SUDOPREFIX." debconf-set-selections" ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "mongodb-client")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "mongodb-server")) ),
         );

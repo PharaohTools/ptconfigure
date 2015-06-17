@@ -21,8 +21,8 @@ class ThoughtWorksGoCentos extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "mysql-server")) ),
             array("command"=> array(
-                "echo mysql-server mysql-server/root_password password $newRootPass | sudo debconf-set-selections",
-                "echo mysql-server mysql-server/root_password_again password $newRootPass | sudo debconf-set-selections" ) ),
+                "echo mysql-server mysql-server/root_password password $newRootPass | ".SUDOPREFIX." debconf-set-selections",
+                "echo mysql-server mysql-server/root_password_again password $newRootPass | ".SUDOPREFIX." debconf-set-selections" ) ),
             array("command"=> array(
                 "cd /tmp",
                 "wget https://launchpad.net/codership-mysql/5.6/5.6.16-25.5/+download/mysql-server-wsrep-5.6.16-25.5-amd64.deb",

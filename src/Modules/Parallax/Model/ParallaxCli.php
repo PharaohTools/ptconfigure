@@ -123,7 +123,7 @@ class ParallaxCli extends BaseLinuxApp {
             $dir = getcwd().DS."build".DS."logs".DS.PHARAOH_APP.DS."parallax".DS ;
             self::executeAndOutput("mkdir -p ".$dir) ;
             file_put_contents($dir.$logfilename, $fileData) ; }
-        self::executeAndOutput("sudo rm -f ".$copyPlxOuts[$i][0]);
+        self::executeAndOutput(SUDOPREFIX."rm -f ".$copyPlxOuts[$i][0]);
         self::executeAndOutput(SUDOPREFIX."rm -f ".$copyPlxOuts[$i][1]);
     }
 

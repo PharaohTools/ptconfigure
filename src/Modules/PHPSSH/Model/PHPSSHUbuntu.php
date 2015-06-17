@@ -31,7 +31,7 @@ class PHPSSHUbuntu extends BaseLinuxApp {
     }
 
     public function askStatus() {
-        $modsTextCmd = 'sudo php -m';
+        $modsTextCmd = SUDOPREFIX.'php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $modsToCheck = array("ssh2") ;
         $loggingFactory = new \Model\Logging();

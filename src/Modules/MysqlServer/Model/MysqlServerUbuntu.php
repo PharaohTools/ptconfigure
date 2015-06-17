@@ -21,8 +21,8 @@ class MysqlServerUbuntu extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "debconf-utils")) ),
             array("command"=> array(
-                    "echo mysql-server mysql-server/root_password password $newRootPass | sudo debconf-set-selections",
-                    "echo mysql-server mysql-server/root_password_again password $newRootPass | sudo debconf-set-selections" ) ),
+                    "echo mysql-server mysql-server/root_password password $newRootPass | ".SUDOPREFIX." debconf-set-selections",
+                    "echo mysql-server mysql-server/root_password_again password $newRootPass | ".SUDOPREFIX." debconf-set-selections" ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "mysql-client")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "mysql-server")) ),
         );

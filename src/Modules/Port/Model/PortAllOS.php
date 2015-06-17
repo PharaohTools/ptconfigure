@@ -81,7 +81,7 @@ class PortAllOS extends BaseLinuxApp {
         // @todo fsockopen takes a while, fixed with 5 sec timeout?
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $comm = 'sudo lsof -i :'.$this->portNumber.' | grep LISTEN';
+        $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
         $tx = self::executeAndLoad($comm) ;
         $process = substr($tx, 0, strpos($tx, " ")) ;
         $statcomm = 'echo $?';

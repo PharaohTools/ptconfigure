@@ -141,7 +141,7 @@ class SystemDetectionAllOS extends Base {
                 // @todo surely captain, there must be a better way
                 exec('yum install net-tools -y', $outputArray);
             }
-            $ifComm = 'sudo ip addr list | awk \'/inet /{sub(/\/[0-9]+/,"",$2); print $2}\' ';
+            $ifComm = SUDOPREFIX.'ip addr list | awk \'/inet /{sub(/\/[0-9]+/,"",$2); print $2}\' ';
             // $ifComm = SUDOPREFIX."ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'" ;
             exec($ifComm, $outputArray);
             foreach($outputArray as $outputLine ) {

@@ -44,7 +44,7 @@ class HostnameUbuntu extends BaseLinuxApp {
             $hostname = $this->params["hostname"]; }
         else {
             $hostname = self::askForInput("Enter Hostname:", true); }
-        $command = 'sudo ptdeploy he add --host-ip="127.0.0.1" --host-name="'.$hostname.'" --yes' ;
+        $command = SUDOPREFIX.'ptdeploy he add --host-ip="127.0.0.1" --host-name="'.$hostname.'" --yes' ;
         $returnCode = self::executeAndGetReturnCode($command) ;
         if ($returnCode !== 0) {
             $logging->log("Adding host file entry did not execute correctly") ;

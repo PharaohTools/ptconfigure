@@ -22,8 +22,8 @@ class MysqlServerCentos extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "debconf-utils")) ),
             // @todo silent password
 //            array("command"=> array(
-//                    "echo mysql-server mysql-server/root_password password $newRootPass | sudo debconf-set-selections",
-//                    "echo mysql-server mysql-server/root_password_again password $newRootPass | sudo debconf-set-selections" ) ),
+//                    "echo mysql-server mysql-server/root_password password $newRootPass | ".SUDOPREFIX." debconf-set-selections",
+//                    "echo mysql-server mysql-server/root_password_again password $newRootPass | ".SUDOPREFIX." debconf-set-selections" ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "mysql-client")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "mysql-server")) ),
         );

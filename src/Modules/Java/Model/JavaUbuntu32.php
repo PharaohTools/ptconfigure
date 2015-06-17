@@ -36,12 +36,12 @@ class JavaUbuntu32 extends BaseLinuxApp {
                 'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/bash.bashrc',
                 'echo \'export JAVA_HOME\' >> /etc/bash.bashrc',
                 'echo \'export PATH\' >> /etc/bash.bashrc',
-                'sudo update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
-                'sudo update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
-                'sudo update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
-                'sudo update-alternatives --set java ****PROGDIR****/bin/java ',
-                'sudo update-alternatives --set javac ****PROGDIR****/bin/javac ',
-                'sudo update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
+                SUDOPREFIX.'update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
+                SUDOPREFIX.'update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
+                SUDOPREFIX.'update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
+                SUDOPREFIX.'update-alternatives --set java ****PROGDIR****/bin/java ',
+                SUDOPREFIX.'update-alternatives --set javac ****PROGDIR****/bin/javac ',
+                SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
                 '. /etc/profile' ) )
             );
         //@todo uninstall commands of java

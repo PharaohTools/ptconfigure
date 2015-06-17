@@ -14,6 +14,8 @@ class ApacheServerUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
+    public $packageName = "apache2" ;
+
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "ApacheServer";

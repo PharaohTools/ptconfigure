@@ -19,7 +19,7 @@ class ChromeUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "Chrome";
         $this->installCommands = array(
             array("command"=> array(
-                "wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -" ) ),
+                "wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | ".SUDOPREFIX." apt-key add -" ) ),
             array("command"=> array(
                 SUDOPREFIX."apt-get update -y" ) ),
             array("method"=> array("object" => $this, "method" => "ensureAptSourceExists", "params" => array()) ),
