@@ -82,8 +82,8 @@ class PortAllDebianMac extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         if ($this->installDependencies() == false) { return false ;}
         $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
-        $out = self::executeAndGetReturnCode($comm, true, true) ;
-        $process = substr($out["out"], 0, strpos($out["out"], " ")) ;
+        $out = self::executeAndGetReturnCode($comm, false, true) ;
+        $process = substr($out["output"], 0, strpos($out["output"], " ")) ;
         if ($out["rc"] != "0") {
             \Core\BootStrap::setExitCode(1);
             $logging->log("Port process command execution failed.", $this->getModuleName()) ;
