@@ -44,21 +44,23 @@ class FirewallCentos7Plus extends FirewallUbuntu {
     }
 
     public function enable() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to Enable firewalld", $this->getModuleName()) ;
         $out = $this->executeAndOutput(SUDOPREFIX."systemctl enable firewalld");
         if (strpos($out, "enabled") == false ) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Enable command did not execute correctly") ;
+            $logging->log("Firewall Enable command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
 
     public function disable() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to Disable firewalld", $this->getModuleName()) ;
         $out = $this->executeAndOutput(SUDOPREFIX."systemctl disable firewalld");
         if (strpos($out, "disabled") == false ) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Disable command did not execute correctly") ;
+            $logging->log("Firewall Disable command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
