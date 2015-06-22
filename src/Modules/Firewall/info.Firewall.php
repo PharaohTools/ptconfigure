@@ -15,7 +15,8 @@ class FirewallInfo extends PTConfigureBase {
     public function routesAvailable() {
         // return array( "Firewall" =>  array_merge(parent::routesAvailable(), array() ) );
         return array( "Firewall" =>  array_merge(
-            array("help", "status", "install", "enable", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset")
+            array("help", "status", "install", "enable", "reload", "disable", "allow", "deny", "reject", "limit",
+                "delete", "insert", "reset")
         ) );
     }
 
@@ -33,6 +34,10 @@ class FirewallInfo extends PTConfigureBase {
         Enable system firewall
         example: ptconfigure firewall enable
 
+        - reload
+        Reload system firewall with new configuration setttings
+        example: ptconfigure firewall reload
+
         - disable
         Disable system firewall
         example: ptconfigure firewall disable
@@ -45,7 +50,7 @@ class FirewallInfo extends PTConfigureBase {
         Deny a Firewall rule. Allow connection attempts to be ignored and time out.
         example: ptconfigure firewall deny --firewall-rule="ssh/tcp"
 
-        - reject
+        - reject (Automatically Denies for Redhat based systems)
         Reject a Firewall rule. Terminate connections attempts with an error to the connector.
         example: ptconfigure firewall reject --firewall-rule="ssh/tcp"
 
@@ -54,15 +59,15 @@ class FirewallInfo extends PTConfigureBase {
         to initiate 6 or more connections in the last 30 seconds.
         example: ptconfigure firewall limit --firewall-rule="ssh/tcp"
 
-        - delete
+        - delete (Irrelevant for Redhat based systems)
         Delete a Firewall rule.
         example: ptconfigure firewall delete --firewall-rule="ssh/tcp"
 
-        - insert
+        - insert (Irrelevant for Redhat based systems)
         Insert a Firewall rule.
         example: ptconfigure firewall insert --firewall-rule="ssh/tcp"
 
-        - reset
+        - reset (Irrelevant for Redhat based systems)
         Reset a Firewall rule.
         example: ptconfigure firewall reset --firewall-rule="ssh/tcp"
 
