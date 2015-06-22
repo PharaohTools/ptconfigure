@@ -48,8 +48,8 @@ class FirewallCentos7Plus extends FirewallUbuntu {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting to Enable firewalld", $this->getModuleName()) ;
-        $out = $this->executeAndOutput(SUDOPREFIX."systemctl enable firewalld");
-        if (strpos($out, "enabled") == false ) {
+        $out = $this->executeAndGetReturnCode(SUDOPREFIX."systemctl enable firewalld");
+        if ($out !== 0 ) {
             $logging->log("Firewall Enable command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
@@ -59,8 +59,8 @@ class FirewallCentos7Plus extends FirewallUbuntu {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting to Disable firewalld", $this->getModuleName()) ;
-        $out = $this->executeAndOutput(SUDOPREFIX."systemctl disable firewalld");
-        if (strpos($out, "disabled") == false ) {
+        $out = $this->executeAndGetReturnCode(SUDOPREFIX."systemctl disable firewalld");
+        if ($out !== 0 ) {
             $logging->log("Firewall Disable command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
@@ -78,14 +78,14 @@ class FirewallCentos7Plus extends FirewallUbuntu {
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Allow now command did not execute correctly") ;
+            $logging->log("Firewall Allow now command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         $out = $this->executeAndOutput(SUDOPREFIX."firewall-cmd --add-port={$this->firewallRule} --permanent");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Allow permanent command did not execute correctly") ;
+            $logging->log("Firewall Allow permanent command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -96,7 +96,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Deny command did not execute correctly") ;
+            $logging->log("Firewall Deny command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -107,7 +107,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Reject command did not execute correctly") ;
+            $logging->log("Firewall Reject command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -118,7 +118,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Limit command did not execute correctly") ;
+            $logging->log("Firewall Limit command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -130,7 +130,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
             strpos($out, "Rule deleted") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Delete command did not execute correctly") ;
+            $logging->log("Firewall Delete command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -151,7 +151,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Reset command did not execute correctly") ;
+            $logging->log("Firewall Reset command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -161,7 +161,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
         if (strpos($out, "Default incoming policy changed to '{$this->defaultPolicy}'") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Reset command did not execute correctly") ;
+            $logging->log("Firewall Reset command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }

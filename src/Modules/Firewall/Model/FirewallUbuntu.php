@@ -97,7 +97,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         if (isset($this->params["policy"]) && in_array($this->params["policy"], $opts)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Policy param for set default must be allow, deny or reject") ;
+            $logging->log("Policy param for set default must be allow, deny or reject", $this->getModuleName()) ;
             $defaultPolicy = $this->params["policy"]; }
         else {
             $defaultPolicy = self::askForArrayOption("Enter Policy:", $opts, true); }
@@ -109,7 +109,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         if (strpos($out, "enabled") == false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Enable command did not execute correctly") ;
+            $logging->log("Firewall Enable command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -119,7 +119,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         if (strpos($out, "disabled") == false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Disable command did not execute correctly") ;
+            $logging->log("Firewall Disable command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -130,7 +130,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Allow command did not execute correctly") ;
+            $logging->log("Firewall Allow command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -141,7 +141,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Deny command did not execute correctly") ;
+            $logging->log("Firewall Deny command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -163,7 +163,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Limit command did not execute correctly") ;
+            $logging->log("Firewall Limit command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -175,7 +175,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             strpos($out, "Rule deleted") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Delete command did not execute correctly") ;
+            $logging->log("Firewall Delete command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -186,7 +186,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             strpos($out, "Rule inserted") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Insert command did not execute correctly") ;
+            $logging->log("Firewall Insert command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -196,7 +196,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Reset command did not execute correctly") ;
+            $logging->log("Firewall Reset command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -206,7 +206,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         if (strpos($out, "Default incoming policy changed to '{$this->defaultPolicy}'") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Reset command did not execute correctly") ;
+            $logging->log("Firewall Reset command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
