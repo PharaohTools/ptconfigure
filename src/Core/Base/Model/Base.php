@@ -120,12 +120,24 @@ COMPLETION;
     protected function setCmdLineParams($params) {
         $cmdParams = array();
         if (!is_array($params)) {
-            var_dump($params) ;
-            debug_print_backtrace() ; }
+//            var_dump($params) ;
+//            debug_print_backtrace() ;
+        }
         foreach ($params as $paramKey => $paramValue) {
+//            var_dump($paramValue);
             if (is_array($paramValue)) {
                 // if the value is a php array, the param must be already formatted so do nothing
             }
+            else if ($paramValue=="-y") {
+                $paramKey = "yes" ;
+                $paramValue = true ; }
+            else if ($paramValue=="-g") {
+                $paramKey = "guess" ;
+                $paramValue = true ; }
+            else if ($paramValue=="-yg" || $paramValue=="-gy") {
+                $cmdParams = array_merge($cmdParams, array("yes" => true));
+                $paramKey = "guess" ;
+                $paramValue = true ; }
             else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
                 $equalsPos = strpos($paramValue, "=") ;
                 $paramKey = substr($paramValue, 2, $equalsPos-2) ;
@@ -308,9 +320,11 @@ COMPLETION;
                 return $return ; }
             else {
                 $logging->log("No method {$this->actionsToMethods[$action]} in model ".get_class($this)) ;
+                \Core\BootStrap::setExitCode(1);
                 return false; } }
         else {
             $logging->log('No property $actionsToMethods in model '.get_class($this)) ;
+            \Core\BootStrap::setExitCode(1);
             return false; }
     }
 
