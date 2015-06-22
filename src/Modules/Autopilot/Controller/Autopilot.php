@@ -60,7 +60,7 @@ class Autopilot extends Base {
         $bn = basename( $autoPilotFileName ) ;
         $fname = str_replace(".php", "", $bn);
         $c2c = '\Core\\'.$fname;
-        if (class_exists($c2c)) {
+        if ($fname != "Autopilot" && $fname != "autopilot" && class_exists($c2c)) {
             $autoPilot = new $c2c($params) ;
             return $autoPilot; }
         // else use default
