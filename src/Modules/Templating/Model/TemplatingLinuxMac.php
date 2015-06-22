@@ -40,15 +40,22 @@ class TemplatingLinuxMac extends BaseTemplater {
      * @todo the recursive mkdir should specify perms, owner and group
      */
     public function template($original, $replacements, $targetLocation, $perms = null, $owner = null, $group = null) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $fData = (is_file($original)) ? file_get_contents($original) : $original ;
         foreach ($replacements as $replaceKey => $replaceValue) {
             $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
         if (!file_exists(dirname($targetLocation))) {
             mkdir(dirname($targetLocation), 0775, true) ; }
-        file_put_contents($targetLocation, $fData) ;
+        $res = file_put_contents($targetLocation, $fData) ;
+        if ($res == false) {
+            $logging->log("Failed to write file in location $targetLocation", $this->getModuleName()) ;
+            \Core\BootStrap::setExitCode(1);
+            return false; }
         if ($perms != null) { exec("chmod $perms $targetLocation") ; }
         if ($owner != null) { exec("chown $owner $targetLocation") ; }
         if ($group != null) { exec("chgrp $group $targetLocation") ; }
+        return true ;
     }
 
     public function replaceData($fData, $replaceKey, $replaceValue, $startTag='<%tpl.php%>', $endTag='</%tpl.php%>') {
