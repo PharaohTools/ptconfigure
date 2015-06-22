@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class CleofyGenericAutosUbuntu extends BaseLinuxApp {
+class CleofyEmpty extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -12,15 +12,19 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("GenericAutos") ;
+    public $modelGroup = array("Empty") ;
 
     protected $templateGroup;
     protected $templateGroupsToDirs;
-    protected $destination;
+    protected $path;
+    protected $fileName;
+    protected $className;
+    protected $includeTests ;
+
 
     protected $actionsToMethods =
         array(
-            "install-generic-autopilots" => "performGenericAutopilotInstall",
+            "empty" => "performEmptyAutopilotInstall",
         ) ;
 
     public function __construct($params) {
@@ -32,65 +36,101 @@ class CleofyGenericAutosUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function performGenericAutopilotInstall() {
+    public function performEmptyAutopilotInstall() {
+        $this->setPath();
+        $this->setFilename();
+        $this->setClassName();
+        $this->setIncludeTests();
         $this->setTemplateGroupsToDirs();
-        $this->setTemplateGroup();
-        $this->setDestination();
-        return $this->doCopy() ;
+        return $this->doTemplating() ;
     }
 
     public function setTemplateGroupsToDirs() {
         $dir = str_replace("Model", "", __DIR__) ;
         $dir = $dir.'Templates'.DS ;
         $this->templateGroupsToDirs = array(
-            "tiny" => "{$dir}Generic".DS."Tiny",
-            "medium" => "{$dir}Generic".DS."Medium",
-            "dbcluster" => "{$dir}Generic".DS."DBCluster",
-            "db-cluster" => "{$dir}Generic".DS."DBCluster",
-            "workstation" => "{$dir}Generic".DS."Workstation",
-            "ptvirtualize" => "{$dir}Generic".DS."PTVirtualize"
+            "empty" => "{$dir}Generic".DS."Empty",
         );
     }
 
-    public function setTemplateGroup($templateGroup = null) {
-        // @this should log that you  have specified an invalid template group if that is the case and go to prompt
-        if (isset($templateGroup)) {
-            $this->templateGroup = $templateGroup; }
-        else if (isset($this->params["templategroup"])) {
-            $this->templateGroup = $this->params["templategroup"]; }
-        else if (isset($this->params["template-group"])) {
-            $this->templateGroup = $this->params["template-group"]; }
-        else {
-            $tgs = array_keys($this->templateGroupsToDirs) ;
-            $this->templateGroup = self::askForArrayOption("Enter Template Group:", $tgs, true) ; }
-    }
-
-    // @todo generic is not the  right word probably
-    public function setDestination($destination = null) {
-        // @this should log that you have specified an invalid destination if that is the case and go to prompt
-        if (isset($destination)) {
-            $this->destination = $destination; }
-        else if (isset($this->params["destinationdir"])) {
-            $this->destination = $this->params["destinationdir"]; }
-        else if (isset($this->params["destination-dir"])) {
-            $this->destination = $this->params["destination-dir"]; }
+    public function setPath($path = null) {
+        // @this should log that you have specified an invalid path if that is the case and go to prompt
+        if (isset($path)) {
+            $this->path = $path; }
+        else if (isset($this->params["path"])) {
+            $this->path = $this->params["path"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd().DS."build".DS."config".DS."ptconfigure".DS."cleofy".DS."autopilots".DS."generic" ;
-            if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
-            $this->destination = $defaultdir ; }
+            $this->path = getcwd() ; }
         else {
-            $this->destination = self::askForInput("Enter Destination Directory:", true); }
+            $this->path = self::askForInput("Enter Save Path:", true); }
     }
 
-    protected function doCopy() {
+    public function setFilename($filename = null) {
+        if (isset($fileName)) {
+            $this->fileName = $fileName; }
+        else if (isset($this->params["fileName"])) {
+            $this->fileName = $this->params["fileName"]; }
+        else if (isset($this->params["guess"])) {
+            $this->fileName = "autopilot.php" ; }
+        else {
+            $this->fileName = self::askForInput("Enter File Name:", true); }
+    }
+
+    public function setClassName($className = null) {
+        if (isset($className)) {
+            $this->className = $className; }
+        else if (isset($this->params["classname"])) {
+            $this->className = $this->params["classname"]; }
+        else if (isset($this->params["guess"])) {
+            $this->className = "AutopilotConfigured" ; }
+        else {
+            $this->className = self::askForInput("Enter Class Name:", true); }
+    }
+
+    public function setIncludeTests($includeTests = null) {
+        if (isset($includeTests)) {
+            $this->includeTests = $includeTests; }
+        else if (isset($this->params["tests"])) {
+            $this->includeTests = $this->params["tests"]; }
+        else if (isset($this->params["guess"])) {
+            $this->includeTests = true ; }
+        else {
+            $this->includeTests = self::askYesOrNo("Include Tests?:"); }
+    }
+
+    protected function doTemplating() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $source = $this->templateGroupsToDirs[$this->templateGroup] ;
-        $target = $this->destination ;
-        $logging->log("Performing file copy from $source to $target") ;
-        // @todo php cannot do a recursive copy so change the copy module to one of these
-        $result = $this->executeAndGetReturnCode("cp -r $source $target") ;
+        $source = $this->templateGroupsToDirs["empty"].DS."empty.php" ;
+        $templatorFactory = new \Model\Templating();
+        $templator = $templatorFactory->getModel($this->params);
+        $targetLocation = $this->path.DS.$this->fileName ;
+        $tests_property = ($this->includeTests == true) ? $this->getTestsProperty() : "" ;
+        $tests_method = ($this->includeTests == true) ? $this->getTestsMethod() : "" ;
+        $result = $templator->template(
+            file_get_contents($source),
+            array(
+                "file_name" => $this->fileName ,
+                "class_name" => $this->className ,
+                "tests_property" => $tests_property,
+                "tests_method" => $tests_method, ),
+            $targetLocation );
+        $logging->log("Cleofied new empty autopilot to $targetLocation", $this->getModuleName()) ;
         return $result ;
     }
+
+    protected function getTestsProperty() {
+        return '    public $tests ;';
+    }
+
+    protected function getTestsMethod() {
+        return '    protected function setTests() {
+    $this->tests =
+        array(
+            array ( "Logging" => array( "log" => array( "log-message" => "Lets write a test" ),),),
+        );
+    }';
+    }
+
 
 }

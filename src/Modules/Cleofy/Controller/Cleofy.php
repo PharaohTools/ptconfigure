@@ -23,6 +23,12 @@ class Cleofy extends Base {
             $this->content["result"] = $thisModel->askAction($action);
             return array ("type"=>"view", "view"=>"cleofyGenAutos", "pageVars"=>$this->content); }
 
+        if (in_array($action, array("empty") )) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Empty") ;
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $this->content["result"] = $thisModel->askAction($action);
+            return array ("type"=>"view", "view"=>"cleofyEmpty", "pageVars"=>$this->content); }
+
         if ($action=="standard") {
             $this->content["result"] = $thisModel->askWhetherToCleofy();
             return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }

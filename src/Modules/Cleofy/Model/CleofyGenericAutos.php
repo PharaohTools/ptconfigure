@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class CleofyGenericAutosUbuntu extends BaseLinuxApp {
+class CleofyGenericAutos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;

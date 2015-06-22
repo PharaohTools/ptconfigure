@@ -14,7 +14,7 @@ class CleofyInfo extends PTConfigureBase {
 
     public function routesAvailable() {
         return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "db-cluster", "workstation",
-            "install-generic-autopilots", "tiny", "medium", "medium-web") ) );
+            "install-generic-autopilots", "tiny", "medium", "medium-web", "empty") ) );
     }
 
     public function routeAliases() {

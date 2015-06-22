@@ -2,40 +2,24 @@
 
 Namespace Core ;
 
-class AutoPilotConfigured extends AutoPilot {
+class <%tpl.php%>class_name</%tpl.php%> extends AutoPilot {
 
     public $steps ;
+<%tpl.php%>tests_property</%tpl.php%>
 
-    public function __construct() {
+    public function __construct($params = null) {
+        parent::__construct($params) ;
         $this->setSteps();
     }
 
-    /* Steps */
-    private function setSteps() {
-
-        include ("settings.php") ;
-
+    protected function setSteps() {
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Bastion Environment" ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Bastion Environment" ),),),
-                array ( "RunCommand" => array("install" => array(
-                    "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-bastion-prep-ubuntu.php"',
-                ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Bastion Environment" ),),),
-                array ( "RunCommand" => array("install" => array(
-                    "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-bastion-invoke-cleo-dapper-new.php"',
-                ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Bastion Box on the Bastion Environment" ),),),
-                array ( "RunCommand" => array("install" => array(
-                    "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-bastion-invoke-bastion.php"',
-                ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Bastion environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets output a message in <%tpl.php%>file_name</%tpl.php%>" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets output some more" ),),),
             );
-
     }
+
+
 
 }
