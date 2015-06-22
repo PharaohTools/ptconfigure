@@ -35,15 +35,15 @@ class DigitalOceanSshKey extends BaseDigitalOceanAllOS {
     }
 
     private function askForSSHKeyPublicFileLocation() {
-        if (isset($this->params["digital-ocean-ssh-key-path"]) && $this->params["digital-ocean-ssh-key-path"]==true) {
-            return $this->params["digital-ocean-ssh-key-path"] ; }
+        if (isset($this->params["path"]) && $this->params["path"]==true) {
+            return $this->params["path"] ; }
         $question = 'Enter Location of ssh public key file to upload';
         return self::askForInput($question, true);
     }
 
     private function askForSSHKeyNameForDigitalOcean(){
-        if (isset($this->params["digital-ocean-ssh-key-name"]) && $this->params["digital-ocean-ssh-key-name"]==true) {
-            return $this->params["digital-ocean-ssh-key-name"] ; }
+        if (isset($this->params["name"]) && $this->params["name"]==true) {
+            return $this->params["name"] ; }
         $question = 'Enter name to store ssh key under on Digital Ocean';
         return self::askForInput($question, true);
     }
