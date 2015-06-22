@@ -10,6 +10,7 @@ class <%tpl.php%>class_name</%tpl.php%> extends AutoPilot {
     public function __construct($params = null) {
         parent::__construct($params) ;
         $this->setSteps();
+        $this->setTests();
     }
 
     protected function setSteps() {
@@ -20,6 +21,6 @@ class <%tpl.php%>class_name</%tpl.php%> extends AutoPilot {
             );
     }
 
-
+    <%tpl.php%>tests_method</%tpl.php%>
 
 }

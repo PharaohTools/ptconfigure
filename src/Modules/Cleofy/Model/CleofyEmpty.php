@@ -82,7 +82,7 @@ class CleofyEmpty extends BaseLinuxApp {
         else if (isset($this->params["classname"])) {
             $this->className = $this->params["classname"]; }
         else if (isset($this->params["guess"])) {
-            $this->className = "AutopilotConfigured" ; }
+            $this->className = "AutoPilotConfigured" ; }
         else {
             $this->className = self::askForInput("Enter Class Name:", true); }
     }
@@ -124,11 +124,11 @@ class CleofyEmpty extends BaseLinuxApp {
     }
 
     protected function getTestsMethod() {
-        return '    protected function setTests() {
-    $this->tests =
-        array(
-            array ( "Logging" => array( "log" => array( "log-message" => "Lets write a test" ),),),
-        );
+        return 'protected function setTests() {
+        $this->tests =
+            array(
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets write a test" ),),),
+            );
     }';
     }
 
