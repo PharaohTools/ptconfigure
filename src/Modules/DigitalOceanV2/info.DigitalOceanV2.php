@@ -37,7 +37,7 @@ class DigitalOceanV2Info extends PTConfigureBase {
         Lets you add boxes to Digital Ocean, and adds them to your papyrusfile
         example: ptconfigure digital-ocean-v2 box-add
                     --yes
-                    --server-prefix=dbomb # common prefix to use for these instances
+                    --server-prefix=webservers # common prefix to use for these instances, none is fine
                     --environment-name=demodave # papyrusfile environment to add instances to - must already exist
                     --box-amount=1 # number of instances to create
                     --size-id=512mb # size of instances
@@ -49,11 +49,16 @@ class DigitalOceanV2Info extends PTConfigureBase {
 
         - box-destroy
         Will destroy box/es in an environment for you, and remove them from the papyrus file
-        example: ptconfigure digital-ocean-v2 box-destroy --yes --guess --digital-ocean-v2-ssh-key-path="/home/dave/.ssh/bastion.pub" --digital-ocean-v2-ssh-key-name="bastion"
+        example: ptconfigure digital-ocean-v2 box-destroy
+                    --yes
+                    --guess
+                    --env=testenv # name of the environment to destroy boxes in
+                    --destroy-box-id=3 # ID of single box in environment to destroy. This or below param must be set
+                    --destroy-all-boxes # Destroy all boxes in environment. This or above param must be set
 
         - box-destroy-all
         Will destroy all boxes in your digital ocean account - Careful - its irreversible
-        example: ptconfigure digital-ocean-v2 box-destroy-all --yes --guess
+        example: ptconfigure digital-ocean-v2 box-destroy-all --guess
 
         - save-ssh-key
         Will let you save a local ssh key to your Digital Ocean account, so you can ssh in to your nodes

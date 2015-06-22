@@ -76,6 +76,8 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     private function getServerPrefix() {
         if (isset($this->params["server-prefix"])) {
             return $this->params["server-prefix"] ; }
+        if (isset($this->params["prefix"])) {
+            return $this->params["prefix"] ; }
         $question = 'Enter Prefix for all Servers (None is fine)';
         return self::askForInput($question);
     }
@@ -83,6 +85,8 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     private function getWorkingEnvironment() {
         if (isset($this->params["environment-name"])) {
             return $this->params["environment-name"] ; }
+        if (isset($this->params["env"])) {
+            return $this->params["env"] ; }
         $question = 'Enter Environment to add Servers to';
         return self::askForInput($question);
     }

@@ -18,7 +18,7 @@ class DigitalOceanV2AllBoxesDestroy extends BaseDigitalOceanV2AllOS {
         if ($this->askForOverwriteExecute() != true) { return false; }
         $this->accessToken = $this->askForDigitalOceanV2AccessToken();
         $doFactory = new \Model\DigitalOceanV2();
-        $listParams = array("yes" => true, "guess" => true, "digital-ocean-v2-list-data-type" => "droplets") ;
+        $listParams = array("yes" => true, "guess" => true, "type" => "droplets") ;
         $doListing = $doFactory->getModel($listParams, "Listing") ;
         $allBoxes = $doListing->askWhetherToListData();
 

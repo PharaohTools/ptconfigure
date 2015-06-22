@@ -78,6 +78,8 @@ class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
     private function getWorkingEnvironment() {
         if (isset($this->params["environment-name"])) {
             return $this->params["environment-name"] ; }
+        if (isset($this->params["env"])) {
+            return $this->params["env"] ; }
         $question = 'Enter Environment to destroy Servers in';
         return self::askForInput($question);
     }
