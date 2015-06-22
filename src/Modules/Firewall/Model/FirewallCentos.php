@@ -19,20 +19,17 @@ class FirewallCentos extends FirewallUbuntu {
         $this->autopilotDefiner = "Firewall";
         $this->actionsToMethods = $this->setActionsToMethods() ;
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "ensurePython", "params" => array()) ),
-            array("command"=> array(
-                "cd /usr/local/src",
-                "wget https://launchpad.net/ufw/0.33/0.33/+download/ufw-0.33.tar.gz",
-                "tar zxvf ufw-0.33.tar.gz",
-                "cd ufw-0.33",
-                "python ./setup.py install",
-                "chmod -R g-w /etc/ufw /lib/ufw /etc/default/ufw /usr/local/sbin/ufw"
-            ) ) );
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "firewalld")) ),
+        );
+        $this->uninstallCommands = array(
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "firewalld"))),
+        );
         $this->uninstallCommands = array(""); // @todo uninstall for fwall
         $this->programDataFolder = "";
         $this->programNameMachine = "firewall"; // command and app dir name
         $this->programNameFriendly = "! Firewall !"; // 12 chars
         $this->programNameInstaller = "Firewall";
+        $this->statusCommand = "which firewalld" ;
         $this->initialize();
     }
 

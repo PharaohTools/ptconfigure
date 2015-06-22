@@ -27,6 +27,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
         $this->programNameMachine = "firewall"; // command and app dir name
         $this->programNameFriendly = "! Firewall !"; // 12 chars
         $this->programNameInstaller = "Firewall";
+        $this->statusCommand = "which firewalld" ;
         $this->initialize();
     }
 

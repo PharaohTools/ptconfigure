@@ -35,7 +35,7 @@ class FirewallInfo extends PTConfigureBase {
         example: ptconfigure firewall enable
 
         - reload
-        Reload system firewall with new configuration setttings
+        Reload system firewall with new configuration settings
         example: ptconfigure firewall reload
 
         - disable
