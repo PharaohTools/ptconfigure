@@ -8,7 +8,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
     public $os = array("Linux") ;
     public $linuxType = array("Redhat") ;
     public $distros = array("CentOS") ;
-    public $versions = array(array("7","+")) ;
+    public $versions = array(array("7","+"), "lea") ;
     public $architectures = array("any") ;
 
     // Model Group
