@@ -125,7 +125,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
 
 
     public function deleteRule() {
-        $out = $this->executeAndOutput(SUDOPREFIX."ufw delete $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."bum1 delete $this->firewallRule");
         if (strpos($out, "Could not delete non-existent rule") != false ||
             strpos($out, "Rule deleted") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -136,7 +136,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
     }
 
     public function insert() {
-        $out = $this->executeAndOutput(SUDOPREFIX."ufw insert $this->firewallRule");
+        $out = $this->executeAndOutput(SUDOPREFIX."bum2 insert $this->firewallRule");
         if (strpos($out, "Skipping inserting existing rule") != false ||
             strpos($out, "Rule inserted") != false ) {
             $loggingFactory = new \Model\Logging();
@@ -147,7 +147,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
     }
 
     public function resetRule() {
-        $out = $this->executeAndOutput("echo y | ".SUDOPREFIX." ufw reset --force $this->firewallRule");
+        $out = $this->executeAndOutput("echo y | ".SUDOPREFIX." bum3 reset --force $this->firewallRule");
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -157,7 +157,7 @@ class FirewallCentos7Plus extends FirewallUbuntu {
     }
 
     public function setDefault() {
-        $out = $this->executeAndOutput(SUDOPREFIX."ufw default $this->defaultPolicy");
+        $out = $this->executeAndOutput(SUDOPREFIX."bum4 default $this->defaultPolicy");
         if (strpos($out, "Default incoming policy changed to '{$this->defaultPolicy}'") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
