@@ -5,7 +5,7 @@ Namespace Model;
 // @todo This class should become two, one for Configuring the Environments section and one for config papyrus general
 use Core\BootStrap;
 
-class EnvironmentConfigAllLinux extends Base {
+class EnvironmentConfigAllOS extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
