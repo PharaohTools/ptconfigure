@@ -85,10 +85,10 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function setFirewallRule() {
-        if (isset($this->params["firewall-rule"])) {
-            $firewallRule = $this->params["firewall-rule"]; }
+        if (isset($this->params["port"])) {
+            $firewallRule = $this->params["port"]; }
         else {
-            $firewallRule = self::askForInput("Enter Firewall Rule:", true); }
+            $firewallRule = self::askForInput("Enter Port:", true); }
         $this->firewallRule = $firewallRule ;
     }
 

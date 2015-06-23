@@ -44,32 +44,32 @@ class FirewallInfo extends PTConfigureBase {
 
         - allow
         Allow a Firewall rule
-        example: ptconfigure firewall allow --firewall-rule="ssh/tcp"
+        example: ptconfigure firewall allow --port="ssh/tcp"
 
         - deny
         Deny a Firewall rule. Allow connection attempts to be ignored and time out.
-        example: ptconfigure firewall deny --firewall-rule="ssh/tcp"
+        example: ptconfigure firewall deny --port="ssh/tcp"
 
         - reject (Automatically Denies for Redhat based systems)
         Reject a Firewall rule. Terminate connections attempts with an error to the connector.
-        example: ptconfigure firewall reject --firewall-rule="ssh/tcp"
+        example: ptconfigure firewall reject --port="ssh/tcp"
 
         - limit
         Limit a Firewall rule. ufw will deny connections if an IP address has attempted
         to initiate 6 or more connections in the last 30 seconds.
-        example: ptconfigure firewall limit --firewall-rule="ssh/tcp"
+        example: ptconfigure firewall limit --port="ssh/tcp"
 
         - delete (Irrelevant for Redhat based systems)
         Delete a Firewall rule.
-        example: ptconfigure firewall delete --firewall-rule="ssh/tcp"
+        example: ptconfigure firewall delete --port="ssh/tcp"
 
         - insert (Irrelevant for Redhat based systems)
         Insert a Firewall rule.
-        example: ptconfigure firewall insert --firewall-rule="ssh/tcp"
+        example: ptconfigure firewall insert --port="ssh/tcp"
 
         - reset (Irrelevant for Redhat based systems)
         Reset a Firewall rule.
-        example: ptconfigure firewall reset --firewall-rule="ssh/tcp"
+        example: ptconfigure firewall reset --port="ssh/tcp"
 
         - default
         Set default policy, should be allow, deny, or reject
