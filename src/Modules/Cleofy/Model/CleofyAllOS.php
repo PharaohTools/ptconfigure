@@ -3,14 +3,14 @@
 Namespace Model;
 
 // @todo shouldnt this extend base templater? is it missing anything?
-class CleofyUbuntu extends Base {
+class CleofyAllOS extends Base {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("12.04", "12.10") ;
-    public $architectures = array("32", "64") ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
+    public $architectures = array("any") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
@@ -70,7 +70,7 @@ class CleofyUbuntu extends Base {
               $templatorFactory = new \Model\Templating();
               $templator = $templatorFactory->getModel($this->params);
               $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $template ) ;
-              $autosDir = getcwd().'/build/config/ptconfigure/cleofy/autopilots/generated';
+              $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.'autopilots'.DS.'generated';
               $targetLocation = $autosDir.DIRECTORY_SEPARATOR.$newFileName ;
               $servers = (isset($environment["servers"])) ? $environment["servers"] : array() ;
               $first_server_target = (isset($environment["servers"][0]["target"])) ? $environment["servers"][0]["target"] : "" ; ;
