@@ -71,7 +71,7 @@ class FirewallInfo extends PTConfigureBase {
         Reset a Firewall rule.
         example: ptconfigure firewall reset --firewall-rule="ssh/tcp"
 
-        - default
+        - default-policy
         Set default policy, should be allow, deny, or reject
         example: ptconfigure firewall default --policy="deny"
 
