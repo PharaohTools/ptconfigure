@@ -20,8 +20,10 @@ class FirewallUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->actionsToMethods = $this->setActionsToMethods() ;
-        $this->autopilotDefiner = "Firewall" ;
-        $this->installCommands = array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "ufw")) ) ;
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "ensurePython", "params" => array())),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "ufw")))
+        ) ;
         $this->uninstallCommands = array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "ufw")) ) ;
         $this->programDataFolder = "" ;
         $this->programNameMachine = "firewall" ; // command and app dir name

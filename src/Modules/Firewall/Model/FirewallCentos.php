@@ -19,6 +19,7 @@ class FirewallCentos extends FirewallUbuntu {
         $this->actionsToMethods = $this->setActionsToMethods() ;
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "firewalld")) ),
+            array("method"=> array("object" => $this, "method" => "ensureRunning", "params" => array())),
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "firewalld"))),
@@ -54,6 +55,13 @@ class FirewallCentos extends FirewallUbuntu {
             $logging->log("Firewall Enable command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
+    }
+
+    public function ensureRunning() {
+        $serviceFactory = new \Model\Service();
+        $service = $serviceFactory->getModel($this->params);
+        $service->setService("firewalld");
+        return $service->ensureRunning() ;
     }
 
     public function disable() {
