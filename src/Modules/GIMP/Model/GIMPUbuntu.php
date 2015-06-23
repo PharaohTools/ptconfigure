@@ -16,9 +16,8 @@ class GIMPUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "GIMP";
-        $this->installCommands = array( "apt-get install -y gimp" );
-        $this->uninstallCommands = array( "apt-get remove -y gimp" );
+        $this->installCommands = array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "gimp")) ) ;
+        $this->uninstallCommands = array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "gimp")) ) ;
         $this->programDataFolder = "/var/lib/gimp"; // command and app dir name
         $this->programNameMachine = "gimp"; // command and app dir name
         $this->programNameFriendly = " ! GIMP !"; // 12 chars
