@@ -41,7 +41,8 @@ class FirewallCentos extends FirewallUbuntu {
             $defaultPolicy = $this->params["policy"]; }
         else {
             $defaultPolicy = self::askForArrayOption("Enter Policy:", $opts, true); }
-        $this->defaultPolicy = $defaultPolicy ;
+        $policiesToZones = array("allow"=>"public", "deny"=>"drop", "reject"=>"");
+        $this->defaultPolicy = $policiesToZones[$defaultPolicy] ;
     }
 
     public function enable() {
@@ -125,29 +126,21 @@ class FirewallCentos extends FirewallUbuntu {
 
 
     public function deleteRule() {
-        $out = $this->executeAndOutput(SUDOPREFIX."bum1 delete $this->firewallRule");
-        if (strpos($out, "Could not delete non-existent rule") != false ||
-            strpos($out, "Rule deleted") != false ) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Delete command did not execute correctly", $this->getModuleName()) ;
-            return false ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("The Firewall Delete command does nothing on CentOS", $this->getModuleName()) ;
         return true ;
     }
 
     public function insert() {
-        $out = $this->executeAndOutput(SUDOPREFIX."bum2 insert $this->firewallRule");
-        if (strpos($out, "Skipping inserting existing rule") != false ||
-            strpos($out, "Rule inserted") != false ) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Insert command did not execute correctly") ;
-            return false ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("The Firewall Insert command does nothing on CentOS", $this->getModuleName()) ;
         return true ;
     }
 
     public function resetRule() {
-        $out = $this->executeAndOutput("echo y | ".SUDOPREFIX." bum3 reset --force $this->firewallRule");
+        $out = $this->executeAndOutput("echo y | ".SUDOPREFIX." 3 reset --force $this->firewallRule");
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -157,7 +150,7 @@ class FirewallCentos extends FirewallUbuntu {
     }
 
     public function setDefault() {
-        $out = $this->executeAndOutput(SUDOPREFIX."bum4 default $this->defaultPolicy");
+        $out = $this->executeAndOutput(SUDOPREFIX."firewall-cmd --set-default-zone=drop $this->defaultPolicy");
         if (strpos($out, "Default incoming policy changed to '{$this->defaultPolicy}'") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
