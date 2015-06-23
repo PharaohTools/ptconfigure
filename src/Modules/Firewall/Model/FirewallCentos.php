@@ -150,11 +150,11 @@ class FirewallCentos extends FirewallUbuntu {
     }
 
     public function setDefault() {
-        $out = $this->executeAndOutput(SUDOPREFIX."firewall-cmd --set-default-zone=drop $this->defaultPolicy");
-        if (strpos($out, "Default incoming policy changed to '{$this->defaultPolicy}'") != false ) {
+        $out = $this->executeAndOutput(SUDOPREFIX."firewall-cmd --set-default-zone=$this->defaultPolicy");
+        if (strpos($out, "Default firewall zone changed to '{$this->defaultPolicy}'") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Firewall Reset command did not execute correctly", $this->getModuleName()) ;
+            $logging->log("Firewall set default policy command did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }

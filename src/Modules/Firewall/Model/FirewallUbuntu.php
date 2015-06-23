@@ -223,7 +223,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             "delete" => "performFirewallDelete",
             "insert" => "performFirewallInsert",
             "reset" => "performFirewallReset",
-            "default" => "setFirewallDefault",
+            "default" => "setDefault",
         ) ;
     }
 
