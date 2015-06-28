@@ -82,22 +82,21 @@ class InvokePhpSecLib extends BaseLinuxApp
 
     private function getKeyIfAvailable($pword)
     {
+        if (substr($pword, 0, 4) == 'KS::') {
+            $ksf = new SshKeyStore();
+            $ks = $ksf->getModel(array("key" => $pword, "guess" => "true")) ;
+            $pword = $ks->findKey() ; }
         if (substr($pword, 0, 1) == '~') {
             $home = $_SERVER['HOME'];
-            $pword = str_replace('~', $home, $pword);
-        }
+            $pword = str_replace('~', $home, $pword); }
         if (file_exists($pword)) {
             if (!class_exists('Crypt_RSA')) {
                 $srcFolder = str_replace("/Model", "/Libraries", dirname(__FILE__));
                 $rsaFile = $srcFolder . DS . "seclib" . DS . "Crypt" . DS . "RSA.php";
-                require_once($rsaFile);
-            }
+                require_once($rsaFile); }
             $key = new \Crypt_RSA();
             $key->loadKey(file_get_contents($pword));
-
-            return $key;
-        }
-
+            return $key; }
         return $pword;
     }
 

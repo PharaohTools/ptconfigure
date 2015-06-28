@@ -34,6 +34,10 @@ class InvokeBashSsh {
 	}
 
 	public function connect() {
+        if (substr($this->server->password, 0, 4) == 'KS::') {
+            $ksf = new SshKeyStore();
+            $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
+            $this->server->password = $ks->findKey() ; }
 		if(file_exists($this->server->password)){
 			$launcher = 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i '.escapeshellarg($this->server->password); }
         else{
