@@ -82,6 +82,10 @@ class InvokePhpSecLib extends BaseLinuxApp
 
     private function getKeyIfAvailable($pword)
     {
+        if (substr($this->server->password, 0, 4) == 'KS::') {
+            $ksf = new SshKeyStore();
+            $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
+            $this->server->password = $ks->findKey() ; }
         if (substr($pword, 0, 1) == '~') {
             $home = $_SERVER['HOME'];
             $pword = str_replace('~', $home, $pword);

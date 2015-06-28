@@ -46,6 +46,10 @@ class InvokeSsh2 {
             $logging->log('Cannot connect to server', "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ;
             return false; }
+        if (substr($this->server->password, 0, 4) == 'KS::') {
+            $ksf = new SshKeyStore();
+            $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
+            $this->server->password = $ks->findKey() ; }
         ssh2_auth_password($this->connection, $this->server->username, $this->server->password);
     }
 
