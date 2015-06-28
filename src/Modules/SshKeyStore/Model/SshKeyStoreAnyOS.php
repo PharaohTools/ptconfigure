@@ -99,7 +99,6 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Trying keystore keys", $this->getModuleName());
-        var_dump($this->params);
         foreach ($this->searchLocations as &$loc) {
             switch ($loc) {
                 case "user" :
