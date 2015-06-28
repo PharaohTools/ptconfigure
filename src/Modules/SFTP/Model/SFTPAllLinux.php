@@ -35,26 +35,28 @@ class SFTPAllLinux extends Base {
         if (is_null($sourceData)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("SFTP Put will cancel, no source file") ;
+            $logging->log("SFTP Put will cancel, no source file", $this->getModuleName());
             return false ;}
-        $targetPath = $this->getTargetFilePath("remote") ;
-        $logging->log("Opening SFTP Connections...") ;
+        $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
+        $logging->log("Opening SFTP Connections...", $this->getModuleName());
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
-                    $logging->log("Skipping {$$server["name"]} for box id Include constraint") ;
+                    $logging->log("Skipping {$$server["name"]} for box id Include constraint", $this->getModuleName());
                     continue ; } }
             if (isset($this->params["environment-box-id-ignore"])) {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
-                    $logging->log("Skipping {$$server["name"]} for box id Ignore constraint") ;
+                    $logging->log("Skipping {$$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
-                $logging->log("[".$server["target"]."] Executing SFTP Put...")  ;
-                $logging->log($this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData)) ;
-                $logging->log("[".$server["target"]."] SFTP Put Completed...") ; }
+                $logging->log("[".$server["target"]."] Executing SFTP Put...", $this->getModuleName());
+                $res = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
+                $msg = ($res == true) ? "Put Successful" : "Put Failed";
+                $logging->log($msg, $this->getModuleName());
+                $logging->log("[".$server["target"]."] SFTP Put Completed...", $this->getModuleName()); }
             else {
-                echo "[".$server["target"]."]Connection failure. Will not execute commands on this box..\n"  ; } }
-        $logging->log("All SFTP Puts Completed");
+                $logging->log("[".$server["target"]."] Connection failure. Will not execute commands on this box..", $this->getModuleName()); } }
+        $logging->log("All SFTP Puts Completed", $this->getModuleName());
         return "All SFTP Puts Completed";
     }
 
@@ -90,7 +92,7 @@ class SFTPAllLinux extends Base {
                 if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
                     $dn = dirname($remoteFile) ;
                     if ($sftpObject->_is_dir($dn)==false) {
-                        $logging->log("Target directory does not exist, so creating...");
+                        $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
                 $result .= $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
@@ -100,14 +102,14 @@ class SFTPAllLinux extends Base {
                 if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
                     $dn = dirname($remoteFile) ;
                     if ($sftpObject->_is_dir($dn)==false) {
-                        $logging->log("Target directory does not exist, so creating...");
+                        $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
                 $result .= $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
                 foreach ($ar as $s) {
                     $result .= "$s\n" ; } } }
         else {
-            $logging->log("No SFTP Object, Connection likely failed");
+            $logging->log("No SFTP Object, Connection likely failed", $this->getModuleName());
             $result = false; }
         return $result ;
     }
@@ -119,7 +121,7 @@ class SFTPAllLinux extends Base {
             $result = $sftpObject->get($remoteFile, $localFile); }
         else {
             // @todo make this a log
-            $logging->log("No SFTP Object");
+            $logging->log("No SFTP Object", $this->getModuleName());
             $result = false; }
         return $result ;
     }
@@ -176,7 +178,7 @@ class SFTPAllLinux extends Base {
             else {
                 $logging->log("Connection to Server {$server["target"]} successful.");
                 $server["sftpObject"] = $attempt ; } }
-            return true;
+        return true;
     }
 
     // @todo it currently looks for both pword and password lets stick to one
@@ -261,6 +263,7 @@ QUESTION;
             if ( count($this->servers)<1) { $question .= "You need to enter at least one server\n"; }
             $serverAddingExecution = self::askYesOrNo($question); }
     }
+
 
     protected function askForTimeout(){
         if (isset($this->params["timeout"])) { return ; }
