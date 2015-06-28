@@ -28,15 +28,26 @@ class InvokeInfo extends PTConfigureBase {
 
         - cli
         Will ask you for details for servers, then open a shell for you to execute on multiple servers
-        example: '.PHARAOH_APP.' invoke cli --environment-name=staging
+        example: '.PHARAOH_APP.' invoke cli -yg
+            --env=staging # environment name to connect to
+            --driver=seclib # optional ssh client driver to choose (seclib/native/os)
+            --timeout=30 # will guess 30 seconds to wait for connections
 
         - script
         Will ask you for details for servers, then execute each line of a provided script file on the remote/s
-        example: '.PHARAOH_APP.' invoke script --ssh-script="/var/www/project/script.sh" --environment-name=staging
+        example: '.PHARAOH_APP.' invoke script -yg
+            --ssh-script="/var/www/project/script.sh"
+            --env=staging
+            --driver=seclib # optional ssh client driver to choose (seclib/native/os)
+            --timeout=30 # will guess 30 seconds to wait for connections
 
         - data
         Execute php variable data on one or more remotes
-        example: '.PHARAOH_APP.' invoke data --ssh-data="ls -lah" --environment-name=staging
+        example: '.PHARAOH_APP.' invoke data -yg
+            --ssh-data="ls -lah"
+            --env=staging
+            --driver=seclib # optional ssh client driver to choose (seclib/native/os)
+            --timeout=30 # will guess 30 seconds to wait for connections
 
 ';
       return $help ;
