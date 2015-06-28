@@ -47,20 +47,20 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
             "medium" => "{$dir}Medium",
             "dbcluster" => "{$dir}DBCluster",
             "db-cluster" => "{$dir}DBCluster",
-            "vspheredbcluster" => "{$dir}VSphereDBCluster",
-            "vsphere-db-cluster" => "{$dir}VSphereDBCluster",
         );
     }
 
     public function setTemplateGroup($templateGroup = null) {
         if (isset($templateGroup)) {
             $this->templateGroup = $templateGroup; }
+        else if (isset($this->params["group"])) {
+            $this->templateGroup = $this->params["group"]; }
         else if (isset($this->params["templategroup"])) {
             $this->templateGroup = $this->params["templategroup"]; }
         else if (isset($this->params["template-group"])) {
             $this->templateGroup = $this->params["template-group"]; }
         else {
-            $options = array("tiny", "medium", "dbcluster", "db-cluster", "vspheredbcluster", "vsphere-db-cluster") ;
+            $options = array("tiny", "medium", "dbcluster", "db-cluster") ;
             $this->templateGroup = self::askForArrayOption("Enter Template Group:", $options, true) ; }
     }
 
@@ -72,7 +72,7 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
         else if (isset($this->params["destination-dir"])) {
             $this->destination = $this->params["destination-dir"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd()."/build/config/ptconfigure/boxify/autopilots/generic/" ;
+            $defaultdir = getcwd()."/build/config/ptconfigure/boxify/autopilots/" ;
             if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
             $this->destination = $defaultdir ; }
         else {

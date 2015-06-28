@@ -13,7 +13,7 @@ class BoxifyInfo extends PTConfigureBase {
   }
 
   public function routesAvailable() {
-    return array( "Boxify" =>  array_merge(parent::routesAvailable(), array("box-add", "box-destroy", "box-remove", "list-papyrus", "install-generic-autopilots") ) );
+    return array( "Boxify" =>  array_merge(parent::routesAvailable(), array("box-add", "box-destroy", "box-remove", "list-papyrus", "install-generic-autopilots", "gen") ) );
   }
 
   public function routeAliases() {
@@ -27,14 +27,13 @@ class BoxifyInfo extends PTConfigureBase {
 
   Boxify, boxify
 
-        - install-generic-autopilots
-        Install the generic Boxify autopilot templates for a Tiny or Medium (Current Default) set of Environments
+        - gen, install-generic-autopilots
+        Install generic Boxify autopilot templates for a specified template group set of Environments
         example: ptconfigure boxify install-generic-autopilots
         example: ptconfigure boxify install-generic-autopilots
-                    --yes
-                    --guess # will set --destination-dir=*this dir +*build/config/ptconfigure/boxify/autopilots/
+                    -yg
                     --template-group=tiny
-                    --destination-dir=*path-to-destination*
+                    --destination-dir=*path-to-destination*# guess will *this dir* + build/config/ptconfigure/boxify/autopilots/
 
         - box-add
         Installs a Box through a cloud provider
