@@ -98,35 +98,36 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
     protected function doLocationSearch() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Trying keystore keys");
+        $logging->log("Trying keystore keys", $this->getModuleName());
+        var_dump($this->params);
         foreach ($this->searchLocations as &$loc) {
             switch ($loc) {
                 case "user" :
                     $this->setUserHome() ;
                     $kp = $this->userHomeDir.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
-                        $logging->log("User key found at $kp");
+                        $logging->log("User key found at $kp", $this->getModuleName());
                         return $kp ; }
                     else {
-                        $logging->log("User key not found at $kp"); }
+                        $logging->log("User key not found at $kp", $this->getModuleName()); }
                     break ;
                 case "otheruser" :
                     $this->userName = (isset($this->params["otheruser"])) ? $this->params["otheruser"] : null ;
                     $this->setUserHome() ;
                     $kp = $this->userHomeDir.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
-                        $logging->log("Other User key found at $kp");
+                        $logging->log("Other User key found at $kp", $this->getModuleName());
                         return $kp ; }
                     else {
-                        $logging->log("Other User key not found at $kp"); }
+                        $logging->log("Other User key not found at $kp", $this->getModuleName()); }
                     break ;
                 case "root" :
                     $kp = DS."root".DS.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
-                        $logging->log("Root key found at $kp");
+                        $logging->log("Root key found at $kp", $this->getModuleName());
                         return $kp ; }
                     else {
-                        $logging->log("Root key not found at $kp"); }
+                        $logging->log("Root key not found at $kp", $this->getModuleName()); }
                     break ;
                     break ;
                 case "specify" :
