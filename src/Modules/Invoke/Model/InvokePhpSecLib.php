@@ -47,7 +47,7 @@ class InvokePhpSecLib extends BaseLinuxApp
         $logging = $loggingFactory->getModel($this->params);
 
         if (!is_object($this->connection)) {
-            $logging->log("Connection failed");
+            $logging->log("Connection failed", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1);
 
             return false;
@@ -56,12 +56,12 @@ class InvokePhpSecLib extends BaseLinuxApp
         $this->server->password = $this->getKeyIfAvailable($this->server->password);
 
         if (!$this->connection->login($this->server->username, $this->server->password)) {
-            $logging->log("Login failed");
+            $logging->log("Login failed", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1);
 
             return false;
         } else {
-            $logging->log("Login successful");
+            $logging->log("Login successful", $this->getModuleName()) ;
 
             return true;
         }
@@ -75,9 +75,9 @@ class InvokePhpSecLib extends BaseLinuxApp
         return $stream;
     }
 
-    public function __call($k, $args = array())
+    public function __call($k, $args = [])
     {
-        return call_user_func_array(array($this->connection, $k), $args);
+        return call_user_func_array([$this->connection, $k], $args);
     }
 
     private function getKeyIfAvailable($pword)
@@ -88,7 +88,7 @@ class InvokePhpSecLib extends BaseLinuxApp
         }
         if (file_exists($pword)) {
             if (!class_exists('Crypt_RSA')) {
-                $srcFolder = str_replace(DS."Model", DS."Libraries", dirname(__FILE__));
+                $srcFolder = str_replace("/Model", "/Libraries", dirname(__FILE__));
                 $rsaFile = $srcFolder . DS . "seclib" . DS . "Crypt" . DS . "RSA.php";
                 require_once($rsaFile);
             }

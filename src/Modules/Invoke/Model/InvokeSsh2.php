@@ -35,29 +35,36 @@ class InvokeSsh2 {
 	/**
 	 * @throws \Exception
 	 */
-	public function connect()
-	{
-		if (!($this->connection = ssh2_connect($this->server->host, $this->server->port))) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params) ;
-            $logging->log('Cannot connect to server') ;
+    public function connect() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params) ;
+        if (!function_exists("ssh2_connect")) {
+            $logging->log('Native PHP SSH2 Functions are not installed. Cannot use the PHP Native SSH Driver', "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ;
-		}
-
-		ssh2_auth_password($this->connection, $this->server->username, $this->server->password);
-	}
+            return false; }
+        if (!($this->connection = ssh2_connect($this->server->host, $this->server->port))) {
+            $logging->log('Cannot connect to server', "Invoke - PHP SSH") ;
+            \Core\BootStrap::setExitCode(1) ;
+            return false; }
+        ssh2_auth_password($this->connection, $this->server->username, $this->server->password);
+    }
 
 	/**
 	 * @param $command
 	 * @return string
 	 * @throws \Exception
 	 */
-	public function exec($command)
-	{
+	public function exec($command) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params) ;
+        if (!function_exists("ssh2_exec")) {
+            $logging->log('Native PHP SSH2 Functions are not installed. Cannot use the PHP Native SSH Driver', "Invoke - PHP SSH") ;
+            \Core\BootStrap::setExitCode(1) ;
+            return false; }
 		if (!($stream = ssh2_exec($this->connection, $command))) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params) ;
-            $logging->log("SSH command failed") ;
+            $logging->log("SSH command failed", "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ;
 		}
 
