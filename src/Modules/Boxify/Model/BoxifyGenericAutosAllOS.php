@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
+class BoxifyGenericAutosAllOS extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -41,7 +41,7 @@ class BoxifyGenericAutosUbuntu extends BaseLinuxApp {
 
     public function setTemplateGroupsToDirs() {
         $dir = str_replace("Model", "", __DIR__) ;
-        $dir = $dir.'Autopilots/' ;
+        $dir = $dir.'Autopilots'.DS ;
         $this->templateGroupsToDirs = array(
             "tiny" => "{$dir}Tiny",
             "medium" => "{$dir}Medium",

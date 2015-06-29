@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BoxifyUbuntu extends BaseLinuxApp {
+class BoxifyAllOS extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -89,7 +89,7 @@ class BoxifyUbuntu extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $returns = array() ;
-        $logging->log("Adding Boxes") ;
+        $logging->log("Adding Boxes", $this->getModuleName()) ;
         $result = $provider->addBox() ;
         $returns[] = $result ;
         return (in_array(false, $returns)) ? false : true ;
@@ -99,7 +99,7 @@ class BoxifyUbuntu extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         foreach($this->boxAmount as $oneBox) {
-            $logging->log("Removing Box $oneBox") ;
+            $logging->log("Removing Box $oneBox", $this->getModuleName()) ;
             $this->setEnvironmentStatusInCleovars($oneBox, false) ; }
         return true ;
     }
@@ -108,7 +108,7 @@ class BoxifyUbuntu extends BaseLinuxApp {
         $provider = $this->getProvider("BoxDestroy");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Destroying Boxes in environment $this->environmentName") ;
+        $logging->log("Destroying Boxes in environment $this->environmentName", $this->getModuleName()) ;
         $return = $provider->destroyBox() ;
         return $return ;
     }
