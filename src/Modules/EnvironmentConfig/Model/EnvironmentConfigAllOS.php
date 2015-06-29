@@ -180,18 +180,18 @@ class EnvironmentConfigAllOS extends Base {
                     $q = "Environment $envName found. Are you sure you want to delete it?" ;
                     $res = (isset($this->params["yes"])) ? true : self::askYesOrNo($q) ;
                     if ($res==true) {
-                        $logging->log("Removing environment $envName.") ;
+                        $logging->log("Removing environment $envName.", $this->getModuleName()) ;
                         unset ($this->environments[$keys[$i]]) ;
                         $this->environments = array_merge($this->environments);
                         continue ; } } } }
         else {
-            $logging->log("No environments exist here. Nothing to delete.") ; }
+            $logging->log("No environments exist here. Nothing to delete.", $this->getModuleName()) ; }
     }
 
     public function doList($scope = "project") {
-        if ($scope == "project") {
+        if ($scope == "local") {
             $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments"); }
-        else if ($scope == "local") {
+        else {
             $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments"); }
         return $allProjectEnvs ;
     }
