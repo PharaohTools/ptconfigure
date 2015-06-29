@@ -21,6 +21,7 @@ class CleofyGenericAutos extends BaseLinuxApp {
     protected $actionsToMethods =
         array(
             "install-generic-autopilots" => "performGenericAutopilotInstall",
+            "gen" => "performGenericAutopilotInstall",
         ) ;
 
     public function __construct($params) {
@@ -56,6 +57,8 @@ class CleofyGenericAutos extends BaseLinuxApp {
         // @this should log that you  have specified an invalid template group if that is the case and go to prompt
         if (isset($templateGroup)) {
             $this->templateGroup = $templateGroup; }
+        else if (isset($this->params["group"])) {
+            $this->templateGroup = $this->params["group"]; }
         else if (isset($this->params["templategroup"])) {
             $this->templateGroup = $this->params["templategroup"]; }
         else if (isset($this->params["template-group"])) {
@@ -87,9 +90,23 @@ class CleofyGenericAutos extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $source = $this->templateGroupsToDirs[$this->templateGroup] ;
         $target = $this->destination ;
-        $logging->log("Performing file copy from $source to $target") ;
-        // @todo php cannot do a recursive copy so change the copy module to one of these
-        $result = $this->executeAndGetReturnCode("cp -r $source $target") ;
+        $logging->log("Performing file copy from $source to $target", $this->getModuleName()) ;
+        $templates = array_diff(scandir($source), array(".", "..") );
+        $templatorFactory = new \Model\Templating();
+        $templator = $templatorFactory->getModel($this->params);
+        $results = array();
+        foreach ($templates as $template) {
+            if ($template=="settings.php") {
+                // only overwrite settings file if required
+                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure' ; }
+            else {
+                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy' ; }
+            $targetLocation = $autosDir.DS.$template ;
+            $results[] = $templator->template(
+                file_get_contents($source.DS.$template),
+                array(),
+                $targetLocation ); }
+        $result = (in_array($results, false)) ? false : true ;
         return $result ;
     }
 
