@@ -27,7 +27,7 @@ class CopyInfo extends PTConfigureBase {
   Copy, copy
 
         - put
-        Will ask you for details for servers, then copy a file or directory from local to remote
+        Will copy a filr or directory from one location to another
         example: ptconfigure copy put
         example: ptconfigure copy put --yes --source="/tmp/file" --target="/home/user/file"
 
