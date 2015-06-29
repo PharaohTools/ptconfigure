@@ -47,15 +47,24 @@ class TemplatingLinuxMac extends BaseTemplater {
             $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
         if (!file_exists(dirname($targetLocation))) {
             mkdir(dirname($targetLocation), 0775, true) ; }
+        $rcs = array() ;
         $res = file_put_contents($targetLocation, $fData) ;
         if ($res == false) {
             $logging->log("Failed to write file in location $targetLocation", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1);
             return false; }
-        if ($perms != null) { exec("chmod $perms $targetLocation") ; }
-        if ($owner != null) { exec("chown $owner $targetLocation") ; }
-        if ($group != null) { exec("chgrp $group $targetLocation") ; }
-        return true ;
+        if ($perms != null) {
+            $logging->log("Attempting to change file permissions of $targetLocation to $perms", $this->getModuleName()) ;
+            $rcs[] = $this->executeAndGetReturnCode("chmod $perms $targetLocation") ; }
+        if ($owner != null) { exec("chown $owner $targetLocation") ;
+            $logging->log("Attempting to change file owner of $targetLocation to $owner", $this->getModuleName()) ;
+            $rcs[] = $this->executeAndGetReturnCode("chown $owner $targetLocation") ; }
+        if ($group != null) {
+            $logging->log("Attempting to change file group of $targetLocation to $group", $this->getModuleName()) ;
+            $rcs[] = $this->executeAndGetReturnCode("chgrp $group $targetLocation") ; }
+        $result = (array_diff($rcs, array(0)) == array()) ? true : false ;
+        $logging->log("Templating file to $targetLocation successful", $this->getModuleName()) ;
+        return $result ;
     }
 
     public function replaceData($fData, $replaceKey, $replaceValue, $startTag='<%tpl.php%>', $endTag='</%tpl.php%>') {
