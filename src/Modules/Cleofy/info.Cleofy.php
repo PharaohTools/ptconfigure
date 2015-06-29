@@ -14,7 +14,7 @@ class CleofyInfo extends PTConfigureBase {
 
     public function routesAvailable() {
         return array( "Cleofy" =>  array_merge(parent::routesAvailable(), array("standard", "db-cluster", "workstation",
-            "install-generic-autopilots", "tiny", "medium", "medium-web", "empty") ) );
+            "install-generic-autopilots", "gen", "tiny", "medium", "medium-web", "empty") ) );
     }
 
     public function routeAliases() {
@@ -33,6 +33,23 @@ class CleofyInfo extends PTConfigureBase {
         List all of the autopilot files in your build/config/ptconfigure/autopilots
         example: ptconfigure cleofy list
 
+        - install-generic-autopilots, gen
+        Install the generic Cleofy autopilot templates for a Tiny or Medium (Current Default) set of Environments
+        example: ptconfigure cleofy install-generic-autopilots
+        example: ptconfigure cleofy install-generic-autopilots
+                    --yes
+                    --guess # will set --destination-dir=*this dir +*build/config/ptconfigure/cleofy/autopilots/
+                    --template-group=tiny # tiny, medium, dbcluster, ptvirtualize || db-cluster, workstation
+                    --destination-dir=*path-to-destination*
+
+HELPDATA;
+      return $help ;
+    }
+
+}
+
+/*
+ *
         - standard
         Create a default set of ptconfigure autopilots in build/config/ptconfigure/autopilots for
         your project.
@@ -60,18 +77,4 @@ class CleofyInfo extends PTConfigureBase {
                     --yes
                     --guess
                     --database-nodes-env=*db-nodes-environment-name*
-
-        - install-generic-autopilots
-        Install the generic Cleofy autopilot templates for a Tiny or Medium (Current Default) set of Environments
-        example: ptconfigure cleofy install-generic-autopilots
-        example: ptconfigure cleofy install-generic-autopilots
-                    --yes
-                    --guess # will set --destination-dir=*this dir +*build/config/ptconfigure/cleofy/autopilots/
-                    --template-group=tiny # tiny, medium, dbcluster, ptvirtualize || db-cluster, workstation
-                    --destination-dir=*path-to-destination*
-
-HELPDATA;
-      return $help ;
-    }
-
-}
+ */
