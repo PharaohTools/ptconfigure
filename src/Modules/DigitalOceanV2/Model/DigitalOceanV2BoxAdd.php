@@ -272,7 +272,6 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     private function getDropletData($dropletId) {
         $curlUrl = $this->_apiURL."/v2/droplets/$dropletId" ;
         $dropletObject =  $this->digitalOceanV2Call(array(), $curlUrl);
-
         return $dropletObject;
     }
 
@@ -282,7 +281,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for droplet $dropletId box info...") ;
+            $logging->log("Attempt $i2 for droplet $dropletId box info...", $this->getModuleName()) ;
             $dropletData = $this->getDropletData($dropletId);
             if (isset($dropletData->droplet->networks->v4[0]->ip_address)) {
                 return $dropletData ; }
@@ -297,7 +296,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for droplet $dropletId to become active...") ;
+            $logging->log("Attempt $i2 for droplet $dropletId to become active...", $this->getModuleName()) ;
             $dropletData = $this->getDropletData($dropletId);
             if (isset($dropletData->droplet->status) && $dropletData->droplet->status=="active") {
                 return $dropletData ; }
