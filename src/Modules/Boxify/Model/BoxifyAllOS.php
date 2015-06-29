@@ -85,9 +85,13 @@ class BoxifyAllOS extends BaseLinuxApp {
     }
 
     protected function addBox() {
-        $provider = $this->getProvider();
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $provider = $this->getProvider();
+        if (!is_object($provider)) {
+            $logging->log("Requested provider unavailable", $this->getModuleName()) ;
+            \Core\BootStrap::setExitCode(1);
+            return false ; }
         $returns = array() ;
         $logging->log("Adding Boxes", $this->getModuleName()) ;
         $result = $provider->addBox() ;
@@ -105,9 +109,12 @@ class BoxifyAllOS extends BaseLinuxApp {
     }
 
     protected function destroyBoxes() {
-        $provider = $this->getProvider("BoxDestroy");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $provider = $this->getProvider("BoxDestroy");
+        if (!is_object($provider)) {
+            $logging->log("Requested provider unavailable", $this->getModuleName()) ;
+            return false ; }
         $logging->log("Destroying Boxes in environment $this->environmentName", $this->getModuleName()) ;
         $return = $provider->destroyBox() ;
         return $return ;
