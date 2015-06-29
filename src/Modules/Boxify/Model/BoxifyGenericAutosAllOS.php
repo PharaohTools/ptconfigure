@@ -85,9 +85,22 @@ class BoxifyGenericAutosAllOS extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $source = $this->templateGroupsToDirs[$this->templateGroup] ;
         $target = $this->destination ;
-        $logging->log("Performing file copy from $source to $target") ;
-        // @todo php cannot do a recursive copy so change the copy module to one of these
-        $result = $this->executeAndGetReturnCode("cp -r $source $target") ;
+        $logging->log("Performing file copy from $source to $target", $this->getModuleName()) ;
+        $templates = array_diff(scandir($source), array(".", "..") );
+        $templatorFactory = new \Model\Templating();
+        $templator = $templatorFactory->getModel($this->params);
+        $results = array();
+        foreach ($templates as $template) {
+            if ($template=="settings.php") {
+                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure' ; }
+            else {
+                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure'.DS.'boxify' ; }
+            $targetLocation = $autosDir.DS.$template ;
+            $results[] = $templator->template(
+                file_get_contents($source.DS.$template),
+                array(),
+                $targetLocation ); }
+        $result = (in_array($results, false)) ? false : true ;
         return $result ;
     }
 
