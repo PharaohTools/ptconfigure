@@ -32,7 +32,7 @@ class BoxifyInfo extends PTConfigureBase {
         example: ptconfigure boxify install-generic-autopilots
         example: ptconfigure boxify install-generic-autopilots
                     -yg
-                    --template-group=tiny
+                    --group=tiny # specifiec a template group. defaults are tiny, medium, dbcluster
                     --destination-dir=*path-to-destination*# guess will *this dir* + build/config/ptconfigure/boxify/autopilots/
 
         - box-add
