@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Production Box" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "tiny-prod",
+                    "environment-name" => $production_env,
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "tiny-prod",
+                    "environment-name" => $production_env,
                     "provider-name" => $provider,
                     "box-amount" => $box_amount_production ,
                     "image-id" => $image_id_production ,

@@ -23,60 +23,60 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Bastion Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "tiny-bastion",
+                    "environment-name" => $bastion_env,
                     "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "tiny-bastion"
+                    "environment-name" => $bastion_env
                 ),),),
 
                 // Git
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the GitBucket Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "tiny-git",
+                    "environment-name" => $git_env,
                     "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "tiny-git"
+                    "environment-name" => $git_env
                 ),),),
 
                 // Jenkins
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "tiny-jenkins",
+                    "environment-name" => $build_env,
                     "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "tiny-jenkins"
+                    "environment-name" => $build_env
                 ),),),
 
                 // Staging
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Staging Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "tiny-staging",
+                    "environment-name" => $staging_env,
                     "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "tiny-staging"
+                    "environment-name" => $staging_env
                 ),),),
 
                 // Production
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Production Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "tiny-prod",
+                    "environment-name" => $production_env,
                     "provider-name" => $provider,
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "tiny-prod"
+                    "environment-name" => $production_env
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuring a tiny set of environments complete"),),),
