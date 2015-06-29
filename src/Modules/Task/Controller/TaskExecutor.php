@@ -47,7 +47,7 @@ class TaskExecutor extends Base {
                     else if (is_array($params[$taskRunner]) && isset($params[$taskRunner][0])) { $af = $params[$taskRunner][0] ; }
                     else { $af = $params[$taskRunner]["af"] ; }
                     $logging->log("PTDeploy Task Runner","Task") ;
-                    exec(DAPPCOMM.'autopilot execute --af="'.$af.'" '.$sourceParams, $this->content["result"]) ;
+                    exec(PTDCOMM.'autopilot execute --af="'.$af.'" '.$sourceParams, $this->content["result"]) ;
                     break ;
                 case "log" :
                     $logging->log("Logging Task Runner","Task") ;
