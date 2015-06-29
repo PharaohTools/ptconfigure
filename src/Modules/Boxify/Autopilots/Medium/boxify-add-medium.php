@@ -73,7 +73,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets add a Jenkins Box" ),),),
                 array ( "EnvironmentConfig" => array("configure" => array(
                     "guess" => true,
-                    "environment-name" => "medium-jenkins",
+                    "environment-name" => "medium-build",
                     "tmp-dir" => "/tmp/",
                     "keep-current-environments" => true,
                     "no-manual-servers" => true,
@@ -81,7 +81,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
                 array ( "Boxify" => array("box-add" => array(
                     "guess" => true,
-                    "environment-name" => "medium-jenkins",
+                    "environment-name" => "medium-build",
                     "provider-name" => "DigitalOcean",
                     "box-amount" => "1",
                     "image-id" => "3101045",

@@ -25,7 +25,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Parallax" => array("cli" => array(
                     "command-1"  => "ptconfigure autopilot execute {$parent}boxify-destroy-bastion.php",
                     "command-2"  => "ptconfigure autopilot execute {$parent}boxify-destroy-git.php",
-                    "command-3"  => "ptconfigure autopilot execute {$parent}boxify-destroy-jenkins.php",
+                    "command-3"  => "ptconfigure autopilot execute {$parent}boxify-destroy-build.php",
                     "command-4"  => "ptconfigure autopilot execute {$parent}boxify-destroy-staging-web-nodes.php",
                     "command-5"  => "ptconfigure autopilot execute {$parent}boxify-destroy-staging-load-balancer.php",
                     "command-6"  => "ptconfigure autopilot execute {$parent}boxify-destroy-staging-db-nodes.php",

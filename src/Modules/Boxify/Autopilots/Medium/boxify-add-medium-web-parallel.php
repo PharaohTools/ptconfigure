@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Parallax" => array("cli" => array(
                     "command-1"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}boxify-add-bastion.php\"",
                     "command-2"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}boxify-add-git.php\"",
-                    "command-3"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}boxify-add-jenkins.php\"",
+                    "command-3"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}boxify-add-build.php\"",
                     "command-4"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}boxify-add-staging-web-nodes.php\"",
                     "command-5"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}boxify-add-staging-load-balancer.php\"",
                     "command-6"  => "ptconfigure autopilot execute --autopilot-file=\"{$parent}boxify-add-production-web-nodes.php\"",

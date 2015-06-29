@@ -47,12 +47,12 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets delete the Jenkins Box" ),),),
                 array ( "Boxify" => array("box-destroy" => array(
                     "guess" => true,
-                    "environment-name" => "medium-jenkins",
+                    "environment-name" => "medium-build",
                     "provider-name" => "DigitalOcean",
                     "destroy-all-boxes" => true,
                 ),),),
                 array ( "EnvironmentConfig" => array("delete" => array(
-                    "environment-name" => "medium-jenkins"
+                    "environment-name" => "medium-build"
                 ),),),
 
                 // Staging Web Nodes
