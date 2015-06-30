@@ -8,9 +8,9 @@ ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-git-prep-
 ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-git-invoke-cleo-dapper-new.php
 ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-git-invoke-git.php
 # cm build server
-ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-jenkins-prep-ubuntu.php
-ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-jenkins-invoke-cleo-dapper-new.php
-ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-jenkins-invoke-build-server.php
+ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-build-prep-ubuntu.php
+ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-build-invoke-cleo-dapper-new.php
+ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-build-invoke-build-server.php
 # cm staging
 ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-staging-prep-ubuntu.php
 ptconfigure autopilot install build/config/ptconfigure/autopilots/tiny-staging-invoke-cleo-dapper-new.php

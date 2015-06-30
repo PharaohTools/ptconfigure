@@ -8,9 +8,9 @@ ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-git-pre
 ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-git-invoke-cleo-dapper-new.php
 ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-git-invoke-git.php
 # cm build server
-ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-jenkins-prep-ubuntu.php
-ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-jenkins-invoke-cleo-dapper-new.php
-ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-jenkins-invoke-build-server.php
+ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-build-prep-ubuntu.php
+ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-build-invoke-cleo-dapper-new.php
+ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-build-invoke-build-server.php
 
 # cm staging db primary
 ptconfigure autopilot install build/config/ptconfigure/autopilots/medium-staging-db-primary-prep-ubuntu.php
