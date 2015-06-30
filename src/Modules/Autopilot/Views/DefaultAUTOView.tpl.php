@@ -6,6 +6,6 @@
   echo $result_summary."\n" ;
 if (isset($pageVars["result"]) && is_string($pageVars["result"])) {
     echo $pageVars["result"]."\n" ; }
-if (isset($pageVars["result"]) && !is_string($pageVars["result"])) {
-    var_dump($pageVars["result"]) ; }
+//if (isset($pageVars["result"]) && !is_string($pageVars["result"])) {
+//    var_dump($pageVars["result"]) ; }
 ?>
