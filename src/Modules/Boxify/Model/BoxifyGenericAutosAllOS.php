@@ -92,7 +92,12 @@ class BoxifyGenericAutosAllOS extends BaseLinuxApp {
         $results = array();
         foreach ($templates as $template) {
             if ($template=="settings.php") {
-                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure' ; }
+                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure' ;
+                $default_settings = $autosDir.DS.'settings.php' ;
+                $exists = file_exists($default_settings) ;
+                if ($exists==true) {
+                    $logging->log("Found existing settings file $default_settings, so not overwriting", $this->getModuleName()) ;
+                    continue; } }
             else {
                 $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure'.DS.'boxify' ; }
             $targetLocation = $autosDir.DS.$template ;
