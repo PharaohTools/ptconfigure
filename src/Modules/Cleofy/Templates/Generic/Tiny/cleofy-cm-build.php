@@ -13,7 +13,7 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
-        include ("settings.php") ;
+        include(dirname(__DIR__)).DS."settings.php"  ;
 
         $this->steps =
             array(
