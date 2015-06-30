@@ -16,10 +16,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Lets begin invoking PHP initial install on environment <%tpl.php%>env_name</%tpl.php%>"
-                ), ), ),
-                array ( "Logging" => array( "log" => array(
-                    "log-message" => "Lets SSH our PHP Install Command"
+                    "log-message" => "Lets SSH our PHP and Git status initializer on environment <%tpl.php%>env_name</%tpl.php%>"
                 ), ), ),
                 array ( "Invoke" => array( "data" => array(
                     "guess" => true,
@@ -35,10 +32,15 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
-sudo apt-get update
-sudo apt-get install -y php5 git
+cat /etc/os-release | grep ID="ubuntu" && sudo apt-get update
+cat /etc/os-release | grep ID="ubuntu" && sudo apt-get install php5 git -y
+cat /etc/os-release | grep ID="centos" && sudo yum update
+cat /etc/os-release | grep ID="centos" && sudo yum install php git -y
+cat /etc/os-release | grep ID="fedora" && sudo yum update
+cat /etc/os-release | grep ID="fedora" && sudo yum install php git -y
+cat /etc/os-release | grep ID="rhel" && sudo yum update
+cat /etc/os-release | grep ID="rhel" && sudo yum install php git -y
 SSHDATA;
         return $sshData ;
     }
-
 }

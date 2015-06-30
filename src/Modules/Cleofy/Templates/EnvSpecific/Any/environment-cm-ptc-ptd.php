@@ -15,7 +15,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%>"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of Pharaoh Configure and Pharaoh Deploy on environment <%tpl.php%>env_name</%tpl.php%>"),),),
 
                 // Standard Tools
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure some standard tools are installed" ),),),
@@ -39,7 +39,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets ensure PTDeploy" ),),),
                 array ( "PTDeploy" => array( "ensure" => array(),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuring Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuring Pharaoh Configure and Pharaoh Deploy on environment <%tpl.php%>env_name</%tpl.php%> complete"),),),
 
         );
 
