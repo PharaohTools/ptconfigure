@@ -130,8 +130,6 @@ class CleofyTinyAllOS extends Base {
         return true ;
     }
 
-
-
     private function getEnvName($env) {
         if (isset($this->params["{$env}-env"])) { return $this->params["{$env}-env"] ; }
         $question = 'Env name for '.ucfirst($env).'?';
