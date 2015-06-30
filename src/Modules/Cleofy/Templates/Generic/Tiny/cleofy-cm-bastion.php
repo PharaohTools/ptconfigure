@@ -13,7 +13,7 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
-        include ("settings.php") ;
+        include(dirname(__DIR__)).DS."settings.php"  ;
 
         $this->steps =
             array(
@@ -21,17 +21,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Bastion Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-bastion-prep-ubuntu.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/'.$bastion_env.'-prep-ubuntu.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Bastion Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-bastion-invoke-cleo-dapper-new.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/'.$bastion_env.'-invoke-cleo-dapper-new.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Bastion Box on the Bastion Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-bastion-invoke-bastion.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/'.$bastion_env.'-invoke-bastion.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Bastion environment complete"),),),
             );
