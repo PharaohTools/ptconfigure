@@ -53,6 +53,8 @@ class TemplatingLinuxMac extends BaseTemplater {
             $logging->log("Failed to write file in location $targetLocation", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1);
             return false; }
+        if ($res === 0) {
+            $logging->log("Empty file written in location $targetLocation", $this->getModuleName()) ; }
         if ($perms != null) {
             $logging->log("Attempting to change file permissions of $targetLocation to $perms", $this->getModuleName()) ;
             $rcs[] = $this->executeAndGetReturnCode("chmod $perms $targetLocation") ; }
@@ -63,7 +65,8 @@ class TemplatingLinuxMac extends BaseTemplater {
             $logging->log("Attempting to change file group of $targetLocation to $group", $this->getModuleName()) ;
             $rcs[] = $this->executeAndGetReturnCode("chgrp $group $targetLocation") ; }
         $result = (array_diff($rcs, array(0)) == array()) ? true : false ;
-        $logging->log("Templating file to $targetLocation successful", $this->getModuleName()) ;
+        $fname = substr($targetLocation, strrpos($targetLocation, DS)+1) ;
+        $logging->log("Templating file $fname successful", $this->getModuleName()) ;
         return $result ;
     }
 
