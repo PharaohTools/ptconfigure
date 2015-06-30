@@ -20,7 +20,7 @@ class AutoPilotConfigured extends AutoPilot {
             array(
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Database Nodes Environment" ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Production DB Nodes Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Ensure PHP and Git on the Production DB Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/db-cluster-db-nodes-prep-ubuntu.php"',
@@ -39,7 +39,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 // DB Nodes should be done first, so the Manager node can start the completed cluster
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Database Balancer Environment" ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Production Primary DB Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Ensure PHP and Git on the Production Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/db-cluster-db-balancer-prep-ubuntu.php"',

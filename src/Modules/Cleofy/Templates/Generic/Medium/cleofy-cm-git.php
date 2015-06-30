@@ -18,7 +18,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Git Environment" ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Git Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Ensure PHP and Git on the Git Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/medium-git-prep-ubuntu.php"',

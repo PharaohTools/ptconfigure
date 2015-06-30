@@ -18,7 +18,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Staging Environment" ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Staging Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Ensure PHP and Git on the Staging Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$staging_env.'-prep-linux.php"',

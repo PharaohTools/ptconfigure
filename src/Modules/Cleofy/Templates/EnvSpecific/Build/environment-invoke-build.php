@@ -23,8 +23,8 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
                 array ( "SFTP" => array( "put" => array(
                     "guess" => true,
-                    "source" => getcwd()."/build/config/ptconfigure/cleofy/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php" ,
-                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php",
+                    "source" => getcwd()."/build/config/ptconfigure/cleofy/<%tpl.php%>env_name</%tpl.php%>-cm-build.php" ,
+                    "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build.php",
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
@@ -54,8 +54,8 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSSHData() {
         $sshData = <<<"SSHDATA"
 cd /tmp
-sudo ptconfigure autopilot execute --autopilot-file="/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php"
-rm /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build-server.php
+sudo ptconfigure autopilot execute --autopilot-file="/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build.php"
+rm /tmp/<%tpl.php%>env_name</%tpl.php%>-cm-build.php
 SSHDATA;
         return $sshData ;
     }
