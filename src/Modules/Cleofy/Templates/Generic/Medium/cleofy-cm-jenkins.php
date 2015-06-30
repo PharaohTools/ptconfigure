@@ -21,17 +21,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Jenkins Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-build-prep-ubuntu.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/medium-build-prep-ubuntu.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Jenkins Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-build-invoke-cleo-dapper-new.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/medium-build-invoke-cleo-dapper-new.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Jenkins Box on the Jenkins Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-build-invoke-build-server.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/medium-build-invoke-build-server.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Jenkins environment complete"),),),
             );
