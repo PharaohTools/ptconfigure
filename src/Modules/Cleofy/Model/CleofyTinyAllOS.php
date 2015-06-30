@@ -61,7 +61,7 @@ class CleofyTinyAllOS extends Base {
         return $serversText;
     }
 
-    private function doCleofy() {
+    private function doCleofy2() {
         $templatesDir = str_replace("Model", "Templates".DS."EnvSpecific", dirname(__FILE__) ) ;
         $templates = scandir($templatesDir);
         $results = array();
@@ -85,15 +85,11 @@ class CleofyTinyAllOS extends Base {
         return $result ;
     }
 
-    private function doCleofyGuess() {
+    private function doCleofy() {
         $templatesDir = str_replace("Model", "Templates".DS."EnvSpecific", dirname(__FILE__) ) ;
-        $templates = scandir($templatesDir);
         $results = array();
-
-
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-
         if ($this->params["guess"]==true) {
             $logging->log("Attempting to guess settings file", $this->getModuleName()) ;
             $default_settings = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure'.DS.'settings.php' ;
@@ -101,14 +97,32 @@ class CleofyTinyAllOS extends Base {
             if ($exists==true) {
                 $logging->log("Found settings file $default_settings", $this->getModuleName()) ;
                 require_once($default_settings); } }
-
         if (!isset($bastion_env)) $bastion_env = $this->getEnvName("bastion") ;
         if (!isset($build_env)) $build_env = $this->getEnvName("build") ;
         if (!isset($git_env)) $git_env = $this->getEnvName("git") ;
         if (!isset($staging_env)) $staging_env = $this->getEnvName("staging") ;
         if (!isset($production_env)) $production_env = $this->getEnvName("production") ;
-
-
+        $envs = array ("bastion"=>$bastion_env, "build"=>$build_env, "staging"=>$staging_env, "production"=>$production_env, "git"=>$git_env) ;
+        foreach ($this->environments as $environment) {
+            $logging->log("Checking environment {$environment["any-app"]["gen_env_name"]} for changes", $this->getModuleName()) ;
+            if (in_array($environment["any-app"]["gen_env_name"], $envs)) {
+                $logging->log("Current environment, {$environment["any-app"]["gen_env_name"]} is being Cleofied", $this->getModuleName()) ;
+                $curType = array_search($environment["any-app"]["gen_env_name"], $envs) ;
+                $templates = $this->getEnvTemplates($curType) ;
+                foreach ($templates as $template) {
+                        $templatorFactory = new \Model\Templating();
+                        $templator = $templatorFactory->getModel($this->params);
+                        $newFileName = substr($template, strpos($template, DS)) ;
+                        $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $newFileName ) ;
+                        $autosDir = getcwd().'build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy';
+                        $targetLocation = $autosDir.DS.$newFileName ;
+                        $results[] = $templator->template(
+                            file_get_contents($templatesDir.DS.$template),
+                            array(
+                                "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
+                                "env_name" => $environment["any-app"]["gen_env_name"],
+                                "first_server_target" => $environment["servers"][0]["target"]),
+                            $targetLocation ); } } }
         $result = (in_array($results, false)) ? false : true ;
         return $result ;
     }
@@ -119,6 +133,35 @@ class CleofyTinyAllOS extends Base {
         if (isset($this->params["{$env}-env"])) { return $this->params["{$env}-env"] ; }
         $question = 'Env name for '.ucfirst($env).'?';
         return self::askYesOrNo($question, true);
+    }
+
+    private function getEnvTemplates($type) {
+
+        $et = array(
+            "bastion" => array(
+                "environment-cm-bastion.php",
+                "environment-invoke-bastion.php",
+            ),
+            "git" => array(
+                "environment-cm-git.php",
+                "environment-invoke-git.php",
+            ),
+            "build" => array(
+                "environment-cm-build.php",
+                "environment-invoke-build.php",
+            ),
+            "staging" => array(
+                "environment-cm-build.php",
+                "environment-invoke-build.php",
+            ),
+            "production" => array(
+                "environment-cm-build.php",
+                "environment-invoke-build.php",
+            ),
+        );
+        $ret = (isset($et[$type])) ? $et[$type] : null ;
+        return $ret ;
+
     }
 
 }
