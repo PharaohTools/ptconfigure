@@ -6,7 +6,7 @@ class SshEncryptInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Install/encrypt private SSH keys";
+    public $name = "Install / Decrypt / Encrypt private SSH keys";
 
     public function __construct() {
         parent::__construct();

@@ -17,13 +17,16 @@ class ApacheModulesInfo extends PTConfigureBase {
     }
 
     public function routeAliases() {
-      return array("apache-modules"=>"ApacheModules", "apachemods"=>"ApacheModules", "apachemodules"=>"ApacheModules");
+      return array(
+          "apache-modules"=>"ApacheModules",
+          "apachemods"=>"ApacheModules",
+          "apachemodules"=>"ApacheModules" );
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This command is part of Core and provides you  with a method by which you can configure Application Settings.
-  You can configure default application settings, ie: mysql admin user, host, pass
+  You can configure default application settings
 
   ApacheModules, apachemods, apache-modules, apachemodules
 
