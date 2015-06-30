@@ -18,7 +18,7 @@ $bastion_env = "bastion" ;
 $git_env = "git" ;
 $build_env = "build" ;
 $staging_env = "staging" ;
-$productionn_env = "production" ;
+$production_env = "production" ;
 
 $priv_ssh_key_bastion = $priv_ssh_key_git = $priv_ssh_key_build =
 $priv_ssh_key_staging = $priv_ssh_key_production = $priv_ssh_key  ;
