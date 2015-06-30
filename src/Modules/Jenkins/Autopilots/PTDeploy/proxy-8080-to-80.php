@@ -26,9 +26,9 @@ class AutoPilotConfigured extends AutoPilot {
                     // "vhe-url" => "", this variable is pumped in from parent
                     // "vhe-ip-port" => "", this variable is pumped in from parent
                     "vhe-cluster-name" => "jenkins-proxy",
-                    // @todo we should let it guess this, and make sure the ubuntu 14 mode provide s correct result
-                    // ubuntu 14 dapper model should guess .conf whether its centos or ubuntu, past ubuntu 2.4
-                    "vhe-file-ext" => ".conf",
+//                    // @todo we should let it guess this, and make sure the ubuntu 14 mode provide s correct result
+//                    // ubuntu 14 dapper model should guess .conf whether its centos or ubuntu, past ubuntu 2.4
+//                    "vhe-file-ext" => ".conf",
                     "vhe-default-template-name" => "http",
                     "environment-name" => "local"
                 ),),),

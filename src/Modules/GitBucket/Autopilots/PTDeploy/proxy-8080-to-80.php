@@ -6,7 +6,8 @@ class AutoPilotConfigured extends AutoPilot {
 
     public $steps ;
 
-    public function __construct() {
+    public function __construct($params = null) {
+        parent::__construct($params);
         $this->setSteps();
     }
 
@@ -27,9 +28,6 @@ class AutoPilotConfigured extends AutoPilot {
                 "vhe-url" => "$vhe_url",
                 "vhe-ip-port" => "127.0.0.1:80",
                 "vhe-cluster-name" => "gitbucket-proxy",
-                // @todo we should let it guess this, and make sure the ubuntu 14 mode provide s correct result
-                // ubuntu 14 dapper model should guess .conf whether its centos or ubuntu, past ubuntu 2.4
-                "vhe-file-ext" => ".conf",
                 "vhe-default-template-name" => "http",
                 "environment-name" => "local"
             ),),),
