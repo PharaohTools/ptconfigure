@@ -6,7 +6,7 @@ class SshKeyInstallInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Install SSH Public Keys to a user account";
+    public $name = "Install SSH Public Keys to Authorized Keys for accessing a a user account";
 
     public function __construct() {
       parent::__construct();
