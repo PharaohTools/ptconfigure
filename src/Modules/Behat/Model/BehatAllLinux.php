@@ -21,7 +21,7 @@ class BehatAllLinux extends BaseComposerApp {
         $this->programNameFriendly = " Behat "; // 12 chars
         $this->programNameInstaller = "Behat";
         $this->programExecutorTargetPath = 'behat/bin/behat';
-        $this->statusCommand = "behat" ;
+        $this->statusCommand = "behat -h" ;
         $this->initialize();
     }
 
