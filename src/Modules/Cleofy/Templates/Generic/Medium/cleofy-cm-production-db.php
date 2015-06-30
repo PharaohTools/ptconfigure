@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-db-nodes-prep-ubuntu.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Production DB Nodes Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Production DB Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-db-nodes-invoke-cleo-dapper-new.php"',
@@ -41,7 +41,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-db-balancer-prep-ubuntu.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Production Primary DB Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Production Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-db-balancer-invoke-cleo-dapper-new.php"',

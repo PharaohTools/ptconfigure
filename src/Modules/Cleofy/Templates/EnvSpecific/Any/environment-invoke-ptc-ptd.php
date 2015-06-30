@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
             ), ) ),
             array ( "SFTP" => array( "put" => array(
                 "guess" => true,
-                "source" => getcwd()."/build/config/ptconfigure/cleofy/autopilots/generated/<%tpl.php%>env_name</%tpl.php%>-cm-ptc-ptd.php",
+                "source" => getcwd().DS."build".DS."config".DS."ptconfigure".DS."cleofy".DS."<%tpl.php%>env_name</%tpl.php%>-cm-ptc-ptd.php",
                 "target" => "/tmp/<%tpl.php%>env_name</%tpl.php%>-cm-ptc-ptd.php",
                 "environment-name" => "<%tpl.php%>env_name</%tpl.php%>",
             ) , ) , ),

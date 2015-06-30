@@ -23,7 +23,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-staging-db-nodes-prep-ubuntu.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Staging DB Nodes Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Staging DB Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-staging-db-nodes-invoke-cleo-dapper-new.php"',
@@ -41,7 +41,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-staging-db-balancer-prep-ubuntu.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Staging Primary DB Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Staging Primary DB Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-staging-db-balancer-invoke-cleo-dapper-new.php"',

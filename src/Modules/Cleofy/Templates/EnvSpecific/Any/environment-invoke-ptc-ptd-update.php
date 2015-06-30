@@ -16,10 +16,10 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Lets begin invoking Configuration of an Updated Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%>"
+                    "log-message" => "Lets begin invoking Configuration of an Updated Pharaoh Configure and Pharaoh Deploy on environment <%tpl.php%>env_name</%tpl.php%>"
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "First lets SFTP over our Cleo Dapper CM Autopilot"
+                    "log-message" => "First lets SFTP over our Pharaoh Configure Pharaoh Deploy CM Autopilot"
                 ), ) ),
                 array ( "SFTP" => array( "put" => array(
                     "guess" => true,
@@ -36,7 +36,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "environment-name" => "<%tpl.php%>env_name</%tpl.php%>"
                 ), ), ),
                 array ( "Logging" => array( "log" => array(
-                    "log-message" => "Invoking an update of Cleo and Dapper on environment <%tpl.php%>env_name</%tpl.php%> complete"
+                    "log-message" => "Invoking an update of Pharaoh Configure and Pharaoh Deploy on environment <%tpl.php%>env_name</%tpl.php%> complete"
                 ), ) ),
             );
 

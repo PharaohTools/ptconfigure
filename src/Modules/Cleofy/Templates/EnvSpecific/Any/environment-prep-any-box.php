@@ -38,7 +38,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array(
                     "log-message" => "PHP Ensure script executed, lets prepare a PTConfigure Zip file",
                 ), ) , ) ,
-                array ( "CleoZip" => array( "ensure-exists" => array(), ) , ) ,
+                array ( "Pharaoh ConfigureZip" => array( "ensure-exists" => array(), ) , ) ,
                 array ( "Logging" => array( "log" =>array(
                     "log-message" => "PTConfigure Zip file exists, lets transfer it",
                 ), ), ),

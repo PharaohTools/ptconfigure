@@ -93,7 +93,7 @@ class AutoPilotConfigured extends AutoPilot {
          * Docker Manager todo
          *
          * -- Autopilots --
-         * Dapper PostInput Autopilot todo
+         * Pharaoh Deploy PostInput Autopilot todo
          * Jenkins RP Autopilot todo
          * Foreman RP Autopilot todo
          *

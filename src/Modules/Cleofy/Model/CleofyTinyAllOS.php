@@ -106,25 +106,28 @@ class CleofyTinyAllOS extends Base {
         foreach ($this->environments as $environment) {
             $logging->log("Checking environment {$environment["any-app"]["gen_env_name"]} for changes", $this->getModuleName()) ;
             if (in_array($environment["any-app"]["gen_env_name"], $envs)) {
-                $logging->log("Current environment, {$environment["any-app"]["gen_env_name"]} is being Cleofied", $this->getModuleName()) ;
+                $logging->log("Current environment {$environment["any-app"]["gen_env_name"]} is being Cleofied", $this->getModuleName()) ;
                 $curType = array_search($environment["any-app"]["gen_env_name"], $envs) ;
                 $templates = $this->getEnvTemplates($curType) ;
                 foreach ($templates as $template) {
                         $templatorFactory = new \Model\Templating();
                         $templator = $templatorFactory->getModel($this->params);
-                        $newFileName = substr($template, strpos($template, DS)) ;
+                        $newFileName = substr($template, strpos($template, DS)+1) ;
                         $newFileName = str_replace("environment", $environment["any-app"]["gen_env_name"], $newFileName ) ;
-                        $autosDir = getcwd().'build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy';
+                        $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy';
                         $targetLocation = $autosDir.DS.$newFileName ;
+                        $curTpl = $templatesDir.DS.$template ;
+                        $data = file_get_contents($curTpl) ;
                         $results[] = $templator->template(
-                            file_get_contents($templatesDir.DS.$template),
+                            $data,
                             array(
                                 "gen_srv_array_text" => $this->getServerArrayText($environment["servers"]) ,
                                 "env_name" => $environment["any-app"]["gen_env_name"],
                                 "first_server_target" => $environment["servers"][0]["target"]),
-                            $targetLocation ); } } }
-        $result = (in_array($results, false)) ? false : true ;
-        return $result ;
+                            $targetLocation );
+                        $result = (in_array($results, false)) ? false : true ;
+                        if ($result == false) return $result ; } } }
+        return true ;
     }
 
 
@@ -136,27 +139,44 @@ class CleofyTinyAllOS extends Base {
     }
 
     private function getEnvTemplates($type) {
-
+        $ptc_ptd_cm = "Any".DS."environment-cm-ptc-ptd.php" ;
+        $ptc_ptd_inv = "Any".DS."environment-invoke-ptc-ptd.php" ;
+        $prep_linux = "Any".DS."environment-prep-linux.php" ;
         $et = array(
             "bastion" => array(
-                "environment-cm-bastion.php",
-                "environment-invoke-bastion.php",
+                $prep_linux,
+                $ptc_ptd_cm,
+                $ptc_ptd_inv,
+                "Bastion".DS."environment-cm-bastion.php",
+                "Bastion".DS."environment-invoke-bastion.php",
             ),
             "git" => array(
-                "environment-cm-git.php",
-                "environment-invoke-git.php",
+                $prep_linux,
+                $ptc_ptd_cm,
+                $ptc_ptd_inv,
+                "Git".DS."environment-cm-git.php",
+                "Git".DS."environment-invoke-git.php",
             ),
             "build" => array(
-                "environment-cm-build.php",
-                "environment-invoke-build.php",
+                $prep_linux,
+                $ptc_ptd_cm,
+                $ptc_ptd_inv,
+                "Build".DS."environment-cm-build.php",
+                "Build".DS."environment-invoke-build.php",
             ),
             "staging" => array(
-                "environment-cm-build.php",
-                "environment-invoke-build.php",
+                $prep_linux,
+                $ptc_ptd_cm,
+                $ptc_ptd_inv,
+                "Any".DS."environment-cm-standalone-server.php",
+                "Any".DS."environment-invoke-standalone-server.php",
             ),
             "production" => array(
-                "environment-cm-build.php",
-                "environment-invoke-build.php",
+                $prep_linux,
+                $ptc_ptd_cm,
+                $ptc_ptd_inv,
+                "Any".DS."environment-cm-standalone-server.php",
+                "Any".DS."environment-invoke-standalone-server.php",
             ),
         );
         $ret = (isset($et[$type])) ? $et[$type] : null ;

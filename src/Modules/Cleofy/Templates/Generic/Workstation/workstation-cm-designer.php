@@ -77,8 +77,8 @@ class AutoPilotConfigured extends AutoPilot {
          * // // //
          *
          * -- Autopilots --
-         * Dapper PostInput Autopilot todo
-         * Cleo PostInput Autopilot todo
+         * Pharaoh Deploy PostInput Autopilot todo
+         * Pharaoh Configure PostInput Autopilot todo
          * Jenkins RP Autopilot todo
          *
          */

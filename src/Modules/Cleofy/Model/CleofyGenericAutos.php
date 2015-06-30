@@ -78,7 +78,7 @@ class CleofyGenericAutos extends BaseLinuxApp {
         else if (isset($this->params["destination-dir"])) {
             $this->destination = $this->params["destination-dir"]; }
         else if (isset($this->params["guess"])) {
-            $defaultdir = getcwd().DS."build".DS."config".DS."ptconfigure".DS."cleofy".DS."autopilots".DS."generic" ;
+            $defaultdir = getcwd().DS."build".DS."config".DS."ptconfigure" ;
             if (!file_exists($defaultdir)) { mkdir($defaultdir, 0777, true) ; }  ;
             $this->destination = $defaultdir ; }
         else {
@@ -98,9 +98,14 @@ class CleofyGenericAutos extends BaseLinuxApp {
         foreach ($templates as $template) {
             if ($template=="settings.php") {
                 // only overwrite settings file if required
-                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure' ; }
+                $autosDir = $this->destination ;
+                $default_settings = $autosDir.DS.'settings.php' ;
+                $exists = file_exists($default_settings) ;
+                if ($exists==true) {
+                    $logging->log("Found existing settings file $default_settings, so not overwriting", $this->getModuleName()) ;
+                    continue; } }
             else {
-                $autosDir = getcwd().DS.'build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy' ; }
+                $autosDir = $this->destination.DS.'cleofy' ; }
             $targetLocation = $autosDir.DS.$template ;
             $results[] = $templator->template(
                 file_get_contents($source.DS.$template),

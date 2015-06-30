@@ -21,17 +21,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Bastion Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/'.$bastion_env.'-prep-ubuntu.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$bastion_env.'-prep-linux.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Bastion Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Bastion Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/'.$bastion_env.'-invoke-cleo-dapper-new.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$bastion_env.'-invoke-ptc-ptd.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Bastion Box on the Bastion Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/'.$bastion_env.'-invoke-bastion.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$bastion_env.'-invoke-bastion.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Bastion environment complete"),),),
             );

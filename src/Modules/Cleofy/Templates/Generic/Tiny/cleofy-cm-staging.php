@@ -21,17 +21,17 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Staging Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-staging-prep-ubuntu.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$staging_env.'-prep-linux.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Staging Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Staging Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-staging-invoke-cleo-dapper-new.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$staging_env.'-invoke-ptc-ptd.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets setup a Standalone Server Box on the Staging Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-staging-invoke-standalone-server.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$staging_env.'-invoke-standalone-server.php"',
                 ),),),
                 array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Staging environment complete"),),),
             );

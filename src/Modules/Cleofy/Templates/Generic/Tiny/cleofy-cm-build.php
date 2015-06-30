@@ -17,23 +17,23 @@ class AutoPilotConfigured extends AutoPilot {
 
         $this->steps =
             array(
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Jenkins Environment" ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Jenkins Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Manage Configuration on the Build Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Prep Ubuntu on the Build Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-build-prep-ubuntu.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$build_env.'-prep-linux.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Jenkins Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Build Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-build-invoke-cleo-dapper-new.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$build_env.'-invoke-ptc-ptd.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Jenkins Box on the Jenkins Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets setup Build Box on the Build Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
-                    "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/tiny-build-invoke-build-server.php"',
+                    "command" => 'ptconfigure autopilot execute --autopilot-file="build'.DS.'config'.DS.'ptconfigure'.DS.'cleofy'.DS.$build_env.'-invoke-build.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Jenkins environment complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Managing Configuration on Build environment complete"),),),
             );
 
     }

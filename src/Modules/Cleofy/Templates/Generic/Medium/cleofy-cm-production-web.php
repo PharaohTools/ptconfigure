@@ -24,7 +24,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-web-nodes-prep-ubuntu.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Production Web Nodes Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Production Web Nodes Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-web-nodes-invoke-cleo-dapper-new.php"',
@@ -43,7 +43,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-load-balancer-prep-ubuntu.php"',
                 ),),),
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Cleo and Dapper on the Production Load Balancer Environment" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Invoke Pharaoh Configure and Pharaoh Deploy on the Production Load Balancer Environment" ),),),
                 array ( "RunCommand" => array("install" => array(
                     "guess" => true,
                     "command" => 'ptconfigure autopilot execute --autopilot-file="build/config/ptconfigure/cleofy/autopilots/generated/medium-prod-load-balancer-invoke-cleo-dapper-new.php"',
