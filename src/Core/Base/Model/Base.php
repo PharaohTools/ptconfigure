@@ -137,7 +137,7 @@ COMPLETION;
             else if ($paramValue=="-yg" || $paramValue=="-gy") {
                 $cmdParams = array_merge($cmdParams, array("yes" => true));
                 $paramKey = "guess" ;
-                $paramValue = true ; }
+                $paramValue = "true" ; }
             else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
                 $equalsPos = strpos($paramValue, "=") ;
                 $paramKey = substr($paramValue, 2, $equalsPos-2) ;
