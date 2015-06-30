@@ -79,7 +79,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "install" => array(
                     "guess" => true,
-                    "command" => "ptdeploy ApacheCtl restart --yes",
+                    "command" => "ptdeploy ApacheControl restart -yg",
                 ) ) ),
 
                 // Install Git Bucket
@@ -110,13 +110,13 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets deny all input"), ) , ) ,
                 array ( "Firewall" => array( "default" => array("policy" => "deny" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("port" => "ssh/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTP input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "http/tcp" ), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("port" => "http/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow HTTPS input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "https/tcp" ), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("port" => "https/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow 8080 input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "8080/tcp" ), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("port" => "8080/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
                 array ( "Firewall" => array( "enable" => array(), ) , ) ,
 

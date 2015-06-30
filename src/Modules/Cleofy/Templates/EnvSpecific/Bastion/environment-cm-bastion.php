@@ -70,7 +70,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets restart Apache for our PHP and Apache Modules" ),),),
                 array ( "RunCommand" => array( "install" => array(
                     "guess" => true,
-                    "command" => "ptdeploy ApacheCtl restart --yes",
+                    "command" => "ptdeploy ApacheControl restart -yg",
                 ), ), ),
 
                 // All Pharoes
@@ -98,7 +98,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets deny all input"), ) , ) ,
                 array ( "Firewall" => array( "default" => array("policy" => "deny" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("port" => "ssh/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
                 array ( "Firewall" => array( "enable" => array(), ) , ) ,
 

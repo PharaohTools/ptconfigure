@@ -65,9 +65,9 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets deny all input"), ) , ) ,
                 array ( "Firewall" => array( "default" => array("policy" => "deny" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow SSH input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "ssh/tcp" ), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("port" => "ssh/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets allow MySQL input"), ) , ) ,
-                array ( "Firewall" => array( "allow" => array("firewall-rule" => "3306/tcp" ), ) , ) ,
+                array ( "Firewall" => array( "allow" => array("port" => "3306/tcp" ), ) , ) ,
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets enable Firewall again"), ) , ) ,
                 array ( "Firewall" => array( "enable" => array(), ) , ) ,
 
