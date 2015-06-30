@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ApacheModulesCentos7 extends BaseLinuxApp {
+class ApacheModulesCentos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
