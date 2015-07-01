@@ -56,6 +56,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
         $this->programNameMachine = "java"; // command and app dir name
         $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
         $this->programNameInstaller = "The Oracle Java JDK 1.7";
+        $this->statusCommand = 'java -version' ;
         $this->versionInstalledCommand = 'java -version 2>&1' ;
         $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy java" ;
         $this->versionLatestCommand = SUDOPREFIX."apt-cache policy java" ;
