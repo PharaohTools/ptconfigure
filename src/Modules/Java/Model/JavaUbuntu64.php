@@ -20,7 +20,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),
             array("command" => array(
-                "wget http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk-17.zip /tmp/oraclejdk" ,
+                "wget http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk-17.zip -O /tmp/oraclejdk.zip" ,
                 "mv 6c383e2868bd.zip /tmp/oraclejdk.zip",
                 "cd /tmp",
                 "unzip /tmp/oraclejdk.zip -d /tmp/oraclejdk",
