@@ -64,8 +64,8 @@ class GitBucketLinux extends BaseLinuxApp {
     }
 
     public function executeDependencies() {
-        $tempParams = $this->params["version"] ;
-        unset($tempParams["version"]) ;
+        $tempParams = $this->params ;
+        if (isset($tempParams["version"])) unset($tempParams["version"]) ;
         $gitToolsFactory = new \Model\GitTools($tempParams);
         $gitTools = $gitToolsFactory->getModel($tempParams);
         $gitTools->ensureInstalled();
