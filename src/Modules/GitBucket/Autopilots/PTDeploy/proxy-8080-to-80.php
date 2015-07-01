@@ -23,17 +23,20 @@ class AutoPilotConfigured extends AutoPilot {
 
 
             array ( "Logging" => array( "log" => array( "log-message" => "Make a default local environment to load balance to", ), ), ),
-            array ( "EnvConfig" => array( "configu-default" => array( "guess" => true, ), ), ),
+            array ( "EnvironmentConfig" => array( "config-default" => array(
+                "guess" => true,
+                "environment-name" => "local",
+            ), ), ),
 
             // Install Apache Reverse Proxy
             array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
             array ( "ApacheVHostEditor" => array( "add-balancer" => array(
                 "guess" => true,
                 "vhe-url" => "$vhe_url",
-                "vhe-ip-port" => "127.0.0.1:80",
+                "vhe-ip-port" => "0.0.0.0:80",
                 "vhe-cluster-name" => "gitbucket-proxy",
                 "vhe-default-template-name" => "http",
-                "environment-name" => "local"
+                "environment-name" => "default-local"
             ),),),
 
             array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
