@@ -30,13 +30,11 @@ class AutoPilotConfigured extends AutoPilot {
 
             // Install Apache Reverse Proxy
             array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
-            array ( "ApacheVHostEditor" => array( "add-balancer" => array(
+            array ( "ApacheVHostEditor" => array( "add" => array(
                 "guess" => true,
                 "vhe-url" => "$vhe_url",
-                "vhe-ip-port" => "0.0.0.0:80",
-                "vhe-cluster-name" => "gitbucket-proxy",
-                "vhe-default-template-name" => "http",
-                "environment-name" => "default-local"
+                "vhe-ip-port" => "0.0.0.0",
+                "vhe-template" => $this->getProxyTemplate(),
             ),),),
 
             array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
@@ -49,6 +47,25 @@ class AutoPilotConfigured extends AutoPilot {
 
         );
 
+	  }
+
+
+    private function getProxyTemplate() {
+        $template =
+            <<<'TEMPLATE'
+     NameVirtualHost ****IP ADDRESS****:80
+     <VirtualHost ****IP ADDRESS****:80>
+        ServerAdmin webmaster@localhost
+        ServerName ****SERVER NAME****
+        ProxyPreserveHost On
+        ProxyPass / http://127.0.0.1:8080/
+        ProxyPassReverse / http://127.0.0.1:8080/
+     </VirtualHost>
+
+TEMPLATE;
+
+        return $template ;
     }
+
 
 }
