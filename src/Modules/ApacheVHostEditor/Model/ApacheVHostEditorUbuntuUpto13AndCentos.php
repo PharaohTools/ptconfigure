@@ -624,10 +624,12 @@ TEMPLATE2;
     }
 
     protected function getServersArray() {
+        if (isset($this->params["env"])) {
+            $this->params["environment-name"] = $this->params["env"] ; }
         if (!isset($this->params["environment-name"])) {
             $loggingFactory = new \Model\Logging() ;
             $log = $loggingFactory->getModel($this->params) ;
-            $log->log("No environment name provided for Load Balancing") ;
+            $log->log("No environment name provided for Load Balancing", $this->getModuleName()) ;
             $this->params["environment-name"] = $this->askForEnvironment() ; }
         $envs = $this->getEnvironments();
         $names = $this->getEnvironmentNames($envs) ;
