@@ -83,24 +83,22 @@ class PortAllDebianMac extends BaseLinuxApp {
         if ($this->installDependencies() == false) { return false ;}
         $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
         $out = self::executeAndGetReturnCode($comm, false, true) ;
-        $process = substr($out["output"][0], 0, strpos($out["output"][0], " ")) ;
-        if ($out["rc"] != "0") {
+        if ( ($out["rc"] == "1" && $out["output"] === array())) {
             \Core\BootStrap::setExitCode(1);
-            $logging->log("Port process command execution failed.", $this->getModuleName()) ;
-            return true; }
+            $logging->log("Port {$this->portNumber} is not being used by a process", $this->getModuleName()) ;
+            return false; }
+        $process = substr($out["output"][0], 0, strpos($out["output"][0], " ")) ;
         if (isset($process)) {
             $logging->log("Port {$this->portNumber} is being used by the process {$process}", $this->getModuleName()) ;
             if (isset($this->params["expect"])) {
                 $logging->log("Expecting process to be {$this->params["expect"]}", $this->getModuleName()) ;
                 if ($this->params["expect"] != $process ) {
-                    $logging->log("Wrong process on Port {$this->portNumber}", $this->getModuleName()) ;
+                    $logging->log("Unexpected process '{$process}' using Port {$this->portNumber}", $this->getModuleName()) ;
                     \Core\BootStrap::setExitCode(1);
                     return false ; } }
-            $logging->log("Expected process found", $this->getModuleName()) ;
+            $logging->log("Process was found", $this->getModuleName()) ;
             return true; }
-        else {
-            $logging->log("Port {$this->portNumber} is not being used by a process", $this->getModuleName()) ;
-            return false; }
+        return false ;
     }
 
     protected function installDependencies() {
