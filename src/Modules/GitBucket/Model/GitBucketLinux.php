@@ -64,15 +64,14 @@ class GitBucketLinux extends BaseLinuxApp {
     }
 
     public function executeDependencies() {
-        $tempVersion = $this->params["version"] ;
-        unset($this->params["version"]) ;
-        $gitToolsFactory = new \Model\GitTools($this->params);
-        $gitTools = $gitToolsFactory->getModel($this->params);
+        $tempParams = $this->params["version"] ;
+        unset($tempParams["version"]) ;
+        $gitToolsFactory = new \Model\GitTools($tempParams);
+        $gitTools = $gitToolsFactory->getModel($tempParams);
         $gitTools->ensureInstalled();
         $javaFactory = new \Model\Java();
-        $java = $javaFactory->getModel($this->params);
+        $java = $javaFactory->getModel($tempParams);
         $java->ensureInstalled();
-        $this->params["version"] = $tempVersion ;
     }
 
     public function askForRepoHome() {

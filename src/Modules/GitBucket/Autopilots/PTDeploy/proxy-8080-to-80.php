@@ -21,6 +21,10 @@ class AutoPilotConfigured extends AutoPilot {
 
             array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Reverse Proxy from 8080 to 80"),),),
 
+
+            array ( "Logging" => array( "log" => array( "log-message" => "Make a default local environment to load balance to", ), ), ),
+            array ( "EnvConfig" => array( "configu-default" => array( "guess" => true, ), ), ),
+
             // Install Apache Reverse Proxy
             array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
             array ( "ApacheVHostEditor" => array( "add-balancer" => array(
