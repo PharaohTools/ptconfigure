@@ -17,7 +17,10 @@ class ApacheControlInfo extends Base {
     }
 
     public function routeAliases() {
-      return array("apachecontrol"=>"ApacheControl", "apachectl"=>"ApacheControl", "apache-control"=>"ApacheControl",
+      return array(
+          "apachecontrol"=>"ApacheControl",
+          "apachectl"=>"ApacheControl",
+          "apache-control"=>"ApacheControl",
           "apache-ctl"=>"ApacheControl");
     }
 
