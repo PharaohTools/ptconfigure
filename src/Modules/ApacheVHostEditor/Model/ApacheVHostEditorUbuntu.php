@@ -4,13 +4,13 @@ Namespace Model;
 
 // @todo this class is way too long, we should use model groups, at least for balancing
 // @todo  the vhosttemp folder that gets left in temp should be removed
-class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
+class ApacheVHostEditorUbuntu extends Base {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
-    public $linuxType = array("Debian", "Redhat") ;
-    public $distros = array("Ubuntu", "CentOS") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04", "13.10", "5.8", "6.1", "6.5") ;
+    public $os = array("Linux") ;
+    public $linuxType = array("Debian") ;
+    public $distros = array("Ubuntu") ;
+    public $versions = array(array("11", "+")) ;
     public $architectures = array("32", "64") ;
 
     // Model Group
@@ -56,6 +56,14 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
 
     public function askWhetherToDisableVHost() {
         return $this->performVHostDisable();
+    }
+
+    public function askWhetherToEnableDefaultVHost() {
+        return $this->performVHostEnableDefault();
+    }
+
+    public function askWhetherToDisableDefaultVHost() {
+        return $this->performVHostDisableDefault();
     }
 
     protected function performVHostListing() {
@@ -110,8 +118,26 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
         return true;
     }
 
-    protected function performVHostEnable() {
+    protected function performVHostEnableDefault() {
         if ( $this->askForEnableVHost() ) {
+            $this->url = '000-default.conf' ;
+            $this->enableVHost();
+            $this->url = 'default-ssl.conf' ;
+            $this->enableVHost(); }
+        return true;
+    }
+
+    protected function performVHostDisableDefault(){
+        if ( $this->askForDisableVHost() ) {
+            $this->vHostForDeletion = '000-default.conf' ;
+            $this->disableVHost();
+            $this->vHostForDeletion = 'default-ssl.conf' ;
+            $this->disableVHost(); }
+        return true;
+    }
+
+    protected function performVHostEnable() {
+        if ( $this->askForEnableVHost("default") ) {
             $urlRay = $this->selectVHostInProjectOrFS() ;
             $this->url = $urlRay[0] ;
             $this->enableVHost(); }
@@ -119,7 +145,7 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
     }
 
     protected function performVHostDisable(){
-        if ( $this->askForDisableVHost() ) {
+        if ( $this->askForDisableVHost("default") ) {
             $this->vHostForDeletion = $this->selectVHostInProjectOrFS();
             $this->disableVHost(); }
         return true;
@@ -138,27 +164,27 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
         return self::askYesOrNo($question);
     }
 
-    protected function askForEnableVHost() {
+    protected function askForEnableVHost($type = "") {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
-                echo "You have a sites available dir, guessing you need to enable a Virtual Host.\n" ;
+                echo "You have a sites available dir, guessing you need to enable a $type Virtual Host.\n" ;
                 return true ; }
             else {
-                echo "You don't have a sites available dir, guessing you don't need to enable a Virtual Host.\n";
+                echo "You don't have a sites available dir, guessing you don't need to enable a $type Virtual Host.\n";
                 return false ; } }
         $question = 'Do you want to enable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
     }
 
-    protected function askForDisableVHost() {
+    protected function askForDisableVHost($type = "") {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             if ($this->detectDebianApacheVHostFolderExistence()) {
-                echo "You have a sites available dir, guessing you need to disable a Virtual Host.\n" ;
+                echo "You have a sites available dir, guessing you need to disable a $type Virtual Host.\n" ;
                 return true ; }
             else {
-                echo "You don't have a sites available dir, guessing you don't need to disable a Virtual Host.\n";
+                echo "You don't have a sites available dir, guessing you don't need to disable a $type Virtual Host.\n";
                 return false ; } }
         $question = 'Do you want to disable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
@@ -369,7 +395,7 @@ class ApacheVHostEditorUbuntuUpto13AndCentos extends Base {
 
     // @todo look at how ugly this is
     protected function selectVHostInProjectOrFS() {
-        if (isset($this->params["vhe-deletion-vhost"])) { return array($this->params["vhe-deletion-vhost"]) ; }
+        if (isset($this->params["vhost"])) { return array($this->params["vhost"]) ; }
         $projResults = ($this->checkIsDHProject())
           ? \Model\AppConfig::getProjectVariable("virtual-hosts")
           : array() ;

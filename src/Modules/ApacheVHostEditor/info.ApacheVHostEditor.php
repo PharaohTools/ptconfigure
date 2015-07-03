@@ -14,7 +14,8 @@ class ApacheVHostEditorInfo extends Base {
 
     public function routesAvailable() {
       return array( "ApacheVHostEditor" => array_merge(parent::routesAvailable(), array("add", "add-balancer", "rm",
-          "remove", "list", "enable", "en", "disable", "dis") ) );
+          "remove", "list", "enable", "en", "disable", "dis", "disable-default", "dis-default", "enable-default",
+          "en-default") ) );
     }
 
     public function routeAliases() {
@@ -59,21 +60,28 @@ class ApacheVHostEditorInfo extends Base {
 
           - rm
           example: ptdeploy vhe rm
-          example: ptdeploy vhe rm --yes --
-          example: ptdeploy vhe rm --yes --guess --vhe-deletion-vhost=www.site.com
-          example: ptdeploy vhe rm --yes --guess --vhe-deletion-vhost=www.site.com
+          example: ptdeploy vhe rm --yes --guess --vhost=www.site.com
+          example: ptdeploy vhe rm --yes --guess --vhost=www.site.com
 
           - list
           List current Virtual Hosts
           example: ptdeploy vhe list
 
           - enable
-          enable a Server Block
-          example: ptdeploy vhe enable
+          enable a Virtual Host
+          example: ptdeploy vhe enable --vhost=000-default.conf
 
           - disable
-          disable a Server Block
-          example: ptdeploy vhe disable
+          disable a Virtual Host
+          example: ptdeploy vhe disable --vhost=000-default.conf
+
+          - enable-default
+          Enable the default Virtual Hosts
+          example: ptdeploy vhe enable-default -yg
+
+          - disable-default
+          Disable the default Virtual Hosts
+          example: ptdeploy vhe disable-default -yg
 
 HELPDATA;
       return $help ;

@@ -38,6 +38,14 @@ class ApacheVHostEditor extends Base {
             $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToDisableVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
+        else if ($action=="enable-default" || $action=="en-default") {
+            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToEnableDefaultVHost();
+            return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
+
+        else if ($action=="disable-default" || $action=="dis-default") {
+            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToDisableDefaultVHost();
+            return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
+
         $this->content["messages"][] = "Invalid VHost Creator Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
