@@ -14,29 +14,27 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
+        $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : 'www.jenkins.tld' ;
+
         $this->steps =
             array(
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Reverse Proxy from 8080 to 80"),),),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Make a default local environment to load balance to", ), ), ),
+                array ( "ApacheVHostEditor" => array( "disable-default" => array( "guess" => true, ), ), ),
+
                 // Install Apache Reverse Proxy
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
-                array ( "ApacheVHostEditor" => array( "add-balancer" => array(
+                array ( "ApacheVHostEditor" => array( "add" => array(
                     "guess" => true,
-                    // "vhe-url" => "", this variable is pumped in from parent
-                    // "vhe-ip-port" => "", this variable is pumped in from parent
-                    "vhe-cluster-name" => "jenkins-proxy",
-//                    // @todo we should let it guess this, and make sure the ubuntu 14 mode provide s correct result
-//                    // ubuntu 14 dapper model should guess .conf whether its centos or ubuntu, past ubuntu 2.4
-//                    "vhe-file-ext" => ".conf",
-                    "vhe-default-template-name" => "http",
-                    "environment-name" => "local"
+                    "vhe-url" => "$vhe_url",
+                    "vhe-ip-port" => "0.0.0.0",
+                    "vhe-template" => $this->getProxyTemplate(),
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
-                array ( "ApacheControl" => array( "restart" => array(
-                    "guess" => true,
-                ), ), ),
+                array ( "ApacheControl" => array( "restart" => array( "guess" => true, ), ), ),
 
                 // End
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuration of a Reverse Proxy from 8080 to 80 complete"),),),
@@ -44,5 +42,24 @@ class AutoPilotConfigured extends AutoPilot {
             );
 
     }
+
+
+    private function getProxyTemplate() {
+        $template =
+            <<<'TEMPLATE'
+     NameVirtualHost ****IP ADDRESS****:80
+     <VirtualHost ****IP ADDRESS****:80>
+        ServerAdmin webmaster@localhost
+        ServerName ****SERVER NAME****
+        ProxyPreserveHost On
+        ProxyPass / http://127.0.0.1:8080/
+        ProxyPassReverse / http://127.0.0.1:8080/
+     </VirtualHost>
+
+TEMPLATE;
+
+        return $template ;
+    }
+
 
 }

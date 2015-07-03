@@ -21,12 +21,8 @@ class AutoPilotConfigured extends AutoPilot {
 
             array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Reverse Proxy from 8080 to 80"),),),
 
-
             array ( "Logging" => array( "log" => array( "log-message" => "Make a default local environment to load balance to", ), ), ),
-            array ( "EnvironmentConfig" => array( "config-default" => array(
-                "guess" => true,
-                "environment-name" => "local",
-            ), ), ),
+            array ( "ApacheVHostEditor" => array( "disable-default" => array( "guess" => true, ), ), ),
 
             // Install Apache Reverse Proxy
             array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
@@ -38,9 +34,7 @@ class AutoPilotConfigured extends AutoPilot {
             ),),),
 
             array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
-            array ( "ApacheControl" => array( "restart" => array(
-                "guess" => true,
-            ), ), ),
+            array ( "ApacheControl" => array( "restart" => array( "guess" => true, ), ), ),
 
             // End
             array ( "Logging" => array( "log" => array( "log-message" => "Configuration of a Reverse Proxy from 8080 to 80 complete"),),),
