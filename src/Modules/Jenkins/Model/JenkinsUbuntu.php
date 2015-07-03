@@ -41,9 +41,9 @@ class JenkinsUbuntu extends BaseLinuxApp {
                 "apt-get update -y" ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "jenkins")) ),
         ) ;
-        if (isset($this->params["with-http-port-proxy"]) && $this->params["with-http-port-proxy"]==true) {
+        if (isset($this->params["with-http-proxy"]) && $this->params["with-http-proxy"]==true) {
             $dapperAuto = $this->getDapperAutoPath() ;
-            $ray[0]["command"][5] = SUDOPREFIX."ptdeploy autopilot execute --autopilot-file=$dapperAuto" ; }
+            $ray[0]["command"][4] = SUDOPREFIX."ptdeploy autopilot execute --af=$dapperAuto" ; }
         return $ray ;
     }
 
