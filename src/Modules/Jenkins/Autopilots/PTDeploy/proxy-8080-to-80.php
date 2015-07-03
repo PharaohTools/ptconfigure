@@ -50,7 +50,6 @@ class AutoPilotConfigured extends AutoPilot {
      NameVirtualHost ****IP ADDRESS****:80
      <VirtualHost ****IP ADDRESS****:80>
         ServerAdmin webmaster@localhost
-        ServerName ****SERVER NAME****
         ProxyPreserveHost On
         ProxyPass / http://127.0.0.1:8080/
         ProxyPassReverse / http://127.0.0.1:8080/
