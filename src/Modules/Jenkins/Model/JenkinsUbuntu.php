@@ -43,7 +43,7 @@ class JenkinsUbuntu extends BaseLinuxApp {
         ) ;
         if (isset($this->params["with-http-proxy"]) && $this->params["with-http-proxy"]==true) {
             $dapperAuto = $this->getDapperAutoPath() ;
-            $ray[0]["command"][4] = SUDOPREFIX."ptdeploy autopilot execute --af=$dapperAuto" ; }
+            $ray[0]["command"][] = SUDOPREFIX."ptdeploy autopilot execute --af=$dapperAuto" ; }
         return $ray ;
     }
 
