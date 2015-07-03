@@ -10,7 +10,7 @@ class ApacheVHostEditorUbuntu extends Base {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array(array("11", "+")) ;
+    public $versions = array(array("13.99", "-")) ;
     public $architectures = array("32", "64") ;
 
     // Model Group

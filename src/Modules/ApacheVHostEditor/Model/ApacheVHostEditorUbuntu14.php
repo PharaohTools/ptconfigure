@@ -10,7 +10,7 @@ class ApacheVHostEditorUbuntu14 extends ApacheVHostEditorUbuntu {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("14.04", "14.10") ;
+    public $versions = array(array("14", "+")) ;
     public $architectures = array("32", "64") ;
 
     // Model Group
@@ -21,6 +21,7 @@ class ApacheVHostEditorUbuntu14 extends ApacheVHostEditorUbuntu {
     }
 
     public function enableVHost(){
+        $this->params["vhe-file-ext"] = $this->askForFileExtension() ;
         if (isset($this->params["vhe-file-ext"]) && strlen($this->params["vhe-file-ext"])>0 ) {
             $command = 'a2ensite '.$this->url.$this->params["vhe-file-ext"]; }
         else {
