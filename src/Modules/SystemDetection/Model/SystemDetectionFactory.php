@@ -23,17 +23,20 @@ class SystemDetectionFactory {
     public static function getCompatibleModelFromAllInGroup($models) {
         include_once("SystemDetectionAllOS.php");
         $system = new \Model\SystemDetectionAllOS();
+        // exact matches
         foreach($models as $model) {
             if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->distro, $model->distros) || in_array("any", $model->distros)) &&
-                (in_array($system->version, $model->versions) || in_array("any", $model->versions)) &&
+                (self::modelVersionCompatible($system->version, $model->versions)==true) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
             ) {
                 // if the everything matches, we have an exact match so return it
-                return $model; }
-            else if (
+                return $model; } }
+        //
+        foreach($models as $model) {
+            if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->distro, $model->distros) || in_array("any", $model->distros)) &&
@@ -44,8 +47,9 @@ class SystemDetectionFactory {
                 $message ="PTConfigure Warning!: Model ".get_class($model)." may not work as expected, since it " .
                     "doesn't specify exact OS version match";
                 // error_log($message);
-                return $model; }
-            else if (
+                return $model; } }
+        foreach($models as $model) {
+            if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
@@ -57,6 +61,18 @@ class SystemDetectionFactory {
                 // error_log($message);
                 return $model; } }
         return null ;
+    }
+
+    protected function modelVersionCompatible($sysversion, $modversions) {
+        // if exact
+        if (in_array($sysversion, $modversions)) { return true ; }
+        // if any
+        if (in_array("any", $modversions)) { return true ; }
+        // if compatible
+        foreach ($modversions as $modversion) {
+            $svers = new \Model\SoftwareVersion($modversion);
+            if ($svers->isCompatibleWith($sysversion)) { return true ; } }
+        return false ;
     }
 
 }
