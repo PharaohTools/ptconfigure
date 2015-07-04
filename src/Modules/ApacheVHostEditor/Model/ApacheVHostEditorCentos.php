@@ -8,7 +8,7 @@ class ApacheVHostEditorCentos extends ApacheVHostEditorUbuntu {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("RedHat") ;
+    public $linuxType = array("Redhat") ;
     public $distros = array("CentOS") ;
     public $versions = array(array("6", "+")) ;
     public $architectures = array("any") ;
