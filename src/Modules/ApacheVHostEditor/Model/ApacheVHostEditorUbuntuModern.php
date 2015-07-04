@@ -10,7 +10,7 @@ class ApacheVHostEditorUbuntuModern extends ApacheVHostEditorUbuntu {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array(array("14", "+")) ;
+    public $versions = array(array("14.00", "+")) ;
     public $architectures = array("32", "64") ;
 
     // Model Group

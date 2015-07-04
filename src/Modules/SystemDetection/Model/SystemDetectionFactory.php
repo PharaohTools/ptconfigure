@@ -70,19 +70,16 @@ class SystemDetectionFactory {
         // if compatible
         foreach ($modversions as $modversion) {
             if (is_array($modversion)) {
-                $svers = new \Model\SoftwareVersion($modversion[0]);
-                if ($modversion[1] == "+") {
-                    $svers->isGreaterThan($sysversion) ;
+                $mvers = new \Model\SoftwareVersion($modversion[0]);
+                if ($modversion[1] == "-" && $mvers->isLessThan($sysversion)) {
                     return true ; }
-                else if ($modversion[1] == "-") {
-                    $svers->isLessThan($sysversion) ;
+                else if ($modversion[1] == "=" && $mvers->isCompatibleWith($sysversion)) {
                     return true ; }
-                else if ($modversion[1] == "=") {
-                    $svers->isCompatibleWith($sysversion) ;
+                else if ($mvers->isGreaterThan($sysversion)) {
                     return true ; } }
             else {
-                $svers = new \Model\SoftwareVersion($modversion);
-                if ($svers->isCompatibleWith($sysversion)) { return true ; } } }
+                $mvers = new \Model\SoftwareVersion($modversion);
+                if ($mvers->isCompatibleWith($sysversion)) { return true ; } } }
         return false ;
     }
 
