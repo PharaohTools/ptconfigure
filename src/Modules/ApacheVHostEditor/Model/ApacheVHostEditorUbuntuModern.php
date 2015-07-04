@@ -4,7 +4,7 @@ Namespace Model;
 
 // @todo this class is way too long, we should use model groups, at least for balancing
 // @todo  the vhosttemp folder that gets left in temp should be removed
-class ApacheVHostEditorUbuntu14 extends ApacheVHostEditorUbuntu {
+class ApacheVHostEditorUbuntuModern extends ApacheVHostEditorUbuntu {
 
     // Compatibility
     public $os = array("Linux") ;
