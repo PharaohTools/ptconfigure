@@ -34,14 +34,26 @@ class DBInstallInfo extends Base {
           - install
           install the database for a project. run DBConfigure first to set up users unless you already have them.
           example: ptdeploy db-install install
+            --host=127.0.0.1 # guess will use 127.0.0.1
+            --user=root
+            --password=root
+            --db=mydatabase
 
           - save
           save the database for a project. run DBConfigure first to set up users unless you already have them.
           example: ptdeploy db-install save
+            --host=127.0.0.1 # guess will use 127.0.0.1
+            --user=root
+            --password=root
+            --db=mydatabase
 
           - drop
           drop the database for a project.
           example: ptdeploy db-install drop
+            --host=127.0.0.1 # guess will use 127.0.0.1
+            --user=root
+            --password=root
+            --db=mydatabase
 
       $extraHelp
 HELPDATA;

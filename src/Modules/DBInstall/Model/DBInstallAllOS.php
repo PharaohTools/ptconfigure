@@ -28,12 +28,12 @@ class DBInstallAllOS extends Base {
         $this->dbFilePath = "db".DS."database.sql";
     }
 
-    public function askWhetherToInstallDB(\Model\DBConfigure $dbConfigObject=null){
+    public function askWhetherToInstallDB(\Model\DBConfigureAllOS $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
         else { return $this->performDBInstallation(); }
     }
 
-    public function askWhetherToSaveDB(\Model\DBConfigure $dbConfigObject=null){
+    public function askWhetherToSaveDB(\Model\DBConfigureAllOS $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBSave($dbConfigObject); }
         else { return $this->performDBSave(); }
     }
@@ -50,14 +50,14 @@ class DBInstallAllOS extends Base {
         return $this->performDropUser();
     }
 
-    protected function performDBInstallation(\Model\DBConfigure $dbConfigObject=null){
+    protected function performDBInstallation(\Model\DBConfigureAllOS $dbConfigObject=null){
         if ($dbConfigObject!==null) {
             return $this->performDBInstallationWithConfig($dbConfigObject) ; }
         else {
             return $this->performDBInstallationWithNoConfig() ; }
     }
 
-    protected function performDBInstallationWithConfig(\Model\DBConfigure $dbConfigObject) {
+    protected function performDBInstallationWithConfig(\Model\DBConfigureAllOS $dbConfigObject) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( !$this->askForDBInstall() ) {
@@ -150,14 +150,14 @@ class DBInstallAllOS extends Base {
         return;
     }
 
-    protected function performDBSave(\Model\DBConfigure $dbConfigObject=null){
+    protected function performDBSave(\Model\DBConfigureAllOS $dbConfigObject=null){
         if ($dbConfigObject!==null) {
             return $this->performDBSaveWithConfig($dbConfigObject) ; }
         else {
             return $this->performDBSaveWithNoConfig() ; }
     }
 
-    protected function performDBSaveWithConfig(\Model\DBConfigure $dbConfigObject) {
+    protected function performDBSaveWithConfig(\Model\DBConfigureAllOS $dbConfigObject) {
         if ( !$this->askForDBSave() ) { return false; }
         $this->dbHost = $dbConfigObject->getProperty("dbHost");
         $this->dbUser = $dbConfigObject->getProperty("dbUser");
@@ -257,16 +257,16 @@ class DBInstallAllOS extends Base {
     }
 
     protected function askForDBHost(){
-        if (isset($this->params["mysql-host"])) { return $this->params["mysql-host"] ; };
+        if (isset($this->params["host"])) { return $this->params["host"] ; };
         $question = 'What\'s the Mysql Host? Enter for 127.0.0.1';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1' : $input ;
     }
 
     protected function askForDBUser(){
-        if (isset($this->params["mysql-user"])) { return $this->params["mysql-user"] ; }
-        if (isset($this->params["mysql-user-name"])) { return $this->params["mysql-user-name"] ; };
-        if (isset($this->params["mysql-username"])) { return $this->params["mysql-username"] ; };
+        if (isset($this->params["user"])) { return $this->params["user"] ; }
+        if (isset($this->params["user-name"])) { return $this->params["user-name"] ; };
+        if (isset($this->params["username"])) { return $this->params["username"] ; };
         $question = 'What\'s the application DB User?';
         $allDbUsers = array_merge(array("**CREATE NEW USER**"), $this->getDbUsers()) ;
         $user = self::askForArrayOption($question, $allDbUsers, true);
@@ -277,17 +277,17 @@ class DBInstallAllOS extends Base {
     }
 
     protected function askForFreeFormDBUser(){
-        if (isset($this->params["mysql-user"])) { return $this->params["mysql-user"] ; }
-        if (isset($this->params["mysql-user-name"])) { return $this->params["mysql-user-name"] ; };
-        if (isset($this->params["mysql-username"])) { return $this->params["mysql-username"] ; };
+        if (isset($this->params["user"])) { return $this->params["user"] ; }
+        if (isset($this->params["user-name"])) { return $this->params["user-name"] ; };
+        if (isset($this->params["username"])) { return $this->params["username"] ; };
         $question = 'What\'s the application DB User?';
         return self::askForInput($question, true);
     }
 
     protected function loadDBAdminUser() {
-      $confUser = \Model\AppConfig::getAppVariable("mysql-admin-user") ;
-      $confPass = \Model\AppConfig::getAppVariable("mysql-admin-pass") ;
-      $confHost = \Model\AppConfig::getAppVariable("mysql-admin-host") ;
+      $confUser = \Model\AppConfig::getAppVariable("admin-user") ;
+      $confPass = \Model\AppConfig::getAppVariable("admin-pass") ;
+      $confHost = \Model\AppConfig::getAppVariable("admin-host") ;
       if ($confUser != null && $confPass != null && $confHost != null ) {
         $this->dbHost = $confHost;
         $this->dbRootUser = $confUser;
@@ -303,16 +303,15 @@ class DBInstallAllOS extends Base {
     }
 
     protected function askForDBPass(){
-        if (isset($this->params["mysql-pass"])) { return $this->params["mysql-pass"] ; }
-        if (isset($this->params["mysql-password"])) { return $this->params["mysql-password"] ; }
-        if (isset($this->params["mysql-user-password"])) { return $this->params["mysql-user-password"] ; }
+        if (isset($this->params["pass"])) { return $this->params["pass"] ; }
+        if (isset($this->params["password"])) { return $this->params["password"] ; }
         $question = 'What\'s the application DB Password?';
         return self::askForInput($question, true);
     }
 
     protected function askForDBFreeFormName(){
-        if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
-        if (isset($this->params["mysql-db"])) { return $this->params["mysql-db"] ; }
+        if (isset($this->params["database"])) { return $this->params["database"] ; }
+        if (isset($this->params["db"])) { return $this->params["db"] ; }
         $question = 'What\'s the application DB Name?'."\n";
         $question .= 'Current Db\'s are:'."\n";
         $allDbNames = $this->getDbNameList();
@@ -322,8 +321,8 @@ class DBInstallAllOS extends Base {
     }
 
     protected function askForDBFixedName(){
-        if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
-        if (isset($this->params["mysql-db"])) { return $this->params["mysql-db"] ; }
+        if (isset($this->params["database"])) { return $this->params["database"] ; }
+        if (isset($this->params["db"])) { return $this->params["db"] ; }
         $question = 'What\'s the application DB Name?';
         $allDbNames = $this->getDbNameList();
         return self::askForArrayOption($question, $allDbNames, true);
@@ -397,13 +396,13 @@ class DBInstallAllOS extends Base {
     }
 
     protected function askForRootDBUser(){
-        if (isset($this->params["mysql-admin-user"])) { return $this->params["mysql-admin-user"] ; }
+        if (isset($this->params["admin-user"])) { return $this->params["admin-user"] ; }
         $question = 'What\'s the MySQL Admin User?';
         return self::askForInput($question, true);
     }
 
     protected function askForRootDBPass(){
-        if (isset($this->params["mysql-admin-pass"])) { return $this->params["mysql-admin-pass"] ; }
+        if (isset($this->params["admin-pass"])) { return $this->params["admin-pass"] ; }
         $question = 'What\'s the MySQL Admin Password?';
         return self::askForInput($question, true);
     }

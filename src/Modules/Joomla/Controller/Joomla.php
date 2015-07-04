@@ -114,4 +114,24 @@ class Joomla extends Base {
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 
+    public function executeDBInstall($pageVars) {
+        $action = $pageVars["route"]["action"];
+        if ($action == "joomla-save") {
+
+
+            $confModel = $this->getModelAndCheckDependencies("DBConfigure", $pageVars) ;
+            // if we don't have an object, its an array of errors
+            if (is_array($confModel)) { return $this->failDependencies($pageVars, $this->content, $confModel) ; }
+            $joomlaPlatform = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Joomla30Config") ;
+            $confModel->setPlatformVars($joomlaPlatform);
+
+            $thisModel = $this->getModelAndCheckDependencies("DBInstall", $pageVars) ;
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $this->content["dbResult"] = $thisModel->askWhetherToSaveDB($confModel);
+            return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
+
+        $this->content["messages"][] = "Invalid DBInstall Joomla Action";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+    }
+
 }

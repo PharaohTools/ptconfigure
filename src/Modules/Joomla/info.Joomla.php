@@ -32,11 +32,16 @@ class JoomlaInfo extends Base {
         return array( "joomla30-conf", "joomla15-conf", "joomla30-reset", "joomla15-reset" );
     }
 
+    public function dbInstallActions() {
+        return array( "joomla-save" );
+    }
+
     public function helpDefinitions() {
         return array(
             "Builderfy"=>$this->builderfyHelpDefinition(),
             "Dapperfy"=>$this->dapperfyHelpDefinition(),
-            "DBConfigure"=>$this->dbConfigureHelpDefinition());
+            "DBConfigure"=>$this->dbConfigureHelpDefinition(),
+            "DBInstall"=>$this->dbInstallHelpDefinition());
     }
 
     public function helpDefinition() {
@@ -114,6 +119,26 @@ HELPDATA;
   let you produce autopilots for it which are tailored to Joomla.
 
   ptdeploy dbconf joomla30-conf --yes --guess
+HELPDATA;
+        return $help ;
+    }
+
+    public function dbInstallHelpDefinition() {
+        $help = <<<"HELPDATA"
+
+--------------
+  Joomla Module:
+
+  The Joomla module extends DBInstall by providing integration that allows it to use Database connections your Joomla
+  application is already setup to use, so that you'll not need to find or enter details.
+
+  Joomla module adds the action joomla-save to DBInstall and will let you save a Joomla database in a single command.
+
+  ptdeploy dbinstall joomla-save -yg
+  ptdeploy dbinstall joomla-save -yg
+    --admin-user=root
+    --admin-pass=root
+
 HELPDATA;
         return $help ;
     }
