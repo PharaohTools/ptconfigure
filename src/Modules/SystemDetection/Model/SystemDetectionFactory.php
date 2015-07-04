@@ -54,8 +54,7 @@ class SystemDetectionFactory {
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
             ) {
-                // if the OS matches, we still return it but with an extra high level warning
-                // during expected models phase
+                // if the OS matches, we still return it but with an extra high level warning during expected models phase
                 $message = "PTConfigure Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
                     "it doesn't specify matching OS version or distro match";
                 // error_log($message);
@@ -70,8 +69,20 @@ class SystemDetectionFactory {
         if (in_array("any", $modversions)) { return true ; }
         // if compatible
         foreach ($modversions as $modversion) {
-            $svers = new \Model\SoftwareVersion($modversion);
-            if ($svers->isCompatibleWith($sysversion)) { return true ; } }
+            if (is_array($modversion)) {
+                $svers = new \Model\SoftwareVersion($modversion[0]);
+                if ($modversion[1] == "+") {
+                    $svers->isGreaterThan($sysversion) ;
+                    return true ; }
+                else if ($modversion[1] == "-") {
+                    $svers->isLessThan($sysversion) ;
+                    return true ; }
+                else if ($modversion[1] == "=") {
+                    $svers->isCompatibleWith($sysversion) ;
+                    return true ; } }
+            else {
+                $svers = new \Model\SoftwareVersion($modversion);
+                if ($svers->isCompatibleWith($sysversion)) { return true ; } } }
         return false ;
     }
 
