@@ -102,11 +102,17 @@ COMPLETION;
         return $outputText;
     }
 
-    public static function executeAndGetReturnCode($command) {
-        $output = '';
+    public static function executeAndGetReturnCode($command, $show_output = null, $get_output = null) {
         $retVal = null;
         exec($command, $output, $retVal);
-        return $retVal;
+        if ($show_output == true) {
+            foreach ($output as $line) {
+                echo $line ; }
+            return array("rc"=>$retVal, "output"=>$output) ; }
+        if ($get_output == true) {
+            return array("rc"=>$retVal, "output"=>$output) ;}
+        else {
+            return $retVal; }
     }
 
     protected function setCmdLineParams($params) {
