@@ -168,9 +168,12 @@ class DBInstallAllOS extends Base {
             if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; }
             if (!$this->useRootToSetUpUserAndDb() ) { return "You declined using root"; }
             $this->dbRootUser = $this->askForRootDBUser();
-            $this->dbRootPass = $this->askForRootDBPass(); }
-        $this->databaseSaver();
-        return true;
+            $this->dbRootPass = $this->askForRootDBPass();
+            return $this->databaseSaver(); }
+
+        $this->dbRootUser = $this->dbUser ;
+        $this->dbRootPass = $this->dbPass;
+        return $this->databaseSaver();
     }
 
     protected function performDBSaveWithNoConfig() {
@@ -424,7 +427,9 @@ class DBInstallAllOS extends Base {
         // $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$fp} --no-create-db ; " ;
         // $this->executeAndOutput($comm, "Creating db dir...") ;
         $comm = "mysqldump -u{$this->dbRootUser} -p{$this->dbRootPass} {$this->dbName} > {$fp} --no-create-db ; " ;
-        $this->executeAndOutput($comm, "Database Dumping...") ;
+        $rc = $this->executeAndGetReturnCode($comm, true, true) ;
+        $trueyfalsy = ($rc["rc"]==0) ? true : false ;
+        return $trueyfalsy ;
     }
 
     protected function userCreator() {
