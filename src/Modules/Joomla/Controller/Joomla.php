@@ -118,7 +118,6 @@ class Joomla extends Base {
         $action = $pageVars["route"]["action"];
         if ($action == "joomla-save") {
 
-
             $confModel = $this->getModelAndCheckDependencies("DBConfigure", $pageVars) ;
             // if we don't have an object, its an array of errors
             if (is_array($confModel)) { return $this->failDependencies($pageVars, $this->content, $confModel) ; }
