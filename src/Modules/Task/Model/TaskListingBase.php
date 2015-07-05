@@ -79,6 +79,16 @@ class TaskListingBase extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Looking for Module Tasks...", $this->getModuleName());
         $tasks = array();
+        $infos = \Core\AutoLoader::getInfoObjects() ;
+        foreach ($infos as $info) {
+            if (method_exists($info, "taskActions")) {
+                $cname = get_class($info) ;
+                $moduleName = substr($cname, 5, strlen($cname)-9) ;
+                $moduleFactoryClass = '\Model\\'.$moduleName ;
+                $moduleFactory = new $moduleFactoryClass() ;
+                $taskModel = $moduleFactory->getModel($this->params, "Task");
+                var_dump($taskModel);
+                $tasks[$moduleName] = $taskModel->tasks ; } }
         return $tasks ;
     }
 

@@ -8,14 +8,6 @@ class Task extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        $taskFileExecutor = $this->getTaskfileTaskForAction($pageVars, $action);
-        if (!is_null($taskFileExecutor)) {
-            return $taskFileExecutor->executeTFTask($pageVars, $action) ; }
-
-        $otherModuleExecutor = $this->getModuleExecutorForAction($action);
-        if (!is_null($otherModuleExecutor)) {
-            return $otherModuleExecutor->executeTask($pageVars) ; }
-
         if ($action=="help") {
             $helpModel = new \Model\Help();
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
@@ -27,6 +19,18 @@ class Task extends Base {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"TaskList", "pageVars"=>$this->content); }
+
+        $taskFileExecutor = $this->getTaskfileTaskForAction($pageVars, $action);
+        if (!is_null($taskFileExecutor)) {
+            return $taskFileExecutor->executeTask($pageVars, $action) ; }
+
+        $otherModuleExecutor = $this->getModuleExecutorForAction($action);
+        if (!is_null($otherModuleExecutor)) {
+            return $otherModuleExecutor->executeTask($pageVars) ; }
+
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Specified Task {$action} is does not exist";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
 
@@ -43,13 +47,18 @@ class Task extends Base {
             try {
                 require_once ($taskFile) ; }
             catch (\Exception $e) {
-                echo "dave" ;  } }
+                # echo "dave" ;
+            } }
         else {
-            echo "dave 2" ; }
-        $taskObject = new \Model\Taskfile($pageVars) ;
-        $taskObject->params["silent"] = true ;
-        $tftasks = $taskObject->getTasks() ;
-        return $tftasks ;
+            # echo "dave 2" ;
+        }
+        if (class_exists('\Model\Taskfile')) {
+            $taskObject = new \Model\Taskfile($pageVars) ;
+            $taskObject->params["silent"] = true ;
+            $tftasks = $taskObject->getTasks() ;
+            return $tftasks ; }
+        else {
+            return array(); }
     }
 
     private function formatParams($params) {

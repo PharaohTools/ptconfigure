@@ -4,7 +4,7 @@ Namespace Controller ;
 
 class TaskExecutor extends Base {
 
-    public function executeTFTask($pageVars, $task) {
+    public function executeTask($pageVars, $task) {
 
         $sourceParams = implode(" ", $this->formatParams($pageVars["route"]["extraParams"])) ;
         $tasks = $this->getTaskfileTasks($pageVars["route"]["extraParams"]) ;
