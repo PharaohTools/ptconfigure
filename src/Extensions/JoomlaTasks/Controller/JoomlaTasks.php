@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Boxify extends Base {
+class JoomlaTasks extends Base {
 
     public function execute($pageVars) {
         $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
@@ -24,12 +24,12 @@ class Boxify extends Base {
             $helpModel = new \Model\Help();
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
-        if (in_array($action, array("install-generic-autopilots", "gen") )) {
-            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "GenericAutos") ;
+        if (in_array($action, array("saveptvdb") )) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
             // if we don't have an object, its an array of errors
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $this->content["result"] = $thisModel->askAction($action);
-            return array ("type"=>"view", "view"=>"boxifyGenAutos", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"task", "pageVars"=>$this->content); }
     }
 
 }
