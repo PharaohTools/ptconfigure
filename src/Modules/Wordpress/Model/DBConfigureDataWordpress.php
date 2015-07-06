@@ -17,18 +17,28 @@ class DBConfigureDataWordpress extends Base {
     private $friendlyName = 'Wordpress';
     private $shortName = 'Wordpress';
     private $settingsFileLocation = ''; // no trail slash, empty for root
-    private $settingsFileName = 'src/wp-config.php';
+    private $settingsFileName ;
     private $settingsFileReplacements ;
     private $extraConfigFileReplacements ;
     private $extraConfigFiles = array() ; // array('build/config/phpunit/bootstrap.php'); // extra files requiring db config
 
     public function __construct(){
         $this->setReplacements();
+        $this->setProperties();
         $this->setExtraConfigReplacements();
     }
 
     public function getProperty($property) {
         return $this->$property;
+    }
+
+    protected function setProperties() {
+        $prefix = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
+        if (strlen($prefix) > 0) {
+            $this->settingsFileLocation = $prefix; }
+        else {
+            $this->settingsFileName = 'src'.DS.'wp-config.php'; }
+
     }
 
     public function __call($var1, $var2){

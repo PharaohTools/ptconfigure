@@ -15,15 +15,15 @@ class DBConfigureAllOS extends Base {
     public $modelGroup = array("Default") ;
 
     protected $platform;
-    protected $platformVars;
+    public $platformVars;
     protected $settingsFileData;
     protected $currentExtraSettingsFileData;
-    protected $dbHost ;
-    protected $dbUser ;
-    protected $dbPass ;
-    protected $dbRootUser ;
-    protected $dbRootPass ;
-    protected $dbName ;
+    public $dbHost ;
+    public $dbUser ;
+    public $dbPass ;
+    public $dbRootUser ;
+    public $dbRootPass ;
+    public $dbName ;
 
     public function askWhetherToConfigureDB(){
         return $this->performDBConfiguration();

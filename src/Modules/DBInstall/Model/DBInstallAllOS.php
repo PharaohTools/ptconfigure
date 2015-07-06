@@ -159,10 +159,10 @@ class DBInstallAllOS extends Base {
 
     protected function performDBSaveWithConfig(\Model\DBConfigureAllOS $dbConfigObject) {
         if ( !$this->askForDBSave() ) { return false; }
-        $this->dbHost = $dbConfigObject->getProperty("dbHost");
-        $this->dbUser = $dbConfigObject->getProperty("dbUser");
-        $this->dbPass = $dbConfigObject->getProperty("dbPass");
-        $this->dbName = $dbConfigObject->getProperty("dbName");
+        $this->dbHost = $dbConfigObject->platformVars->getConfigProperty("dbHost");
+        $this->dbUser = $dbConfigObject->platformVars->getConfigProperty("dbUser");
+        $this->dbPass = $dbConfigObject->platformVars->getConfigProperty("dbPass");
+        $this->dbName = $dbConfigObject->platformVars->getConfigProperty("dbName");
         $canIConnect = $this->canIConnect();
         if ($canIConnect!==true) {
             if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; }
@@ -170,7 +170,6 @@ class DBInstallAllOS extends Base {
             $this->dbRootUser = $this->askForRootDBUser();
             $this->dbRootPass = $this->askForRootDBPass();
             return $this->databaseSaver(); }
-
         $this->dbRootUser = $this->dbUser ;
         $this->dbRootPass = $this->dbPass;
         return $this->databaseSaver();
@@ -335,8 +334,11 @@ class DBInstallAllOS extends Base {
       error_reporting(0);
       $con = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
       error_reporting(E_ALL ^ E_WARNING);
+      $loggingFactory = new \Model\Logging();
+      $logging = $loggingFactory->getModel($this->params);
       if (mysqli_connect_errno($con)) {
-        return "Failed to connect to MySQL: " . mysqli_connect_error(); }
+          $logging->log("Failed to connect to MySQL: " . mysqli_connect_error(), $this->getModuleName());
+          return false ;}
       else {
         mysqli_close($con);
         return true;}
@@ -346,8 +348,11 @@ class DBInstallAllOS extends Base {
       error_reporting(0);
       $con = mysqli_connect($this->dbHost, $this->dbRootUser, $this->dbRootPass);
       error_reporting(E_ALL ^ E_WARNING);
+      $loggingFactory = new \Model\Logging();
+      $logging = $loggingFactory->getModel($this->params);
       if (mysqli_connect_errno($con)) {
-        return "Admin Failed to connect to MySQL: " . mysqli_connect_error(); }
+          $logging->log("Admin Failed to connect to MySQL: " . mysqli_connect_error(), $this->getModuleName());
+          return false ; }
       else {
         mysqli_close($con);
         return true;}

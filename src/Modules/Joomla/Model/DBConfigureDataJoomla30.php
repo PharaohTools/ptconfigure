@@ -21,6 +21,7 @@ class DBConfigureDataJoomla30 extends Base {
     private $settingsFileReplacements ;
     private $extraConfigFileReplacements ;
     private $extraConfigFiles ; // extra files requiring db config
+    public $dbHost;
 
     public function __construct(){
         $this->extraConfigFiles = array('build'.DS.'config'.DS.'phpunit'.DS.'bootstrap.php');
@@ -35,10 +36,25 @@ class DBConfigureDataJoomla30 extends Base {
             $this->settingsFileLocation = $prefix; }
         else {
             $this->settingsFileName = 'src'.DS.'configuration.php'; }
+
     }
 
-    public function getProperty($property) {
-        return $this->$property;
+    public function getConfigProperty($property) {
+        $jconfloc = getcwd().$this->settingsFileLocation.DS.$this->settingsFileName ;
+        var_dump($jconfloc);
+        include_once($jconfloc) ;
+        if (!class_exists("JConfig")) {
+            \Core\Bootstrap::setExitCode(1);
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Unable to load Joomla Configuration File ", $this->getModuleName());
+            return false ; }
+        $jconf =  new \JConfig() ;
+        $cprops["dbHost"] = $jconf->host ;
+        $cprops["dbName"] = $jconf->db ;
+        $cprops["dbUser"] = $jconf->user ;
+        $cprops["dbPass"] = $jconf->password ;
+        return ($cprops[$property]) ? $cprops[$property] : null ;
     }
 
     public function __call($var1, $var2){
