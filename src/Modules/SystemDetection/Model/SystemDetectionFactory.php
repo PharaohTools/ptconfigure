@@ -62,7 +62,7 @@ class SystemDetectionFactory {
         return null ;
     }
 
-    protected function modelVersionCompatible($sysversion, $modversions) {
+    protected static function modelVersionCompatible($sysversion, $modversions) {
         // if exact
         if (in_array($sysversion, $modversions)) { return true ; }
         // if any
