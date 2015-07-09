@@ -2,7 +2,7 @@
 
 Namespace Model ;
 
-class BaseTaskfile extends Base {
+class BaseTaskfile extends BaseLinuxApp {
 
     public $tasks = array() ;
     public $silent = null ;

@@ -62,7 +62,9 @@ class TaskListingBase extends BaseLinuxApp {
             return array() ; }
 
         $taskObject = new \Model\Taskfile(array_merge(array("silent"=>true), $this->params) ) ;
-        $tftasks = $taskObject->getTasks() ;
+
+        $tftasks = array() ;
+        $tftasks["TaskfileTasks"] = $taskObject->getTasks() ;
 //        $taskObject = new \Model\Taskfile($this->params) ;
 //        $tasks = $taskObject::$tasks ;
         return $tftasks ;
@@ -87,7 +89,6 @@ class TaskListingBase extends BaseLinuxApp {
                 $moduleFactoryClass = '\Model\\'.$moduleName ;
                 $moduleFactory = new $moduleFactoryClass() ;
                 $taskModel = $moduleFactory->getModel($this->params, "Task");
-                var_dump($taskModel);
                 $tasks[$moduleName] = $taskModel->tasks ; } }
         return $tasks ;
     }

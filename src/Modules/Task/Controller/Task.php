@@ -43,15 +43,15 @@ class Task extends Base {
     protected function getTaskfileTasks($pageVars, $taskFile = "Taskfile") {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($pageVars);
+        echo "oio" ;
         if (file_exists($taskFile)) {
             try {
                 require_once ($taskFile) ; }
             catch (\Exception $e) {
-                # echo "dave" ;
+                $logging->log("Unable to load Taskfile: {$e}", "Task") ;
             } }
         else {
-            # echo "dave 2" ;
-        }
+            $logging->log("No Taskfile found", "Task") ; }
         if (class_exists('\Model\Taskfile')) {
             $taskObject = new \Model\Taskfile($pageVars) ;
             $taskObject->params["silent"] = true ;
