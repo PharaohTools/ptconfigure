@@ -27,7 +27,7 @@ class InstallPackageInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of Core and provides you  with a method by which you can perform some default CLI Installs of
+  This command is part of the Default Distribution and provides you  with a method by which you can perform some default CLI Installs of
   different types of box.
 
   InstallPackage, installpackage, installpack, install-pack, install, inpack, install-package
