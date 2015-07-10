@@ -15,7 +15,7 @@ This is part of the Pharaoh Tools suite, which covers Configuration Management, 
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
 Its easy to write modules for any Operating System but we've begun with Ubuntu and adding more as soon as possible.
-Currently, all of the Modules work on Ubuntu 12-14, most on Centos and Windows.
+Currently, all of the Modules work on Ubuntu 12+, most on Centos and Windows.
 
     
 ## Installation
