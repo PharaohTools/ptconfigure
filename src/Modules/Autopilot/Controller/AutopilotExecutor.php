@@ -15,7 +15,7 @@ class AutopilotExecutor extends Base {
         $this->content["package-friendly"] = ($test) ? "Autopilot Test Suite" : "Autopilot" ;
         $this->registeredModels = $autopilot->steps ;
         $this->checkForRegisteredModels($params);
-        echo "3\n";
+//        echo "3\n";
 
         $this->content["autoExec"] = ($test) ?
             $this->executeMyTestsAutopilot($autopilot, $thisModel->params):
@@ -39,13 +39,14 @@ class AutopilotExecutor extends Base {
                     "control" => $currentControl ,
                     "action" => $currentAction ,
                 ) ;
-            var_dump("dft1", $currentControl);
+//            var_dump("dft1", $currentControl);
             $dataFromThis .= $this->executeControl($currentControl, $params);
             if ( \Core\BootStrap::getExitCode() !== 0 ) {
                 $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
                 break ; }
-        echo "a thing\n";}
-        var_dump("dft", $dataFromThis);
+//        echo "a thing\n";
+        }
+//        var_dump("dft", $dataFromThis);
         return $dataFromThis ;
     }
 
