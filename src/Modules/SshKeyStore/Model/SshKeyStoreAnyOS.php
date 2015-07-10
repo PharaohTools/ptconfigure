@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class SshKeyStoreUbuntu extends BaseLinuxApp {
+class SshKeyStoreAnyOS extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -101,35 +101,35 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
     protected function doLocationSearch() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Trying keystore keys");
+        $logging->log("Trying keystore keys", $this->getModuleName());
         foreach ($this->searchLocations as &$loc) {
             switch ($loc) {
                 case "user" :
                     $this->setUserHome() ;
                     $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
-                        $logging->log("User key found at $kp");
+                        $logging->log("User key found at $kp", $this->getModuleName());
                         return $kp ; }
                     else {
-                        $logging->log("User key not found at $kp"); }
+                        $logging->log("User key not found at $kp", $this->getModuleName()); }
                     break ;
                 case "otheruser" :
                     $this->userName = (isset($this->params["otheruser"])) ? $this->params["otheruser"] : null ;
                     $this->setUserHome() ;
                     $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
-                        $logging->log("Other User key found at $kp");
+                        $logging->log("Other User key found at $kp", $this->getModuleName());
                         return $kp ; }
                     else {
-                        $logging->log("Other User key not found at $kp"); }
+                        $logging->log("Other User key not found at $kp", $this->getModuleName()); }
                     break ;
                 case "root" :
                     $kp = "/root/.ssh".DS.$this->key ;
                     if (file_exists($kp)) {
-                        $logging->log("Root key found at $kp");
+                        $logging->log("Root key found at $kp", $this->getModuleName());
                         return $kp ; }
                     else {
-                        $logging->log("Root key not found at $kp"); }
+                        $logging->log("Root key not found at $kp", $this->getModuleName()); }
                     break ;
                     break ;
                 case "specify" :
@@ -138,28 +138,5 @@ class SshKeyStoreUbuntu extends BaseLinuxApp {
         }
         return null;
     }
-
-    /*
-     * [3]=>
-  array(3) {
-    ["any-app"]=>
-    array(2) {
-      ["gen_env_name"]=>
-      string(19) "shared-temp-staging"
-      ["gen_env_tmp_dir"]=>
-      string(5) "/tmp/"
-    }
-    ["servers"]=>
-    array(1) {
-      [0]=>
-      array(6) {
-        ["target"]=>
-        string(12) "178.62.10.22"
-        ["user"]=>
-        string(4) "root"
-        ["password"]=>
-        string(17) "/root/.ssh/id_rsa"
-
-     */
 
 }

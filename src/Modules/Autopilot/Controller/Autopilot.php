@@ -15,16 +15,19 @@ class Autopilot extends Base {
             if ( isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"]) > 0 ) {
                 $autoPilot = $this->loadAutoPilot($thisModel->params);
                 if ( $autoPilot!==null ) {
+                    echo "1" ;
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
                     $autoPilot->params = $thisModel->params ;
                     if ($action =="test" || (isset($thisModel->params["test"]) && $thisModel->params["test"]==true) ) { return $autoPilotExecutor->execute($pageVars, $autoPilot, true); }
                     return $autoPilotExecutor->execute($pageVars, $autoPilot); }
                 else {
+                    echo "2" ;
                     \Core\BootStrap::setExitCode(1);
                     $this->content["messages"][] = "There was a problem with the autopilot file specified";
                     return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); } }
             else {
+                echo "3" ;
                 \Core\BootStrap::setExitCode(1);
                 $this->content["messages"][] = "Parameter --autopilot-file is required";
                 return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); } }
