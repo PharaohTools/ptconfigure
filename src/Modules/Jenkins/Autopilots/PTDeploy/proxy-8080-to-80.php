@@ -28,7 +28,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our reverse proxy Apache VHost" ),),),
                 array ( "ApacheVHostEditor" => array( "add" => array(
                     "guess" => true,
-                    "vhe-url" => "$vhe_url",
+                    "vhe-url" => $vhe_url,
                     "vhe-ip-port" => "0.0.0.0",
                     "vhe-template" => $this->getProxyTemplate(),
                 ),),),
