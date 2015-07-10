@@ -49,22 +49,17 @@ class InvokePhpSecLib extends BaseLinuxApp
         if (!is_object($this->connection)) {
             $logging->log("Connection failed", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1);
-
-            return false;
-        }
+            return false; }
 
         $this->server->password = $this->getKeyIfAvailable($this->server->password);
-
         if (!$this->connection->login($this->server->username, $this->server->password)) {
             $logging->log("Login failed", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1);
-
-            return false;
-        } else {
+            return false; }
+        else {
             $logging->log("Login successful", $this->getModuleName()) ;
+            return true; }
 
-            return true;
-        }
     }
 
     public function exec($command)
@@ -82,26 +77,21 @@ class InvokePhpSecLib extends BaseLinuxApp
 
     private function getKeyIfAvailable($pword)
     {
-        if (substr($this->server->password, 0, 4) == 'KS::') {
+        if (substr($pword, 0, 4) == 'KS::') {
             $ksf = new SshKeyStore();
-            $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
-            $this->server->password = $ks->findKey() ; }
+            $ks = $ksf->getModel(array("key" => $pword, "guess" => "true")) ;
+            $pword = $ks->findKey() ; }
         if (substr($pword, 0, 1) == '~') {
             $home = $_SERVER['HOME'];
-            $pword = str_replace('~', $home, $pword);
-        }
+            $pword = str_replace('~', $home, $pword); }
         if (file_exists($pword)) {
             if (!class_exists('Crypt_RSA')) {
-                $srcFolder = str_replace("/Model", "/Libraries", dirname(__FILE__));
+                $srcFolder = str_replace("Model", "Libraries", dirname(__FILE__));
                 $rsaFile = $srcFolder . DS . "seclib" . DS . "Crypt" . DS . "RSA.php";
-                require_once($rsaFile);
-            }
+                require_once($rsaFile);  }
             $key = new \Crypt_RSA();
             $key->loadKey(file_get_contents($pword));
-
-            return $key;
-        }
-
+            return $key; }
         return $pword;
     }
 
