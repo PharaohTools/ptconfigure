@@ -29,7 +29,7 @@ class PECLInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify pecls
+  This module allows you to modify create or modify pecls
 
   PECL, pecl
 

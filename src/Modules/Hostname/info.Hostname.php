@@ -23,7 +23,7 @@ class HostnameInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to view or modify hostname
+  This module allows you to view or modify hostname
 
   Hostname, hostname
 

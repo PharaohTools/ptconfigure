@@ -22,7 +22,7 @@ class PTVirtualizeInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install or update PTVirtualize.
+  This module allows you to install or update PTVirtualize.
 
   PTVirtualize, ptvirtualize
 

@@ -22,7 +22,7 @@ class BoxifyInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command provides a generic Box Management wrapper around all of the Box Providers (Cloud and Otherwise) so that we have a
+  This module provides a generic Box Management wrapper around all of the Box Providers (Cloud and Otherwise) so that we have a
   generic way to create and destroy boxes.
 
   Boxify, boxify

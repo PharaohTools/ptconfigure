@@ -22,7 +22,7 @@ class ApacheServerInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of the Default Distribution and provides you  with a method by which you can install Apache HTTP Server
+  This module is part of the Default Distribution and provides you  with a method by which you can install Apache HTTP Server
 
   ApacheServer, apache-server, apacheserver
 

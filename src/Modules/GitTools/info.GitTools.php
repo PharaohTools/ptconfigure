@@ -22,7 +22,7 @@ class GitToolsInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Git and a set of common Git Tools. These include
+  This module allows you to install Git and a set of common Git Tools. These include
   Git - the distributed source control manager, git Core a supplement to Git, Gitk
   which is a GUI for git, and git-cola, which is also a Git GUI.
 

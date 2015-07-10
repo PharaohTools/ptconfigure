@@ -22,7 +22,7 @@ class GIMPInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install GIMP, the popular Image Editor
+  This module allows you to install GIMP, the popular Image Editor
   GIMP, gimp
 
         - install

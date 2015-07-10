@@ -22,7 +22,7 @@ class FileWatcherInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command watches files user ownership changing functions.
+  This module watches files user ownership changing functions.
 
   FileWatcher, filewatcher, file-watcher
 

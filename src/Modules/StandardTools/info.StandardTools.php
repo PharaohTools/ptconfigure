@@ -23,7 +23,7 @@ class StandardToolsInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install a few GC recommended Standard Tools
+  This module allows you to install a few GC recommended Standard Tools
   for productivity in your system.  The kinds of tools we found ourselves
   installing on every box we have, client or server. These include curl,
   vim, drush and zip.

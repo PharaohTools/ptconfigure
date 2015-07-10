@@ -23,7 +23,7 @@ class DeveloperToolsInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install a set of Developer Tools. These include
+  This module allows you to install a set of Developer Tools. These include
   Geany IDE, Bluefish IDE, Kompozer IDE and Emma DB Manager.
 
   DeveloperTools, devtools, dev-tools

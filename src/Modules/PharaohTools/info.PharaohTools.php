@@ -22,7 +22,7 @@ class PharaohToolsInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install the Pharaoh Tools which are ready. These include
+  This module allows you to install the Pharaoh Tools which are ready. These include
   PTConfigure - this Configuration Management tool, PTDeploy - the Automated Deployment tool,
   and PTTest, the test configuration and automation tool.
 

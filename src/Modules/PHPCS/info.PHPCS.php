@@ -22,7 +22,7 @@ class PHPCSInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install PHPCS from a GC Repo.
+  This module allows you to install PHPCS from a GC Repo.
 
   PHPCS
 

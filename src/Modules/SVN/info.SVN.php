@@ -22,7 +22,7 @@ class SVNInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install the latest available SVN in the Ubuntu
+  This module allows you to install the latest available SVN in the Ubuntu
   repositories.
 
   SVN, svn

@@ -22,7 +22,7 @@ class ThoughtWorksGoInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install the ThoughtWorks Go.
+  This module allows you to install the ThoughtWorks Go.
 
   ThoughtWorksGo, thoughtworks-go, thoughtworksgo
 

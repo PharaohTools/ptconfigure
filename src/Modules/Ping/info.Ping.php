@@ -23,7 +23,7 @@ class PingInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to test the status of ports
+  This module allows you to test the status of ports
 
   Ping, ping
 

@@ -22,7 +22,7 @@ class GitLabInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install a full Git Lab installation on to a server
+  This module allows you to install a full Git Lab installation on to a server
   The dependencies for GitLab are also installed.
 
   GitLab, gitlab, git-lab

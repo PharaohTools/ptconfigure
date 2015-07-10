@@ -22,7 +22,7 @@ class PHPUnitInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install PHPUnit from a GC Repo.
+  This module allows you to install PHPUnit from a GC Repo.
 
   PHPUnit
 

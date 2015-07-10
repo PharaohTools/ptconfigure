@@ -22,7 +22,7 @@ class ComposerInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update Composer.
+  This module allows you to update Composer.
 
   Composer, composer
 

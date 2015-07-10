@@ -22,7 +22,7 @@ class ChownInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles file user ownership changing functions.
+  This module handles file user ownership changing functions.
 
   Chown, chown
 

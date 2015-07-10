@@ -22,7 +22,7 @@ class NginxServerInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of the Default Distribution and provides you  with a method by which you can configure Application Settings.
+  This module is part of the Default Distribution and provides you  with a method by which you can configure Application Settings.
   You can configure default application settings, ie: mysql admin user, host, pass
 
   NginxServer, nginx-server, nginxserver

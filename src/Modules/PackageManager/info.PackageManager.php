@@ -23,7 +23,7 @@ class PackageManagerInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to use a Package Management wrapper.
+  This module allows you to use a Package Management wrapper.
 
   PackageManager, package-manager, packagemanager, package-mgr, pkgmgr
 

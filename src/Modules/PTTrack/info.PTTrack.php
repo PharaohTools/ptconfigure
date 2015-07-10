@@ -22,7 +22,7 @@ class PTTrackInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update PTTrack.
+  This module allows you to update PTTrack.
 
   PTTrack, pttrack
 

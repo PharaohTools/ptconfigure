@@ -22,7 +22,7 @@ class PTDeployInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update PTDeploy.
+  This module allows you to update PTDeploy.
 
   PTDeploy, dapper, ptdeploy
 

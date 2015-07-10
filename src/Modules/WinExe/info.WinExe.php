@@ -29,7 +29,7 @@ class WinExeInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify winexes
+  This module allows you to modify create or modify winexes
 
   WinExe, winexe
 

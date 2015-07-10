@@ -22,7 +22,7 @@ class Firefox17Info extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Firefox17.
+  This module allows you to install Firefox17.
 
   Firefox17, ff17, firefox17
 

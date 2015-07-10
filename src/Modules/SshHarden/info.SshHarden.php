@@ -29,7 +29,7 @@ class SshHardenInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify sshhardens
+  This module allows you to modify create or modify sshhardens
 
   SshHarden, sshharden, ssh-harden
 

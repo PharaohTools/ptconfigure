@@ -23,7 +23,7 @@ class FileInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify files or check their existence
+  This module allows you to modify files or check their existence
 
   File, file
 

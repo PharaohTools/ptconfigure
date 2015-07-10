@@ -23,7 +23,7 @@ class JenkinsPluginsInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install a bunch of plugins that we recommend for
+  This module allows you to install a bunch of plugins that we recommend for
   PHP builds in Jenkins.
 
   JenkinsPlugins, jenkinsplugins, jenkins-plugins, jenkins-plugs

@@ -22,7 +22,7 @@ class JenkinsInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Jenkins, the popular Build Server.
+  This module allows you to install Jenkins, the popular Build Server.
 
   Jenkins, jenkins
 

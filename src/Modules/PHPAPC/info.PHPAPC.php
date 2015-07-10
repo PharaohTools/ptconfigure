@@ -22,7 +22,7 @@ class PHPAPCInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install some common and helpful PHP APC.
+  This module allows you to install some common and helpful PHP APC.
 
   PHPAPC, php-apc, phpapc, phpapc
 

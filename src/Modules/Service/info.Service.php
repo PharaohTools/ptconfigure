@@ -23,7 +23,7 @@ class ServiceInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to view or modify service
+  This module allows you to view or modify service
 
   Service, service
 

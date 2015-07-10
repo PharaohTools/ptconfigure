@@ -22,7 +22,7 @@ class GitBucketInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install a full Git Bucket installation on to a server
+  This module allows you to install a full Git Bucket installation on to a server
   The dependencies for GitBucket are also installed.
 
   GitBucket, gitbucket, git-bucket

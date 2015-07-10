@@ -22,7 +22,7 @@ class PhakeInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install or update Phake.
+  This module allows you to install or update Phake.
 
   Phake, phake
 

@@ -23,7 +23,7 @@ class SeleniumServerInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install Selenium Server.
+  This module allows you to install Selenium Server.
 
   SeleniumServer, selenium-server, selenium, selenium-srv, seleniumserver
 

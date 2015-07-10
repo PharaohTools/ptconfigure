@@ -23,7 +23,7 @@ class GitCommandInfo extends Base {
 
     public function helpDefinition() {
       $help = "
-  This command handles Git Functionality
+  This module handles Git Functionality
 
   Git, GitCommand, git-command, gitcommand
 

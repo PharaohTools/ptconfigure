@@ -22,7 +22,7 @@ class AutopilotInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of a default Module and provides you with a method by
+  This module is part of a default Module and provides you with a method by
   which you can perform user defined executions of any PTConfigure Modules, in
   any order, and with your own predefined settings.
 

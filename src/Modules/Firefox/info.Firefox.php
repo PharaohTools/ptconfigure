@@ -22,7 +22,7 @@ class FirefoxInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of the Default Distribution and provides you  with a method by which you can install Firefox from your package
+  This module is part of the Default Distribution and provides you  with a method by which you can install Firefox from your package
   manager
 
   Firefox, firefox

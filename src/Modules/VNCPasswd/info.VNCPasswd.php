@@ -22,7 +22,7 @@ class VNCPasswdInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install VNCPasswd, the popular Remote/Local Desktop Manager Solution.
+  This module allows you to install VNCPasswd, the popular Remote/Local Desktop Manager Solution.
 
   VNCPasswd, vncpasswd, vnc-passwd
 

@@ -22,7 +22,7 @@ class RubyRVMInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install Ruby RVM.
+  This module allows you to install Ruby RVM.
 
   RubyRVM, rubyrvm, ruby-rvm, rubyRVM
 

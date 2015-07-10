@@ -22,7 +22,7 @@ class PTTestInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update PTTest.
+  This module allows you to update PTTest.
 
   PTTest, pttest
 

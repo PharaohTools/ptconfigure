@@ -22,7 +22,7 @@ class NodeJSInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install Node JS, The Server Side JS Language
+  This module allows you to install Node JS, The Server Side JS Language
 
   NodeJS, node-js, nodejs
 

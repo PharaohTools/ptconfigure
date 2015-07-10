@@ -23,7 +23,7 @@ class DNSifyInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command provides a generic DNS Management wrapper around all of the DNS Providers (Cloud and Otherwise) so that we have a
+  This module provides a generic DNS Management wrapper around all of the DNS Providers (Cloud and Otherwise) so that we have a
   generic way to create and destroy boxes.
 
   DNSify, dnsify

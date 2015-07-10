@@ -22,7 +22,7 @@ class InvokeInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = '
-  This command is part of the Default Distribution and handles SSH Connection Functions.
+  This module is part of the Default Distribution and handles SSH Connection Functions.
 
   Invoke, invoke, inv
 

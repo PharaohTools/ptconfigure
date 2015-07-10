@@ -22,7 +22,7 @@ class RubySystemInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install Ruby RVM, the system wide version.
+  This module allows you to install Ruby RVM, the system wide version.
 
   RubySystem, rubysystem, ruby-system, rubysys
 

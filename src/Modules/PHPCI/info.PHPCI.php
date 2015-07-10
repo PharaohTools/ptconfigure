@@ -23,7 +23,7 @@ class PHPCIInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install PHPCI, the popular Build Server.
+  This module allows you to install PHPCI, the popular Build Server.
 
   PHPCI, phpci
 

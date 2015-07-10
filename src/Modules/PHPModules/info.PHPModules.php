@@ -23,7 +23,7 @@ class PHPModulesInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install some common and helpful PHP Modules.
+  This module allows you to install some common and helpful PHP Modules.
 
   PHPModules, php-mods, phpmods, php-modules, phpmodules
 

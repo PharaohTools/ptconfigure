@@ -22,7 +22,7 @@ class PostgresServerInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install the Postgres Server. Currently only
+  This module allows you to install the Postgres Server. Currently only
   Postgres Workbench, the Database management GUI provided by Oracle for
   Postgres.
 

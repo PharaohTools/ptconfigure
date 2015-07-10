@@ -23,7 +23,7 @@ class JenkinsSudoNoPassInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to add an entry to the system sudo file that will
+  This module allows you to add an entry to the system sudo file that will
   allow your Jenkins user to have passwordless sudo. This is required for
   quite a few of the Jenkins builds provided by Golden Contact, as Jenkins
   will perform test execution, software installs and more, silently.

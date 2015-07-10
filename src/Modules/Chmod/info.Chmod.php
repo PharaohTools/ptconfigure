@@ -22,7 +22,7 @@ class ChmodInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles file permission functions.
+  This module handles file permission functions.
 
   Chmod, chmod
 

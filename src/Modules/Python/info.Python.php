@@ -22,7 +22,7 @@ class PythonInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install the latest available Python in the Ubuntu
+  This module allows you to install the latest available Python in the Ubuntu
   repositories.
 
   Python, python

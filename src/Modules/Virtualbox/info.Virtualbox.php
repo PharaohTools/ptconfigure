@@ -22,7 +22,7 @@ class VirtualboxInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Virtualbox, the popular Virtual Machine Solution.
+  This module allows you to install Virtualbox, the popular Virtual Machine Solution.
 
   Virtualbox, virtualbox
 

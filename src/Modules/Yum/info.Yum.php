@@ -26,7 +26,7 @@ class YumInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify yums
+  This module allows you to modify create or modify yums
 
   Yum, yum
 

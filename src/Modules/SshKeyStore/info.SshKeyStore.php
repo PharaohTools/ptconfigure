@@ -28,7 +28,7 @@ class SshKeyStoreInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to find credentials for a key on a machine
+  This module allows you to find credentials for a key on a machine
 
   SshKeyStore, sshkeystore, ssh-key-store
 

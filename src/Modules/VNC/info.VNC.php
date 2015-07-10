@@ -22,7 +22,7 @@ class VNCInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install VNC, the popular Virtual Machine Solution.
+  This module allows you to install VNC, the popular Virtual Machine Solution.
 
   VNC, vnc
 

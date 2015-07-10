@@ -22,7 +22,7 @@ class MkdirInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles file copying functions.
+  This module handles file copying functions.
 
   Mkdir, mkdir
 

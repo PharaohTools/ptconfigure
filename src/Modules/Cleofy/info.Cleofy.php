@@ -23,7 +23,7 @@ class CleofyInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of a default Module Core and provides you with a method by which you can
+  This module is part of a default Module Core and provides you with a method by which you can
   create a standard set of Autopilot files for your project from the command line.
 
 

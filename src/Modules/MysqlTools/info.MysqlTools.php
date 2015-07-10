@@ -22,7 +22,7 @@ class MysqlToolsInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install some tools to help with MySQL Server. Installs the MySQL
+  This module allows you to install some tools to help with MySQL Server. Installs the MySQL
   Workbench GUI and also the mytop Command Line Tool.
 
   MysqlTools, mysql-tools, mysqltools

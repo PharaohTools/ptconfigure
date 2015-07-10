@@ -23,7 +23,7 @@ class SudoNoPassInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to add an entry to the system sudo file that will
+  This module allows you to add an entry to the system sudo file that will
   allow your user to have passwordless sudo. This is required for
   quite a few of the  builds provided by Golden Contact, as
   will perform test execution, software installs and more, silently.

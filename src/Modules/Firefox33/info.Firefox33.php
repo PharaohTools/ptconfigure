@@ -22,7 +22,7 @@ class Firefox33Info extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Firefox33.
+  This module allows you to install Firefox33.
 
   Firefox33, ff33, firefox33
 

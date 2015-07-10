@@ -28,7 +28,7 @@ class SshKeyInstallInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install an SSH Public key for a user
+  This module allows you to install an SSH Public key for a user
 
   SshKeyInstall, sshkeyinstall, ssh-key-install
 

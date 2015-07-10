@@ -22,7 +22,7 @@ class NetworkToolsInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install a set of common Network Tools. These include
+  This module allows you to install a set of common Network Tools. These include
   traceroute, netstat, lsof, telnet and ps.
 
   NetworkTools, networktools, network-tools

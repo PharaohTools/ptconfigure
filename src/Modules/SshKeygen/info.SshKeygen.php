@@ -22,7 +22,7 @@ class SshKeygenInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install an SSH Key Pair.
+  This module allows you to install an SSH Key Pair.
 
   SshKeygen, ssh-keygen, sshkeygen
 

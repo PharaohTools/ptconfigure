@@ -22,7 +22,7 @@ class HHVMInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install HHVM, the popular Build Server.
+  This module allows you to install HHVM, the popular Build Server.
 
   HHVM, hhvm
 

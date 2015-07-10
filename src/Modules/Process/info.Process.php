@@ -22,7 +22,7 @@ class ProcessInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles process functions, kill a process for now
+  This module handles process functions, kill a process for now
 
   Process, process
 

@@ -22,7 +22,7 @@ class IndexInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of the Default Distribution - its the default route and only used for help and as an Intro really...
+  This module is part of the Default Distribution - its the default route and only used for help and as an Intro really...
 HELPDATA;
       return $help ;
     }

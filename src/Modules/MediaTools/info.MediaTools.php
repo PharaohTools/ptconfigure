@@ -22,7 +22,7 @@ class MediaToolsInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install a few GC recommended Media Tools
+  This module allows you to install a few GC recommended Media Tools
   for productivity in your system. Currently, we're only including
   VLC Media Player
 

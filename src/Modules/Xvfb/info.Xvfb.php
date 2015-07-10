@@ -22,7 +22,7 @@ class XvfbInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Xvfb, the popular Virtual Machine Solution.
+  This module allows you to install Xvfb, the popular Virtual Machine Solution.
 
   Xvfb, xvfb
 

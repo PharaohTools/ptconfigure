@@ -22,7 +22,7 @@ class PHPStormInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Intellij, the JetBrains IDE
+  This module allows you to install Intellij, the JetBrains IDE
 
   PHPStorm, phpstorm
 

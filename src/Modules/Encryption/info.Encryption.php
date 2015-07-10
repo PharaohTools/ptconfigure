@@ -22,7 +22,7 @@ class EncryptionInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to encrypt or decrypt a file.
+  This module allows you to encrypt or decrypt a file.
 
   Encryption, encrypt
 

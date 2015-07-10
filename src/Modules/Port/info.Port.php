@@ -23,7 +23,7 @@ class PortInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to test the status of ports and services running on them
+  This module allows you to test the status of ports and services running on them
 
   Port, port
 

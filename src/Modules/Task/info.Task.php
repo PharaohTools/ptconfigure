@@ -27,7 +27,7 @@ class TaskInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command provides a way to aggregate functionality into simple to access task commands.
+  This module provides a way to aggregate functionality into simple to access task commands.
 
   Task, task
 

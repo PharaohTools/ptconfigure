@@ -26,7 +26,7 @@ class SshEncryptInfo extends PTConfigureBase {
 
     public function helpDefinition() {
         $help = <<<"HELPDATA"
-    This command allows you to install an encrypted private SSH key or to encrypt one.
+    This module allows you to install an encrypted private SSH key or to encrypt one.
 
     SshEncrypt, ssh-encrypt, sshencrypt
 

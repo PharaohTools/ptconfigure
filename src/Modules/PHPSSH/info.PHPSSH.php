@@ -22,7 +22,7 @@ class PHPSSHInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install the PHP SSH default Module
+  This module allows you to install the PHP SSH default Module
 
   PHPSSH, php-ssh, phpssh
 

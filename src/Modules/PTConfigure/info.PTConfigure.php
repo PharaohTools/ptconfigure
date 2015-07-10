@@ -22,7 +22,7 @@ class PTConfigureInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to update PTConfigure.
+  This module allows you to update PTConfigure.
 
   PTConfigure, cleo, ptconfigure
 

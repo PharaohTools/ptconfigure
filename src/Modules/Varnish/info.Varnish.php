@@ -22,7 +22,7 @@ class VarnishInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Varnish, the popular HTTP Cache
+  This module allows you to install Varnish, the popular HTTP Cache
 
   Varnish, varnish
 

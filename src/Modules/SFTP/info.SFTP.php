@@ -22,7 +22,7 @@ class SFTPInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles SFTP Transfer Functions.
+  This module handles SFTP Transfer Functions.
 
   SFTP, sftp
 

@@ -23,7 +23,7 @@ class PHPMDInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install PHPMD from a GC Repo.
+  This module allows you to install PHPMD from a GC Repo.
 
   PHPMD
 

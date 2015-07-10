@@ -22,7 +22,7 @@ class ChgrpInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command handles file group ownership changing functions.
+  This module handles file group ownership changing functions.
 
   Chgrp, chgrp
 

@@ -22,7 +22,7 @@ class WireframeSketcherInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Wireframe Sketcher, for Wireframing
+  This module allows you to install Wireframe Sketcher, for Wireframing
 
   WireframeSketcher, wireframe-sketcher, wireframesketcher
 

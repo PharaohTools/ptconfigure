@@ -22,7 +22,7 @@ class MysqlAdminsInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install admin users for MySQL so that MySQL can
+  This module allows you to install admin users for MySQL so that MySQL can
   be managed without using the Root User.
 
   MysqlAdmins, mysql-admins, mysqladmins

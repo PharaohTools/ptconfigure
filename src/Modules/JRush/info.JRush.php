@@ -22,7 +22,7 @@ class JRushInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install or Update JRush.
+  This module allows you to install or Update JRush.
 
   JRush, jrush, Jrush, jRush
 

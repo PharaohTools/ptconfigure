@@ -22,7 +22,7 @@ class TemplatingInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install a templated file with new values.
+  This module allows you to install a templated file with new values.
 
   Templating, templating, template
 

@@ -22,7 +22,7 @@ class TeamcityInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Teamcity, the popular Build Server.
+  This module allows you to install Teamcity, the popular Build Server.
 
   Teamcity, teamcity
 

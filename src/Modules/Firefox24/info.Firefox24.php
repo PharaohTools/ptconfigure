@@ -22,7 +22,7 @@ class Firefox24Info extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Firefox24.
+  This module allows you to install Firefox24.
 
   Firefox24, ff24, firefox24
 

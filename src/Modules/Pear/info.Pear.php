@@ -29,7 +29,7 @@ class PearInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify pears
+  This module allows you to modify create or modify pears
 
   Pear, pear
 

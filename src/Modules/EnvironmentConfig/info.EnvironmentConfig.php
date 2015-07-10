@@ -24,7 +24,7 @@ class EnvironmentConfigInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of a default Module and provides you with a method by which you can
+  This module is part of a default Module and provides you with a method by which you can
   configure environments for your project from the command line. Currently compliant with
   both PTDeploy and PTConfigure.
 

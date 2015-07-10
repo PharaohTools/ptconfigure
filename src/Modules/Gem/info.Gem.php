@@ -29,7 +29,7 @@ class GemInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to modify create or modify gems
+  This module allows you to modify create or modify gems
 
   Gem, gem
 

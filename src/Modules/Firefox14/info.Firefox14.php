@@ -22,7 +22,7 @@ class Firefox14Info extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Firefox14.
+  This module allows you to install Firefox14.
 
   Firefox14, ff14, firefox14
 

@@ -22,7 +22,7 @@ class ChromeInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of the Default Distribution and provides you  with a method by which you can install Chrome from your package
+  This module is part of the Default Distribution and provides you  with a method by which you can install Chrome from your package
   manager
 
   Chrome, chrome

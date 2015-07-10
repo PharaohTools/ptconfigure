@@ -22,7 +22,7 @@ class PHPPrepInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command is part of a default Module and provides files for installing PHP.
+  This module is part of a default Module and provides files for installing PHP.
 
   PHPPrep, phpprep
 

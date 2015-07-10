@@ -22,7 +22,7 @@ class JavaInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Java JDK 1.7 .
+  This module allows you to install Java JDK 1.7 .
 
   Java, java, java17
 

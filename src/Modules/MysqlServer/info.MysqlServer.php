@@ -22,7 +22,7 @@ class MysqlServerInfo extends PTConfigureBase {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This command allows you to install the MySQL Server. Currently only
+  This module allows you to install the MySQL Server. Currently only
   Mysql Workbench, the Database management GUI provided by Oracle for
   Mysql.
 

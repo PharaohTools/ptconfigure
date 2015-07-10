@@ -22,7 +22,7 @@ class BehatInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This command allows you to install Behat.
+  This module allows you to install Behat.
 
   Behat, behat
 
