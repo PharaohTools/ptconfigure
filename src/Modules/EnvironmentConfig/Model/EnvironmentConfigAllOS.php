@@ -168,6 +168,8 @@ class EnvironmentConfigAllOS extends Base {
     }
 
     public function doDelete() {
+        if (isset($this->params["env"])) {
+            $this->params["environment-name"] = $this->params["env"]; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
