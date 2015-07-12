@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class InvokeSsh2 {
+class InvokeSsh2 extends Base {
 
     // Compatibility
     public $os = array("any");
@@ -14,15 +14,24 @@ class InvokeSsh2 {
     // Model Group
     public $modelGroup = array("DriverNativeSSH");
 
-    /**
-	 * @var
-	 */
-	private $connection;
+    public function __construct($params) {
+        parent::__construct($params);
+    }
 
-	/**
-	 * @var Server
-	 */
-	private $server;
+    /**
+     * @var
+     */
+    private $connection;
+
+    /**
+     * @var
+     */
+    private $stream;
+
+    /**
+     * @var Server
+     */
+    private $server;
 
     /**
      * @param Server $server
@@ -32,9 +41,9 @@ class InvokeSsh2 {
         $this->server = $server;
     }
 
-	/**
-	 * @throws \Exception
-	 */
+    /**
+     * @throws \Exception
+     */
     public function connect() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params) ;
@@ -50,42 +59,51 @@ class InvokeSsh2 {
             $ksf = new SshKeyStore();
             $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
             $this->server->password = $ks->findKey() ; }
-        ssh2_auth_password($this->connection, $this->server->username, $this->server->password);
+        if(file_exists($this->server->password)){
+            if (isset($this->params["public-key"])) {
+                $pubkey = $this->params["public-key"] ; }
+            if (isset($this->params["guess"])) {
+                $pubkey = $this->server->password.".pub" ; }
+            $rt = ssh2_auth_pubkey_file ($this->connection, $this->server->username, $pubkey, $this->server->password) ; }
+        else{
+            $rt = ssh2_auth_password($this->connection, $this->server->username, $this->server->password); }
+        return $rt ;
     }
 
-	/**
-	 * @param $command
-	 * @return string
-	 * @throws \Exception
-	 */
-	public function exec($command) {
+    /**
+     * @param $command
+     * @return string
+     * @throws \Exception
+     */
+    public function exec($command) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params) ;
         if (!function_exists("ssh2_exec")) {
             $logging->log('Native PHP SSH2 Functions are not installed. Cannot use the PHP Native SSH Driver', "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ;
             return false; }
-		if (!($stream = ssh2_exec($this->connection, $command))) {
+        if (!($this->stream = ssh2_exec($this->connection, $command, "vanilla"))) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params) ;
             $logging->log("SSH command failed", "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ;
-		}
+        }
 
-		stream_set_blocking($stream, true);
-		$data = "";
-		while ($buf = fread($stream, 4096)) {
-			$data .= $buf;
-		}
-		fclose($stream);
-		return $data;
-	}
+        stream_set_blocking($this->stream, true);
+        $data = "";
+        while ($buf = fread($this->stream, 4096)) {
+            $data .= $buf;
+            echo $buf ;
+        }
+        fclose($this->stream);
+        return "";
+    }
 
-	/**
-	 * @throws \Exception
-	 */
-	public function disconnect() {
-		$this->exec('echo "EXITING" && exit;');
-		$this->connection = null;
-	}
+    /**
+     * @throws \Exception
+     */
+    public function disconnect() {
+        $this->exec('echo "EXITING" && exit;');
+        $this->connection = null;
+    }
 }
