@@ -18,6 +18,9 @@ class Firefox33Ubuntu extends BaseLinuxApp {
     parent::__construct($params);
     $this->autopilotDefiner = "Firefox33";
     $this->installCommands = array(
+        array("method"=> array("object" => $this, "method" => "addPackage", "params" => array("Apt", "libdbus-glib-1-2")) ),
+        array("method"=> array("object" => $this, "method" => "addPackage", "params" => array("Apt", "asound2")) ),
+        array("method"=> array("object" => $this, "method" => "addPackage", "params" => array("Apt", "libgtk2.0.0")) ),
         array( "command" => array(
             "cd /tmp" ,
             "git clone https://github.com/phpengine/firefox33 firefox33",
