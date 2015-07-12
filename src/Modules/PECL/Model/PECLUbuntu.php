@@ -8,7 +8,7 @@ class PECLUbuntu extends BasePackager {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array(array("11.04", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -41,7 +41,7 @@ class PECLUbuntu extends BasePackager {
         $passing = true ;
         foreach ($packageName as $package) {
             $out = $this->executeAndLoad(SUDOPREFIX."pecl info {$package}") ;
-            if (strpos($out, "Installed: (none)") != false) { $passing = false ; } }
+            if (strpos($out, "Last Modified") == false) { $passing = false ; } }
         return $passing ;
     }
 
@@ -52,35 +52,35 @@ class PECLUbuntu extends BasePackager {
         $logging = $loggingFactory->getModel($this->params);
         if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
             $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
-            $logging->log($lmsg) ;
-            \BootStrap::setExitCode(1) ;
+            $logging->log($lmsg, $this->getModuleName()) ;
+            \Core\BootStrap::setExitCode(1) ;
             return false ; }
         foreach ($packageName as $package) {
-            if (!is_null($version)) {
-                 $versionToInstall = "" ;
-            }
-            $out = $this->executeAndOutput(SUDOPREFIX."pecl install $package -y");
-            if (strpos($out, "Setting up $package") != false) {
-                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
+            if (!is_null($version)) { $versionToInstall = "" ; }
+            $yesprefix = "" ;
+            if (substr($package, strlen($package)-5)=="-beta") { $yesprefix = 'yes "" | ' ; }
+            $out = $this->executeAndOutput($yesprefix.SUDOPREFIX."pecl install $package");
+            if (strpos($out, "install ok: $package") != false) {
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
             else if (strpos($out, "is already the newest version.") != false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
-                $logging->log($ltext) ; }
-            else if (strpos($out, "ldconfig deferred processing now taking place") == false) {
-                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly") ;
+                $logging->log($ltext, $this->getModuleName()) ; }
+            else if (strpos($out, "ERROR:") == true) {
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
                 return false ; } }
         return true ;
     }
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput(SUDOPREFIX."pecl-get remove $packageName -y --force-yes");
+        $out = $this->executeAndOutput(SUDOPREFIX."pecl uninstall $packageName");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ( strpos($out, "The following packages will be REMOVED") != false ) {
+        if ( strpos($out, "uninstall ok:") != false ) {
             $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}") ;
             return false ; }
-        else if ( strpos($out, "is not installed, so not removed") != false) {
+        else if ( strpos($out, "not installed") != false) {
             $ltext  = "Package {$packageName} from the Packager {$this->programNameInstaller} is " ;
             $ltext .= "not installed, so not removed." ;
             $logging->log($ltext) ;
@@ -89,11 +89,11 @@ class PECLUbuntu extends BasePackager {
     }
 
     public function update($autopilot = null) {
-        $out = $this->executeAndOutput(SUDOPREFIX."pecl-get update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."pecl update");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
@@ -103,7 +103,7 @@ class PECLUbuntu extends BasePackager {
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly") ;
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
     }
