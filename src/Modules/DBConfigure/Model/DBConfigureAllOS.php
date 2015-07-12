@@ -118,6 +118,7 @@ class DBConfigureAllOS extends Base {
 
     protected function askForDBHost(){
         if (isset($this->params["mysql-host"])) { return $this->params["mysql-host"] ; };
+        if (isset($this->params["host"])) { return $this->params["host"] ; };
         $question = 'What\'s the Mysql Host? Enter for 127.0.0.1';
         $input = self::askForInput($question) ;
         return ($input=="") ? '127.0.0.1' : $input ;
@@ -127,6 +128,8 @@ class DBConfigureAllOS extends Base {
         if (isset($this->params["mysql-user"])) { return $this->params["mysql-user"] ; }
         if (isset($this->params["mysql-user-name"])) { return $this->params["mysql-user-name"] ; };
         if (isset($this->params["mysql-username"])) { return $this->params["mysql-username"] ; };
+        if (isset($this->params["username"])) { return $this->params["username"] ; };
+        if (isset($this->params["user"])) { return $this->params["user"] ; }
         $question = 'What\'s the application DB User?'."\n";
         if ($this->dbRootUser != "") {
           $allDbUsers = array_merge(array("**ENTER PLAIN TEXT**"), $this->getDbUsers()) ;
@@ -140,12 +143,14 @@ class DBConfigureAllOS extends Base {
 
     protected function askForRootDBUser(){
         if (isset($this->params["mysql-admin-user"])) { return $this->params["mysql-admin-user"] ; }
+        if (isset($this->params["admin-user"])) { return $this->params["admin-user"] ; }
         $question = 'What\'s the MySQL Admin User? (Enter nothing to skip loading current users to choose from)';
         return self::askForInput($question, true);
     }
 
     protected function askForRootDBPass(){
         if (isset($this->params["mysql-admin-pass"])) { return $this->params["mysql-admin-pass"] ; }
+        if (isset($this->params["admin-pass"])) { return $this->params["admin-pass"] ; }
         $question = 'What\'s the MySQL Admin Password?';
         return self::askForInput($question, true);
     }
@@ -183,6 +188,8 @@ class DBConfigureAllOS extends Base {
     protected function askForDBPass(){
         if (isset($this->params["mysql-password"])) { return $this->params["mysql-password"] ; }
         if (isset($this->params["mysql-pass"])) { return $this->params["mysql-pass"] ; }
+        if (isset($this->params["password"])) { return $this->params["password"] ; }
+        if (isset($this->params["pass"])) { return $this->params["pass"] ; }
         $question = 'What\'s the application DB Password?';
         return self::askForInput($question, true);
     }
@@ -190,6 +197,8 @@ class DBConfigureAllOS extends Base {
     protected function askForDBName(){
         if (isset($this->params["mysql-database"])) { return $this->params["mysql-database"] ; }
         if (isset($this->params["mysql-db"])) { return $this->params["mysql-db"] ; }
+        if (isset($this->params["database"])) { return $this->params["database"] ; }
+        if (isset($this->params["db"])) { return $this->params["db"] ; }
         $question = 'What\'s the application DB Name?'."\n";
         if ($this->dbRootUser != "") {
           $allDbNames = array_merge(array("**ENTER PLAIN TEXT**"), $this->getDbNameList()) ;
