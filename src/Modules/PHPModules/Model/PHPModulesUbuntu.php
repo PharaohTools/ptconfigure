@@ -13,7 +13,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php-apc", "php5-gd", "php5-imagick", "php5-curl", "php5-mysql", "php5-memcache", "php5-memcached", "php5-mongo" ) ;
+    public $packages = array("php-apc", "php5-dev", "php5-gd", "php5-imagick", "php5-curl", "php5-mysql", "php5-memcache", "php5-memcached", "php5-mongo" ) ;
 
     public function __construct($params) {
         parent::__construct($params);
