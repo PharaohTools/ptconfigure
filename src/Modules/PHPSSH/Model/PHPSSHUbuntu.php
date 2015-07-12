@@ -8,7 +8,7 @@ class PHPSSHUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array(array("11.04", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -18,10 +18,12 @@ class PHPSSHUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "PHPSSH";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("libssh2-php"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("libssh2-1-dev"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("PECL", array("ssh2-beta"))) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("libssh2-php"))) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("libssh2-1-dev"))) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("PECL", array("ssh2-beta"))) ),
         );
         $this->programDataFolder = "/opt/PHPSSH"; // command and app dir name
         $this->programNameMachine = "phpssh"; // command and app dir name
