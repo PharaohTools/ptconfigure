@@ -13,7 +13,7 @@ class CopyInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "Copy" => array_merge(parent::routesAvailable(), array("put") ) );
+      return array( "Copy" => array_merge(array("help", "put") ) );
     }
 
     public function routeAliases() {

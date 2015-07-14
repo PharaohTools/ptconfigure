@@ -28,7 +28,7 @@ class ChownInfo extends PTConfigureBase {
 
         - path
         Will change the user ownership of a path
-        example: ptconfigure chown path --yes --guess --recursive --path=/a/file/path --owner=golden
+        example: ptconfigure chown path --yes --guess --recursive --path=/a/file/path --user=golden
 
 HELPDATA;
       return $help ;
