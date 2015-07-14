@@ -14,7 +14,7 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    protected $vncUser ;
+    public static  $vncUser ;
     protected $myUser ;
     protected $vncPass ;
 
@@ -93,7 +93,7 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
 
             // no su
             $command = array(
-                SUDOPREFIX.' -u '.$this->vncUser.' --set-home /usr/bin/expect <<EOF',
+                SUDOPREFIX.'su - '.$this->vncUser.' -c "/usr/bin/expect <<EOF',
                 'spawn "/usr/bin/vnc4passwd"',
                 'expect "Password:"',
                 'send "'.$this->vncPass.'\r"',
@@ -102,7 +102,7 @@ class VNCPasswdUbuntu extends BaseLinuxApp {
                 'expect eof',
                 "exit",
                 "EOF",
-                "exit",
+                '"',
             ) ;
             self::executeAsShell($command) ; ; }
     }

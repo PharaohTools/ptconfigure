@@ -6,7 +6,7 @@ class VNCPasswdInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "VNCPasswd - The Display Manager Solution";
+    public $name = "VNCPasswd - Passwords for The Display Manager Solution";
 
     public function __construct() {
       parent::__construct();
@@ -27,7 +27,7 @@ class VNCPasswdInfo extends PTConfigureBase {
   VNCPasswd, vncpasswd, vnc-passwd
 
         - install
-        Installs VNCPasswd through a package manager
+        Adds a VNC Password for a user
         example: ptconfigure vnc install
 
 HELPDATA;
