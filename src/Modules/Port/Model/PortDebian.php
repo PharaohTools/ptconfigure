@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class PortAllDebianMac extends BaseLinuxApp {
+class PortDebian extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
