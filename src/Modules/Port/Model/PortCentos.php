@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PortCentOS extends PortAllDebianMac {
+class PortCentOS extends PortDebian {
 
     // Compatibility
     public $os = array("Linux") ;

@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PortWindows extends PortAllDebianMac {
+class PortWindows extends PortDebian {
 
     // Compatibility
     public $os = array("Windows", "WINNT") ;
