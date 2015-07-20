@@ -23,20 +23,18 @@ class SystemDetectionFactory {
     public static function getCompatibleModelFromAllInGroup($models) {
         include_once("SystemDetectionAllOS.php");
         $system = new \Model\SystemDetectionAllOS();
-        // exact matches
         foreach($models as $model) {
             if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->distro, $model->distros) || in_array("any", $model->distros)) &&
-                (self::modelVersionCompatible($system->version, $model->versions)==true) &&
+                //(in_array($system->version, $model->versions) || in_array("any", $model->versions)) &&
+                (self::versionsAreCompatible($system->version, $model->versions) || in_array("any", $model->versions)) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
             ) {
                 // if the everything matches, we have an exact match so return it
-                return $model; } }
-        //
-        foreach($models as $model) {
-            if (
+                return $model; }
+            else if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->distro, $model->distros) || in_array("any", $model->distros)) &&
@@ -47,14 +45,14 @@ class SystemDetectionFactory {
                 $message ="PTConfigure Warning!: Model ".get_class($model)." may not work as expected, since it " .
                     "doesn't specify exact OS version match";
                 // error_log($message);
-                return $model; } }
-        foreach($models as $model) {
-            if (
+                return $model; }
+            else if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
             ) {
-                // if the OS matches, we still return it but with an extra high level warning during expected models phase
+                // if the OS matches, we still return it but with an extra high level warning
+                // during expected models phase
                 $message = "PTConfigure Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
                     "it doesn't specify matching OS version or distro match";
                 // error_log($message);
@@ -62,25 +60,31 @@ class SystemDetectionFactory {
         return null ;
     }
 
-    protected static function modelVersionCompatible($sysversion, $modversions) {
-        // if exact
-        if (in_array($sysversion, $modversions)) { return true ; }
-        // if any
-        if (in_array("any", $modversions)) { return true ; }
-        // if compatible
-        foreach ($modversions as $modversion) {
-            if (is_array($modversion)) {
-                $mvers = new \Model\SoftwareVersion($modversion[0]);
-                if ($modversion[1] == "-" && $mvers->isLessThan($sysversion)) {
-                    return true ; }
-                else if ($modversion[1] == "=" && $mvers->isCompatibleWith($sysversion)) {
-                    return true ; }
-                else if ($mvers->isGreaterThan($sysversion)) {
-                    return true ; } }
-            else {
-                $mvers = new \Model\SoftwareVersion($modversion);
-                if ($mvers->isCompatibleWith($sysversion)) { return true ; } } }
-        return false ;
+    private static function versionsAreCompatible($systemVersion, $modelVersions) {
+
+        $matches = array() ;
+
+        foreach ($modelVersions as $modelVersion) {
+
+            // if string literal version
+            if (is_string($modelVersion)) {
+                if ($systemVersion == $modelVersion) {
+                    // echo "**vac 1**\n" ;
+                    $matches[] = true ; } }
+
+            // if conditions
+            if (is_array($modelVersion)) {
+                $criteriaResults = array() ;
+                $svo = new \Model\SoftwareVersion($systemVersion) ;
+                foreach ($modelVersion as $criteriaValue => $criteriaOperator) {
+                    $svo->setCondition($criteriaValue, $criteriaOperator) ; }
+                $criteriaResults[] = $svo->isCompatible() ;
+                if (!in_array(false, $criteriaResults)) {
+                    // echo "**vac 2**\n" ;
+                    $matches[] = true ; } } }
+
+        return $matches ;
+
     }
 
 }
