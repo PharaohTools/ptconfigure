@@ -13,7 +13,6 @@ class SoftwareVersion {
         $this->shortVersionNumber = $this->getShortVersionNumber($versionNumber) ;
     }
 
-    // @todo this relies on php treating strings as arrays, which is deprecated innit?
     private function getShortVersionNumber($versionNumber) {
         $shortNum = "" ;
         for ($i=0; $i<strlen($versionNumber); $i++) {
