@@ -90,8 +90,13 @@ TEMPLATE2;
     }
 
     protected function askForFileExtension() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Setting a file extension for Modern Ubuntu (14+)?", $this->getModuleName()) ;
         if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
-        if (isset($this->params["guess"])) { return ".conf" ; }
+        if (isset($this->params["guess"])) {
+            $logging->log("Guessing your VHost on Modern Ubuntu (14+) uses a .conf extension", $this->getModuleName()) ;
+            return ".conf" ; }
         $question = 'What File Extension should be used? Enter nothing for None (probably .conf on this system)';
         $input = self::askForInput($question) ;
         return $input ;

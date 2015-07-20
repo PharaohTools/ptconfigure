@@ -217,8 +217,10 @@ class ApacheVHostEditorUbuntu extends Base {
         return self::askForInput($question, true);
     }
 
-    //@todo this should guess the difference between apache on Ubuntu<=13 and Ubuntu>14
     protected function askForFileExtension() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Setting a file extension for Older Ubuntu (14-)?", $this->getModuleName()) ;
         if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         if (isset($this->params["guess"])) {
             if ($this->detectDebianApacheVHostFolderExistence()) { return "" ; }
