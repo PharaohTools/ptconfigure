@@ -4,7 +4,7 @@ Namespace Model;
 
 // @todo this class is way too long, we should use model groups, at least for balancing
 // @todo  the vhosttemp folder that gets left in temp should be removed
-class ApacheVHostEditorUbuntu extends Base {
+class ApacheVHostEditorUbuntuLegacy extends Base {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -75,10 +75,10 @@ class ApacheVHostEditorUbuntu extends Base {
 
     protected function performVHostCreation() {
         if ( !$this->askForVHostEntry() ) { return false; }
+        $this->fileExtension = $this->askForFileExtension();
         $this->docRoot = $this->askForDocRoot();
         $this->url = $this->askForHostURL();
         $this->vHostIp = $this->askForVHostIp();
-        $this->fileExtension = $this->askForFileExtension();
         $this->vHostTemplateDir = $this->askForVHostTemplateDirectory();
         $this->selectVHostTemplate();
         $this->processVHost();
