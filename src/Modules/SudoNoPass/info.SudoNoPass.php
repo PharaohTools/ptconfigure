@@ -33,6 +33,7 @@ class SudoNoPassInfo extends PTConfigureBase {
         - install
         Installs the sudo without password entry
         example: ptconfigure sudo-nopass install
+        example: ptconfigure sudo-nopass install -yg --install-user-name=ptv
 
 HELPDATA;
       return $help ;
