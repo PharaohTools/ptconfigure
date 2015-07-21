@@ -23,8 +23,7 @@ class SoftwareVersion {
         return $shortNum ;
     }
 
-    //@todo this return seems wrong
-    public function isGreaterThan($compare) {
+    public function isGreaterThan(\Model\SoftwareVersion $compare) {
         if (is_object($compare) && $compare instanceof SoftwareVersion) {
             $myPieces = explode(".", $this->shortVersionNumber) ;
             $comparePieces = explode(".", $compare->shortVersionNumber) ;
@@ -35,11 +34,10 @@ class SoftwareVersion {
                     return true ; }
                 else {
                     continue; } } }
-        return "SoftwareVersion->isGreaterThan() Requires an instance of SoftwareVersion" ;
+        return false ;
     }
 
-    //@todo this return seems wrong
-    public function isLessThan($compare) {
+    public function isLessThan(\Model\SoftwareVersion $compare) {
         if (is_object($compare) && $compare instanceof SoftwareVersion) {
             $myPieces = explode(".", $this->shortVersionNumber) ;
             $comparePieces = explode(".", $compare->shortVersionNumber) ;
@@ -50,7 +48,7 @@ class SoftwareVersion {
                     return true ; }
                 else {
                     continue; } } }
-        return "SoftwareVersion->isLessThan() Requires an instance of SoftwareVersion" ;
+        return false ;
     }
 
     public function setCondition($version, $operation) {
@@ -58,17 +56,17 @@ class SoftwareVersion {
     }
 
     public function isCompatible() {
+        $conditionResults = array();
         foreach ($this->conditions as $condition) {
+            $conditionVersion = $condition["version"];
             if (($condition["version"] instanceof \Model\SoftwareVersion) !== true ) {
                 $conditionVersion = new \Model\SoftwareVersion($condition["version"]) ; }
             $op = $this->getOpFromSymbol($condition["operation"]) ;
             if ($op == "gt") {
-                if ($this->isGreaterThan($conditionVersion) != true) {
-                    return false ; }  }
+                $conditionResults[] = ($this->isGreaterThan($conditionVersion) == true) ? true : false ;  }
             if ($op == "lt") {
-                if ($this->isLessThan($conditionVersion) != true) {
-                    return false ; }  } }
-        return true ;
+                $conditionResults[] = ($this->isLessThan($conditionVersion) == true) ? true : false ;  } }
+        return !in_array(false, $conditionResults) ;
     }
 
     protected function getOpFromSymbol($symbol) {
