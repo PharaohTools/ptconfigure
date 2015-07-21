@@ -69,7 +69,7 @@ class SystemDetectionFactory {
         for ($i=0; $i<count($modelVersions) ; $i++) {
             // if string literal version
             if (is_string($modelVersions[$i])) {
-                if ($systemVersion->shortVersionNumber == $modelVersions[$i]) {
+                if ($svo->shortVersionNumber == $modelVersions[$i]) {
                     return true ; } }
             // if conditions
             if (is_array($modelVersions[$i])) {
