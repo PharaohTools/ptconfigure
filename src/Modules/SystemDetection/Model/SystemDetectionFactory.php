@@ -65,11 +65,11 @@ class SystemDetectionFactory {
 
     private static function versionsAreCompatible($systemVersion, $modelVersions) {
         $matches = array() ;
-        $svo = new \Model\SoftwareVersion($systemVersion) ;
+        $svo = (is_object($systemVersion)) ? $systemVersion : new \Model\SoftwareVersion($systemVersion) ;
         for ($i=0; $i<count($modelVersions) ; $i++) {
             // if string literal version
             if (is_string($modelVersions[$i])) {
-                if ($systemVersion->shortVersionNumber == $modelVersions[$i]) {
+                if (is_object($svo) && $svo->shortVersionNumber == $modelVersions[$i]) {
                     return true ; } }
             // if conditions
             if (is_array($modelVersions[$i])) {
