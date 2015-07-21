@@ -2,9 +2,7 @@
 
 Namespace Model;
 
-// @todo this class is way too long, we should use model groups, at least for balancing
-// @todo  the vhosttemp folder that gets left in temp should be removed
-class ApacheVHostEditorUbuntuModern extends ApacheVHostEditorUbuntu {
+class ApacheVHostEditorUbuntuModern extends ApacheVHostEditorUbuntuLegacy {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -21,6 +19,7 @@ class ApacheVHostEditorUbuntuModern extends ApacheVHostEditorUbuntu {
     }
 
     public function enableVHost(){
+
         $this->params["vhe-file-ext"] = $this->askForFileExtension() ;
         if (isset($this->params["vhe-file-ext"]) && strlen($this->params["vhe-file-ext"])>0 ) {
             $command = 'a2ensite '.$this->url.$this->params["vhe-file-ext"]; }

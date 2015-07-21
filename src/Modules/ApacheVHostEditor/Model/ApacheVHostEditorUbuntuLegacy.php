@@ -167,11 +167,13 @@ class ApacheVHostEditorUbuntuLegacy extends Base {
     protected function askForEnableVHost($type = "") {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
             if ($this->detectDebianApacheVHostFolderExistence()) {
-                echo "You have a sites available dir, guessing you need to enable a $type Virtual Host.\n" ;
+                $logging->log("You have a sites available dir, guessing you need to enable a $type Virtual Host.", $this->getModuleName());
                 return true ; }
             else {
-                echo "You don't have a sites available dir, guessing you don't need to enable a $type Virtual Host.\n";
+                $logging->log("You don't have a sites available dir, guessing you don't need to enable a $type Virtual Host.", $this->getModuleName());
                 return false ; } }
         $question = 'Do you want to enable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
@@ -180,11 +182,13 @@ class ApacheVHostEditorUbuntuLegacy extends Base {
     protected function askForDisableVHost($type = "") {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
             if ($this->detectDebianApacheVHostFolderExistence()) {
-                echo "You have a sites available dir, guessing you need to disable a $type Virtual Host.\n" ;
+                $logging->log("You have a sites available dir, guessing you need to disable a $type Virtual Host.", $this->getModuleName());
                 return true ; }
             else {
-                echo "You don't have a sites available dir, guessing you don't need to disable a $type Virtual Host.\n";
+                $logging->log("You don't have a sites available dir, guessing you don't need to disable a $type Virtual Host.", $this->getModuleName());
                 return false ; } }
         $question = 'Do you want to disable this VHost? (hint - ubuntu probably yes, centos probably no)';
         return self::askYesOrNo($question);
@@ -192,7 +196,9 @@ class ApacheVHostEditorUbuntuLegacy extends Base {
 
     protected function findVHostEnabledDirectory() {
         if ($this->detectDebianApacheVHostFolderExistence()) {
-            echo "You have a sites available dir, so also listing available sites.\n" ;
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("You have a sites available dir, so also listing available sites.", $this->getModuleName());
             return "/etc/apache2/sites-available" ; }
         return null ;
     }
@@ -239,8 +245,11 @@ class ApacheVHostEditorUbuntuLegacy extends Base {
     }
 
     protected function checkVHostOkay(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["yes"]) && $this->params["yes"]==true) {
-            echo $this->vHostTemplate."\n\nAssuming Okay due to yes parameter\n";
+            echo $this->vHostTemplate ;
+            $logging->log("Assuming Okay due to yes parameter", $this->getModuleName());
             return true ;}
         $question = 'Please check VHost: '.$this->vHostTemplate."\n\nIs this Okay?";
         return self::askYesOrNo($question);
