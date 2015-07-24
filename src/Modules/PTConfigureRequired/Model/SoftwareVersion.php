@@ -27,10 +27,13 @@ class SoftwareVersion {
         if (is_object($compare) && $compare instanceof SoftwareVersion) {
             $myPieces = explode(".", $this->shortVersionNumber) ;
             $comparePieces = explode(".", $compare->shortVersionNumber) ;
-            for ( $i=0 ; $i<count($comparePieces); $i++) {
-                if ($comparePieces[$i] > $myPieces[$i] ) {
+            $highestCount = max($myPieces, $comparePieces);
+            for ( $i=0 ; $i<=count($highestCount); $i++) {
+                $cpInt = (isset($comparePieces[$i])) ? $comparePieces[$i] : 0 ;
+                $mpInt = (isset($myPieces[$i])) ? $myPieces[$i] : 0 ;
+                if ($cpInt > $mpInt ) {
                     return false ; }
-                if ($comparePieces[$i] < $myPieces[$i] ) {
+                if ($cpInt < $mpInt ) {
                     return true ; }
                 else {
                     continue; } } }
@@ -41,10 +44,13 @@ class SoftwareVersion {
         if (is_object($compare) && $compare instanceof SoftwareVersion) {
             $myPieces = explode(".", $this->shortVersionNumber) ;
             $comparePieces = explode(".", $compare->shortVersionNumber) ;
-            for ( $i=0 ; $i<count($comparePieces); $i++) {
-                if ($comparePieces[$i] < $myPieces[$i] ) {
+            $highestCount = max($myPieces, $comparePieces);
+            for ( $i=0 ; $i<=count($highestCount); $i++) {
+                $cpInt = (isset($comparePieces[$i]) && is_int($comparePieces[$i])) ? $comparePieces[$i] : 0 ;
+                $mpInt = (isset($myPieces[$i]) && is_int($myPieces[$i])) ? $myPieces[$i] : 0 ;
+                if ($cpInt < $mpInt ) {
                     return false ; }
-                if ($comparePieces[$i] > $myPieces[$i] ) {
+                if ($cpInt > $mpInt ) {
                     return true ; }
                 else {
                     continue; } } }
@@ -76,6 +82,5 @@ class SoftwareVersion {
             return "lt" ;  }
         return null ;
     }
-
 
 }

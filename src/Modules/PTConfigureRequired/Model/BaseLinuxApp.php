@@ -94,6 +94,7 @@ if not doing versions
 
     /*
      * @todo this method is 100 lines long, making it the one most in need of a refactor IMO
+     * @
      */
 
     public function ensureInstalled(){
@@ -139,6 +140,7 @@ if not doing versions
                                 // @todo this functionality doesnt work yet, but it should do this
                                 $this->install("Latest") ;  }
                             else {
+                                var_dump($currentVersion, $latestVersion);
                                 // status 4
                                 $logging->log(
                                     "Installed version {$currentVersion->shortVersionNumber} does not match constraints, nor does ".
