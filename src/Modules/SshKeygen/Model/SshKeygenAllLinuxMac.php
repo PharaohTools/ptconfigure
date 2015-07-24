@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class SshKeygenAllLinux extends BaseLinuxApp {
+class SshKeygenAllLinuxMac extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("Linux", "Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -27,6 +27,7 @@ class SshKeygenAllLinux extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForKeygenType", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForKeygenPath", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForKeygenComment", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForKeygenPassphrase", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "createDirectoryStructure", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doKeyGen", "params" => array()) ),
         );
@@ -75,6 +76,15 @@ class SshKeygenAllLinux extends BaseLinuxApp {
             $question = "Plain text comment appended to public key. None is fine";
             $keygenComment = self::askForInput($question);
             $this->keygenComment = (isset($keygenComment) && strlen($keygenComment)>0) ? $keygenComment : "Pharaoh Tools" ; }
+    }
+
+    public function askForKeygenPassphrase() {
+        if (isset($this->params["passphrase"]) ) {
+            $this->keygenPassphrase = $this->params["passphrase"] ; }
+        else {
+            $question = "Passphrase to be bound to key. None is fine";
+            $keygenPhrase = self::askForInput($question);
+            $this->keygenComment = (isset($keygenPhrase) && strlen($keygenPhrase)>0) ? $keygenPhrase : "pharaohtools" ; }
     }
 
     public function removeKey() {
