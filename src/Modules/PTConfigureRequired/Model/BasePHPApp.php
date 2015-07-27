@@ -5,6 +5,10 @@ Namespace Model;
 class BasePHPApp extends Base {
 
     protected $fileSources;
+    protected $preinstallCommands;
+    protected $preuninstallCommands;
+    protected $postinstallCommands;
+    protected $postuninstallCommands;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -59,54 +63,59 @@ class BasePHPApp extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["version"])) {
-            $logging->log("Ensure install is checking versions") ;
+            $logging->log("Ensure install is checking versions", $this->getModuleName()) ;
             if ($this->askStatus() == true) {
-                $logging->log("Already installed, checking version constraints") ;
+                $logging->log("Already installed, checking version constraints", $this->getModuleName()) ;
                 if (!isset($this->params["version-operator"])) {
-                    $logging->log("No --version-operator is set. Assuming requested version operator is minimum") ;
+                    $logging->log("No --version-operator is set. Assuming requested version operator is minimum", $this->getModuleName()) ;
                     $this->params["version-operator"] = "+" ; }
                 $currentVersion = $this->getVersion() ;
                 $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                 if ($currentVersion->isCompatible() == true) {
-                    $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing") ; }
+                    $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing", $this->getModuleName()) ; }
                 else {
                     // @todo check if requested version is available
-                    $logging->log("Installed version {$currentVersion->shortVersionNumber} does not match constraint, uninstalling") ;
+                    $logging->log("Installed version {$currentVersion->shortVersionNumber} does not match constraint, uninstalling", $this->getModuleName()) ;
                     // $this->unInstall() ;
                     /* @todo do a proper uninstall and install right version */ } }
             else {
-                $logging->log("Not already installed, checking version constraints") ;
+                $logging->log("Not already installed, checking version constraints", $this->getModuleName()) ;
                 if (!isset($this->params["version-operator"])) {
-                    $logging->log("No --version-operator is set. Assuming requested version is minimum") ;
+                    $logging->log("No --version-operator is set. Assuming requested version is minimum", $this->getModuleName()) ;
                     $this->params["version-operator"] = "+" ; }
                 $recVersion = $this->getVersion("Recommended") ;
                 $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                 if ($recVersion->isCompatible()) {
-                    $logging->log("Requested version {$recVersion->shortVersionNumber} matches constraints, installing") ;
+                    $logging->log("Requested version {$recVersion->shortVersionNumber} matches constraints, installing", $this->getModuleName()) ;
                     $this->install() ;  }
                 else {
                     // @todo check if requested version is available
-                    $logging->log("Installed version {$this->getVersion()} does not match constraint, uninstalling") ;
+                    $logging->log("Installed version {$this->getVersion()} does not match constraint, uninstalling", $this->getModuleName()) ;
                     $this->unInstall() ;
                     /* @todo do a proper uninstall and install right version */ } } }
         else { // not checking version
-            $logging->log("Ensure module install is not checking versions") ;
+            $logging->log("Ensure module install is not checking versions", $this->getModuleName()) ;
             if ($this->askStatus() == true) {
-                $logging->log("Not installing as already installed") ; }
+                $logging->log("Not installing as already installed", $this->getModuleName()) ; }
             else {
-                $logging->log("Installing as not installed") ;
+                $logging->log("Installing as not installed", $this->getModuleName()) ;
                 $this->install(); } }
         return true;
     }
 
     public function install($autoPilot = null) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
+        if (isset($this->preinstallCommands) && is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
+            $logging->log("Executing Pre Install Commands", $this->getModuleName()) ;
+            $this->doInstallCommand("pre") ; }
         $this->programDataFolder = ($autoPilot)
-          ? $autoPilot->{$this->autopilotDefiner."InstallDirectory"}
+          ? $autoPilot->{$this->getModuleName()."InstallDirectory"}
           : $this->askForProgramDataFolder();
         $this->programExecutorFolder = ($autoPilot)
-          ? $autoPilot->{$this->autopilotDefiner."ExecutorDirectory"}
+          ? $autoPilot->{$this->getModuleName()."ExecutorDirectory"}
           : $this->askForProgramExecutorFolder();
         $this->doGitCommandWithErrorCheck();
         $this->deleteProgramDataFolderAsRootIfExists();
@@ -117,7 +126,9 @@ class BasePHPApp extends Base {
         $this->saveExecutorFile();
         $this->deleteInstallationFiles();
         $this->changePermissions();
-        // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
+        if (isset($this->postinstallCommands) && is_array($this->postinstallCommands) && count($this->postinstallCommands)>0) {
+            $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
+            $this->doInstallCommand("post") ;  }
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
         $this->showCompletion();
     }
@@ -130,7 +141,6 @@ class BasePHPApp extends Base {
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
         $this->deleteProgramDataFolderAsRootIfExists();
         $this->deleteExecutorIfExists();
-        // $this->setInstallFlagStatus(false) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         $this->showCompletion();
     }
 
@@ -270,6 +280,31 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $done = trim($done, "\n") ;
         $done = trim($done, "\r") ;
         return $done ;
+    }
+
+
+    protected function doInstallCommand($hook){
+        $property = "{$hook}installCommands" ;
+        self::swapCommandArrayPlaceHolders($this->$property);
+        foreach ($this->$property as $installCommand) {
+            if ( array_key_exists("method", $installCommand)) {
+                call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
+            else if ( array_key_exists("command", $installCommand)) {
+                if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
+                $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
+                self::executeAsShell($installCommand["command"]) ; } }
+    }
+
+    protected function doUnInstallCommand($hook){
+        $property = "{$hook}uninstallCommands" ;
+        self::swapCommandArrayPlaceHolders($this->$property);
+        foreach ($this->$property as $uninstallCommand) {
+            if ( array_key_exists("method", $uninstallCommand)) {
+                call_user_func_array(array($uninstallCommand["method"]["object"], $uninstallCommand["method"]["method"]), $uninstallCommand["method"]["params"]); }
+            else if ( array_key_exists("command", $uninstallCommand)) {
+                if (!is_array($uninstallCommand["command"])) { $uninstallCommand["command"] = array($uninstallCommand["command"]); }
+                $this->swapCommandArrayPlaceHolders($uninstallCommand["command"]) ;
+                self::executeAsShell($uninstallCommand["command"]) ; } }
     }
 
 }
