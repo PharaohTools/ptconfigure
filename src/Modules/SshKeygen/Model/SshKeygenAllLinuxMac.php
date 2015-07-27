@@ -18,6 +18,7 @@ class SshKeygenAllLinuxMac extends BaseLinuxApp {
     private $keygenType;
     private $keygenPath;
     private $keygenComment;
+    private $keygenPhrase;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -84,7 +85,7 @@ class SshKeygenAllLinuxMac extends BaseLinuxApp {
         else {
             $question = "Passphrase to be bound to key. None is fine";
             $keygenPhrase = self::askForInput($question);
-            $this->keygenComment = (isset($keygenPhrase) && strlen($keygenPhrase)>0) ? $keygenPhrase : "pharaohtools" ; }
+            $this->keygenPhrase = (isset($keygenPhrase) && strlen($keygenPhrase)>0) ? $keygenPhrase : "pharaohtools" ; }
     }
 
     public function removeKey() {
@@ -100,6 +101,7 @@ class SshKeygenAllLinuxMac extends BaseLinuxApp {
     public function createDirectoryStructure() {
         if (!file_exists(dirname($this->keygenPath))) {
             // @todo check if this works or is writable beforehand
+            // @todo just use the mkdir module
             mkdir(dirname($this->keygenPath), 0775, true) ; }
     }
 
@@ -107,7 +109,7 @@ class SshKeygenAllLinuxMac extends BaseLinuxApp {
         $cmd  = "ssh-keygen -b ".$this->keygenBits.' ' ;
         $cmd .= '-t '.$this->keygenType.' ' ;
         $cmd .= '-f '.$this->keygenPath.' ' ;
-        $cmd .= '-q -N "" -C"'.$this->keygenComment.'"' ;
+        $cmd .= '-q -N "'.$this->keygenPhrase.'" -C"'.$this->keygenComment.'"' ;
         $this->executeAndOutput($cmd) ;
     }
 
