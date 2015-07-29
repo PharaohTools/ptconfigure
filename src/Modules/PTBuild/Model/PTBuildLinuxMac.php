@@ -19,7 +19,7 @@ class PTBuildLinuxMac extends BasePHPApp {
         $this->autopilotDefiner = "PTBuild";
         $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/ptbuild.git",
+              "/opt/ptbuildsource",
               "ptbuild",
               null // can be null for none
           )
@@ -40,12 +40,12 @@ class PTBuildLinuxMac extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."sh ".$this->getUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ; }
         /*
-         * @todo create switching user -- user shell
-         * @todo user can sudo without password -- first cm file step
+         * @todo create switching user -- user shell DONE
+         * @todo user can sudo without password -- first cm file step DONE
          * @todo create default setting for switching user - how to do this? can we api settings changes
-         * @todo sudo chmod 777 /opt/ptbuild/ptbuild/ptbuildvars -- second CM file step
-         * @todo sudo mkdir /opt/ptbuild/pipes -- third CM file step
-         * @todo sudo chmod 777 /opt/ptbuild/pipes-- fourth CM file step
+         * @todo sudo chmod 777 /opt/ptbuild/ptbuild/ptbuildvars -- second CM file step DONE
+         * @todo sudo mkdir /opt/ptbuild/pipes -- third CM file step DONE
+         * @todo sudo chmod 777 /opt/ptbuild/pipes-- fourth CM file step DONE
          */
         return $ray ;
     }
