@@ -38,6 +38,8 @@ class VirtualboxWindows extends BaseWindowsApp {
 
     // @todo this should definitely be using a package manager module
     protected function getInstallCommands() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $ray = array(
             array("method"=> array("object" => $this, "method" => "askForVirtualboxVersion", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "setPackageUrl", "params" => array()) ),
@@ -45,7 +47,9 @@ class VirtualboxWindows extends BaseWindowsApp {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("WinExe", "Virtualbox")) ),
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
-            array_push($ray, array("command" => array( SUDOPREFIX."apt-get install -y virtualbox-guest-additions-iso") ) ) ; }
+            $logging->log("Virtualbox Guest additions have been requested by parameter, but are installed by default on OSx", $this->getModuleName()) ;
+//            array_push($ray, array("command" => array( SUDOPREFIX."apt-get install -y virtualbox-guest-additions-iso") ) ) ;
+        }
         return $ray ;
     }
 
