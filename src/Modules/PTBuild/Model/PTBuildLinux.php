@@ -19,7 +19,7 @@ class PTBuildLinux extends BasePHPApp {
         $this->autopilotDefiner = "PTBuild";
         $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/ptconfigure.git",
+              "https://github.com/PharaohTools/ptbuild.git",
               "ptbuild",
               null // can be null for none
           )
