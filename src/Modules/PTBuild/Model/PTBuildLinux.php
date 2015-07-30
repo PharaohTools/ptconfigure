@@ -19,7 +19,7 @@ class PTBuildLinux extends BasePHPApp {
         $this->autopilotDefiner = "PTBuild";
         $this->fileSources = array(
           array(
-              "/opt/ptbuildsource",
+              "https://github.com/PharaohTools/ptconfigure.git",
               "ptbuild",
               null // can be null for none
           )
@@ -61,7 +61,7 @@ class PTBuildLinux extends BasePHPApp {
     }
 
     public function getUserShellAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'create-user.sh' ;
+        $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'create-linux-user.sh' ;
         $this->executeAsShell("sh $path");
         return $path ;
     }
