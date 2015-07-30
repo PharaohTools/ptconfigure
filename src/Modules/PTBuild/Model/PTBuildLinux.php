@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTBuildLinuxMac extends BasePHPApp {
+class PTBuildLinux extends BasePHPApp {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
