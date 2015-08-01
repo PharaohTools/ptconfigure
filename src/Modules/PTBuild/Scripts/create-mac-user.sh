@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Set the _www users shell to bash
+chsh -s /bin/bash _www
+# Create the new ptbuild user
 maxid=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -ug | tail -1)
 newid=$((maxid+1))
 dscl . -create /Users/ptbuild
