@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTTrackLinuxMac extends BasePHPApp {
+class PTTrackLinux extends BasePHPApp {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
