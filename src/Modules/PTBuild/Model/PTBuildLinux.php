@@ -5,7 +5,7 @@ Namespace Model;
 class PTBuildLinux extends BasePHPApp {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("Linux") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
