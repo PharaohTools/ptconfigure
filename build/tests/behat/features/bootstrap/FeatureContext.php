@@ -34,7 +34,7 @@ class FeatureContext extends BehatContext
      */
     public function iRunTheApplicationCommandInTheShell()
     {
-        $command = CLEOCOMM ;
+        $command = PTCCOMM ;
         exec($command, $output);
         $this->output = trim(implode("\n", $output));
     }
@@ -75,7 +75,7 @@ class FeatureContext extends BehatContext
      */
     public function iRunTheApplicationCommandInTheShellWithParameterString($str)
     {
-        $command = CLEOCOMM." $str" ;
+        $command = PTCCOMM." $str" ;
         exec($command, $output);
         $this->output = trim(implode("\n", $output));
     }
@@ -92,8 +92,8 @@ class FeatureContext extends BehatContext
         $compats = $method->invokeArgs($iao,array(array()));
         foreach ($compats as $compat) {
             if ($compat["hidden"] !== true) {
-            if (strpos($this->output, $compat["command"]) === false) {
-                throw new \Exception("Expected compatible module {$compat["command"]} not found."); } } }
+                if (strpos($this->output, $compat["command"]) === false) {
+                    throw new \Exception("Expected compatible module {$compat["command"]} not found."); } } }
     }
 
 
