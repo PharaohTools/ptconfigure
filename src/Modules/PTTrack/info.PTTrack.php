@@ -28,7 +28,7 @@ class PTTrackInfo extends PTConfigureBase {
 
         - install
         Installs the latest version of pttrack
-        example: ptconfigure pttrack install
+        example: ptconfigure pttrack install -yg --with-webfaces
 
 HELPDATA;
       return $help ;

@@ -14,7 +14,7 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
-        $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : 'build.pharaoh.tld' ;
+        $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : 'track.pharaoh.tld' ;
 
         $this->steps =
             array(
@@ -30,9 +30,9 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Disable default Apache vhost", ), ), ),
                 array ( "ApacheVHostEditor" => array( "disable-default" => array( "guess" => true, ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our Pharaoh Build VHost" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our Pharaoh Track VHost" ),),),
                 array ( "ApacheVHostEditor" => array( "add" => array(
-                    "vhe-docroot" => PFILESDIR.'ptbuild'.DS.'ptbuild'.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
+                    "vhe-docroot" => PFILESDIR.'pttrack'.DS.'pttrack'.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
                     "guess" => true,
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => "127.0.0.1",
@@ -44,7 +44,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "ApacheControl" => array( "restart" => array( "guess" => true, ), ), ),
 
                 // End
-                array ( "Logging" => array( "log" => array( "log-message" => "Apache Web Server for Pharaoh Build Complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Apache Web Server for Pharaoh Track Complete"),),),
 
             );
 

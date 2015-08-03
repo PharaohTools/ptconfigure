@@ -17,34 +17,34 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure users and permissions for Pharaoh Build"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure users and permissions for Pharaoh Track"),),),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Allow user ptbuild a passwordless sudo", ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Allow user pttrack a passwordless sudo", ), ), ),
                 array ( "SudoNoPass" => array( "install" => array(
                     "guess" => true,
-                    "install-user-name" => 'ptbuild',
+                    "install-user-name" => 'pttrack',
                 ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Track Settings file writable", ), ), ),
                 array ( "Chmod" => array( "path" => array(
-                    "path" => PFILESDIR.'ptbuild'.DS.'ptbuild'.DS.'ptbuildvars',
+                    "path" => PFILESDIR.'pttrack'.DS.'pttrack'.DS.'pttrackvars',
                     "mode" => 0777,
                 ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory exists", ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Jobs Directory exists", ), ), ),
                 array ( "Mkdir" => array( "path" => array(
-                    "path" => PFILESDIR.'ptbuild'.DS.'pipes',
+                    "path" => PFILESDIR.'pttrack'.DS.'jobs',
                     "mode" => 0777,
                 ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Track Settings file writable", ), ), ),
                 array ( "Chmod" => array( "path" => array(
-                    "path" => PFILESDIR.'ptbuild'.DS.'pipes',
+                    "path" => PFILESDIR.'pttrack'.DS.'jobs',
                     "recursive" => true,
                     "mode" => 0777,
                 ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Build Complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Track Complete"),),),
 
             );
 

@@ -1,2 +1,2 @@
 #!/bin/sh
-useradd ptbuild -g
+useradd pttrack -g
