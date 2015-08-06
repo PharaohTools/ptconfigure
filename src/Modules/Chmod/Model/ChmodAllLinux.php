@@ -49,10 +49,13 @@ class ChmodAllLinux extends Base {
     }
 
     private function getMode(){
-        if (isset($this->params["mode"])) { return $this->params["mode"] ; }
+        if (isset($this->params["mode"])) {
+            $ret = (int) $this->params["mode"] ;
+            return $ret ; }
         else if (isset($this->params["guess"])) { return 0777 ; }
         else { $question = "Enter permissions mode:"; }
         $input = self::askForInput($question, true) ;
-        return $input ;
+        $ret = (int) $input ;
+        return $ret ;
     }
 }
