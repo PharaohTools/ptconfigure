@@ -21,6 +21,7 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     define('PTDCOMM',  PFILESDIR."ptdeploy.cmd") ;
     define('PTVCOMM',  PFILESDIR."ptvirtualize.cmd") ;
     define('BOXDIR', $sd.'\\PharaohTools\boxes') ;
+    define('PIPEDIR', $sd.'\\PharaohTools\pipes'.'\\') ;
     define("DS", "\\");
     define("BASE_TEMP_DIR", getenv("SystemDrive").'\Temp\\'); }
 else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
@@ -36,4 +37,5 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
     define('PTVCOMM', "ptvirtualize") ;
     define("DS", "/");
     define("BASE_TEMP_DIR", '/tmp/');
-    define('BOXDIR', DS.'ptvirtualize/boxes'.'\\') ; }
+    define('BOXDIR', '/ptvirtualize/boxes'.'\\') ;
+    define('PIPEDIR', '/opt/ptbuild/pipes') ; }
