@@ -73,7 +73,7 @@ class FileAllOS extends BaseLinuxApp {
     protected function performReplaceLine() {
         $this->setFile();
         $this->setSearchLine();
-        $this->setReplaceLine();
+        $this->replaceLine();
         return $this->shouldNotHaveLine();
     }
 
