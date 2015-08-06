@@ -14,6 +14,8 @@ class FileAllOS extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
     protected $fileName ;
+    protected $search ;
+    protected $replace ;
     protected $actionsToMethods =
         array(
             "exists" => "performFileExistenceCheck",
@@ -88,11 +90,20 @@ class FileAllOS extends BaseLinuxApp {
 
     public function setSearchLine($searchLine = null) {
         if (isset($searchLine)) {
-            $this->fileName = $searchLine; }
+            $this->search = $searchLine; }
         else if (isset($this->params["search"])) {
-            $this->fileName = $this->params["search"]; }
+            $this->search = $this->params["search"]; }
         else {
-            $this->fileName = self::askForInput("Enter line of text to search for:", true); }
+            $this->search = self::askForInput("Enter line of text to search for:", true); }
+    }
+
+    public function setReplaceLine($replaceLine = null) {
+        if (isset($replaceLine)) {
+            $this->replace = $replaceLine; }
+        else if (isset($this->params["replace"])) {
+            $this->replace = $this->params["replace"]; }
+        else {
+            $this->replace = self::askForInput("Enter line of text to replace/add:", true); }
     }
 
     public function read() {
@@ -167,7 +178,7 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function append($str = null) {
-        if (is_null($str)) {$str = $this->params["search"].PHP_EOL ;}
+        if (is_null($str)) {$str = $this->params["replace"].PHP_EOL ;}
         $this->write($this->read() . $str);
     }
 
@@ -194,8 +205,8 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function replaceLine($oldline = null, $newline = null) {
-        $string = ($oldline === null) ? $this->params["search"] : $oldline ;
-        $newline = ($newline === null) ? $this->params["replace"] : $newline ;
+        $string = ($oldline === null) ? $this->search : $oldline ;
+        $newline = ($newline === null) ? $this->replace : $newline ;
         if (!($string instanceof RegExp)) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
@@ -208,7 +219,7 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function shouldHaveLine($line = null) {
-        $string = ($line === null) ? $this->params["search"] : $line ;
+        $string = ($line === null) ? $this->search : $line ;
         if (!($string instanceof RegExp)) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
@@ -221,7 +232,7 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function shouldNotHaveLine($line = null) {
-        $string = ($line === null) ? $this->params["search"] : $line ;
+        $string = ($line === null) ? $this->search : $line ;
         if (!($string instanceof RegExp)) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
