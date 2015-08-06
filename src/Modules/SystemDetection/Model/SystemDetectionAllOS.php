@@ -4,7 +4,7 @@ Namespace Model;
 
 class SystemDetectionAllOS extends Base {
 
-    public $os ; // = array("any", "Linux", "Windows", "MacOS") ;
+    public $os ; // = array("any", "Linux", "Windows", "Darwin") ;
     public $linuxType ; // = array("any", "Debian", "Redhat") ;
     public $distro ; // = array("any", "Ubuntu", "Arch", "Debian", "Fedora", "CentOS") ; @todo add suse, mandriva
     public $version ; // = array("any", "11.04", "11.10", "12.04", "13.04") ; @todo win7, win2003, etc
