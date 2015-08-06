@@ -29,25 +29,25 @@ class FileInfo extends PTConfigureBase {
 
         - create
         Create a new system file
-        example: ptconfigure file create --file="somename"
+        example: ptconfigure file create --path="somename"
                     --overwrite-existing # overwrite files that exist
                     --data="things to put in the file" # data for putting in the file
 
         - delete
         Delete a system file
-        example: ptconfigure file delete --file="somename"
+        example: ptconfigure file delete --path="somename"
 
         - exists
         Check the existence of a file
-        example: ptconfigure file exists --filename="somename"
+        example: ptconfigure file exists --path="somename"
 
         - append
         Append a line to a file
-        example: ptconfigure file append --filename="somename" --line="a line"
+        example: ptconfigure file append --path="somename" --line="a line"
 
         - should-have-line
         Ensure that a file contains a particular line
-        example: ptconfigure file should-have-line --filename="somename" --line="a line"
+        example: ptconfigure file should-have-line --path="somename" --line="a line"
 
 HELPDATA;
       return $help ;
