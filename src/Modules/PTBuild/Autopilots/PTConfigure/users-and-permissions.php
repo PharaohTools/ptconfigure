@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "File" => array( "should-have-line" => array(
                     "guess" => true,
                     "file" => "/etc/sudoers",
-                    "search" => "{$apache_user} ALL = NOPASSWD: /usr/bin/su - ptbuild",
+                    "search" => "www-data    ALL=({$apache_user}) NOPASSWD: /bin/bash",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
