@@ -28,7 +28,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Allow apache user to switch to ptbuild user", ), ), ),
                 array ( "File" => array( "should-have-line" => array(
                     "guess" => true,
-                    "filename" => "/etc/sudoers",
+                    "path" => "/etc/sudoers",
                     "line" => "{$apache_user} ALL = NOPASSWD: /usr/bin/su - ptbuild",
                 ), ), ),
 
