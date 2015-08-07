@@ -25,17 +25,23 @@ class AutoPilotConfigured extends AutoPilot {
                     "install-user-name" => 'ptbuild',
                 ), ), ),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Allow web server user $apache_user a passwordless sudo", ), ), ),
+                array ( "SudoNoPass" => array( "install" => array(
+                    "guess" => true,
+                    "install-user-name" => $apache_user,
+                ), ), ),
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Allow apache user to switch to ptbuild user", ), ), ),
                 array ( "File" => array( "should-have-line" => array(
                     "guess" => true,
                     "file" => "/etc/sudoers",
-                    "search" => "www-data    ALL=({$apache_user}) NOPASSWD: /bin/bash",
+                    "search" => "{$apache_user}    ALL=(ptbuild) NOPASSWD: ALL",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
                 array ( "Chmod" => array( "path" => array(
                     "path" => PFILESDIR.'ptbuild'.DS.'ptbuild'.DS.'ptbuildvars',
-                    "mode" => 0777,
+                    "mode" => '0777',
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory exists", ), ), ),
@@ -47,7 +53,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Chmod" => array( "path" => array(
                     "path" => PIPEDIR,
                     "recursive" => true,
-                    "mode" => 0777,
+                    "mode" => '0777',
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Build Complete"),),),
