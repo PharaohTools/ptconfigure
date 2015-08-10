@@ -14,6 +14,7 @@ class FileAllOS extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
     protected $fileName ;
+    protected $fileData ;
     protected $search ;
     protected $replace ;
     protected $actionsToMethods =
@@ -36,47 +37,52 @@ class FileAllOS extends BaseLinuxApp {
         $this->initialize();
     }
 
-    protected function performFileExistenceCheck() {
+    public function performFileExistenceCheck() {
         $this->setFile();
         return $this->exists();
     }
 
-    protected function performDeletion() {
+    public function performDeletion() {
         $this->setFile();
         $this->filedelete();
         return ($this->exists()==false) ? true : false ;
     }
 
-    protected function performCreation() {
+    public function performCreation() {
         $this->setFile();
-
         return $this->exists();
     }
 
-    protected function performAppendLine() {
+    public function performAppendLine() {
         $this->setFile();
         $this->setSearchLine();
+        $this->read();
         $this->append();
         return true ;
     }
 
-    protected function performShouldHaveLine() {
+    public function performShouldHaveLine() {
         $this->setFile();
         $this->setSearchLine();
-        return $this->shouldHaveLine();
+        $this->read();
+        $this->shouldHaveLine();
+        return $this->write();
     }
 
-    protected function performShouldNotHaveLine() {
+    public function performShouldNotHaveLine() {
         $this->setFile();
         $this->setSearchLine();
-        return $this->shouldNotHaveLine();
+        $this->read();
+        $this->shouldNotHaveLine();
+        return $this->write();
     }
 
-    protected function performReplaceLine() {
+    public function performReplaceLine() {
         $this->setFile();
         $this->setSearchLine();
+        $this->read();
         $this->replaceLine();
-        return $this->shouldNotHaveLine();
+        return $this->write();
     }
 
     public function setFile($fileName = null) {
@@ -110,14 +116,16 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Reading File {$this->fileName}", $this->getModuleName()) ;
-        return file_get_contents($this->fileName);
+        $this->fileData = file_get_contents($this->fileName);
+        return $this->fileData ;
     }
 
     public function exists() {
         return file_exists($this->fileName);
     }
 
-    public function write($content) {
+    public function write($content = null) {
+        if ($content == null) { $content = $this->fileData ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Writing File {$this->fileName}", $this->getModuleName()) ;
@@ -150,29 +158,27 @@ class FileAllOS extends BaseLinuxApp {
 
     public function replaceIfPresent($needle, $newNeedle) {
         if ($this->contains($needle)) {
-            $content = $this->read();
             if ($needle instanceof RegExp) {
-                $newContent = preg_replace($needle->regexp, $newNeedle, $content); }
+                $newContent = preg_replace($needle->regexp, $newNeedle, $this->fileData); }
             else {
-                $newContent = str_replace($needle, $newNeedle, $content); }
+                $newContent = str_replace($needle, $newNeedle, $this->fileData); }
             $this->write($newContent); }
         return $this;
     }
 
     public function removeIfPresent($needle) {
         if ($this->contains($needle)) {
-            $content = $this->read();
             if ($needle instanceof RegExp) {
-                $newContent = preg_replace($needle->regexp, "", $content); }
+                $newContent = preg_replace($needle->regexp, "", $this->fileData); }
             else {
-                $newContent = str_replace($needle, "", $content); }
+                $newContent = str_replace($needle, "", $this->fileData); }
             $this->write($newContent); }
         return $this;
     }
 
     public function contains($needle) {
         if ($needle instanceof RegExp) {
-            return preg_match($needle->regexp, $this->read()); }
+            return preg_match($needle->regexp, $this->fileData); }
         else {
             return strstr($this->read(), $needle); }
     }
@@ -184,14 +190,14 @@ class FileAllOS extends BaseLinuxApp {
         if ($this->params["after-line"]) {
             $logging->log("Looking for line to append after...", $this->getModuleName()) ;
             $fileData = "" ;
-            $fileLines = explode("\n", $this->read()) ;
+            $fileLines = explode("\n", $this->fileData) ;
             foreach ($fileLines as $fileLine) {
                 if ($fileLine == $this->params["after-line"]) {
-                    $logging->log("Found line we're looking for, appending", $this->getModuleName()) ;
-                    $fileData .= "$str\n";
-                    $fileData .= "$fileLine\n" ; }
+                    $logging->log("Found line we're looking for, appending data after it", $this->getModuleName()) ;
+                    $fileData .= "$fileLine\n" ;
+                    $fileData .= "$str\n";}
                 else { $fileData .= "$fileLine\n" ; } } }
-        else { $fileData = $this->read() . $str ; }
+        else { $fileData = $this->fileData . $str ; }
         return $this->write($fileData);
     }
 
@@ -253,7 +259,7 @@ class FileAllOS extends BaseLinuxApp {
         if (substr($searchString, -1, 1) != "\n") {
             $searchString .= "\n"; }
         if ($this->findString($searchString)) {
-            $this->append($string . "\n"); }
+            $this->replaceLine($string . "\n", ""); }
         return $this;
     }
 
