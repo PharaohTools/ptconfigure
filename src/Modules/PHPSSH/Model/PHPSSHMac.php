@@ -27,6 +27,25 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $this->initialize();
     }
 
+    public function updatePHPIni() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Removing any old extension line from PHP Ini", $this->getModuleName()) ;
+        $iniFileLocation = '/private/etc/php.ini' ;
+        $params1 = $params2 = $this->params ;
+        $params1["file"] = $iniFileLocation ;
+        $params1["search"] = 'extension=/opt/local/lib/php55/extensions/no-debug-non-zts-20121212/ssh2.so' ;
+        $fileFactory = new \Model\File();
+        $file1 = $fileFactory->getModel($params1) ;
+        $file1->performShouldNotHaveLine() ;
+        $logging->log("Adding extension line from PHP Ini.", $this->getModuleName()) ;
+        $params2["file"] = $iniFileLocation ;
+        $params1["after-line"] = '[PHP]' ;
+        $params1["search"] = 'extension=/opt/local/lib/php55/extensions/no-debug-non-zts-20121212/ssh2.so' ;
+        $file2 = $fileFactory->getModel($params2) ;
+        $file2->performShouldHaveLine() ;
+    }
+
     public function askStatus() {
         $modsTextCmd = SUDOPREFIX.'php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
@@ -36,7 +55,7 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $passing = true ;
         foreach ($modsToCheck as $modToCheck) {
             if (!strstr($modsText, $modToCheck)) {
-                $logging->log("PHP Module {$modToCheck} does not exist.") ;
+                $logging->log("PHP Module {$modToCheck} does not exist.", $this->getModuleName()) ;
                 $passing = false ; } }
         return $passing ;
     }
