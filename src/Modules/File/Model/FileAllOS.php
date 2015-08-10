@@ -159,20 +159,23 @@ class FileAllOS extends BaseLinuxApp {
     public function replaceIfPresent($needle, $newNeedle) {
         if ($this->contains($needle)) {
             if ($needle instanceof RegExp) {
-                $newContent = preg_replace($needle->regexp, $newNeedle, $this->fileData); }
+                $this->fileData = preg_replace($needle->regexp, $newNeedle, $this->fileData); }
             else {
-                $newContent = str_replace($needle, $newNeedle, $this->fileData); }
-            $this->write($newContent); }
+                $this->fileData = str_replace($needle, $newNeedle, $this->fileData); } }
         return $this;
     }
 
     public function removeIfPresent($needle) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if ($this->contains($needle)) {
+            $logging->log("Specified line found, removing", $this->getModuleName()) ;
             if ($needle instanceof RegExp) {
-                $newContent = preg_replace($needle->regexp, "", $this->fileData); }
+                $this->fileData = preg_replace($needle->regexp, "", $this->fileData); }
             else {
-                $newContent = str_replace($needle, "", $this->fileData); }
-            $this->write($newContent); }
+                $this->fileData = str_replace($needle, "", $this->fileData); } }
+        else {
+            $logging->log("Line not present, nothing to remove", $this->getModuleName()) ; }
         return $this;
     }
 
@@ -180,7 +183,7 @@ class FileAllOS extends BaseLinuxApp {
         if ($needle instanceof RegExp) {
             return preg_match($needle->regexp, $this->fileData); }
         else {
-            return strstr($this->read(), $needle); }
+            return strstr($this->fileData, $needle); }
     }
 
     public function append($str = null) {
@@ -196,9 +199,9 @@ class FileAllOS extends BaseLinuxApp {
                     $logging->log("Found line we're looking for, appending data after it", $this->getModuleName()) ;
                     $fileData .= "$fileLine\n" ;
                     $fileData .= "$str\n";}
-                else { $fileData .= "$fileLine\n" ; } } }
-        else { $fileData = $this->fileData . $str ; }
-        return $this->write($fileData);
+                else { $fileData .= "$fileLine\n" ; } }
+            $this->fileData = $fileData ; }
+        else { $this->fileData .= $str ; }
     }
 
     public function chmod($string) {
@@ -207,13 +210,15 @@ class FileAllOS extends BaseLinuxApp {
 
     public function findString($needle) {
         if ($needle instanceof RegExp) {
-            preg_match_all($needle->regexp, $this->read(), $m);
+            preg_match_all($needle->regexp, $this->fileData, $m);
             if (isset($m[1])) {
+                var_dump("m1 ".$m[1]) ;
                 return $m[1]; }
             if (isset($m[0])) {
+                var_dump("m2]0 ".$m[0]) ;
                 return $m[0]; } }
         else {
-            if (strstr($this->read(), $needle)) {
+            if (strstr($this->fileData, $needle)) {
                 return $needle; } }
         return null;
     }
@@ -226,7 +231,7 @@ class FileAllOS extends BaseLinuxApp {
     public function replaceLine($oldline = null, $newline = null) {
         $string = ($oldline === null) ? $this->search : $oldline ;
         $newline = ($newline === null) ? $this->replace : $newline ;
-        if (!($string instanceof RegExp)) {
+        if ($string instanceof RegExp) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
@@ -239,7 +244,7 @@ class FileAllOS extends BaseLinuxApp {
 
     public function shouldHaveLine($line = null) {
         $string = ($line === null) ? $this->search : $line ;
-        if (!($string instanceof RegExp)) {
+        if ($string instanceof RegExp) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
@@ -252,14 +257,14 @@ class FileAllOS extends BaseLinuxApp {
 
     public function shouldNotHaveLine($line = null) {
         $string = ($line === null) ? $this->search : $line ;
-        if (!($string instanceof RegExp)) {
+        if ($string instanceof RegExp) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
         if (substr($searchString, -1, 1) != "\n") {
             $searchString .= "\n"; }
         if ($this->findString($searchString)) {
-            $this->replaceLine($string . "\n", ""); }
+            $this->removeIfPresent($string . "\n"); }
         return $this;
     }
 
