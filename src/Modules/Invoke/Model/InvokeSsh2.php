@@ -86,15 +86,12 @@ class InvokeSsh2 extends Base {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params) ;
             $logging->log("SSH command failed", "Invoke - PHP SSH") ;
-            \Core\BootStrap::setExitCode(1) ;
-        }
-
+            \Core\BootStrap::setExitCode(1) ; }
         stream_set_blocking($this->stream, true);
         $data = "";
         while ($buf = fread($this->stream, 4096)) {
             $data .= $buf;
-            echo $buf ;
-        }
+            echo $buf ; }
         fclose($this->stream);
         return "";
     }
