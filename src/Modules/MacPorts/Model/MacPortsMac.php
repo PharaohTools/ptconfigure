@@ -8,7 +8,7 @@ class MacPortsMac extends BasePackager {
     public $os = array("Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array("10.4", "10.5", "10.6", "10.7", "10.8", "10.9", "10.10") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -23,7 +23,60 @@ class MacPortsMac extends BasePackager {
         $this->programNameFriendly = "!MacPorts!!"; // 12 chars
         $this->programNameInstaller = "MacPorts";
         $this->statusCommand = "port -v" ;
+        $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "installMacPorts", "params" => array()) ),
+        );
+        $this->uninstallCommands = array(
+        );
         $this->initialize();
+    }
+
+    public function installMacPorts() {
+        $system = new \Model\SystemDetectionAllOS() ;
+        $version = $system->version ;
+        switch ($version) {
+            case "10.4" :
+                $filename = "MacPorts-2.3.3-10.4-Tiger.dmg" ;
+                break ;
+            case "10.5" :
+                $filename = "MacPorts-2.3.3-10.5-Leopard.dmg" ;
+                break ;
+            case "10.6" :
+                $filename = "MacPorts-2.3.3-10.6-SnowLeopard.pkg" ;
+                break ;
+            case "10.7" :
+                $filename = "MacPorts-2.3.3-10.7-Lion.pkg" ;
+                break ;
+            case "10.8" :
+                $filename = "MacPorts-2.3.3-10.8-MountainLion.pkg" ;
+                break ;
+            case "10.9" :
+                $filename = "MacPorts-2.3.3-10.9-Mavericks.pkg" ;
+                break ;
+            case "10.10" :
+                $filename = "MacPorts-2.3.3-10.10-Yosemite.pkg" ;
+                break ;
+            default :
+                $filename = "MacPorts-2.3.3-10.10-Yosemite.pkg" ;
+                break ; }
+        $url = 'https://distfiles.macports.org/MacPorts/' ;
+        $curlCommand = "curl {$url}{$filename} -o /tmp/{$filename}" ;
+        $this->executeAndOutput($curlCommand) ;
+        if (strpos($filename, ".pkg")) {
+            $comm = SUDOPREFIX."installer -pkg /tmp/{$filename} -target /" ;
+            $this->executeAndOutput($comm) ; }
+        else if (strpos($filename, ".dmg")) {
+            $comm = SUDOPREFIX."hdiutil attach /tmp/{$filename}" ;
+            $this->executeAndOutput($comm) ;
+            $comm = SUDOPREFIX.'installer -pkg /Volumes/MacPorts-2.3.3/MacPorts-2.3.3.pkg -target /' ;
+            $this->executeAndOutput($comm) ;
+            $comm = SUDOPREFIX."hdiutil detach /Volumes/MacPorts-2.3.3/MacPorts-2.3.3.pkg" ;
+            $this->executeAndOutput($comm) ; }
+        else {
+            // this is a file error
+            // @todo logging an error
+            return false ; }
+        return true ;
     }
 
     public function isInstalled($packageName) {
@@ -90,13 +143,13 @@ class MacPortsMac extends BasePackager {
     }
 
     public function versionCompatible() {
-        $out = $this->executeAndOutput(SUDOPREFIX."macPorts-get update -y");
-        if (strpos($out, "Done") != false) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
-            return false ; }
-        return true ;
+//        $out = $this->executeAndOutput(SUDOPREFIX."macPorts-get update -y");
+//        if (strpos($out, "Done") != false) {
+//            $loggingFactory = new \Model\Logging();
+//            $logging = $loggingFactory->getModel($this->params);
+//            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
+//            return false ; }
+//        return true ;
     }
 
 }

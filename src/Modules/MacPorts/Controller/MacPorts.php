@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Apt extends Base {
+class MacPorts extends Base {
 
     public function execute($pageVars) {
 
@@ -20,7 +20,7 @@ class Apt extends Base {
         if (in_array($action, array("pkg-install", "pkg-remove", "pkg-ensure", "update") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"apt", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"macPorts", "pageVars"=>$this->content); }
 
     }
 

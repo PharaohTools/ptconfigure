@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Apt extends BaseModelFactory {
+class MacPorts extends BaseModelFactory {
 
 }

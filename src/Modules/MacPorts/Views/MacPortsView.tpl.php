@@ -1,4 +1,4 @@
-Apt Modifications:
+MacPorts Modifications:
 --------------------------------------------
 
 <?php echo $pageVars["appName"] ; ?>: <?php
@@ -9,4 +9,4 @@ Apt Modifications:
 ?>
 
 ------------------------------
-Apt Mods Finished
+MacPorts Mods Finished
