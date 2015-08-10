@@ -40,8 +40,8 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $file1->performShouldNotHaveLine() ;
         $logging->log("Adding extension line from PHP Ini.", $this->getModuleName()) ;
         $params2["file"] = $iniFileLocation ;
-        $params1["after-line"] = '[PHP]' ;
-        $params1["search"] = 'extension=/opt/local/lib/php55/extensions/no-debug-non-zts-20121212/ssh2.so' ;
+        $params2["after-line"] = '[PHP]' ;
+        $params2["search"] = 'extension=/opt/local/lib/php55/extensions/no-debug-non-zts-20121212/ssh2.so' ;
         $file2 = $fileFactory->getModel($params2) ;
         $file2->performShouldHaveLine() ;
     }
