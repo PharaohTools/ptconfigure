@@ -2,8 +2,6 @@
 
 Namespace Model;
 
-// @todo this class is way too long, we should use model groups, at least for balancing
-// @todo  the vhosttemp folder that gets left in temp should be removed
 class ApacheVHostEditorCentos extends ApacheVHostEditorUbuntuLegacy {
 
     // Compatibility
@@ -35,13 +33,26 @@ class ApacheVHostEditorCentos extends ApacheVHostEditorUbuntuLegacy {
         return true;
     }
 
-
     protected function askForFileExtension() {
         if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         if (isset($this->params["guess"])) { return "" ; }
         $question = 'What File Extension should be used? Enter nothing for None (probably .conf on this system)';
         $input = self::askForInput($question) ;
         return $input ;
+    }
+
+    protected function askForVHostDirectory(){
+        if (isset($this->params["vhe-vhost-dir"])) { return $this->params["vhe-vhost-dir"] ; }
+        $question = 'What is your VHost directory?';
+        if ($this->detectRHVHostFolderExistence()) { $question .= ' Found "/etc/httpd/vhosts.d" - Enter nothing to use this';
+            if (isset($this->params["guess"])) { return "/etc/httpd/vhosts.d" ; }
+            $input = self::askForInput($question);
+            return ($input=="") ? "/etc/httpd/vhosts.d" : $input ;  }
+        return self::askForInput($question, true);
+    }
+
+    protected function detectRHVHostFolderExistence(){
+        return file_exists("/etc/httpd/vhosts.d");
     }
 
 }
