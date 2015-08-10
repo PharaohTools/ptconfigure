@@ -1,0 +1,102 @@
+<?php
+
+Namespace Model;
+
+class MacPortsMac extends BasePackager {
+
+    // Compatibility
+    public $os = array("Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $architectures = array("any") ;
+
+    // Model Group
+    public $modelGroup = array("Default") ;
+    protected $packagerName = "MacPorts";
+
+    public function __construct($params) {
+        parent::__construct($params);
+        $this->autopilotDefiner = "MacPorts";
+        $this->programDataFolder = "";
+        $this->programNameMachine = "macPorts"; // command and app dir name
+        $this->programNameFriendly = "!MacPorts!!"; // 12 chars
+        $this->programNameInstaller = "MacPorts";
+        $this->statusCommand = "port -v" ;
+        $this->initialize();
+    }
+
+    public function isInstalled($packageName) {
+        if (!is_array($packageName)) { $packageName = array($packageName) ; }
+        $passing = true ;
+        foreach ($packageName as $package) {
+            $out = $this->executeAndLoad(SUDOPREFIX."port list installed") ;
+            if (strpos($out, $package) == false) { $passing = false ; } }
+        return $passing ;
+    }
+
+    public function installPackage($packageName, $version=null, $versionAccuracy=null) {
+        $packageName = $this->getPackageName($packageName);
+        if (!is_array($packageName)) { $packageName = array($packageName) ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
+            // @todo multiple versioned packages should work!!
+            $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
+            $logging->log($lmsg, $this->getModuleName()) ; ;
+            \BootStrap::setExitCode(1) ;
+            return false ; }
+        foreach ($packageName as $package) {
+            if (!is_null($version)) {
+                 $versionToInstall = "" ;
+            }
+            $out = $this->executeAndOutput(SUDOPREFIX."port install $package -y");
+            if (strpos($out, "Setting up $package") != false) {
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
+            else if (strpos($out, "is already the newest version.") != false) {
+                $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
+                $ltext .= "already installed, so not installing." ;
+                $logging->log($ltext, $this->getModuleName()) ; }
+            else if (strpos($out, "ldconfig deferred processing now taking place") == false) {
+                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
+                return false ; } }
+        return true ;
+    }
+
+    public function removePackage($packageName) {
+        $packageName = $this->getPackageName($packageName);
+        $out = $this->executeAndOutput(SUDOPREFIX."port uninstall $packageName -y");
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ( strpos($out, "The following packages will be REMOVED") != false ) {
+            $logging->log("Removed Package {$packageName} from the Packager {$this->programNameInstaller}", $this->getModuleName()) ;
+            return false ; }
+        else if ( strpos($out, "is not installed, so not removed") != false) {
+            $ltext  = "Package {$packageName} from the Packager {$this->programNameInstaller} is " ;
+            $ltext .= "not installed, so not removed." ;
+            $logging->log($ltext, $this->getModuleName()) ;
+            return false ; }
+        return true ;
+    }
+
+    public function update() {
+        $out = $this->executeAndOutput(SUDOPREFIX."port -v selfupdate");
+        if (strpos($out, "The ports tree has been updated.") == false) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
+            return false ; }
+        return true ;
+    }
+
+    public function versionCompatible() {
+        $out = $this->executeAndOutput(SUDOPREFIX."macPorts-get update -y");
+        if (strpos($out, "Done") != false) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Updating the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
+            return false ; }
+        return true ;
+    }
+
+}
