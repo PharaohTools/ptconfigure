@@ -178,8 +178,21 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function append($str = null) {
-        if (is_null($str)) {$str = $this->params["replace"].PHP_EOL ;}
-        $this->write($this->read() . $str);
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if (is_null($str)) {$str = $this->params["replace"].PHP_EOL ; }
+        if ($this->params["after-line"]) {
+            $logging->log("Looking for line to append after...", $this->getModuleName()) ;
+            $fileData = "" ;
+            $fileLines = explode("\n", $this->read()) ;
+            foreach ($fileLines as $fileLine) {
+                if ($fileLine == $this->params["after-line"]) {
+                    $logging->log("Found line we're looking for, appending", $this->getModuleName()) ;
+                    $fileData .= "$str\n";
+                    $fileData .= "$fileLine\n" ; }
+                else { $fileData .= "$fileLine\n" ; } } }
+        else { $fileData = $this->read() . $str ; }
+        return $this->write($fileData);
     }
 
     public function chmod($string) {
