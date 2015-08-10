@@ -27,22 +27,6 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $this->initialize();
     }
 
-    public function ensureDependencies() {
-
-        $modsTextCmd = SUDOPREFIX.'php -m';
-        $modsText = $this->executeAndLoad($modsTextCmd) ;
-        $modsToCheck = array("ssh2") ;
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $passing = true ;
-        foreach ($modsToCheck as $modToCheck) {
-            if (!strstr($modsText, $modToCheck)) {
-                $logging->log("PHP Module {$modToCheck} does not exist.") ;
-                $passing = false ; } }
-        return $passing ;
-
-    }
-
     public function askStatus() {
         $modsTextCmd = SUDOPREFIX.'php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
