@@ -48,9 +48,20 @@ class InvokeSsh2 extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params) ;
         if (!function_exists("ssh2_connect")) {
-            $logging->log('Native PHP SSH2 Functions are not installed. Cannot use the PHP Native SSH Driver', "Invoke - PHP SSH") ;
-            \Core\BootStrap::setExitCode(1) ;
-            return false; }
+            $logging->log('Native PHP SSH2 Functions are not installed.', "Invoke - PHP SSH") ;
+            if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                $logging->log('Guessing that we should try to install Native PHP SSH2 Functions.', "Invoke - PHP SSH") ;
+                $phpSSHFactory = new \Model\PHPSSH();
+                $phpSSH = $phpSSHFactory->getModel($this->params) ;
+                $res = $phpSSH->ensureInstalled();
+                if ($res == false) {
+                    $logging->log('Cannot use the PHP Native SSH Driver.', "Invoke - PHP SSH") ;
+                    \Core\BootStrap::setExitCode(1) ;
+                    return false; } }
+            else {
+                $logging->log('Cannot use the PHP Native SSH Driver.', "Invoke - PHP SSH") ;
+                \Core\BootStrap::setExitCode(1) ;
+                return false; } }
         if (!($this->connection = ssh2_connect($this->server->host, $this->server->port))) {
             $logging->log('Cannot connect to server', "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ;
@@ -79,9 +90,20 @@ class InvokeSsh2 extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params) ;
         if (!function_exists("ssh2_exec")) {
-            $logging->log('Native PHP SSH2 Functions are not installed. Cannot use the PHP Native SSH Driver', "Invoke - PHP SSH") ;
-            \Core\BootStrap::setExitCode(1) ;
-            return false; }
+            $logging->log('Native PHP SSH2 Functions are not installed.', "Invoke - PHP SSH") ;
+            if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+                $logging->log('Guessing that we should try to install Native PHP SSH2 Functions.', "Invoke - PHP SSH") ;
+                $phpSSHFactory = new \Model\PHPSSH();
+                $phpSSH = $phpSSHFactory->getModel($this->params) ;
+                $res = $phpSSH->ensureInstalled();
+                if ($res == false) {
+                    $logging->log('Cannot use the PHP Native SSH Driver.', "Invoke - PHP SSH") ;
+                    \Core\BootStrap::setExitCode(1) ;
+                    return false; } }
+            else {
+                $logging->log('Cannot use the PHP Native SSH Driver.', "Invoke - PHP SSH") ;
+                \Core\BootStrap::setExitCode(1) ;
+                return false; } }
         if (!($this->stream = ssh2_exec($this->connection, $command, "vanilla"))) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params) ;
