@@ -190,7 +190,7 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (is_null($str)) {$str = $this->params["replace"].PHP_EOL ; }
-        if ($this->params["after-line"]) {
+        if (isset($this->params["after-line"]) && strlen($this->params["after-line"])>0) {
             $logging->log("Looking for line to append after...", $this->getModuleName()) ;
             $fileData = "" ;
             $fileLines = explode("\n", $this->fileData) ;
