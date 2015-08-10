@@ -287,10 +287,6 @@ class ApacheVHostEditorUbuntuLegacy extends Base {
         return file_exists("/etc/apache2/sites-available");
     }
 
-    protected function detectRHVHostFolderExistence(){
-        return file_exists("/etc/httpd/vhosts.d");
-    }
-
     protected function detectVHostEnabledFolderExistence(){
         return file_exists("/etc/apache2/sites-enabled");
     }
