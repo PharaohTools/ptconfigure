@@ -17,7 +17,7 @@ class PHPSSHMac extends PHPSSHUbuntu {
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
-//            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("libssh2-1-dev"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("php55-ssh2"))) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("PECL", array("ssh2-beta"))) ),
         );
         $this->uninstallCommands = array(
@@ -25,6 +25,22 @@ class PHPSSHMac extends PHPSSHUbuntu {
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("PECL", array("ssh2-beta"))) ),
         );
         $this->initialize();
+    }
+
+    public function ensureDependencies() {
+
+        $modsTextCmd = SUDOPREFIX.'php -m';
+        $modsText = $this->executeAndLoad($modsTextCmd) ;
+        $modsToCheck = array("ssh2") ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $passing = true ;
+        foreach ($modsToCheck as $modToCheck) {
+            if (!strstr($modsText, $modToCheck)) {
+                $logging->log("PHP Module {$modToCheck} does not exist.") ;
+                $passing = false ; } }
+        return $passing ;
+
     }
 
     public function askStatus() {
