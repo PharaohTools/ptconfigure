@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BehatAllLinux extends BaseComposerApp {
+class BehatAllOS extends BaseComposerApp {
 
     // Compatibility
     public $os = array("any") ;
