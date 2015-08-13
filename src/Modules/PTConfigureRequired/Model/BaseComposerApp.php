@@ -57,13 +57,15 @@ class BaseComposerApp extends BasePHPApp {
           $targetLocation );
   }
 
-  protected function doComposerCommand(){
+  protected function doComposerCommand() {
+      $sys = new \Model\SystemDetectionAllOS() ;
+      if ($sys->os == "Darwin") { $dlcomm = "curl https://getcomposer.org/installer --insecure -o installer" ; }
+      else { $dlcomm = "wget https://getcomposer.org/installer --no-check-certificate" ; }
       $command = array(
           "cd $this->programDataFolder".DIRECTORY_SEPARATOR.$this->programNameMachine ,
-          "wget https://getcomposer.org/installer --no-check-certificate",
+          $dlcomm,
           "php installer",
-          SUDOPREFIX."php composer.phar install -vvv --prefer-dist"
-      );
+          SUDOPREFIX."php composer.phar install -vvv --prefer-dist" );
       self::executeAsShell($command);
     return true;
   }
