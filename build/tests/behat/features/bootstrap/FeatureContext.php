@@ -26,8 +26,8 @@ class FeatureContext extends MinkContext
      */
     public function __construct(Array $parameters) {
         $this->setup();
-        $this->useContext('session_control', new \NoActionsContext()) ;
-        $this->useContext('default_page_checks', new \AnyModuleActionsContext()) ;
+        $this->useContext('noactions', new \NoActionsContext()) ;
+        $this->useContext('anymods', new \AnyModuleActionsContext()) ;
     }
 
     private function setup() {
