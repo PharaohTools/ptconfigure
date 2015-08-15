@@ -14,7 +14,7 @@ Feature: Executing the program index page
 
   Scenario: Execute with no parameters
     Given I run the application command in the shell
-    Then I should see "www.pharaohtools.com"
+    Then I should see the cli text "www.pharaohtools.com"
 
   Scenario: Execute with "--only-compatible" parameter
     Given I run the application command in the shell with parameter string "--only-compatible"
