@@ -47,9 +47,9 @@ class NoActionsContext extends BehatContext {
     }
 
     /**
-     * @Then /^I should see "([^"]*)"$/
+     * @Then /^I should see the cli text "([^"]*)"$/
      */
-    public function iShouldSee($arg1)
+    public function iShouldSeeTheCliText($arg1)
     {
         if (strpos($this->output, $arg1) === false) {
             throw new \Exception("Expected text $arg1 not found."); }
