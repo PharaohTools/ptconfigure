@@ -1,25 +1,11 @@
-@structure
-Feature: Basic functionality of all mfo
+@basics
+Feature: Basic functionality of all modules
   As a command line user
-  I want to execute the index page
-  To see overview information about the application
+  I want to execute any modules basic features
+  To see they are working before use
 
-  Scenario: Execute with no parameters
-    Given I run the application command in the shell
-    Then I should see all of the modules which are not hidden
+  Scenario: Execute any help command for a correct exit code
+    Given I run the help for all modules checking exit codes
 
-  Scenario: Execute with no parameters
-    Given I run the application command in the shell
-    Then I should see the application description
-
-  Scenario: Execute with no parameters
-    Given I run the application command in the shell
-    Then I should see "www.pharaohtools.com"
-
-  Scenario: Execute with "--only-compatible" parameter
-    Given I run the application command in the shell with parameter string "--only-compatible"
-    Then I should see only the modules which are compatible with this system
-
-  Scenario: Execute with "--compatible-only" parameter
-    Given I run the application command in the shell with parameter string "--compatible-only"
-    Then I should see only the modules which are compatible with this system
+  Scenario: Execute any help command for some output
+    Given I run the help for all modules checking exit output
