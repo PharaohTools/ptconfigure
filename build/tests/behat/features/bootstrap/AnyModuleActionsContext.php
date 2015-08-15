@@ -102,4 +102,20 @@ class AnyModuleActionsContext extends BehatContext {
         if (strlen($this->output) < 1) { throw new \Exception("Output was zero characters"); }
     }
 
+    /**
+     * @Given /^I run the help for all modules checking exit codes$/
+     */
+    public function iRunTheHelpForAllModulesCheckingExitCodes()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^I run the help for all modules checking exit output$/
+     */
+    public function iRunTheHelpForAllModulesCheckingExitOutput()
+    {
+        throw new PendingException();
+    }
+
 }
