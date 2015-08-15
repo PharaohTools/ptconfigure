@@ -76,8 +76,8 @@ class AnyModuleActionsContext extends BehatContext {
     public function iRunTheApplicationCommandInTheShellWithModuleActionAndParams($mod, $act, Array $params) {
         if (count($params)==0) { $pstr = "" ; }
         else { $pstr = implode(" ", $params) ; }
-        if (is_array($mod)) { var_dump("mod", $mod) ; }
-        if (is_array($act)) { var_dump("act", $act) ; }
+//        if (is_array($mod)) { var_dump("mod", $mod) ; }
+//        if (is_array($act)) { var_dump("act", $act) ; }
         $command = PTCCOMM."$mod $act $pstr" ;
         echo "Executing $command\n" ;
         exec($command, $output, $this->returnCode);
