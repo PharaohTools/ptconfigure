@@ -1,16 +1,34 @@
 <?php
 
-use Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Context\ContextInterface;
+use Behat\Behat\Exception\PendingException;
+use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\MinkContext;
+use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
+use Behat\Testwork\Hook\Scope\AfterSuiteScope;
 
-class FeatureContext extends BehatContext
+/**
+ * Behat context class.
+ */
+
+class FeatureContext extends MinkContext
 {
+
     private $output;
 
-    public function __construct() {
+    /**
+     * Initializes context. Every scenario gets it's own context object.
+     *
+     * @param array $parameters Suite parameters (set them up through behat.yml)
+     */
+    public function __construct(Array $parameters) {
         $this->setup();
+        $this->useContext('session_control', new \NoActionsContext()) ;
+        $this->useContext('default_page_checks', new \AnyModuleActionsContext()) ;
+        $this->useContext('login', new \LoginContext()) ;
     }
 
     private function setup() {
@@ -28,73 +46,5 @@ class FeatureContext extends BehatContext
             echo "Setup cant load constants\n" ;
             echo 'Message: ' .$e->getMessage(); }
     }
-
-    /**
-     * @Given /^I run the application command in the shell$/
-     */
-    public function iRunTheApplicationCommandInTheShell()
-    {
-        $command = PTCCOMM ;
-        exec($command, $output);
-        $this->output = trim(implode("\n", $output));
-    }
-
-    /**
-     * @Then /^I should see all of the modules which are not hidden$/
-     */
-    public function iShouldSeeAllOfTheModulesWhichAreNotHidden()
-    {
-        $mi = \Core\AutoLoader::getInfoObjects() ;
-        foreach ($mi as $moduleInfo) {
-            if ($moduleInfo->hidden != true) {
-                $array_keys = array_keys($moduleInfo->routesAvailable()) ;
-                $command = $array_keys[0] ;
-                if (strpos($this->output, $command) === false) {
-                    throw new \Exception("Expected module {$command} not found."); } } }
-    }
-
-    /**
-     * @Then /^I should see the application description$/
-     */
-    public function iShouldSeeTheApplicationDescription()
-    {
-
-    }
-
-    /**
-     * @Then /^I should see "([^"]*)"$/
-     */
-    public function iShouldSee($arg1)
-    {
-        if (strpos($this->output, $arg1) === false) {
-            throw new \Exception("Expected text $arg1 not found."); }
-    }
-
-    /**
-     * @Given /^I run the application command in the shell with parameter string "([^"]*)"$/
-     */
-    public function iRunTheApplicationCommandInTheShellWithParameterString($str)
-    {
-        $command = PTCCOMM." $str" ;
-        exec($command, $output);
-        $this->output = trim(implode("\n", $output));
-    }
-
-    /**
-     * @Then /^I should see only the modules which are compatible with this system$/
-     */
-    public function iShouldSeeOnlyTheModulesWhichAreCompatibleWithThisSystem()
-    {
-        //@todo this functionality wont be 110 accurate without unit testing that method it calls from model
-        $iao = new \Model\IndexAllOS(array()) ;
-        $method = new ReflectionMethod('\Model\IndexAllOS', 'findOnlyCompatibleModuleNames');
-        $method->setAccessible(true);
-        $compats = $method->invokeArgs($iao,array(array()));
-        foreach ($compats as $compat) {
-            if ($compat["hidden"] !== true) {
-                if (strpos($this->output, $compat["command"]) === false) {
-                    throw new \Exception("Expected compatible module {$compat["command"]} not found."); } } }
-    }
-
 
 }
