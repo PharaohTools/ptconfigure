@@ -50,8 +50,7 @@ class AnyModuleActionsContext extends BehatContext {
         $incompats[] = array_diff($newInfos, $compats) ;
         foreach ($incompats as $infoCheck) {
             if (is_array($infoCheck)) {
-                $infoCheck = $infoCheck["command"] ;
-                var_dump("moda", $infoCheck) ; }
+                $infoCheck = $infoCheck["command"] ; }
             $this->iRunTheApplicationCommandInTheShellWithModuleActionAndParams($infoCheck, "help", array()) ;
             $this->theLastCommandShouldHaveASuccessExitCode() ; }
     }
@@ -66,8 +65,7 @@ class AnyModuleActionsContext extends BehatContext {
             $modName = substr($modName, 0, strlen($modName)-4) ;
             $modName = substr($modName, 5) ;
             if (is_array($modName)) {
-                $modName = $modName["command"] ;
-                var_dump("modx", $modName) ; }
+                $modName = $modName["command"] ; }
             $this->iRunTheApplicationCommandInTheShellWithModuleActionAndParams($modName, "help", array()) ;
             $this->theLastCommandShouldHaveCreatedOutput() ; }
     }
@@ -100,22 +98,6 @@ class AnyModuleActionsContext extends BehatContext {
     public function theLastCommandShouldHaveCreatedOutput() {
         if (!is_string($this->output)) { throw new \Exception("Output was not a string"); }
         if (strlen($this->output) < 1) { throw new \Exception("Output was zero characters"); }
-    }
-
-    /**
-     * @Given /^I run the help for all modules checking exit codes$/
-     */
-    public function iRunTheHelpForAllModulesCheckingExitCodes()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given /^I run the help for all modules checking exit output$/
-     */
-    public function iRunTheHelpForAllModulesCheckingExitOutput()
-    {
-        throw new PendingException();
     }
 
 }
