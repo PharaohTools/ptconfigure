@@ -16,10 +16,10 @@ Feature: Executing the program index page
     Given I run the application command in the shell
     Then I should see the cli text "www.pharaohtools.com"
 
-  Scenario: Execute with "--only-compatible" parameter
-    Given I run the application command in the shell with parameter string "--only-compatible"
-    Then I should see only the modules which are compatible with this system
-
-  Scenario: Execute with "--compatible-only" parameter
-    Given I run the application command in the shell with parameter string "--compatible-only"
-    Then I should see only the modules which are compatible with this system
+#  Scenario: Execute with "--only-compatible" parameter
+#    Given I run the application command in the shell with parameter string "--only-compatible"
+#    Then I should see only the modules which are compatible with this system
+#
+#  Scenario: Execute with "--compatible-only" parameter
+#    Given I run the application command in the shell with parameter string "--compatible-only"
+#    Then I should see only the modules which are compatible with this system
