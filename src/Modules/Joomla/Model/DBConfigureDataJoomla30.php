@@ -24,18 +24,16 @@ class DBConfigureDataJoomla30 extends Base {
     public $dbHost;
 
     public function __construct(){
-        $this->extraConfigFiles = array('build'.DS.'config'.DS.'phpunit'.DS.'bootstrap.php');
+//        $this->extraConfigFiles = array('build'.DS.'config'.DS.'phpunit'.DS.'bootstrap.php');
 		$this->setProperties();
         $this->setReplacements();
         $this->setExtraConfigReplacements();
     }
 
     protected function setProperties() {
-		$prefix = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "" ;
-        if (strlen($prefix) > 0) {
-            $this->settingsFileLocation = $prefix; }
-        else {
-            $this->settingsFileName = 'src'.DS.'configuration.php'; }
+        $prefix = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : "";
+        if (strlen($prefix) > 0) { $this->settingsFileLocation = $prefix; }
+        $this->settingsFileName = 'src'.DS.'configuration.php';
 
     }
 
