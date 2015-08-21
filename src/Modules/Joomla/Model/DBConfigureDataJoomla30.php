@@ -39,7 +39,9 @@ class DBConfigureDataJoomla30 extends Base {
     }
 
     public function getConfigProperty($property) {
-        $jconfloc = getcwd().$this->settingsFileLocation.DS.$this->settingsFileName ;
+        $prefix = (isset($this->params["parent-path"])) ? "" : getcwd() ;
+        $jconfloc = $prefix.$this->settingsFileLocation.DS.$this->settingsFileName ;
+        var_dump($jconfloc) ;
         include_once($jconfloc) ;
         if (!class_exists("JConfig")) {
             \Core\Bootstrap::setExitCode(1);
