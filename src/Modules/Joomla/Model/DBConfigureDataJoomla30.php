@@ -36,12 +36,12 @@ class DBConfigureDataJoomla30 extends Base {
         if (strlen($prefix) > 0) { $this->settingsFileLocation = $prefix; }
         else { $this->settingsFileName = 'src'.DS.'configuration.php'; }
 
+        var_dump("sfn",$this->settingsFileName, "sfl", $this->settingsFileLocation, "pp", $this->params["parent-path"] ) ;
     }
 
     public function getConfigProperty($property) {
         $prefix = (isset($this->params["parent-path"])) ? "" : getcwd() ;
         $jconfloc = $prefix.$this->settingsFileLocation.DS.$this->settingsFileName ;
-        var_dump($jconfloc) ;
         include_once($jconfloc) ;
         if (!class_exists("JConfig")) {
             \Core\Bootstrap::setExitCode(1);
