@@ -235,11 +235,12 @@ class DBConfigureAllOS extends Base {
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
         if ($lastChar != '/') { $path .= '/' ; }
-        $command  = 'cat '.$path ;
+        $command  = $path ;
         $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-            ? $this->platformVars->getProperty("settingsFileLocation").'/' : "";
+            ? $this->platformVars->getProperty("settingsFileLocation").'/'
+            : "";
         $command .= $this->platformVars->getProperty("settingsFileName");
-        $this->settingsFileData = self::executeAndLoad($command);
+        $this->settingsFileData = file_get_contents($command);
     }
 
     protected function doExtraSettingsFilesDataChanges() {
