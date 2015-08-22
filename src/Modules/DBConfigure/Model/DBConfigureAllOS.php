@@ -234,10 +234,10 @@ class DBConfigureAllOS extends Base {
 		if (!isset($path)) { $path = getcwd() ; }
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
-        if ($lastChar != DS) { $path .= DS ; }
+        if ($lastChar != '/') { $path .= '/' ; }
         $command  = 'cat '.$path ;
         $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-            ? $this->platformVars->getProperty("settingsFileLocation").DS : "";
+            ? $this->platformVars->getProperty("settingsFileLocation").'/' : "";
         $command .= $this->platformVars->getProperty("settingsFileName");
         $this->settingsFileData = self::executeAndLoad($command);
     }
@@ -297,9 +297,9 @@ class DBConfigureAllOS extends Base {
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         $len = strlen($parent) ;
         $lastChar = substr($parent, ($len-1), $len);
-        if ($lastChar != DS) { $parent .= DS ; }
+        if ($lastChar != '/') { $parent .= '/' ; }
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").DS
+          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
         $logging->log("Moving new settings file ".$location." in", $this->getModuleName()) ;
@@ -312,12 +312,12 @@ class DBConfigureAllOS extends Base {
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         $len = strlen($parent) ;
         $lastChar = substr($parent, ($len-1), $len);
-        if ($lastChar != DS) { $parent .= DS ; }
+        if ($lastChar != '/') { $parent .= '/' ; }
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").DS
+          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
           : $location = $parent."" ;
         $lastChar = substr($location, ($len-1), 1);
-        if ($lastChar != DS) { $location .= DS ; }
+        if ($lastChar != '/') { $location .= '/' ; }
         $location .= $this->platformVars->getProperty("settingsFileName");
         // @todo need windows friendly
         $command    = 'rm -f '.$location ;
