@@ -240,7 +240,7 @@ class DBConfigureAllOS extends Base {
             ? $this->platformVars->getProperty("settingsFileLocation").DS
             : "";
         $command .= $this->platformVars->getProperty("settingsFileName");
-var_dump($command);
+var_dump("vdc", $command);
         $this->settingsFileData = file_get_contents($command);
     }
 
