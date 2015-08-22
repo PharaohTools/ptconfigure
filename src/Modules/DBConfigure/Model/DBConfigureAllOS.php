@@ -229,17 +229,28 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function loadCurrentSettingsFile() {
-		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
-		if (isset($this->params["guess"])) { $path = getcwd() ; }
-		if (!isset($path)) { $path = getcwd() ; }
-        $len = strlen($path) ;
-        $lastChar = substr($path, ($len-1), $len);
-        if ($lastChar != '/') { $path .= '/' ; }
-        $command  = 'cat '.$path ;
-        $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-            ? $this->platformVars->getProperty("settingsFileLocation").'/' : "";
-        $command .= $this->platformVars->getProperty("settingsFileName");
-        $this->settingsFileData = self::executeAndLoad($command);
+//		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
+//		if (isset($this->params["guess"])) { $path = getcwd() ; }
+//		if (!isset($path)) { $path = getcwd() ; }
+//        $len = strlen($path) ;
+//        $lastChar = substr($path, ($len-1), $len);
+//        if ($lastChar != '/') { $path .= '/' ; }
+//        $command  = 'cat '.$path ;
+//        $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
+//            ? $this->platformVars->getProperty("settingsFileLocation").'/' : "";
+//        $command .= $this->platformVars->getProperty("settingsFileName");
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
+        $len = strlen($parent) ;
+        $lastChar = substr($parent, ($len-1), $len);
+        if ($lastChar != '/') { $parent .= '/' ; }
+        (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
+            ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation")
+            : $location = $parent."" ;
+        $location .= $this->platformVars->getProperty("settingsFileName");
+        $this->settingsFileData = file_get_contents($location);
     }
 
     protected function doExtraSettingsFilesDataChanges() {
@@ -299,7 +310,7 @@ class DBConfigureAllOS extends Base {
         $lastChar = substr($parent, ($len-1), $len);
         if ($lastChar != '/') { $parent .= '/' ; }
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
+          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation")
           : $location = $parent."" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
         $logging->log("Moving new settings file ".$location." in", $this->getModuleName()) ;
@@ -314,7 +325,7 @@ class DBConfigureAllOS extends Base {
         $lastChar = substr($parent, ($len-1), $len);
         if ($lastChar != '/') { $parent .= '/' ; }
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
+          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation")
           : $location = $parent."" ;
         $lastChar = substr($location, ($len-1), 1);
         if ($lastChar != '/') { $location .= '/' ; }
