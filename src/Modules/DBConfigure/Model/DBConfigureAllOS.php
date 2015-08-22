@@ -327,8 +327,6 @@ class DBConfigureAllOS extends Base {
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
           ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation")
           : $location = $parent."" ;
-        $lastChar = substr($location, ($len-1), 1);
-        if ($lastChar != '/') { $location .= '/' ; }
         $location .= $this->platformVars->getProperty("settingsFileName");
         // @todo need windows friendly
         $command    = 'rm -f '.$location ;
