@@ -55,6 +55,10 @@ class DBConfigureDataJoomla30 extends Base {
         return ($cprops[$property]) ? $cprops[$property] : null ;
     }
 
+    public function getProperty($property) {
+        return $this->$property;
+    }
+
     public function __call($var1, $var2){
         return "" ; // @todo what even is this
     }
