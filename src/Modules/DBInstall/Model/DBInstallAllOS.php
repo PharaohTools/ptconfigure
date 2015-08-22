@@ -520,8 +520,8 @@ class DBInstallAllOS extends Base {
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->dbUser.' -p'.$this->dbPass.' ';
         $command .= $this->dbName.' < '.$sqlFileToExecute;
         $logging->log("Attempting to execute Database script", $this->getModuleName()) ;
-        $rc = self::executeAndGetReturnCode($command);
-        $state = ($rc == 0) ? "Success" : "Failure" ;
+        $rc = self::executeAndGetReturnCode($command, true, true);
+        $state = ($rc["rc"] == 0) ? "Success" : "Failure" ;
         $logging->log("Database Script execution reports $state", $this->getModuleName()) ;
         return $rc ;
     }
