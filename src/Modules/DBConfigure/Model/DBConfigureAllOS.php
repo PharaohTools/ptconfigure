@@ -230,18 +230,16 @@ class DBConfigureAllOS extends Base {
 
     protected function loadCurrentSettingsFile() {
 		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
-		else if (isset($this->params["guess"])) { $path = getcwd() ; }
+		if (isset($this->params["guess"])) { $path = getcwd() ; }
 		if (!isset($path)) { $path = getcwd() ; }
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
         if ($lastChar != DS) { $path .= DS ; }
-        $command  = $path ;
+        $command  = 'cat '.$path ;
         $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-            ? $this->platformVars->getProperty("settingsFileLocation").DS
-            : "";
+            ? $this->platformVars->getProperty("settingsFileLocation").DS : "";
         $command .= $this->platformVars->getProperty("settingsFileName");
-var_dump("vdc", $command, "sfl", $this->platformVars->getProperty("settingsFileLocation"), "sfn", $this->platformVars->getProperty("settingsFileName"));
-        $this->settingsFileData = file_get_contents($command);
+        $this->settingsFileData = self::executeAndLoad($command);
     }
 
     protected function doExtraSettingsFilesDataChanges() {
@@ -279,9 +277,6 @@ var_dump("vdc", $command, "sfl", $this->platformVars->getProperty("settingsFileL
     }
 
     protected function settingsFileReverseDataChange(){
-
-        var_dump($this->settingsFileData) ;
-
         $settingsFileLines = explode("\n", $this->settingsFileData);
         $replacements = $this->platformVars->getProperty("settingsFileReplacements") ;
         foreach ( $settingsFileLines as &$settingsFileLine ) {
@@ -302,9 +297,9 @@ var_dump("vdc", $command, "sfl", $this->platformVars->getProperty("settingsFileL
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         $len = strlen($parent) ;
         $lastChar = substr($parent, ($len-1), $len);
-        if ($lastChar != '/') { $parent .= '/' ; }
+        if ($lastChar != DS) { $parent .= DS ; }
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
+          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").DS
           : $location = $parent."" ;
         $location .= $this->platformVars->getProperty("settingsFileName");
         $logging->log("Moving new settings file ".$location." in", $this->getModuleName()) ;
@@ -317,12 +312,12 @@ var_dump("vdc", $command, "sfl", $this->platformVars->getProperty("settingsFileL
 		$parent = (isset($this->params["parent-path"])) ? $this->params["parent-path"] : getcwd() ;
         $len = strlen($parent) ;
         $lastChar = substr($parent, ($len-1), $len);
-        if ($lastChar != '/') { $parent .= '/' ; }
+        if ($lastChar != DS) { $parent .= DS ; }
         (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").'/'
+          ? $location = $parent.$this->platformVars->getProperty("settingsFileLocation").DS
           : $location = $parent."" ;
         $lastChar = substr($location, ($len-1), 1);
-        if ($lastChar != '/') { $location .= '/' ; }
+        if ($lastChar != DS) { $location .= DS ; }
         $location .= $this->platformVars->getProperty("settingsFileName");
         // @todo need windows friendly
         $command    = 'rm -f '.$location ;
