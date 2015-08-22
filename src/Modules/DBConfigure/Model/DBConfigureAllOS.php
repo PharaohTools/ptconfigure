@@ -234,12 +234,13 @@ class DBConfigureAllOS extends Base {
 		if (!isset($path)) { $path = getcwd() ; }
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
-        if ($lastChar != '/') { $path .= '/' ; }
+        if ($lastChar != DS) { $path .= DS ; }
         $command  = $path ;
         $command .= (strlen($this->platformVars->getProperty("settingsFileLocation"))>0)
-            ? $this->platformVars->getProperty("settingsFileLocation").'/'
+            ? $this->platformVars->getProperty("settingsFileLocation").DS
             : "";
         $command .= $this->platformVars->getProperty("settingsFileName");
+var_dump($command);
         $this->settingsFileData = file_get_contents($command);
     }
 
