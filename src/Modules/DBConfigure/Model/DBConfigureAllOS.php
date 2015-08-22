@@ -230,7 +230,7 @@ class DBConfigureAllOS extends Base {
 
     protected function loadCurrentSettingsFile() {
 		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
-		if (isset($this->params["guess"])) { $path = getcwd() ; }
+		else if (isset($this->params["guess"])) { $path = getcwd() ; }
 		if (!isset($path)) { $path = getcwd() ; }
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
