@@ -278,6 +278,9 @@ class DBConfigureAllOS extends Base {
     }
 
     protected function settingsFileReverseDataChange(){
+
+        var_dump($this->settingsFileData) ;
+
         $settingsFileLines = explode("\n", $this->settingsFileData);
         $replacements = $this->platformVars->getProperty("settingsFileReplacements") ;
         foreach ( $settingsFileLines as &$settingsFileLine ) {
