@@ -25,7 +25,7 @@ class DBInstallAllOS extends Base {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->dbFilePath = "db".DS."database.sql";
+        $this->dbFilePath = "db".'/'."database.sql";
     }
 
     public function askWhetherToInstallDB(\Model\DBConfigureAllOS $dbConfigObject=null){
@@ -511,11 +511,11 @@ class DBInstallAllOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 		if (isset($this->params["parent-path"])) { $path = $this->params["parent-path"] ; }
-		if (isset($this->params["guess"])) { $path = getcwd().DS ; }
-		if (!isset($path)) { $path = getcwd().DS ; }
+		if (isset($this->params["guess"])) { $path = getcwd().'/' ; }
+		if (!isset($path)) { $path = getcwd().'/' ; }
         $len = strlen($path) ;
         $lastChar = substr($path, ($len-1), $len);
-        if ($lastChar != '/') { $path .= DS ; }
+        if ($lastChar != '/') { $path .= '/' ; }
         $sqlFileToExecute = $path.$this->dbFilePath ;
         $command  = 'mysql -h'.$this->dbHost.' -u'.$this->dbUser.' -p'.$this->dbPass.' ';
         $command .= $this->dbName.' < '.$sqlFileToExecute;
