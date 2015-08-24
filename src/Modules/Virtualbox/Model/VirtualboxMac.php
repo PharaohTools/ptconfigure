@@ -60,24 +60,24 @@ class VirtualboxMac extends BaseLinuxApp {
 //        $out = str_replace("\n", "", $out) ;
 //        $out = str_replace("\r", "", $out) ;
         if (strpos($out, "vboxnet0") !== false) {
-            $logging->log("Default host only network vboxnet0 was found, no need to create.", $this->getModuleName()) ;
-            return true ; }
-        $logging->log("Default host only network vboxnet0 was not found, attempting to create.", $this->getModuleName()) ;
-        $c1 = VBOXMGCOMM.'hostonlyif create' ;
-        $out = $this->executeAndGetReturnCode($c1, true, true);
-        if ($out["rc"]!==0) { $logging->log("Possible error during vboxnet0 creation.", $this->getModuleName()) ; }
-        $c2 = VBOXMGCOMM.'hostonlyif ipconfig vboxnet0 --ip 192.168.56.1' ;
-        $out = $this->executeAndGetReturnCode($c2, true, true);
-        if ($out["rc"]!==0) { $logging->log("Possible error during vboxnet0 creation.", $this->getModuleName()) ; }
-        $comm = VBOXMGCOMM.'list hostonlyifs' ;
-        $out = $this->executeAndLoad($comm);
+            $logging->log("Default host only network vboxnet0 was found, no need to create.", $this->getModuleName()) ;  }
 
-        if (strpos($out, "vboxnet0") === false) {
-            \Core\BootStrap::setExitCode(1);
-            $logging->log("Unable to create Default host only network vboxnet0.", $this->getModuleName()) ;
-            return false ; }
-        $logging->log("Successfully created Default host only network vboxnet0.", $this->getModuleName()) ;
-
+        else {
+            $logging->log("Default host only network vboxnet0 was not found, attempting to create.", $this->getModuleName()) ;
+            $c1 = VBOXMGCOMM.'hostonlyif create' ;
+            $out = $this->executeAndGetReturnCode($c1, true, true);
+            if ($out["rc"]!==0) { $logging->log("Possible error during vboxnet0 creation.", $this->getModuleName()) ; }
+            $c2 = VBOXMGCOMM.'hostonlyif ipconfig vboxnet0 --ip 192.168.56.1' ;
+            $out = $this->executeAndGetReturnCode($c2, true, true);
+            if ($out["rc"]!==0) { $logging->log("Possible error during vboxnet0 creation.", $this->getModuleName()) ; }
+            $comm = VBOXMGCOMM.'list hostonlyifs' ;
+            $out = $this->executeAndLoad($comm);
+            if (strpos($out, "vboxnet0") === false) {
+                \Core\BootStrap::setExitCode(1);
+                $logging->log("Unable to create Default host only network vboxnet0.", $this->getModuleName()) ;
+                return false ; }
+            $logging->log("Successfully created Default host only network vboxnet0.", $this->getModuleName()) ; }
+        
         $c1 = VBOXMGCOMM.'dhcpserver add --ifname vboxnet0 --ip 192.168.56.1 --netmask 255.255.255.0 --lowerip 192.168.56.100 --upperip 192.168.56.200' ;
         $out = $this->executeAndGetReturnCode($c1, true, true);
         if ($out["rc"]!==0) { $logging->log("Possible error while creating DHCP server for vboxnet0.", $this->getModuleName()) ; }
