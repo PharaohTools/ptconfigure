@@ -38,10 +38,12 @@ class VirtualboxMac extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $dmgFile = BASE_TEMP_DIR."virtualbox.dmg" ;
         $ray = array(
+            array("command" => array( SUDOPREFIX."rm -rf $dmgFile") ),
             array("command" => array( 'curl "http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg" -o "'.$dmgFile.'"') ),
             array("command" => array( SUDOPREFIX."hdiutil attach $dmgFile") ),
             array("command" => array( SUDOPREFIX.'installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /') ),
             array("method"=> array("object" => $this, "method" => "ensureDefaultHostOnlyNetwork", "params" => array()) ),
+            array("command" => array( SUDOPREFIX."hdiutil unmount /Volumes/VirtualBox/VirtualBox.pkg") ),
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
             $logging->log("Virtualbox Guest additions have been requested by parameter, but are installed by default on OSx", $this->getModuleName()) ;
@@ -69,11 +71,20 @@ class VirtualboxMac extends BaseLinuxApp {
         if ($out["rc"]!==0) { $logging->log("Possible error during vboxnet0 creation.", $this->getModuleName()) ; }
         $comm = VBOXMGCOMM.'list hostonlyifs' ;
         $out = $this->executeAndLoad($comm);
-        if (strpos($out, "vboxnet0") !== false) {
+
+        if (strpos($out, "vboxnet0") === false) {
             \Core\BootStrap::setExitCode(1);
             $logging->log("Unable to create Default host only network vboxnet0.", $this->getModuleName()) ;
             return false ; }
         $logging->log("Successfully created Default host only network vboxnet0.", $this->getModuleName()) ;
+
+        $c1 = VBOXMGCOMM.'dhcpserver add --ifname vboxnet0 --ip 192.168.56.1 --netmask 255.255.255.0 --lowerip 192.168.56.100 --upperip 192.168.56.200' ;
+        $out = $this->executeAndGetReturnCode($c1, true, true);
+        if ($out["rc"]!==0) { $logging->log("Possible error while creating DHCP server for vboxnet0.", $this->getModuleName()) ; }
+        $c2 = VBOXMGCOMM.'hostonlyif ipconfig vboxnet0 --ip 192.168.56.1' ;
+        $out = $this->executeAndGetReturnCode($c2, true, true);
+        if ($out["rc"]!==0) { $logging->log("Possible error while adding interface vboxnet0 to DHCP server.", $this->getModuleName()) ; }
+        $logging->log("Successfully added DHCP server to Default host only network vboxnet0.", $this->getModuleName()) ;
         return true ;
     }
 
