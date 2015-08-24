@@ -89,10 +89,14 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
         else if (isset($this->params["user-home"])) {
             $this->userHomeDir = $this->params["user-home"]; }
         else if (isset($this->params["guess"])) {
+            // this wont work on windows, user module should be doing this
             $whoami = self::executeAndLoad("whoami") ;
             $whoami = str_replace("\n", "", $whoami) ;
             $whoami = str_replace("\r", "", $whoami) ;
-            $this->userHomeDir = '/home/'.$whoami; }
+            $comm = 'eval echo "~'.$whoami.'"' ;
+            $this->userHomeDir = $this->executeAndLoad($comm) ;
+            $this->userHomeDir = str_replace("\n", "", $this->userHomeDir) ;
+            $this->userHomeDir = str_replace("\r", "", $this->userHomeDir) ; }
         else {
             $question = "Enter User home directory:";
             $this->userHomeDir = self::askForInput($question, true); }
