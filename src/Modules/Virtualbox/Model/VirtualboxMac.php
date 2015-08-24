@@ -77,11 +77,11 @@ class VirtualboxMac extends BaseLinuxApp {
                 $logging->log("Unable to create Default host only network vboxnet0.", $this->getModuleName()) ;
                 return false ; }
             $logging->log("Successfully created Default host only network vboxnet0.", $this->getModuleName()) ; }
-        
+
         $c1 = VBOXMGCOMM.'dhcpserver add --ifname vboxnet0 --ip 192.168.56.1 --netmask 255.255.255.0 --lowerip 192.168.56.100 --upperip 192.168.56.200' ;
         $out = $this->executeAndGetReturnCode($c1, true, true);
         if ($out["rc"]!==0) { $logging->log("Possible error while creating DHCP server for vboxnet0.", $this->getModuleName()) ; }
-        $c2 = VBOXMGCOMM.'hostonlyif ipconfig vboxnet0 --ip 192.168.56.1' ;
+        $c2 = VBOXMGCOMM.'dhcpserver modify --ifname vboxnet0 --enable' ;
         $out = $this->executeAndGetReturnCode($c2, true, true);
         if ($out["rc"]!==0) { $logging->log("Possible error while adding interface vboxnet0 to DHCP server.", $this->getModuleName()) ; }
         $logging->log("Successfully added DHCP server to Default host only network vboxnet0.", $this->getModuleName()) ;
