@@ -20,7 +20,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Reverse Proxy from 8080 to 80"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Pharaoh Build Web Interface"),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Create Host file entry for $vhe_url", ), ), ),
                 array ( "HostEditor" => array( "add" => array(
