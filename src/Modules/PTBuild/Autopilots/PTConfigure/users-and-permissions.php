@@ -76,4 +76,18 @@ class AutoPilotConfigured extends AutoPilot {
         return $apacheUser ;
     }
 
+    protected function getApacheHttpdconfLocation() {
+        $system = new \Model\SystemDetection();
+        $thisSystem = $system->getModel($this->params);
+        if (in_array($thisSystem->os, array("Darwin") ) ) {
+            $apacheUser = "_www" ; }
+        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Debian") ) ) {
+            $apacheUser = "www-data" ; }
+        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
+            $apacheUser = "httpd" ; }
+        else {
+            $apacheUser = "www-data" ; }
+        return $apacheUser ;
+    }
+
 }
