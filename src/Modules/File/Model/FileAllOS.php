@@ -26,6 +26,7 @@ class FileAllOS extends BaseLinuxApp {
             "should-have-line" => "performShouldHaveLine",
             "should-not-have-line" => "performShouldNotHaveLine",
             "replace-line" => "performReplaceLine",
+            "replace-text" => "performReplaceText",
         ) ;
 
     public function __construct($params) {
@@ -80,8 +81,18 @@ class FileAllOS extends BaseLinuxApp {
     public function performReplaceLine() {
         $this->setFile();
         $this->setSearchLine();
+        $this->setReplaceLine();
         $this->read();
         $this->replaceLine();
+        return $this->write();
+    }
+
+    public function performReplaceText() {
+        $this->setFile();
+        $this->setSearchLine();
+        $this->setReplaceLine();
+        $this->read();
+        $this->replaceText();
         return $this->write();
     }
 
@@ -92,6 +103,9 @@ class FileAllOS extends BaseLinuxApp {
             $this->fileName = $this->params["file"]; }
         else {
             $this->fileName = self::askForInput("Enter File Path:", true); }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Using File {$this->fileName}", $this->getModuleName()) ;
     }
 
     public function setSearchLine($searchLine = null) {
@@ -101,6 +115,9 @@ class FileAllOS extends BaseLinuxApp {
             $this->search = $this->params["search"]; }
         else {
             $this->search = self::askForInput("Enter line of text to search for:", true); }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Searching For {$this->search}", $this->getModuleName()) ;
     }
 
     public function setReplaceLine($replaceLine = null) {
@@ -110,6 +127,9 @@ class FileAllOS extends BaseLinuxApp {
             $this->replace = $this->params["replace"]; }
         else {
             $this->replace = self::askForInput("Enter line of text to replace/add:", true); }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Replacing with {$this->replace}", $this->getModuleName()) ;
     }
 
     public function read() {
@@ -157,23 +177,36 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function replaceIfPresent($needle, $newNeedle) {
+
+//        var_dump("fd", $this->fileData) ;
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if ($this->contains($needle)) {
             if ($needle instanceof RegExp) {
-                $this->fileData = preg_replace($needle->regexp, $newNeedle, $this->fileData); }
+                $this->fileData = preg_replace($needle->regexp, $newNeedle, $this->fileData, -1, $count);
+                $logging->log("$count replacements performed", $this->getModuleName()) ; }
             else {
-                $this->fileData = str_replace($needle, $newNeedle, $this->fileData); } }
+                $this->fileData = str_replace($needle, $newNeedle, $this->fileData, $count);
+                $logging->log("$count replacements performed", $this->getModuleName()) ;
+                var_dump("newfd:", $this->fileData) ; } }
+        else {
+            $logging->log("$needle not found in haystack", $this->getModuleName()) ; }
         return $this;
     }
 
     public function removeIfPresent($needle) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
         if ($this->contains($needle)) {
             $logging->log("Specified line found, removing", $this->getModuleName()) ;
             if ($needle instanceof RegExp) {
-                $this->fileData = preg_replace($needle->regexp, "", $this->fileData); }
+                $this->fileData = preg_replace($needle->regexp, "", $this->fileData, -1, $count);
+                $logging->log("$count removals performed", $this->getModuleName()) ; }
             else {
-                $this->fileData = str_replace($needle, "", $this->fileData); } }
+                $this->fileData = str_replace($needle, "", $this->fileData, $count);
+                $logging->log("$count removals performed", $this->getModuleName()) ; } }
         else {
             $logging->log("Line not present, nothing to remove", $this->getModuleName()) ; }
         return $this;
@@ -183,7 +216,9 @@ class FileAllOS extends BaseLinuxApp {
         if ($needle instanceof RegExp) {
             return preg_match($needle->regexp, $this->fileData); }
         else {
-            return strstr($this->fileData, $needle); }
+            $st = strpos($this->fileData, $needle) ; // !== false;
+//            var_dump("stt",$st, "nd", $needle) ;
+            return $st ; }
     }
 
     public function append($str = null) {
@@ -218,9 +253,12 @@ class FileAllOS extends BaseLinuxApp {
                 var_dump("m2]0 ".$m[0]) ;
                 return $m[0]; } }
         else {
-            if (strstr($this->fileData, $needle)) {
+            if (strpos($this->fileData, $needle)!==0) {
+                $loggingFactory = new \Model\Logging();
+                $logging = $loggingFactory->getModel($this->params);
+                $logging->log("Found Searched String", $this->getModuleName()) ;
                 return $needle; } }
-        return null;
+        return false;
     }
 
     public function shouldHaveLines($lines) {
@@ -238,7 +276,20 @@ class FileAllOS extends BaseLinuxApp {
         if (substr($searchString, -1, 1) != "\n") {
             $searchString .= "\n"; }
         if ($this->findString($searchString)) {
-            $this->replaceIfPresent($oldline, $newline); }
+            $this->replaceIfPresent($searchString, $newline); }
+        return $this;
+    }
+
+    public function replaceText($oldline = null, $newline = null) {
+        $string = ($oldline === null) ? $this->search : $oldline ;
+        $newline = ($newline === null) ? $this->replace : $newline ;
+
+        $searchString = $string;
+
+//        var_dump("findstring", $this->findString($searchString)) ;
+
+        if ($this->findString($searchString) !== false) {
+            $this->replaceIfPresent($searchString, $newline); }
         return $this;
     }
 
