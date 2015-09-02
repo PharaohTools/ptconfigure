@@ -34,6 +34,10 @@ class PTBuildLinux extends BasePHPApp {
 
     public function getPostInstallCommands() {
         $ray = array( ) ;
+
+        if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
+        if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
+
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath() ;
@@ -57,6 +61,12 @@ class PTBuildLinux extends BasePHPApp {
 
     public function getConfigureAutoPath() {
         $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'users-and-permissions.php' ;
+        return $path ;
+    }
+
+    public function getFPMSetupShellPath() {
+        $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'fpmsetup.sh' ;
+        $this->executeAsShell("sh $path");
         return $path ;
     }
 
