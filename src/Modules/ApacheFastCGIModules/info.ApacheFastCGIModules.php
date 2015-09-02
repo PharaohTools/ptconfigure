@@ -2,25 +2,25 @@
 
 Namespace Info;
 
-class ApacheModulesInfo extends PTConfigureBase {
+class ApacheFastCGIModulesInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Apache Modules - Commonly used modules for Apache";
+    public $name = "Apache Fast CGI Modules - Fast CGI modules for Apache";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "ApacheModules" =>  array_merge(parent::routesAvailable(), array("version") ) );
+      return array( "ApacheFastCGIModules" =>  array_merge(parent::routesAvailable(), array("version") ) );
     }
 
     public function routeAliases() {
       return array(
-          "apache-modules"=>"ApacheModules",
-          "apachemods"=>"ApacheModules",
-          "apachemodules"=>"ApacheModules" );
+          "apache-fastcgi-modules"=>"ApacheFastCGIModules",
+          "apachefastcgimodules"=>"ApacheFastCGIModules",
+          "apachefastcgimods"=>"ApacheFastCGIModules" );
     }
 
     public function helpDefinition() {
@@ -28,11 +28,11 @@ class ApacheModulesInfo extends PTConfigureBase {
   This module is part of the Default Distribution and provides you  with a method by which you can configure Application Settings.
   You can configure default application settings
 
-  ApacheModules, apachemods, apache-modules, apachemodules
+  ApacheFastCGIModules, apachefastcgimodules, apachefastcgimods, apache-fastcgi-modules
 
         - install
-        Installs common apache Modules
-        example: ptconfigure apache-modules install
+        Installs Apache Fast CGI Modules
+        example: ptconfigure apache-fastcgi-modules install
 
 HELPDATA;
       return $help ;

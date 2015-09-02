@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class ApacheModules extends Base {
+class ApacheFastCGIModules extends Base {
 
 }
