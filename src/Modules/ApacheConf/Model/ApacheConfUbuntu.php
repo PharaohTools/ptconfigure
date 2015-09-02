@@ -9,7 +9,7 @@ class ApacheConfUbuntu extends BaseTemplater {
   public $os = array("Linux") ;
   public $linuxType = array("Debian") ;
   public $distros = array("Ubuntu") ;
-  public $versions = array("12.04", "12.10") ;
+  public $versions = array(array("11", "+")) ;
   public $architectures = array("any") ;
 
   // Model Group
