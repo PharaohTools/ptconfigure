@@ -13,28 +13,16 @@ class AutoPilotConfigured extends AutoPilot {
 
     /* Steps */
     private function setSteps() {
-        $apache_user = $this->getApacheUser();
+        $apache_conf = $this->getApacheHttpdconfLocation();
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure users and permissions for Pharaoh Build"),),),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "Allow user ptbuild a passwordless sudo", ), ), ),
-                array ( "SudoNoPass" => array( "install" => array(
-                    "guess" => true,
-                    "install-user-name" => 'ptbuild',
-                ), ), ),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "Allow web server user $apache_user a passwordless sudo", ), ), ),
-                array ( "SudoNoPass" => array( "install" => array(
-                    "guess" => true,
-                    "install-user-name" => $apache_user,
-                ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP FPM for Pharaoh Build"),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Allow apache user to switch to ptbuild user", ), ), ),
                 array ( "File" => array( "should-have-line" => array(
                     "guess" => true,
-                    "file" => "/etc/sudoers",
+                    "file" => $apache_conf,
                     "search" => "{$apache_user}    ALL=(ptbuild) NOPASSWD: ALL",
                 ), ), ),
 
@@ -44,36 +32,10 @@ class AutoPilotConfigured extends AutoPilot {
                     "mode" => '0777',
                 ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory exists", ), ), ),
-                array ( "Mkdir" => array( "path" => array(
-                    "path" => PIPEDIR
-                ), ), ),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory is writable", ), ), ),
-                array ( "Chmod" => array( "path" => array(
-                    "path" => PIPEDIR,
-                    "recursive" => true,
-                    "mode" => '0777',
-                ), ), ),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Build Complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for PHP FPM for Pharaoh Build Complete"),),),
 
             );
 
-    }
-
-    protected function getApacheUser() {
-        $system = new \Model\SystemDetection();
-        $thisSystem = $system->getModel($this->params);
-        if (in_array($thisSystem->os, array("Darwin") ) ) {
-            $apacheUser = "_www" ; }
-        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Debian") ) ) {
-            $apacheUser = "www-data" ; }
-        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
-            $apacheUser = "httpd" ; }
-        else {
-            $apacheUser = "www-data" ; }
-        return $apacheUser ;
     }
 
     protected function getApacheHttpdconfLocation() {
