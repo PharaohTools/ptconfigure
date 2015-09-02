@@ -15,6 +15,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSteps() {
 
         $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : 'build.pharaoh.tld' ;
+        $vhe_ipport = (isset($this->params['vhe-ip-port'])) ? $this->params['vhe-ip-port'] : '127.0.0.1' ;
 
         $this->steps =
             array(
@@ -35,7 +36,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-docroot" => PFILESDIR.'ptbuild'.DS.'ptbuild'.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
                     "guess" => true,
                     "vhe-url" => $vhe_url,
-                    "vhe-ip-port" => "127.0.0.1",
+                    "vhe-ip-port" => $vhe_ipport,
 //                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
                     "vhe-template" => $this->getTemplate(),
                 ),),),
@@ -51,27 +52,32 @@ class AutoPilotConfigured extends AutoPilot {
     }
 
     private function getTemplate() {
-//        $apacheFactory = new \Model\ApacheServer();
-//        $apache = $apacheFactory->getModel($this->params) ;
-//        $av = $apache->getVersion("Installed");
-//
-//        var_dump($av);
+
+        $dir_section = $this->getA2DirSection() ;
+        $cgi_bin_dir = $this->getCGIBinDir() ;
+
 
         // @todo this should use above Require method for apache 2.4.7+ and below allow all for less
 
-        $template =
-            <<<'TEMPLATE'
-           NameVirtualHost ****IP ADDRESS****:80
+        $template ='
+ NameVirtualHost ****IP ADDRESS****:80
  <VirtualHost ****IP ADDRESS****:80>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
  	DocumentRoot ****WEB ROOT****
  	<Directory ****WEB ROOT****>
- 		Options Indexes FollowSymLinks MultiViews
-        Require all granted
+ 	'. $dir_section .'
  	</Directory>
    ErrorLog /var/log/apache2/error.log
    CustomLog /var/log/apache2/access.log combined
+
+   <IfModule mod_fastcgi.c>
+     AddType application/x-httpd-fastphp5 .php
+     Action application/x-httpd-fastphp5 /php5-fcgi
+     Alias /php5-fcgi '.$cgi_bin_dir.'php5-fcgi_ptbuild
+     FastCgiExternalServer '.$cgi_bin_dir.'php5-fcgi_ptbuild -socket /var/run/php5-fpm_ptbuild.sock -pass-header Authorization
+   </IfModule>
+
  </VirtualHost>
 
 # NameVirtualHost ****IP ADDRESS****:443
@@ -92,10 +98,41 @@ class AutoPilotConfigured extends AutoPilot {
 #  ErrorLog /var/log/apache2/error.log
 #  CustomLog /var/log/apache2/access.log combined
 #  </VirtualHost>
-TEMPLATE;
+' ;
 
         return $template ;
     }
+
+    private function getA2DirSection($type="a24") {
+        $apacheFactory = new \Model\ApacheServer();
+        $apache = $apacheFactory->getModel($this->params) ;
+        $av = $apache->getVersion("Installed");
+        var_dump("ApacheVersion: ", $av);
+        if ($type=="a22") {
+            $section = '
+            Options Indexes FollowSymLinks MultiViews
+            Order allow,deny
+            Allow from all' ; }
+        else {
+            $section = '
+            Options Indexes FollowSymLinks MultiViews
+            Require all granted' ; }
+        return $section ;
+    }
+
+    private function getCGIBinDir() {
+        $system = new \Model\SystemDetection();
+        $sys = $system->getModel($this->params);
+        if (in_array("Darwin", $sys->os)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        else if (in_array("Linux", $sys->os) && in_array("Ubuntu", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        else if (in_array("Linux", $sys->os) && in_array("Debian", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        else if (in_array("Linux", $sys->os) && in_array("CentOS", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        else { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        return $cgi_bin_dir ;
+    }
+
+
+
 
 
 
