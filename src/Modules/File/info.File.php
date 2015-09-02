@@ -48,15 +48,19 @@ class FileInfo extends PTConfigureBase {
 
         - should-have-line
         Ensure that a file contains a particular line
-        example: ptconfigure file should-have-line --file="somename" --line="a line"
+        example: ptconfigure file should-have-line --file="somename" --search="a subject"
 
         - should-not-have-line
         Ensure that a file does not contain a particular line
-        example: ptconfigure file should-not-have-line --file="somename" --line="a line"
+        example: ptconfigure file should-not-have-line --file="somename" --search="a subject"
 
         - replace-line
         Replace a particular line if it's found in the file
-        example: ptconfigure file replace-line --file="somename" --line="a line"
+        example: ptconfigure file replace-line --file="somename" --search="a subject" --replace="a replacment"
+
+        - replace-text
+        Replace an arbritrary sized string (including \n, \r, PHP_EOL) if it's found in the file
+        example: ptconfigure file replace-line --file="somename" --search="a subject" --replace="a replacment"
 
 
 
