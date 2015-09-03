@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class ApacheFastCGIModulesMac extends BaseLinuxApp {
+class XCodeMac extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Darwin") ;

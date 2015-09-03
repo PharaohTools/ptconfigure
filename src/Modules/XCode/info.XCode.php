@@ -2,25 +2,23 @@
 
 Namespace Info;
 
-class ApacheFastCGIModulesInfo extends PTConfigureBase {
+class XCodeInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Apache Fast CGI Modules - Fast CGI modules for Apache";
+    public $name = "XCode for Apple";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "ApacheFastCGIModules" =>  array_merge(parent::routesAvailable(), array("version") ) );
+      return array( "XCode" =>  array_merge(parent::routesAvailable(), array("version") ) );
     }
 
     public function routeAliases() {
       return array(
-          "apache-fastcgi-modules"=>"ApacheFastCGIModules",
-          "apachefastcgimodules"=>"ApacheFastCGIModules",
-          "apachefastcgimods"=>"ApacheFastCGIModules" );
+          "xcode"=>"ApacheFastCGIModules" );
     }
 
     public function helpDefinition() {

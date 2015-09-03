@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class ApacheFastCGIModules extends Base {
+class XCode extends Base {
 
 }

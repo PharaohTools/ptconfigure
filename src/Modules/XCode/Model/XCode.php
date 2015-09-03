@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class ApacheFastCGIModules extends BaseModelFactory {
+class XCode extends BaseModelFactory {
 
 }
