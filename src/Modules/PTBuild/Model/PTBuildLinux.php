@@ -41,7 +41,7 @@ class PTBuildLinux extends BasePHPApp {
 
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). "$vhestring $vheipport" ;
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ;
             $ray[]["command"][] = SUDOPREFIX."sh ".$this->getUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ; }
         /*
