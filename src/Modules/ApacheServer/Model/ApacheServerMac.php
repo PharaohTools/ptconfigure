@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class ApacheServerCentos extends BaseLinuxApp {
+class ApacheServerMac extends ApacheServerCentos {
 
   // Compatibility
-  public $os = array("Linux") ;
-  public $linuxType = array("Redhat") ;
+  public $os = array("Darwin") ;
+  public $linuxType = array("any") ;
   public $distros = array("any") ;
-  public $versions = array( array("5.9", "+")) ;
+  public $versions = array( array("10.5", "+")) ;
   public $architectures = array("any") ;
 
   // Model Group
@@ -20,10 +20,10 @@ class ApacheServerCentos extends BaseLinuxApp {
       parent::__construct($params);
       $this->autopilotDefiner = "ApacheServer";
       $this->installCommands = array(
-          array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", "httpd")) ),
+          array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", "httpd")) ),
           array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
       $this->uninstallCommands = array(
-          array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "httpd")) ),
+          array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", "httpd")) ),
           array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
       $this->programDataFolder = "/opt/ApacheServer"; // command and app dir name
       $this->programNameMachine = "apacheserver"; // command and app dir name
