@@ -177,9 +177,6 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function replaceIfPresent($needle, $newNeedle) {
-
-//        var_dump("fd", $this->fileData) ;
-
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($this->contains($needle)) {
@@ -188,8 +185,7 @@ class FileAllOS extends BaseLinuxApp {
                 $logging->log("$count replacements performed", $this->getModuleName()) ; }
             else {
                 $this->fileData = str_replace($needle, $newNeedle, $this->fileData, $count);
-                $logging->log("$count replacements performed", $this->getModuleName()) ;
-                var_dump("newfd:", $this->fileData) ; } }
+                $logging->log("$count replacements performed", $this->getModuleName()) ; } }
         else {
             $logging->log("$needle not found in haystack", $this->getModuleName()) ; }
         return $this;
@@ -253,12 +249,14 @@ class FileAllOS extends BaseLinuxApp {
                 var_dump("m2]0 ".$m[0]) ;
                 return $m[0]; } }
         else {
-            if (strpos($this->fileData, $needle)!==0) {
-                $loggingFactory = new \Model\Logging();
-                $logging = $loggingFactory->getModel($this->params);
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            if (strpos($this->fileData, $needle)!==false) {
                 $logging->log("Found Searched String", $this->getModuleName()) ;
-                return $needle; } }
-        return false;
+                return true; }
+            else {
+                $logging->log("Unable to find Searched String", $this->getModuleName()) ;
+                return false; } }
     }
 
     public function shouldHaveLines($lines) {
@@ -301,8 +299,8 @@ class FileAllOS extends BaseLinuxApp {
             $searchString = $string; }
         if (substr($searchString, -1, 1) != "\n") {
             $searchString .= "\n"; }
-        if (!$this->findString($searchString)) {
-            $this->append($string . "\n"); }
+        if ($this->findString($searchString) === false) {
+            $this->append($searchString); }
         return $this;
     }
 
