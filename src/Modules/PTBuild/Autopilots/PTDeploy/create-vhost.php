@@ -103,12 +103,20 @@ class AutoPilotConfigured extends AutoPilot {
         return $template ;
     }
 
-    private function getA2DirSection($type="a24") {
-        $apacheFactory = new \Model\ApacheServer();
-        $apache = $apacheFactory->getModel($this->params) ;
-        $av = $apache->getVersion("Installed");
-        var_dump("ApacheVersion: ", $av);
-        if ($type=="a22") {
+    private function getA2DirSection() {
+        $comm = 'ptconfigure apacheserver version -yg' ;
+        exec($comm, $output) ;
+        foreach ($output as $outline) {
+            $spos = strpos($outline, "Short Version: ") ;
+            $lpos = $spos+15 ;
+            $rpos = strpos($outline, $lpos, "\n");
+            if ($spos !== false) {
+                $sv = substr($outline,$lpos, $rpos) ;  } }
+
+        $svObject = new \Model\SoftwareVersion($sv) ;
+        $compareObject = new \Model\SoftwareVersion("2.3.0") ;
+
+        if ($svObject->isLessThan($compareObject)) {
             $section = '
             Options Indexes FollowSymLinks MultiViews
             Order allow,deny
