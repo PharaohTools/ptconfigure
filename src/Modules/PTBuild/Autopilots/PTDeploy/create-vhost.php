@@ -131,6 +131,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function getCGIBinDir() {
         $system = new \Model\SystemDetection();
         $sys = $system->getModel($this->params);
+        $sys = new \Model\SystemDetectionAllOS() ;
         if (in_array("Darwin", $sys->os)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
         else if (in_array("Linux", $sys->os) && in_array("Ubuntu", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
         else if (in_array("Linux", $sys->os) && in_array("Debian", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
