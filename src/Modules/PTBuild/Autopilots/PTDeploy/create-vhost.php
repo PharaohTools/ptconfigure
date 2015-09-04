@@ -109,7 +109,7 @@ class AutoPilotConfigured extends AutoPilot {
         foreach ($output as $outline) {
             $spos = strpos($outline, "Short Version: ") ;
             $lpos = $spos+15 ;
-            $rpos = strpos($outline, $lpos, "\n");
+            $rpos = strpos($outline, "\n");
             if ($spos !== false) {
                 $sv = substr($outline,$lpos, $rpos) ;  } }
 
