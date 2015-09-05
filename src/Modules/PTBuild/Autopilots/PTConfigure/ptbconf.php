@@ -24,19 +24,25 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "install-user-name" => 'ptbuild',
                 ), ), ),
+//
+//                array ( "Logging" => array( "log" => array( "log-message" => "Allow web server user $apache_user a passwordless sudo", ), ), ),
+//                array ( "SudoNoPass" => array( "install" => array(
+//                    "guess" => true,
+//                    "install-user-name" => $apache_user,
+//                ), ), ),
+//
+//                array ( "Logging" => array( "log" => array( "log-message" => "Allow apache user to switch to ptbuild user", ), ), ),
+//                array ( "File" => array( "should-have-line" => array(
+//                    "guess" => true,
+//                    "file" => "/etc/sudoers",
+//                    "search" => "{$apache_user}    ALL=(ptbuild) NOPASSWD: ALL",
+//                ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Allow web server user $apache_user a passwordless sudo", ), ), ),
-                array ( "SudoNoPass" => array( "install" => array(
-                    "guess" => true,
-                    "install-user-name" => $apache_user,
-                ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP FPM is installed", ), ), ),
+                array ( "PHPFPM" => array( "ensure" => array( ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Allow apache user to switch to ptbuild user", ), ), ),
-                array ( "File" => array( "should-have-line" => array(
-                    "guess" => true,
-                    "file" => "/etc/sudoers",
-                    "search" => "{$apache_user}    ALL=(ptbuild) NOPASSWD: ALL",
-                ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure Apache Fast CGI is installed", ), ), ),
+                array ( "ApacheFastCGIModules" => array( "ensure" => array( ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
                 array ( "Chmod" => array( "path" => array(
