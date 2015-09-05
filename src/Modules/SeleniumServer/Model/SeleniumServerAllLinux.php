@@ -47,7 +47,7 @@ class SeleniumServerAllLinux extends BaseLinuxApp {
         if (isset($this->params["no-dependencies"])) {
             return;
         }
-        $tempVersion = $this->params["version"] ;
+        $tempVersion = isset($this->params["version"]) ? $this->params["version"] : null ;
         unset($this->params["version"]) ;
         $gitToolsFactory = new \Model\GitTools($this->params);
         $gitTools = $gitToolsFactory->getModel($this->params);
