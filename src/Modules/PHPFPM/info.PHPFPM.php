@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPModulesInfo extends PTConfigureBase {
+class PHPFPMInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -13,19 +13,19 @@ class PHPModulesInfo extends PTConfigureBase {
   }
 
   public function routesAvailable() {
-    return array( "PHPModules" =>  array_merge(parent::routesAvailable(), array("install") ) );
+    return array( "PHPFPM" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
-    return array("php-mods"=>"PHPModules", "phpmods"=>"PHPModules", "php-modules"=>"PHPModules",
-      "phpmodules"=>"PHPModules");
+    return array("php-mods"=>"PHPFPM", "phpmods"=>"PHPFPM", "php-modules"=>"PHPFPM",
+      "PHPFPM"=>"PHPFPM");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This module allows you to install some common and helpful PHP Modules.
 
-  PHPModules, php-mods, phpmods, php-modules, phpmodules
+  PHPFPM, php-mods, phpmods, php-modules, PHPFPM
 
         - install
         Installs some common PHP Modules. These include php5-gd the image libs,

@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PHPModulesUbuntu extends BaseLinuxApp {
+class PHPFPMUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,7 +13,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php-apc", "php5-dev", "php5-gd", "php5-imagick", "php5-curl", "php5-mysql", "php5-memcache", "php5-memcached", "php5-mongo" ) ;
+    public $packages = array("php5-fpm") ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -23,8 +23,8 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
         );
-        $this->programDataFolder = "/opt/PHPModules"; // command and app dir name
-        $this->programNameMachine = "phpmodules"; // command and app dir name
+        $this->programDataFolder = "/opt/PHPFPM"; // command and app dir name
+        $this->programNameMachine = "PHPFPM"; // command and app dir name
         $this->programNameFriendly = "PHP Mods!"; // 12 chars
         $this->programNameInstaller = "PHP Modules";
         $this->initialize();

@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class PHPFPMUbuntu extends BaseLinuxApp {
+class PHPFPMMac extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array(array("11.04" => "+")) ;
+    public $os = array("Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -18,10 +18,10 @@ class PHPFPMUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", $this->packages ) ) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", $this->packages ) ) ),
         );
         $this->programDataFolder = "/opt/PHPFPM"; // command and app dir name
         $this->programNameMachine = "PHPFPM"; // command and app dir name
