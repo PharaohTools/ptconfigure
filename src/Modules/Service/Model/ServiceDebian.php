@@ -19,6 +19,7 @@ class ServiceDebian extends BaseLinuxApp {
             "start" => "performServiceStart",
             "stop" => "performServiceStop",
             "restart" => "performServiceRestart",
+            "reload" => "performServiceReload",
             "is-running" => "performServiceIsRunningCheck",
             "ensure-running" => "performServiceEnsureRunning",
             "run-at-reboots" => "performServiceRunAtReboots"
@@ -49,6 +50,11 @@ class ServiceDebian extends BaseLinuxApp {
         return $this->restart();
     }
 
+    protected function performServiceReload() {
+        $this->setService();
+        return $this->reload();
+    }
+
     protected function performServiceEnsureRunning() {
         $this->setService();
         return $this->ensureRunning();
@@ -67,6 +73,8 @@ class ServiceDebian extends BaseLinuxApp {
     public function setService($serviceName = null) {
         if (isset($serviceName)) {
             $this->serviceName = $serviceName; }
+        else if (isset($this->params["service"])) {
+            $this->serviceName = $this->params["service"]; }
         else if (isset($this->params["servicename"])) {
             $this->serviceName = $this->params["servicename"]; }
         else if (isset($this->params["service-name"])) {
@@ -79,10 +87,8 @@ class ServiceDebian extends BaseLinuxApp {
             $this->serviceName = self::askForInput("Enter Service Name:", true); }
     }
 
-
     /* brought in */
     /*@todo */
-
     public function ensureRunning() {
         $status = $this->executeAndLoad("service {$this->serviceName} status 2> /dev/null");
         if(strpos($status, 'running') != false) {
@@ -100,7 +106,7 @@ class ServiceDebian extends BaseLinuxApp {
 
     public function isRunning() {
         $status = $this->executeAndGetReturnCode("service {$this->serviceName} status");
-        if($status == 0) {
+        if ($status == 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Service {$this->serviceName} is running...", $this->getModuleName()) ;
@@ -127,7 +133,7 @@ class ServiceDebian extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Starting {$this->serviceName} service", $this->getModuleName()) ;
-        $this->executeAndOutput("service {$this->serviceName} start");
+        $this->executeAndOutput(SUDOPREFIX."service {$this->serviceName} start");
         return true ;
     }
 
@@ -135,7 +141,7 @@ class ServiceDebian extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Stopping {$this->serviceName} service", $this->getModuleName()) ;
-        $this->executeAndOutput("service {$this->serviceName} stop");
+        $this->executeAndOutput(SUDOPREFIX."service {$this->serviceName} stop");
         return true ;
     }
 
@@ -143,7 +149,15 @@ class ServiceDebian extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Restarting {$this->serviceName} service", $this->getModuleName()) ;
-        $this->executeAndOutput("service {$this->serviceName} restart");
+        $this->executeAndOutput(SUDOPREFIX."service {$this->serviceName} restart");
+        return true ;
+    }
+
+    public function reload() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Reloading {$this->serviceName} service", $this->getModuleName()) ;
+        $this->executeAndOutput(SUDOPREFIX."service {$this->serviceName} reload");
         return true ;
     }
 
