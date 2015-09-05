@@ -37,7 +37,7 @@ class ApacheServerMac extends ApacheServerCentos {
   }
 
   public function apacheRestart() {
-      $comm = 'httpd -k restart' ;
+      $comm = $this->packageName.' -k restart' ;
       $this->executeAndOutput($comm, "Restarted Apache, httpd");
   }
 
