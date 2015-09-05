@@ -61,7 +61,7 @@ class PTBuildLinux extends BasePHPApp {
     }
 
     public function getConfigureAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'users-and-permissions.php' ;
+        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'ptbconf.php' ;
         return $path ;
     }
 
