@@ -118,11 +118,11 @@ COMPLETION;
     }
 
     public static function executeAndGetReturnCode($command, $show_output = null, $get_output = null) {
-        $proc = proc_open($command,[
+        $proc = proc_open($command,array(
             0 => array("pipe","r"),
             1 => array("pipe",'w'),
             2 => array("pipe",'w'),
-        ],$pipes);
+        ),$pipes);
         if ($show_output==true) {
             stream_set_blocking($pipes[1], true);
             $data = "";
