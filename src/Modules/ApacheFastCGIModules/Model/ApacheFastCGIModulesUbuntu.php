@@ -29,15 +29,15 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-cgi")) ),
             array("method"=> array("object" => $this, "method" => "apacheReload", "params" => array()))
         );
-        $this->programDataFolder = "/opt/ApacheModules"; // command and app dir name
-        $this->programNameMachine = "apachemodules"; // command and app dir name
+        $this->programDataFolder = "/opt/ApacheFastCGIModules"; // command and app dir name
+        $this->programNameMachine = "apachefastcgimodules"; // command and app dir name
         $this->programNameFriendly = "Apache Fast CGI Mods!"; // 12 chars
         $this->programNameInstaller = "Apache Fast CGI Modules";
         $this->initialize();
     }
 
     public function addSources() {
-        $sysFac = new \Model\SystemDetectionFactory() ;
+        $sysFac = new \Model\SystemDetection() ;
         $sys = $sysFac->getModel($this->params);
         $sv = $sys->version ;
         $devCode = $this->getDevCode($sv) ;
