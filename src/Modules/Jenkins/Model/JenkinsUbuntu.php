@@ -37,6 +37,7 @@ class JenkinsUbuntu extends BaseLinuxApp {
             array("command" => array(
                 "cd /tmp" ,
                 "wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | ".SUDOPREFIX." apt-key add -",
+                // @todo we should be doing this with the file module so we don't write this multiple times in the file
                 "echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list",
                 "apt-get update -y" ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "jenkins")) ),
