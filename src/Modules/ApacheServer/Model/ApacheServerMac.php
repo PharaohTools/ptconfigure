@@ -30,18 +30,16 @@ class ApacheServerMac extends ApacheServerCentos {
       $this->programNameFriendly = "Apache Server!"; // 12 chars
       $this->programNameInstaller = "Apache Server";
       $this->statusCommand = "httpd -v" ;
-      $this->versionInstalledCommand = SUDOPREFIX."yum info httpd" ;
-      $this->versionRecommendedCommand = SUDOPREFIX."yum info httpd" ;
-      $this->versionLatestCommand = SUDOPREFIX."yum info httpd" ;
+      $this->versionInstalledCommand = SUDOPREFIX."httpd -v" ;
+      $this->versionRecommendedCommand = SUDOPREFIX."httpd -v" ;
+      $this->versionLatestCommand = SUDOPREFIX."httpd -v" ;
       $this->initialize();
   }
 
-    public function apacheRestart() {
-        $serviceFactory = new Service();
-        $serviceManager = $serviceFactory->getModel($this->params) ;
-        $serviceManager->setService("httpd");
-        $serviceManager->restart();
-    }
+  public function apacheRestart() {
+      $comm = 'httpd -k restart' ;
+      $this->executeAndOutput($comm, "Restarted Apache, httpd");
+  }
 
     public function versionInstalledCommandTrimmer($text) {
         $lines = explode("\n", $text) ;
@@ -52,18 +50,6 @@ class ApacheServerMac extends ApacheServerCentos {
                 return $version ; } }
         return null ;
     }
-//
-//    public function versionLatestCommandTrimmer($text) {
-//        if (strpos($text, "Installed: (none)") !== false) { $rest = substr($text, 42) ; }
-//        else {  $rest = substr($text, 52) ; }
-//        $spacepos = strpos($rest, "\n") ;
-//        $done =  substr($rest, 0, $spacepos) ;
-//        return $done ;
-//    }
-//
-//    public function versionRecommendedCommandTrimmer($text) {
-//        $done = substr($text, 53, 17) ;
-//        return $done ;
-//    }
+
 
 }
