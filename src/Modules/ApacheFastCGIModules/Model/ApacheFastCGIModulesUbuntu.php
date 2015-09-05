@@ -18,6 +18,8 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "addSources", "params" => array()) ),
+            // @todo we should probably use the packagemanager for this
+            array("command" => array( "apt-get update -y" ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-cgi")) ),
             array("method"=> array("object" => $this, "method" => "apacheReload", "params" => array())) );
         $this->uninstallCommands = array(
