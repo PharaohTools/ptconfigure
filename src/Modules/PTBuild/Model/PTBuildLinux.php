@@ -41,9 +41,9 @@ class PTBuildLinux extends BasePHPApp {
 
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ;
             $ray[]["command"][] = SUDOPREFIX."sh ".$this->getUserShellAutoPath() ;
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ; }
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ; }
         /*
          * @todo create switching user -- user shell DONE
          * @todo user can sudo without password -- first cm file step DONE
