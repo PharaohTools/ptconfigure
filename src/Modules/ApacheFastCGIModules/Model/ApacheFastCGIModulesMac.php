@@ -21,7 +21,7 @@ class ApacheFastCGIModulesMac extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "templateMakefile", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "fastCgiMake", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "copyInSoFile", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "endureConfFastCgi", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "ensureConfFastCgi", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "libxml2-dev")) ),
@@ -68,6 +68,9 @@ curl http://www.fastcgi.com/dist/mod_fastcgi-2.4.6.tar.gz -o /tmp/mod_fastcgi-2.
 tar -xvzf /tmp/mod_fastcgi-2.4.6.tar.gz
 cd /tmp/mod_fastcgi-2.4.6
 cp /tmp/mod_fastcgi-2.4.6/Makefile.AP2 /tmp/mod_fastcgi-2.4.6/Makefile ' ;
+        /*
+         * sudo ln -s XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX$(sw_vers -productVersion).xctoolchain
+         */
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
         $res = ($rc["rc"] == true) ? true : false ;
         return $res ;
@@ -92,20 +95,46 @@ cp /tmp/mod_fastcgi-2.4.6/Makefile.AP2 /tmp/mod_fastcgi-2.4.6/Makefile ' ;
         return in_array(false, $res)==false ;
     }
 
+    public function ensureXCode() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring XCode", $this->getModuleName()) ;
+        $params = $this->params ;
+        $params["file"] = "/tmp/mod_fastcgi-2.4.6/Makefile" ;
+        $params["search"] = "= /usr/local/apache2" ;
+        $params["replace"] = "= /usr/share/httpd" ;
+        $fileFactory = new \Model\File() ;
+        $file = $fileFactory->getModel($params) ;
+        $res[] = $file->performReplaceText();
+        $params = $this->params ;
+        $params["file"] = "/tmp/mod_fastcgi-2.4.6/Makefile" ;
+        $params["search"] = "CFLAGS=-arch x86_64." ;
+        $file = $fileFactory->getModel($params) ;
+        $res[] = $file->performShouldHaveLine();
+        return in_array(false, $res)==false ;
+    }
+
     public function fastCgiMake() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Fast CGI Make", $this->getModuleName()) ;
-        $comm = "cd /tmp/mod_fastcgi-2.4.6/" ;
+        chdir("/tmp/mod_fastcgi-2.4.6/");
+        $sys = new \Model\SystemDetectionAllOS(); // $sysFac->getModel($this->params) ;
+        $version = $sys->version ;
+        if (substr_count($sys->version, ".")==2) {
+            $rpos = strrpos($sys->version, ".") ;
+            $version = substr($sys->version, 0, $rpos) ; }
+        var_dump("syssvers", $version) ;
+        $comm = SUDOPREFIX."ln -s XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX{$version}.xctoolchain" ;
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
-        $res = ($rc["rc"] == true) ? true : false ;
+        $res[] = ($rc["rc"] == true) ? true : false ;
         $comm = "pwd" ;
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
-        $res = ($rc["rc"] == true) ? true : false ;
+        $res[] = ($rc["rc"] == true) ? true : false ;
         $comm = "make" ;
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
-        $res = ($rc["rc"] == true) ? true : false ;
-        return $res ;
+        $res[] = ($rc["rc"] == true) ? true : false ;
+        return (!in_array(false, $res)) ;
     }
 
     public function copyinSoFile() {
@@ -118,8 +147,7 @@ cp /tmp/mod_fastcgi-2.4.6/Makefile.AP2 /tmp/mod_fastcgi-2.4.6/Makefile ' ;
         return $res ;
     }
 
-
-    public function endureConfFastCgi() {
+    public function ensureConfFastCgi() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Updating Httpd.conf", $this->getModuleName()) ;

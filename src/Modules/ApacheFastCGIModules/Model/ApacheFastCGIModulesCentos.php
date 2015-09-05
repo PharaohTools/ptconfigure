@@ -34,8 +34,8 @@ class ApacheFastCGIModulesCentos extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->programDataFolder = "/opt/ApacheModules"; // command and app dir name
         $this->programNameMachine = "apachemodules"; // command and app dir name
-        $this->programNameFriendly = "Apache Mods!"; // 12 chars
-        $this->programNameInstaller = "Apache Modules";
+        $this->programNameFriendly = "Apache Fast CGI Mods!"; // 12 chars
+        $this->programNameInstaller = "Apache Fast CGI Modules";
         $this->initialize();
     }
 
