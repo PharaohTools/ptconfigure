@@ -131,11 +131,10 @@ class AutoPilotConfigured extends AutoPilot {
     private function getCGIBinDir() {
         $system = new \Model\SystemDetection();
         $sys = $system->getModel($this->params);
-        $sys = new \Model\SystemDetectionAllOS() ;
-        if (in_array("Darwin", $sys->os)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
-        else if (in_array("Linux", $sys->os) && in_array("Ubuntu", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
-        else if (in_array("Linux", $sys->os) && in_array("Debian", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
-        else if (in_array("Linux", $sys->os) && in_array("CentOS", $sys->distros)) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        if ("Darwin" == $sys->os) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        else if ("Linux" == $sys->os && "Ubuntu" == $sys->distros) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        else if ("Linux" == $sys->os && "Debian" == $sys->distros) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
+        else if ("Linux" == $sys->os && "CentOS" == $sys->distros) { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
         else { $cgi_bin_dir = "/usr/lib/cgi-bin/" ; }
         return $cgi_bin_dir ;
     }
