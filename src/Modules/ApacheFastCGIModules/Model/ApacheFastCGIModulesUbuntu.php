@@ -37,7 +37,7 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
     }
 
     public function addSources() {
-        $sysFac = new \Model\SystemDetection() ;
+        $sysFac = new \Model\SystemDetectionAllOS() ;
         $sys = $sysFac->getModel($this->params);
         $sv = $sys->version ;
         $devCode = $this->getDevCode($sv) ;
@@ -46,16 +46,16 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
         $fp["file"] = "/etc/apt/sources.list" ;
         $fp["search"] = "deb http://us.archive.ubuntu.com/ubuntu/ {$devCode} multiverse" ;
         $file = $fileFactory->getModel($fp) ;
-        $res[] = $file->shouldHaveLine();
+        $res[] = $file->performShouldHaveLine();
         $fp["search"] = "deb-src http://us.archive.ubuntu.com/ubuntu/ {$devCode} multiverse" ;
         $file = $fileFactory->getModel($fp) ;
-        $res[] = $file->shouldHaveLine();
+        $res[] = $file->performShouldHaveLine();
         $fp["search"] = "deb http://us.archive.ubuntu.com/ubuntu/ {$devCode}-updates multiverse" ;
         $file = $fileFactory->getModel($fp) ;
-        $res[] = $file->shouldHaveLine();
+        $res[] = $file->performShouldHaveLine();
         $fp["search"] = "deb-src http://us.archive.ubuntu.com/ubuntu/ {$devCode}-updates multiverse" ;
         $file = $fileFactory->getModel($fp) ;
-        $res[] = $file->shouldHaveLine();
+        $res[] = $file->performShouldHaveLine();
         return (!in_array(false, $res)) ;
     }
 
@@ -74,5 +74,13 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
         ) ;
         $ubuntuDevCodeNames[$code] ;
     }
+
+    public function apacheReload() {
+        $serviceFactory = new \Model\Service();
+        $serviceManager = $serviceFactory->getModel($this->params) ;
+        $serviceManager->setService("apache2");
+        $serviceManager->reload();
+    }
+
 
 }
