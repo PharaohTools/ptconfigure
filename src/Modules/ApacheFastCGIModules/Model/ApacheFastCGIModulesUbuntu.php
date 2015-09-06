@@ -37,8 +37,7 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
     }
 
     public function addSources() {
-        $sysFac = new \Model\SystemDetectionAllOS() ;
-        $sys = $sysFac->getModel($this->params);
+        $sys = new \Model\SystemDetectionAllOS() ;
         $sv = $sys->version ;
         $devCode = $this->getDevCode($sv) ;
         $fp = $this->params ;
