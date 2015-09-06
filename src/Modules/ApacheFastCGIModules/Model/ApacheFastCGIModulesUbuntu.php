@@ -22,7 +22,9 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
             array("command" => array( "apt-get update -y", ) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-cgi")) ),
             array("command" => array(
-                "a2enmod actions fastcgi alias -y",
+                "a2enmod actions",
+                "a2enmod fastcgi",
+                "a2enmod alias",
                 "a2enconf php5-fpm", ) ),
             array("method"=> array("object" => $this, "method" => "apacheReload", "params" => array())) );
         $this->uninstallCommands = array(
