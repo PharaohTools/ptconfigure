@@ -71,7 +71,7 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
             "15.04" => "vivid",
             "15.10" => "wily",
         ) ;
-        $ubuntuDevCodeNames[$code] ;
+        return $ubuntuDevCodeNames[$code] ;
     }
 
     public function apacheReload() {
