@@ -20,7 +20,7 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "addSources", "params" => array()) ),
             // @todo we should probably use the packagemanager for this
             array("command" => array( "apt-get update -y", ) ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-cgi")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-fastcgi")) ),
             array("command" => array(
                 "a2enmod actions",
                 "a2enmod fastcgi",
@@ -28,7 +28,7 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
                 "a2enconf php5-fpm", ) ),
             array("method"=> array("object" => $this, "method" => "apacheReload", "params" => array())) );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-cgi")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-fastcgi")) ),
             array("method"=> array("object" => $this, "method" => "apacheReload", "params" => array()))
         );
         $this->programDataFolder = "/opt/ApacheFastCGIModules"; // command and app dir name
