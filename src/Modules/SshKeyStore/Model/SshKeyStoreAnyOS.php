@@ -163,7 +163,7 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
         // have drive and path env vars
         if (getenv('HOMEDRIVE') && getenv('HOMEPATH')) {
             $home = getenv('HOMEDRIVE').getenv('HOMEPATH');
-            return in_array(substr($home, -1), ['/', '\\']) ? $home : $home.DIRECTORY_SEPARATOR;
+            return in_array(substr($home, -1), array('/', '\\')) ? $home : $home.DIRECTORY_SEPARATOR;
         }
 
     }
