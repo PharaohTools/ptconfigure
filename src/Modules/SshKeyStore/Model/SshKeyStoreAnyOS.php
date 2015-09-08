@@ -89,7 +89,14 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
         else if (isset($this->params["user-home"])) {
             $this->userHomeDir = $this->params["user-home"]; }
         else if (isset($this->params["guess"])) {
-            $this->userHomeDir = $this->guessUserHome(); }
+            // this wont work on windows, user module should be doing this
+            $whoami = self::executeAndLoad("whoami") ;
+            $whoami = str_replace("\n", "", $whoami) ;
+            $whoami = str_replace("\r", "", $whoami) ;
+            $comm = 'eval echo "~'.$whoami.'"' ;
+            $this->userHomeDir = $this->executeAndLoad($comm) ;
+            $this->userHomeDir = str_replace("\n", "", $this->userHomeDir) ;
+            $this->userHomeDir = str_replace("\r", "", $this->userHomeDir) ; }
         else {
             $question = "Enter User home directory:";
             $this->userHomeDir = self::askForInput($question, true); }
@@ -103,7 +110,7 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
             switch ($loc) {
                 case "user" :
                     $this->setUserHome() ;
-                    $kp = $this->userHomeDir.".ssh".DS.$this->key ;
+                    $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
                         $logging->log("User key found at $kp", $this->getModuleName());
                         return $kp ; }
@@ -113,7 +120,7 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
                 case "otheruser" :
                     $this->userName = (isset($this->params["otheruser"])) ? $this->params["otheruser"] : null ;
                     $this->setUserHome() ;
-                    $kp = $this->userHomeDir.".ssh".DS.$this->key ;
+                    $kp = $this->userHomeDir.DS.".ssh".DS.$this->key ;
                     if (file_exists($kp)) {
                         $logging->log("Other User key found at $kp", $this->getModuleName());
                         return $kp ; }
@@ -121,7 +128,7 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
                         $logging->log("Other User key not found at $kp", $this->getModuleName()); }
                     break ;
                 case "root" :
-                    $kp = DS."root".DS.".ssh".DS.$this->key ;
+                    $kp = "/root/.ssh".DS.$this->key ;
                     if (file_exists($kp)) {
                         $logging->log("Root key found at $kp", $this->getModuleName());
                         return $kp ; }
@@ -134,38 +141,6 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
             }
         }
         return null;
-    }
-
-
-    protected function guessUserHome() {
-
-        // have home env var
-//        if ($home = getenv('HOME')) {
-//            return in_array(substr($home, -1), ['/', '\\']) ? $home : $home.DIRECTORY_SEPARATOR;
-//        }
-
-        // *nix OS
-        $sys = new \Model\SystemDetectionAllOS();
-
-        if (!in_array($sys->os, array("Windows", "WINNT")) ) {
-            $username = get_current_user() ?: getenv('USERNAME');
-            return '/home/'.($username ? $username.'/' : '');
-        }
-
-        // Windows
-        $username = get_current_user() ?: getenv('USERNAME');
-        if ($username && is_dir($win7path = 'C:\Users\\'.$username.'\\')) { // is Vista or older
-            return $win7path;
-        } elseif ($username) {
-            return 'C:\Documents and Settings\\'.$username.'\\';
-        }
-
-        // have drive and path env vars
-        if (getenv('HOMEDRIVE') && getenv('HOMEPATH')) {
-            $home = getenv('HOMEDRIVE').getenv('HOMEPATH');
-            return in_array(substr($home, -1), array('/', '\\')) ? $home : $home.DIRECTORY_SEPARATOR;
-        }
-
     }
 
 }
