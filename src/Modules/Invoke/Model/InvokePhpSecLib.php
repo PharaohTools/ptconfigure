@@ -70,7 +70,7 @@ class InvokePhpSecLib extends BaseLinuxApp
         return $stream;
     }
 
-    public function __call($k, $args = [])
+    public function __call($k, $args = array())
     {
         return call_user_func_array([$this->connection, $k], $args);
     }
