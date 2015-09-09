@@ -70,13 +70,13 @@ class AutoPilotConfigured extends AutoPilot {
 
             array ( "Logging" => array( "log" => array( "log-message" => "PTBuild PHP FPM Restart", ), ), ),
             array ( "Service" => array( "restart" => array(
-                "name" => 'php5-fpm',
+                "service" => 'php5-fpm',
             ), ), ),
 
-            array ( "Logging" => array( "log" => array( "log-message" => "Apache Restart", ), ), ),
-            array ( "Service" => array( "restart" => array(
-                "name" => 'php5-fpm',
-            ), ), ),
+//            array ( "Logging" => array( "log" => array( "log-message" => "Apache Restart", ), ), ),
+//            array ( "Service" => array( "restart" => array(
+//                "name" => 'php5-fpm',
+//            ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Build Complete"),),),
 
