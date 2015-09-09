@@ -38,29 +38,45 @@ class AutoPilotConfigured extends AutoPilot {
 //                    "search" => "{$apache_user}    ALL=(ptbuild) NOPASSWD: ALL",
 //                ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP FPM is installed", ), ), ),
-                array ( "PHPFPM" => array( "ensure" => array( ), ), ),
+            array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP FPM is installed", ), ), ),
+            array ( "PHPFPM" => array( "ensure" => array( ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Ensure Apache Fast CGI is installed", ), ), ),
-                array ( "ApacheFastCGIModules" => array( "ensure" => array( ), ), ),
+            array ( "Logging" => array( "log" => array( "log-message" => "Ensure Apache Fast CGI is installed", ), ), ),
+            array ( "ApacheFastCGIModules" => array( "ensure" => array( ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
-                array ( "Chmod" => array( "path" => array(
-                    "path" => PFILESDIR.'ptbuild'.DS.'ptbuild'.DS.'ptbuildvars',
-                    "mode" => '0777',
-                ), ), ),
+            array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
+            array ( "Chmod" => array( "path" => array(
+                "path" => PFILESDIR.'ptbuild'.DS.'ptbuild'.DS.'ptbuildvars',
+                "mode" => '0777',
+            ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory exists", ), ), ),
-                array ( "Mkdir" => array( "path" => array(
-                    "path" => PIPEDIR
-                ), ), ),
+            array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory exists", ), ), ),
+            array ( "Mkdir" => array( "path" => array(
+                "path" => PIPEDIR
+            ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory is writable", ), ), ),
-                array ( "Chmod" => array( "path" => array(
-                    "path" => PIPEDIR,
-                    "recursive" => true,
-                    "mode" => '0777',
-                ), ), ),
+            array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory is writable", ), ), ),
+            array ( "Chmod" => array( "path" => array(
+                "path" => PIPEDIR,
+                "recursive" => true,
+                "mode" => '0777',
+            ), ), ),
+
+            array ( "Logging" => array( "log" => array( "log-message" => "PTBuild PHP FPM Pool Config", ), ), ),
+            array ( "Copy" => array( "put" => array(
+                "source" => dirname(dirname(__DIR__)).DS.'Templates'.DS.'ptbuild_pool.conf',
+                "target" => '/etc/php5/fpm/pool.d/ptbuild.conf',
+            ), ), ),
+
+            array ( "Logging" => array( "log" => array( "log-message" => "PTBuild PHP FPM Restart", ), ), ),
+            array ( "Service" => array( "restart" => array(
+                "name" => 'php5-fpm',
+            ), ), ),
+
+            array ( "Logging" => array( "log" => array( "log-message" => "Apache Restart", ), ), ),
+            array ( "Service" => array( "restart" => array(
+                "name" => 'php5-fpm',
+            ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Build Complete"),),),
 

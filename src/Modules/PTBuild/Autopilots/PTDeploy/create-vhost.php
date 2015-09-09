@@ -72,32 +72,11 @@ class AutoPilotConfigured extends AutoPilot {
    CustomLog /var/log/apache2/access.log combined
 
    <IfModule mod_fastcgi.c>
-     AddType application/x-httpd-fastphp5 .php
-     Action application/x-httpd-fastphp5 /php5-fcgi
-     Alias /php5-fcgi '.$cgi_bin_dir.'php5-fcgi_ptbuild
-     FastCgiExternalServer '.$cgi_bin_dir.'php5-fcgi_ptbuild -socket /var/run/php5-fpm_ptbuild.sock -pass-header Authorization
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:6040/opt/ptbuild/ptbuild/src/Modules/PostInput/$1
    </IfModule>
 
  </VirtualHost>
 
-# NameVirtualHost ****IP ADDRESS****:443
-# <VirtualHost ****IP ADDRESS****:443>
-# 	 ServerAdmin webmaster@localhost
-# 	 ServerName ****SERVER NAME****
-# 	 DocumentRoot ****WEB ROOT****
-  # SSLEngine on
- 	 # SSLCertificateFile /etc/apache2/ssl/ssl.crt
-   # SSLCertificateKeyFile /etc/apache2/ssl/ssl.key
-   # SSLCertificateChainFile /etc/apache2/ssl/bundle.crt
-# 	 <Directory ****WEB ROOT****>
-# 		 Options Indexes FollowSymLinks MultiViews
-#		AllowOverride All
-#		Order allow,deny
-#		allow from all
-#	</Directory>
-#  ErrorLog /var/log/apache2/error.log
-#  CustomLog /var/log/apache2/access.log combined
-#  </VirtualHost>
 ' ;
 
         return $template ;

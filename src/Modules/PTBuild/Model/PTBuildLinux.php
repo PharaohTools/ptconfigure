@@ -65,12 +65,6 @@ class PTBuildLinux extends BasePHPApp {
         return $path ;
     }
 
-    public function getFPMSetupShellPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'fpmsetup.sh' ;
-        $this->executeAsShell("sh $path");
-        return $path ;
-    }
-
     public function getUserShellAutoPath() {
         $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'create-linux-user.sh' ;
         $this->executeAsShell("sh $path");
