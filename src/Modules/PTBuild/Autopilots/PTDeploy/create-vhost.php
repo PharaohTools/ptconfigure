@@ -54,7 +54,6 @@ class AutoPilotConfigured extends AutoPilot {
     private function getTemplate() {
 
         $dir_section = $this->getA2DirSection() ;
-        $cgi_bin_dir = $this->getCGIBinDir() ;
 
 
         // @todo this should use above Require method for apache 2.4.7+ and below allow all for less
