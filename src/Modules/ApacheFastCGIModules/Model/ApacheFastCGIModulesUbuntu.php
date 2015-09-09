@@ -8,7 +8,7 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array(array("12", "+")) ;
+    public $versions = array(array("13.99", "-")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -25,7 +25,8 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
                 "a2enmod actions",
                 "a2enmod fastcgi",
                 "a2enmod alias",
-                "a2enconf php5-fpm", ) ),
+//                "a2enconf php5-fpm",
+            ) ),
             array("method"=> array("object" => $this, "method" => "apacheReload", "params" => array())) );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-fastcgi")) ),
