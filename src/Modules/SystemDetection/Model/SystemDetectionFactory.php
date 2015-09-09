@@ -74,8 +74,9 @@ class SystemDetectionFactory {
             // if conditions
             if (is_array($modelVersions[$i])) {
                 if (!isset($modelVersions[$i][0])) {
-                    var_dump($modelVersions[$i][0]);
-                    var_dump($modelVersions[$i][1]) ;
+                    var_dump("mvx", $modelVersions[$i]) ;
+                    var_dump("mv0", $modelVersions[$i][0]);
+                    var_dump("mv1", $modelVersions[$i][1]) ;
                 }
                 $svo->setCondition($modelVersions[$i][0], $modelVersions[$i][1]) ;
                 $matches[] = $svo->isCompatible() ; } }
