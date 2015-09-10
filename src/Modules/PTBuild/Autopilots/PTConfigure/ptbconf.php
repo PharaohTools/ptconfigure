@@ -47,7 +47,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "PTBuild PHP FPM Pool Config", ), ), ),
                 array ( "Copy" => array( "put" => array(
                     "source" => dirname(dirname(__DIR__)).DS.'Templates'.DS.'ptbuild_pool.conf',
-                    "target" => $apache_pool_conf_dir.'/ptbuild.conf',
+                    "target" => $apache_pool_conf_dir.'ptbuild.conf',
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "PTBuild PHP FPM Restart", ), ), ),
