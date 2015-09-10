@@ -15,7 +15,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function setSteps() {
 
         $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : 'build.pharaoh.tld' ;
-        $vhe_ipport = (isset($this->params['vhe-ip-port'])) ? $this->params['vhe-ip-port'] : '127.0.0.1' ;
+        $vhe_ipport = (isset($this->params['vhe-ip-port'])) ? $this->params['vhe-ip-port'] : '127.0.0.1:80' ;
 
         $this->steps =
             array(
@@ -55,12 +55,9 @@ class AutoPilotConfigured extends AutoPilot {
 
         $dir_section = $this->getA2DirSection() ;
 
-
-        // @todo this should use above Require method for apache 2.4.7+ and below allow all for less
-
         $template ='
- NameVirtualHost ****IP ADDRESS****:80
- <VirtualHost ****IP ADDRESS****:80>
+ NameVirtualHost ****IP ADDRESS****
+ <VirtualHost ****IP ADDRESS****>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
  	DocumentRoot ****WEB ROOT****
