@@ -68,7 +68,9 @@ class AutoPilotConfigured extends AutoPilot {
    CustomLog /var/log/apache2/access.log combined
 
    <IfModule mod_fastcgi.c>
-    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:6041/opt/ptbuild/ptbuild/src/Modules/PostInput/$1
+    <IfModule mod_proxy_fcgi.c>
+     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:6041/opt/ptbuild/ptbuild/src/Modules/PostInput/$1
+    </IfModule>
    </IfModule>
 
  </VirtualHost>
