@@ -77,7 +77,7 @@ class GitCloneAllLinuxMac extends Base {
 //        var_dump($command);
 //        echo $command;
         $rc = self::executeAndGetReturnCode($command, true, true);
-        return $rc["rc"] ;
+        return ($rc["rc"] == 0) ? true : false ;
     }
 
     protected function dropDirectory(){
