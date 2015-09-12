@@ -135,8 +135,14 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
                     else {
                         $logging->log("Root key not found at $kp", $this->getModuleName()); }
                     break ;
-                    break ;
                 case "specify" :
+                    $specdir = (isset($this->params["dir"])) ? $this->params["dir"] : null ;
+                    $kp = $specdir.DS.$this->key ;
+                    if (file_exists($kp)) {
+                        $logging->log("Specified path key found at $kp", $this->getModuleName());
+                        return $kp ; }
+                    else {
+                        $logging->log("Specified path key not found at $kp", $this->getModuleName()); }
                     break ;
             }
         }
