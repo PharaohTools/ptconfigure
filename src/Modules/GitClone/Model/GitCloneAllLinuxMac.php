@@ -20,7 +20,8 @@ class GitCloneAllLinuxMac extends Base {
     public function checkoutProject(){
         if ($this->askWhetherToDownload() != true) { return false; }
         $this->askForGitCloneTargetRepo();
-        $this->doGitCloneCommand();
+        $status = $this->doGitCloneCommand();
+        if ($status == false) { return false ; }
         if ($this->askAlsoChangePerms() == false ) { return true; }
         $this->setWebServerUser();
         $this->changeNewProjectPermissions();
