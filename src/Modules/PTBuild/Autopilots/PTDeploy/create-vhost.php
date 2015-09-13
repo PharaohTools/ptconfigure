@@ -67,6 +67,27 @@ class AutoPilotConfigured extends AutoPilot {
    ErrorLog /var/log/apache2/error.log
    CustomLog /var/log/apache2/access.log combined
 
+
+   <IfModule mod_fastcgi.c>
+    <IfModule !mod_proxy_fcgi.c>
+
+     AddHandler php5-fcgi .php
+     Action php5-fcgi /php5-fcgi
+     Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi_ptbuild
+     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_ptbuild -host 127.0.0.1:6041 -pass-header Authorization
+
+      <FilesMatch "\.php$">
+          SetHandler php5-fcgi
+      </FilesMatch>
+
+     <Directory /usr/lib/cgi-bin>
+ 	'. $dir_section .'
+      SetHandler fastcgi-script
+     </Directory>
+
+    </IfModule>
+   </IfModule>
+
    <IfModule mod_fastcgi.c>
     <IfModule mod_proxy_fcgi.c>
      ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:6041/opt/ptbuild/ptbuild/src/Modules/PostInput/$1
@@ -80,7 +101,8 @@ class AutoPilotConfigured extends AutoPilot {
         return $template ;
     }
 
-    private function getA2DirSection() {
+    private function getA2DirSection($cgi = null) {
+        $cgiString = ($cgi !== null) ? "ExecCGI" : "" ;
         $comm = 'ptconfigure apacheserver version -yg' ;
         exec($comm, $output) ;
         foreach ($output as $outline) {
@@ -95,12 +117,12 @@ class AutoPilotConfigured extends AutoPilot {
 
         if ($svObject->isLessThan($compareObject)) {
             $section = '
-            Options Indexes FollowSymLinks MultiViews
+            Options Indexes FollowSymLinks MultiViews '.$cgiString.'
             Order allow,deny
             Allow from all' ; }
         else {
             $section = '
-            Options Indexes FollowSymLinks MultiViews
+            Options Indexes FollowSymLinks MultiViews '.$cgiString.'
             Require all granted' ; }
         return $section ;
     }
