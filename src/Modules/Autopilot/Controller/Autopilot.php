@@ -25,7 +25,8 @@ class Autopilot extends Base {
 //                    echo "2" ;
                     \Core\BootStrap::setExitCode(1);
                     $this->content["messages"][] = "There was a problem with the autopilot file specified";
-                    return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content); } }
+                    $this->content["messages"][] = "Attempted specifying {$thisModel->params["autopilot-file"]}" ;
+                    return array ("type"=>"control", "control"=>"index", "pageVars"=>array_merge($pageVars, $this->content)); } }
             else {
 //                echo "3" ;
                 \Core\BootStrap::setExitCode(1);
@@ -49,14 +50,14 @@ class Autopilot extends Base {
         $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
         $autoPilotFilePath = getcwd().DS.$autoPilotFileName;
         $defaultFolderToCheck = str_replace("src".DS."Controller",
-          "build".DS."config".DS."ptconfigure", dirname(__FILE__));
+            "build".DS."config".DS.PHARAOH_APP, dirname(__FILE__));
         $defaultName = $defaultFolderToCheck.DS.$autoPilotFileName.".php";
         if (file_exists($autoPilotFileName)) {
             require_once($autoPilotFileName); }
         else if (file_exists($defaultName)) {
-          include_once($defaultName); }
+            include_once($defaultName); }
         else if (file_exists("autopilot-".$defaultName)) {
-          include_once("autopilot-".$defaultName); }
+            include_once("autopilot-".$defaultName); }
         else if (file_exists($autoPilotFilePath)) {
             require_once($autoPilotFilePath); }
         // if a class exists by the name of the file use the name
@@ -68,7 +69,7 @@ class Autopilot extends Base {
             return $autoPilot; }
         // else use default
         $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
-          new \Core\AutoPilotConfigured($params) : null ;
+            new \Core\AutoPilotConfigured($params) : null ;
         return $autoPilot;
     }
 
