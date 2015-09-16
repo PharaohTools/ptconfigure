@@ -5,7 +5,7 @@ Namespace Model;
 class ApacheControlAllLinux extends Base {
 
     // Compatibility
-    public $os = array("any") ;
+    public $os = array("Linux") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
