@@ -118,7 +118,7 @@ COMPLETION;
                 if (isset($buf) && $buf !== false) {
                     $data .= $buf;
                     echo $buf ; }
-                if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 32768) ) {
+                if ( (isset($buf2)) || $buf2 = fread($pipes[2], 32768) ) {
                     $buf2 = "ERR: ".$buf2;
                     $data .= $buf2;
                     echo $buf2 ; } } }
