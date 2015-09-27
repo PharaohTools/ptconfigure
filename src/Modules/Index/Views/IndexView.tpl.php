@@ -1,17 +1,22 @@
 PTConfigure - Pharaoh Tools
--------------------
+---------------------------------------
 
-Configuration, Infrastructure and Systems Automation Management in PHP.
+Configuration Management, Systems Automation and Infrastructure by Code in PHP. Provision your boxes manually or
+with an Operating System agnostic method of ensuring environment stability.
 
-Can be used to set up a Development Client, Development Server, Testing Servers, SCM Servers or Production
-Application Servers in minutes, out of the box, with Zero configuration across multiple Operating Systems.
+This tool is for provisioning software and configurations to your boxes. You can set up complex provisions to your
+systems with one or two PHP files, or quickly set up cloud friendly deployment patterns.
 
-You can quickly create simple or complex systems completely configured by code across platforms.
+PTConfigure is modular. object oriented and extendible, you can pretty easily write your own module if you want
+functionality we haven't yet covered. Feel free to submit us pull requests.
 
-Using Convention over Configuration, a lot of common Configuration Management tasks can be completed with little or
-no extra implementation work.
+This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
+Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
--------------------------------------------------------------
+Its easy to write modules for any Operating System but we've begun with Ubuntu and adding more as soon as possible.
+Currently, all of the Modules work on Ubuntu 12+, most on Centos and Windows.
+
+---------------------------------------
 
 Available Commands:
 ---------------------------------------
