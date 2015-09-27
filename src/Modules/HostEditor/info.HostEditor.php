@@ -13,7 +13,7 @@ class HostEditorInfo extends Base {
     }
 
     public function routesAvailable() {
-      return array( "HostEditor" => array_merge(parent::routesAvailable(), array("add", "rm") ) );
+      return array( "HostEditor" => array("add", "rm", "help"));
     }
 
     public function routeAliases() {
@@ -37,7 +37,6 @@ class HostEditorInfo extends Base {
           remove a Host File entry
           example: ptdeploy hosteditor rm
           example: ptdeploy hosteditor rm --yes
-              --host-ip=127.0.0.1 # guess will ignore this, and remove any entry matching the host name
               --host-name=dave.com
 
 HELPDATA;
