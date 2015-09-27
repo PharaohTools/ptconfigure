@@ -93,9 +93,9 @@ class SshKeygenAllLinuxMac extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         if (file_exists($this->params["path"])) {
             unlink($this->params["path"]) ;
-            $logging->log("Removing File at {$this->params["path"]} in SSH Keygen") ;
+            $logging->log("Removing File at {$this->params["path"]} in SSH Keygen", $this->getModuleName()) ;
             unlink($this->params["path"].".pub") ;
-            $logging->log("Removing File at {$this->params["path"]}.pub in SSH Keygen") ; }
+            $logging->log("Removing File at {$this->params["path"]}.pub in SSH Keygen", $this->getModuleName()) ; }
     }
 
     public function createDirectoryStructure() {
