@@ -17,15 +17,15 @@ class ApacheVHostEditorMac extends ApacheVHostEditorCentos {
     protected function askForVHostDirectory(){
         if (isset($this->params["vhe-vhost-dir"])) { return $this->params["vhe-vhost-dir"] ; }
         $question = 'What is your VHost directory?';
-        if ($this->detectMacVHostFolderExistence()) { $question .= ' Found "/etc/httpd/vhosts.d" - Enter nothing to use this';
-            if (isset($this->params["guess"])) { return "/etc/httpd/vhosts.d" ; }
+        if ($this->detectMacVHostFolderExistence()) { $question .= ' Found "/etc/apache2/other" - Enter nothing to use this';
+            if (isset($this->params["guess"])) { return "/etc/apache2/other" ; }
             $input = self::askForInput($question);
-            return ($input=="") ? "/etc/httpd/vhosts.d" : $input ;  }
+            return ($input=="") ? "/etc/apache2/other" : $input ;  }
         return self::askForInput($question, true);
     }
 
     protected function detectMacVHostFolderExistence(){
-        return file_exists("/etc/httpd/vhosts.d");
+        return file_exists("/etc/apache2/other");
     }
 
 
