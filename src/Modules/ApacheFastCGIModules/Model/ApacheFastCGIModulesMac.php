@@ -17,15 +17,18 @@ class ApacheFastCGIModulesMac extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "getFastCGITar", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "templateMakefile", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "fastCgiMake", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "copyInSoFile", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "ensureConfFastCgi", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "getFastCGITar", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "templateMakefile", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "fastCgiMake", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "copyInSoFile", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "ensureConfFastCgi", "params" => array()) ),
+//            sudo port install mod_fastcgi
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts",array("mod_fastcgi") ) ) ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "libxml2-dev")) ),
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "libapache2-mod-php5")) ),
+//            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "libxml2-dev")) ),
+//            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", "libapache2-mod-php5")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts",array("mod_fastcgi") ) ) ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->programDataFolder = "/opt/ApacheFastCGIModules"; // command and app dir name
         $this->programNameMachine = "apachefastcgimodules"; // command and app dir name
@@ -49,10 +52,10 @@ class ApacheFastCGIModulesMac extends BaseLinuxApp {
     }
 
     public function apacheRestart() {
-        $serviceFactory = new \Model\Service();
-        $serviceManager = $serviceFactory->getModel($this->params) ;
-        $serviceManager->setService("httpd");
-        $serviceManager->restart();
+        $comm = 'httpd -k restart' ;
+        $rc = $this->executeAndGetReturnCode($comm, true, true) ;
+        $res = ($rc["rc"] == true) ? true : false ;
+        return $res ;
     }
 
     public function getFastCGITar() {
