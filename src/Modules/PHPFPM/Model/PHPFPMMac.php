@@ -46,7 +46,7 @@ class PHPFPMMac extends BaseLinuxApp {
     public function templateFPMConfig() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Updating PHP FPM Configuration.", $this->getModuleName()) ;
+        $logging->log("Updating PHP FPM Configuration, ensuring our FPM Pool dir /etc/fpm.d/ is set.", $this->getModuleName()) ;
         $fileFactory = new \Model\File() ;
         $params = $this->params ;
         $params["file"] = "/etc/php-fpm.conf" ;
@@ -54,6 +54,13 @@ class PHPFPMMac extends BaseLinuxApp {
         $params["after-line"] = "; FPM Configuration ;" ;
         $file = $fileFactory->getModel($params) ;
         $res[] = $file->performShouldHaveLine();
+//        $logging->log("Updating PHP FPM Configuration, ensuring our session save path of /tmp is set.", $this->getModuleName()) ;
+//        $params = $this->params ;
+//        $params["file"] = "/etc/php-fpm.conf" ;
+//        $params["search"] = "php_admin_value[session.save_path] = /tmp/ " ;
+//        $params["after-line"] = "[global]" ;
+//        $file = $fileFactory->getModel($params) ;
+//        $res[] = $file->performShouldHaveLine();
         return in_array(false, $res)==false ;
     }
 
