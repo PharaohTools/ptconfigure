@@ -20,7 +20,7 @@ class MacPortsInfo extends PTConfigureBase {
     }
 
     public function routeAliases() {
-        return array("macPorts"=>"MacPorts");
+        return array("macPorts"=>"MacPorts", "macports"=>"MacPorts", "mac-ports"=>"MacPorts");
     }
 
     public function packagerName() {
