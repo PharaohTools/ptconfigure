@@ -40,7 +40,7 @@ class PTBuildMac extends PTBuildLinux {
         return $path ;
     }
 
-    public function getConfigureAutoPath() {
+    public function getMacPortsAutoPath() {
         $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'macports.php' ;
         return $path ;
     }
