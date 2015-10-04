@@ -13,25 +13,27 @@ class PHPFPMInfo extends PTConfigureBase {
   }
 
   public function routesAvailable() {
-    return array( "PHPFPM" =>  array_merge(parent::routesAvailable(), array("install") ) );
+    return array( "PHPFPM" =>  array_merge(parent::routesAvailable(), array("install", "restart") ) );
   }
 
   public function routeAliases() {
-    return array("php-mods"=>"PHPFPM", "phpmods"=>"PHPFPM", "php-modules"=>"PHPFPM",
-      "PHPFPM"=>"PHPFPM");
+    return array("php-fpm"=>"PHPFPM", "phpfpm"=>"PHPFPM", "PHPFPM"=>"PHPFPM");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This module allows you to install some common and helpful PHP Modules.
 
-  PHPFPM, php-mods, phpmods, php-modules, PHPFPM
+  PHPFPM, php-fpm, phpfpm
 
         - install
-        Installs some common PHP Modules. These include php5-gd the image libs,
-        php5-imagick the image libs, php5-curl the remote file handling libs,
-        php5-mysql the libs for handling mysql connections.
-        example: ptconfigure phpmods install
+        Installs PHP FPM, the PHP Fast CGI Process Manager
+        example: ptconfigure phpfpm install
+
+        - restart
+        Restarts PHP FPM. On some systems this is not available by calling service, so this
+        version should work on any
+        example: ptconfigure phpfpm restart
 
 HELPDATA;
     return $help ;
