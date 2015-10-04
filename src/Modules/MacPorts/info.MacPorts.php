@@ -15,7 +15,7 @@ class MacPortsInfo extends PTConfigureBase {
     public function routesAvailable() {
         // return array( "MacPorts" =>  array_merge(parent::routesAvailable(), array() ) );
         return array( "MacPorts" =>  array_merge(
-            array("help", "status", "pkg-install", "pkg-ensure", "pkg-remove", "update")
+            array("help", "status", "pkg-install", "pkg-ensure", "pkg-remove", "update", "install", "ensure")
         ) );
     }
 
