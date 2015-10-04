@@ -18,7 +18,7 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure users and permissions for Pharaoh Build"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP and Files for Pharaoh Build"),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP FPM is installed", ), ), ),
                 array ( "PHPFPM" => array( "ensure" => array( ), ), ),
@@ -51,9 +51,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "PTBuild PHP FPM Restart", ), ), ),
-                array ( "Service" => array( "restart" => array(
-                    "service" => 'php5-fpm',
-                ), ), ),
+                array ( "PHPFPM" => array( "restart" => array( ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Build Complete"),),),
 
@@ -62,10 +60,9 @@ class AutoPilotConfigured extends AutoPilot {
     }
 
     protected function getApachePoolDir() {
-        $system = new \Model\SystemDetection();
-        $thisSystem = $system->getModel($this->params);
+        $thisSystem = new \Model\SystemDetectionAllOS();
         if (in_array($thisSystem->os, array("Darwin") ) ) {
-            $apachePD = "/etc/php5/fpm/pool.d/" ; }
+            $apachePD = "/etc/fpm.d/" ; }
         else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Debian") ) ) {
             $apachePD = "/etc/php5/fpm/pool.d/" ; }
         else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
@@ -74,5 +71,19 @@ class AutoPilotConfigured extends AutoPilot {
             $apachePD = "/etc/php5/fpm/pool.d/" ; }
         return $apachePD ;
     }
+
+//    protected function getApachePoolDir() {
+//        $system = new \Model\SystemDetection();
+//        $thisSystem = $system->getModel($this->params);
+//        if (in_array($thisSystem->os, array("Darwin") ) ) {
+//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
+//        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Debian") ) ) {
+//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
+//        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
+//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
+//        else {
+//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
+//        return $apachePD ;
+//    }
 
 }
