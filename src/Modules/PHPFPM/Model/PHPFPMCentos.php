@@ -25,8 +25,8 @@ class PHPFPMCentos extends BaseLinuxApp {
         );
         $this->programDataFolder = "/opt/PHPFPM"; // command and app dir name
         $this->programNameMachine = "PHPFPM"; // command and app dir name
-        $this->programNameFriendly = "PHP Mods!"; // 12 chars
-        $this->programNameInstaller = "PHP Modules";
+        $this->programNameFriendly = "PHP FPM!"; // 12 chars
+        $this->programNameInstaller = "PHP Fast Process Manager";
         $this->initialize();
     }
 
