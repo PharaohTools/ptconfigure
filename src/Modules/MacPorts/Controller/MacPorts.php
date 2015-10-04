@@ -12,6 +12,10 @@ class MacPorts extends Base {
 
         $action = $pageVars["route"]["action"];
 
+        if (in_array($action, array("install", "ensure") )) {
+            $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
+            if ( is_array($isDefaultAction) ) { return $isDefaultAction; } }
+
         if ($action=="help") {
             $helpModel = new \Model\Help();
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
