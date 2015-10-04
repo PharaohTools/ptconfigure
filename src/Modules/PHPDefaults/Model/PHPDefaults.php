@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class PHPFPM extends BaseModelFactory {
+class PHPDefaults extends BaseModelFactory {
 
 }

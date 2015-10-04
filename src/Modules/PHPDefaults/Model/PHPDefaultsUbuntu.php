@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PHPFPMUbuntu extends BaseLinuxApp {
+class PHPDefaultsUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,21 +13,21 @@ class PHPFPMUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php5-fpm") ;
+    public $packages = array("php5-PHPDefaults") ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
-//            array("method"=> array("object" => $this, "method" => "templateFPMConfig", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
+//            array("method"=> array("object" => $this, "method" => "templatePHPDefaultsConfig", "params" => array()) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
+//            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
         );
-        $this->programDataFolder = "/opt/PHPFPM"; // command and app dir name
-        $this->programNameMachine = "PHPFPM"; // command and app dir name
-        $this->programNameFriendly = "PHP FPM!"; // 12 chars
-        $this->programNameInstaller = "PHP Fast Process Manager";
+        $this->programDataFolder = "/opt/PHPDefaults"; // command and app dir name
+        $this->programNameMachine = "PHPDefaults"; // command and app dir name
+        $this->programNameFriendly = "PHP Defaults!"; // 12 chars
+        $this->programNameInstaller = "PHP Default Settings";
         $this->initialize();
     }
 
@@ -46,29 +46,17 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         return $passing ;
     }
 
-    public function templateFPMConfig() {
+    public function templatePHPDefaultsConfig() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $fileFactory = new \Model\File() ;
-        $logging->log("Updating PHP FPM Configuration, ensuring our session save path of /tmp is set.", $this->getModuleName()) ;
+        $logging->log("Updating PHP Defaults Configuration, ensuring our session save path of /tmp is set.", $this->getModuleName()) ;
         $params = $this->params ;
-        $params["file"] = "/etc/php-fpm.conf" ;
+        $params["file"] = "/etc/php-PHPDefaults.conf" ;
         $params["search"] = "php_admin_value[session.save_path] = /tmp/ " ;
         $params["after-line"] = "[global]" ;
         $file = $fileFactory->getModel($params) ;
         $res[] = $file->performShouldHaveLine();
-        return in_array(false, $res)==false ;
-    }
-
-    public function restartFPM() {
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Stopping any running PHP FPM Processes", $this->getModuleName()) ;
-        $comm = 'pkill php-fpm' ;
-        $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
-        $logging->log("Starting PHP FPM Processes", $this->getModuleName()) ;
-        $comm = 'php-fpm' ;
-        $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
         return in_array(false, $res)==false ;
     }
 

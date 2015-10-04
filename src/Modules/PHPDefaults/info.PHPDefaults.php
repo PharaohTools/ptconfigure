@@ -2,38 +2,34 @@
 
 Namespace Info;
 
-class PHPFPMInfo extends PTConfigureBase {
+class PHPDefaultsInfo extends PTConfigureBase {
 
   public $hidden = false;
 
-  public $name = "PHP Modules - Commonly used PHP Modules";
+  public $name = "PHP Defaults - Default PHP Configurations and Files";
 
   public function __construct() {
     parent::__construct();
   }
 
   public function routesAvailable() {
-    return array( "PHPFPM" =>  array_merge(parent::routesAvailable(), array("install", "restart") ) );
+    return array( "PHPDefaults" =>  array_merge(parent::routesAvailable(), array("install", "restart") ) );
   }
 
   public function routeAliases() {
-    return array("php-fpm"=>"PHPFPM", "phpfpm"=>"PHPFPM", "PHPFPM"=>"PHPFPM");
+    return array("php-defaults"=>"PHPDefaults", "phpdefaults"=>"PHPDefaults", "phpdef"=>"PHPDefaults");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This module allows you to install some common and helpful PHP Modules.
+  This module allows you to install default settings and files for PHP.
 
-  PHPFPM, php-fpm, phpfpm
+  PHPDefaults, php-defaults, PHPDefaults
 
         - install
-        Installs PHP FPM, the PHP Fast CGI Process Manager
-        example: ptconfigure phpfpm install
+        Installs PHP Default Settings
+        example: ptconfigure PHPDefaults install
 
-        - restart
-        Restarts PHP FPM. On some systems this is not available by calling service, so this
-        version should work on any
-        example: ptconfigure phpfpm restart
 
 HELPDATA;
     return $help ;

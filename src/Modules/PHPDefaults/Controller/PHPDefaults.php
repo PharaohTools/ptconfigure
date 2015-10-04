@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class PHPFPM extends Base {
+class PHPDefaults extends Base {
 
     public function execute($pageVars) {
 
@@ -16,10 +16,10 @@ class PHPFPM extends Base {
         $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="restart") {
-            $this->content["result"] = $thisModel->restartFPM();
+            $this->content["result"] = $thisModel->restartPHPDefaults();
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid PHP FPM Action";
+        $this->content["messages"][] = "Invalid PHP Defaults Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
