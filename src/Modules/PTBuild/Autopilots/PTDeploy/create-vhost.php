@@ -88,15 +88,13 @@ class AutoPilotConfigured extends AutoPilot {
     </IfModule>
    </IfModule>
 
-   <IfModule mod_fastcgi.c>
-    <IfModule mod_proxy_fcgi.c>
+   <IfModule mod_proxy_fcgi.c>
+    <IfModule !mod_fastcgi.c>
      ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:6041/opt/ptbuild/ptbuild/src/Modules/PostInput/$1
     </IfModule>
    </IfModule>
 
- </VirtualHost>
-
-' ;
+ </VirtualHost> ' ;
 
         return $template ;
     }
@@ -126,9 +124,5 @@ class AutoPilotConfigured extends AutoPilot {
             Require all granted' ; }
         return $section ;
     }
-
-
-
-
 
 }
