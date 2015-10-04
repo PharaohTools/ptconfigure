@@ -25,8 +25,8 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         );
         $this->programDataFolder = "/opt/PHPFPM"; // command and app dir name
         $this->programNameMachine = "PHPFPM"; // command and app dir name
-        $this->programNameFriendly = "PHP Mods!"; // 12 chars
-        $this->programNameInstaller = "PHP Modules";
+        $this->programNameFriendly = "PHP FPM!"; // 12 chars
+        $this->programNameInstaller = "PHP Fast Process Manager";
         $this->initialize();
     }
 
@@ -40,9 +40,21 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         $passing = true ;
         foreach ($pax as $modToCheck) {
             if (!strstr($modsText, $modToCheck)) {
-                $logging->log("PHP Module {$modToCheck} is not installed for this PHP installation.") ;
+                $logging->log("PHP Module {$modToCheck} is not installed for this PHP installation.", $this->getModuleName()) ;
                 $passing = false ; } }
         return $passing ;
+    }
+
+    public function restartFPM() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Stopping any running PHP FPM Processes", $this->getModuleName()) ;
+        $comm = 'pkill php-fpm' ;
+        $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
+        $logging->log("Starting PHP FPM Processes", $this->getModuleName()) ;
+        $comm = 'php-fpm' ;
+        $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
+        return in_array(false, $res)==false ;
     }
 
 }
