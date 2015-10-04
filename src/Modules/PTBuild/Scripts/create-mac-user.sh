@@ -2,8 +2,6 @@
 # Set the _www users shell to bash
 chsh -s /bin/bash _www
 
-
-
 # delete any previous ptbuild user
 dscl . -delete /Users/ptbuild
 echo "Deleted any previous ptbuild user"
@@ -17,8 +15,8 @@ rm -rf /Users/ptbuild
 maxuid=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -ug | tail -1)
 newuid=$((maxuid+1))
 randGid=`jot -r 1  2000 65000`
-echo "new u id" $newuid
-echo "rand g id" $randGid
+# echo "new u id" $newuid
+# echo "rand g id" $randGid
 
 dscl . create /Groups/ptbuild
 echo $? "dscl . create /Groups/ptbuild"
@@ -41,8 +39,8 @@ echo $? "dscl . -create /Users/ptbuild NFSHomeDirectory /Users/ptbuild"
 dscl . append /Groups/ptbuild GroupMembership ptbuild
 echo $? "dscl . append /Groups/ptbuild GroupMembership ptbuild"
 
-dscl . -passwd /Users/ptbuild abcdef987654321
-echo $? "dscl . -passwd /Users/ptbuild abcdef987654321"
+# dscl . -passwd /Users/ptbuild abcdef987654321
+# echo $? "dscl . -passwd /Users/ptbuild abcdef987654321"
 
 cp -R /System/Library/User\ Template/English.lproj /Users/ptbuild
 createhomedir -c > /dev/null
