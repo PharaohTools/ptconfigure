@@ -46,14 +46,7 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."sh ".$this->getUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ; }
-        /*
-         * @todo create switching user -- user shell DONE
-         * @todo user can sudo without password -- first cm file step DONE
-         * @todo create default setting for switching user - how to do this? can we api settings changes
-         * @todo sudo chmod 777 /opt/ptbuild/ptbuild/ptbuildvars -- second CM file step DONE
-         * @todo sudo mkdir /opt/ptbuild/pipes -- third CM file step DONE
-         * @todo sudo chmod 777 /opt/ptbuild/pipes-- fourth CM file step DONE
-         */
+
         return $ray ;
     }
 
