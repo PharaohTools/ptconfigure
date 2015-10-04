@@ -29,7 +29,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Build Settings file writable", ), ), ),
                 array ( "Chmod" => array( "path" => array(
                     "path" => PFILESDIR.'ptbuild'.DS.'ptbuild'.DS.'ptbuildvars',
-                    "mode" => '0777',
+                    "mode" => '0755',
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pipes Directory exists", ), ), ),
@@ -41,7 +41,21 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Chmod" => array( "path" => array(
                     "path" => PIPEDIR,
                     "recursive" => true,
-                    "mode" => '0777',
+                    "mode" => '0755',
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pharaoh Build user owns the Program Files", ), ), ),
+                array ( "Chown" => array( "path" => array(
+                    "path" => PFILESDIR.'ptbuild'.DS,
+                    "recursive" => true,
+                    "user" => 'ptbuild',
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Pharaoh Group user owns the Program Files", ), ), ),
+                array ( "Chgrp" => array( "path" => array(
+                    "path" => PFILESDIR.'ptbuild'.DS,
+                    "recursive" => true,
+                    "group" => 'ptbuild',
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "PTBuild PHP FPM Pool Config", ), ), ),
@@ -71,19 +85,5 @@ class AutoPilotConfigured extends AutoPilot {
             $apachePD = "/etc/php5/fpm/pool.d/" ; }
         return $apachePD ;
     }
-
-//    protected function getApachePoolDir() {
-//        $system = new \Model\SystemDetection();
-//        $thisSystem = $system->getModel($this->params);
-//        if (in_array($thisSystem->os, array("Darwin") ) ) {
-//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
-//        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Debian") ) ) {
-//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
-//        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
-//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
-//        else {
-//            $apachePD = "/etc/php5/fpm/pool.d/" ; }
-//        return $apachePD ;
-//    }
 
 }
