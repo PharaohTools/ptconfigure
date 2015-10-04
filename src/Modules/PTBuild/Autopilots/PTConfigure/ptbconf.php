@@ -20,6 +20,9 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP and Files for Pharaoh Build"),),),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP Default Settings are okay", ), ), ),
+                array ( "PHPDefaults" => array( "install" => array( ), ), ),
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP FPM is installed", ), ), ),
                 array ( "PHPFPM" => array( "ensure" => array( ), ), ),
 
