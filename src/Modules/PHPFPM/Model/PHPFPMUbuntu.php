@@ -19,6 +19,7 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
+//            array("method"=> array("object" => $this, "method" => "templateFPMConfig", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
@@ -43,6 +44,20 @@ class PHPFPMUbuntu extends BaseLinuxApp {
                 $logging->log("PHP Module {$modToCheck} is not installed for this PHP installation.", $this->getModuleName()) ;
                 $passing = false ; } }
         return $passing ;
+    }
+
+    public function templateFPMConfig() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $fileFactory = new \Model\File() ;
+        $logging->log("Updating PHP FPM Configuration, ensuring our session save path of /tmp is set.", $this->getModuleName()) ;
+        $params = $this->params ;
+        $params["file"] = "/etc/php-fpm.conf" ;
+        $params["search"] = "php_admin_value[session.save_path] = /tmp/ " ;
+        $params["after-line"] = "[global]" ;
+        $file = $fileFactory->getModel($params) ;
+        $res[] = $file->performShouldHaveLine();
+        return in_array(false, $res)==false ;
     }
 
     public function restartFPM() {
