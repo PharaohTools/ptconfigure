@@ -20,6 +20,7 @@ class PHPFPMMac extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", $this->packages ) ) ),
             array("method"=> array("object" => $this, "method" => "ensureFPMPoolDirectory", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "ensureFPMLogFile", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "templateFPMConfig", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "restartFPM", "params" => array()) ),
         );
@@ -40,6 +41,15 @@ class PHPFPMMac extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Ensuring existence of FPM Pool Directory", $this->getModuleName()) ;
         $comm = 'mkdir -p '.$fpm_dir ;
+        $this->executeAndGetReturnCode($comm, true, true) ;
+    }
+
+    public function ensureFPMLogFile() {
+        $log_file = '/var/log/php-fpm.log' ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring existence of FPM Log File", $this->getModuleName()) ;
+        $comm = 'touch '.$log_file ;
         $this->executeAndGetReturnCode($comm, true, true) ;
     }
 
