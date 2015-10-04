@@ -13,36 +13,60 @@ class PHPFPMMac extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php5-fpm") ;
+    public $packages = array("php55-fpm") ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "ensureFPMPoolDirectory", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "templateFPMConfig", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "restartFPM", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", $this->packages ) ) ),
         );
         $this->programDataFolder = "/opt/PHPFPM"; // command and app dir name
         $this->programNameMachine = "PHPFPM"; // command and app dir name
-        $this->programNameFriendly = "PHP Mods!"; // 12 chars
-        $this->programNameInstaller = "PHP Modules";
+        $this->programNameFriendly = "PHP FPM!"; // 12 chars
+        $this->programNameInstaller = "PHP Fast Process Manager";
+        $this->statusCommand = "exit 1" ; // "php-fpm -v";
         $this->initialize();
     }
 
-    public function askStatus() {
-        $modsTextCmd = 'php -m';
-        $modsText = $this->executeAndLoad($modsTextCmd) ;
-        $pax = $this->packages ;
-        foreach ($pax as &$pack) { $pack = substr($pack, 5) ; }
+    public function ensureFPMPoolDirectory() {
+        $fpm_dir = '/etc/fpm.d/' ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $passing = true ;
-        foreach ($pax as $modToCheck) {
-            if (!strstr($modsText, $modToCheck)) {
-                $logging->log("PHP Module {$modToCheck} is not installed for this PHP installation.") ;
-                $passing = false ; } }
-        return $passing ;
+        $logging->log("Ensuring existence of FPM Pool Directory", $this->getModuleName()) ;
+        $comm = 'mkdir -p '.$fpm_dir ;
+        $this->executeAndGetReturnCode($comm, true, true) ;
+    }
+
+    public function templateFPMConfig() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Updating PHP FPM Configuration.", $this->getModuleName()) ;
+        $fileFactory = new \Model\File() ;
+        $params = $this->params ;
+        $params["file"] = "/etc/php-fpm.conf" ;
+        $params["search"] = "include=/etc/fpm.d/*.conf" ;
+        $params["after-line"] = "; FPM Configuration ;" ;
+        $file = $fileFactory->getModel($params) ;
+        $res[] = $file->performShouldHaveLine();
+        return in_array(false, $res)==false ;
+    }
+
+    public function restartFPM() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Stopping any running PHP FPM Processes", $this->getModuleName()) ;
+        $comm = 'pkill php-fpm' ;
+        $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
+        $logging->log("Starting PHP FPM Processes", $this->getModuleName()) ;
+        $comm = 'php-fpm' ;
+        $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
+        return in_array(false, $res)==false ;
     }
 
 }
