@@ -21,6 +21,7 @@ class PHPFPMMac extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", $this->packages ) ) ),
             array("method"=> array("object" => $this, "method" => "ensureFPMPoolDirectory", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "ensureFPMLogFile", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "copyDefaultFPMConfig", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "templateFPMConfig", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "restartFPM", "params" => array()) ),
         );
@@ -41,6 +42,14 @@ class PHPFPMMac extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Ensuring existence of FPM Pool Directory", $this->getModuleName()) ;
         $comm = 'mkdir -p '.$fpm_dir ;
+        $this->executeAndGetReturnCode($comm, true, true) ;
+    }
+
+    public function copyDefaultFPMConfig() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Copying in default FPM Config File", $this->getModuleName()) ;
+        $comm = 'cp /etc/php-fpm.conf.default /etc/php-fpm.conf' ;
         $this->executeAndGetReturnCode($comm, true, true) ;
     }
 
