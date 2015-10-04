@@ -6,7 +6,7 @@ class PHPFPMInfo extends PTConfigureBase {
 
   public $hidden = false;
 
-  public $name = "PHP Modules - Commonly used PHP Modules";
+  public $name = "PHP FPM - PHP Fast CGI Process Manager";
 
   public function __construct() {
     parent::__construct();
