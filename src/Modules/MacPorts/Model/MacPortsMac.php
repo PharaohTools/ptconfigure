@@ -8,7 +8,7 @@ class MacPortsMac extends BasePackager {
     public $os = array("Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
-    public $versions = array("10.4", "10.5", "10.6", "10.7", "10.8", "10.9", "10.10") ;
+    public $versions = array(array("10.4", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -83,7 +83,7 @@ class MacPortsMac extends BasePackager {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad(SUDOPREFIX."port list installed") ;
+            $out = $this->executeAndLoad(SUDOPREFIX."port installed") ;
             if (strpos($out, $package) == false) { $passing = false ; } }
         return $passing ;
     }
@@ -133,7 +133,7 @@ class MacPortsMac extends BasePackager {
     }
 
     public function update() {
-        $out = $this->executeAndOutput(SUDOPREFIX."port -v selfupdate");
+        $out = $this->executeAndOutput(SUDOPREFIX."port selfupdate");
         if (strpos($out, "The ports tree has been updated.") == false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
