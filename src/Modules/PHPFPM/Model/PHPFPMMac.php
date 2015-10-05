@@ -73,10 +73,10 @@ class PHPFPMMac extends BaseLinuxApp {
         $params["after-line"] = "; FPM Configuration ;" ;
         $file = $fileFactory->getModel($params) ;
         $res[] = $file->performShouldHaveLine();
-//        $logging->log("Updating PHP FPM Configuration, ensuring our session save path of /tmp is set.", $this->getModuleName()) ;
+//        $logging->log("Updating PHP FPM Configuration, ensuring our error log of /var/log/php-fpm.log is set.", $this->getModuleName()) ;
 //        $params = $this->params ;
 //        $params["file"] = "/etc/php-fpm.conf" ;
-//        $params["search"] = "php_admin_value[session.save_path] = /tmp/ " ;
+//        $params["search"] = "" ;
 //        $params["after-line"] = "[global]" ;
 //        $file = $fileFactory->getModel($params) ;
 //        $res[] = $file->performShouldHaveLine();
