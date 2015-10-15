@@ -181,9 +181,10 @@ class DBInstallAllOS extends Base {
         $this->dbRootUser = $this->askForRootDBUser();
         $this->dbRootPass = $this->askForRootDBPass();
         $this->dbName = $this->askForDBFreeFormName();
-        $canIConnect = $this->canIConnect();
-        if ($canIConnect!==true) {
-            if (!$this->verifyContinueWithNonConnectDetails() ) { return "Exiting due to incorrect db connection"; } }
+        $canAdminConnect = $this->canAdminConnect();
+        if ($canAdminConnect!==true) {
+            if (!$this->verifyContinueWithNonConnectDetails() ) {
+                return "Exiting due to incorrect db connection"; } }
         $this->databaseSaver();
         return true;
     }
