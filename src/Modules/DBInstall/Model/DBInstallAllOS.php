@@ -25,7 +25,7 @@ class DBInstallAllOS extends Base {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->dbFilePath = "db".'/'."database.sql";
+        $this->dbFilePath = "db".DS."database.sql";
     }
 
     public function askWhetherToInstallDB(\Model\DBConfigureAllOS $dbConfigObject=null){
