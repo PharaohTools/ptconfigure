@@ -406,12 +406,14 @@ class DBInstallAllOS extends Base {
 
     protected function askForRootDBUser(){
         if (isset($this->params["admin-user"])) { return $this->params["admin-user"] ; }
+        if (isset($this->params["admin-username"])) { return $this->params["admin-username"] ; }
         $question = 'What\'s the MySQL Admin User?';
         return self::askForInput($question, true);
     }
 
     protected function askForRootDBPass(){
         if (isset($this->params["admin-pass"])) { return $this->params["admin-pass"] ; }
+        if (isset($this->params["admin-password"])) { return $this->params["admin-password"] ; }
         $question = 'What\'s the MySQL Admin Password?';
         return self::askForInput($question, true);
     }
