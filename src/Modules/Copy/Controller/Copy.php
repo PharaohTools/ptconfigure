@@ -19,7 +19,9 @@ class Copy extends Base {
             $this->content["result"] = $thisModel->askWhetherToCopyPut();
             return array ("type"=>"view", "view"=>"Copy", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Copy Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Invalid Action - Action does not Exist for Copy";
+
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

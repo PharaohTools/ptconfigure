@@ -19,9 +19,10 @@ class Chgrp extends Base {
             $this->content["result"] = $thisModel->askWhetherToChgrp();
             return array ("type"=>"view", "view"=>"Chgrp", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Chgrp Action";
-        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Invalid Action - Action does not Exist for Chgrp";
 
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 
 }

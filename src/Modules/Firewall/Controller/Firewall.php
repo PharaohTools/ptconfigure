@@ -33,27 +33,9 @@ class Firewall extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"firewall", "pageVars"=>$this->content); }
 
-        /*
-         *
- enable                          enables the firewall
- disable                         disables the firewall
- allow ARGS                      add allow rule
- deny ARGS                       add deny rule
- reject ARGS                     add reject rule
- limit ARGS                      add limit rule
- delete RULE|NUM                 delete RULE
- insert NUM RULE                 insert RULE at NUM
- reset                           reset firewall
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
- default ARG                     set default policy
- logging LEVEL                   set logging to LEVEL
- status                          show firewall status
- status numbered                 show firewall status as numbered list of RULES
- status verbose                  show verbose firewall status
- show ARG                        show firewall report
- version                         display version information
-         *
-         */
     }
 
 }

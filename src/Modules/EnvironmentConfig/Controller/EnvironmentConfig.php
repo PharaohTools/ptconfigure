@@ -37,7 +37,7 @@ class EnvironmentConfig extends Base {
             $this->content["result"] = $thisModel->askWhetherToDeleteEnvironment();
             return array ("type"=>"view", "view"=>"environmentConfig", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "The action $action does not exist in this Module" ;
+        $this->content["messages"][] = "The action $action does not exist in this Environment Configure" ;
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

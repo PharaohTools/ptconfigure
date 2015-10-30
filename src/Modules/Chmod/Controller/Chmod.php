@@ -19,7 +19,9 @@ class Chmod extends Base {
             $this->content["result"] = $thisModel->askWhetherToChmod();
             return array ("type"=>"view", "view"=>"Chmod", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Chmod Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Invalid Action - Action does not Exist for Chmod";
+
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

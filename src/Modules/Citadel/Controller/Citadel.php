@@ -33,7 +33,9 @@ class Citadel extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
+        \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Invalid Citadel Action";
+
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

@@ -38,6 +38,10 @@ class DNSify extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"DNSifyList", "pageVars"=>$this->content); }
 
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Invalid Action - Action does not Exist for DNSify";
+
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
     }
 
 }

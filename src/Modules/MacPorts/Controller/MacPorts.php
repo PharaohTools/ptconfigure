@@ -12,7 +12,7 @@ class MacPorts extends Base {
 
         $action = $pageVars["route"]["action"];
 
-        if (in_array($action, array("install", "ensure") )) {
+        if (in_array($action, array("install", "ensure", "status") )) {
             $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
             if ( is_array($isDefaultAction) ) { return $isDefaultAction; } }
 
@@ -25,6 +25,11 @@ class MacPorts extends Base {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"macPorts", "pageVars"=>$this->content); }
+
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Invalid Action - Action does not Exist for MacPorts";
+
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
 

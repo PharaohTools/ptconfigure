@@ -43,7 +43,9 @@ class Cleofy extends Base {
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             return array ("type"=>"view", "view"=>"cleofy", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Cleofy Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Invalid Action - Action does not Exist for Cleofy";
+
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

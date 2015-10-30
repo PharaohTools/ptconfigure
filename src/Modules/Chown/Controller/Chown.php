@@ -19,7 +19,9 @@ class Chown extends Base {
             $this->content["result"] = $thisModel->askWhetherToChown();
             return array ("type"=>"view", "view"=>"Chown", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Chown Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Invalid Action - Action does not Exist for Chown";
+
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }
