@@ -22,18 +22,37 @@ class MacPortsMac extends BasePackager {
         $this->programNameMachine = "macPorts"; // command and app dir name
         $this->programNameFriendly = "!MacPorts!!"; // 12 chars
         $this->programNameInstaller = "MacPorts";
-        $this->statusCommand = "port -v" ;
+        $this->statusCommand = "
+            . /etc/profile
+            port version " ;
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "installMacPorts", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "ensureBashProfilePaths", "params" => array()) ),
         );
         $this->uninstallCommands = array(
-        );
+            array("command"=> array(
+                SUDOPREFIX." rm -rf /opt/local",
+                SUDOPREFIX." rm -rf /Applications/DarwinPorts",
+                SUDOPREFIX." rm -rf /Applications/MacPorts",
+                SUDOPREFIX." rm -rf /Library/LaunchDaemons/org.macports.*",
+                SUDOPREFIX." rm -rf /Library/Receipts/DarwinPorts*.pkg",
+                SUDOPREFIX." rm -rf /Library/Receipts/MacPorts*.pkg",
+                SUDOPREFIX." rm -rf /Library/StartupItems/DarwinPortsStartup",
+                SUDOPREFIX." rm -rf /Library/Tcl/darwinports1.0",
+                SUDOPREFIX." rm -rf /Library/Tcl/macports1.0",
+//                SUDOPREFIX." rm -rf ~/.macports",
+            ),),);
         $this->initialize();
     }
 
     public function installMacPorts() {
         $system = new \Model\SystemDetectionAllOS() ;
-        $version = $system->version ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $msg = "Found OSx version {$system->version}" ;
+        $logging->log($msg, $this->getModuleName()) ;
+        $pos = strpos($system->version, '.', strpos($system->version, '.')+1);
+        $version = substr($system->version, 0, $pos) ;
         switch ($version) {
             case "10.4" :
                 $filename = "MacPorts-2.3.3-10.4-Tiger.dmg" ;
@@ -57,26 +76,35 @@ class MacPortsMac extends BasePackager {
                 $filename = "MacPorts-2.3.3-10.10-Yosemite.pkg" ;
                 break ;
             default :
-                $filename = "MacPorts-2.3.3-10.10-Yosemite.pkg" ;
+                $filename = false ;
                 break ; }
+        if ($filename == false) {
+            $logging->log("Unable to find correct version", $this->getModuleName()) ;
+            return false ; }
         $url = 'https://distfiles.macports.org/MacPorts/' ;
+        $msg = "Downloading file {$filename} from $url" ;
+        $logging->log($msg, $this->getModuleName()) ;
         $curlCommand = "curl {$url}{$filename} -o /tmp/{$filename}" ;
         $this->executeAndOutput($curlCommand) ;
-        if (strpos($filename, ".pkg")) {
+        if (strpos($filename, ".pkg") !== false) {
+            $logging->log("Performing .pkg install", $this->getModuleName()) ;
             $comm = SUDOPREFIX."installer -pkg /tmp/{$filename} -target /" ;
-            $this->executeAndOutput($comm) ; }
-        else if (strpos($filename, ".dmg")) {
+            $rc3 = $this->executeAndGetReturnCode($comm, true, false) ;
+            $is_false = in_array(false, array($rc3["rc"])) ;
+            return ($is_false) ? false : true ; }
+        else if (strpos($filename, ".dmg") !== false) {
+            $logging->log("Performing .dmg install", $this->getModuleName()) ;
             $comm = SUDOPREFIX."hdiutil attach /tmp/{$filename}" ;
-            $this->executeAndOutput($comm) ;
+            $rc1 = $this->executeAndGetReturnCode($comm, true, false) ;
             $comm = SUDOPREFIX.'installer -pkg /Volumes/MacPorts-2.3.3/MacPorts-2.3.3.pkg -target /' ;
-            $this->executeAndOutput($comm) ;
+            $rc2 = $this->executeAndGetReturnCode($comm, true, false) ;
             $comm = SUDOPREFIX."hdiutil detach /Volumes/MacPorts-2.3.3/MacPorts-2.3.3.pkg" ;
-            $this->executeAndOutput($comm) ; }
+            $rc3 = $this->executeAndGetReturnCode($comm, true, false) ;
+            $is_false = in_array(false, array($rc1["rc"], $rc2["rc"], $rc3["rc"])) ;
+            return ($is_false) ? false : true ; }
         else {
-            // this is a file error
-            // @todo logging an error
+            $logging->log("Filename error for MacPorts download", $this->getModuleName()) ;
             return false ; }
-        return true ;
     }
 
     public function isInstalled($packageName) {
@@ -133,7 +161,8 @@ class MacPortsMac extends BasePackager {
     }
 
     public function update() {
-        $out = $this->executeAndOutput(SUDOPREFIX."port selfupdate");
+        $this->sourcePaths() ;
+        $out = $this->executeAndGetReturnCode(SUDOPREFIX."port selfupdate", true, true);
         if (strpos($out, "The ports tree has been updated.") == false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -151,5 +180,23 @@ class MacPortsMac extends BasePackager {
 //            return false ; }
 //        return true ;
     }
+
+    public function ensureBashProfilePaths() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring Environment Variables are set system wide", $this->getModuleName()) ;
+        $profileLocation = '/etc/profile' ;
+        $fileFactory = new \Model\File();
+        $lines = array(
+            'export PATH=$PATH:/opt/local/bin',
+            'export MANPATH=$MANPATH:/opt/local/share/man',
+            'export INFOPATH=$INFOPATH:/opt/local/share/info' );
+        $params["file"] = $profileLocation ;
+        foreach ($lines as $line) {
+            $params["search"] = $line ;
+            $file = $fileFactory->getModel($params) ;
+            $file->performShouldHaveLine() ; }
+    }
+
 
 }
