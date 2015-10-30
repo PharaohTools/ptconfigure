@@ -243,10 +243,10 @@ class FileAllOS extends BaseLinuxApp {
         if ($needle instanceof RegExp) {
             preg_match_all($needle->regexp, $this->fileData, $m);
             if (isset($m[1])) {
-                var_dump("m1 ".$m[1]) ;
+//                var_dump("m1 ".$m[1]) ;
                 return $m[1]; }
             if (isset($m[0])) {
-                var_dump("m2]0 ".$m[0]) ;
+//                var_dump("m2]0 ".$m[0]) ;
                 return $m[0]; } }
         else {
             $loggingFactory = new \Model\Logging();
