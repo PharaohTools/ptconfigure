@@ -17,6 +17,7 @@ class PHPSSHMac extends PHPSSHUbuntu {
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
+            array("method"=> array("object" => $this, "method" => "ensureMacPorts", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("php55-ssh2"))) ),
             array("method"=> array("object" => $this, "method" => "addPHPIniExtension", "params" => array()) ),
         );
@@ -57,6 +58,20 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $fileFactory = new \Model\File();
         $file1 = $fileFactory->getModel($params1) ;
         $file1->performShouldNotHaveLine() ;
+    }
+
+    public function ensureMacPorts() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring Mac Ports Dependency", $this->getModuleName()) ;
+        $mcpFactory = new \Model\MacPorts() ;
+        $mcp = $mcpFactory->getModel($this->params) ;
+        $stat = $mcp->askStatus() ;
+        if ($stat == true) {
+            $res[] = true ; }
+        else {
+            $res[] = $mcp->ensureInstalled() ; }
+        return in_array(false, $res)==false ;
     }
 
     public function askStatus() {
