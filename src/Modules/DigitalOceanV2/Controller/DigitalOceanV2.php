@@ -51,10 +51,8 @@ class DigitalOceanV2 extends Base {
             $this->content["digiOceanV2Result"] = $thisModel->askWhetherToListData();
             return array ("type"=>"view", "view"=>"digitalOceanV2List", "pageVars"=>$this->content); }
 
-
         \Core\BootStrap::setExitCode(1);
-        $this->content["messages"][] = "Invalid Action does not Exist for Digital Ocean V2";
-
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

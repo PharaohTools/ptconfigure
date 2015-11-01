@@ -26,8 +26,10 @@ class Parallax extends Base {
             $this->content["layout"] = "blank";
             return array ("type"=>"view", "view"=>"parallaxChild", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Parallax Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+
     }
 
 }

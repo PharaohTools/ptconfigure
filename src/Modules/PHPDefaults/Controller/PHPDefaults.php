@@ -19,7 +19,8 @@ class PHPDefaults extends Base {
             $this->content["result"] = $thisModel->restartPHPDefaults();
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid PHP Defaults Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

@@ -37,9 +37,9 @@ class Boxify extends Base {
             return array ("type"=>"view", "view"=>"boxifyList", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
-        $this->content["messages"][] = "Invalid Action - Action does not Exist for Boxify";
-
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+
     }
 
 }

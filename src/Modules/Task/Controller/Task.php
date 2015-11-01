@@ -29,7 +29,7 @@ class Task extends Base {
             return $otherModuleExecutor->executeTask($pageVars) ; }
 
         \Core\BootStrap::setExitCode(1);
-        $this->content["messages"][] = "Specified Task {$action} is does not exist";
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

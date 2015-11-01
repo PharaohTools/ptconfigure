@@ -19,11 +19,7 @@ class PharaohBuildServer extends Base {
         "PHPUnit" ,
         "PHPCS" ,
         "PHPMD" ,
-        "Java" ,
-        "Jenkins" ,
-        "JenkinsPlugins" ,
-        "JenkinsSudoNoPass" ,
-        /* "VNCServer", */
+        "PTBuild" ,
         "RubyRVM" ,
         "SeleniumServer" ,
         "Firefox14" ,

@@ -19,7 +19,8 @@ class Mkdir extends Base {
             $this->content["result"] = $thisModel->askWhetherToMkdir();
             return array ("type"=>"view", "view"=>"Mkdir", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Mkdir Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

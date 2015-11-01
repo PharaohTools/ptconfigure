@@ -52,8 +52,7 @@ class DigitalOcean extends Base {
             return array ("type"=>"view", "view"=>"digitalOceanList", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
-        $this->content["messages"][] = "Invalid Digital Ocean Action";
-
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

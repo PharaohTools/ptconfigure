@@ -22,6 +22,10 @@ class SshHarden extends Base {
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"sshharden", "pageVars"=>$this->content); }
 
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
+        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+
     }
 
 }

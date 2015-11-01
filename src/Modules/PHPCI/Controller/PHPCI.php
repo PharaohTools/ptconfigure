@@ -28,9 +28,9 @@ class PHPCI extends Base {
             $this->content["result"] = $thisModel->askInstall();
             return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
-        $this->content["messages"][] = "Invalid Mysql Galera Action";
+        \Core\BootStrap::setExitCode(1);
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
-
     }
 
 }

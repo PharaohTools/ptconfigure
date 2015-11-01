@@ -20,8 +20,7 @@ class Chown extends Base {
             return array ("type"=>"view", "view"=>"Chown", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
-        $this->content["messages"][] = "Invalid Action - Action does not Exist for Chown";
-
+        $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
 
     }

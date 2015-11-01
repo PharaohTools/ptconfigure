@@ -18,7 +18,6 @@ class SeleniumServer extends Base {
             $this->content["result"] = $thisModel->{"ask".$newAction}();
             $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"app".$newAction, "pageVars"=>$this->content); }
-        return null ;
 
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);

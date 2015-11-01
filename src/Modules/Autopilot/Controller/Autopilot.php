@@ -39,10 +39,11 @@ class Autopilot extends Base {
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
         else {
-            \Core\BootStrap::setExitCode(1);
-            $this->content["messages"][] = "Invalid Action - Action does not Exist for Autopilot"; }
 
-        return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+            \Core\BootStrap::setExitCode(1);
+            $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
+            return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
+        }
 
     }
 
