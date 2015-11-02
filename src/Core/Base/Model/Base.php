@@ -22,7 +22,7 @@ class Base {
     protected $extraBootStrap;
     protected $programExecutorFolder;
     protected $programExecutorTargetPath;
-    protected $tempDir;
+    protected static $tempDir;
     protected $defaultStatusCommandPrefix ;
     protected $statusCommand;
     protected $statusCommandExpects;
@@ -74,21 +74,55 @@ COMPLETION;
     }
 
     protected function executeAsShell($multiLineCommand, $message=null) {
-        $tempFile = $this->tempDir."/ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
-        echo "Creating $tempFile\n";
-        $fileVar = "";
-        if (is_array($multiLineCommand) && count($multiLineCommand)>0) {
-            foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; } }
-        file_put_contents($tempFile, $fileVar);
-        echo "chmod 755 $tempFile 2>/dev/null\n";
-        shell_exec("chmod 755 $tempFile 2>/dev/null");
-        echo "Changing $tempFile Permissions\n";
-        echo "Executing $tempFile\n";
-        $outputText = shell_exec($tempFile);
-        if ($message !== null) { $outputText .= "$message\n"; }
-        echo $outputText;
+        $loggingFactory = new \Model\Logging();
+        $this->params["echo-log"] = true ;
+        $logging = $loggingFactory->getModel($this->params);
+        $tempFile = $this->tempfileFromCommand($multiLineCommand) ;
+        //@note these chmods are required to make bash run scripts
+        // echo "chmod 755 $tempFile 2>/dev/null\n";
+        if (!is_executable($tempFile)) {
+            // @todo this wont work on windows
+            shell_exec("chmod 755 $tempFile 2>/dev/null");
+            // echo "chmod +x $tempFile 2>/dev/null\n";
+            shell_exec("chmod +x $tempFile 2>/dev/null"); }
+        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
+        $logging->log("Executing $tempFile", $this->getModuleName());
+        // @todo this should refer to the actual shell we are running
+        $commy = "{$tempFile}" ;
+        $rc = $this->executeAndGetReturnCode($commy, true) ;
+        if ($message !== null) { echo $message."\n"; }
         shell_exec("rm $tempFile");
-        echo "Temp File $tempFile Removed\n";
+        $logging->log("Temp File $tempFile Removed", $this->getModuleName());
+//        var_dump($rc) ;
+        return $rc["rc"] ;
+    }
+
+    protected function tempfileFromCommand($multiLineCommand) {
+        $loggingFactory = new \Model\Logging();
+        $params["echo-log"] = true ;
+        $logging = $loggingFactory->getModel($this->params);
+        $tempFile = $this->tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
+        $logging->log("Creating $tempFile", $this->getModuleName());
+        $fileVar = "";
+        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
+        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
+        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
+        file_put_contents($tempFile, $fileVar) ;
+        return $tempFile ;
+    }
+
+    protected static function tempfileStaticFromCommand($multiLineCommand) {
+        $loggingFactory = new \Model\Logging();
+        $params["echo-log"] = true ;
+        $logging = $loggingFactory->getModel($params);
+        $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
+        $logging->log("Creating $tempFile");
+        $fileVar = "";
+        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
+        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
+        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
+        file_put_contents($tempFile, $fileVar) ;
+        return $tempFile ;
     }
 
     protected function executeAndOutput($command, $message=null) {
@@ -105,6 +139,19 @@ COMPLETION;
     }
 
     public static function executeAndGetReturnCode($command, $show_output = null, $get_output = null) {
+        $tempFile = self::tempfileStaticFromCommand($command) ;
+        $loggingFactory = new \Model\Logging();
+        $params["echo-log"] = true ;
+        $logging = $loggingFactory->getModel($params);
+        if (!is_executable($tempFile)) {
+            // @todo this wont work on windows
+            shell_exec("chmod 755 $tempFile 2>/dev/null");
+            // echo "chmod +x $tempFile 2>/dev/null\n";
+            shell_exec("chmod +x $tempFile 2>/dev/null");
+            $logging->log("Changing static $tempFile Permissions"); }
+        $logging->log("Executing $tempFile");
+        var_dump($command) ;
+
         $proc = proc_open($command, array(
             0 => array("pipe","r"),
             1 => array("pipe",'w'),
@@ -112,16 +159,17 @@ COMPLETION;
         ),$pipes);
         if ($show_output==true) {
             stream_set_blocking($pipes[1], true);
+            stream_set_blocking($pipes[2], true);
             $data = "";
-
             while ( ($buf = fread($pipes[1], 32768)) || ( $buf2 = fread($pipes[2], 32768))) {
                 if (isset($buf) && $buf !== false) {
                     $data .= $buf;
                     echo $buf ; }
-                if ( (isset($buf2)) || $buf2 = fread($pipes[2], 32768) ) {
-                    $buf2 = "ERR: ".$buf2;
-                    $data .= $buf2;
-                    echo $buf2 ; } } }
+                if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 32768) ) {
+//                    $buf2 = "ERR: ".$buf2;
+                    $data .= "ERR: ".$buf2;
+                    echo "ERR: ".$buf2 ;
+                    unset($buf2) ;} } }
 
         $stdout = stream_get_contents($pipes[1]);
         fclose($pipes[1]);
@@ -268,7 +316,7 @@ COMPLETION;
             isset($this->statusCommandExpects) && !is_null($this->statusCommandExpects)) {
             $status = ($this->executeAndLoad("$this->statusCommand &") == $this->statusCommandExpects) ? true : false ; }
         else if (isset($this->statusCommand) && !is_null($this->statusCommand)) {
-            $status = ($this->executeAndGetReturnCode("$this->statusCommand") == 0) ? true : false ; }
+            $status = ($this->executeAsShell($this->statusCommand) == 0) ? true : false ; }
         else {
             $status = ($this->executeAndGetReturnCode("{$this->defaultStatusCommandPrefix} {$this->programNameMachine}") == 0) ? true : false ; }
         $inst = ($status == true) ? "Installed" : "Not Installed " ;
