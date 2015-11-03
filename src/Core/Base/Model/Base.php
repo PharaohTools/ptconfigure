@@ -150,7 +150,6 @@ COMPLETION;
             shell_exec("chmod +x $tempFile 2>/dev/null");
             $logging->log("Changing static $tempFile Permissions"); }
         $logging->log("Executing $tempFile");
-        var_dump($command) ;
 
         $proc = proc_open($command, array(
             0 => array("pipe","r"),
