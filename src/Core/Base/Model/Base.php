@@ -104,8 +104,9 @@ COMPLETION;
         $tempFile = $this->tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
         $logging->log("Creating $tempFile", $this->getModuleName());
         $fileVar = "";
-        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
-        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
+        if (!is_array($multiLineCommand)) {
+            $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
+            $multiLineCommand = explode("\r\n", $multiLineCommand) ; }
         foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
         file_put_contents($tempFile, $fileVar) ;
         return $tempFile ;
