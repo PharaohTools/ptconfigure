@@ -292,7 +292,7 @@ if not doing versions
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
                 $res = self::executeAsShell($installCommand["command"]) ; }
-            if ($res !== true) {
+            if ($res === false) {
                 $logging->log("Failed Installation Step", $this->getModuleName()) ;
                 \Core\BootStrap::setExitCode(1) ;
                 break ; } }
