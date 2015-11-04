@@ -16,17 +16,40 @@ class PHPSSHMac extends PHPSSHUbuntu {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->installCommands = array(
+        $this->installCommands = $this->getInstallCommands() ;
+        $this->uninstallCommands = $this->getUninstallCommands() ;
+        $this->initialize();
+    }
+
+    protected function getInstallCommands() {
+        $php_vers = $this->getPHPVersion() ;
+        $ret = array(
             array("method"=> array("object" => $this, "method" => "ensureMacPorts", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("php55-ssh2"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("php{$php_vers}-ssh2"))) ),
             array("method"=> array("object" => $this, "method" => "ensurePHPIniFile", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "addPHPIniExtension", "params" => array()) ),
-        );
-        $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", array("php55-ssh2"))) ),
+            array("method"=> array("object" => $this, "method" => "addPHPIniExtension", "params" => array()) ) );
+        return $ret ;
+    }
+
+    protected function getUninstallCommands() {
+        $php_vers = $this->getPHPVersion() ;
+        $ret = array(
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", array("php{$php_vers}-ssh2"))) ),
             array("method"=> array("object" => $this, "method" => "removePHPIniExtension", "params" => array()) ),
         );
-        $this->initialize();
+        return $ret ;
+    }
+
+    protected function getPHPVersion() {
+        $text = $this->executeAndLoad("php -v") ;
+        $lines = explode("\n", $text) ;
+        foreach ($lines as $line) {
+            if (substr($line, 0, 4) == "PHP 5") {
+                $phpline = $line ;
+                break ; } }
+        $php_version_string = substr($phpline, 4, 6) ;
+        $digits_only = str_replace(".", "", $php_version_string) ;
+        return $digits_only ;
     }
 
     public function ensurePHPIniFile() {
