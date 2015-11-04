@@ -82,11 +82,11 @@ COMPLETION;
         // echo "chmod 755 $tempFile 2>/dev/null\n";
         if (!is_executable($tempFile)) {
             // @todo this wont work on windows
+            $logging->log("Changing $tempFile Permissions", $this->getModuleName());
             shell_exec("chmod 755 $tempFile 2>/dev/null");
             // echo "chmod +x $tempFile 2>/dev/null\n";
             shell_exec("chmod +x $tempFile 2>/dev/null"); }
-        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
-        $logging->log("Executing $tempFile", $this->getModuleName());
+//        $logging->log("Executing $tempFile", $this->getModuleName());
         // @todo this should refer to the actual shell we are running
         $commy = "{$tempFile}" ;
         $rc = $this->executeAndGetReturnCode($commy, true) ;
@@ -146,11 +146,11 @@ COMPLETION;
         $logging = $loggingFactory->getModel($params);
         if (!is_executable($tempFile)) {
             // @todo this wont work on windows
+            $logging->log("Changing static $tempFile Permissions");
             shell_exec("chmod 755 $tempFile 2>/dev/null");
             // echo "chmod +x $tempFile 2>/dev/null\n";
-            shell_exec("chmod +x $tempFile 2>/dev/null");
-            $logging->log("Changing static $tempFile Permissions"); }
-        $logging->log("Executing $tempFile");
+            shell_exec("chmod +x $tempFile 2>/dev/null"); }
+//        $logging->log("Executing $tempFile");
 
         $proc = proc_open($command, array(
             0 => array("pipe","r"),
