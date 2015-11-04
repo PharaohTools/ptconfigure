@@ -19,6 +19,7 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "ensureMacPorts", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("php55-ssh2"))) ),
+            array("method"=> array("object" => $this, "method" => "ensurePHPIniFile", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "addPHPIniExtension", "params" => array()) ),
         );
         $this->uninstallCommands = array(
@@ -26,6 +27,47 @@ class PHPSSHMac extends PHPSSHUbuntu {
             array("method"=> array("object" => $this, "method" => "removePHPIniExtension", "params" => array()) ),
         );
         $this->initialize();
+    }
+
+    public function ensurePHPIniFile() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Checking PHP Ini File existence", $this->getModuleName()) ;
+        $iniFileLocation = '/private/etc/php.ini' ;
+        if (file_exists($iniFileLocation)) {
+            $logging->log("Found php ini file", $this->getModuleName()) ;
+            $content = file_get_contents($iniFileLocation) ;
+            if ($content == "") {
+                $logging->log("PHP INI file is empty. Creating from Default", $this->getModuleName()) ;
+                $res = $this->recreatePHPIniFile() ;
+                return $res ; }
+            else {
+                $logging->log("PHP INI file is usable", $this->getModuleName()) ;
+                return true ;} }
+        else {
+            $logging->log("Unable to find php ini file, Creating from default", $this->getModuleName()) ;
+            $res = $this->recreatePHPIniFile() ;
+            return $res ; }
+    }
+
+    public function recreatePHPIniFile() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Copying PHP Ini File from default", $this->getModuleName()) ;
+        $iniFileLocation = '/private/etc/php.ini.default' ;
+        if (file_exists($iniFileLocation)) {
+            $logging->log("Found default php ini file", $this->getModuleName()) ;
+            $copyFactory = new \Model\Copy() ;
+            $params = $this->params ;
+            $params["source"] = '/private/etc/php.ini.default' ;
+            $params["target"] = '/private/etc/php.ini' ;
+            $copy = $copyFactory->getModel($params) ;
+            $res = $copy->performCopyPut() ;
+            $logging->log("Default INI File Copied to Standard location", $this->getModuleName()) ;
+            return $res ; }
+        else {
+            $logging->log("Unable to find default php ini file, cannot continue", $this->getModuleName()) ;
+            return false ; }
     }
 
     public function addPHPIniExtension() {
