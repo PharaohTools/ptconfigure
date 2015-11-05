@@ -64,10 +64,10 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Stopping any running PHP FPM Processes", $this->getModuleName()) ;
-        $comm = 'pkill php-fpm' ;
+        $comm = 'pkill php5-fpm' ;
         $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
         $logging->log("Starting PHP FPM Processes", $this->getModuleName()) ;
-        $comm = 'php-fpm' ;
+        $comm = 'php5-fpm' ;
         $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
         return in_array(false, $res)==false ;
     }
