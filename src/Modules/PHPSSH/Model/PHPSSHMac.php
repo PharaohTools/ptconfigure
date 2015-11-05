@@ -44,10 +44,11 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $text = $this->executeAndLoad("php -v") ;
         $lines = explode("\n", $text) ;
         foreach ($lines as $line) {
-            if (substr($line, 0, 4) == "PHP 5") {
+            if (substr($line, 0, 5) == "PHP 5") {
                 $phpline = $line ;
                 break ; } }
-        $php_version_string = substr($phpline, 4, 6) ;
+//        var_dump(substr($phpline, 0, 5), substr($phpline, 4, 3)) ;
+        $php_version_string = substr($phpline, 4, 3) ;
         $digits_only = str_replace(".", "", $php_version_string) ;
         return $digits_only ;
     }
@@ -107,7 +108,8 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $logging->log("Adding extension line from PHP Ini.", $this->getModuleName()) ;
         $params2["file"] = $iniFileLocation ;
         $params2["after-line"] = '[PHP]' ;
-        $params2["search"] = 'extension=/opt/local/lib/php55/extensions/no-debug-non-zts-20121212/ssh2.so' ;
+        $php_vers = $this->getPHPVersion() ;
+        $params2["search"] = "extension=/opt/local/lib/php{$php_vers}/extensions/no-debug-non-zts-20121212/ssh2.so" ;
         $file2 = $fileFactory->getModel($params2) ;
         $file2->performShouldHaveLine() ;
     }
@@ -119,7 +121,8 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $iniFileLocation = '/private/etc/php.ini' ;
         $params1 = $params2 = $this->params ;
         $params1["file"] = $iniFileLocation ;
-        $params1["search"] = 'extension=/opt/local/lib/php55/extensions/no-debug-non-zts-20121212/ssh2.so' ;
+        $php_vers = $this->getPHPVersion() ;
+        $params1["search"] = "extension=/opt/local/lib/php{$php_vers}/extensions/no-debug-non-zts-20121212/ssh2.so" ;
         $fileFactory = new \Model\File();
         $file1 = $fileFactory->getModel($params1) ;
         $file1->performShouldNotHaveLine() ;
