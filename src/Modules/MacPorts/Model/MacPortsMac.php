@@ -22,8 +22,7 @@ class MacPortsMac extends BasePackager {
         $this->programNameMachine = "macPorts"; // command and app dir name
         $this->programNameFriendly = "!MacPorts!!"; // 12 chars
         $this->programNameInstaller = "MacPorts";
-        $this->statusCommand = "
-            . /etc/profile
+        $this->statusCommand = ". /etc/profile
             port version " ;
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "installMacPorts", "params" => array()) ),
@@ -43,6 +42,20 @@ class MacPortsMac extends BasePackager {
 //                SUDOPREFIX." rm -rf ~/.macports",
             ),),);
         $this->initialize();
+    }
+
+    public function ensureXCode() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring XCode Dependency", $this->getModuleName()) ;
+        $xcodeFactory = new \Model\XCode() ;
+        $xcode = $xcodeFactory->getModel($this->params) ;
+        $stat = $xcode->askStatus() ;
+        if ($stat == true) {
+            $res[] = true ; }
+        else {
+            $res[] = $xcode->ensureInstalled() ; }
+        return in_array(false, $res)==false ;
     }
 
     public function installMacPorts() {
