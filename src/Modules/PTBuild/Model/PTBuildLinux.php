@@ -16,6 +16,7 @@ class PTBuildLinux extends BasePHPApp {
 
     public function __construct($params) {
         parent::__construct($params);
+        var_dump("Linux construct") ;
         $this->autopilotDefiner = "PTBuild";
         $this->fileSources = array(
           array(
