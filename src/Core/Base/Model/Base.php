@@ -67,7 +67,7 @@ COMPLETION;
     }
 
     protected function setAutoPilotVariables($autoPilot) {
-        foreach ( $autoPilot as $step ) {
+        foreach ( $autoPilot as $step ) { // this should only happen once
             $keys = array_keys($step);
             foreach ($keys as $property) {
                 $this->$property = $step[$property] ; } }
@@ -78,17 +78,22 @@ COMPLETION;
         $this->params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($this->params);
         $tempFile = $this->tempfileFromCommand($multiLineCommand) ;
+        //@note these chmods are required to make bash run scripts
+        // echo "chmod 755 $tempFile 2>/dev/null\n";
         if (!is_executable($tempFile)) {
             // @todo this wont work on windows
-            $logging->log("Changing $tempFile Permissions", $this->getModuleName());
             shell_exec("chmod 755 $tempFile 2>/dev/null");
+            // echo "chmod +x $tempFile 2>/dev/null\n";
             shell_exec("chmod +x $tempFile 2>/dev/null"); }
+        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
+        $logging->log("Executing $tempFile", $this->getModuleName());
         // @todo this should refer to the actual shell we are running
         $commy = "{$tempFile}" ;
-        $rc = $this->executeAndGetReturnCode($commy, true, null, $tempFile) ;
+        $rc = $this->executeAndGetReturnCode($commy, true) ;
         if ($message !== null) { echo $message."\n"; }
         shell_exec("rm $tempFile");
         $logging->log("Temp File $tempFile Removed", $this->getModuleName());
+//        var_dump($rc) ;
         return $rc["rc"] ;
     }
 
@@ -99,11 +104,9 @@ COMPLETION;
         $tempFile = $this->tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
         $logging->log("Creating $tempFile", $this->getModuleName());
         $fileVar = "";
-        if (!is_array($multiLineCommand)) {
-            $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
-            $multiLineCommand = explode("\r\n", $multiLineCommand) ; }
-        foreach ($multiLineCommand as $command) {
-            $fileVar .= $command."\n" ; }
+        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
+        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
+        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
         file_put_contents($tempFile, $fileVar) ;
         return $tempFile ;
     }
@@ -115,11 +118,9 @@ COMPLETION;
         $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
         $logging->log("Creating $tempFile");
         $fileVar = "";
-        if (!is_array($multiLineCommand)) {
-            $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
-            $multiLineCommand = explode("\r\n", $multiLineCommand) ; }
-        foreach ($multiLineCommand as $command) {
-            $fileVar .= $command."\n" ; }
+        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
+        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
+        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
         file_put_contents($tempFile, $fileVar) ;
         return $tempFile ;
     }
@@ -137,16 +138,20 @@ COMPLETION;
         return $outputText;
     }
 
-    public static function executeAndGetReturnCode($command, $show_output = null, $get_output = null, $tempFile=null) {
-        $tempFile = ($tempFile==null) ? self::tempfileStaticFromCommand($command) : $tempFile ;
+    public static function executeAndGetReturnCode($command, $show_output = null, $get_output = null) {
+        $tempFile = self::tempfileStaticFromCommand($command) ;
         $loggingFactory = new \Model\Logging();
         $params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($params);
         if (!is_executable($tempFile)) {
             // @todo this wont work on windows
-            $logging->log("Changing static $tempFile Permissions");
             shell_exec("chmod 755 $tempFile 2>/dev/null");
-            shell_exec("chmod +x $tempFile 2>/dev/null"); }
+            // echo "chmod +x $tempFile 2>/dev/null\n";
+            shell_exec("chmod +x $tempFile 2>/dev/null");
+            $logging->log("Changing static $tempFile Permissions"); }
+        $logging->log("Executing $tempFile");
+        var_dump($command) ;
+
         $proc = proc_open($command, array(
             0 => array("pipe","r"),
             1 => array("pipe",'w'),
@@ -161,9 +166,11 @@ COMPLETION;
                     $data .= $buf;
                     echo $buf ; }
                 if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 32768) ) {
+//                    $buf2 = "ERR: ".$buf2;
                     $data .= "ERR: ".$buf2;
                     echo "ERR: ".$buf2 ;
                     unset($buf2) ;} } }
+
         $stdout = stream_get_contents($pipes[1]);
         fclose($pipes[1]);
         $stderr = stream_get_contents($pipes[2]);
