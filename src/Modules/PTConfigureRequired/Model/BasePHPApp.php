@@ -136,7 +136,8 @@ class BasePHPApp extends Base {
     private function postInstExists() {
         $method = "setpostinstallCommands" ;
 //        var_dump($method) ;
-        if (method_exists($this, $method)) { $this->$method ; }
+        if (method_exists($this, $method)) {
+            return true ; }
         if (isset($this->postinstallCommands) &&
             is_array($this->postinstallCommands) &&
             count($this->postinstallCommands)>0) {
@@ -300,7 +301,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $property = "{$hook}installCommands" ;
         $method = "set{$hook}installCommands" ;
         var_dump($method) ;
-        if (method_exists($this, $method)) { $this->$method ; }
+        if (method_exists($this, $method)) { $this->$method(); }
         $this->swapCommandArrayPlaceHolders($this->$property);
         foreach ($this->$property as $installCommand) {
             $res = "" ;
@@ -322,7 +323,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $property = "{$hook}uninstallCommands" ;
         $method = "set{$hook}uninstallCommands" ;
         var_dump($method) ;
-        if (method_exists($this, $method)) { $this->$method ; }
+        if (method_exists($this, $method)) { $this->$method() ; }
         $this->swapCommandArrayPlaceHolders($this->$property);
         foreach ($this->$property as $uninstallCommand) {
             $res = "" ;
