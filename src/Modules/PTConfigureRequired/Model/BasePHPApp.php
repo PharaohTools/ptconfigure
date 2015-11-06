@@ -284,27 +284,45 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
 
 
     protected function doInstallCommand($hook){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $property = "{$hook}installCommands" ;
-        self::swapCommandArrayPlaceHolders($this->$property);
+        $method = "set{$hook}installCommands" ;
+        if (method_exists($this, $method)) { $this->$method ; }
+        $this->swapCommandArrayPlaceHolders($this->$property);
         foreach ($this->$property as $installCommand) {
+            $res = "" ;
             if ( array_key_exists("method", $installCommand)) {
                 call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
-                self::executeAsShell($installCommand["command"]) ; } }
+                self::executeAsShell($installCommand["command"]) ; }
+            if ($res === false) {
+                $logging->log("Failed Uninstall Step", $this->getModuleName()) ;
+                \Core\BootStrap::setExitCode(1) ;
+                break ; }  }
     }
 
     protected function doUnInstallCommand($hook){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $property = "{$hook}uninstallCommands" ;
-        self::swapCommandArrayPlaceHolders($this->$property);
+        $method = "set{$hook}uninstallCommands" ;
+        if (method_exists($this, $method)) { $this->$method ; }
+        $this->swapCommandArrayPlaceHolders($this->$property);
         foreach ($this->$property as $uninstallCommand) {
+            $res = "" ;
             if ( array_key_exists("method", $uninstallCommand)) {
-                call_user_func_array(array($uninstallCommand["method"]["object"], $uninstallCommand["method"]["method"]), $uninstallCommand["method"]["params"]); }
+                $res = call_user_func_array(array($uninstallCommand["method"]["object"], $uninstallCommand["method"]["method"]), $uninstallCommand["method"]["params"]); }
             else if ( array_key_exists("command", $uninstallCommand)) {
                 if (!is_array($uninstallCommand["command"])) { $uninstallCommand["command"] = array($uninstallCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($uninstallCommand["command"]) ;
-                self::executeAsShell($uninstallCommand["command"]) ; } }
+                $res =  self::executeAsShell($uninstallCommand["command"]) ; }
+            if ($res === false) {
+                $logging->log("Failed Uninstall Step", $this->getModuleName()) ;
+                \Core\BootStrap::setExitCode(1) ;
+                break ; }  }
     }
 
 }
