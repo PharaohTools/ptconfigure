@@ -40,7 +40,7 @@ class PTBuildLinux extends BasePHPApp {
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
             if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
             $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
-            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getUserShellAutoPath() ;
+            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ; }
         return $ray ;
@@ -56,7 +56,7 @@ class PTBuildLinux extends BasePHPApp {
         return $path ;
     }
 
-    public function getUserShellAutoPath() {
+    public function getLinuxUserShellAutoPath() {
         $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'create-linux-user.sh' ;
         $this->executeAsShell("sh $path");
         return $path ;
