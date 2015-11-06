@@ -126,11 +126,22 @@ class BasePHPApp extends Base {
         $this->saveExecutorFile();
         $this->deleteInstallationFiles();
         $this->changePermissions();
-        if (isset($this->postinstallCommands) && is_array($this->postinstallCommands) && count($this->postinstallCommands)>0) {
+        if ($this->postInstExists()) {
             $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("post") ;  }
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
         $this->showCompletion();
+    }
+
+    private function postInstExists() {
+        $method = "setpostinstallCommands" ;
+//        var_dump($method) ;
+        if (method_exists($this, $method)) { $this->$method ; }
+        if (isset($this->postinstallCommands) &&
+            is_array($this->postinstallCommands) &&
+            count($this->postinstallCommands)>0) {
+            return true ; }
+        return false ;
     }
 
     public function unInstall($autoPilot = null) {
