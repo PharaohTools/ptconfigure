@@ -85,7 +85,7 @@ COMPLETION;
             shell_exec("chmod 755 $tempFile 2>/dev/null");
             // echo "chmod +x $tempFile 2>/dev/null\n";
             shell_exec("chmod +x $tempFile 2>/dev/null"); }
-        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
+//        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
         $logging->log("Executing $tempFile", $this->getModuleName());
         // @todo this should refer to the actual shell we are running
         $commy = "{$tempFile}" ;
@@ -102,7 +102,7 @@ COMPLETION;
         $params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($this->params);
         $tempFile = $this->tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
-        $logging->log("Creating $tempFile", $this->getModuleName());
+//        $logging->log("Creating $tempFile", $this->getModuleName());
         $fileVar = "";
         $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
         $multiLineCommand = explode("\r\n", $multiLineCommand) ;
@@ -116,7 +116,7 @@ COMPLETION;
         $params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($params);
         $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
-        $logging->log("Creating $tempFile");
+//        $logging->log("Creating $tempFile");
         $fileVar = "";
         $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
         $multiLineCommand = explode("\r\n", $multiLineCommand) ;
@@ -138,7 +138,7 @@ COMPLETION;
         return $outputText;
     }
 
-    public static function executeAndGetReturnCode($command, $show_output = null, $get_output = null) {
+    public static function executeAndGetReturnCode($command, $show_output = true, $get_output = null) {
         $tempFile = self::tempfileStaticFromCommand($command) ;
         $loggingFactory = new \Model\Logging();
         $params["echo-log"] = true ;
@@ -150,7 +150,7 @@ COMPLETION;
             shell_exec("chmod +x $tempFile 2>/dev/null");
             $logging->log("Changing static $tempFile Permissions"); }
         $logging->log("Executing $tempFile");
-        var_dump($command) ;
+//        var_dump($command) ;
 
         $proc = proc_open($command, array(
             0 => array("pipe","r"),
@@ -187,8 +187,7 @@ COMPLETION;
                 $stderr = explode("\n", $stderr) ;
                 foreach ($stderr as $stderrline) {
 //                    echo $stderrline."\n" ;
-                }
-            }
+                } }
             return array("rc"=>$retVal, "output"=>$output) ; }
         if ($get_output == true) {
             return array("rc"=>$retVal, "output"=>$output) ;}
