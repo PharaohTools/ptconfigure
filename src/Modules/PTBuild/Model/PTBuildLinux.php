@@ -32,7 +32,7 @@ class PTBuildLinux extends BasePHPApp {
         $this->initialize();
     }
 
-    public function setpostInstallCommands() {
+    public function setpostinstallCommands() {
         $ray = array( ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $vhestring = '';
