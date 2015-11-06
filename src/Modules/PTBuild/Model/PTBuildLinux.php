@@ -24,7 +24,7 @@ class PTBuildLinux extends BasePHPApp {
               null // can be null for none
           )
         );
-        $this->postinstallCommands = $this->getLinuxPostInstallCommands();
+//        $this->postinstallCommands = $this->getLinuxPostInstallCommands();
         $this->programNameMachine = "ptbuild"; // command and app dir name
         $this->programNameFriendly = " PTBuild! "; // 12 chars
         $this->programNameInstaller = "PTBuild - Update to latest version";
@@ -32,7 +32,7 @@ class PTBuildLinux extends BasePHPApp {
         $this->initialize();
     }
 
-    public function getLinuxPostInstallCommands() {
+    public function setpostInstallCommands() {
         $ray = array( ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $vhestring = '';
@@ -43,7 +43,7 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ; }
-        return $ray ;
+        $this->postinstallCommands = $ray ;
     }
 
     public function getDeployAutoPath() {
