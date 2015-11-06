@@ -104,11 +104,22 @@ COMPLETION;
         $tempFile = $this->tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
 //        $logging->log("Creating $tempFile", $this->getModuleName());
         $fileVar = "";
-        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
-        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
+        $multiLineCommand = $this->multilineToArray($multiLineCommand) ;
         foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
         file_put_contents($tempFile, $fileVar) ;
         return $tempFile ;
+    }
+
+    protected static function multilineToArray($multiLineCommand) {
+        if (!is_array($multiLineCommand)) {
+            $multiLineCommand = explode("\n", $multiLineCommand) ;  }
+        $newRay = array() ;
+        foreach ($multiLineCommand as $singleCommand) {
+            $entry = str_replace(PHP_EOL, "", $singleCommand) ;
+            $entry = str_replace("\n", "", $entry) ;
+            $entry = str_replace("\r\n", "", $entry) ;
+            $newRay[] = $entry ; }
+        return $multiLineCommand ;
     }
 
     protected static function tempfileStaticFromCommand($multiLineCommand) {
@@ -118,8 +129,7 @@ COMPLETION;
         $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
 //        $logging->log("Creating $tempFile");
         $fileVar = "";
-        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
-        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
+        $multiLineCommand = self::multilineToArray($multiLineCommand) ;
         foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
         file_put_contents($tempFile, $fileVar) ;
         return $tempFile ;
