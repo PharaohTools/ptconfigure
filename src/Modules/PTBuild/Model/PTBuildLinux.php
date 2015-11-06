@@ -24,7 +24,7 @@ class PTBuildLinux extends BasePHPApp {
               null // can be null for none
           )
         );
-        $this->postinstallCommands = $this->getPostInstallCommands();
+        $this->postinstallCommands = $this->getLinuxPostInstallCommands();
         $this->programNameMachine = "ptbuild"; // command and app dir name
         $this->programNameFriendly = " PTBuild! "; // 12 chars
         $this->programNameInstaller = "PTBuild - Update to latest version";
@@ -32,7 +32,7 @@ class PTBuildLinux extends BasePHPApp {
         $this->initialize();
     }
 
-    public function getPostInstallCommands() {
+    public function getLinuxPostInstallCommands() {
         $ray = array( ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $vhestring = '';

@@ -16,9 +16,10 @@ class PTBuildMac extends PTBuildLinux {
 
     public function __construct($params) {
         parent::__construct($params);
+        $this->postinstallCommands = $this->getMacPostInstallCommands();
     }
 
-    public function getPostInstallCommands() {
+    public function getMacPostInstallCommands() {
         $ray = array( ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $vhestring = '';
