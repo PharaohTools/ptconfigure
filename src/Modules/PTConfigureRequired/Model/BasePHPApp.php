@@ -300,17 +300,17 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $logging = $loggingFactory->getModel($this->params);
         $property = "{$hook}installCommands" ;
         $method = "set{$hook}installCommands" ;
-        var_dump($method) ;
+//        var_dump($method) ;
         if (method_exists($this, $method)) { $this->$method(); }
         $this->swapCommandArrayPlaceHolders($this->$property);
         foreach ($this->$property as $installCommand) {
             $res = "" ;
             if ( array_key_exists("method", $installCommand)) {
-                call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
+                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
-                self::executeAsShell($installCommand["command"]) ; }
+                $res = $this->executeAsShell($installCommand["command"]) ; }
             if ($res === false) {
                 $logging->log("Failed Uninstall Step", $this->getModuleName()) ;
                 \Core\BootStrap::setExitCode(1) ;
@@ -322,7 +322,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $logging = $loggingFactory->getModel($this->params);
         $property = "{$hook}uninstallCommands" ;
         $method = "set{$hook}uninstallCommands" ;
-        var_dump($method) ;
+//        var_dump($method) ;
         if (method_exists($this, $method)) { $this->$method() ; }
         $this->swapCommandArrayPlaceHolders($this->$property);
         foreach ($this->$property as $uninstallCommand) {
@@ -332,7 +332,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             else if ( array_key_exists("command", $uninstallCommand)) {
                 if (!is_array($uninstallCommand["command"])) { $uninstallCommand["command"] = array($uninstallCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($uninstallCommand["command"]) ;
-                $res =  self::executeAsShell($uninstallCommand["command"]) ; }
+                $res =  $this->executeAsShell($uninstallCommand["command"]) ; }
             if ($res === false) {
                 $logging->log("Failed Uninstall Step", $this->getModuleName()) ;
                 \Core\BootStrap::setExitCode(1) ;
