@@ -89,9 +89,7 @@ class AutoPilotConfigured extends AutoPilot {
    </IfModule>
 
    <IfModule mod_proxy_fcgi.c>
-    <IfModule !mod_fastcgi.c>
      ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:6041/opt/ptbuild/ptbuild/src/Modules/PostInput/$1
-    </IfModule>
    </IfModule>
 
  </VirtualHost> ' ;
