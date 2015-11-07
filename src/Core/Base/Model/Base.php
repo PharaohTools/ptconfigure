@@ -158,8 +158,9 @@ COMPLETION;
             shell_exec("chmod 755 $tempFile 2>/dev/null");
             // echo "chmod +x $tempFile 2>/dev/null\n";
             shell_exec("chmod +x $tempFile 2>/dev/null");
-            $logging->log("Changing static $tempFile Permissions"); }
-        $logging->log("Executing $tempFile");
+//            $logging->log("Changing static $tempFile Permissions");
+        }
+//        $logging->log("Executing $tempFile");
 //        var_dump($command) ;
 
         $proc = proc_open($command, array(
