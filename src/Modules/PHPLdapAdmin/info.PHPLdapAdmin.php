@@ -22,7 +22,7 @@ class PHPLdapAdminInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module provides installs HA Proxy Server
+  This module installs PHP LDAP Admin
 
   PHPLdapAdmin, php-ldap-admin, phpldapadmin
 
