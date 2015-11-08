@@ -77,15 +77,34 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
     public function templateVHostConfig() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $fileFactory = new \Model\File() ;
         $logging->log("Updating Virtual Host Configuration", $this->getModuleName()) ;
-        $params = $this->params ;
-        $params["file"] = "/etc/apache2/sites-available/".$this->getVheUrl().".conf" ;
-        $params["search"] = "    ServerName ".$this->getVheUrl() ;
-        $params["after-line"] = "<Directory /usr/share/phpldapadmin/htdocs/>" ;
-        $file = $fileFactory->getModel($params) ;
-        $res[] = $file->performShouldHaveLine();
+        $templatingFactory = new \Model\Templating() ;
+        $templating = $templatingFactory->getModel($this->params) ;
+        $res[] = $templating->template(
+            file_get_contents(dirname(dirname(__FILE__)).DS."Templates".DS."vhost.conf"),
+            array(
+                "server_ip_port" => $this->getVheIp() ,
+                "server_name" => $this->getVheUrl(),
+                "server_admin" => $this->getVheServerAdmin() ,
+            ),
+            "/etc/apache2/sites-available/".$this->getVheUrl().".conf"  );
         return in_array(false, $res)==false ;
+    }
+
+    public function getVheIp() {
+        if (isset($this->params["vhe-ip-port"])) {
+            return $this->params["vhe-ip-port"] ; }
+        $question = "Enter Virtual Host IP:Port " ;
+        $this->params["vhe-ip-port"] = $this->askForInput($question) ;
+        return $this->params["vhe-ip-port"] ;
+    }
+
+    public function getVheServerAdmin() {
+        if (isset($this->params["vhe-admin"])) {
+            return $this->params["vhe-admin"] ; }
+        $question = "Enter Virtual Host Admin E-Mail" ;
+        $this->params["vhe-admin"] = $this->askForInput($question) ;
+        return $this->params["vhe-admin"] ;
     }
 
     public function enableVhost() {
