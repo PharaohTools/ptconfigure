@@ -20,13 +20,13 @@ class LDAPToolsUbuntu extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "slapd")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "ldap-utils")) ),
-//            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "gitk")) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "php5-ldap")) ),
 //            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "git-cola")) ),
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "slapd")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "ldap-utils")) ),
-//            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "gitk")) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "php5-ldap")) ),
 //            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "git-cola")) ),
         );
         $this->programDataFolder = "";
@@ -37,7 +37,11 @@ class LDAPToolsUbuntu extends BaseLinuxApp {
     }
 
     public function askStatus() {
-        return $this->askStatusByArray(array( "slapd", "ldap-utils" )) ;
+        $pmf = new \Model\Apt();
+        $pm = $pmf->getModel($this->params);
+        $pax = array( "slapd", "ldap-utils", "php5-ldap" ) ;
+        $res = $pm->isInstalled($pax) ;
+        return $res ;
     }
 
 }
