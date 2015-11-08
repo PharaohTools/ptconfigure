@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class HAProxyConfigureUbuntu extends BaseTemplater {
+class PHPLdapAdminConfigureUbuntu extends BaseTemplater {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -16,7 +16,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "HAProxy";
+        $this->autopilotDefiner = "PHPLdapAdmin";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "setDefaultReplacements", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "setOverrideReplacements", "params" => array()) ),
@@ -24,7 +24,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
             array("method"=> array("object" => $this, "method" => "setTemplate", "params" => array()) ),
         );
         $this->uninstallCommands = array();
-        $this->programDataFolder = "/opt/HAProxy"; // command and app dir name
+        $this->programDataFolder = "/opt/PHPLdapAdmin"; // command and app dir name
         $this->programNameMachine = "haproxy"; // command and app dir name
         $this->programNameFriendly = "HA Proxy Server!"; // 12 chars
         $this->programNameInstaller = "HA Proxy Server";

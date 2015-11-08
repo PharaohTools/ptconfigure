@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class HAProxy extends BaseModelFactory {
+class PHPLdapAdmin extends BaseModelFactory {
 
 }

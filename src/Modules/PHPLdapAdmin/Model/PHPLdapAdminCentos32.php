@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class HAProxyCentos32 extends BaseLinuxApp {
+class PHPLdapAdminCentos32 extends BaseLinuxApp {
 
   // Compatibility
   public $os = array("Linux") ;
@@ -16,10 +16,10 @@ class HAProxyCentos32 extends BaseLinuxApp {
 
   public function __construct($params) {
       parent::__construct($params);
-      $this->autopilotDefiner = "HAProxy";
+      $this->autopilotDefiner = "PHPLdapAdmin";
       $this->installCommands = array("yum install -y haproxy");
       $this->uninstallCommands = array("yum remove -y haproxy");
-      $this->programDataFolder = "/opt/HAProxy"; // command and app dir name
+      $this->programDataFolder = "/opt/PHPLdapAdmin"; // command and app dir name
       $this->programNameMachine = "haproxy"; // command and app dir name
       $this->programNameFriendly = "HA Proxy Server!"; // 12 chars
       $this->programNameInstaller = "HA Proxy Server";

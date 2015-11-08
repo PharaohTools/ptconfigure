@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class HAProxy extends Base {
+class PHPLdapAdmin extends Base {
 
 
     public function execute($pageVars) {
