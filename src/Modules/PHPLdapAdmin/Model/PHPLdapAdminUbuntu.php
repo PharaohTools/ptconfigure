@@ -63,7 +63,7 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
         $cparams["target"] = "/etc/apache2/sites-available/".$this->getVheUrl() ;
         $copyFactory = new \Model\Copy();
         $copy = $copyFactory->getModel($cparams) ;
-        $res[] = $copy->put() ;
+        $res[] = $copy->performCopyPut() ;
         return in_array(false, $res)==false ;
     }
 
