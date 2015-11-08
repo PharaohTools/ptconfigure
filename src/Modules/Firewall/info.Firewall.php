@@ -16,7 +16,7 @@ class FirewallInfo extends PTConfigureBase {
         // return array( "Firewall" =>  array_merge(parent::routesAvailable(), array() ) );
         return array( "Firewall" =>  array_merge(
             array("help", "status", "install", "enable", "reload", "disable", "allow", "deny", "reject", "limit",
-                "delete", "insert", "reset")
+                "delete", "insert", "reset", "default")
         ) );
     }
 
