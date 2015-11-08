@@ -2,35 +2,33 @@
 
 Namespace Info;
 
-class GitToolsInfo extends PTConfigureBase {
+class LDAPToolsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Git Tools - Tools for working with Git SCM";
+    public $name = "LDAP Tools - Tools for working with LDAP Directory Management";
 
     public function __construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "GitTools" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "LDAPTools" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
-      return array("gittools"=>"GitTools", "git-tools"=>"GitTools");
+      return array("LDAPTools"=>"LDAPTools", "ldaptools"=>"LDAPTools", "ldap-tools"=>"LDAPTools");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module allows you to install Git and a set of common Git Tools. These include
-  Git - the distributed source control manager, git Core a supplement to Git, Gitk
-  which is a GUI for git, and git-cola, which is also a Git GUI.
+  This module allows you to install the slapd LDAP Server and a set of common LDAP Tools.
 
-  GitTools, gittools, git-tools
+  LDAPTools, ldap-tools, ldaptools
 
         - install
-        Installs the latest version of Git Tools
-        example: ptconfigure gittools install
+        Installs the latest version of LDAP Tools
+        example: ptconfigure ldaptools install
 
 HELPDATA;
       return $help ;

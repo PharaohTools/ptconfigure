@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class GitTools extends Base {
+class LDAPTools extends Base {
 
 }

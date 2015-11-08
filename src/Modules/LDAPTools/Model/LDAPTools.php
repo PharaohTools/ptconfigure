@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class GitTools extends BaseModelFactory {
+class LDAPTools extends BaseModelFactory {
 
 }
