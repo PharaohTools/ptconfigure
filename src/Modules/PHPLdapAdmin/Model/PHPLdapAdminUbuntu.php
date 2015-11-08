@@ -94,7 +94,7 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
         $logging->log("Enabling Virtual Host", $this->getModuleName()) ;
         $comm = SUDOPREFIX."ptdeploy vhe enable -yg --vhost=".$this->getVheUrl() ;
         $res = $this->executeAndGetReturnCode($comm) ;
-        return ($res==0) ? true : false ;
+        return true ;
     }
 
 
