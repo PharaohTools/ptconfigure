@@ -81,7 +81,7 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
         $logging->log("Updating Virtual Host Configuration", $this->getModuleName()) ;
         $params = $this->params ;
         $params["file"] = "/etc/apache2/sites-available/".$this->getVheUrl().".conf" ;
-        $params["search"] = "    Server Name ".$this->getVheUrl() ;
+        $params["search"] = "    ServerName ".$this->getVheUrl() ;
         $params["after-line"] = "<Directory /usr/share/phpldapadmin/htdocs/>" ;
         $file = $fileFactory->getModel($params) ;
         $res[] = $file->performShouldHaveLine();
