@@ -21,6 +21,7 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "phpldapadmin")) ),
             array("method"=> array("object" => $this, "method" => "copyVHostConfig", "params" => array())),
             array("method"=> array("object" => $this, "method" => "templateVHostConfig", "params" => array())),
+            array("method"=> array("object" => $this, "method" => "enableVhost", "params" => array())),
             array("method"=> array("object" => $this, "method" => "templateLDAPAdminConfig", "params" => array())),
         );
         $this->uninstallCommands = array(
@@ -60,7 +61,7 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
         $logging->log("Copying Virtual Host into Directory", $this->getModuleName()) ;
         $cparams = $this->params ;
         $cparams["source"] = "/etc/phpldapadmin/apache.conf" ;
-        $cparams["target"] = "/etc/apache2/sites-available/".$this->getVheUrl() ;
+        $cparams["target"] = "/etc/apache2/sites-available/".$this->getVheUrl().".conf" ;
         $copyFactory = new \Model\Copy();
         $copy = $copyFactory->getModel($cparams) ;
         $res[] = $copy->performCopyPut() ;
@@ -79,12 +80,21 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
         $fileFactory = new \Model\File() ;
         $logging->log("Updating Virtual Host Configuration", $this->getModuleName()) ;
         $params = $this->params ;
-        $params["file"] = "/etc/apache2/sites-available/".$this->getVheUrl() ;
+        $params["file"] = "/etc/apache2/sites-available/".$this->getVheUrl().".conf" ;
         $params["search"] = "    Server Name ".$this->getVheUrl() ;
         $params["after-line"] = "<Directory /usr/share/phpldapadmin/htdocs/>" ;
         $file = $fileFactory->getModel($params) ;
         $res[] = $file->performShouldHaveLine();
         return in_array(false, $res)==false ;
+    }
+
+    public function enableVhost() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Enabling Virtual Host", $this->getModuleName()) ;
+        $comm = SUDOPREFIX."ptdeploy vhe enable --vhost=".$this->getVheUrl().".conf" ;
+        $res = $this->executeAndGetReturnCode($comm) ;
+        return ($res==0) ? true : false ;
     }
 
 
