@@ -17,18 +17,18 @@ class PTBuildInfo extends PTConfigureBase {
     }
 
     public function routeAliases() {
-      return array("cleo"=>"PTBuild", "ptbuild"=>"PTBuild");
+      return array("ptbuild"=>"PTBuild");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This module allows you to update PTBuild.
 
-  PTBuild, cleo, ptbuild
+  PTBuild, ptbuild
 
         - install
         Installs the latest version of ptbuild
-        example: ptbuild ptbuild install
+        example: ptconfigure ptbuild install
 
 HELPDATA;
       return $help ;
