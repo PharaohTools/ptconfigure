@@ -28,7 +28,7 @@ class Firewall extends Base {
             $this->content["appStatusResult"] = $thisModel->askStatus();
             return array ("type"=>"view", "view"=>"appStatus", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("enable", "reload", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset", "default-policy") )) {
+        if (in_array($action, array("enable", "reload", "disable", "allow", "deny", "reject", "limit", "delete", "insert", "reset", "default") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"firewall", "pageVars"=>$this->content); }
