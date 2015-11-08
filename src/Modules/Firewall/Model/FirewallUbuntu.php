@@ -75,7 +75,7 @@ class FirewallUbuntu extends BaseLinuxApp {
         return $this->resetRule();
     }
 
-    protected function setFirewallDefault() {
+    protected function performFirewallDefault() {
         $this->setDefaultPolicyParam();
         return $this->setDefault();
     }
@@ -225,7 +225,7 @@ class FirewallUbuntu extends BaseLinuxApp {
             "delete" => "performFirewallDelete",
             "insert" => "performFirewallInsert",
             "reset" => "performFirewallReset",
-            "default" => "setDefault",
+            "default" => "performFirewallDefault",
         ) ;
     }
 
