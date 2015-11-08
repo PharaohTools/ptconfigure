@@ -19,13 +19,14 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "PHPLdapAdmin";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "phpldapadmin")) ),
-//            array("method"=> array("object" => $this, "method" => "addInitScript", "params" => array())),
-//            array("method"=> array("object" => $this, "method" => "haproxyRestart", "params" => array()))
+            array("method"=> array("object" => $this, "method" => "copyVHostConfig", "params" => array())),
+            array("method"=> array("object" => $this, "method" => "templateVHostConfig", "params" => array())),
+            array("method"=> array("object" => $this, "method" => "templateLDAPAdminConfig", "params" => array())),
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "phpldapadmin")) ),
-//            array("method"=> array("object" => $this, "method" => "delInitScript", "params" => array())),
-//            array("method"=> array("object" => $this, "method" => "haproxyRestart", "params" => array()))
+            array("method"=> array("object" => $this, "method" => "delInitScript", "params" => array())),
+            array("method"=> array("object" => $this, "method" => "haproxyRestart", "params" => array())),
         );
         $this->programDataFolder = "/opt/PHPLdapAdmin"; // command and app dir name
         $this->programNameMachine = "phpldapadmin"; // command and app dir name
@@ -37,6 +38,55 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
         $this->versionLatestCommand = SUDOPREFIX."apt-cache policy phpldapadmin" ;
         $this->initialize();
     }
+
+    public function templateLDAPAdminConfig() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $fileFactory = new \Model\File() ;
+        $logging->log("Updating PHP LDAP Admin Configuration", $this->getModuleName()) ;
+//        $params = $this->params ;
+//        $params["file"] = "/etc/phpldapadmin/config.php" ;
+//        $params["search"] = "php_admin_value[session.save_path] = /tmp/ " ;
+//        $params["after-line"] = "[global]" ;
+//        $file = $fileFactory->getModel($params) ;
+//        $res[] = $file->performShouldHaveLine();
+//        return in_array(false, $res)==false ;
+        return true ;
+    }
+
+    public function copyVHostConfig() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Copying Virtual Host into Directory", $this->getModuleName()) ;
+        $cparams = $this->params ;
+        $cparams["source"] = "/etc/phpldapadmin/apache.conf" ;
+        $cparams["target"] = "/etc/apache2/sites-available/".$this->getVheUrl() ;
+        $copyFactory = new \Model\Copy();
+        $copy = $copyFactory->getModel($cparams) ;
+        $res[] = $copy->put() ;
+        return in_array(false, $res)==false ;
+    }
+
+    public function getVheUrl() {
+        if (isset($this->params["vhe-url"])) { return $this->params["vhe-url"] ; }
+        $this->params["vhe-url"] = "localhost" ;
+        return $this->params["vhe-url"] ;
+    }
+
+    public function templateVHostConfig() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $fileFactory = new \Model\File() ;
+        $logging->log("Updating Virtual Host Configuration", $this->getModuleName()) ;
+        $params = $this->params ;
+        $params["file"] = "/etc/apache2/sites-available/".$this->getVheUrl() ;
+        $params["search"] = "    Server Name ".$this->getVheUrl() ;
+        $params["after-line"] = "<Directory /usr/share/phpldapadmin/htdocs/>" ;
+        $file = $fileFactory->getModel($params) ;
+        $res[] = $file->performShouldHaveLine();
+        return in_array(false, $res)==false ;
+    }
+
 
 //    public function addInitScript() {
 //        $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
@@ -77,5 +127,13 @@ class PHPLdapAdminUbuntu extends BaseLinuxApp {
 //        $done = substr($text, 44, 8) ;
 //        return $done ;
 //    }
+
+    public function askStatus() {
+        $pmf = new \Model\Apt();
+        $pm = $pmf->getModel($this->params);
+        $pax = array( "phpldapadmin" ) ;
+        $res = $pm->isInstalled($pax) ;
+        return $res ;
+    }
 
 }

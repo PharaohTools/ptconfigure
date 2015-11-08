@@ -212,7 +212,7 @@ class FileAllOS extends BaseLinuxApp {
         if ($needle instanceof RegExp) {
             return preg_match($needle->regexp, $this->fileData); }
         else {
-            $st = strpos($this->fileData, $needle) ; // !== false;
+            $st = strpos($this->fileData, $needle) !== false ; //;
 //            var_dump("stt",$st, "nd", $needle) ;
             return $st ; }
     }
