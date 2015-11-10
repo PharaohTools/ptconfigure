@@ -103,7 +103,7 @@ class AppConfig {
     }
 
     private static function loadAppFile() {
-        $appFile = self::getAppBaseDir().DIRECTORY_SEPARATOR.'cleovars';
+        $appFile = self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptconfigurevars';
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayString = file_get_contents($appFile);
         $decoded = unserialize($appConfigArrayString);
@@ -112,11 +112,11 @@ class AppConfig {
 
     private static function saveAppFile($appConfigArray) {
         $coded = serialize($appConfigArray);
-        file_put_contents(self::getAppBaseDir().DIRECTORY_SEPARATOR.'cleovars', $coded);
+        file_put_contents(self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptconfigurevars', $coded);
     }
 
     private static function getAppBaseDir() {
-        $baseDir = dirname(__FILE__)."/../../..";
+        $baseDir = dirname(dirname(dirname(dirname(__FILE__))));
         return $baseDir;
     }
 
