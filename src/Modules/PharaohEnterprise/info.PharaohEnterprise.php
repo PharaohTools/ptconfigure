@@ -30,9 +30,7 @@ class PharaohEnterpriseInfo extends PTConfigureBase {
         Installs the latest version of PharaohEnterprise
         example: ptconfigure pharaoh-enterprise install -yg
                      --user=phpengine
-                     --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # 32 Bit User Key
-                     --server=www.server.com:1234 (will default to the Pharaoh Enterprise Server)
-
+                     --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
 
 HELPDATA;
       return $help ;
