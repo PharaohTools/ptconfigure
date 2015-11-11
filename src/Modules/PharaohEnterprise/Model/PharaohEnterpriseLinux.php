@@ -29,9 +29,9 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $this->programNameFriendly = "PT Enterprise"; // 12 chars
         $this->programNameInstaller = "Pharaoh Enterprise - upgrade from open source to Enterprise";
         $this->statusCommand = "httpd -v" ;
-        $this->versionInstalledCommand = SUDOPREFIX."httpd -v" ;
-        $this->versionRecommendedCommand = SUDOPREFIX."httpd -v" ;
-        $this->versionLatestCommand = SUDOPREFIX."httpd -v" ;
+        $this->versionInstalledCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
+        $this->versionRecommendedCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
+        $this->versionLatestCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
         $this->initialize();
     }
 
@@ -78,58 +78,53 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
 
     protected function installEnterprise() {
 
-        // LDAP variables
-        $pharaoh_auth_host = "directory.pharaohtools.com";  // your ldap servers
+        $pharaoh_auth_host = "directory.pharaohtools.com";
         $pharaoh_auth_port = "389";                 // your ldap server's port number
-//        $pharaoh_auth_user = 'testuser@pharaohtools.com' ;
-//        $pharaoh_auth_api_key = 'pharaoh12345678' ;
-        $ptc_enterprise_repo = 'git@scmx.pharaohtools.com:pharaohtools/ptconfigure-enterprise.git' ;
 
-        // Connecting to LDAP
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting Pharaoh Enterprise installation...", $this->getModuleName()) ;
+
         $ldapconn = ldap_connect($pharaoh_auth_host, $pharaoh_auth_port)  ;
-
         ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
 
         if ($ldapconn) {
-            echo "\n\nldap connected\n\n" ;
+            $logging->log("Authentication Server Connected...", $this->getModuleName()) ;
             $step_two_bind_output = $this->step_two_attempt_bind($ldapconn) ;
-            if ($step_two_bind_output==false) {
-                exit(1) ; }
+            if ($step_two_bind_output==false) { return false ; }
             $step_three_user_output = $this->step_three_get_server_userfields($ldapconn) ;
-            if ($step_three_user_output==false){
-                exit(1) ; }
+            if ($step_three_user_output==false){ return false ; }
             $step_four_ssh_key_fields = $this->step_four_get_ssh_key_fields($step_three_user_output) ;
-            if ($step_four_ssh_key_fields==false){
-                exit(1) ; }
+            if ($step_four_ssh_key_fields==false){ return false ; }
             $step_five = $this->step_five_install_ssh_keys($step_four_ssh_key_fields) ;
-            if ($step_five==false){
-                exit(1) ; }
+            if ($step_five==false){ return false ; }
             $step_six_enterprise_remote_result = $this->step_six_add_enterprise_remote($step_three_user_output) ;
-            if ($step_six_enterprise_remote_result==false){
-                exit(1) ; }
+            if ($step_six_enterprise_remote_result==false){ return false ; }
             $step_seven_pull_enterprise_result = $this->step_seven_pull_enterprise() ;
-            if ($step_seven_pull_enterprise_result==false){
-                exit(1) ; }
-            echo "You have successfully upgraded Pharaoh Configure from Open Source to Enterprise" ;
-        } else{
-            echo "\n\nCould not connect to $pharaoh_auth_host\n\n" ;
-        }
+            if ($step_seven_pull_enterprise_result==false){ return false ; }
+            $logging->log("You have successfully upgraded Pharaoh Configure from Open Source to Enterprise", $this->getModuleName()) ;
+            return true ;}
+        else {
+            $logging->log("Connection to $pharaoh_auth_host failed...", $this->getModuleName()) ;
+            return false ; }
 
     }
 
     public function step_two_attempt_bind($ldapconn) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if ($bind = ldap_bind($ldapconn, $this->get_bind_user(), $this->apiKey)) {
-            // log them in!
-            echo "\n\nlog in\n\n" ;
+            $logging->log("Authentication server login successful...", $this->getModuleName()) ;
             return $bind ; }
         else {
-            // error message
-            echo "\n\ndont log in\n\n" ;
+            $logging->log("Authentication server login failed...", $this->getModuleName()) ;
             return false ; }
     }
 
     public function step_three_get_server_userfields($ldapconn) {
-        echo "\n\n\nin step three" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Loading Account Information...", $this->getModuleName()) ;
         $dn = $this->get_bind_user() ; //"cn=username,o=My Company, c=US"; //the object itself instead of the top search level as in ldap_search
         $filter="(objectclass=*)"; // this command requires some filter
         $justthese = array("uid", "displayname", "mail", "postaladdress", "street"); //the attributes to pull, which is much more efficient than pulling all attributes if you don't do this
@@ -145,7 +140,6 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
     }
 
     public function step_four_get_ssh_key_fields($step_three_user_output) {
-        echo "\n\n\nin step four" ;
         $key_fields = array() ;
         if (isset($step_three_user_output["postaladdress"]) &&
             !empty($step_three_user_output["postaladdress"]) ) {
@@ -153,7 +147,6 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         if (isset($step_three_user_output["street"]) &&
             !empty($step_three_user_output["street"]) ) {
             $key_fields["scm_ssh_key_public"] = $step_three_user_output["street"] ; }
-
         if (isset($key_fields["scm_ssh_key_private"]) &&
             isset($key_fields["scm_ssh_key_public"])) {
             return $key_fields ; }
@@ -163,32 +156,37 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
 
 
     public function step_five_install_ssh_keys($step_four_ssh_key_fields) {
-
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $ssh_dir = "/opt/ptconfigure/.ssh" ;
         if (!file_exists($ssh_dir) || !is_dir($ssh_dir)) {
+            $logging->log("SSH Directory {$ssh_dir} does not exist, creating...", $this->getModuleName()) ;
             passthru("mkdir -p {$ssh_dir}") ; }
+        else {
+            $logging->log("SSH Directory {$ssh_dir} already exists...", $this->getModuleName()) ; }
 
         $types = ["public", "private"] ;
         foreach ($types as $type) {
             $typeString = ucfirst($type) ;
-            echo "Checking for existing {$typeString} key \n" ;
+            $logging->log("Checking for existing {$typeString} key...", $this->getModuleName()) ;
             if ($this->does_key_exist($type)) {
-                echo "{$typeString} Enterprise Key exists in file system, checking validity \n" ;
+                $logging->log("{$typeString} Enterprise Key exists in file system, checking validity...", $this->getModuleName()) ;
                 $key_local_data = file_get_contents($this->get_key_path($type)) ;
                 if ($key_local_data == $step_four_ssh_key_fields["scm_ssh_key_{$type}"]) {
-                    echo "{$typeString} Enterprise Key in file system is valid \n" ;
+                    $logging->log("{$typeString} Enterprise Key in file system is valid...", $this->getModuleName()) ;
                     continue ; }
                 else {
-                    echo "{$typeString} Enterprise Key in file system is invalid - overwriting \n" ;
+                    $logging->log("{$typeString} Enterprise Key in file system is invalid - overwriting...", $this->getModuleName()) ;
                     $res = $this->add_key_to_ptconfigure($type, $step_four_ssh_key_fields["scm_ssh_key_{$type}"]) ;
                     if ($res == true) { continue ; }
                     else { return false ;} } }
             else {
-                echo "{$typeString} Enterprise Key does not exist in file system\n" ;
+                $logging->log("{$typeString} Enterprise Key does not exist in file system...", $this->getModuleName()) ;
                 $res = $this->add_key_to_ptconfigure($type, $step_four_ssh_key_fields["scm_ssh_key_{$type}"]) ;
                 if ($res == true) { continue ; }
                 else { return false ;} }  }
 
+        $logging->log("SSH Directory {$ssh_dir} does not exist, creating...", $this->getModuleName()) ;
         $comm = "chmod 0700 /opt/ptconfigure/.ssh/enterprise_key*" ;
         passthru($comm, $return) ;
 
@@ -197,9 +195,12 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
 
 
     public function step_six_add_enterprise_remote($step_three_user_output) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $ptc_dir = '/opt/ptconfigure/ptconfigure/' ;
-        echo "changing directory to {$ptc_dir} \n" ;
+        $logging->log("Changing directory to {$ptc_dir}...", $this->getModuleName()) ;
         chdir($ptc_dir) ;
+        $logging->log("Configuring Source Control...", $this->getModuleName()) ;
         $comm = 'git config --global user.email "'.$step_three_user_output["mail"].'" ';
         passthru($comm) ;
         $comm = 'git config --global user.name "'.$step_three_user_output["displayname"].'"' ;
@@ -212,9 +213,12 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
     }
 
     public function step_seven_pull_enterprise() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $ptc_dir = '/opt/ptconfigure/ptconfigure/' ;
-        echo "changing directory to {$ptc_dir} \n" ;
+        $logging->log("Changing directory to {$ptc_dir}...", $this->getModuleName()) ;
         chdir($ptc_dir) ;
+        $logging->log("Getting enterprise source...", $this->getModuleName()) ;
         $comm = "git-key-safe -i /opt/ptconfigure/.ssh/enterprise_key pull enterprise master" ;
         passthru($comm, $return) ;
         $comm = "git-key-safe -i /opt/ptconfigure/.ssh/enterprise_key fetch --all" ;
@@ -226,16 +230,10 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         return ($return==0) ? true : false ;
     }
 
-
-
-
     public function does_key_exist($type = "public") {
         $fullkey = $this->get_key_path($type) ;
         $exists = file_exists($fullkey) ;
-        if ($exists) {
-            echo "Key {$fullkey} exists \n" ;
-            return true ; }
-        echo "Key {$fullkey} does not exist \n" ;
+        if ($exists) { return true ; }
         return false ;
     }
 
