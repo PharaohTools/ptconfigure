@@ -223,7 +223,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         passthru($comm, $return) ;
         $comm = "git-key-safe -i /opt/ptconfigure/.ssh/enterprise_key fetch --all" ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i /opt/ptconfigure/.ssh/enterprise_key reset --hard origin/master" ;
+        $comm = "git-key-safe -i /opt/ptconfigure/.ssh/enterprise_key reset --hard enterprise/master" ;
         passthru($comm, $return) ;
         $comm = "git-key-safe -i /opt/ptconfigure/.ssh/enterprise_key pull enterprise master" ;
         passthru($comm, $return) ;
