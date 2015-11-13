@@ -13,7 +13,8 @@ class PharaohEnterpriseInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "PharaohEnterprise" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "PharaohEnterprise" =>  array_merge(parent::routesAvailable(), array("install", "test-credentials", "test-creds",
+      "save-credentials", "save-creds") ) );
     }
 
     public function routeAliases() {
@@ -27,8 +28,20 @@ class PharaohEnterpriseInfo extends PTConfigureBase {
   PharaohEnterprise, pharaoh-enterprise, pharaohenterprise
 
         - install
-        Installs the latest version of PharaohEnterprise
+        Installs the latest version of Pharaoh Tools Enterprise Edition
         example: ptconfigure pharaoh-enterprise install -yg
+                     --user=example@mail.com
+                     --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
+
+        - save-credentials, save-creds
+        Save credentials for authenticating with Pharaoh Enterprise Servers silently later
+        example: ptconfigure pharaoh-enterprise save-creds -yg
+                     --user=example@mail.com
+                     --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
+
+        - test-credentials, test-creds
+        Test authenticate your credentials with a Pharaoh Enterprise Server
+        example: ptconfigure pharaoh-enterprise test-creds -yg
                      --user=phpengine
                      --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
 
