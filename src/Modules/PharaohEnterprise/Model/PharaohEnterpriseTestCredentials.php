@@ -34,6 +34,7 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
             array(
                 array("method"=> array("object" => $this, "method" => "initialiseEnterprise", "params" => array()) ),
                 array("method"=> array("object" => $this, "method" => "testCredentials", "params" => array()) ),
+                array("method"=> array("object" => $this, "method" => "saveSuccess", "params" => array()) ),
             ) ;
         $this->installCommands = $ray ;
     }
@@ -45,9 +46,6 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
 
     protected function askForPharaohEnterpriseAPIKey(){
         if (isset($this->params["api-key"])) { return $this->params["api-key"] ; }
-        $papyrusVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-api-key") ;
-        if ($papyrusVar != null) {
-            if (isset($this->params["guess"])) { return $papyrusVar ; } }
         $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-api-key") ;
         if ($appVar != null) {
             $question = 'Use Application saved Pharaoh Enterprise API Key?';
@@ -58,10 +56,7 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
 
     protected function askForPharaohEnterpriseUsername(){
         if (isset($this->params["user-name"])) { return $this->params["user-name"] ; }
-        $papyrusVar = \Model\AppConfig::getAppVariable("user-name") ;
-        if ($papyrusVar != null) {
-            if ($this->params["guess"] == true) { return $papyrusVar ; } }
-        $appVar = \Model\AppConfig::getAppVariable("user-name") ;
+        $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-user-name") ;
         if ($appVar != null) {
             $question = 'Use Application saved Pharaoh Enterprise User Name?';
             if (self::askYesOrNo($question, true) == true) {
@@ -96,6 +91,29 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
             $logging->log("Connection to {$pharaoh_auth_host}:{$pharaoh_auth_port} failed...", $this->getModuleName()) ;
             return false ; }
 
+    }
+
+    public function saveSuccess() {
+        if ($this->params["save-success"]==true) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Storing Credentials after successful authentication...", $this->getModuleName()) ;
+//            $saverFactory = new \Model\PharaohEnterprise() ;
+//            $saver = $saverFactory->getModel($this->params, "SaveCredentials") ;
+//            $res = $saver->saveCredentials() ;
+//            return $res ;
+            return true ;
+        }
+        return true ;
+    }
+
+    protected function saveCredentials() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Storing Pharaoh Enterprise credentials...", $this->getModuleName()) ;
+        \Model\AppConfig::setAppVariable("pharaoh-enterprise-user-name", $this->username);
+        \Model\AppConfig::setAppVariable("pharaoh-enterprise-api-key", $this->apiKey) ;
+        return true ;
     }
 
     public function step_two_attempt_bind($ldapconn) {
