@@ -104,12 +104,15 @@ class AutoPilotConfigured extends AutoPilot {
         foreach ($output as $outline) {
             $spos = strpos($outline, "Short Version: ") ;
             $lpos = $spos+15 ;
-            $rpos = strpos($outline, "\n");
+//            $rpos = strlen($outline);
             if ($spos !== false) {
-                $sv = substr($outline,$lpos, $rpos) ;  } }
+                var_dump($outline, substr($outline,$lpos) ,$lpos ) ;
+                $sv = substr($outline,$lpos) ;  } }
 
         $svObject = new \Model\SoftwareVersion($sv) ;
         $compareObject = new \Model\SoftwareVersion("2.3.0") ;
+
+//        var_dump("last", $sv, $svObject, $compareObject, $svObject->isLessThan($compareObject)) ;
 
         if ($svObject->isLessThan($compareObject)) {
             $section = '
