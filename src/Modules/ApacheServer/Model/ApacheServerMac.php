@@ -29,7 +29,7 @@ class ApacheServerMac extends ApacheServerCentos {
       $this->programNameMachine = "apacheserver"; // command and app dir name
       $this->programNameFriendly = "Apache Server!"; // 12 chars
       $this->programNameInstaller = "Apache Server";
-      $this->statusCommand = "httpd -v" ;
+      $this->statusCommand = SUDOPREFIX."httpd -v" ;
       $this->versionInstalledCommand = SUDOPREFIX."httpd -v" ;
       $this->versionRecommendedCommand = SUDOPREFIX."httpd -v" ;
       $this->versionLatestCommand = SUDOPREFIX."httpd -v" ;
@@ -44,9 +44,9 @@ class ApacheServerMac extends ApacheServerCentos {
     public function versionInstalledCommandTrimmer($text) {
         $lines = explode("\n", $text) ;
         foreach ($lines as $line) {
-            if (substr($line, 0, 7)=="Version") {
+            if (substr($line, 0, 14)=="Server version") {
                 $colon = strpos($line, ":");
-                $version = substr($line, $colon+2, strlen($line)-1) ;
+                $version = substr($line, $colon+9, strlen($line)-1) ;
                 return $version ; } }
         return null ;
     }
