@@ -69,9 +69,10 @@ class EnvironmentConfigAllOS extends Base {
     }
 
     public function getDefaultEnvironmentReplacements() {
-        return array( "any-app" => array(
+        $return = array( "any-app" => array(
             array( "var" =>"gen_env_name", "friendly_text" =>"Name of this Environment"),
             array( "var" =>"gen_env_tmp_dir", "friendly_text" =>"Default Temp Dir (should usually be /tmp/)"),) );
+        return $return ;
     }
 
     // @todo hahahahahahaha
