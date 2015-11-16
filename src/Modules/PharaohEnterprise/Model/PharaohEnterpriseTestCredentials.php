@@ -98,12 +98,10 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Storing Credentials after successful authentication...", $this->getModuleName()) ;
-//            $saverFactory = new \Model\PharaohEnterprise() ;
-//            $saver = $saverFactory->getModel($this->params, "SaveCredentials") ;
-//            $res = $saver->saveCredentials() ;
-//            return $res ;
-            return true ;
-        }
+            $saverFactory = new \Model\PharaohEnterprise() ;
+            $saver = $saverFactory->getModel($this->params, "SaveCredentials") ;
+            $res = $saver->saveCredentials() ;
+            return $res ; }
         return true ;
     }
 
