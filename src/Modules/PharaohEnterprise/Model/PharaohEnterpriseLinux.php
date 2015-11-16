@@ -49,11 +49,9 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $this->apiKey = $this->askForPharaohEnterpriseAPIKey();
     }
 
+
     protected function askForPharaohEnterpriseAPIKey(){
         if (isset($this->params["api-key"])) { return $this->params["api-key"] ; }
-        $papyrusVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-api-key") ;
-        if ($papyrusVar != null) {
-            if (isset($this->params["guess"])) { return $papyrusVar ; } }
         $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-api-key") ;
         if ($appVar != null) {
             $question = 'Use Application saved Pharaoh Enterprise API Key?';
@@ -64,10 +62,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
 
     protected function askForPharaohEnterpriseUsername(){
         if (isset($this->params["user-name"])) { return $this->params["user-name"] ; }
-        $papyrusVar = \Model\AppConfig::getAppVariable("user-name") ;
-        if ($papyrusVar != null) {
-            if ($this->params["guess"] == true) { return $papyrusVar ; } }
-        $appVar = \Model\AppConfig::getAppVariable("user-name") ;
+        $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-user-name") ;
         if ($appVar != null) {
             $question = 'Use Application saved Pharaoh Enterprise User Name?';
             if (self::askYesOrNo($question, true) == true) {
