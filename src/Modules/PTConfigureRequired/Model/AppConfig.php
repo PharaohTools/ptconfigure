@@ -103,7 +103,7 @@ class AppConfig {
     }
 
     private static function loadAppFile() {
-        $appFile = self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptconfigurevars';
+        $appFile = self::getVarFileLocation();
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayString = file_get_contents($appFile);
         $decoded = unserialize($appConfigArrayString);
@@ -112,11 +112,17 @@ class AppConfig {
 
     private static function saveAppFile($appConfigArray) {
         $coded = serialize($appConfigArray);
-        file_put_contents(self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptconfigurevars', $coded);
+        $appFile = self::getVarFileLocation();
+        file_put_contents($appFile, $coded);
+    }
+
+    private static function getVarFileLocation() {
+        $baseDir = self::getAppBaseDir().DS.'ptconfigurevars' ;
+        return $baseDir;
     }
 
     private static function getAppBaseDir() {
-        $baseDir = dirname(dirname(dirname(dirname(__FILE__))));
+        $baseDir = PFILESDIR."ptconfigure".DS."ptconfigure";
         return $baseDir;
     }
 
