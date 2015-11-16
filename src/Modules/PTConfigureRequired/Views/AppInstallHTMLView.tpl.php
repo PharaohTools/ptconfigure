@@ -9,7 +9,7 @@
 <body>
 
   <h3>
-    Single App Installer:<br />
+    Single Step<br />
     --------------------------------------------
   </h3>
 
@@ -26,7 +26,7 @@
 
   <p>
     ------------------------------<br />
-    Installer Finished
+    Step Complete
   </p>
 
 
