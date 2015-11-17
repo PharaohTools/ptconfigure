@@ -39,7 +39,7 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
         $this->installCommands = $ray ;
     }
 
-    protected function initialiseEnterprise() {
+    public function initialiseEnterprise() {
         $this->username = $this->askForPharaohEnterpriseUsername();
         $this->apiKey = $this->askForPharaohEnterpriseAPIKey();
     }
@@ -55,8 +55,8 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
     }
 
     protected function askForPharaohEnterpriseUsername(){
-        if (isset($this->params["user-name"])) { return $this->params["user-name"] ; }
-        $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-user-name") ;
+        if (isset($this->params["username"])) { return $this->params["username"] ; }
+        $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-username") ;
         if ($appVar != null) {
             $question = 'Use Application saved Pharaoh Enterprise User Name?';
             if (self::askYesOrNo($question, true) == true) {
@@ -99,18 +99,12 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Storing Credentials after successful authentication...", $this->getModuleName()) ;
             $saverFactory = new \Model\PharaohEnterprise() ;
+            $this->params["api-key"] = $this->apiKey ;
+            $this->params["username"] = $this->username ;
             $saver = $saverFactory->getModel($this->params, "SaveCredentials") ;
+            $saver->initialiseEnterprise() ;
             $res = $saver->saveCredentials() ;
             return $res ; }
-        return true ;
-    }
-
-    protected function saveCredentials() {
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Storing Pharaoh Enterprise credentials...", $this->getModuleName()) ;
-        \Model\AppConfig::setAppVariable("pharaoh-enterprise-user-name", $this->username);
-        \Model\AppConfig::setAppVariable("pharaoh-enterprise-api-key", $this->apiKey) ;
         return true ;
     }
 
