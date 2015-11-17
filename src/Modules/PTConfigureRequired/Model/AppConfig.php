@@ -64,7 +64,7 @@ class AppConfig {
         if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
         if (file_exists($pfile)) {
             $appConfigArraySerialized = file_get_contents($pfile);
-            $decoded = unserialize($appConfigArraySerialized);
+            $decoded = json_decode($appConfigArraySerialized);
             return $decoded ; }
         return array();
     }
@@ -72,7 +72,7 @@ class AppConfig {
     public static function saveProjectFile($appConfigArray, $pfile = null, $isLocal = false) {
         if ($isLocal == true) { $pfile = 'papyrusfilelocal' ; }
         if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
-        $appConfigSerialized = serialize($appConfigArray);
+        $appConfigSerialized = json_encode($appConfigArray);
         file_put_contents($pfile, $appConfigSerialized);
         // chmod($pfile, 0777);
     }
@@ -106,12 +106,12 @@ class AppConfig {
         $appFile = self::getVarFileLocation();
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayString = file_get_contents($appFile);
-        $decoded = unserialize($appConfigArrayString);
+        $decoded = json_decode($appConfigArrayString, true);
         return $decoded;
     }
 
     private static function saveAppFile($appConfigArray) {
-        $coded = serialize($appConfigArray);
+        $coded = json_encode($appConfigArray);
         $appFile = self::getVarFileLocation();
         file_put_contents($appFile, $coded);
     }
