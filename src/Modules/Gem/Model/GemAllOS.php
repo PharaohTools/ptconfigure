@@ -32,8 +32,9 @@ class GemAllOS extends BasePackager {
 
     public function installPackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput(SUDOPREFIX."gem install $packageName");
-        if ($returnCode !== 0) {
+        $returnCode = $this->executeAndGetReturnCode(SUDOPREFIX."gem install $packageName", true);
+        var_dump($returnCode) ;
+        if ($returnCode["rc"] !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Adding Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
@@ -43,8 +44,8 @@ class GemAllOS extends BasePackager {
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput(SUDOPREFIX."gem remove -y $packageName");
-        if ($returnCode !== 0) {
+        $returnCode = $this->executeAndGetReturnCode(SUDOPREFIX."gem remove $packageName", true);
+        if ($returnCode["rc"] !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Removing Package {$packageName} from the Packager {$this->programNameInstaller} did not execute correctly") ;
