@@ -18,19 +18,18 @@ class XCodeInfo extends PTConfigureBase {
 
     public function routeAliases() {
       return array(
-          "xcode"=>"ApacheFastCGIModules" );
+          "xcode"=>"XCode", "x-code"=>"XCode" );
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module is part of the Default Distribution and provides you  with a method by which you can configure Application Settings.
-  You can configure default application settings
+  This module provides integration for XCode installation
 
-  ApacheFastCGIModules, apachefastcgimodules, apachefastcgimods, apache-fastcgi-modules
+  XCode, x-code, xcode
 
         - install
-        Installs Apache Fast CGI Modules
-        example: ptconfigure apache-fastcgi-modules install
+        Installs Apple XCode
+        example: ptconfigure xcode install
 
 HELPDATA;
       return $help ;
