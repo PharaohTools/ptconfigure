@@ -82,7 +82,7 @@ class XCodeMac extends BaseLinuxApp {
     public function xcodeCliToolsInstall() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Installing XCode CLI Tools", $this->getModuleName()) ;
+        $logging->log("Installing XCode CLI tools", $this->getModuleName()) ;
         $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
         $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
         $comm .= 'xcversion install-cli-tools"' ;
@@ -94,7 +94,7 @@ class XCodeMac extends BaseLinuxApp {
     public function xcodeVersionCacheUpdate() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Updating XCode Version Cache", $this->getModuleName()) ;
+        $logging->log("Updating XCode version cache", $this->getModuleName()) ;
         $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
         $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
         $comm .= 'xcversion update"' ;
@@ -106,7 +106,7 @@ class XCodeMac extends BaseLinuxApp {
     public function runXCodeInstaller() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Installing XCode Application", $this->getModuleName()) ;
+        $logging->log("Installing XCode applications", $this->getModuleName()) ;
         $latest_available = $this->getLatestVersion() ;
         $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
         $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
@@ -120,7 +120,7 @@ class XCodeMac extends BaseLinuxApp {
     protected function getLatestVersion() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Installing XCode Application", $this->getModuleName()) ;
+        $logging->log("Finding available versions of XCode applications", $this->getModuleName()) ;
         $latest_text = $this->executeAndLoad("xcversion list") ;
         $all_versions = explode("\n", $latest_text) ;
         if ($all_versions==null) { $all_versions = array($latest_text) ;  }
