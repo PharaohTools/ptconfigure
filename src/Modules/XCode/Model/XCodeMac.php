@@ -21,8 +21,9 @@ class XCodeMac extends BaseLinuxApp {
         parent::__construct($params);
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "xEcho", "params" => array())),
-            array("method"=> array("object" => $this, "method" => "initialiseEnterprise", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "initialiseXCode", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "xcode-install" ))),
+            array("method"=> array("object" => $this, "method" => "xcodeVersionCacheUpdate", "params" => array())),
             array("method"=> array("object" => $this, "method" => "xcodeCliToolsInstall", "params" => array())),
             array("method"=> array("object" => $this, "method" => "runXCodeInstaller", "params" => array()))
         );
@@ -38,16 +39,24 @@ class XCodeMac extends BaseLinuxApp {
 
     public function initialiseXCode() {
         $this->username = $this->askForAppleXCodeUsername();
-        $this->apiKey = $this->askForAppleXCodeAPIKey();
+        $this->pass = $this->askForAppleXCodePassword();
+        if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Storing Apple Developer credentials...", $this->getModuleName()) ;
+            \Model\AppConfig::setAppVariable("apple-developer-username", $this->username);
+            \Model\AppConfig::setAppVariable("apple-developer-pass", $this->pass) ; }
+        return true ;
     }
 
-    protected function askForAppleXCodeAPIKey(){
-        if (isset($this->params["api-key"])) { return $this->params["api-key"] ; }
-        $appVar = \Model\AppConfig::getAppVariable("apple-developer-api-key") ;
+    protected function askForAppleXCodePassword(){
+        if (isset($this->params["pass"])) { return $this->params["pass"] ; }
+        $appVar = \Model\AppConfig::getAppVariable("apple-developer-pass") ;
         if ($appVar != null) {
-            $question = 'Use Application saved Apple Developer API Key?';
+            if (isset($appVar) && $this->params["yes"]==true) { return $appVar ; }
+            $question = 'Use Application saved Apple Developer Password?';
             if (self::askYesOrNo($question, true) == true) { return $appVar ; } }
-        $question = 'Enter Apple Developer API Key';
+        $question = 'Enter Apple Developer Password';
         return self::askForInput($question, true);
     }
 
@@ -55,6 +64,7 @@ class XCodeMac extends BaseLinuxApp {
         if (isset($this->params["username"])) { return $this->params["username"] ; }
         $appVar = \Model\AppConfig::getAppVariable("apple-developer-username") ;
         if ($appVar != null) {
+            if (isset($appVar) && $this->params["yes"]==true) { return $appVar ; }
             $question = 'Use Application saved Apple Developer User Name?';
             if (self::askYesOrNo($question, true) == true) {
                 return $appVar ; } }
@@ -73,7 +83,21 @@ class XCodeMac extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Installing XCode CLI Tools", $this->getModuleName()) ;
-        $comm = SUDOPREFIX." xcversion install-cli-tools" ;
+        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
+        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
+        $comm .= 'xcversion install-cli-tools"' ;
+        $rc = $this->executeAndGetReturnCode($comm, true, true) ;
+        $res = ($rc["rc"] == true) ? true : false ;
+        return $res ;
+    }
+
+    public function xcodeVersionCacheUpdate() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Updating XCode Version Cache", $this->getModuleName()) ;
+        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
+        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
+        $comm .= 'xcversion update"' ;
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
         $res = ($rc["rc"] == true) ? true : false ;
         return $res ;
@@ -83,10 +107,27 @@ class XCodeMac extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Installing XCode Application", $this->getModuleName()) ;
-        $comm = SUDOPREFIX." xcversion install" ;
+        $latest_available = $this->getLatestVersion() ;
+        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
+        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
+        $comm .= 'xcversion install "'.$latest_available.'"' ;
+//        echo "comm:" . $comm ;
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
-        $res = ($rc["rc"] == true) ? true : false ;
+        $res = ($rc["rc"] == 0) ? true : false ;
         return $res ;
+    }
+
+    protected function getLatestVersion() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Installing XCode Application", $this->getModuleName()) ;
+        $latest_text = $this->executeAndLoad("xcversion list") ;
+        $all_versions = explode("\n", $latest_text) ;
+        if ($all_versions==null) { $all_versions = array($latest_text) ;  }
+        $latest_available = $latest_text ;
+        $space = strpos($latest_text, " ") ;
+        if ($space) {  $latest_available = substr($latest_text, 0, $space) ; }
+        return $latest_available ;
     }
 
 }
