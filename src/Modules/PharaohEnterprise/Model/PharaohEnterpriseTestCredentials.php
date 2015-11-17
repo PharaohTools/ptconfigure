@@ -48,6 +48,7 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
         if (isset($this->params["api-key"])) { return $this->params["api-key"] ; }
         $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-api-key") ;
         if ($appVar != null) {
+            if (isset($appVar) && $this->params["guess"]==true) { return $appVar ; }
             $question = 'Use Application saved Pharaoh Enterprise API Key?';
             if (self::askYesOrNo($question, true) == true) { return $appVar ; } }
         $question = 'Enter Pharaoh Enterprise API Key';
@@ -58,6 +59,7 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
         if (isset($this->params["username"])) { return $this->params["username"] ; }
         $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-username") ;
         if ($appVar != null) {
+            if (isset($appVar) && $this->params["guess"]==true) { return $appVar ; }
             $question = 'Use Application saved Pharaoh Enterprise User Name?';
             if (self::askYesOrNo($question, true) == true) {
                 return $appVar ; } }
