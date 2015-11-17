@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class GemUbuntu extends BasePackager {
+class GemAllOS extends BasePackager {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
@@ -30,9 +30,9 @@ class GemUbuntu extends BasePackager {
         return (strpos($out, "true") != false) ? true : false ;
     }
 
-    public function installPackage($packageName, $autopilot = null) {
+    public function installPackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $returnCode = $this->executeAndOutput(SUDOPREFIX."gem install -y $packageName");
+        $returnCode = $this->executeAndOutput(SUDOPREFIX."gem install $packageName");
         if ($returnCode !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -41,7 +41,7 @@ class GemUbuntu extends BasePackager {
         return true ;
     }
 
-    public function removePackage($packageName, $autopilot = null) {
+    public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         $returnCode = $this->executeAndOutput(SUDOPREFIX."gem remove -y $packageName");
         if ($returnCode !== 0) {
