@@ -23,6 +23,9 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP Default Settings are okay", ), ), ),
                 array ( "PHPDefaults" => array( "install" => array( ), ), ),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure Apache Default Settings are okay", ), ), ),
+                array ( "ApacheDefaults" => array( "install" => array( ), ), ),
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP FPM is installed", ), ), ),
                 array ( "PHPFPM" => array( "ensure" => array( ), ), ),
 
