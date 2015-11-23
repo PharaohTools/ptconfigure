@@ -33,7 +33,6 @@ class GemAllOS extends BasePackager {
     public function installPackage($packageName) {
         $packageName = $this->getPackageName($packageName);
         $returnCode = $this->executeAndGetReturnCode(SUDOPREFIX."gem install $packageName", true);
-        var_dump($returnCode) ;
         if ($returnCode["rc"] !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
