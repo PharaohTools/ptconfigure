@@ -76,7 +76,7 @@ class PHPFPMMac extends BaseLinuxApp {
         $logging->log("Updating PHP FPM Configuration, ensuring our error log of /var/log/php-fpm.log is set.", $this->getModuleName()) ;
         $params = $this->params ;
         $params["file"] = "/etc/php-fpm.conf" ;
-        $params["search"] = "error_log = log/php-fpm.log" ;
+        $params["search"] = "error_log = /var/log/php-fpm.log" ;
         $params["after-line"] = "[global]" ;
         $file = $fileFactory->getModel($params) ;
         $res[] = $file->performShouldHaveLine();
