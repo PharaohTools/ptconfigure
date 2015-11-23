@@ -23,7 +23,6 @@ class XCodeMac extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "xEcho", "params" => array())),
             array("method"=> array("object" => $this, "method" => "initialiseXCode", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Gem", "xcode-install" ))),
-            array("method"=> array("object" => $this, "method" => "xcodeVersionCacheUpdate", "params" => array())),
             array("method"=> array("object" => $this, "method" => "xcodeCliToolsInstall", "params" => array())),
             array("method"=> array("object" => $this, "method" => "runXCodeInstaller", "params" => array()))
         );
@@ -39,7 +38,7 @@ class XCodeMac extends BaseLinuxApp {
 
     public function initialiseXCode() {
         $this->username = $this->askForAppleXCodeUsername();
-        $this->pass = $this->askForAppleXCodePassword();
+        $this->apiKey = $this->askForAppleXCodeAPIKey();
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -49,7 +48,7 @@ class XCodeMac extends BaseLinuxApp {
         return true ;
     }
 
-    protected function askForAppleXCodePassword(){
+    protected function askForAppleXCodeAPIKey(){
         if (isset($this->params["pass"])) { return $this->params["pass"] ; }
         $appVar = \Model\AppConfig::getAppVariable("apple-developer-pass") ;
         if ($appVar != null) {
@@ -82,52 +81,31 @@ class XCodeMac extends BaseLinuxApp {
     public function xcodeCliToolsInstall() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Installing XCode CLI tools", $this->getModuleName()) ;
-        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
-        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
-        $comm .= 'xcversion install-cli-tools"' ;
+        $logging->log("Installing XCode CLI Tools", $this->getModuleName()) ;
+        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" '."\n" ;
+        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" '."\n" ;
+        $comm .= SUDOPREFIX." xcversion install" ;
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
-        $res = ($rc["rc"] == true) ? true : false ;
-        return $res ;
-    }
-
-    public function xcodeVersionCacheUpdate() {
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Updating XCode version cache", $this->getModuleName()) ;
-        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
-        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
-        $comm .= 'xcversion update"' ;
-        $rc = $this->executeAndGetReturnCode($comm, true, true) ;
-        $res = ($rc["rc"] == true) ? true : false ;
+        $res = ($rc["rc"] == 0) ? true : false ;
         return $res ;
     }
 
     public function runXCodeInstaller() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Installing XCode applications", $this->getModuleName()) ;
-        $latest_available = $this->getLatestVersion() ;
-        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" ' ;
-        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" ' ;
-        $comm .= 'xcversion install "'.$latest_available.'"' ;
-//        echo "comm:" . $comm ;
-        $rc = $this->executeAndGetReturnCode($comm, true, true) ;
-        $res = ($rc["rc"] == 0) ? true : false ;
+        $logging->log("Installing XCode Application", $this->getModuleName()) ;
+//        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" '."\n" ;
+//        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" '."\n" ;
+//        $comm .= 'FASTLANE_USER="'.$this->username.'" '."\n" ;
+//        $comm .= 'FASTLANE_PASS="'.$this->pass.'" '."\n" ;
+        $comm  = 'XCODE_INSTALL_USER="'.$this->username.'" '."\n" ;
+        $comm .= 'XCODE_INSTALL_PASSWORD="'.$this->pass.'" '."\n" ;
+//        $comm .= 'export FASTLANE_USER'."\n" ;
+//        $comm .= 'export FASTLANE_PASS'."\n" ;
+        $comm .= "xcversion install" ;
+        passthru($comm, $rc) ;
+        $res = ($rc == 0) ? true : false ;
         return $res ;
-    }
-
-    protected function getLatestVersion() {
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Finding available versions of XCode applications", $this->getModuleName()) ;
-        $latest_text = $this->executeAndLoad("xcversion list") ;
-        $all_versions = explode("\n", $latest_text) ;
-        if ($all_versions==null) { $all_versions = array($latest_text) ;  }
-        $latest_available = $latest_text ;
-        $space = strpos($latest_text, " ") ;
-        if ($space) {  $latest_available = substr($latest_text, 0, $space) ; }
-        return $latest_available ;
     }
 
 }
