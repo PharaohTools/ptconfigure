@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PHPDefaultsCentos extends BaseLinuxApp {
+class ApacheDefaultsCentos extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -13,35 +13,19 @@ class PHPDefaultsCentos extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-//    public $packages = array("php5-PHPDefaults" ) ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->installCommands = array(
 //            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Yum", $this->packages ) ) ),
         );
-        $this->uninstallCommands = array(
-//            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Yum", $this->packages ) ) ),
-        );
-        $this->programDataFolder = "/opt/PHPDefaults"; // command and app dir name
-        $this->programNameMachine = "PHPDefaults"; // command and app dir name
-        $this->programNameFriendly = "PHP Defaults!"; // 12 chars
-        $this->programNameInstaller = "PHP Default Settings";
+        $this->uninstallCommands = array();
+        $this->programDataFolder = "/opt/ApacheDefaults"; // command and app dir name
+        $this->programNameMachine = "ApacheDefaults"; // command and app dir name
+        $this->programNameFriendly = "Apache Defaults!"; // 12 chars
+        $this->programNameInstaller = "Apache Default Settings";
+        $this->statusCommand = "exit 1" ;
         $this->initialize();
-    }
-
-    public function askStatus() {
-        $modsTextCmd = 'php -m';
-        $modsText = $this->executeAndLoad($modsTextCmd) ;
-        $pax = $this->packages ;
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $passing = true ;
-        foreach ($pax as $modToCheck) {
-            if (!strstr($modsText, $modToCheck)) {
-                $logging->log("PHP Module {$modToCheck} is not installed for this PHP installation.") ;
-                $passing = false ; } }
-        return $passing ;
     }
 
 }

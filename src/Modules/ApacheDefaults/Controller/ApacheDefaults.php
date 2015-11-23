@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class PHPDefaults extends Base {
+class ApacheDefaults extends Base {
 
     public function execute($pageVars) {
 
@@ -14,10 +14,6 @@ class PHPDefaults extends Base {
 
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
-
-        if ($action=="restart") {
-            $this->content["result"] = $thisModel->restartPHPDefaults();
-            return array ("type"=>"view", "view"=>"appInstall", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
