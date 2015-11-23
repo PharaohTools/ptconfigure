@@ -2,25 +2,79 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1dcdea3-2d53-4102-9912-147a4a1c5896" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Sign in with your Apple ID - Apple Developer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/file" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/Gem/Model/GemAllOS.php" afterPath="$PROJECT_DIR$/src/Modules/Gem/Model/GemAllOS.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/XCode/Model/XCodeMac.php" afterPath="$PROJECT_DIR$/src/Modules/XCode/Model/XCodeMac.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/XCode/Scripts/xcoder.sh" afterPath="$PROJECT_DIR$/src/Modules/XCode/Scripts/xcoder.sh" />
     </list>
     <ignored path="cleopatra.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447193494618" ignored="false" />
-    <file path="/a.dummy" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447195228001" ignored="false" />
-    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/bootstrap/SetupTeardownContext.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447181719389" ignored="false" />
-    <file path="/SetupTeardownContext.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447181716341" ignored="false" />
-    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/src/plugins/bdd_setup/inc/admin_page.tpl.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447180645255" ignored="false" />
+    <file path="/Dummy.txt" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448291165458" ignored="false" />
+    <file path="/a.dummy" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448296322886" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/bootstrap/SetupTeardownContext.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871784033" ignored="false" />
+    <file path="/SetupTeardownContext.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871773984" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/src/plugins/bdd_setup/inc/admin_page.tpl.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447684508466" ignored="false" />
     <file path="/admin_page.tpl.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447172811621" ignored="false" />
-    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/src/plugins/bdd_setup/inc/admin_logic.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447180645255" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/src/plugins/bdd_setup/inc/admin_logic.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447684508466" ignored="false" />
     <file path="/admin_logic.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447177665199" ignored="false" />
-    <file path="/PharaohEnterpriseLinux.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447197117378" ignored="false" />
+    <file path="/PharaohEnterpriseLinux.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447206133444" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/plugins/user/pharaohenterprise/pharaohenterprise.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447293314470" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/plugins/user/pharaohenterprise/pharaohenterprise.xml" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447284459682" ignored="false" />
+    <file path="/pharaohenterprise.xml" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447284275475" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/configuration.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447849567541" ignored="false" />
+    <file path="/pharaohenterprise.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447292143996" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/plugins/user/pharaohenterprise/helpers/EnterpriseIntegration.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447387063744" ignored="false" />
+    <file path="/EnterpriseIntegration.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447386955136" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/admin_logic.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447257755410" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/config/NUConfigFactory.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447685520105" ignored="false" />
+    <file path="/NUConfigFactory.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447681722110" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/bootstrap/DefaultPageChecksContext.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447875212575" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/application_basics.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447260995301" ignored="false" />
+    <file path="/application_basics.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447260995302" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/tmp/pharaohenterprise/helpers/EnterpriseIntegration.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447293273754" ignored="false" />
+    <file path="$PROJECT_DIR$/src/Core/Base/Model/Base.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447309691509" ignored="false" />
+    <file path="/info.PharaohEnterprise.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447383272448" ignored="false" />
+    <file path="/PharaohEnterprise.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447383719725" ignored="false" />
+    <file path="/PharaohEnterpriseTestCredentials.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447722079655" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/modules/mod_enterprise_creds/helper.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447386470349" ignored="false" />
+    <file path="/helper.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447386470349" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/modules/mod_enterprise_creds/tmpl/default.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447387198565" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/modules/mod_enterprise_creds/css/enter.css" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447387224856" ignored="false" />
+    <file path="/enter.css" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447387224856" ignored="false" />
+    <file path="/PharaohEnterpriseSaveCredentials.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447722277469" ignored="false" />
+    <file path="/AppInstallView.tpl.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447631808685" ignored="false" />
+    <file path="/AppInstallHTMLView.tpl.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447634460935" ignored="false" />
+    <file path="/AppConfig.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447721275718" ignored="false" />
+    <file path="/create-vhost.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447639874599" ignored="false" />
+    <file path="/SoftwareVersion.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447641740751" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptdeploy/ptdeploy/src/Modules/PTConfigureRequired/Model/SoftwareVersion.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447642379483" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/wp-parents-at-news/src/wp-content/plugins/bdd_setup/inc/admin_logic.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447679479504" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/wp-parents-at-news/src/wp-content/plugins/bdd_setup/inc/admin_page.tpl.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447679479504" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/wp-parents-at-news/src/wp-content/plugins/bdd_setup/inc/admin_finished_page.tpl.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447679479504" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/wp-parents-at-news/src/wp-content/plugins/bdd_setup/bdd_setup.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447679479504" ignored="false" />
+    <file path="/DefaultPageChecksContext.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447875202937" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/application_plugins.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447687583320" ignored="false" />
+    <file path="/application_plugins.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447687580925" ignored="false" />
+    <file path="/EnvironmentConfigAllOS.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447709631959" ignored="false" />
+    <file path="/XCodeMac.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447982952529" ignored="false" />
+    <file path="/GemAllOS.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447776947807" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/modules/mod_homepagestats/helper.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447849803893" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/bootstrap/UserManagementContext.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447852056639" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/application_setup.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871859725" ignored="false" />
+    <file path="/application_setup.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871845271" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/application_teardown.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871818196" ignored="false" />
+    <file path="/application_teardown.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871817791" ignored="false" />
+    <file path="/application_users.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871399171" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/application_users.feature" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1447871399171" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/templates/yoo_nite/css/custom.css" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448028233411" ignored="false" />
+    <file path="/custom.css" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448028226063" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/phpinfo.php" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448021148070" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/src/gafyd.html" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448042855055" ignored="false" />
+    <file path="/gafyd.html" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448042854619" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/.idea/workspace.xml" changelist="c1dcdea3-2d53-4102-9912-147a4a1c5896" time="1448303275274" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,35 +135,8 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PharaohEnterpriseLinux.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model/PharaohEnterpriseLinux.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="263" column="4" selection-start="11958" selection-end="11958" vertical-scroll-proportion="-164.375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GitBucketLinux.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/GitBucket/Model/GitBucketLinux.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="34" selection-start="59" selection-end="59" vertical-scroll-proportion="20.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseLinuxApp.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/BaseLinuxApp.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="285" column="52" selection-start="14451" selection-end="14469" vertical-scroll-proportion="-5.7083335">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PharaohEnterprise.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/PharaohEnterprise/Controller/PharaohEnterprise.php">
+      <file leaf-file-name="PTBuildLinux.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/PTBuild/Model/PTBuildLinux.php">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
@@ -117,46 +144,82 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="info.PharaohEnterprise.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/PharaohEnterprise/info.PharaohEnterprise.php">
+      <file leaf-file-name="PTBuildMac.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/PTBuild/Model/PTBuildMac.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="92" selection-start="944" selection-end="944" vertical-scroll-proportion="-19.375">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="11.25">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppConfig.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/AppConfig.php">
+      <file leaf-file-name="ptbconf.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/PTBuild/Autopilots/PTConfigure/ptbconf.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="63" selection-start="5450" selection-end="5450" vertical-scroll-proportion="-15.958333">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="9.916667">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseDigitalOceanV2AllOS.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php">
+      <file leaf-file-name="PHPDefaultsMac.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/PHPDefaults/Model/PHPDefaultsMac.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.11764706">
+            <state line="74" column="5" selection-start="2561" selection-end="3709" vertical-scroll-proportion="-17.583334">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApacheServerMac.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerMac.php">
+      <file leaf-file-name="ApacheDefaults.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaults.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="387" selection-end="1587" vertical-scroll-proportion="-1.875">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApacheServerUbuntu.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerUbuntu.php">
+      <file leaf-file-name="ApacheDefaults.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Controller/ApacheDefaults.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="10" selection-start="843" selection-end="843" vertical-scroll-proportion="-7.5">
+            <state line="16" column="0" selection-start="644" selection-end="644" vertical-scroll-proportion="-10.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApacheDefaultsUbuntu.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsUbuntu.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="33" selection-start="626" selection-end="626" vertical-scroll-proportion="-1.9583334">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApacheDefaultsMac.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsMac.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="29" selection-start="1478" selection-end="1478" vertical-scroll-proportion="-12.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GemAllOS.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Gem/Model/GemAllOS.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="0" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.48289737">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApacheDefaultsCentos.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsCentos.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="5" selection-start="1053" selection-end="1053" vertical-scroll-proportion="-15.083333">
               <folding />
             </state>
           </provider>
@@ -180,12 +243,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Modules/Rackspace/Model/BaseRackspaceAllOS.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerUbuntu.php" />
-        <option value="$PROJECT_DIR$/src/Modules/PharaohEnterprise/info.PharaohEnterprise.php" />
-        <option value="$PROJECT_DIR$/src/ptconfigurevars" />
-        <option value="$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model/PharaohEnterpriseLinux.php" />
+        <option value="$PROJECT_DIR$/src/Modules/EnvironmentConfig/Model/EnvironmentConfigAllOS.php" />
         <option value="$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/AppConfig.php" />
+        <option value="$PROJECT_DIR$/src/Modules/XCode/info.XCode.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Gem/Model/GemUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model/PharaohEnterpriseTestCredentials.php" />
+        <option value="$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model/PharaohEnterpriseSaveCredentials.php" />
+        <option value="$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model/PharaohEnterpriseLinux.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Gem/Model/GemAllOS.php" />
+        <option value="$PROJECT_DIR$/src/Modules/XCode/Scripts/xcoder.sh" />
+        <option value="$PROJECT_DIR$/file" />
+        <option value="$PROJECT_DIR$/src/Modules/XCode/Model/XCodeMac.php" />
+        <option value="$PROJECT_DIR$/src/Modules/PHPDefaults/Model/PHPDefaultsMac.php" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheDefaults/Controller/ApacheDefaults.php" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsCentos.php" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsMac.php" />
       </list>
     </option>
   </component>
@@ -222,18 +295,17 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
+              <option name="myItemId" value="ptconfigure" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
+              <option name="myItemId" value="ptconfigure" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -243,21 +315,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="ptconfigure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -268,14 +326,10 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
+              <option name="myItemId" value="ptconfigure" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -290,14 +344,10 @@
               <option name="myItemId" value="Modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PharaohEnterprise" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
+              <option name="myItemId" value="ptconfigure" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -313,7 +363,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="PharaohEnterprise" />
+              <option name="myItemId" value="Gem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ptconfigure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ptconfigure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gem" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -321,34 +393,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cleopatra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptconfigure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PharaohEnterprise" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -356,10 +403,19 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ptdeploy/ptdeploy" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Modules" />
+      <recent name="$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -427,7 +483,7 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1279" height="705" extended-state="0" />
+    <frame x="0" y="22" width="1279" height="705" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -441,7 +497,7 @@
       <window_info id="CSS-X-Fire" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18085968" sideWeight="0.61880344" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19789132" sideWeight="0.61880344" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Tail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -513,65 +569,100 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerUbuntu.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/XCode/Scripts/xcoder.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="10" selection-start="843" selection-end="843" vertical-scroll-proportion="-7.5">
+        <state line="5" column="0" selection-start="145" selection-end="145" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheServer/Model/ApacheServerMac.php">
+    <entry file="file://$PROJECT_DIR$/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="387" selection-end="1587" vertical-scroll-proportion="-1.875">
+        <state line="56" column="61" selection-start="3438" selection-end="3439" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/PharaohEnterprise/Controller/PharaohEnterprise.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/XCode/Model/XCodeMac.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="51" selection-start="2649" selection-end="2657" vertical-scroll-proportion="5.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model/PharaohEnterpriseSaveCredentials.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1659" selection-end="2904" vertical-scroll-proportion="-0.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/PTBuild/Model/PTBuildLinux.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/PharaohEnterprise/info.PharaohEnterprise.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/PTBuild/Model/PTBuildMac.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="92" selection-start="944" selection-end="944" vertical-scroll-proportion="-19.375">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="11.25">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/BaseLinuxApp.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/PTBuild/Autopilots/PTConfigure/ptbconf.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="285" column="52" selection-start="14451" selection-end="14469" vertical-scroll-proportion="-5.7083335">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="9.916667">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/GitBucket/Model/GitBucketLinux.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/PHPDefaults/Model/PHPDefaultsMac.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="34" selection-start="59" selection-end="59" vertical-scroll-proportion="20.0">
+        <state line="74" column="5" selection-start="2561" selection-end="3709" vertical-scroll-proportion="-17.583334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/PharaohEnterprise/Model/PharaohEnterpriseLinux.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Controller/ApacheDefaults.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="263" column="4" selection-start="11958" selection-end="11958" vertical-scroll-proportion="-164.375">
+        <state line="16" column="0" selection-start="644" selection-end="644" vertical-scroll-proportion="-10.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/AppConfig.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaults.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="63" selection-start="5450" selection-end="5450" vertical-scroll-proportion="-15.958333">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/DigitalOceanV2/Model/BaseDigitalOceanV2AllOS.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsCentos.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.11764706">
+        <state line="28" column="5" selection-start="1053" selection-end="1053" vertical-scroll-proportion="-15.083333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsUbuntu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="33" selection-start="626" selection-end="626" vertical-scroll-proportion="-1.9583334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheDefaults/Model/ApacheDefaultsMac.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="29" selection-start="1478" selection-end="1478" vertical-scroll-proportion="-12.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Gem/Model/GemAllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.48289737">
           <folding />
         </state>
       </provider>
