@@ -13,18 +13,18 @@ class ApacheDefaultsInfo extends PTConfigureBase {
   }
 
   public function routesAvailable() {
-    return array( "ApacheDefaults" =>  array_merge(parent::routesAvailable(), array("install", "restart") ) );
+    return array( "ApacheDefaults" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
-    return array("php-defaults"=>"ApacheDefaults", "phpdefaults"=>"ApacheDefaults", "phpdef"=>"ApacheDefaults");
+    return array("apache-defaults"=>"ApacheDefaults", "apachedefaults"=>"ApacheDefaults", "apachedef"=>"ApacheDefaults");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This module allows you to install default settings and files for PHP.
 
-  ApacheDefaults, php-defaults, ApacheDefaults
+  ApacheDefaults, apache-defaults, apachedefaults, apachedef
 
         - install
         Installs Apache Default Settings
