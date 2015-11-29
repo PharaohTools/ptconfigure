@@ -24,7 +24,7 @@ class Boxify extends Base {
             $this->content["result"] = $thisModel->askAction($action);
             return array ("type"=>"view", "view"=>"boxifyGenAutos", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("box-add", "box-remove", "box-destroy") )) {
+        if (in_array($action, array("box-add", "box-ensure", "box-remove", "box-destroy") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"boxify", "pageVars"=>$this->content); }
