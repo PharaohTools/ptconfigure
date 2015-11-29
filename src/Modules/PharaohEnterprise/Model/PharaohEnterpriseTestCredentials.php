@@ -22,10 +22,6 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
         $this->programNameMachine = "PharaohEnterprise"; // command and app dir name
         $this->programNameFriendly = "PT Enterprise"; // 12 chars
         $this->programNameInstaller = "Pharaoh Enterprise - upgrade from open source to Enterprise";
-        $this->statusCommand = "httpd -v" ;
-        $this->versionInstalledCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
-        $this->versionRecommendedCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
-        $this->versionLatestCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
         $this->initialize();
     }
 
@@ -100,13 +96,16 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Storing Credentials after successful authentication...", $this->getModuleName()) ;
-            $saverFactory = new \Model\PharaohEnterprise() ;
-            $this->params["api-key"] = $this->apiKey ;
-            $this->params["username"] = $this->username ;
-            $saver = $saverFactory->getModel($this->params, "SaveCredentials") ;
+            $saverFactory = new PharaohEnterprise() ;
+            $params = $this->params ;
+            $params["api-key"] = $this->apiKey ;
+            $params["username"] = $this->username ;
+            $saver = $saverFactory->getModel($params, "SaveCredentials") ;
             $saver->initialiseEnterprise() ;
             $res = $saver->saveCredentials() ;
-            return $res ; }
+            return $res ;
+//            return true ;
+        }
         return true ;
     }
 
@@ -147,6 +146,7 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
     public function test_scmx_authentication($user) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $cur_dir = getcwd() ;
         $ptc_dir = '/tmp/test_pharaoh_auth' ;
         $ssh_dir = '/tmp/test_pharaoh_auth/.ssh' ;
         $logging->log("Making ssh dir", $this->getModuleName()) ;
@@ -171,6 +171,8 @@ class PharaohEnterpriseTestCredentials extends BaseLinuxApp {
         $this->executeAndOutput($comm) ;
         $comm = "git-key-safe -i {$ssh_dir}/enterprise_key remote show enterprise_test" ;
         $this->executeAndOutput($comm) ;
+        $logging->log("Changing directory to {$cur_dir}...", $this->getModuleName()) ;
+        chdir($cur_dir) ;
         $comm = "rm -rf {$ptc_dir}" ;
         $this->executeAndOutput($comm) ;
         return true ;
