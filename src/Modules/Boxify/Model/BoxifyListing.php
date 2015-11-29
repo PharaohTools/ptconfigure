@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BoxifyListingUbuntu extends BaseLinuxApp {
+class BoxifyListing extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
