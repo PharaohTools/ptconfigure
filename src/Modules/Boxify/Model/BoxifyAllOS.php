@@ -20,6 +20,7 @@ class BoxifyAllOS extends BaseLinuxApp {
     protected $actionsToMethods =
         array(
             "box-add" => "performBoxAdd",
+            "box-ensure" => "performBoxEnsure",
             "box-destroy" => "performBoxDestroy",
             "box-remove" => "performBoxRemove",
         ) ;
@@ -38,6 +39,13 @@ class BoxifyAllOS extends BaseLinuxApp {
         $this->setProvider($providerName);
         $this->setBoxAmount($boxAmount);
         return $this->addBox();
+    }
+
+    public function performBoxEnsure($providerName = null, $environmentName = null, $boxAmount = null) {
+        $this->setEnvironment($environmentName);
+        $this->setProvider($providerName);
+        $this->setBoxAmount($boxAmount);
+        return $this->ensureBoxes();
     }
 
     public function performBoxRemove($providerName = null, $environmentName = null) {
@@ -97,6 +105,37 @@ class BoxifyAllOS extends BaseLinuxApp {
         $result = $provider->addBox() ;
         $returns[] = $result ;
         return (in_array(false, $returns)) ? false : true ;
+    }
+
+    protected function ensureBoxes() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $provider = $this->getProvider();
+        if (!is_object($provider)) {
+            $logging->log("Requested provider unavailable", $this->getModuleName()) ;
+            \Core\BootStrap::setExitCode(1);
+            return false ; }
+
+        $boxifyFactory = new \Model\Boxify();
+        $lister = $boxifyFactory->getModel($this->params, "Listing");
+        $curboxes = $lister->performListing() ;
+
+
+        $logging->log("ensuring that stuff", $this->getModuleName()) ;
+        var_dump("curboxes is:", $curboxes) ;
+        var_dump("box amount is:", $this->boxAmount) ;
+
+        if (count($curboxes) != count($this->boxAmount)) {
+            $logging->log("box group sizes dont match", $this->getModuleName()) ;
+
+        }
+
+//        $returns = array() ;
+//        $logging->log("Adding Boxes", $this->getModuleName()) ;
+//        $result = $provider->addBox() ;
+//        $returns[] = $result ;
+//        return (in_array(false, $returns)) ? false : true ;
+        return true ;
     }
 
     protected function removeBoxes() {
