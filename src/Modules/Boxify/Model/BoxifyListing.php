@@ -32,8 +32,8 @@ class BoxifyListing extends BaseLinuxApp {
     }
 
     public function performListing() {
-        if (isset($this->params["environment-name"])) {
-            $this->setEnvironment($this->params["environment-name"]); }
+        if (isset($this->params["env"])) { $this->params["environment-name"] = $this->params["env"]; }
+        if (isset($this->params["environment-name"])) { $this->setEnvironment($this->params["environment-name"]); }
         return $this->listBoxes();
     }
 
@@ -51,7 +51,6 @@ class BoxifyListing extends BaseLinuxApp {
     protected function listBoxes() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $returns = array() ;
         $envs = \Model\AppConfig::getProjectVariable("environments");
         return (is_null($envs)) ? null : $envs ;
     }
