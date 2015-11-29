@@ -22,10 +22,6 @@ class PharaohEnterpriseSaveCredentials extends BaseLinuxApp {
         $this->programNameMachine = "PharaohEnterprise"; // command and app dir name
         $this->programNameFriendly = "PT Enterprise"; // 12 chars
         $this->programNameInstaller = "Pharaoh Enterprise - upgrade from open source to Enterprise";
-        $this->statusCommand = "httpd -v" ;
-        $this->versionInstalledCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
-        $this->versionRecommendedCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
-        $this->versionLatestCommand = SUDOPREFIX.'git log -n 1 --pretty=format:"%H"' ;
         $this->initialize();
     }
 
