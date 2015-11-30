@@ -41,7 +41,7 @@ class DigitalOceanV2Info extends PTConfigureBase {
                     --environment-name=demodave # papyrusfile environment to add instances to - must already exist
                     --box-amount=1 # number of instances to create
                     --size-id=512mb # size of instances
-                    --image-id=7111343 # image id to create instances with
+                    --image-id=14530089 # image id to create instances with
                     --region-id=lon1 # region to create instance in
                     --wait-until-active # wait until box has an ip address active before moving to the next one (You
                         usually want this, unless you are asynchronously populating the connection details)
