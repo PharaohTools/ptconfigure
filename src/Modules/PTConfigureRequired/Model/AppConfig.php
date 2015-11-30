@@ -64,7 +64,7 @@ class AppConfig {
         if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
         if (file_exists($pfile)) {
             $appConfigArraySerialized = file_get_contents($pfile);
-            $decoded = json_decode($appConfigArraySerialized);
+            $decoded = json_decode($appConfigArraySerialized, true);
             return $decoded ; }
         return array();
     }
