@@ -49,7 +49,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                             $serverData = array();
                             $serverData["prefix"] = $serverPrefix ;
                             $serverData["envName"] = $envName ;
-                            $serverData["sCount"] = $i ;
+                            $serverData["sCount"] = $i + $this->getServerCountStart() ;
                             $serverData["sizeID"] = $this->getServerGroupSizeID() ;
                             $serverData["imageID"] = $this->getServerGroupImageID() ;
                             $serverData["regionID"] = $this->getServerGroupRegionID() ;
@@ -79,6 +79,19 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         if (isset($this->params["prefix"])) {
             return $this->params["prefix"] ; }
         $question = 'Enter Prefix for all Servers (None is fine)';
+        return self::askForInput($question);
+    }
+
+    private function getServerCountStart() {
+        if (isset($this->params["count-start"])) {
+            return $this->params["count-start"] ; }
+        if (isset($this->params["countstart"])) {
+            $this->params["count-start"] = $this->params["countstart"] ;
+            return $this->params["count-start"] ; }
+        if (isset($this->params["guess"])) {
+            $this->params["count-start"] = 0 ;
+            return $this->params["count-start"] ;  }
+        $question = 'Enter Count to begin from';
         return self::askForInput($question);
     }
 
@@ -156,34 +169,40 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for {$callVars["name"]} complete") ;
+//        var_dump($callOut) ;
         return $callOut ;
     }
 
     private function addServerToPapyrus($envName, $data) {
 
-        $dropletData = $this->getDropletData($data->droplet->id);
-        if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
-            $dropletData = $this->waitForBoxInfo($data->droplet->id); }
-        if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
-            $dropletData = $this->waitUntilActive($data->droplet->id); }
-        $server = array();
+        if (isset($data) && is_object($data)) {
+            $dropletData = $this->getDropletData($data->droplet->id);
+            if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
+                $dropletData = $this->waitForBoxInfo($data->droplet->id); }
+            if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
+                $dropletData = $this->waitUntilActive($data->droplet->id); }
+            $server = array();
+            $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
+            $server["user"] = $this->getUsernameOfBox() ;
+            $server["password"] = $this->getSSHKeyLocation() ;
+            $server["provider"] = "DigitalOceanV2";
+            $server["id"] = $data->droplet->id;
+            $server["name"] = $data->droplet->name;
+            $server["image"] = $data->droplet->image->id;
+            // file_put_contents("/tmp/outloc", getcwd()) ;
+            // file_put_contents("/tmp/outsrv", $server) ;
+            $environments = \Model\AppConfig::getProjectVariable("environments");
+            // file_put_contents("/tmp/outenv1", serialize($environments)) ;
+            for ($i= 0 ; $i<count($environments); $i++) {
+                if ($environments[$i]["any-app"]["gen_env_name"] == $envName) {
+                    $environments[$i]["servers"][] = $server; } }
+            // file_put_contents("/tmp/outenv2", serialize($environments)) ;
+            \Model\AppConfig::setProjectVariable("environments", $environments);
+            return true ; }
 
-        $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
+        else {
+            return false ; }
 
-        $server["user"] = $this->getUsernameOfBox() ;
-        $server["password"] = $this->getSSHKeyLocation() ;
-        $server["provider"] = "DigitalOceanV2";
-        $server["id"] = $data->droplet->id;
-        $server["name"] = $data->droplet->name;
-        // file_put_contents("/tmp/outloc", getcwd()) ;
-        // file_put_contents("/tmp/outsrv", $server) ;
-        $environments = \Model\AppConfig::getProjectVariable("environments");
-        // file_put_contents("/tmp/outenv1", serialize($environments)) ;
-        for ($i= 0 ; $i<count($environments); $i++) {
-            if ($environments[$i]["any-app"]["gen_env_name"] == $envName) {
-                $environments[$i]["servers"][] = $server; } }
-        // file_put_contents("/tmp/outenv2", serialize($environments)) ;
-        \Model\AppConfig::setProjectVariable("environments", $environments);
     }
 
     private function getSshKeyIds() {
