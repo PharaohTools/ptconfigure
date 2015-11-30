@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
+class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -12,43 +12,146 @@ class DigitalOceanV2List extends BaseDigitalOceanV2AllOS {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Listing") ;
+    public $modelGroup = array("NodeTest") ;
 
     public function __construct($params) {
         parent::__construct($params) ;
     }
 
-    public function askWhetherToListData() {
-        return $this->performDigitalOceanV2ListData();
+    public function askWhetherToTestNode() {
+        return $this->performDigitalOceanV2TestNode();
     }
 
-    protected function performDigitalOceanV2ListData(){
-        if ($this->askForListExecute() != true) { return false; }
+    protected function performDigitalOceanV2TestNode(){
+        if ($this->askForTestNodeExecute() != true) { return false; }
         $this->accessToken = $this->askForDigitalOceanV2AccessToken();
-        $dataToList = $this->askForDataTypeToList();
-        return $this->getDataListFromDigitalOceanV2($dataToList, array("per_page" =>100));
+        $this->params["id"] = $this->askForNodeID();
+        $this->params["name"] = $this->askForNodeName();
+        $this->params["image"] = $this->askForNodeImage();
+        $processed = $this->getDataTestNodeFromDigitalOceanV2();
+        return $processed ;
     }
 
-    private function askForListExecute(){
+    private function askForTestNodeExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'List Data?';
+        $question = 'Test Node Data?';
         return self::askYesOrNo($question);
     }
 
-    private function askForDataTypeToList(){
-        $question = 'Please choose a data type to list:';
-        $options = array("droplets", "sizes", "images", "domains", "regions", "ssh_keys");
-        if (isset($this->params["type"]) &&
-            in_array($this->params["type"], $options)) {
-            return $this->params["type"] ; }
-        return self::askForArrayOption($question, $options, true);
+    private function askForNodeID(){
+        if (isset($this->params["id"])) { return $this->params["id"] ; }
+        $question = 'Enter Node ID';
+        return self::askForInput($question, true);
     }
 
-    public function getDataListFromDigitalOceanV2($dataToList, $callVars = array()){
-        if ($dataToList == "ssh_keys") {$dataToList = "account/keys";}
-        $curlUrl = $this->_apiURL."/v2/$dataToList" ;
+    private function askForNodeName (){
+        if (isset($this->params["name"])) { return $this->params["name"] ; }
+//        $question = 'Enter Node Name';
+//        return self::askForInput($question);
+        return "" ;
+    }
+
+    private function askForNodeImage (){
+        if (isset($this->params["image"])) { return $this->params["image"] ; }
+//        $question = 'Enter Node Image ID';
+//        return self::askForInput($question);
+        return "" ;
+    }
+
+    public function getDataTestNodeFromDigitalOceanV2(){
+
+        $ret = array() ;
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if (isset($this->params["name"]) &&
+            is_int($this->params["name"]) &&
+            (!isset($this->params["id"]) || $this->params["id"] == "" ) ) {
+            $tx = "Name Provided, Finding Node ID From Name" ;
+            $logging->log($tx, $this->getModuleName()) ;
+            $node_id = $this->findIDFromName($this->params["name"]) ; }
+
+        if (isset($this->params["id"]) &&
+            is_int($this->params["id"]) &&
+            $this->params["id"]>0) {
+            $tx = "ID Provided, Finding Node from ID" ;
+            $logging->log($tx, $this->getModuleName()) ;
+            $node_id = $this->params["id"] ; }
+
+        else {
+            $tx = "No ID or Name available" ;
+            $logging->log($tx, $this->getModuleName()) ;
+            $ret["status"] = false ;
+            return $ret ; }
+
+        $curlUrl = $this->_apiURL."/v2/droplets/$node_id" ;
         $httpType = "GET" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
+        $ret["data"] = $this->digitalOceanV2Call(array(), $curlUrl, $httpType);
+        $ret["info"] = $this->getInfoFromData($ret["data"]);
+        $ret["status"] = $this->checkNodeStatusFromData($ret["data"]) ;
+        $logging->log("Calling Digital Ocean Data", $this->getModuleName()) ;
+
+        return $ret ;
+    }
+
+    private function checkNodeStatusFromData($data) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Beginning node status tests", $this->getModuleName()) ;
+        $res[] = $this->checkNodeImageFromData($data) ;
+        $res[] = $this->checkNodeActiveFromData($data) ;
+        return (array_diff($res, array(true))==array()) ? true : false ;
+    }
+
+    private function getInfoFromData($data) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Collecting data from cloud node", $this->getModuleName()) ;
+
+        $ret = array() ;
+        $ret["id"] = $data->droplet->id ;
+        $ret["image"] = $data->droplet->image->id ;
+        $ret["target_ip"] = $data->droplet->networks->v4[0]->ip_address ;
+        $ret["name"] = $data->droplet->name ;
+        $ret["size"] = $data->droplet->size_slug ;
+        $ret["region"] = $data->droplet->region->slug ;
+        $ret["region_name"] = $data->droplet->region->name ;
+
+        return $ret ;
+    }
+
+    private function checkNodeImageFromData($data) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ($data->droplet->image->id == $this->params["image"]) {
+            $logging->log("Node reports expected image id {$data->droplet->image->id}", $this->getModuleName()) ;
+            return true ; }
+        $logging->log("Node reports unexpected image id of {$data->droplet->image->id}", $this->getModuleName()) ;
+        return false ;
+    }
+
+    private function checkNodeActiveFromData($data) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ($data->droplet->status == "active") {
+            $logging->log("Node reports expected active status", $this->getModuleName()) ;
+            return true ; }
+        $logging->log("Node reports unexpected status of {$data->status} ", $this->getModuleName()) ;
+        return false ;
+    }
+
+    private function findIDFromName($name) {
+        $droplets = $this->getAllDroplets() ;
+        foreach ($droplets as $droplet) {
+            if ($droplet->name == $name) {
+                return $droplet->ID ; } }
+        return false ;
+    }
+
+    private function getAllDroplets() {
+        $curlUrl = $this->_apiURL."/v2/droplets" ;
+        $httpType = "GET" ;
+        return $this->digitalOceanV2Call(array(), $curlUrl, $httpType);
     }
 
 }
