@@ -163,6 +163,7 @@ class DigitalOceanBoxAdd extends BaseDigitalOceanAllOS {
         $server["provider"] = "DigitalOcean";
         $server["id"] = $data->droplet->id;
         $server["name"] = $data->droplet->name;
+        $server["image"] = $data->droplet->image->id;
         // file_put_contents("/tmp/outloc", getcwd()) ;
         // file_put_contents("/tmp/outsrv", $server) ;
         $environments = \Model\AppConfig::getProjectVariable("environments");
