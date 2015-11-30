@@ -40,9 +40,9 @@ class BoxifyInfo extends PTConfigureBase {
         example: ptconfigure boxify box-add --environment-name="*environment*"
             --server-prefix="my-app"
             --provider="DigitalOcean" // DigitalOcean, Rackspace, VSphere
-            --image-id="3101045" // DO=3101045 , RAX=ffd597d6-2cc4-4b43-b8f4-b1006715b84e
-            --size-id="66" // DO = 66, RAX = 2
-            --region-id="2" // DO = 2, RAX = LON
+            --image-id="14530089" // DO=14530089 , RAX=ffd597d6-2cc4-4b43-b8f4-b1006715b84e
+            --size-id="512mb" // DO = 512mb, RAX = 2
+            --region-id="lon1" // DO = lon1, RAX = LON
             --box-amount=1 // An Integer number of boxes to create
             --force-name="a-box-name" // optional, will override other options for name creation. may cause a conflict if creating more than 1 box.
             --parallax // optional, when adding more than one box, if the provider supports it we can execute all requests in parallel
@@ -52,9 +52,9 @@ class BoxifyInfo extends PTConfigureBase {
         example: ptconfigure boxify box-ensure --environment-name="*environment*"
             --server-prefix="my-app"
             --provider="DigitalOcean" // DigitalOcean, Rackspace, VSphere
-            --image-id="3101045" // DO=3101045 , RAX=ffd597d6-2cc4-4b43-b8f4-b1006715b84e
-            --size-id="66" // DO = 66, RAX = 2
-            --region-id="2" // DO = 2, RAX = LON
+            --image-id="14530089" // DO=14530089 , RAX=ffd597d6-2cc4-4b43-b8f4-b1006715b84e
+            --size-id="512mb" // DO = 512mb, RAX = 2
+            --region-id="lon1" // DO = lon1, RAX = LON
             --box-amount=1 // An Integer number of boxes to create or ensure
             --force-name="a-box-name" // optional, will override other options for name creation. may cause a conflict if creating more than 1 box.
             --parallax // optional, when adding more than one box, if the provider supports it we can execute all requests in parallel
