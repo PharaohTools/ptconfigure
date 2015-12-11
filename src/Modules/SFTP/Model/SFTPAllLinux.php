@@ -5,7 +5,7 @@ Namespace Model;
 class SFTPAllLinux extends Base {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("Linux", "Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -74,12 +74,12 @@ class SFTPAllLinux extends Base {
         $targetPath = $this->getTargetFilePath("local");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Opening SFTP Connections...");
+        $logging->log("Opening SFTP Connections...", $this->getModuleName());
         foreach ($this->servers as &$server) {
             $logging->log("[".$server["target"]."] Executing SFTP Get...");
             $logging->log($this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath)) ;
             $logging->log("[".$server["target"]."] SFTP Get Completed..."); }
-        $logging->log("All SFTP Gets Completed");
+        $logging->log("All SFTP Gets Completed", $this->getModuleName());
         return true;
     }
 
@@ -117,7 +117,7 @@ class SFTPAllLinux extends Base {
     protected function doSFTPGet($sftpObject, $remoteFile, $localFile = false) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ($sftpObject instanceof \Net_SFTP) {
+        if (is_object($sftpObject)) {
             $result = $sftpObject->get($remoteFile, $localFile); }
         else {
             // @todo make this a log
@@ -161,24 +161,24 @@ class SFTPAllLinux extends Base {
     protected function loadSFTPConnections() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Attempting to load SFTP connections...");
+        $logging->log("Attempting to load SFTP connections...", $this->getModuleName());
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
-                    $logging->log("Skipping {$server["name"]} for box id Include constraint") ;
+                    $logging->log("Skipping {$server["name"]} for box id Include constraint", $this->getModuleName());
                     continue ; } }
             if (isset($this->params["environment-box-id-ignore"])) {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
-                    $logging->log("Skipping {$server["name"]} for box id Ignore constraint") ;
+                    $logging->log("Skipping {$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             $attempt = $this->attemptSFTPConnection($server) ;
             if ($attempt == null) {
-                $logging->log("Connection to Server {$server["target"]} failed.");
+                $logging->log("Connection to Server {$server["target"]} failed.", $this->getModuleName());
                 $server["sftpObject"] = null ; }
             else {
-                $logging->log("Connection to Server {$server["target"]} successful.");
+                $logging->log("Connection to Server {$server["target"]} successful.", $this->getModuleName());
                 $server["sftpObject"] = $attempt ; } }
-        return true;
+            return true;
     }
 
     // @todo it currently looks for both pword and password lets stick to one
