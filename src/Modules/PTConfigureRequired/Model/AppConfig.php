@@ -18,12 +18,8 @@ class AppConfig {
         if (self::checkSettingsExistOrCreateIt($pFile)) {
             $appConfigArray = self::loadProjectFile($pFile);
             if ( $listAdd == true && $listAddKey==null ) {
-                if (!isset($appConfigArray[$variable])) {
-                    $appConfigArray[$variable] = array() ;
-                    $appConfigArray[$variable][] = $value ;
-                } else {
-                    $appConfigArray[$variable][] = $value ;
-                } }
+                if ( is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
+                    $appConfigArray[$variable][] = $value ; } }
             else if ( $listAdd == true && $listAddKey!=null ) {
                 $appConfigArray[$variable][$listAddKey] = $value ; }
             else { $appConfigArray[$variable] = $value ; }
@@ -68,7 +64,7 @@ class AppConfig {
         if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
         if (file_exists($pfile)) {
             $appConfigArraySerialized = file_get_contents($pfile);
-            $decoded = unserialize($appConfigArraySerialized);
+            $decoded = json_decode($appConfigArraySerialized, true);
             return $decoded ; }
         return array();
     }
@@ -76,7 +72,7 @@ class AppConfig {
     public static function saveProjectFile($appConfigArray, $pfile = null, $isLocal = false) {
         if ($isLocal == true) { $pfile = 'papyrusfilelocal' ; }
         if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
-        $appConfigSerialized = serialize($appConfigArray);
+        $appConfigSerialized = json_encode($appConfigArray);
         file_put_contents($pfile, $appConfigSerialized);
         // chmod($pfile, 0777);
     }
@@ -107,20 +103,26 @@ class AppConfig {
     }
 
     private static function loadAppFile() {
-        $appFile = self::getAppBaseDir().DIRECTORY_SEPARATOR.'cleovars';
+        $appFile = self::getVarFileLocation();
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayString = file_get_contents($appFile);
-        $decoded = unserialize($appConfigArrayString);
+        $decoded = json_decode($appConfigArrayString, true);
         return $decoded;
     }
 
     private static function saveAppFile($appConfigArray) {
-        $coded = serialize($appConfigArray);
-        file_put_contents(self::getAppBaseDir().DIRECTORY_SEPARATOR.'cleovars', $coded);
+        $coded = json_encode($appConfigArray);
+        $appFile = self::getVarFileLocation();
+        file_put_contents($appFile, $coded);
+    }
+
+    private static function getVarFileLocation() {
+        $baseDir = self::getAppBaseDir().DS.'ptconfigurevars' ;
+        return $baseDir;
     }
 
     private static function getAppBaseDir() {
-        $baseDir = dirname(__FILE__)."/../../..";
+        $baseDir = PFILESDIR."ptconfigure".DS."ptconfigure";
         return $baseDir;
     }
 
