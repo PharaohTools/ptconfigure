@@ -39,7 +39,7 @@ class InvokeBashSsh {
             $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
             $this->server->password = $ks->findKey() ; }
 		if(file_exists($this->server->password)){
-			$launcher = 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i '.escapeshellarg($this->server->password); }
+			$launcher = 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i '.escapeshellarg($this->server->password); }
         else{
 			$launcher = 'sshpass -p '.escapeshellarg($this->server->password).' ssh -o UserKnownHostsFile=/dev/null ' .
                 '-o StrictHostKeyChecking=no -o PubkeyAuthentication=no'; }

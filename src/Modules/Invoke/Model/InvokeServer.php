@@ -31,11 +31,15 @@ class InvokeServer {
 		$this->port = $port;
 	}
 
-	public function formatPassword($password) {
-		if (substr($password, 0, 1) == '~') {
-			$password = str_replace('~', $_SERVER['HOME'], $password) ; }
-		return $password;
-	}
+    public function formatPassword($password) {
+        if (substr($password, 0, 1) == '~') {
+            $password = str_replace('~', $_SERVER['HOME'], $password) ; }
+        if (substr($password, 0, 4) == 'KS::') {
+            $ksf = new \Model\SshKeyStore();
+            $ks = $ksf->getModel(array("key" => $password, "guess" => "true"));
+            $password = $ks->findKey(); }
+        return $password;
+    }
 
 	/**
 	 * @param mixed $driver
