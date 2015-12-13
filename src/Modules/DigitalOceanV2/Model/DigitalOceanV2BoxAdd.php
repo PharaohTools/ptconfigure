@@ -45,7 +45,8 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                         $addToThisEnvironment = self::askYesOrNo($question); }
 
                     if ($addToThisEnvironment == true) {
-                        for ($i = 0; $i < $this->getServerGroupBoxAmount(); $i++) {
+                        $box_amount=$this->getServerGroupBoxAmount();
+                        for ($i = 0; $i < $box_amount; $i++) {
                             $serverData = array();
                             $serverData["prefix"] = $serverPrefix ;
                             $serverData["envName"] = $envName ;
@@ -157,6 +158,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     }
 
     private function getNewServerFromDigitalOceanV2($serverData) {
+
         $callVars = array() ;
         $callVars["name"] = $serverData["name"];
         $callVars["size"] = $serverData["sizeID"];
@@ -174,6 +176,12 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     }
 
     private function addServerToPapyrus($envName, $data) {
+
+
+        if (!isset($data->droplet)) {
+            var_dump($data) ;
+            return false ;
+        }
 
         if (isset($data) && is_object($data)) {
             $dropletData = $this->getDropletData($data->droplet->id);
