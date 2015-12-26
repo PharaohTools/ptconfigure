@@ -19,8 +19,17 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     }
 
     public function addBox() {
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
         if ($this->askForBoxAddExecute() != true) { return false; }
         $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        if (strlen($this->accessToken)==0) {
+            \Core\BootStrap::setExitCode(1) ;
+            $logging->log("Unable to initialize Digital Ocean credentials.") ;
+            return false ;
+        }
         $serverPrefix = $this->getServerPrefix();
         $environments = \Model\AppConfig::getProjectVariable("environments");
 
@@ -29,9 +38,6 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         foreach ($environments as $environment) {
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 $environmentExists = true ; } }
-
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
 
         if (isset($environmentExists)) {
             foreach ($environments as $environment) {
