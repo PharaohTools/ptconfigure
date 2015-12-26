@@ -152,8 +152,13 @@ class SystemDetectionAllOS extends Base {
             exec($ifComm, $outputArray);
             foreach($outputArray as $outputLine ) {
                 $this->ipAddresses[] = $outputLine ; } }
-        else if (in_array($this->os, array("FreeBSD", "OpenBSD", "Darwin"))) {
-            $ifComm = SUDOPREFIX."ifconfig  | grep -E 'inet.[0-9]' | grep -v '127.0.0.1' | awk '{ print $2}'" ;
+        else if (in_array($this->os, array("FreeBSD", "OpenBSD"))) {
+            $ifComm = SUDOPREFIX." ifconfig  | grep -E 'inet.[0-9]' | grep -v '127.0.0.1' | awk '{ print $2}'" ;
+            exec($ifComm, $outputArray);
+            foreach($outputArray as $outputLine ) {
+                $this->ipAddresses[] = $outputLine ; } }
+        else if (in_array($this->os, array("Darwin"))) {
+            $ifComm = SUDOPREFIX." /sbin/ifconfig  | grep -E 'inet.[0-9]' | grep -v '127.0.0.1' | awk '{ print $2}'" ;
             exec($ifComm, $outputArray);
             foreach($outputArray as $outputLine ) {
                 $this->ipAddresses[] = $outputLine ; } }
