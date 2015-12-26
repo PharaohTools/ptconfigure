@@ -63,11 +63,6 @@ class SFTPNativeWrapperAllLinux extends Base {
         return $res ;
     }
 
-    public function get($remotefile, $localFile) {
-        $res = ssh2_scp_recv($this->connection, $remotefile, $localFile);
-        return $res ;
-    }
-
     public function _is_dir($dn) {
 
         $command = "cd /tmp/" ;

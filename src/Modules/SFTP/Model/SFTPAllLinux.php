@@ -117,7 +117,7 @@ class SFTPAllLinux extends Base {
     protected function doSFTPGet($sftpObject, $remoteFile, $localFile = false) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (is_object($sftpObject)) {
+        if ($sftpObject instanceof \Net_SFTP) {
             $result = $sftpObject->get($remoteFile, $localFile); }
         else {
             // @todo make this a log
