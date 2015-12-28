@@ -6,17 +6,22 @@ use Core\View;
 
 class AutopilotExecutor extends Base {
 
-    public function execute($pageVars, $autopilot ) {
+    public function execute($pageVars, $autopilot, $test = false ) {
         $params = $pageVars["route"]["extraParams"];
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
         // if we don't have an object, its an array of errors
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
 
-        $this->content["package-friendly"] = "Autopilot";
+        $this->content["package-friendly"] = ($test) ? "Autopilot Test Suite" : "Autopilot" ;
         $this->registeredModels = $autopilot->steps ;
         $this->checkForRegisteredModels($params);
-        $this->content["result"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
+
+        $res = ($test) ?
+            $this->executeMyTestsAutopilot($autopilot, $thisModel->params):
+            $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
+
+        $this->content["result"] = $res ;
         return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
@@ -91,7 +96,7 @@ class AutopilotExecutor extends Base {
         else {
             \Core\BootStrap::setExitCode(1);
             $step = array() ;
-            $step["out"] = "No Steps defined in autopilot";
+            $step["out"] = "No Tests defined in autopilot";
             $step["status"] = false ;
             $step["error"] = "Received exit code: 1 " ;
             $dataFromThis[] = $step ;  }
