@@ -25,8 +25,23 @@ class SFTPAllLinux extends Base {
         return $this->performSFTPGet();
     }
 
+    protected function findEnvironmentParam() {
+
+        if (!isset($this->params["environment-name"])) {
+
+            if (isset($this->params["env"]) && $this->params["env"] !=="") {
+                $this->params["environment-name"] = $this->params["environment"] = $this->params["env"] ; }
+
+            if (isset($this->params["environment"]) && $this->params["environment"] !=="") {
+                $this->params["environment-name"] = $this->params["env"] = $this->params["environment"] ; }
+
+            if (isset($this->params["environment-name"]) && $this->params["environment-name"] !=="") {
+                $this->params["environment"] = $this->params["env"] = $this->params["environment-name"] ; } }
+    }
+
     public function performSFTPPut() {
         if ($this->askForSFTPExecute() != true) { return false; }
+        $this->findEnvironmentParam() ;
         $this->populateServers() ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -36,6 +51,7 @@ class SFTPAllLinux extends Base {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("SFTP Put will cancel, no source file", $this->getModuleName());
+            \Core\BootStrap::setExitCode(1) ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
@@ -69,6 +85,7 @@ class SFTPAllLinux extends Base {
 
     public function performSFTPGet() {
         if ($this->askForSFTPExecute() != true) { return false; }
+        $this->findEnvironmentParam() ;
         $this->populateServers();
         $sourceDataPath = $this->getSourceFilePath("remote");
         $targetPath = $this->getTargetFilePath("local");
@@ -110,6 +127,7 @@ class SFTPAllLinux extends Base {
                     $result .= "$s\n" ; } } }
         else {
             $logging->log("No SFTP Object, Connection likely failed", $this->getModuleName());
+            \Core\BootStrap::setExitCode(1) ;
             $result = false; }
         return $result ;
     }
@@ -122,6 +140,7 @@ class SFTPAllLinux extends Base {
         else {
             // @todo make this a log
             $logging->log("No SFTP Object", $this->getModuleName());
+            \Core\BootStrap::setExitCode(1) ;
             $result = false; }
         return $result ;
     }
