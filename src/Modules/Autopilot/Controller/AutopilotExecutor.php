@@ -16,29 +16,88 @@ class AutopilotExecutor extends Base {
         $this->content["package-friendly"] = "Autopilot";
         $this->registeredModels = $autopilot->steps ;
         $this->checkForRegisteredModels($params);
-        $this->content["autoExec"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
+        $this->content["result"] = $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
         return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
     protected function executeMyRegisteredModelsAutopilot($autoPilot, $autopilotParams) {
-        $dataFromThis = "";
-        foreach ($autoPilot->steps as $modelArray) {
-            $currentControls = array_keys($modelArray) ;
-            $currentControl = $currentControls[0] ;
-            $currentActions = array_keys($modelArray[$currentControl]) ;
-            $currentAction = $currentActions[0] ;
-            $modParams = $modelArray[$currentControl][$currentAction] ;
-            $modParams = $this->formatParams(array_merge($modParams, $autopilotParams)) ;
-            $params = array() ;
-            $params["route"] =
-            array(
-                "extraParams" => $modParams ,
-                "control" => $currentControl ,
-                "action" => $currentAction ,
-            ) ;
-            $dataFromThis .= $this->executeControl($currentControl, $params); }
+        $dataFromThis = array();
+        if (isset($autoPilot->steps) && is_array($autoPilot->steps) && count($autoPilot->steps)>0) {
+
+            foreach ($autoPilot->steps as $modelArray) {
+                $currentControls = array_keys($modelArray) ;
+                $currentControl = $currentControls[0] ;
+                $currentActions = array_keys($modelArray[$currentControl]) ;
+                $currentAction = $currentActions[0] ;
+                $modParams = $modelArray[$currentControl][$currentAction] ;
+                $modParams["layout"] = "blank" ;
+                $modParams = $this->formatParams(array_merge($modParams, $autopilotParams)) ;
+                $params = array() ;
+                $params["route"] =
+                    array(
+                        "extraParams" => $modParams ,
+                        "control" => $currentControl ,
+                        "action" => $currentAction ) ;
+                $step = array() ;
+                $step["out"] = $this->executeControl($currentControl, $params);
+                $step["status"] = true ;
+                $step["params"] = $params;
+                if ( \Core\BootStrap::getExitCode() !== 0 ) {
+                    $step["status"] = false ;
+                    $step["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
+                    $dataFromThis[] = $step ;
+                    return $dataFromThis ;  }
+                $dataFromThis[] = $step ; } }
+        else {
+            \Core\BootStrap::setExitCode(1);
+            $step = array() ;
+            $step["out"] = "No Steps defined in autopilot";
+            $step["status"] = false ;
+            $step["error"] = "Received exit code: 1 " ;
+            $dataFromThis[] = $step ;  }
         return $dataFromThis ;
     }
+
+    protected function executeMyTestsAutopilot($autoPilot, $autopilotParams) {
+        $dataFromThis = array() ;
+        if (isset($autoPilot->tests) && is_array($autoPilot->tests) && count($autoPilot->tests)>0) {
+            foreach ($autoPilot->tests as $modelArray) {
+                $currentControls = array_keys($modelArray) ;
+                $currentControl = $currentControls[0] ;
+                $currentActions = array_keys($modelArray[$currentControl]) ;
+                $currentAction = $currentActions[0] ;
+                $modParams = $modelArray[$currentControl][$currentAction] ;
+                $of = array("output-format" => "AUTO") ;
+                $modParams = $this->formatParams(array_merge($modParams, $autopilotParams, $of)) ;
+                $params = array() ;
+                $params["route"] = array(
+                    "extraParams" => $modParams ,
+                    "control" => $currentControl ,
+                    "action" => $currentAction ) ;
+                $dataFromThis .= $this->executeControl($currentControl, $params);
+                if ( \Core\BootStrap::getExitCode() !== 0 ) {
+                        $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
+                        break ; }
+                $step = array() ;
+                $step["out"] = $this->executeControl($currentControl, $params);
+                $step["status"] = true ;
+                $step["params"] = $params;
+                if ( \Core\BootStrap::getExitCode() !== 0 ) {
+                    $step["status"] = false ;
+                    $step["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
+                    $dataFromThis[] = $step ;
+                    return $dataFromThis ;  }
+                $dataFromThis[] = $step ; } }
+        else {
+            \Core\BootStrap::setExitCode(1);
+            $step = array() ;
+            $step["out"] = "No Steps defined in autopilot";
+            $step["status"] = false ;
+            $step["error"] = "Received exit code: 1 " ;
+            $dataFromThis[] = $step ;  }
+        return $dataFromThis ;
+    }
+
 
     private function formatParams($params) {
         $newParams = array();
