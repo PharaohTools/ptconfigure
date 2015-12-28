@@ -25,8 +25,23 @@ class SFTPAllLinux extends Base {
         return $this->performSFTPGet();
     }
 
+    protected function findEnvironmentParam() {
+
+        if (!isset($this->params["environment-name"])) {
+
+            if (isset($this->params["env"]) && $this->params["env"] !=="") {
+                $this->params["environment-name"] = $this->params["environment"] = $this->params["env"] ; }
+
+            if (isset($this->params["environment"]) && $this->params["environment"] !=="") {
+                $this->params["environment-name"] = $this->params["env"] = $this->params["environment"] ; }
+
+            if (isset($this->params["environment-name"]) && $this->params["environment-name"] !=="") {
+                $this->params["environment"] = $this->params["env"] = $this->params["environment-name"] ; } }
+    }
+
     public function performSFTPPut() {
         if ($this->askForSFTPExecute() != true) { return false; }
+        $this->findEnvironmentParam() ;
         $this->populateServers() ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -36,6 +51,7 @@ class SFTPAllLinux extends Base {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("SFTP Put will cancel, no source file", $this->getModuleName());
+            \Core\BootStrap::setExitCode(1) ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
@@ -55,7 +71,7 @@ class SFTPAllLinux extends Base {
                 $logging->log($msg, $this->getModuleName());
                 $logging->log("[".$server["target"]."] SFTP Put Completed...", $this->getModuleName()); }
             else {
-                $logging->log("[".$server["target"]."] Connection failure. Will not execute commands on this box..", $this->getModuleName()); } }
+                $logging->log("[".$server["target"]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
         $logging->log("All SFTP Puts Completed", $this->getModuleName());
         return "All SFTP Puts Completed";
     }
@@ -69,6 +85,7 @@ class SFTPAllLinux extends Base {
 
     public function performSFTPGet() {
         if ($this->askForSFTPExecute() != true) { return false; }
+        $this->findEnvironmentParam() ;
         $this->populateServers();
         $sourceDataPath = $this->getSourceFilePath("remote");
         $targetPath = $this->getTargetFilePath("local");
@@ -109,7 +126,7 @@ class SFTPAllLinux extends Base {
                 foreach ($ar as $s) {
                     $result .= "$s\n" ; } } }
         else {
-            $logging->log("No SFTP Object, Connection likely failed", $this->getModuleName());
+            $logging->log("No SFTP Object, Connection likely failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             $result = false; }
         return $result ;
     }
@@ -121,7 +138,7 @@ class SFTPAllLinux extends Base {
             $result = $sftpObject->get($remoteFile, $localFile); }
         else {
             // @todo make this a log
-            $logging->log("No SFTP Object", $this->getModuleName());
+            $logging->log("No SFTP Object", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             $result = false; }
         return $result ;
     }
@@ -173,7 +190,7 @@ class SFTPAllLinux extends Base {
                     continue ; } }
             $attempt = $this->attemptSFTPConnection($server) ;
             if ($attempt == null) {
-                $logging->log("Connection to Server {$server["target"]} failed.", $this->getModuleName());
+                $logging->log("Connection to Server {$server["target"]} failed.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
                 $server["sftpObject"] = null ; }
             else {
                 $logging->log("Connection to Server {$server["target"]} successful.", $this->getModuleName());
