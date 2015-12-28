@@ -39,3 +39,6 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
     define("BASE_TEMP_DIR", '/tmp/');
     define('BOXDIR', '/ptvirtualize/boxes'.'\\') ;
     define('PIPEDIR', '/opt/ptbuild/pipes') ; }
+
+// LOG LEVELS
+define('LOG_FAILURE_EXIT_CODE', 1) ;
