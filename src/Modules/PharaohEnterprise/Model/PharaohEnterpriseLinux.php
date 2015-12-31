@@ -32,6 +32,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $ray =
             array(
                 array("method"=> array("object" => $this, "method" => "initialiseEnterprise", "params" => array()) ),
+                array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-ldap"))) ),
                 array("method"=> array("object" => $this, "method" => "installEnterprise", "params" => array()) ),
             ) ;
         $this->installCommands = $ray ;
