@@ -75,8 +75,8 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting Pharaoh Enterprise installation...", $this->getModuleName()) ;
 
-        $ldapconn = ldap_connect($pharaoh_auth_host, $pharaoh_auth_port)  ;
-        ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+        $ldapconn = \ldap_connect($pharaoh_auth_host, $pharaoh_auth_port)  ;
+        \ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
 
         if ($ldapconn) {
             $logging->log("Authentication Server Connected...", $this->getModuleName()) ;
@@ -103,7 +103,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
     public function step_two_attempt_bind($ldapconn) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ($bind = ldap_bind($ldapconn, $this->get_bind_user(), $this->apiKey)) {
+        if ($bind = \ldap_bind($ldapconn, $this->get_bind_user(), $this->apiKey)) {
             $logging->log("Authentication server login successful...", $this->getModuleName()) ;
             return $bind ; }
         else {
@@ -118,8 +118,8 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $dn = $this->get_bind_user() ; //"cn=username,o=My Company, c=US"; //the object itself instead of the top search level as in ldap_search
         $filter="(objectclass=*)"; // this command requires some filter
         $justthese = array("uid", "displayname", "mail", "postaladdress", "street"); //the attributes to pull, which is much more efficient than pulling all attributes if you don't do this
-        $sr=ldap_read($ldapconn, $dn, $filter, $justthese);
-        $entry = ldap_get_entries($ldapconn, $sr);
+        $sr= \ldap_read($ldapconn, $dn, $filter, $justthese);
+        $entry = \ldap_get_entries($ldapconn, $sr);
         $newuser["uid"] = $entry[0]["uid"][0] ;
         $newuser["displayname"] = $entry[0]["displayname"][0] ;
         $newuser["mail"] = $entry[0]["mail"][0] ;
