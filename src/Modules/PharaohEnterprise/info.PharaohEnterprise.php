@@ -31,19 +31,19 @@ class PharaohEnterpriseInfo extends PTConfigureBase {
         Installs the latest version of Pharaoh Tools Enterprise Edition
         example: ptconfigure pharaoh-enterprise install -yg
                      --user=example@mail.com
-                     --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
+                     --api-key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
 
         - save-credentials, save-creds
         Save credentials for authenticating with Pharaoh Enterprise Servers silently later
         example: ptconfigure pharaoh-enterprise save-creds -yg
                      --user=example@mail.com
-                     --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
+                     --api-key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
 
         - test-credentials, test-creds
         Test authenticate your credentials with a Pharaoh Enterprise Server
         example: ptconfigure pharaoh-enterprise test-creds -yg
                      --user=phpengine
-                     --key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
+                     --api-key=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345 # API Key
 
 HELPDATA;
       return $help ;
