@@ -93,7 +93,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
             $step_seven_pull_enterprise_result = $this->step_seven_pull_enterprise() ;
             if ($step_seven_pull_enterprise_result==false){ return false ; }
             $logging->log("You have successfully upgraded Pharaoh Configure from Open Source to Enterprise", $this->getModuleName()) ;
-            return true ;}
+            return true ; }
         else {
             $logging->log("Connection to $pharaoh_auth_host failed...", $this->getModuleName()) ;
             return false ; }
@@ -141,9 +141,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
             isset($key_fields["scm_ssh_key_public"])) {
             return $key_fields ; }
         return false ;
-
     }
-
 
     public function step_five_install_ssh_keys($step_four_ssh_key_fields) {
         $loggingFactory = new \Model\Logging();
@@ -160,21 +158,24 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
             $typeString = ucfirst($type) ;
             $logging->log("Checking for existing {$typeString} key...", $this->getModuleName()) ;
             if ($this->does_key_exist($type)) {
-                $logging->log("{$typeString} Enterprise Key exists in file system, checking validity...", $this->getModuleName()) ;
+                $logging->log("{$typeString} Enterprise Key exists in file system, checking validity...",
+                    $this->getModuleName() ) ;
                 $key_local_data = file_get_contents($this->get_key_path($type)) ;
                 if ($key_local_data == $step_four_ssh_key_fields["scm_ssh_key_{$type}"]) {
                     $logging->log("{$typeString} Enterprise Key in file system is valid...", $this->getModuleName()) ;
                     continue ; }
                 else {
-                    $logging->log("{$typeString} Enterprise Key in file system is invalid - overwriting...", $this->getModuleName()) ;
+                    $logging->log("{$typeString} Enterprise Key in file system is invalid - overwriting...",
+                        $this->getModuleName() ) ;
                     $res = $this->add_key_to_ptconfigure($type, $step_four_ssh_key_fields["scm_ssh_key_{$type}"]) ;
                     if ($res == true) { continue ; }
                     else { return false ;} } }
             else {
-                $logging->log("{$typeString} Enterprise Key does not exist in file system...", $this->getModuleName()) ;
+                $logging->log("{$typeString} Enterprise Key does not exist in file system...",
+                    $this->getModuleName()) ;
                 $res = $this->add_key_to_ptconfigure($type, $step_four_ssh_key_fields["scm_ssh_key_{$type}"]) ;
                 if ($res == true) { continue ; }
-                else { return false ;} }  }
+                else { return false ; } }  }
 
         $logging->log("SSH Directory {$ssh_dir} does not exist, creating...", $this->getModuleName()) ;
         $comm = "chmod 0700 /opt/ptconfigure/.ssh/enterprise_key*" ;
