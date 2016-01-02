@@ -20,6 +20,7 @@ class PHPSSHUbuntu extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("libssh2-1-dev"))) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("PECL", array("ssh2-beta"))) ),
+            array("method"=> array("object" => $this, "method" => "askStatus", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("libssh2-1-dev"))) ),
