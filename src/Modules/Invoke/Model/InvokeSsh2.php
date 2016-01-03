@@ -56,11 +56,15 @@ class InvokeSsh2 extends Base {
                 $res = $phpSSH->ensureInstalled();
                 if ($res == false) {
                     $logging->log('Cannot use the PHP Native SSH Driver.', "Invoke - PHP SSH") ;
-                    \Core\BootStrap::setExitCode(1) ;
-                    return false; } }
+                    return false; }
+                else if ($res == true && !function_exists("ssh2_connect")) {
+                    $logging->log('Unable to access PHP SSH Functions. Possible restart required.', "Invoke - PHP SSH") ;
+                    return false; }
+                else {
+                    // this will go fine to the connection bit
+                } }
             else {
                 $logging->log('Cannot use the PHP Native SSH Driver.', "Invoke - PHP SSH") ;
-                \Core\BootStrap::setExitCode(1) ;
                 return false; } }
         if (!($this->connection = ssh2_connect($this->server->host, $this->server->port))) {
             $logging->log('Cannot connect to server', "Invoke - PHP SSH") ;
