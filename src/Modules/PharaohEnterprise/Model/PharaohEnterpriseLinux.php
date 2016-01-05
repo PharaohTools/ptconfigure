@@ -33,6 +33,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
             array(
                 array("method"=> array("object" => $this, "method" => "initialiseEnterprise", "params" => array()) ),
                 array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("php5-ldap"))) ),
+                array("method"=> array("object" => $this, "method" => "installDependencies", "params" => array()) ),
                 array("method"=> array("object" => $this, "method" => "installEnterprise", "params" => array()) ),
             ) ;
         $this->installCommands = $ray ;
@@ -65,6 +66,27 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $question = 'Enter Pharaoh Enterprise User Name';
         return self::askForInput($question, true);
     }
+
+    protected function installDependencies() {
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
+        $gksf = new \Model\GitKeySafe() ;
+        $gks = $gksf->getModel($this->params) ;
+        $res = $gks->install() ;
+        if ($res == false) {
+
+            $logging->log("Dependency git key safe failed", $this->getModuleName()) ;
+            return false ; }
+
+//        $gksf = new \Model\GitKeySafe() ;
+//        $gks = $gksf->getModel($this->params) ;
+//        $res = $gks->install() ;
+//        if ($res == false) { return false ;}
+
+    }
+
 
     protected function installEnterprise() {
 
