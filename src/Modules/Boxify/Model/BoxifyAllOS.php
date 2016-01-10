@@ -171,12 +171,12 @@ class BoxifyAllOS extends BaseLinuxApp {
     protected function checkCurNodeStatuses($curboxes) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Checking current node statuses in environment {$curboxes[0]["any-app"]["gen_env_name"]}", $this->getModuleName()) ;
+        $logging->log("Checking current node statuses in environment {$curboxes["any-app"]["gen_env_name"]}", $this->getModuleName()) ;
 
         $results = array() ;
 
         $i = 0 ;
-        foreach($curboxes[0]["servers"] as $oneNode) {
+        foreach($curboxes["servers"] as $oneNode) {
             $logging->log("Testing Node {$oneNode["name"]} from provider {$oneNode["provider"]}", $this->getModuleName()) ;
 
             $providerParams = $this->params ;
