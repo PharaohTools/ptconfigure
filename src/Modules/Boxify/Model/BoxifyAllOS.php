@@ -156,7 +156,7 @@ class BoxifyAllOS extends BaseLinuxApp {
 //            return false ;
         }
         else {
-            $logging->log("box group sizes match", $this->getModuleName()) ;
+            $logging->log("Box group sizes match", $this->getModuleName()) ;
             if ($cur_statuses["all_stats"] == true) {
                 $logging->log("All environment nodes in correct status", $this->getModuleName()) ;
                 return true ; }
