@@ -52,7 +52,17 @@ class BoxifyListing extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $envs = \Model\AppConfig::getProjectVariable("environments");
-        return (is_null($envs)) ? null : $envs ;
+        if (is_array($envs)) {
+//            var_dump("target 2", is_array($envs) ) ;
+            foreach ($envs as $env) {
+//                var_dump("target 3", $env ) ;
+                if ($env["any-app"]["gen_env_name"]=="{$this->params["environment-name"]}") {
+//                    var_dump("target 4", $env["servers"][0]["target"] ) ;
+//                    $ip_address = $env["servers"][0]["target"] ;
+                    $logging->log("Lister has found a matching environment", $this->getModuleName()) ;
+                    return $env ; } } }
+        $logging->log("Lister could not find a matching environment", $this->getModuleName()) ;
+        return false ;
     }
 
 }
