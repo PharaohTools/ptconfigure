@@ -82,7 +82,7 @@ class Installer {
             echo "Using Windows, so adding PHP to path...\n" ;
             $sd = getenv('SystemDrive') ;
             $path = getenv('PATH') ;
-            $php5path = $sd.'\php5' ;
+            $php5path = $sd.'\php' ;
             if (strpos($path, $php5path) != false) {
                 echo "PHP is already in the path\n" ;
                 return ; }
