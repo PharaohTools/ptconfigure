@@ -31,8 +31,8 @@ class Base {
     protected $versionLatestCommand;
 
     public function __construct($params) {
-        if (PHP_OS =="Windows") {
-            $this->tempDir =  'C:\tmp'; }
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $this->tempDir =  getenv('TEMP'); }
         else {
             $this->tempDir =  '/tmp'; }
         $this->autopilotDefiner = $this->getModuleName() ;
