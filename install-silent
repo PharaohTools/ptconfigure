@@ -87,7 +87,7 @@ class Installer {
                 echo "PHP is already in the path\n" ;
                 return ; }
             $path .= ';'.$php5path ;
-            $comm = 'setx PATH "'.$path.'" /M' ;
+            $comm = 'start /wait cmd /c setx PATH "'.$path.'" /M' ;
             self::executeAndOutput($comm) ;
             echo $comm."\n" ; }
     }
@@ -137,7 +137,7 @@ class Installer {
                 echo "Program Executor directory is already in the path\n" ;
                 return ; }
             $path .= ';'.$this->programExecutorFolder ;
-            $comm = 'setx PATH "'.$path.'" /M' ;
+            $comm = 'start /wait cmd /c setx PATH "'.$path.'" /M' ;
             self::executeAndOutput($comm) ;
             echo $comm."\n" ; }
     }
