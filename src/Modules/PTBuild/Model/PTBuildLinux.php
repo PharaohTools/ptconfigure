@@ -66,7 +66,7 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/ptbuildvars /tmp/ptbuild-settings/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt /tmp/ptbuild-settings/" ;
 //            $ray[]["method"] = array("object" => $this, "method" => "install", "params" => array("params", "jenkins") ) ;
-            $ray[]["command"][] = SUDOPREFIX."ptconfigure ptbuild install -yg --with-webfaces --vhe-url=ptbuild.pharaohtools.com --vhe-ip-port=198.211.118.37:80" ;
+            $ray[]["command"][] = SUDOPREFIX."ptconfigure ptbuild install -yg --with-webfaces --vhe-url=ptbuild.local --vhe-ip-port=127.0.0.1" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptbuild/keys/*" ;
