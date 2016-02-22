@@ -76,14 +76,15 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $gks = $gksf->getModel($this->params) ;
         $res = $gks->install() ;
         if ($res == false) {
-
             $logging->log("Dependency git key safe failed", $this->getModuleName()) ;
             return false ; }
 
-//        $gksf = new \Model\GitKeySafe() ;
-//        $gks = $gksf->getModel($this->params) ;
-//        $res = $gks->install() ;
-//        if ($res == false) { return false ;}
+        $phpldapf = new \Model\PHPLDAP() ;
+        $phpldap = $phpldapf->getModel($this->params) ;
+        $res = $phpldap->install() ;
+        if ($res == false) {
+            $logging->log("Dependency PHP LDAP Module failed", $this->getModuleName()) ;
+            return false ; }
 
     }
 
@@ -96,6 +97,10 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting Pharaoh Enterprise installation...", $this->getModuleName()) ;
+
+        if (!function_exists('ldap_connect')) {
+            $logging->log("Authentication Server Connected...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
 
         $ldapconn = \ldap_connect($pharaoh_auth_host, $pharaoh_auth_port)  ;
         \ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
