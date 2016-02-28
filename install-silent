@@ -257,7 +257,7 @@ COMPLETION;
     private function populateExecutorFile() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $this->bootStrapData =
-                "@echo off\r\n%systemdrive%\\php\\php.exe \"".$this->programDataFolder.DS."src".DS."Bootstrap.php".'" %*' ; }
+                "@echo off\r\npath\r\n%systemdrive%\\php\\php.exe \"".$this->programDataFolder.DS."src".DS."Bootstrap.php".'" %*' ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->bootStrapData =  "#!".DS."usr".DS."bin".DS."php\n" ;
             $this->bootStrapData .=
