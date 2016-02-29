@@ -9,18 +9,27 @@ class BasePHPApp extends Base {
     protected $preuninstallCommands;
     protected $postinstallCommands;
     protected $postuninstallCommands;
+    protected $executorPath ;
 
     public function __construct($params) {
         parent::__construct($params);
+        $this->findExecutorPath();
         $this->populateStartDirectory();
         $this->populateCompletion();
     }
 
     public function initialize() {
         $this->populateTitle();
-        $this->versionInstalledCommand = "git --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
-        $this->versionRecommendedCommand = "git --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
-        $this->versionLatestCommand = "git --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $this->versionInstalledCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $this->versionRecommendedCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $this->versionLatestCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+    }
+
+    protected function findExecutorPath() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $this->executorPath = '"%programfiles%\git\cmd\git.exe" ' ; }
+        else {
+            $this->executorPath = "/usr/bin/git " ; }
     }
 
     protected function populateStartDirectory() {
@@ -175,18 +184,23 @@ class BasePHPApp extends Base {
     }
 
     protected function askForProgramDataFolder() {
+        $default_dir =  PFILESDIR.DS.$this->programNameMachine;
         if (isset($this->params["program-data-directory"])) { return $this->params["program-data-directory"] ; }
         $question = 'What is the program data directory?';
-        $question .= ' Found "/opt/'.$this->programNameMachine.'" - use this? (Enter nothing for yes, no end slash)';
-        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/opt/$this->programNameMachine" : self::askForInput($question);
-        return ($input=="") ? "/opt/$this->programNameMachine" : $input ;
+        $question .= ' Found "'.$default_dir.'" - use this? (Enter nothing for yes, no end slash)';
+        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? $default_dir : self::askForInput($question);
+        return ($input=="") ? $default_dir : $input ;
     }
 
     protected function askForProgramExecutorFolder(){
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $default_dir =  PFILESDIR; }
+        else {
+            $default_dir =  '/usr/bin'; }
         $question = 'What is the program executor directory?';
-        $question .= ' Found "/usr/bin" - use this? (Enter nothing for yes, No Trailing Slash)';
-        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? "/usr/bin" : self::askForInput($question);
-        return ($input=="") ? "/usr/bin" : $input ;
+        $question .= ' Found "'.$default_dir.'" - use this? (Enter nothing for yes, No Trailing Slash)';
+        $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? $default_dir : self::askForInput($question);
+        return ($input=="") ? $default_dir : $input ;
     }
 
     protected function populateExecutorFile() {
@@ -194,7 +208,7 @@ class BasePHPApp extends Base {
         $arrayOfPaths = scandir($this->programDataFolder);
         $pathStr = "" ;
         foreach ($arrayOfPaths as $path) {
-            $pathStr .= $this->programDataFolder.'/'.$path . PATH_SEPARATOR ; }
+            $pathStr .= $this->programDataFolder.DS.$path . PATH_SEPARATOR ; }
         $this->bootStrapData = "#!/usr/bin/php
 <?php
 set_include_path('" . $pathStr . "'.get_include_path() );
@@ -204,8 +218,12 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
 
     protected function deleteProgramDataFolderAsRootIfExists(){
         if ( is_dir($this->programDataFolder)) {
-          $command = 'rm -rf '.$this->programDataFolder;
-          self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
+            if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+                $del_comm =  'del /S /Q '; }
+            else {
+                $del_comm =  'rm -rf '; }
+            $command = $del_comm.$this->programDataFolder;
+            self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
         return true;
     }
 
@@ -214,26 +232,42 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             mkdir($this->programDataFolder,  0777, true); }
     }
 
-    protected function copyFilesToProgramDataFolder(){
-        $command = 'cp -r '.$this->tempDir.DIRECTORY_SEPARATOR.$this->programNameMachine.
+    protected function copyFilesToProgramDataFolder() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $copy_comm =  'xcopy /q /s /e /y '; }
+        else {
+            $copy_comm =  'cp -r '; }
+        $command = $copy_comm.$this->tempDir.DS.$this->programNameMachine.
             DIRECTORY_SEPARATOR.'* '.$this->programDataFolder;
         return self::executeAndOutput($command, "Program Data folder populated");
     }
 
     protected function deleteExecutorIfExists(){
-        $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $del_comm =  'del /S /Q '; }
+        else {
+            $del_comm =  'rm -rf '; }
+        $command = $del_comm.$this->programExecutorFolder.DS.$this->programNameMachine;
         self::executeAndOutput($command, "Program Executor Deleted if existed");
         return true;
     }
 
     protected function deleteInstallationFiles(){
-        $command = 'rm -rf '.$this->tempDir.'/'.$this->programNameMachine;
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $del_comm =  'del /S /Q '; }
+        else {
+            $del_comm =  'rm -rf '; }
+        $command = $del_comm.$this->tempDir.DS.$this->programNameMachine;
         self::executeAndOutput($command);
     }
 
     protected function saveExecutorFile(){
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            $file_ext =  '.cmd'; }
+        else {
+            $file_ext =  ''; }
         $this->populateExecutorFile();
-        return file_put_contents($this->programExecutorFolder.'/'.$this->programNameMachine, $this->bootStrapData);
+        return file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.$file_ext, $this->bootStrapData);
     }
 
   protected function changePermissions(){
@@ -253,7 +287,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
   protected function doGitCommand(){
     $data = "";
     foreach ($this->fileSources as $fileSource) {
-      $command  = 'git clone ';
+      $command  = $this->executorPath.' clone ';
       if (isset($fileSource[3]) &&
         $fileSource[3] = true) { $command .= '--recursive ';}
       if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
