@@ -15,35 +15,35 @@ class ApacheVHostEditor extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action=="list") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToListVHost();
+            $this->content["result"] = $thisModel->askWhetherToListVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         if ($action=="add") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToCreateVHost();
+            $this->content["result"] = $thisModel->askWhetherToCreateVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         if ($action=="add-balancer") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToCreateBalancerVHost();
+            $this->content["result"] = $thisModel->askWhetherToCreateBalancerVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="remove" || $action=="rm") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToDeleteVHost();
+            $this->content["result"] = $thisModel->askWhetherToDeleteVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="enable" || $action=="en") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToEnableVHost();
+            $this->content["result"] = $thisModel->askWhetherToEnableVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="disable" || $action=="dis") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToDisableVHost();
+            $this->content["result"] = $thisModel->askWhetherToDisableVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="enable-default" || $action=="en-default") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToEnableDefaultVHost();
+            $this->content["result"] = $thisModel->askWhetherToEnableDefaultVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         else if ($action=="disable-default" || $action=="dis-default") {
-            $this->content["ApacheVHostEditorResult"] = $thisModel->askWhetherToDisableDefaultVHost();
+            $this->content["result"] = $thisModel->askWhetherToDisableDefaultVHost();
             return array ("type"=>"view", "view"=>"ApacheVHostEditor", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid VHost Creator Action";

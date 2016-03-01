@@ -15,19 +15,19 @@ class ApacheControl extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action=="start") {
-            $this->content["ApacheControlResult"] = $thisModel->askWhetherToStartApache();
+            $this->content["result"] = $thisModel->askWhetherToStartApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         else if ($action=="stop") {
-            $this->content["ApacheControlResult"] = $thisModel->askWhetherToStopApache();
+            $this->content["result"] = $thisModel->askWhetherToStopApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         else if ($action=="restart") {
-            $this->content["ApacheControlResult"] = $thisModel->askWhetherToRestartApache();
+            $this->content["result"] = $thisModel->askWhetherToRestartApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         else if ($action=="reload") {
-            $this->content["ApacheControlResult"] = $thisModel->askWhetherToReloadApache();
+            $this->content["result"] = $thisModel->askWhetherToReloadApache();
             return array ("type"=>"view", "view"=>"ApacheControl", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid Apache Control Action";
