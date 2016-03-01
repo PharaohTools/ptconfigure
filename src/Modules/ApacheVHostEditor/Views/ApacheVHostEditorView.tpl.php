@@ -1,2 +1,1 @@
-<?php echo $pageVars["ApacheVHostEditorResult"]; ?>
-Apache VHost Editor Finished
+<?php echo ($pageVars["result"] == true ) ? "Success" : "Failure" ; ?> Apache VHost Editor Finished

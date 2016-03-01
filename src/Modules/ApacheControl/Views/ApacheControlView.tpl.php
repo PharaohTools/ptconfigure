@@ -1,2 +1,1 @@
-<?php echo $pageVars["ApacheControlResult"]; ?>
-Apache Controller Finished
+<?php echo ($pageVars["result"] == true ) ? "Success" : "Failure" ; ?> Apache Controller Finished

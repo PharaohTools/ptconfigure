@@ -1,2 +1,1 @@
-<?php echo $pageVars["result"]; ?>
-Database Configure Actions Finished
+<?php echo ($pageVars["result"] == true ) ? "Success" : "Failure" ; ?> Database Configure Actions Finished
