@@ -52,13 +52,9 @@ function doAFileMove($original_module_file, $original_module, $new_mod) {
     global $translates ;
     foreach ($translates as $search => $replace) {
         $file_data = str_replace($search, $replace, $file_data) ;  }
-//    var_dump("tf1:",$target_file) ;
-    $target_file = translateFilename($target_file) ;
-//    var_dump("tf2:",$target_file, "fd:", $file_data) ;
-//    die() ;
-    file_put_contents($target_file, $file_data) ;
-
-
+//    $target_file = translateFilename($target_file) ;
+    $res = file_put_contents($target_file, $file_data) ;
+//    var_dump("res:", $res, "tf", $target_file, "fd", $file_data) ;
 }
 
 function doADirMove($dir, $original_module, $target_dir, $new_module) {
@@ -67,6 +63,7 @@ function doADirMove($dir, $original_module, $target_dir, $new_module) {
     echo "Doing a dir move from ".$dir." to ".$target_dir." \n" ;
     echo "Making $target_dir \n" ;
     mkdir($target_dir, 0777, true) ;
+    chmod($target_dir, 0777) ;
     $original_module_files = array_slice(scandir($dir), 2);
     foreach ($original_module_files as $original_module_file) {
         if (is_dir($dir.DIRECTORY_SEPARATOR.$original_module_file)) {
