@@ -127,7 +127,7 @@ class Base {
         if ( count($errors) > 0 ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($params) ;
-            foreach ($errors as $error) { $logging->log($error); }
+            foreach ($errors as $error) { $logging->log($error, "Autopilot", LOG_FAILURE_EXIT_CODE); }
             return $errors; }
         // echo "All required Modules found, all with compatible Models"."\n";
         return true ;
