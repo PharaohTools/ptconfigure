@@ -15,13 +15,17 @@ class AutopilotExecutor extends Base {
 
         $this->content["package-friendly"] = ($test) ? "Autopilot Test Suite" : "Autopilot" ;
         $this->registeredModels = $autopilot->steps ;
-        $this->checkForRegisteredModels($params);
+        $res1 = $this->checkForRegisteredModels($params);
+        if ($res1 !== true) {
+            $this->content["result"] = false ;
+            return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
+        }
 
-        $res = ($test) ?
+        $res2 = ($test) ?
             $this->executeMyTestsAutopilot($autopilot, $thisModel->params):
             $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
 
-        $this->content["result"] = $res ;
+        $this->content["result"] = $res2 ;
         return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
