@@ -93,6 +93,10 @@ class AutopilotDSLAllLinux extends BaseLinuxApp {
             $words_in_line = $this->getLongWords($stend_sp_free) ;
             if (count($words_in_line)==3) {
                 $params[$words_in_line[0]] = $words_in_line[2] ; }
+            if (count($words_in_line)==2) {
+                $params[$words_in_line[0]] = $words_in_line[1] ; }
+            if (count($words_in_line)==1) {
+                $params[$words_in_line[0]] = "true" ; }
             if (strlen($stend_sp_free)==0) {
                 break ; }
             $current = $i ; }
