@@ -50,9 +50,9 @@ class WinExeWindows extends BasePackager {
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            unlink($this->tempDir."temp.exe") ;
-            file_get_contents($requestingModel->packageUrl, $this->tempDir."temp.exe") ;
-            $out = $this->executeAndOutput($this->tempDir."temp.exe");
+            unlink($this->tempDir.DS."temp.exe") ;
+            file_get_contents($requestingModel->packageUrl, $this->tempDir.DS."temp.exe") ;
+            $out = $this->executeAndOutput($this->tempDir.DS."temp.exe");
             if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly") ; }
             else if (strpos($out, "is already the newest version.") != false) {
