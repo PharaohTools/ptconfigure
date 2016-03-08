@@ -326,13 +326,14 @@ COMPLETION;
             isset($this->statusCommandExpects) && !is_null($this->statusCommandExpects)) {
             $status = ($this->executeAndLoad("$this->statusCommand &") == $this->statusCommandExpects) ? true : false ; }
         else if (isset($this->statusCommand) && !is_null($this->statusCommand)) {
-            $status = ($this->executeAsShell($this->statusCommand) == 0) ? true : false ; }
+            $res = $this->executeAndGetReturnCode($this->statusCommand, false, true) ;
+            $status = ($res["rc"] == 0) ? true : false ; }
         else {
             $status = ($this->executeAndGetReturnCode("{$this->defaultStatusCommandPrefix} {$this->programNameMachine}") == 0) ? true : false ; }
         $inst = ($status == true) ? "Installed" : "Not Installed " ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Module ".$this->getModuleName()." reports itself as {$inst}") ;
+        $logging->log("Module ".$this->getModuleName()." reports itself as {$inst}", $this->getModuleName()) ;
         return $status ;
     }
 
