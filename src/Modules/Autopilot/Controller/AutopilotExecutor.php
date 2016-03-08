@@ -34,7 +34,10 @@ class AutopilotExecutor extends Base {
         if (isset($autoPilot->steps) && is_array($autoPilot->steps) && count($autoPilot->steps)>0) {
             $steps = $this->orderSteps($autoPilot->steps);
             foreach ($steps as $modelArray) {
-                $dataFromThis[] = $this->executeStep($modelArray, $autopilotParams) ; } }
+                $step_out = $this->executeStep($modelArray, $autopilotParams) ;
+                $dataFromThis[] = $step_out ;
+                if ($step_out["status"]==false ) {
+                    return $dataFromThis ;  } } }
         else {
             \Core\BootStrap::setExitCode(1);
             $step = array() ;
@@ -98,8 +101,7 @@ class AutopilotExecutor extends Base {
         if ( \Core\BootStrap::getExitCode() !== 0 ) {
             $step["status"] = false ;
             $step["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
-            $dataFromThis[] = $step ;
-            return $dataFromThis ;  }
+            return $step ;  }
 
         return $step ;
 
