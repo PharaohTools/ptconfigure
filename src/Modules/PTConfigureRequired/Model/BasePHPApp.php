@@ -56,16 +56,14 @@ class BasePHPApp extends Base {
     $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToInstallPHPAppToScreen();
     if (!$doInstall) { return false; }
-    $this->install();
-    return true;
+      return $this->install();
   }
 
   protected function performPHPAppUnInstall() {
     $doUnInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
       true : $this->askWhetherToUnInstallPHPAppToScreen();
     if (!$doUnInstall) { return false; }
-    $this->unInstall();
-    return true;
+      return $this->unInstall();
   }
 
     public function ensureInstalled(){
@@ -96,11 +94,11 @@ class BasePHPApp extends Base {
                 $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                 if ($recVersion->isCompatible()) {
                     $logging->log("Requested version {$recVersion->shortVersionNumber} matches constraints, installing", $this->getModuleName()) ;
-                    $this->install() ;  }
+                    return $this->install() ;  }
                 else {
                     // @todo check if requested version is available
                     $logging->log("Installed version {$this->getVersion()} does not match constraint, uninstalling", $this->getModuleName()) ;
-                    $this->unInstall() ;
+                    return $this->unInstall() ;
                     /* @todo do a proper uninstall and install right version */ } } }
         else { // not checking version
             $logging->log("Ensure module install is not checking versions", $this->getModuleName()) ;
@@ -108,11 +106,11 @@ class BasePHPApp extends Base {
                 $logging->log("Not installing as already installed", $this->getModuleName()) ; }
             else {
                 $logging->log("Installing as not installed", $this->getModuleName()) ;
-                $this->install(); } }
+                return $this->install(); } }
         return true;
     }
 
-    public function install($autoPilot = null) {
+    public function install() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
@@ -120,26 +118,24 @@ class BasePHPApp extends Base {
         if (isset($this->preinstallCommands) && is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $logging->log("Executing Pre Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("pre") ; }
-        $this->programDataFolder = ($autoPilot)
-          ? $autoPilot->{$this->getModuleName()."InstallDirectory"}
-          : $this->askForProgramDataFolder();
-        $this->programExecutorFolder = ($autoPilot)
-          ? $autoPilot->{$this->getModuleName()."ExecutorDirectory"}
-          : $this->askForProgramExecutorFolder();
-        $this->doGitCommandWithErrorCheck();
-        $this->deleteProgramDataFolderAsRootIfExists();
-        $this->makeProgramDataFolderIfNeeded();
-        $this->copyFilesToProgramDataFolder();
-        $this->deleteExecutorIfExists();
-        $this->populateExecutorFile();
-        $this->saveExecutorFile();
-        $this->deleteInstallationFiles();
-        $this->changePermissions();
+        $this->programDataFolder = $this->askForProgramDataFolder();
+        $this->programExecutorFolder = $this->askForProgramExecutorFolder();
+        if ($this->deleteProgramDataFolderAsRootIfExists() == false) { return false ; }
+        if ($this->doGitCommand() == false) { return false ; }
+        if ($this->makeProgramDataFolderIfNeeded() == false) { return false ; }
+        if ($this->copyFilesToProgramDataFolder() == false) { return false ; }
+        $de = $this->deleteExecutorIfExists() ;
+        if ($de == false) { return false ; }
+        if ($this->populateExecutorFile() == false) { return false ; }
+        if ($this->saveExecutorFile() == false) { return false ; }
+        if ($this->deleteInstallationFiles() == false) { return false ; }
+        if ($this->changePermissions() == false) { return false ; }
         if ($this->postInstExists()) {
             $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("post") ;  }
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
-        $this->showCompletion();
+        $this->showCompletion() ;
+        return true ;
     }
 
     private function postInstExists() {
@@ -160,9 +156,10 @@ class BasePHPApp extends Base {
           ? $autoPilot->{$this->autopilotDefiner}
           : $this->askForProgramDataFolder();
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-        $this->deleteProgramDataFolderAsRootIfExists();
-        $this->deleteExecutorIfExists();
-        $this->showCompletion();
+        if ($this->deleteProgramDataFolderAsRootIfExists() == false) { return false ; }
+        if ($this->deleteExecutorIfExists() == false) { return false ; }
+        if ($this->showCompletion() == false) { return false ; }
+        return true ;
     }
 
     protected function showTitle() {
@@ -184,7 +181,7 @@ class BasePHPApp extends Base {
     }
 
     protected function askForProgramDataFolder() {
-        $default_dir =  PFILESDIR.DS.$this->programNameMachine;
+        $default_dir =  PFILESDIR.$this->programNameMachine;
         if (isset($this->params["program-data-directory"])) { return $this->params["program-data-directory"] ; }
         $question = 'What is the program data directory?';
         $question .= ' Found "'.$default_dir.'" - use this? (Enter nothing for yes, no end slash)';
@@ -204,7 +201,7 @@ class BasePHPApp extends Base {
     }
 
     protected function populateExecutorFile() {
-        if (isset($this->params["no-executor"])) { return ; }
+        if (isset($this->params["no-executor"])) { return true ; }
         $arrayOfPaths = scandir($this->programDataFolder);
         $pathStr = "" ;
         foreach ($arrayOfPaths as $path) {
@@ -214,54 +211,96 @@ class BasePHPApp extends Base {
 set_include_path('" . $pathStr . "'.get_include_path() );
 require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTargetPath."');\n
 ?>";
+        return true ;
     }
 
-    protected function deleteProgramDataFolderAsRootIfExists(){
-        if ( is_dir($this->programDataFolder)) {
+    protected function deleteProgramDataFolderAsRootIfExists($force_dir=null){
+        $del_dir = ($force_dir==null) ? $this->programDataFolder : $force_dir ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Checking for existing data folder to delete {$del_dir}", $this->getModuleName()) ;
+        if ( is_dir($del_dir)) {
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
                 $del_comm =  'del /S /Q '; }
             else {
-                $del_comm =  'rm -rf '; }
-            $command = $del_comm.$this->programDataFolder;
-            self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted if existed"); }
+                $del_comm =  SUDOPREFIX.' rm -rf '; }
+            $command = $del_comm.$del_dir;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error deleting data folder {$del_dir}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; }
+            $logging->log("Data folder {$del_dir} deleted", $this->getModuleName()) ;
+            return true;}
+        $logging->log("No data folder to delete {$del_dir}", $this->getModuleName()) ;
         return true;
     }
 
+
     protected function makeProgramDataFolderIfNeeded(){
         if (!file_exists($this->programDataFolder)) {
-            mkdir($this->programDataFolder,  0777, true); }
+            $res = mkdir($this->programDataFolder,  0777, true);
+            return ($res==false) ? false : true ; }
+        return true ;
     }
 
     protected function copyFilesToProgramDataFolder() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Preparing to copy to Program Data folder", $this->getModuleName()) ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $copy_comm =  'xcopy /q /s /e /y '; }
         else {
             $copy_comm =  'cp -r '; }
         $command = $copy_comm.$this->tempDir.DS.$this->programNameMachine.
             DIRECTORY_SEPARATOR.'* '.$this->programDataFolder;
-        return self::executeAndOutput($command, "Program Data folder populated");
-    }
-
-    protected function deleteExecutorIfExists(){
-        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $del_comm =  'del /S /Q '; }
-        else {
-            $del_comm =  'rm -rf '; }
-        $command = $del_comm.$this->programExecutorFolder.DS.$this->programNameMachine;
-        self::executeAndOutput($command, "Program Executor Deleted if existed");
+        $rc = self::executeAndGetReturnCode($command, true, true);
+        if ($rc["rc"] !== 0) {
+            $logging->log("Error copying to Program Data folder", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        $logging->log("Program Data folder deleted", $this->getModuleName()) ;
         return true;
     }
 
+    protected function deleteExecutorIfExists(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Preparing to delete executor if it exists", $this->getModuleName()) ;
+        if (file_exists($this->programExecutorFolder.DS.$this->programNameMachine)) {
+            if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+                $del_comm =  'del /S /Q '; }
+            else {
+                $del_comm =  'rm -rf '; }
+            $command = $del_comm.$this->programExecutorFolder.DS.$this->programNameMachine;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error Deleting Program Executor", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; }
+            $logging->log("Program Executor deleted", $this->getModuleName()) ;
+            return true; }
+        else {
+            $logging->log("No Program Executor To Delete", $this->getModuleName()) ;
+            return true ;}
+    }
+
     protected function deleteInstallationFiles(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Preparing to delete Installation files", $this->getModuleName()) ;
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $del_comm =  'del /S /Q '; }
         else {
             $del_comm =  'rm -rf '; }
-        $command = $del_comm.$this->tempDir.DS.$this->programNameMachine;
-        self::executeAndOutput($command);
+        $command = $del_comm.BASE_TEMP_DIR.DS.$this->programNameMachine;
+        $rc = self::executeAndGetReturnCode($command, true, true);
+        if ($rc["rc"] !== 0) {
+            $logging->log("Error deleting installation files", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        $logging->log("Installation files deleted", $this->getModuleName()) ;
+        return true ;
     }
 
     protected function saveExecutorFile(){
+        if (isset($this->params["no-executor"])) { return true ; }
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $file_ext =  '.cmd'; }
         else {
@@ -271,32 +310,56 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
     }
 
   protected function changePermissions(){
-    $command = "chmod -R 775 $this->programDataFolder";
-    self::executeAndOutput($command);
-    $command = "chmod 775 $this->programExecutorFolder/$this->programNameMachine";
-    self::executeAndOutput($command);
+      if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+          return true ; }
+      $loggingFactory = new \Model\Logging();
+      $logging = $loggingFactory->getModel($this->params);
+      $logging->log("Preparing to change file permissions", $this->getModuleName()) ;
+    $command = "chmod -R +x $this->programDataFolder";
+    $this->executeAndOutput($command);
+      $rc = self::executeAndGetReturnCode($command, true, true);
+      if ($rc["rc"] !== 0) {
+          $logging->log("Error changing file permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+          return false ; }
+      if (isset($this->params["no-executor"])) { return true ; }
+    $command = "chmod +x $this->programExecutorFolder/$this->programNameMachine";
+      $rc = self::executeAndGetReturnCode($command, true, true);
+      if ($rc["rc"] !== 0) {
+          $logging->log("Error changing executor permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+          return false ; }
+      $logging->log("Changing permissions complete", $this->getModuleName()) ;
+      return true ;
   }
 
+    // keep method for BC
   protected function doGitCommandWithErrorCheck(){
-    $data = $this->doGitCommand();
-    print $data;
-    if ( substr($data, 0, 5) == "error" ) { return false; }
-    return true;
+      return $this->doGitCommand();
   }
 
   protected function doGitCommand(){
-    $data = "";
+
+
     foreach ($this->fileSources as $fileSource) {
+
+        $tmp_dir = BASE_TEMP_DIR.$this->programNameMachine;
+        if ($fileSource[1] != null) { $tmp_dir .= DIRECTORY_SEPARATOR.$fileSource[1];}
+
+        $this->deleteProgramDataFolderAsRootIfExists($tmp_dir) ;
+
+
       $command  = $this->executorPath.' clone ';
       if (isset($fileSource[3]) &&
         $fileSource[3] = true) { $command .= '--recursive ';}
       if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
       $command .= escapeshellarg($fileSource[0]).' ';
-      $command .= ' '.BASE_TEMP_DIR.$this->programNameMachine;
-      if ($fileSource[1] != null) { $command .= DIRECTORY_SEPARATOR.$fileSource[1];}
-      echo $command;
-      $data .= self::executeAndLoad($command); }
-    return $data;
+      $command .= ' '.$tmp_dir ;
+      $rc = self::executeAndGetReturnCode($command, true, true);
+      if ($rc["rc"] !== 0) {
+          $loggingFactory = new \Model\Logging();
+          $logging = $loggingFactory->getModel($this->params);
+          $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+          return false ; } }
+    return true ;
   }
 
 

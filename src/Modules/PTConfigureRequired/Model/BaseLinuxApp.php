@@ -212,7 +212,8 @@ if not doing versions
     public function install() {
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
-        $this->doInstallCommand();
+        $dic = $this->doInstallCommand() ;
+        if ($dic == false) { return false ; }
         if ($this->programDataFolder) {
             $this->changePermissions($this->programDataFolder); }
         // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
@@ -292,11 +293,12 @@ if not doing versions
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
-                $res = self::executeAsShell($installCommand["command"]) ; }
+                $rc = self::executeAndGetReturnCode($installCommand["command"], true, true);
+                if ($rc["rc"] !== 0) { $res = false ; } }
             if ($res === false) {
                 $logging->log("Failed Install Step", $this->getModuleName()) ;
                 \Core\BootStrap::setExitCode(1) ;
-                break ; } }
+                return false ; } }
     }
 
     protected function doUnInstallCommand(){
