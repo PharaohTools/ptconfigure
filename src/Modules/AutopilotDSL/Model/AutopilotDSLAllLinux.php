@@ -26,11 +26,14 @@ class AutopilotDSLAllLinux extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("About to parse $total_line_count lines", $this->getModuleName()) ;
         $trawl_line = 0 ;
-        while ( $trawl_line < $total_line_count ) {
+        $total_loops = 0 ;
+        while ( $trawl_line < $total_line_count && $total_loops < 10000) {
             $cur_lines_trawled = $this->trawlFile($lines, $trawl_line) ;
             $new_steps[] = $cur_lines_trawled["data"] ;
-            $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
-            $trawl_line = $cur_lines_trawled["line"] ; }
+            // @todo below is for verbose logging
+//            $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
+            $trawl_line = $cur_lines_trawled["line"] ;
+            $total_loops++ ; }
         return $new_steps ;
     }
 
@@ -139,28 +142,40 @@ class AutopilotDSLAllLinux extends BaseLinuxApp {
 
     public function getLongWords($line) {
         $words = explode(" ", $line) ;
-        if ($words !== array(0 => "")) {
-            for ($i=1 ; $i < 3 ; $i++) {
-                $fc = substr($words[$i], 0, 1) ;
-                if ($fc=='"' || $fc=="'") {
-                    $fkey = $i ;
+        $tmp_words = $words ;
 
-                    for ($ix=$fkey ; $ix < count($words) ; $ix++) {
-                        $lc = substr($words[$ix], -1, 1) ;
-                        if ($lc=='"' || $lc=="'") {
-                            $lkey = $ix ; } }
+        if (count($words) < 3) {
+            return $words ; }
 
-                    $tmp_words = $words ;
-                    unset($tmp_words[0])  ;
-                    unset($tmp_words[1])  ;
-                    $third_word = implode(" ", $tmp_words) ;
-                    $new_words = array() ;
-                    $new_words[0] = $words[0] ;
-                    $new_words[1] = $words[1] ;
-                    $new_words[2] = $third_word ;
-                } } }
-        var_dump($words);
-        return $words ;
+        $ws2 = $this->wordStartsString($words[2]) ;
+        $ws1 = $this->wordStartsString($words[1]) ;
+
+        $new_words = array() ;
+        $new_words[0] = $words[0] ;
+        $new_words[1] = $words[1] ;
+
+        if ($ws2 !== false) {
+            unset($tmp_words[0]) ;
+            unset($tmp_words[1]) ;
+            $dl = $ws2 ; }
+        else if ($ws1 !== false) {
+            unset($tmp_words[0]) ;
+            $dl = $ws1 ; }
+        else {
+            return $new_words ; }
+
+        $third_word = implode(" ", $tmp_words) ;
+        $third_word = rtrim($third_word, $dl) ;
+        $third_word = ltrim($third_word, $dl) ;
+        $new_words[2] = $third_word ;
+        return $new_words ;
+    }
+
+    protected function wordStartsString($word) {
+        $fc = substr($word, 0, 1) ;
+        if ($fc=='"') { return $fc ; }
+        if ($fc=="'") { return $fc ; }
+        return false ;
     }
 
 }
