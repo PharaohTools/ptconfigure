@@ -18,7 +18,7 @@ class Logging extends Base {
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
         if ($action=="log") {
-            $this->content["result"] = $thisModel->askInstall();
+            $this->content["result"] = $thisModel->log();
             $this->content["appName"] = $thisModel->programNameInstaller ;
             $this->content["module"] = $thisModel->getModuleName();
             return array ("type"=>"view", "view"=>"AppInstall", "pageVars"=>$this->content); }
