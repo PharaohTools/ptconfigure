@@ -15,7 +15,7 @@ class LoggingAll extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
 
     // Model Group
-    private $logMessage = null ;
+    public static $logMessage = null ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -34,11 +34,19 @@ class LoggingAll extends BaseLinuxApp {
     public function setLogMessage() {
         if (isset($this->params["log-message"])) {
             $this->logMessage = $this->params["log-message"] ; }
+        if (isset($this->params["message"])) {
+            $this->logMessage = $this->params["message"] ; }
         else {
             $this->logMessage = self::askForInput("Enter Log Message", true) ; }
     }
 
     public function log($message = null, $source = null, $log_exit_code = null) {
+
+        if (isset($this->params["log-message"])) {
+            $this->logMessage = $this->params["log-message"] ; }
+        if (isset($this->params["message"])) {
+            $this->logMessage = $this->params["message"] ; }
+
         if (is_null($source) && isset($this->params["source"])) {
             $source = $this->params["source"] ; }
         if (isset($this->logMessage)) { $message = $this->logMessage ; }
