@@ -32,14 +32,6 @@ class BasePHPWindowsApp extends BasePHPApp {
                 "@echo off\r\n\r\nphp ".'"'.$this->programDataFolder.DS.$this->programNameMachine.DS."src".DS."Bootstrap.php".'" %*' ;
     }
 
-    protected function deleteProgramDataFolderAsRootIfExists() {
-        if ( file_exists($this->programDataFolder)) {
-            $command = 'rmdir /s /q "'.$this->programDataFolder.'"';
-            self::executeAndOutput($command, "Program Data Folder $this->programDataFolder Deleted"); }        
-        echo "No existing Directory at {$this->programDataFolder} to remove\n" ;
-        return true;
-    }
-
     protected function makeProgramDataFolderIfNeeded() {       
         if (!file_exists($this->programDataFolder)) {
             $comm = 'mkdir "'.$this->programDataFolder.'"' ;
