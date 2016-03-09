@@ -10,6 +10,7 @@ class BasePHPApp extends Base {
     protected $postinstallCommands;
     protected $postuninstallCommands;
     protected $executorPath ;
+    protected $tempFileStore ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -27,7 +28,7 @@ class BasePHPApp extends Base {
 
     protected function findExecutorPath() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->executorPath = '"%programfiles%\Git\cmd\git.exe" ' ; }
+            $this->executorPath = '"git.exe" ' ; }
         else {
             $this->executorPath = "/usr/bin/git " ; }
     }
@@ -251,8 +252,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $copy_comm =  'xcopy /q /s /e /y '; }
         else {
             $copy_comm =  'cp -r '; }
-        $command = $copy_comm.$this->tempDir.DS.$this->programNameMachine.
-            DIRECTORY_SEPARATOR.'* '.$this->programDataFolder;
+        $command = $copy_comm.$this->tempFileStore.' '.$this->programDataFolder;
         $rc = self::executeAndGetReturnCode($command, true, true);
         if ($rc["rc"] !== 0) {
             $logging->log("Error copying to Program Data folder", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
@@ -290,7 +290,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $del_comm =  'del /S /Q '; }
         else {
             $del_comm =  'rm -rf '; }
-        $command = $del_comm.BASE_TEMP_DIR.DS.$this->programNameMachine;
+        $command = $del_comm.$this->tempFileStore;
         $rc = self::executeAndGetReturnCode($command, true, true);
         if ($rc["rc"] !== 0) {
             $logging->log("Error deleting installation files", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
@@ -337,22 +337,18 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
   }
 
   protected function doGitCommand(){
-
-
     foreach ($this->fileSources as $fileSource) {
-
-        $tmp_dir = BASE_TEMP_DIR.$this->programNameMachine;
-        if ($fileSource[1] != null) { $tmp_dir .= DIRECTORY_SEPARATOR.$fileSource[1];}
-
-        $this->deleteProgramDataFolderAsRootIfExists($tmp_dir) ;
-
-
+        $this->tempFileStore = BASE_TEMP_DIR.$this->programNameMachine ;
+        if ($fileSource[1] != null) {
+            $this->tempFileStore .= DIRECTORY_SEPARATOR.$fileSource[1] ; }
+//        $this->tempFileStore = $this->ensureTrailingSlash($this->tempFileStore) ;
+        $this->deleteProgramDataFolderAsRootIfExists($this->tempFileStore) ;
       $command  = $this->executorPath.' clone ';
       if (isset($fileSource[3]) &&
         $fileSource[3] = true) { $command .= '--recursive ';}
       if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
       $command .= escapeshellarg($fileSource[0]).' ';
-      $command .= ' '.$tmp_dir ;
+      $command .= ' '.$this->tempFileStore ;
       $rc = self::executeAndGetReturnCode($command, true, true);
       if ($rc["rc"] !== 0) {
           $loggingFactory = new \Model\Logging();
