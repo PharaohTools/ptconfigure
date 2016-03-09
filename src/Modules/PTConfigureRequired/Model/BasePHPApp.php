@@ -240,7 +240,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
     protected function makeProgramDataFolderIfNeeded(){
         if (!file_exists($this->programDataFolder)) {
             $res = mkdir($this->programDataFolder,  0777, true);
-            return ($res==false) ? true : false ; }
+            return ($res==false) ? false : true ; }
         return true ;
     }
 
