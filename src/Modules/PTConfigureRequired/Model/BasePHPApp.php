@@ -28,7 +28,7 @@ class BasePHPApp extends Base {
 
     protected function findExecutorPath() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->executorPath = 'git.exe ' ; }
+            $this->executorPath = 'git ' ; }
         else {
             $this->executorPath = "/usr/bin/git " ; }
     }
@@ -337,6 +337,8 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
   }
 
   protected function doGitCommand(){
+      $loggingFactory = new \Model\Logging();
+      $logging = $loggingFactory->getModel($this->params);
     foreach ($this->fileSources as $fileSource) {
         $this->tempFileStore = BASE_TEMP_DIR.$this->programNameMachine ;
         if ($fileSource[1] != null) {
@@ -349,10 +351,9 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
       if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
       $command .= escapeshellarg($fileSource[0]).' ';
       $command .= ' '.$this->tempFileStore ;
+      $logging->log("Git command is $command", $this->getModuleName()) ;
       $rc = self::executeAndGetReturnCode($command, true, true);
       if ($rc["rc"] !== 0) {
-          $loggingFactory = new \Model\Logging();
-          $logging = $loggingFactory->getModel($this->params);
           $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
           return false ; } }
     return true ;
