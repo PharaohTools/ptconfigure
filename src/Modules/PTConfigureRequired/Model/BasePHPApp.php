@@ -121,16 +121,16 @@ class BasePHPApp extends Base {
             $this->doInstallCommand("pre") ; }
         $this->programDataFolder = $this->askForProgramDataFolder();
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-        if ($this->deleteProgramDataFolderAsRootIfExists() == false) { return false ; }
-        if ($this->makeProgramDataFolderIfNeeded() == false) { return false ; }
-        if ($this->doGitCommand() == false) { return false ; }
-        if ($this->copyFilesToProgramDataFolder() == false) { return false ; }
+        if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
+        if ($this->makeProgramDataFolderIfNeeded() === false) { return false ; }
+        if ($this->doGitCommand() === false) { return false ; }
+        if ($this->copyFilesToProgramDataFolder() === false) { return false ; }
         $de = $this->deleteExecutorIfExists() ;
-        if ($de == false) { return false ; }
-        if ($this->populateExecutorFile() == false) { return false ; }
-        if ($this->saveExecutorFile() == false) { return false ; }
-        if ($this->deleteInstallationFiles() == false) { return false ; }
-        if ($this->changePermissions() == false) { return false ; }
+        if ($de === false) { return false ; }
+        if ($this->populateExecutorFile() === false) { return false ; }
+        if ($this->saveExecutorFile() === false) { return false ; }
+        if ($this->deleteInstallationFiles() === false) { return false ; }
+        if ($this->changePermissions() === false) { return false ; }
         if ($this->postInstExists()) {
             $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("post") ;  }
@@ -157,9 +157,9 @@ class BasePHPApp extends Base {
           ? $autoPilot->{$this->autopilotDefiner}
           : $this->askForProgramDataFolder();
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-        if ($this->deleteProgramDataFolderAsRootIfExists() == false) { return false ; }
-        if ($this->deleteExecutorIfExists() == false) { return false ; }
-        if ($this->showCompletion() == false) { return false ; }
+        if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
+        if ($this->deleteExecutorIfExists() === false) { return false ; }
+        if ($this->showCompletion() === false) { return false ; }
         return true ;
     }
 
