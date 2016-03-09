@@ -122,8 +122,8 @@ class BasePHPApp extends Base {
         $this->programDataFolder = $this->askForProgramDataFolder();
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
         if ($this->deleteProgramDataFolderAsRootIfExists() == false) { return false ; }
-        if ($this->doGitCommand() == false) { return false ; }
         if ($this->makeProgramDataFolderIfNeeded() == false) { return false ; }
+        if ($this->doGitCommand() == false) { return false ; }
         if ($this->copyFilesToProgramDataFolder() == false) { return false ; }
         $de = $this->deleteExecutorIfExists() ;
         if ($de == false) { return false ; }
