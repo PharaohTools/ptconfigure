@@ -126,7 +126,7 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($params);
-        $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999).".sh";
+        $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 999999999).".sh";
 //        $logging->log("Creating $tempFile");
         $fileVar = "";
         $multiLineCommand = self::multilineToArray($multiLineCommand) ;
