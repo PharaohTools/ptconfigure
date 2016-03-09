@@ -6,31 +6,30 @@ class GeneratorInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "PTDeploy Autopilot Generator - Generate Autopilot files interactively";
+    public $name = "Generator Functionality";
 
-    public function __construct() {
+    public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Generator" =>  array_merge(parent::routesAvailable(), array("create") ) );
+      return array( "Generator" => array_merge(array("help", "put") ) );
     }
 
     public function routeAliases() {
-      return array("generator"=>"Generator", "generate"=>"Generator", "gen"=>"Generator");
+      return array("copy" => "Generator");
     }
 
-    public function helpDefinition() {
+  public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module is part of the Default Distribution and provides you with a method by which you can
-  create Autopilot files from the command line.
-  You can configure default application settings, ie: mysql admin user, host, pass
+  This module handles file copying functions.
 
-  Generator, generator, generate, gen
+  Generator, copy
 
-        - create
-        Go through all modules to create an autopilot
-        example: ptdeploy generate create
+        - put
+        Will copy a filr or directory from one location to another
+        example: ptconfigure copy put
+        example: ptconfigure copy put --yes --source="/tmp/file" --target="/home/user/file"
 
 HELPDATA;
       return $help ;

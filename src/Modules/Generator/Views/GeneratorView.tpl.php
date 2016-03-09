@@ -1,6 +1,10 @@
-<?php
+Generator Result: <?php
+$result = ($pageVars["result"] == true) ? "Success" : "Failure" ;
+echo $result ;
 
-   echo $pageVars["genCreateResult"] ;
+// @todo This is reporting incorrectly but the copy works for now
+
 ?>
 
-In Autopilot Generator
+------------------------------
+Generator Finished

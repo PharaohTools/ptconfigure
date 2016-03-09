@@ -5,7 +5,7 @@ Namespace Model;
 class GeneratorAllLinux extends Base {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("Linux", "Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -14,213 +14,126 @@ class GeneratorAllLinux extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    private $fileName;
-    private $allEntries;
-    private $codeInjections = array();
+    public function askWhetherToGenerateModule() {
+        return $this->performGenerateModule();
+    }
 
-    public function askWhetherToCreateAutoPilot() {
-        if ($this->askWhetherToDoNewAuto() != true) { return false; }
-        $this->fileName = $this->askForAutopilotFileName();
-        $this->askForAllModelValues();
-        $this->makeAutoPilotFile();
+    public function performGenerateModule() {
+        if ($this->askForGeneratorExecute() != true) { return false; }
+        $sourcePath = $this->getSourceFilePath() ;
+        $targetPath = $this->getTargetFilePath() ;
+        $this->doGenerateModule($sourcePath, $targetPath) ;
         return true;
     }
 
-    public function askWhetherToDoNewAuto() {
-      $question = 'Create Autopilot File?';
-      return self::askYesOrNo($question, true);
-    }
+    private function doGenerateModule($source, $target) {
 
-    public function askForAutopilotFileName() {
-      $question = "Enter filename. If you don't enter the full path, it'll be created here?";
-      return self::askForInput($question, true);
-    }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $original_module = $source ;
+        $new_module = $target ;
+        $parent_module_path = __DIR__.DS."src".DS."Modules".DS ;
+        $original_module_path = $parent_module_path.$original_module ;
+        $original_module_files = array_slice(scandir($original_module_path), 2);
 
-    public function askForAllModelValues() {
-      $allInfoObjects = \Core\AutoLoader::getInfoObjects();
-      $arrayOfClassNames = array();
-      foreach ($allInfoObjects as $infoObject) {
-        $modName = str_replace("Info\\", "", get_class($infoObject)) ;
-        $modName = str_replace("Info", "", $modName) ;
-        $arrayOfClassNames[] = $modName; }
-      $chosenObject = "anything" ;
-      while ($chosenObject != "") {
-        $question = "Enter Module to include next. Enter none to end here and create file.";
-        $chosenObject = self::askForArrayOption($question, $arrayOfClassNames);
-        $infoObjectClassName = 'Info\\'.$chosenObject.'Info' ;
-        if ($chosenObject=="") { return; }
-        else if (class_exists($infoObjectClassName))  {
-          $infoObjectToPopulate = new $infoObjectClassName();
-          $this->populateEntryWithObject($infoObjectToPopulate); }
-        else {
-          echo "how are you even here\n";
-          die(); }
-      }
-    }
-//    @todo generator needs to be updated to new exposedParams, autopilo references removed
-//    private function populateEntryWithObject($infoObject) {
-//      if (method_exists($infoObject, "autoPilotVariables")) {
-//        $autoVars = $infoObject->autoPilotVariables() ;
-//        if (is_array($autoVars) && count($autoVars) == 0) {
-//          echo "No Autopilot Variables Available for this Model\n";
-//          return; }
-//        foreach ($autoVars as $autoVarTitle => $autoVarSpecDetails) {
-//          foreach ($autoVarSpecDetails as $autoVariableName => $autoVariableDetails) {
-//            $question = 'Include '.$autoVariableName.' Variable?';
-//            $includeThis = self::askYesOrNo($question, true);
-//            if ($includeThis==true) {
-//              $this->populateEntryIntoProperty($autoVarTitle, $autoVariableName, $autoVariableDetails); } } } }
-//      else {
-//        echo "This Module does not expose an Autopilot Variables method\n"; }
-//      if (method_exists($infoObject, "generatorCodeInjection")) {
-//        $step = count ($this->allEntries) - 1 ;
-//        $this->codeInjections[] = $infoObject->generatorCodeInjection($step) ;}
-//      else {
-//        echo "This Module does not expose a Code Injection method\n";}
-//      return;
-//    }
+        $logging->log("Going to copy from {$original_module} to {$new_module}", $this->getModuleName());
+        $logging->log("Original Module Path is {$original_module_path}", $this->getModuleName());
+        $logging->log("New Module Path is ".$parent_module_path.$new_module, $this->getModuleName());
 
-    private function populateEntryIntoProperty($autoVarTitle, $autoVariableName, $autoVariableDetails) {
-      $miniRay = array();
-      $i=0;
-      if (!is_array($autoVariableDetails)) {
-        $this->allEntries[] = array($autoVarTitle => $autoVariableDetails); }
-      else {
-        foreach ($autoVariableDetails as $autoVariableDetailName => $autoVariableDetailType) {
-          if (substr($autoVariableDetailName, strlen($autoVariableDetailName)-7, 7)=="Execute") {
-            $miniRay[$autoVarTitle][$autoVariableDetailName][] = true ;}
-          else {
-            $question = 'Enter '.$autoVariableDetailType.' For '.$autoVariableDetailName.' Var?';
-            if ($autoVariableDetailType == "boolean") {
-              $miniRay[$autoVarTitle][$autoVariableDetailName][] = self::askYesOrNo($question, true); }
-            else if ($autoVariableDetailType == "string") {
-              $miniRay[$autoVarTitle][$autoVariableDetailName][] = self::askForInput($question); }
-            else if ( is_array($autoVariableDetailType) ) {
-              $keepGoing = true ;
-              $question .= ' - this is an array of entries';
-              while ($keepGoing == true) {
-                $tinierArray = array();
-                echo $question."\n";
-                foreach ($autoVariableDetailType as $questionTarget) {
-                  $miniQuestion = 'Enter '.$questionTarget.' ?';
-                  $tinierArray[$questionTarget] = self::askForInput($miniQuestion, true); }
-                $miniRay[$autoVarTitle][$autoVariableDetailName][] = $tinierArray;
-                $keepGoingQuestion = 'Add Another Array Entry? (Y/N)';
-                $keepGoingResult = self::askForInput($keepGoingQuestion, true);
-                $keepGoing = ($keepGoingResult == "Y" || $keepGoingResult == "y") ? true : false ; } }
-            else { // if the module provided us a string value
-              $miniRay[$autoVarTitle][$autoVariableDetailName][] = $autoVariableDetailType; }
-          }
-          $i++;
-          if (count($autoVariableDetails)==$i) {
-            $i=0;
-            $this->allEntries[] = $miniRay; } }
-      }
-    }
+        foreach ($original_module_files as $original_module_file) {
 
-    public function askWhetherToDoExecuteVarInAuto() {
-      $question = 'Execute Autopilot?';
-      return self::askYesOrNo($question, true);
-    }
+            $this_file = $original_module_path.DS.$original_module_file ;
 
-    private function makeAutoPilotFile(){
-      $stepsData = $this->getStepsDataFromArray();
-      $fileData = $this->autoPilotTemplateData($stepsData);
-      $this->saveAutoPilotFile($fileData);
-    }
+            if (is_file($this_file)) {
+                echo "something ok. copy the file.\n" ;
+                doAFileMove($original_module_path.DS.$original_module_file, $original_module, $new_module) ;
+            }
 
-    private function getStepsDataFromArray() {
-      $stepsData = "";
-      foreach ($this->allEntries as $stepEntryName => $stepEntryValues) {
-        $oneStep = "";
-        foreach ($stepEntryValues as $stepEntryValueTitle => $stepEntryValueData) {
-          $oneStep .= '          array ( "'.$stepEntryValueTitle.'" => array('."\n"; // model name
-          foreach ($stepEntryValueData as $stepEntryValueDataKey => $stepEntryValueDataValue) {
-            $oneStep .= '                    ';
-            $isArrayValues = ( is_array($stepEntryValueDataValue[0]) ) ? true : false ;
-            //$stepEntryValueDataKey is var name
-            if ($isArrayValues == false) {
-              if ($stepEntryValueDataValue[0] === true) {
-                $oneStep .= '"'.$stepEntryValueDataKey.'" => true,'."\n"; }
-              else if ($stepEntryValueDataValue[0] === false) {
-                $oneStep .= '"'.$stepEntryValueDataKey.'" => false,'."\n"; }
-              else {
-                $oneStep .= '"'.$stepEntryValueDataKey.'" => "'.$stepEntryValueDataValue[0].'",'."\n"; } }
+            else if (is_dir($this_file)) {
+                echo "something ok. do the dir.\n" ;
+                doADirMove($this_file, $original_module, $parent_module_path.$new_module, $new_module) ;
+            }
+
             else {
-              $oneStep .= '            "'.$stepEntryValueDataKey.'" => array('."\n" ;
-              foreach ($stepEntryValueDataValue as $arrayOfEndValues) {
-                $oneStep .= '                      array(';
-                $iKey = 0;
-                foreach ($arrayOfEndValues as $endKey => $endValue) {
-                  $oneStep .= '"'.$endKey.'" => "'.$endValue.'", ' ;
-                  $iKey++; }
-                $oneStep .= ' ),'."\n"; }
-              $oneStep .= ' ),'."\n"; } }
-          $oneStep .= '          ) , ) ,'."\n" ; }
-        $stepsData .= $oneStep ; }
-      return $stepsData;
+                echo "something shit. apparently not a file or a dir.\n" ;
+                exit(1) ;
+            }
+
+        }
+
+        $comm = "cp -r $source $target" ;
+        $logging->log("Executing $comm", $this->getModuleName());
+        self::executeAndOutput($comm) ;
     }
 
-    private function saveAutoPilotFile($fileData) {
-      $fileSavePath = (substr($this->fileName, 0, 1)) ? $this->fileName : getcwd().'/'.$this->fileName ;
-      file_put_contents($fileSavePath, $fileData);
+    private function askForGeneratorExecute(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
+        $question = 'Generator files?';
+        return self::askYesOrNo($question);
     }
 
-    private function autoPilotTemplateData($stepsData) {
-
-$stepsStart = <<<'TEMPLATE'
-<?php
-
-/*************************************
-*      Generated Autopilot file      *
-*     ---------------------------    *
-*  Autopilot Generated By PTConfigure  *
-*     ---------------------------    *
-*************************************/
-
-Namespace Core ;
-
-class AutoPilotConfigured extends AutoPilot {
-
-    public $steps ;
-
-    public function __construct() {
-	      $this->setSteps();
+    private function getSourceFilePath(){
+        if (isset($this->params["source"])) { return $this->params["source"] ; }
+        else { $question = "Enter source file path"; }
+        $input = self::askForInput($question) ;
+        return ($input=="") ? false : $input ;
     }
 
-    /* Steps */
-    private function setSteps() {
+    private function getTargetFilePath(){
+        if (isset($this->params["target"])) { return $this->params["target"] ; }
+        else { $question = "Enter target file path"; }
+        $input = self::askForInput($question) ;
+        return ($input=="") ? false : $input ;
+    }
 
-	    $this->steps =
-	      array(
+    protected function doAFileMove($original_module_file, $original_module, $new_mod) {
+        $target_file = str_replace($original_module, $new_mod, $original_module_file) ;
+        echo "Doing a file move from {$original_module_file} to {$target_file} \n" ;
+        $file_data = file_get_contents($original_module_file) ;
+        $file_data = str_replace($original_module, $new_mod, $file_data) ;
+        global $translates ;
+        foreach ($translates as $search => $replace) {
+            $file_data = str_replace($search, $replace, $file_data) ;  }
+        $res = file_put_contents($target_file, $file_data) ;
+        return ($res !== false) ? true : false ;
+    }
 
-TEMPLATE
-;
+    protected function doADirMove($dir, $original_module, $target_dir, $new_module) {
+        $end_dir = basename($dir) ;
+        $target_dir .= DS.$end_dir ;
+        echo "Doing a dir move from ".$dir." to ".$target_dir." \n" ;
+        echo "Making $target_dir \n" ;
+        mkdir($target_dir, 0777, true) ;
+        chmod($target_dir, 0777) ;
+        $original_module_files = array_slice(scandir($dir), 2);
+        foreach ($original_module_files as $original_module_file) {
+            if (is_dir($dir.DS.$original_module_file)) {
+    //            var_dump("start: ", $dir.DS.$original_module_file, $target_dir) ;
+                doADirMove($dir.DS.$original_module_file, $original_module, $target_dir, $new_module) ; }
+            else {
+                doAFileMove($dir.DS.$original_module_file, $original_module, $new_module) ; } }
+    }
 
-$stepsEnd = <<<'TEMPLATE'
-	      );
+    protected function loopOurTranslates($translates) {
 
-	  }
+        $pairs = explode(",", $translates) ;
+        $new_translates = array() ;
+        foreach ($pairs as $pair) {
+            $search = substr($pair, 0, strpos($pair, ":") ) ;
+            $replace = substr($pair, strpos($pair, ":")+1 ) ;
+            $new_translates[$search] = $replace ; }
 
+        return $new_translates ;
 
-TEMPLATE
-;
+    }
 
-$codeInjectionsString = "";
-foreach ($this->codeInjections as $codeInjection) {
-  $codeInjectionsString .= $codeInjection ; }
-
-$templateEnd = <<<"TEMPLATE"
-
-    $codeInjectionsString
-
-}
-
-TEMPLATE
-;
-
-return $stepsStart.$stepsData.$stepsEnd.$templateEnd; ;
-
+    protected function translateFilename($file_name) {
+        $base = basename($file_name) ;
+        $last_ds = strrpos ($file_name , DS ) ;
+        $path = substr($file_name, 0, $last_ds) ;
+        global $translates ;
+        $new_file_name = $path.DS.strtr($base, $translates) ;
+        return $new_file_name ;
     }
 
 }
