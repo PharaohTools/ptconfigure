@@ -327,14 +327,14 @@ if not doing versions
     }
 
     protected function deleteExecutorIfExists(){
-        $command = 'rm -f '.$this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
+        $command = 'rm -f '.$this->programExecutorFolder.DS.$this->programNameMachine;
         self::executeAndOutput($command, "Program Executor Deleted if existed");
         return true;
     }
 
     protected function saveExecutorFile(){
         $this->populateExecutorFile();
-        $executorPath = $this->programExecutorFolder.DIRECTORY_SEPARATOR.$this->programNameMachine;
+        $executorPath = $this->programExecutorFolder.DS.$this->programNameMachine;
         file_put_contents($executorPath, $this->bootStrapData);
         $this->changePermissions(null, $executorPath);
     }
