@@ -71,6 +71,10 @@ class RunCommandLinuxMac extends BaseLinuxApp {
         $this->command = (isset($this->params["command"])) ? $this->params["command"] : self::askForInput($question);
     }
 
+    public function askExec() {
+        return $this->askInstall() ;
+    }
+
     public function askForNohup() {
         if (isset($this->params["nohup"]) && $this->params["nohup"]==true) {
             $useNoHup = (strlen($this->params["nohup"]) > 0) ? true : false ;
