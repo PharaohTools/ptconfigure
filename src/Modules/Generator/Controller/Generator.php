@@ -15,8 +15,12 @@ class Generator extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="put") {
-            $this->content["result"] = $thisModel->askWhetherToGeneratorPut();
+        if ($action=="copy") {
+            $this->content["result"] = $thisModel->askWhetherToGenerateFromModule();
+            return array ("type"=>"view", "view"=>"Generator", "pageVars"=>$this->content); }
+
+        if ($action=="template") {
+            $this->content["result"] = $thisModel->askWhetherToGenerateFromTemplate();
             return array ("type"=>"view", "view"=>"Generator", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);

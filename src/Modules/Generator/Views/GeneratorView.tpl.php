@@ -5,6 +5,3 @@ echo $result ;
 // @todo This is reporting incorrectly but the copy works for now
 
 ?>
-
-------------------------------
-Generator Finished

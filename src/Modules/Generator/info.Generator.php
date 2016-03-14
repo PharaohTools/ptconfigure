@@ -13,23 +13,32 @@ class GeneratorInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "Generator" => array_merge(array("help", "put") ) );
+      return array( "Generator" => array_merge(array("help", "copy") ) );
     }
 
     public function routeAliases() {
-      return array("copy" => "Generator");
+      return array(
+          "generator" => "Generator", "gen" => "Generator", "generate" => "Generator",
+          "genmod" => "Generator");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module handles file copying functions.
+  This module handles module generation functions.
 
-  Generator, copy
+  Generator, generator, gen
 
-        - put
-        Will copy a filr or directory from one location to another
-        example: ptconfigure copy put
-        example: ptconfigure copy put --yes --source="/tmp/file" --target="/home/user/file"
+        - copy
+        Will create a copy from an existing local Module
+        example: ptconfigure gen copy
+        example: ptconfigure gen copy -yg --source="SourceModule" --target="TargetModule"
+
+        - template
+        Will create a copy from a Downloadable Template Module
+        example: ptconfigure gen template
+        example: ptconfigure gen template -yg --source="{git repo}" --target="TargetModule"
+        example: ptconfigure gen template -yg --source="{git repo}" --target="TargetModule" --key="/home/me/.ssh"
+        example: ptconfigure gen template -yg --source="{git repo}" --target="TargetModule" --credentials={cred_name}
 
 HELPDATA;
       return $help ;
