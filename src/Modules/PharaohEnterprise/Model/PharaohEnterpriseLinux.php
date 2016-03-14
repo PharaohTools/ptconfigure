@@ -75,14 +75,14 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
         $gksf = new \Model\GitKeySafe() ;
         $gks = $gksf->getModel($this->params) ;
         $res = $gks->install() ;
-        if ($res == false) {
+        if ($gks->askStatus() == false) {
             $logging->log("Dependency git key safe failed", $this->getModuleName()) ;
             return false ; }
 
         $phpldapf = new \Model\PHPLDAP() ;
         $phpldap = $phpldapf->getModel($this->params) ;
         $res = $phpldap->install() ;
-        if ($res == false) {
+        if ($phpldap->askStatus() == false) {
             $logging->log("Dependency PHP LDAP Module failed", $this->getModuleName()) ;
             return false ; }
 
