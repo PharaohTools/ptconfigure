@@ -28,10 +28,10 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
         $this->programNameMachine = "gitkeysafe"; // command and app dir name
         $this->programNameFriendly = "Git Key-Safe Server!"; // 12 chars
         $this->programNameInstaller = "Git Key-Safe Server";
-        $this->statusCommand = $this->checkGitKeySafeStatus() ; // "command git-key-safe" ;
-        $this->versionInstalledCommand = SUDOPREFIX."apt-cache policy gitkeysafe" ;
-        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy gitkeysafe" ;
-        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy gitkeysafe" ;
+        $this->statusCommand = "command git-key-safe" ; // $this->checkGitKeySafeStatus() ; //
+        $this->versionInstalledCommand = "echo 1.0" ;
+        $this->versionRecommendedCommand = "echo 1.0" ;
+        $this->versionLatestCommand = "echo 1.0" ;
         $this->initialize();
     }
 
