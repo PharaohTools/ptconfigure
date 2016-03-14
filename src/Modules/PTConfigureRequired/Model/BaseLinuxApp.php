@@ -219,7 +219,7 @@ if not doing versions
         // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
         $this->showCompletion();
-        return true;
+        return $this->askStatus();
     }
 
     public function unInstall() {
