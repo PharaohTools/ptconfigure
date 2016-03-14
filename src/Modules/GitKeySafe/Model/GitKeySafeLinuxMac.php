@@ -28,7 +28,7 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
         $this->programNameMachine = "gitkeysafe"; // command and app dir name
         $this->programNameFriendly = "Git Key-Safe Server!"; // 12 chars
         $this->programNameInstaller = "Git Key-Safe Server";
-        $this->statusCommand = "command git-key-safe" ; // $this->checkGitKeySafeStatus() ; //
+        $this->statusCommand =  $this->checkGitKeySafeStatus() ; //"command git-key-safe" ; //
         $this->versionInstalledCommand = "echo 1.0" ;
         $this->versionRecommendedCommand = "echo 1.0" ;
         $this->versionLatestCommand = "echo 1.0" ;
@@ -49,6 +49,7 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
         $templatorFactory = new \Model\Templating();
         $templator = $templatorFactory->getModel($this->params);
         $newFileName = "/usr/bin/git-key-safe" ;
+        $logging->log("About to add Git Key-Safe script $newFileName", $this->getModuleName()) ;
         $res =  $templator->template(
             file_get_contents($templateSource),
             array(),
