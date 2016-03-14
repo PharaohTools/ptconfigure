@@ -42,43 +42,55 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
     }
 
     public function addGitKeySafeScript() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $templatesDir = str_replace("Model", "Templates", dirname(__FILE__) ) ;
         $templateSource = $templatesDir.'/git-key-safe.sh';
         $templatorFactory = new \Model\Templating();
         $templator = $templatorFactory->getModel($this->params);
         $newFileName = "/usr/bin/git-key-safe" ;
-        $templator->template(
+        $res =  $templator->template(
             file_get_contents($templateSource),
             array(),
             $newFileName );
-        echo "Git Key-Safe script $newFileName added\n";
+        if ($res==true) {
+            $logging->log("Git Key-Safe script $newFileName added",
+                $this->getModuleName()) ; }
+        else {
+            $logging->log("Git Key-Safe script $newFileName was not added",
+                $this->getModuleName(),
+                LOG_FAILURE_EXIT_CODE) ; }
+        return $res ;
     }
 
     public function chmodGitKeySafeScript() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $newFileName = "/usr/bin/git-key-safe" ;
         $cmd = SUDOPREFIX."chmod 775 $newFileName" ;
-        $this->executeAndOutput($cmd) ;
-        echo "Git Key-Safe script $newFileName permissions changed to 775\n";
+        $rc = $this->executeAndGetReturnCode($cmd, true, true) ;
+        if ($rc["rc"]==0) {
+            $logging->log("Git Key-Safe script $newFileName permissions changed to 775",
+                $this->getModuleName()) ; }
+        else {
+            $logging->log("Git Key-Safe script $newFileName permissions failed to change to 775",
+                $this->getModuleName(),
+                LOG_FAILURE_EXIT_CODE) ; }
+        return ($rc["rc"]==0) ? true : false ;
     }
 
     public function delGitKeySafeScript() {
-        unlink("/usr/bin/git-key-safe");
-        echo "Git Key-Safe Init script config file /usr/bin/git-key-safe removed\n";
-    }
-
-    public function versionInstalledCommandTrimmer($text) {
-        $done = substr($text, 22, 8) ;
-        return $done ;
-    }
-
-    public function versionLatestCommandTrimmer($text) {
-        $done = substr($text, 44, 8) ;
-        return $done ;
-    }
-
-    public function versionRecommendedCommandTrimmer($text) {
-        $done = substr($text, 44, 8) ;
-        return $done ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $res = unlink("/usr/bin/git-key-safe");
+        if ($res==true) {
+            $logging->log("Git Key-Safe Init script config file /usr/bin/git-key-safe removed",
+                $this->getModuleName()) ; }
+        else {
+            $logging->log("Git Key-Safe Init script config file /usr/bin/git-key-safe not removed",
+                $this->getModuleName(),
+                LOG_FAILURE_EXIT_CODE) ; }
+        return $res ;
     }
 
 }
