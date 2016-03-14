@@ -18,8 +18,7 @@ class AutopilotExecutor extends Base {
         $res1 = $this->checkForRegisteredModels($params);
         if ($res1 !== true) {
             $this->content["result"] = false ;
-            return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
-        }
+            return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content); }
 
         $res2 = ($test) ?
             $this->executeMyTestsAutopilot($autopilot, $thisModel->params):
@@ -36,6 +35,7 @@ class AutopilotExecutor extends Base {
             foreach ($steps as $modelArray) {
                 $step_out = $this->executeStep($modelArray, $autopilotParams) ;
                 $dataFromThis[] = $step_out ;
+                var_dump($step_out["status"]) ;
                 if ($step_out["status"]==false ) {
                     return $dataFromThis ;  } } }
         else {
