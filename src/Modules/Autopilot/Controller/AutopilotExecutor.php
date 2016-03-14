@@ -35,7 +35,7 @@ class AutopilotExecutor extends Base {
             foreach ($steps as $modelArray) {
                 $step_out = $this->executeStep($modelArray, $autopilotParams) ;
                 $dataFromThis[] = $step_out ;
-                var_dump($step_out["status"]) ;
+//                var_dump($step_out["status"]) ;
                 if ($step_out["status"]==false ) {
                     return $dataFromThis ;  } } }
         else {
