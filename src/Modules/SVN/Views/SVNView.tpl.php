@@ -1,2 +1,1 @@
-<?php echo $pageVars["checkOutResult"]; ?>
-In SVN View
+<?php echo ($pageVars["result"] == true ) ? "Success" : "Failure" ; ?>

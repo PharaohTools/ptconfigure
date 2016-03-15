@@ -1,2 +1,1 @@
-<?php echo $pageVars["versioningResult"]; ?>
-Versioning Finished
+<?php echo ($pageVars["result"] == true ) ? "Success" : "Failure" ; ?>
