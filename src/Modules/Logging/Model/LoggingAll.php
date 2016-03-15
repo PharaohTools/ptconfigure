@@ -15,7 +15,7 @@ class LoggingAll extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
 
     // Model Group
-    private $logMessage = null ;
+    public static $logMessage = null ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -34,19 +34,32 @@ class LoggingAll extends BaseLinuxApp {
     public function setLogMessage() {
         if (isset($this->params["log-message"])) {
             $this->logMessage = $this->params["log-message"] ; }
+        if (isset($this->params["message"])) {
+            $this->logMessage = $this->params["message"] ; }
         else {
             $this->logMessage = self::askForInput("Enter Log Message", true) ; }
     }
 
     public function log($message = null, $source = null, $log_exit_code = null) {
+
+        if (isset($this->params["log-message"])) {
+            $this->logMessage = $this->params["log-message"] ; }
+        if (isset($this->params["message"])) {
+            $this->logMessage = $this->params["message"] ; }
+
+        if (is_null($source) && isset($this->params["source"])) {
+            $source = $this->params["source"] ; }
         if (isset($this->logMessage)) { $message = $this->logMessage ; }
         if (!is_null($log_exit_code)) {
             \Core\BootStrap::setExitCode($log_exit_code) ; }
         $stx = (strlen($source)>0) ? "[$source] " : "" ;
         $fullMessage = "[Pharaoh Logging] " . $stx . $message . "\n" ;
-        file_put_contents("php://stderr", $fullMessage );
+        $res = file_put_contents("php://stderr", $fullMessage );
+        if ($res==false) { return false ;}
         if (isset($this->params["php-log"])) {
-            error_log($fullMessage) ; }
+            $res = error_log($fullMessage) ;
+            if ($res==false) { return false ;} }
+        return true ;
     }
 
 }
