@@ -19,10 +19,10 @@ class DBConfigure extends Base {
         if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
 
         if ($action=="configure" || $action== "config" || $action== "conf") {
-            $this->content["dbResult"] = $thisModel->askWhetherToConfigureDB();
+            $this->content["result"] = $thisModel->askWhetherToConfigureDB();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
         else if ($action=="reset") {
-            $this->content["dbResult"] = $thisModel->askWhetherToResetDBConfiguration();
+            $this->content["result"] = $thisModel->askWhetherToResetDBConfiguration();
             return array ("type"=>"view", "view"=>"database", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid DB Configure Action";

@@ -15,13 +15,13 @@ class Version extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action=="latest") {
-            $this->content["versioningResult"] = $thisModel->askWhetherToVersionLatest();
+            $this->content["result"] = $thisModel->askWhetherToVersionLatest();
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
         if ($action=="rollback") {
-            $this->content["versioningResult"] = $thisModel->askWhetherToVersionRollback();
+            $this->content["result"] = $thisModel->askWhetherToVersionRollback();
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
         if ($action=="specific") {
-            $this->content["versioningResult"] = $thisModel->askWhetherToVersionSpecific();
+            $this->content["result"] = $thisModel->askWhetherToVersionSpecific();
             return array ("type"=>"view", "view"=>"version", "pageVars"=>$this->content); }
 
     }

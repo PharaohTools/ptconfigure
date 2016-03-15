@@ -15,7 +15,7 @@ class SVN extends Base {
         $action = $pageVars["route"]["action"];
 
         if ($action == "checkout" || $action == "co") {
-            $this->content["checkOutResult"] = $thisModel->checkoutProject($pageVars["route"]["extraParams"]);
+            $this->content["result"] = $thisModel->checkoutProject($pageVars["route"]["extraParams"]);
             return array ("type"=>"view", "view"=>"svn", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid SVN Action";

@@ -19,19 +19,19 @@ class DBInstall extends Base {
             return $otherModuleExecutor->executeDBInstall($pageVars) ; }
 
         if ($action=="install") {
-            $this->content["dbResult"] = $thisModel->askWhetherToInstallDB();
+            $this->content["result"] = $thisModel->askWhetherToInstallDB();
             return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
         else if ($action=="save") {
-            $this->content["dbResult"] = $thisModel->askWhetherToSaveDB();
+            $this->content["result"] = $thisModel->askWhetherToSaveDB();
             return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
         else if ($action=="drop") {
-            $this->content["dbResult"] = $thisModel->askWhetherToDropDB();
+            $this->content["result"] = $thisModel->askWhetherToDropDB();
             return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
         else if ($action=="useradd") {
-            $this->content["dbResult"] = $thisModel->askWhetherToAddUser();
+            $this->content["result"] = $thisModel->askWhetherToAddUser();
             return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
         else if ($action=="userdrop") {
-            $this->content["dbResult"] = $thisModel->askWhetherToDropUser();
+            $this->content["result"] = $thisModel->askWhetherToDropUser();
             return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
         $this->content["messages"][] = "Invalid DB Action";
         return array ("type"=>"control", "control"=>"index", "pageVars"=>$this->content);
