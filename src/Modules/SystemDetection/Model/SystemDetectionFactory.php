@@ -15,7 +15,7 @@ class SystemDetectionFactory {
         $groupModels = array() ;
         foreach ($allModelsOfModule as $modelOfModule) {
             if ( (isset($modelOfModule->modelGroup) && in_array($modelGroup, $modelOfModule->modelGroup) ) ||
-                 (isset($modelOfModule->modelGroup) && in_array("any", $modelOfModule->modelGroup) ) ) {
+                (isset($modelOfModule->modelGroup) && in_array("any", $modelOfModule->modelGroup) ) ) {
                 $groupModels[] = $modelOfModule ; } }
         return $groupModels;
     }
