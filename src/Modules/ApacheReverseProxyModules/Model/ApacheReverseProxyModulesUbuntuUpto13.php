@@ -60,7 +60,7 @@ class ApacheReverseProxyModulesUbuntuUpto13 extends BaseLinuxApp {
         $passing = true ;
         foreach ($modsToCheck as $modToCheck) {
             if (!strstr($modsText, $modToCheck)) {
-                $logging->log("Apache Module {$modToCheck} does not exist.") ;
+                $logging->log("Apache Module {$modToCheck} does not exist.", $this->getModuleName()) ;
                 $passing = false ; } }
         return $passing ;
     }
