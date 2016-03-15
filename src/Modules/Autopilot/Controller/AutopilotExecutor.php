@@ -36,7 +36,9 @@ class AutopilotExecutor extends Base {
                 $step_out = $this->executeStep($modelArray, $autopilotParams) ;
                 $dataFromThis[] = $step_out ;
 //                var_dump($step_out["status"]) ;
-                if ($step_out["status"]==false ) {
+                if ($step_out["status"]==false || \Core\BootStrap::getExitCode() !== 0 ) {
+                    $step["status"] = false ;
+                    $step["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
                     return $dataFromThis ;  } } }
         else {
             \Core\BootStrap::setExitCode(1);
