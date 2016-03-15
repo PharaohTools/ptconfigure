@@ -12,7 +12,7 @@ class PTConfigureBase extends Base {
     }
 
     public function routesAvailable() {
-      return array("help", "status", "install", "ensure", "uninstall", "version");
+      return array("help", "status", "install", "ensure", "uninstall", "version", "run-at-reboots");
     }
 
 }

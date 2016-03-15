@@ -9,15 +9,15 @@
 <body>
 
   <h3>
-    Single App Installer:<br />
+    Single Step<br />
     --------------------------------------------
   </h3>
 
   <?php echo $pageVars["appName"] ; ?>: <?php
 
-  $result_summary = (strlen($pageVars["appInstallResult"])>0) ? "Success" : "Failure" ;
+  $result_summary = (strlen($pageVars["result"])>0) ? "Success" : "Failure" ;
   echo $result_summary."\n\n" ;
-  $lines = explode(PHP_EOL, $pageVars["appInstallResult"]);
+  $lines = explode(PHP_EOL, $pageVars["result"]);
   foreach ($lines as $line) {
      echo "<p>$line</p>";
   }
@@ -26,7 +26,7 @@
 
   <p>
     ------------------------------<br />
-    Installer Finished
+    Step Complete
   </p>
 
 
