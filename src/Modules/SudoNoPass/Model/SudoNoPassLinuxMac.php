@@ -32,10 +32,12 @@ class SudoNoPassLinuxMac extends BaseLinuxApp {
     }
 
     public function displayDangerousFileWarning() {
-        echo "The following will be written to /etc/sudoers\n" ;
-        echo "Please check if it looks wrong\n" ;
-        echo "You may not be able to use Sudo if it is incorrect!!!\n" ;
-        echo "$this->installUserName ALL=NOPASSWD: ALL\n" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("The following will be written to /etc/sudoers", $this->getModuleName()) ;
+        $logging->log("Please check if it looks wrong", $this->getModuleName()) ;
+        $logging->log("You may not be able to use Sudo if it is incorrect!!!", $this->getModuleName()) ;
+        $logging->log("$this->installUserName ALL=NOPASSWD: ALL", $this->getModuleName()) ;
         if ( isset($this->params["yes"]) && $this->params["yes"]==true) {
             $this->params["perform-file-modifications"] = true ; }
         else {
@@ -44,8 +46,20 @@ class SudoNoPassLinuxMac extends BaseLinuxApp {
     }
 
     public function performFileModification() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("About to perform File Modifications on /etc/sudoers", $this->getModuleName()) ;
         if ($this->params["perform-file-modifications"] == true ) {
-            $this->executeAndOutput('echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" >> /etc/sudoers ' ) ; }
+            $line = 'echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" >> /etc/sudoers ' ;
+            $fileFactory = new \Model\File();
+            $params = $this->params ;
+            $params["file"] = "/etc/php-fpm.conf" ;
+            $params["search"] = $line ;
+            $params["after-line"] = "[global]" ;
+            $file = $fileFactory->getModel($params) ;
+            $res[] = $file->performShouldHaveLine();
+            return in_array(false, $res)==false ; }
+        return true ;
     }
 
 }
