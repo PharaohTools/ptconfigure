@@ -8,7 +8,7 @@ class AptUbuntu extends BasePackager {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array(array("11.04" => "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -43,8 +43,7 @@ class AptUbuntu extends BasePackager {
         if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
             // @todo multiple versioned packages should work!!
             $lmsg = "Multiple Packages were provided to the Packager {$this->programNameInstaller} at once with versions." ;
-            $logging->log($lmsg, $this->getModuleName()) ; ;
-            \BootStrap::setExitCode(1) ;
+            $logging->log($lmsg, $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
         foreach ($packageName as $package) {
             if (!is_null($version)) {
