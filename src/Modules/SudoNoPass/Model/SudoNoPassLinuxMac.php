@@ -50,7 +50,7 @@ class SudoNoPassLinuxMac extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("About to perform File Modifications on /etc/sudoers", $this->getModuleName()) ;
         if ($this->params["perform-file-modifications"] == true ) {
-            $line = 'echo "'.$this->installUserName.' ALL=NOPASSWD: ALL" >> /etc/sudoers ' ;
+            $line = $this->installUserName.' ALL=NOPASSWD: ALL' ;
             $fileFactory = new \Model\File();
             $params = $this->params ;
             $params["file"] = "/etc/php-fpm.conf" ;
