@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class AutopilotDSLAllLinux extends BaseLinuxApp {
+class AutopilotDSLAnyOS extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
