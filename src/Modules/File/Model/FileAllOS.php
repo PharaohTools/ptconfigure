@@ -165,9 +165,7 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Deleting File {$this->fileName}", $this->getModuleName()) ;
-        $system = new \Model\SystemDetection();
-        $thisSystem = $system->getModel($this->params);
-        if (!in_array($thisSystem->os, array("Windows", "WINNT") ) ) {
+        if (in_array(PHP_OS, array("Windows", "WINNT") ) ) {
             $comm = 'del /S /Q ' ; }
         else {
             $comm = "rm -f " ; }
@@ -281,11 +279,7 @@ class FileAllOS extends BaseLinuxApp {
     public function replaceText($oldline = null, $newline = null) {
         $string = ($oldline === null) ? $this->search : $oldline ;
         $newline = ($newline === null) ? $this->replace : $newline ;
-
         $searchString = $string;
-
-//        var_dump("findstring", $this->findString($searchString)) ;
-
         if ($this->findString($searchString) !== false) {
             $this->replaceIfPresent($searchString, $newline); }
         return $this;
