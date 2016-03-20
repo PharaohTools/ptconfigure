@@ -215,7 +215,7 @@ if not doing versions
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
         $dic = $this->doInstallCommand() ;
-        if ($dic == false) {
+        if ($dic === false) {
             $logging->log("Install steps failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
         if ($this->programDataFolder) {
@@ -303,6 +303,7 @@ if not doing versions
                 $logging->log("Failed Install Step", $this->getModuleName()) ;
                 \Core\BootStrap::setExitCode(1) ;
                 return false ; } }
+        return true ;
     }
 
     protected function doUnInstallCommand(){
@@ -321,7 +322,8 @@ if not doing versions
             if ($res === false) {
                 $logging->log("Failed Uninstall Step", $this->getModuleName()) ;
                 \Core\BootStrap::setExitCode(1) ;
-                break ; } }
+                return false ; } }
+        return true ;
     }
 
     protected function changePermissions($autoPilot, $target=null){
