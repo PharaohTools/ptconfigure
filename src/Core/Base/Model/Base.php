@@ -250,11 +250,11 @@ COMPLETION;
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
             $parts_string = substr($paramValue, strpos($paramValue, '{{{')+3, strpos($paramValue, '}}}')) ;
             $res = $this->loadFromMethod($parts_string) ;
-            $paramValue = str_replace('{{{', '', $paramValue) ;
-            $paramValue = str_replace('}}}', '', $paramValue) ;
             $start = '\{{{';
             $end  = '\}}}';
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
+            $paramValue = str_replace('{{{', '', $paramValue) ;
+            $paramValue = str_replace('}}}', '', $paramValue) ;
             return $paramValue ; }
         return $paramValue;
     }
