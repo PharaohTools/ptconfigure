@@ -247,7 +247,7 @@ COMPLETION;
             $res = $this->loadFromMethod($parts_string) ;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
-            $parts_string = substr($paramValue, strpos($paramValue, '{{{')+3, strpos($paramValue, '}}}')) ;
+            $parts_string = substr($paramValue, strpos($paramValue, '{{{')+3, strpos($paramValue, '}}}')-4) ;
             $res = $this->loadFromMethod($parts_string) ;
             $start = '\{{{';
             $end  = '\}}}';
