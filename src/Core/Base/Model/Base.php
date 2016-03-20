@@ -208,10 +208,7 @@ COMPLETION;
 
     protected function setCmdLineParams($params) {
         $cmdParams = array();
-        if (!is_array($params)) {
-//            var_dump($params) ;
-//            debug_print_backtrace() ;
-        }
+//        if (!is_array($params)) { var_dump($params) ; debug_print_backtrace() ; }
         foreach ($params as $paramKey => $paramValue) {
 //            var_dump($paramValue);
             if (is_array($paramValue)) {
@@ -236,6 +233,52 @@ COMPLETION;
                 $paramValue = true ; }
             $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); }
         $this->params = (is_array($this->params)) ? array_merge($this->params, $cmdParams) : $cmdParams;
+        $this->transformAllParameters() ;
+
+    }
+
+    protected function transformAllParameters() {
+        foreach ($this->params as $key => $val) {
+            $this->params[$key] = $this->transformParameterValue($val) ; }
+    }
+
+    protected function transformParameterValue($paramValue) {
+        if (substr($paramValue, 0, 4) == "::::") {
+            $parts_string = substr($paramValue, 4) ;
+            $res = $this->loadFromMethod($parts_string) ;
+            return $res ; }
+        if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
+            $parts_string = substr($paramValue, strpos($paramValue, '{{{')+3, strpos($paramValue, '}}}')) ;
+            $res = $this->loadFromMethod($parts_string) ;
+            $paramValue = str_replace('{{{', '', $paramValue) ;
+            $paramValue = str_replace('}}}', '', $paramValue) ;
+            $start = '\{{{';
+            $end  = '\}}}';
+            $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
+            return $paramValue ; }
+        return $paramValue;
+    }
+
+    protected function loadFromMethod($parts_string) {
+        $loggingFactory = new \Model\Logging();
+        $parts_array = explode("::", $parts_string) ;
+        $module = $parts_array[0] ;
+        $modelGroup = $parts_array[1] ;
+        $method = $parts_array[2] ;
+        $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
+        $full_factory = "\\Model\\{$module}" ;
+        $foundFactory = new $full_factory();
+        $madeModel = $foundFactory->getModel(array(), $modelGroup);
+        if (method_exists($madeModel, $method)) {
+            $res = call_user_func_array(array($madeModel, $method), $method_params) ; }
+        else {
+            $logging = $loggingFactory->getModel(array());
+            $logging->log(
+                "Parameter transform unable to find method $method in $module, $modelGroup model group",
+                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $res = null ; }
+        return $res ;
+
     }
 
     protected function askYesOrNo($question) {
