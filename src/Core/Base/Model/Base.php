@@ -261,9 +261,7 @@ COMPLETION;
     }
 
     protected function loadFromMethod($parts_string) {
-
-        var_dump("ps:", $parts_string) ;
-
+//        var_dump("ps:", $parts_string) ;
         $loggingFactory = new \Model\Logging();
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
@@ -272,7 +270,7 @@ COMPLETION;
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
         $full_factory = "\\Model\\{$module}" ;
         $foundFactory = new $full_factory();
-        $madeModel = $foundFactory->getModel(array(), $modelGroup);
+        $madeModel = $foundFactory->getModel($this->params, $modelGroup);
         if (method_exists($madeModel, $method)) {
             $res = call_user_func_array(array($madeModel, $method), $method_params) ; }
         else {
