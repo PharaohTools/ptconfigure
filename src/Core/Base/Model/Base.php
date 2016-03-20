@@ -234,7 +234,6 @@ COMPLETION;
             $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); }
         $this->params = (is_array($this->params)) ? array_merge($this->params, $cmdParams) : $cmdParams;
         $this->transformAllParameters() ;
-
     }
 
     protected function transformAllParameters() {
@@ -260,6 +259,9 @@ COMPLETION;
     }
 
     protected function loadFromMethod($parts_string) {
+
+        var_dump("ps:", $parts_string) ;
+
         $loggingFactory = new \Model\Logging();
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
