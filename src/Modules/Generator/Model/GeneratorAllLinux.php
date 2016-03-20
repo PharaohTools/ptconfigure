@@ -14,7 +14,7 @@ class GeneratorAllLinux extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    protected $translates ;
+    protected $translates = array() ;
 
     public function askWhetherToGenerateFromModule() {
         return $this->performGenerateModule();
@@ -103,31 +103,25 @@ class GeneratorAllLinux extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $target_file = str_replace(basename($original_module), $new_mod, $original_module_file) ;
-
-//        var_dump("tf1", $target_file) ;
-
         if ($target_dir !== null) {
             $start = strpos($original_module_file, $original_module ) ;
             $path = substr($original_module_file ,$start) ;
             $fin = basename($path) ;
             $target_file = $target_dir.DS.$fin ;
-//            var_dump("tf2", $target_dir, $path, $fin ) ;
-            $target_file = str_replace(basename($original_module), $new_mod, $target_file) ;
-//            var_dump("tf3", $original_module_file, $original_module, "target dir", $target_dir) ;
-        }
-
+            $target_file = str_replace(basename($original_module), $new_mod, $target_file) ; }
         $logging->log("Doing a file copy from {$original_module_file} to {$target_file}", $this->getModuleName()) ;
         $file_data = file_get_contents($original_module_file) ;
         $file_data = $this->translateData(basename($original_module), $new_mod, $file_data);
         $res = file_put_contents($target_file, $file_data) ;
+        chmod($target_file, 0777) ;
         return ($res !== false) ? true : false ;
     }
 
     protected function translateData($original, $new, $file_data) {
         $file_data = str_replace($original, $new, $file_data) ;
-        if (count($this->translates)>0) {
-            foreach ($this->translates as $search => $replace) {
-                $file_data = str_replace($search, $replace, $file_data) ;  } }
+//        if (is_array($this->translates) && count($this->translates)>0) {
+//            foreach ($this->translates as $search => $replace) {
+//                $file_data = str_replace($search, $replace, $file_data) ;  } }
         $file_data = $this->loopOurTranslates($file_data) ;
         return $file_data ;
     }
@@ -138,6 +132,7 @@ class GeneratorAllLinux extends Base {
         $end_dir = basename($dir) ;
         $target_dir .= DS.$end_dir ;
         $logging->log("Doing a dir copy from ".$dir." to ".$target_dir, $this->getModuleName()) ;
+        if ($this->removeDirIfExists($target_dir) == false) { return false ; } ;
         $logging->log("Making $target_dir", $this->getModuleName()) ;
         mkdir($target_dir, 0777, true) ;
         chmod($target_dir, 0777) ;
@@ -153,13 +148,38 @@ class GeneratorAllLinux extends Base {
         return true ;
     }
 
+    protected function removeDirIfExists($target_dir) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ($target_dir=="/"){
+            $logging->log("Cannot delete root $target_dir", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        if (file_exists($target_dir) && is_dir($target_dir)) {
+            $logging->log("Directory exists at $target_dir, removing", $this->getModuleName()) ;
+            if (in_array(PHP_OS, array("Windows", "WINNT") ) ) { $comm = 'del /S /Q ' ; }
+            else { $comm = "rm -rf " ; }
+            $comm .= $target_dir ;
+            $resrc = $this->executeAndGetReturnCode($comm, true, true) ;
+            if ($resrc["rc"]==0) { $res = true ; }
+            else { $res = false ; } }
+        else if (file_exists($target_dir) && is_file($target_dir)) {
+            $logging->log("File exists at $target_dir, removing", $this->getModuleName()) ;
+            $res = unlink($target_dir) ; }
+        else {
+            $logging->log("No directory exists at $target_dir", $this->getModuleName()) ;
+            return true ; }
+        if ($res == false) {
+            $logging->log( "Failed to remove", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        $logging->log("Removal successful $target_dir", $this->getModuleName()) ;
+        return true ;
+    }
+
     protected function loopOurTranslates($file_data) {
         $pairs = explode(",", $this->translates) ;
-        $new_translates = array() ;
         foreach ($pairs as $pair) {
             $search = substr($pair, 0, strpos($pair, ":") ) ;
             $replace = substr($pair, strpos($pair, ":") + 1 ) ;
-//            $new_translates[$search] = $replace ;
             $file_data = str_replace($search, $replace, $file_data) ; }
         return $file_data ;
     }
