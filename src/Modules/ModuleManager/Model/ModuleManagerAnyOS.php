@@ -28,7 +28,7 @@ class ModuleManagerAnyOS extends BasePHPApp {
 
     protected function setParameterOverrides() {
         $ext_dir = dirname(dirname(dirname(dirname(__FILE__)))) ;
-        $ext_dir .= DS."Extensions".DS ;
+        $ext_dir .= DS."Extensions".DS.$this->getNameOfModuleToManage() ;
         $this->params["program-data-directory"] = $ext_dir ;
         $this->params["module-manager"] = true ;
         $this->params["no-executor"] = true ;
@@ -40,7 +40,8 @@ class ModuleManagerAnyOS extends BasePHPApp {
             array(
                 $ms,
                 $this->getNameOfModuleToManage(),
-                null // branch, can be null
+                null, // branch, can be null
+                true
             );
         return $fileSources ;
     }
