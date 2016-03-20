@@ -55,7 +55,6 @@ class SudoNoPassLinuxMac extends BaseLinuxApp {
             $params = $this->params ;
             $params["file"] = "/etc/sudoers" ;
             $params["search"] = $line ;
-            $params["after-line"] = "[global]" ;
             $file = $fileFactory->getModel($params) ;
             $res[] = $file->performShouldHaveLine();
             return in_array(false, $res)==false ; }
