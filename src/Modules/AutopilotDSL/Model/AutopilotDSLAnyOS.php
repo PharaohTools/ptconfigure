@@ -21,6 +21,7 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
     public function loopOurDSLFile($file) {
         $lines = $this->loadFile($file) ;
         $new_steps = array() ;
+        $new_vars = array() ;
         $total_line_count = count($lines) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -29,12 +30,15 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         $total_loops = 0 ;
         while ( $trawl_line < $total_line_count && $total_loops < 10000) {
             $cur_lines_trawled = $this->trawlFile($lines, $trawl_line) ;
-            $new_steps[] = $cur_lines_trawled["data"] ;
+            if (isset($cur_lines_trawled["data"])) {
+                $new_steps[] = $cur_lines_trawled["data"] ; }
+            else if (isset($cur_lines_trawled["name"])) {
+                $new_vars[$cur_lines_trawled["name"]] = $cur_lines_trawled["value"] ; }
             // @todo below is for verbose logging
-//            $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
+            // $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
             $trawl_line = $cur_lines_trawled["line"] ;
             $total_loops++ ; }
-        return $new_steps ;
+        return array("vars" => $new_vars, "steps" => $new_steps) ;
     }
 
 
@@ -43,7 +47,11 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         $i = $start_line ;
         // allow comments
         // @todo fix comments
-//        $i = $this->parseComments($lines, $i, $total) ;
+        $res = $this->parseVariables($lines[$i]) ;
+//        var_dump("r1", $res) ;
+        if ($res !== false) {
+            $i++ ;
+            return array("line" => $i, "name"  => $res["name"], "value"  => $res["value"]) ; }
         $parsedLine = $this->parseHeadLineText($lines[$i]) ;
         $i2 = $i + 1 ;
         $parsedParamsLine = $this->parseParamsText($lines, $i2, $total) ;
@@ -64,6 +72,27 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
             $logging->log("Something bad happened. The file has no lines", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
         return $lines ;
+    }
+
+    public function parseVariables($line) {
+        $parts = array() ;
+        $tab_free = $this->getTabFreeLine($line) ;
+        $stend_sp_free = $this->removeStartAndEndSpaces($tab_free) ;
+        if (substr($stend_sp_free, 0, 1) == '$') {
+            $words_in_line = $this->getShortWords($stend_sp_free) ;
+            var_dump($words_in_line) ;
+            if (count($words_in_line)==3) {
+                $parts["name"] = $words_in_line[0] ;
+                $parts["value"] = $words_in_line[2] ; }
+            else if (count($words_in_line)==2) {
+                $parts["name"] = $words_in_line[0] ;
+                $parts["value"] = $words_in_line[1] ; }
+            else {
+                // this is probably an error
+                return false ; }
+            return $parts ; }
+        else {
+            return false ; }
     }
 
     public function parseHeadLineText($line) {
