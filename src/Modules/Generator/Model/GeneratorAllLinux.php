@@ -125,8 +125,9 @@ class GeneratorAllLinux extends Base {
 
     protected function translateData($original, $new, $file_data) {
         $file_data = str_replace($original, $new, $file_data) ;
-        foreach ($this->translates as $search => $replace) {
-            $file_data = str_replace($search, $replace, $file_data) ;  }
+        if (count($this->translates)>0) {
+            foreach ($this->translates as $search => $replace) {
+                $file_data = str_replace($search, $replace, $file_data) ;  } }
         $file_data = $this->loopOurTranslates($file_data) ;
         return $file_data ;
     }
