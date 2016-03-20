@@ -39,17 +39,16 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
 
 
     public function trawlFile($lines, $start_line) {
-//    echo "Starting trawl... \n" ;
         $total = count($lines) ;
         $i = $start_line ;
+        // allow comments
+        // @todo fix comments
+//        $i = $this->parseComments($lines, $i, $total) ;
         $parsedLine = $this->parseHeadLineText($lines[$i]) ;
-//    echo "Headline Line is {$i} ... \n" ;
         $i2 = $i + 1 ;
-//    echo "Param Start Line is {$i2} ... \n" ;
         $parsedParamsLine = $this->parseParamsText($lines, $i2, $total) ;
         $section = array_merge($parsedLine, array("params" => $parsedParamsLine["params"])) ;
         $i = $parsedParamsLine["line"] ;
-//    echo "Param Finish Line is {$i} ... \n" ;
         return array("line" => $i, "data"  => $section) ;
     }
 
@@ -81,25 +80,38 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         return $parts ;
     }
 
-    public function parseParamsText($lines, $start, $total) {
+    public function parseComments($lines, $start, $total) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-//    var_dump("param parse: ", "start: ",$start, "total", $total) ;
-        $params = array() ;
         $current = $start ;
+        echo "Starting comment trawl... \n" ;
         for ( $i = $start ; $i < $total ; $i++ ) {
-            $tab_free = $this->getTabFreeLine($lines[$i]) ;
-            $stend_sp_free = $this->removeStartAndEndSpaces($tab_free) ;
-            $words_in_line = $this->getLongWords($stend_sp_free) ;
-            if (count($words_in_line)==3) {
-                $params[$words_in_line[0]] = $words_in_line[2] ; }
-            if (count($words_in_line)==2) {
-                $params[$words_in_line[0]] = $words_in_line[1] ; }
-            if (count($words_in_line)==1) {
-                $params[$words_in_line[0]] = "true" ; }
-            if (strlen($stend_sp_free)==0) {
-                break ; }
-            $current = $i ; }
+            $first_char = substr($lines[$i], 0, 1) ;
+            $current = $i ;
+            if ($first_char !== '#') { break ; } }
+        echo "Returning start $start, current $current... \n" ;
+        return $current ;
+    }
+
+    public function parseParamsText($lines, $start, $total) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+//    var_dump("param parse: ", "start: ",$start, "total", $total) ;
+            $params = array() ;
+            $current = $start ;
+            for ( $i = $start ; $i < $total ; $i++ ) {
+                $tab_free = $this->getTabFreeLine($lines[$i]) ;
+                $stend_sp_free = $this->removeStartAndEndSpaces($tab_free) ;
+                $words_in_line = $this->getLongWords($stend_sp_free) ;
+                if (count($words_in_line)==3) {
+                    $params[$words_in_line[0]] = $words_in_line[2] ; }
+                if (count($words_in_line)==2) {
+                    $params[$words_in_line[0]] = $words_in_line[1] ; }
+                if (count($words_in_line)==1) {
+                    $params[$words_in_line[0]] = "true" ; }
+                if (strlen($stend_sp_free)==0) {
+                    break ; }
+                $current = $i ; }
         $current++;
 //    var_dump("current last line:", $current) ;
         $max_line = $current + 10 ;
