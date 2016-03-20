@@ -4,7 +4,7 @@ Namespace Model;
 
 class BasePHPApp extends Base {
 
-    protected $fileSources;
+    protected $fileSources; // array ("repo url", "custom dir", "custom branch", "single depth")
     protected $preinstallCommands;
     protected $preuninstallCommands;
     protected $postinstallCommands;
@@ -45,27 +45,27 @@ class BasePHPApp extends Base {
         return $this->askWhetherToInstallPHPApp();
     }
 
-  public function askUnInstall() {
-    return $this->askWhetherToUninstallPHPApp();
-  }
+    public function askUnInstall() {
+        return $this->askWhetherToUninstallPHPApp();
+    }
 
-  public function askWhetherToUninstallPHPApp() {
-    return $this->performPHPAppUnInstall();
-  }
+    public function askWhetherToUninstallPHPApp() {
+        return $this->performPHPAppUnInstall();
+    }
 
-  protected function performPHPAppInstall() {
+    protected function performPHPAppInstall() {
     $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
-      true : $this->askWhetherToInstallPHPAppToScreen();
+        true : $this->askWhetherToInstallPHPAppToScreen();
     if (!$doInstall) { return false; }
-      return $this->install();
-  }
+        return $this->install();
+    }
 
-  protected function performPHPAppUnInstall() {
+    protected function performPHPAppUnInstall() {
     $doUnInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
-      true : $this->askWhetherToUnInstallPHPAppToScreen();
+        true : $this->askWhetherToUnInstallPHPAppToScreen();
     if (!$doUnInstall) { return false; }
-      return $this->unInstall();
-  }
+        return $this->unInstall();
+    }
 
     public function ensureInstalled(){
         $loggingFactory = new \Model\Logging();
@@ -194,7 +194,7 @@ class BasePHPApp extends Base {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $default_dir =  PFILESDIR; }
         else {
-            $default_dir =  '/usr/bin'; }
+            $default_dir =  '/usr/bin/'; }
         $question = 'What is the program executor directory?';
         $question .= ' Found "'.$default_dir.'" - use this? (Enter nothing for yes, No Trailing Slash)';
         $input = (isset($this->params["yes"]) && $this->params["yes"]==true) ? $default_dir : self::askForInput($question);
@@ -252,12 +252,15 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $copy_comm =  'xcopy /q /s /e /y '; }
         else {
             $copy_comm =  'cp -r '; }
-        $command = $copy_comm.$this->tempFileStore.' '.$this->programDataFolder;
-        $rc = self::executeAndGetReturnCode($command, true, true);
-        if ($rc["rc"] !== 0) {
-            $logging->log("Error copying to Program Data folder", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            return false ; }
-        $logging->log("Program Data folder deleted", $this->getModuleName()) ;
+        foreach ($this->fileSources as $fileSource) {
+            $fs = "" ;
+            if (isset($fileSource[3])&& $fileSource[3]==true) { $fs = DS.'*' ; }
+            $command = $copy_comm.$this->tempFileStore.$fs.' '.$this->programDataFolder;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error copying to Program Data folder", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; }
+            $logging->log("Program Data folder deleted", $this->getModuleName()) ; }
         return true;
     }
 
@@ -339,24 +342,23 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
   protected function doGitCommand(){
       $loggingFactory = new \Model\Logging();
       $logging = $loggingFactory->getModel($this->params);
-    foreach ($this->fileSources as $fileSource) {
-        $this->tempFileStore = BASE_TEMP_DIR.$this->programNameMachine ;
-        if ($fileSource[1] != null) {
-            $this->tempFileStore .= DIRECTORY_SEPARATOR.$fileSource[1] ; }
-//        $this->tempFileStore = $this->ensureTrailingSlash($this->tempFileStore) ;
-        $this->deleteProgramDataFolderAsRootIfExists($this->tempFileStore) ;
-      $command  = $this->executorPath.' clone ';
-      if (isset($fileSource[3]) &&
-        $fileSource[3] = true) { $command .= '--recursive ';}
-      if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
-      $command .= escapeshellarg($fileSource[0]).' ';
-      $command .= ' '.$this->tempFileStore ;
-      $logging->log("Git command is $command", $this->getModuleName()) ;
-      $rc = self::executeAndGetReturnCode($command, true, true);
-      if ($rc["rc"] !== 0) {
-          $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-          return false ; } }
-    return true ;
+      foreach ($this->fileSources as $fileSource) {
+            $this->tempFileStore = BASE_TEMP_DIR.$this->programNameMachine ;
+            if ($fileSource[1] != null) {
+                $this->tempFileStore .= DIRECTORY_SEPARATOR.$fileSource[1] ; }
+            $this->deleteProgramDataFolderAsRootIfExists($this->tempFileStore) ;
+          $command  = $this->executorPath.' clone ';
+          if (isset($fileSource[3]) &&
+            $fileSource[3] = true) { $command .= '--recursive ';}
+          if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
+          $command .= escapeshellarg($fileSource[0]).' ';
+          $command .= ' '.$this->tempFileStore ;
+          $logging->log("Git command is $command", $this->getModuleName()) ;
+          $rc = self::executeAndGetReturnCode($command, true, true);
+          if ($rc["rc"] !== 0) {
+              $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+              return false ; } }
+      return true ;
   }
 
 
