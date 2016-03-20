@@ -210,10 +210,14 @@ if not doing versions
     }
 
     public function install() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
         $dic = $this->doInstallCommand() ;
-        if ($dic == false) { return false ; }
+        if ($dic == false) {
+            $logging->log("Install steps failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
         if ($this->programDataFolder) {
             $this->changePermissions($this->programDataFolder); }
         // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
@@ -238,11 +242,11 @@ if not doing versions
             $serviceFactory = new Service();
             $serviceManager = $serviceFactory->getModel($this->params) ;
             foreach ($this->rebootsCommand as $rebootsCommand) {
-                $logging->log("Ensuring {$rebootsCommand} Will Run at Reboots") ;
+                $logging->log("Ensuring {$rebootsCommand} Will Run at Reboots", $this->getModuleName()) ;
                 $serviceManager->setService($rebootsCommand);
                 $serviceManager->runAtReboots(); } }
         else {
-            $logging->log("This module does not report any services which can run at reboots") ; }
+            $logging->log("This module does not report any services which can run at reboots", $this->getModuleName()) ; }
     }
 
     protected function showTitle() {
