@@ -5,14 +5,11 @@ Namespace Model;
 class Base {
 
     public $params ;
-
     public $autopilotDefiner ;
     public $programNameFriendly;
     public $programNameInstaller;
-
     protected $installUserName;
     protected $installUserHomeDir;
-
     protected $programNameMachine ;
     protected $programDataFolder;
     protected $startDirectory;
@@ -244,13 +241,13 @@ COMPLETION;
     protected function transformParameterValue($paramValue) {
         if (substr($paramValue, 0, 4) == "::::") {
             $parts_string = substr($paramValue, 4) ;
-            $res = $this->loadFromMethod($parts_string) ;
+            $res = $this->loadFromMethod($parts_string, $paramValue) ;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
             $or_st = strpos($paramValue, '{{{')+7 ;
             $or_end = strpos($paramValue, '}}}') - $or_st ;
             $parts_string = substr($paramValue, $or_st, $or_end) ;
-            $res = $this->loadFromMethod($parts_string) ;
+            $res = $this->loadFromMethod($parts_string, $paramValue) ;
             $start = '\{{{';
             $end  = '\}}}';
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
@@ -260,11 +257,15 @@ COMPLETION;
         return $paramValue;
     }
 
-    protected function loadFromMethod($parts_string) {
+    protected function loadFromMethod($parts_string, $paramValue) {
 //        var_dump("ps:", $parts_string) ;
         $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
+
+        if ($module==$this->getModuleName()) { return $paramValue ; }
+
         $modelGroup = $parts_array[1] ;
         $method = $parts_array[2] ;
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
