@@ -153,12 +153,7 @@ COMPLETION;
         if (!is_executable($tempFile)) {
             // @todo this wont work on windows
             shell_exec("chmod 755 $tempFile 2>/dev/null");
-            // echo "chmod +x $tempFile 2>/dev/null\n";
-            shell_exec("chmod +x $tempFile 2>/dev/null");
-//            $logging->log("Changing static $tempFile Permissions");
-        }
-//        $logging->log("Executing $tempFile");
-//        var_dump($command) ;
+            shell_exec("chmod +x $tempFile 2>/dev/null"); }
 
         $proc = proc_open($command, array(
             0 => array("pipe","r"),
@@ -241,13 +236,26 @@ COMPLETION;
     protected function transformParameterValue($paramValue) {
         if (substr($paramValue, 0, 4) == "::::") {
             $parts_string = substr($paramValue, 4) ;
-            $res = $this->loadFromMethod($parts_string, $paramValue) ;
+            $parts_array = explode("::", $parts_string) ;
+            $module = $parts_array[0] ;
+
+//            var_dump("m1:", $module, $this->getModuleName() ) ;
+
+            if ($module==$this->getModuleName()) { return $paramValue ; }
+
+            $res = $this->loadFromMethod($parts_string) ;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
             $or_st = strpos($paramValue, '{{{')+7 ;
             $or_end = strpos($paramValue, '}}}') - $or_st ;
             $parts_string = substr($paramValue, $or_st, $or_end) ;
-            $res = $this->loadFromMethod($parts_string, $paramValue) ;
+            $parts_array = explode("::", $parts_string) ;
+            $module = $parts_array[0] ;
+//
+//            var_dump("m2:", $module, $this->getModuleName() ) ;
+
+            if ($module==$this->getModuleName()) { return $paramValue ; }
+            $res = $this->loadFromMethod($parts_string) ;
             $start = '\{{{';
             $end  = '\}}}';
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
@@ -257,14 +265,12 @@ COMPLETION;
         return $paramValue;
     }
 
-    protected function loadFromMethod($parts_string, $paramValue) {
+    protected function loadFromMethod($parts_string) {
 //        var_dump("ps:", $parts_string) ;
         $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
+        $logging = $loggingFactory->getModel(array());
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
-
-        if ($module==$this->getModuleName()) { return $paramValue ; }
 
         $modelGroup = $parts_array[1] ;
         $method = $parts_array[2] ;
