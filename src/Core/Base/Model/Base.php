@@ -267,7 +267,7 @@ COMPLETION;
             $paramValue = str_replace('{{{', '', $paramValue) ;
             $paramValue = str_replace('}}}', '', $paramValue) ;
 
-            var_dump("pv: ", $paramValue) ;
+            var_dump("pv: ", $paramValue, "st", $start, "end", $end, "res", $res) ;
 
             return $paramValue ; }
         return $paramValue;
