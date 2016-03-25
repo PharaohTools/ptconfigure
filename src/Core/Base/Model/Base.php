@@ -477,14 +477,14 @@ COMPLETION;
     public function packageAdd($packager, $package, $version = null, $versionOperator = "+") {
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageEnsure($packager, $package, $this, $version, $versionOperator);
+        return $packageManager->performPackageEnsure($packager, $package, $this, $version, $versionOperator);
     }
 
     //@todo maybe this should be a helper
     public function packageRemove($packager, $package) {
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageRemove($packager, $package, $this);
+        return $packageManager->performPackageRemove($packager, $package, $this);
     }
 
     /*Versioning starts here*/
