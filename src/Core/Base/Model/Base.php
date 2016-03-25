@@ -238,11 +238,7 @@ COMPLETION;
             $parts_string = substr($paramValue, 4) ;
             $parts_array = explode("::", $parts_string) ;
             $module = $parts_array[0] ;
-
-//            var_dump("m1:", $module, $this->getModuleName() ) ;
-
             if ($module==$this->getModuleName()) { return $paramValue ; }
-
             $res = $this->loadFromMethod($parts_string) ;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
@@ -253,22 +249,12 @@ COMPLETION;
             $module = $parts_array[0] ;
             if ($module==$this->getModuleName()) { return $paramValue ; }
             $res = $this->loadFromMethod($parts_string) ;
-
-
-            $start = '\{{{';
-            $end  = '\}}}';
+            $start = '\{{{' ;
+            $end  = '\}}}' ;
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
-
-
-
-
-            $orig_val = substr('{{{', '', $paramValue) ;
-
-            $paramValue = str_replace('{{{', '', $paramValue) ;
-            $paramValue = str_replace('}}}', '', $paramValue) ;
-
+            $paramValue = str_replace('{{{ ', '', $paramValue) ;
+            $paramValue = str_replace(' }}}', '', $paramValue) ;
             var_dump("pv: ", $paramValue, "st", $start, "end", $end, "res", $res) ;
-
             return $paramValue ; }
         return $paramValue;
     }
