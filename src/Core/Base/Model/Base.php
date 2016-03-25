@@ -251,9 +251,6 @@ COMPLETION;
             $parts_string = substr($paramValue, $or_st, $or_end) ;
             $parts_array = explode("::", $parts_string) ;
             $module = $parts_array[0] ;
-//
-//            var_dump("m2:", $module, $this->getModuleName() ) ;
-
             if ($module==$this->getModuleName()) { return $paramValue ; }
             $res = $this->loadFromMethod($parts_string) ;
             $start = '\{{{';
@@ -261,6 +258,9 @@ COMPLETION;
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
             $paramValue = str_replace('{{{', '', $paramValue) ;
             $paramValue = str_replace('}}}', '', $paramValue) ;
+
+            var_dump("pv: ", $paramValue) ;
+
             return $paramValue ; }
         return $paramValue;
     }
