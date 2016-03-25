@@ -253,9 +253,17 @@ COMPLETION;
             $module = $parts_array[0] ;
             if ($module==$this->getModuleName()) { return $paramValue ; }
             $res = $this->loadFromMethod($parts_string) ;
+
+
             $start = '\{{{';
             $end  = '\}}}';
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
+
+
+
+
+            $orig_val = substr('{{{', '', $paramValue) ;
+
             $paramValue = str_replace('{{{', '', $paramValue) ;
             $paramValue = str_replace('}}}', '', $paramValue) ;
 
