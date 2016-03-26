@@ -127,7 +127,6 @@ cp /tmp/mod_fastcgi-2.4.6/Makefile.AP2 /tmp/mod_fastcgi-2.4.6/Makefile ' ;
         if (substr_count($sys->version, ".")==2) {
             $rpos = strrpos($sys->version, ".") ;
             $version = substr($sys->version, 0, $rpos) ; }
-        var_dump("syssvers", $version) ;
         $comm = SUDOPREFIX."ln -s XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX{$version}.xctoolchain" ;
         $rc = $this->executeAndGetReturnCode($comm, true, true) ;
         $res[] = ($rc["rc"] == true) ? true : false ;
