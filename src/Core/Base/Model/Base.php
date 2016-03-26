@@ -254,18 +254,16 @@ COMPLETION;
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
             $paramValue = str_replace('{{{ ', '', $paramValue) ;
             $paramValue = str_replace(' }}}', '', $paramValue) ;
-            var_dump("pv:", $paramValue, "res:", $res) ;
+//            var_dump("pv:", $paramValue, "res:", $res) ;
             return $paramValue ; }
         return $paramValue;
     }
 
     protected function loadFromMethod($parts_string) {
-//        var_dump("ps:", $parts_string) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
-
         $modelGroup = $parts_array[1] ;
         $method = $parts_array[2] ;
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
@@ -273,9 +271,11 @@ COMPLETION;
         $foundFactory = new $full_factory();
         $madeModel = $foundFactory->getModel($this->params, $modelGroup);
         if (method_exists($madeModel, $method)) {
+            $logging->log(
+                "Parameter transform loading value from method $method in $module, $modelGroup model group",
+                $this->getModuleName()) ;
             $res = call_user_func_array(array($madeModel, $method), $method_params) ; }
         else {
-            $logging = $loggingFactory->getModel(array());
             $logging->log(
                 "Parameter transform unable to find method $method in $module, $modelGroup model group",
                 $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
