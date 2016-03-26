@@ -293,6 +293,7 @@ if not doing versions
         foreach ($this->installCommands as $installCommand) {
             $res = "" ;
             if ( array_key_exists("method", $installCommand)) {
+                var_dump("r1", $installCommand["method"]["object"], $installCommand["method"]["method"], $installCommand["method"]["params"] ) ;
                 $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
@@ -300,8 +301,7 @@ if not doing versions
                 $rc = self::executeAndGetReturnCode($installCommand["command"], true, true);
                 if ($rc["rc"] !== 0) { $res = false ; } }
             if ($res === false) {
-                $logging->log("Failed Install Step", $this->getModuleName()) ;
-                \Core\BootStrap::setExitCode(1) ;
+                $logging->log("Failed Install Step", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
         return true ;
     }
