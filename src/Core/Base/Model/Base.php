@@ -254,6 +254,7 @@ COMPLETION;
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
             $paramValue = str_replace('{{{ ', '', $paramValue) ;
             $paramValue = str_replace(' }}}', '', $paramValue) ;
+            var_dump("pv:", $paramValue, "res:", $res) ;
             return $paramValue ; }
         return $paramValue;
     }
