@@ -158,7 +158,8 @@ class PackageManagerAllOS extends BaseLinuxApp {
     }
 
     public function ensureInstalled() {
-        if ($this->isInstalled()==false) { $this->installPackages(); }
+        if ($this->isInstalled()==false) {
+            return $this->installPackages(); }
         else {
             $this->setPackageStatusInCleovars($this->packageName, true);
             $loggingFactory = new \Model\Logging();
@@ -169,8 +170,8 @@ class PackageManagerAllOS extends BaseLinuxApp {
             else {
                 $lText = "Package {$this->packageName} from the Packager {$this->packagerName} is already installed" ; }
             $lText .= ", so not installing" ;
-            $logging->log($lText); }
-        return $this;
+            $logging->log($lText);
+            return true ; }
     }
 
     public function isInstalled() {
