@@ -137,6 +137,9 @@ class PackageManagerAllOS extends BaseLinuxApp {
             $result = $packager->installPackage($onePackage, $this->version, $this->versionAccuracy, $this->requestingModel) ;
             if ($result == true) { $this->setPackageStatusInCleovars($onePackage, true) ; } ;
             $returns[] = $result ; }
+
+        var_dump("inst p:", in_array(false, $returns)) ;
+
         return (in_array(false, $returns)) ? false : true ;
     }
 
@@ -170,7 +173,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
             else {
                 $lText = "Package {$this->packageName} from the Packager {$this->packagerName} is already installed" ; }
             $lText .= ", so not installing" ;
-            $logging->log($lText);
+            $logging->log($lText, $this->getModuleName());
             return true ; }
     }
 
