@@ -293,8 +293,9 @@ if not doing versions
         foreach ($this->installCommands as $installCommand) {
             $res = "" ;
             if ( array_key_exists("method", $installCommand)) {
-                var_dump("r1", $installCommand["method"]["object"], $installCommand["method"]["method"], $installCommand["method"]["params"] ) ;
-                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
+                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]);
+
+                var_dump("r1", $installCommand["method"]["method"], $installCommand["method"]["params"], "res:", $res ) ; }
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
