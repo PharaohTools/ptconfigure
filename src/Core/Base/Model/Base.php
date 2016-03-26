@@ -271,9 +271,7 @@ COMPLETION;
         $foundFactory = new $full_factory();
         $madeModel = $foundFactory->getModel($this->params, $modelGroup);
         if (method_exists($madeModel, $method)) {
-            $logging->log(
-                "Parameter transform loading value from method $method in $module, $modelGroup model group",
-                $this->getModuleName()) ;
+//            $logging->log("Parameter transform loading value from method $method in $module, $modelGroup model group", $this->getModuleName()) ;
             $res = call_user_func_array(array($madeModel, $method), $method_params) ; }
         else {
             $logging->log(
