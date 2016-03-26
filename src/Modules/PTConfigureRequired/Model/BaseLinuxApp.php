@@ -223,7 +223,9 @@ if not doing versions
         // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
         $this->showCompletion();
-        return $this->askStatus();
+        return true ;
+        // @todo should probably return askStatus
+//        return $this->askStatus();
     }
 
     public function unInstall() {
@@ -293,9 +295,7 @@ if not doing versions
         foreach ($this->installCommands as $installCommand) {
             $res = "" ;
             if ( array_key_exists("method", $installCommand)) {
-                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]);
-
-                var_dump("r1", $installCommand["method"]["method"], $installCommand["method"]["params"], "res:", $res ) ; }
+                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
