@@ -22,8 +22,7 @@ class CopyAllLinux extends Base {
         if ($this->askForCopyExecute() != true) { return false; }
         $sourcePath = $this->getSourceFilePath() ;
         $targetPath = $this->getTargetFilePath() ;
-        $this->doCopyPut($sourcePath, $targetPath) ;
-        return true;
+        return $this->doCopyPut($sourcePath, $targetPath) ;
     }
 
     private function doCopyPut($source, $target) {
@@ -31,7 +30,8 @@ class CopyAllLinux extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Executing $comm", $this->getModuleName());
-        self::executeAndOutput($comm) ;
+        $rc = self::executeAndGetReturnCode($comm, true, false) ;
+        return ($rc["rc"]==0) ? true : false ;
     }
 
     private function askForCopyExecute(){
