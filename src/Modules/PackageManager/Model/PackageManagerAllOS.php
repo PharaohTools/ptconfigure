@@ -137,9 +137,6 @@ class PackageManagerAllOS extends BaseLinuxApp {
             $result = $packager->installPackage($onePackage, $this->version, $this->versionAccuracy, $this->requestingModel) ;
             if ($result == true) { $this->setPackageStatusInCleovars($onePackage, true) ; } ;
             $returns[] = $result ; }
-
-        var_dump("inst p:", in_array(false, $returns)) ;
-
         return (in_array(false, $returns)) ? false : true ;
     }
 
