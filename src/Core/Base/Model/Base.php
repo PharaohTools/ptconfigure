@@ -174,6 +174,7 @@ COMPLETION;
                     echo "ERR: ".$buf2 ;
                     unset($buf2) ;} } }
 
+        $status = proc_get_status($proc);
         $stdout = stream_get_contents($pipes[1]);
         fclose($pipes[1]);
         $stderr = stream_get_contents($pipes[2]);
@@ -181,7 +182,6 @@ COMPLETION;
         // @note geting status s necessary as sometimes this doesn't return an exit code
         // http://php.net/manual/en/function.proc-close.php
         // morrisdavid gmail comment
-        $status = proc_get_status($proc);
         $retVal = proc_close($proc);
         $retVal = ($status["running"] ? $retVal : $status["exitcode"] );
         $output = (isset($stderr)) ? $stdout.$stderr : $stdout ;
