@@ -86,9 +86,10 @@ class Autopilot extends Base {
 
     private function loadDSLAutoPilot($filename, $pageVars){
         $dslModel = $this->getModelAndCheckDependencies("AutopilotDSL", $pageVars) ;
-        $autoPilotData = $dslModel->loopOurDSLFile($filename) ;
-        $autoPilotData = $this->transformData($autoPilotData);
+        $autoPilotReturn = $dslModel->loopOurDSLFile($filename) ;
+        $autoPilotData = $this->transformData($autoPilotReturn["steps"]);
         $auto = new \StdClass() ;
+        $auto->vars = $autoPilotReturn["vars"] ;
         $auto->steps = $autoPilotData ;
         return $auto ;
     }
