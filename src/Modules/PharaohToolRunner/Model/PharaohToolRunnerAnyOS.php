@@ -28,7 +28,8 @@ class PharaohToolRunnerAnyOS extends Base {
     }
 
     protected function doPharaohToolRun($tool, $module, $action) {
-        $comm = "$tool $module $action" ;
+        $param_string = $this->getParametersToForward() ;
+        $comm = "$tool $module $action $param_string" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Executing $comm", $this->getModuleName());
