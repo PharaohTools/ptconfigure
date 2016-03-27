@@ -23,7 +23,6 @@ class ApacheReverseProxyModulesUbuntu14Plus extends BaseLinuxApp {
             array("command"=> "a2enmod lbmethod_byrequests" ),
             array("command"=> "a2enmod proxy" ),
             array("command"=> "a2enmod proxy_http" ),
-            array("command"=> "a2enmod mod_proxy_http" ),
             array("command"=> "a2enmod proxy_ftp" ),
             array("command"=> "a2enmod proxy_connect" ),
             array("command"=> "a2enmod proxy_ajp" ),
