@@ -253,8 +253,8 @@ COMPLETION;
             $parts_array = explode("::", $parts_string) ;
             $module = $parts_array[0] ;
             if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
-                $res = $this->loadFromParameter($parts_string) ;
-                return $paramValue ; }
+                $res = $this->loadFromParameter($parts_array) ;
+                return $res ; }
             if ($module==$this->getModuleName()) { return $paramValue ; }
             $res = $this->loadFromMethod($parts_string) ;
             $start = '\{{{' ;
@@ -262,7 +262,6 @@ COMPLETION;
             $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
             $paramValue = str_replace('{{{ ', '', $paramValue) ;
             $paramValue = str_replace(' }}}', '', $paramValue) ;
-//            var_dump("pv:", $paramValue, "res:", $res) ;
             return $paramValue ; }
         return $paramValue;
     }
@@ -290,25 +289,9 @@ COMPLETION;
 
     }
 
-    protected function loadFromParameter($parts_string) {
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel(array());
-        $parts_array = explode("::", $parts_string) ;
+    protected function loadFromParameter($parts_array) {
         $module = $parts_array[0] ;
         $param_requested = $parts_array[1] ;
-//        $method = $parts_array[2] ;
-//        $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
-//        $full_factory = "\\Model\\{$module}" ;
-//        $foundFactory = new $full_factory();
-//        $madeModel = $foundFactory->getModel($this->params, $modelGroup);
-//
-//        if (method_exists($madeModel, $method)) {
-//            $res = call_user_func_array(array($madeModel, $method), $method_params) ; }
-//        else {
-//            $logging->log(
-//                "Parameter transform unable to find method $method in $module, $modelGroup model group",
-//                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-//            $res = null ; }
         return $this->params[$param_requested] ;
 
     }
