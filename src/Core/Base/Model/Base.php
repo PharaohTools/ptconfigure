@@ -254,16 +254,21 @@ COMPLETION;
             $module = $parts_array[0] ;
             if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
                 $res = $this->loadFromParameter($parts_array) ;
-                return $res ; }
+                $paramValue = $this->swapResForVariable($res, $paramValue);
+                return $paramValue ; }
             if ($module==$this->getModuleName()) { return $paramValue ; }
             $res = $this->loadFromMethod($parts_string) ;
-            $start = '\{{{' ;
-            $end  = '\}}}' ;
-            $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
-            $paramValue = str_replace('{{{ ', '', $paramValue) ;
-            $paramValue = str_replace(' }}}', '', $paramValue) ;
-            return $paramValue ; }
+            $paramValue = $this->swapResForVariable($res, $paramValue); }
         return $paramValue;
+    }
+
+    protected function swapResForVariable($res, $paramValue) {
+        $start = '\{{{' ;
+        $end  = '\}}}' ;
+        $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
+        $paramValue = str_replace('{{{ ', '', $paramValue) ;
+        $paramValue = str_replace(' }}}', '', $paramValue) ;
+        return $paramValue ;
     }
 
     protected function loadFromMethod($parts_string) {
@@ -290,10 +295,10 @@ COMPLETION;
     }
 
     protected function loadFromParameter($parts_array) {
-        $module = $parts_array[0] ;
         $param_requested = $parts_array[1] ;
-        return $this->params[$param_requested] ;
 
+
+        return $this->params[$param_requested] ;
     }
 
     protected function askYesOrNo($question) {
