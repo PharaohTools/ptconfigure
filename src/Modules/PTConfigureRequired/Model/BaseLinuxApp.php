@@ -299,8 +299,9 @@ if not doing versions
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
-                $rc = self::executeAndGetReturnCode($installCommand["command"], true, true);
-                if ($rc["rc"] !== 0) { $res = false ; } }
+                foreach ($installCommand["command"] as $command) {
+                    $rc = self::executeAndGetReturnCode($command, true, true);
+                    if ($rc["rc"] !== 0) { $res = false ; } } }
             if ($res === false) {
                 $logging->log("Failed Install Step", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
