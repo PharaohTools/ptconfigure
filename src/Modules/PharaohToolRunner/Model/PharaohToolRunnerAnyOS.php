@@ -91,9 +91,12 @@ class PharaohToolRunnerAnyOS extends Base {
         $pairs = explode(",", $pstr) ;
         $parameter_string = "" ;
         foreach ($pairs as $pair) {
-            $key = substr($pair, 0, strpos($pair, ":") ) ;
-            $val = substr($pair, strpos($pair, ":") + 1 ) ;
-            $parameter_string .= " --{$key}={$val}" ; }
+            if (strpos($pair, ":") !== false) {
+                $key = substr($pair, 0, strpos($pair, ":") ) ;
+                $val = substr($pair, strpos($pair, ":") + 1 ) ;
+                $parameter_string .= " --{$key}={$val}" ; }
+            else {
+                $parameter_string .= " --{$pair}" ; } }
         return $parameter_string ;
     }
 
