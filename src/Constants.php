@@ -16,9 +16,14 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     define('SUDOPREFIX', "");
     define('VBOXMGCOMM', "\"{$outputArray[0]}\" ") ;
     define('PFILESDIR', $sd."\\PharaohTools\\") ;
-    define('CLEOCOMM', '"'.PFILESDIR.'ptconfigure.cmd"') ;
-    define('DAPPCOMM', '"'.PFILESDIR."ptdeploy.cmd") ;
-    define('PHLCOMM', '"'.PFILESDIR."ptvirtualize.cmd") ;
+    define('PTCCOMM', PFILESDIR.'ptconfigure.cmd"') ;
+    define('PTBCOMM', PFILESDIR.'ptbuild.cmd"') ;
+    define('PTDCOMM',  PFILESDIR."ptdeploy.cmd") ;
+    define('PTVCOMM',  PFILESDIR."ptvirtualize.cmd") ;
+    define('PTTRCOMM',  PFILESDIR."pttrack.cmd") ;
+    define('PTTECOMM',  PFILESDIR."pttest.cmd") ;
+    define('BOXDIR', $sd.'\\PharaohTools\boxes') ;
+    define('PIPEDIR', $sd.'\\PharaohTools\pipes'.'\\') ;
     define("DS", "\\");
     define("BASE_TEMP_DIR", getenv("SystemDrive").'\Temp\\'); }
 else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
@@ -28,11 +33,16 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
     else { define('SUDOPREFIX', "sudo "); }
     define('VBOXMGCOMM', "vboxmanage ") ;
     define('PFILESDIR', "/opt/") ;
-    define('CLEOCOMM', "ptconfigure ") ;
-    define('DAPPCOMM', "ptdeploy ") ;
-    define('PHLCOMM', "ptvirtualize ") ;
+    define('PTCCOMM', "ptconfigure ") ;
+    define('PTBCOMM', "ptbuild ") ;
+    define('PTDCOMM', "ptdeploy ") ;
+    define('PTVCOMM', "ptvirtualize") ;
+    define('PTTRCOMM', "pttrack") ;
+    define('PTTECOMM', "pttest") ;
     define("DS", "/");
-    define("BASE_TEMP_DIR", '/tmp/'); }
+    define("BASE_TEMP_DIR", '/tmp/');
+    define('BOXDIR', '/ptvirtualize/boxes'.'\\') ;
+    define('PIPEDIR', '/opt/ptbuild/pipes') ; }
 
 // LOG LEVELS
 define('LOG_FAILURE_EXIT_CODE', 1) ;
