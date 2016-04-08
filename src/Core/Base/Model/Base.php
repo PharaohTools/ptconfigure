@@ -247,27 +247,37 @@ COMPLETION;
             $res = $this->loadFromMethod($parts_string) ;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
-            $or_st = strpos($paramValue, '{{{')+7 ;
-            $or_end = strpos($paramValue, '}}}') - $or_st ;
-            $parts_string = substr($paramValue, $or_st, $or_end) ;
-            $parts_array = explode("::", $parts_string) ;
-            $module = $parts_array[0] ;
-            if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
-                $res = $this->loadFromParameter($parts_array) ;
-                $paramValue = $this->swapResForVariable($res, $paramValue);
-                return $paramValue ; }
-            if ($module==$this->getModuleName()) { return $paramValue ; }
-            $res = $this->loadFromMethod($parts_string) ;
-            $paramValue = $this->swapResForVariable($res, $paramValue); }
+
+            $offset = 0 ;
+            for ($i=0 ; $i<substr_count($paramValue, '{{{'); $i++) {
+
+                $or_st = strpos($paramValue, '{{{', $offset)+7 ;
+                $or_end = strpos($paramValue, '}}}', $offset) - $or_st ;
+                $parts_string = substr($paramValue, $or_st, $or_end) ;
+                $parts_array = explode("::", $parts_string) ;
+                $module = $parts_array[0] ;
+                if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
+                    $res = $this->loadFromParameter($parts_array) ;
+                    $paramValue = $this->swapResForVariable($res, $paramValue, $or_st, $or_end);
+                    return $paramValue ; }
+                if ($module==$this->getModuleName()) { return $paramValue ; }
+                $res = $this->loadFromMethod($parts_string) ;
+                $paramValue = $this->swapResForVariable($res, $paramValue, $or_st, $or_end);
+
+                $offset += $or_end ;
+            }
+        }
+
         return $paramValue;
     }
 
-    protected function swapResForVariable($res, $paramValue) {
-        $start = '\{{{' ;
-        $end  = '\}}}' ;
-        $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
-        $paramValue = str_replace('{{{ ', '', $paramValue) ;
-        $paramValue = str_replace(' }}}', '', $paramValue) ;
+    protected function swapResForVariable($res, $paramValue, $or_st, $or_end) {
+//        $start = '\{{{' ;
+//        $end  = '\}}}' ;
+//        $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
+        $paramValue = substr($paramValue, 0, $or_st) . $res . substr($paramValue, $or_end) ;
+//        $paramValue = str_replace('{{{ ', '', $paramValue) ;
+//        $paramValue = str_replace(' }}}', '', $paramValue) ;
         return $paramValue ;
     }
 
@@ -282,10 +292,10 @@ COMPLETION;
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
         $full_factory = "\\Model\\{$module}" ;
         if (!class_exists($full_factory)) {
-            $logging->log(
-                "Parameter transform unable to find class $method in $module, $modelGroup model group",
-                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            return false ; }
+//            $logging->log(
+//                "Parameter transform unable to find class $method in $module, $modelGroup model group",
+//                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return null ; }
         $foundFactory = new $full_factory();
         $madeModel = $foundFactory->getModel($this->params, $modelGroup);
         if (method_exists($madeModel, $method)) {
