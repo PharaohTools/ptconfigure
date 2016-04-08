@@ -135,7 +135,7 @@ COMPLETION;
     protected function executeAndOutput($command, $message=null) {
         $outputText = shell_exec($command);
         if ($message !== null) {
-          $outputText .= "$message\n"; }
+            $outputText .= "$message\n"; }
         print $outputText;
         return $outputText;
     }
@@ -277,9 +277,15 @@ COMPLETION;
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
         $modelGroup = $parts_array[1] ;
+        if ($modelGroup == "~") { $modelGroup = "Default" ; }
         $method = $parts_array[2] ;
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
         $full_factory = "\\Model\\{$module}" ;
+        if (!class_exists($full_factory)) {
+            $logging->log(
+                "Parameter transform unable to find class $method in $module, $modelGroup model group",
+                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
         $foundFactory = new $full_factory();
         $madeModel = $foundFactory->getModel($this->params, $modelGroup);
         if (method_exists($madeModel, $method)) {
@@ -332,7 +338,7 @@ COMPLETION;
             $inputChar = fgetc($fp);
             if (in_array($inputChar, array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")) ) { $last_line = true; }
             else { echo "You must enter a single digit. Please try again\n"; continue; }
-        $i++; }
+            $i++; }
         return $inputChar;
     }
 
@@ -509,7 +515,7 @@ COMPLETION;
     public function getVersion($type = "Installed") {
         $vt = array("Installed", "installed", "Recommended", "recommended", "Latest", "latest");
         if (isset($this->params["version-type"]) && in_array($this->params["version-type"], $vt) ) {
-             $type = $this->params["version-type"] ; }
+            $type = $this->params["version-type"] ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (in_array($type, array("Installed", "installed"))) {
