@@ -92,7 +92,7 @@ class EnvironmentConfigAllOS extends Base {
                     if (isset($this->params["environment-name"])) {
                         if ($this->params["environment-name"] != $oneEnvironment["any-app"]["gen_env_name"]) {
                             $tx = "Skipping Environment {$oneEnvironment["any-app"]["gen_env_name"]} " ;
-                            $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
+                            $tx .= "as specified Environment is {$this->params["environment-name"]}" ;
                             $logging->log($tx, $this->getModuleName()) ;
                             continue ; }
                         else {
