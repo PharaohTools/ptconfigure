@@ -165,6 +165,7 @@ class BoxifyAllOS extends BaseLinuxApp {
             $this->fixBrokenNodes($cur_statuses);
 //            var_dump($cur_statuses) ;
         }
+        return true ;
 
     }
 
@@ -253,10 +254,8 @@ class BoxifyAllOS extends BaseLinuxApp {
     }
 
     protected function nodeAddRemove($curboxes, $add = false, $remove = false) {
-
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-
         $i = 0 ;
         foreach($curboxes["tests"] as $oneTest) {
             if ($oneTest["status"]==false) {
