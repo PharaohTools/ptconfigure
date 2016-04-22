@@ -254,12 +254,14 @@ COMPLETION;
             $parts_array = explode("::", $parts_string) ;
             $module = $parts_array[0] ;
             if ($module==$this->getModuleName()) { return $paramValue ; }
-            $res = $this->loadFromMethod($parts_string) ;
+            $res = $this->loadFromMethod($parts_string,0, 0) ;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
             $sc = substr_count($paramValue, '{{{') ;
-            for ($i=1 ; $i<$sc; $i++) {
+            for ($i=1 ; $i<=$sc; $i++) {
                 $or_st = strpos($paramValue, '{{{') ;
+                if ($or_st == false) {
+                    return $paramValue ; }
                 $or_end = strpos($paramValue, '}}}', $or_st) ;
                 $or_diff = ($or_end - $or_st) + 3 ;
                 $parts_string = substr($paramValue, $or_st, $or_diff) ;
@@ -273,7 +275,7 @@ COMPLETION;
                     $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
                     return $paramValue ; }
                 if ($module==$this->getModuleName()) { return $paramValue ; }
-                $res = $this->loadFromMethod($parts_string) ;
+                $res = $this->loadFromMethod($parts_string, $i, $sc) ;
                 $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string) ; } }
         return $paramValue;
     }
@@ -287,7 +289,7 @@ COMPLETION;
         return $paramValue ;
     }
 
-    protected function loadFromMethod(&$parts_string) {
+    protected function loadFromMethod(&$parts_string, $i, $sc) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
 
@@ -298,7 +300,10 @@ COMPLETION;
         $modelGroup = $parts_array[1] ;
         $method = $parts_array[2] ;
         if (!isset($parts_array[1])) {
-            var_dump("pray:", $parts_array, $parts_string) ; }
+
+            var_dump("pray:", $parts_array, $parts_string, "myi:", $i, "mysc:", $sc) ; }
+
+
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
         $full_factory = "\\Model\\{$module}" ;
         if (!class_exists($full_factory)) {
