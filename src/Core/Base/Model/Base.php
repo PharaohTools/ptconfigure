@@ -239,6 +239,16 @@ COMPLETION;
     }
 
     protected function transformParameterValue($paramValue) {
+        $origParamValue = $paramValue ;
+        $paramValue = str_replace("::~::", "::Default::", $paramValue) ;
+        $paramValue = trim($paramValue, ' ') ;
+//        var_dump("vd", $paramValue) ;
+        $paramValue = trim($paramValue, "\n") ;
+        $paramValue = trim($paramValue, '"') ;
+//        var_dump("vd2", $paramValue) ;
+        $paramValue = rtrim($paramValue) ;
+        $paramValue = ltrim($paramValue) ;
+        $trimmedParamValue = $paramValue ;
         if (substr($paramValue, 0, 4) == "::::") {
             $parts_string = substr($paramValue, 4) ;
             $parts_array = explode("::", $parts_string) ;
@@ -247,48 +257,48 @@ COMPLETION;
             $res = $this->loadFromMethod($parts_string) ;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
-
-            $offset = 0 ;
-            for ($i=0 ; $i<substr_count($paramValue, '{{{'); $i++) {
-
-                $or_st = strpos($paramValue, '{{{', $offset)+7 ;
-                $or_end = strpos($paramValue, '}}}', $offset) - $or_st ;
-                $parts_string = substr($paramValue, $or_st, $or_end) ;
+            $sc = substr_count($paramValue, '{{{') ;
+            for ($i=1 ; $i<$sc; $i++) {
+                $or_st = strpos($paramValue, '{{{') ;
+                $or_end = strpos($paramValue, '}}}', $or_st) ;
+                $or_diff = ($or_end - $or_st) + 3 ;
+                $parts_string = substr($paramValue, $or_st, $or_diff) ;
+                if (strpos($paramValue, '}}}')) {
+                    $parts_string = substr($parts_string, 0, strpos($parts_string, '}}}')) ;
+                    $parts_string = str_replace("{{{::::", "", $parts_string) ; }
                 $parts_array = explode("::", $parts_string) ;
                 $module = $parts_array[0] ;
                 if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
                     $res = $this->loadFromParameter($parts_array) ;
-                    $paramValue = $this->swapResForVariable($res, $paramValue, $or_st, $or_end);
+                    $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
                     return $paramValue ; }
                 if ($module==$this->getModuleName()) { return $paramValue ; }
                 $res = $this->loadFromMethod($parts_string) ;
-                $paramValue = $this->swapResForVariable($res, $paramValue, $or_st, $or_end);
-
-                $offset += $or_end ;
-            }
-        }
-
+                $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string) ; } }
         return $paramValue;
     }
 
-    protected function swapResForVariable($res, $paramValue, $or_st, $or_end) {
-//        $start = '\{{{' ;
-//        $end  = '\}}}' ;
-//        $paramValue = preg_replace('#('.$start.')(.*)('.$end.')#si', '$1 '.$res.' $3', $paramValue);
-        $paramValue = substr($paramValue, 0, $or_st) . $res . substr($paramValue, $or_end) ;
-//        $paramValue = str_replace('{{{ ', '', $paramValue) ;
-//        $paramValue = str_replace(' }}}', '', $paramValue) ;
+    protected function swapResForVariable($res, $paramValue, $parts_string) {
+        $orig = '{{{::::'.$parts_string.'}}}' ;
+//        if (is_array($res)) { var_dump("res is", $res) ; die("\n\nres\n\n"); }
+//        if (is_array($orig)) { var_dump("orig is", $orig) ; die("\n\norig\n\n"); }
+//        if (is_array($paramValue)) { var_dump("pv is", $paramValue) ; die("\n\nparamValue\n\n"); }
+        $paramValue = str_replace($orig, $res, $paramValue);
         return $paramValue ;
     }
 
-    protected function loadFromMethod($parts_string) {
+    protected function loadFromMethod(&$parts_string) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
+
+        $is_reg = \Model\RegistryStore::getValue($parts_string) ;
+        if (!is_null($is_reg)) { return $is_reg ; }
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
         $modelGroup = $parts_array[1] ;
-        if ($modelGroup == "~") { $modelGroup = "Default" ; }
         $method = $parts_array[2] ;
+        if (!isset($parts_array[1])) {
+            var_dump("pray:", $parts_array, $parts_string) ; }
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
         $full_factory = "\\Model\\{$module}" ;
         if (!class_exists($full_factory)) {
@@ -306,14 +316,13 @@ COMPLETION;
                 "Parameter transform unable to find method $method in $module, $modelGroup model group",
                 $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             $res = null ; }
+        \Model\RegistryStore::setValue($parts_string, $res) ;
         return $res ;
 
     }
 
     protected function loadFromParameter($parts_array) {
         $param_requested = $parts_array[1] ;
-
-
         return $this->params[$param_requested] ;
     }
 
@@ -571,6 +580,23 @@ COMPLETION;
             return $this->versionsAvailable() ; }
         else {
             return false; }
+    }
+
+    /**
+     * Find the position of the Xth occurrence of a substring in a string
+     * @param $haystack
+     * @param $needle
+     * @param $number integer > 0
+     * @return int
+     */
+    protected function strposX($haystack, $needle, $number){
+        if($number == '1'){
+            return strpos($haystack, $needle);
+        }elseif($number > '1'){
+            return strpos($haystack, $needle, $this->strposX($haystack, $needle, $number - 1) + strlen($needle));
+        }else{
+            return false;
+        }
     }
 
 }
