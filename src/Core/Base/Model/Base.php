@@ -260,7 +260,7 @@ COMPLETION;
             $sc = substr_count($paramValue, '{{{') ;
             for ($i=1 ; $i<=$sc; $i++) {
                 $or_st = strpos($paramValue, '{{{') ;
-                if ($or_st == false) {
+                if ($or_st === false) {
                     return $paramValue ; }
                 $or_end = strpos($paramValue, '}}}', $or_st) ;
                 $or_diff = ($or_end - $or_st) + 3 ;
