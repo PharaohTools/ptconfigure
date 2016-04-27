@@ -17,7 +17,13 @@ class SshKeyInstall extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("public-key") )) {
+        if (in_array($action, array("public-key", "public") )) {
+            $this->content["result"] = $thisModel->askAction($action);
+            $this->content["appName"] = $thisModel->programNameInstaller ;
+            return array ("type"=>"view", "view"=>"sshKeyInstall", "pageVars"=>$this->content); }
+
+        if (in_array($action, array("private-key", "private") )) {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Private") ;
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"sshKeyInstall", "pageVars"=>$this->content); }
