@@ -85,37 +85,37 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     }
 
     protected function ensureSSHDir() {
-        $loggingFactory = new \Model\Console() ;
+        $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
-        $sshDir = $this->userHomeDir.'/.ssh' ;
+        $sshDir = $this->userHomeDir.DS.'.ssh' ;
         if (file_exists($sshDir)) {
-            $logging->log("SSH Directory exists, so not creating.") ; }
+            $logging->log("SSH Directory exists, so not creating.", $this->getModuleName()) ; }
         else {
-            $logging->log("SSH Directory does not exist, so creating.") ;
+            $logging->log("SSH Directory does not exist, so creating.", $this->getModuleName()) ;
             // @todo do a chown after?
             $this->setOwnership($sshDir); }
     }
 
     protected function ensureAuthUserFile() {
-        $loggingFactory = new \Model\Console() ;
+        $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
-        $authFile = $this->userHomeDir.'/.ssh/authorized_keys' ;
+        $authFile = $this->userHomeDir.DS.'.ssh'.DS.'authorized_keys' ;
         if (file_exists($authFile)) {
-            $logging->log("$authFile exists, so not creating.") ; }
+            $logging->log("$authFile exists, so not creating.", $this->getModuleName()) ; }
         else {
-            $logging->log("$authFile does not exist, so creating.") ;
+            $logging->log("$authFile does not exist, so creating.", $this->getModuleName()) ;
             touch($authFile);
             // @todo do a chown after?
             $this->setOwnership($authFile); }
     }
 
     protected function setOwnership($file) {
-        $loggingFactory = new \Model\Console() ;
+        $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
         if (!file_exists($file)) {
-            $logging->log("$file does not exist, so not changing ownership.") ; }
+            $logging->log("$file does not exist, so not changing ownership.", $this->getModuleName()) ; }
         else {
-            $logging->log("Changing ownership of $file to user {$this->user}.") ;
+            $logging->log("Changing ownership of $file to user {$this->user}.", $this->getModuleName()) ;
             chown($file, $this->userName); }
     }
 
@@ -138,11 +138,11 @@ class SshKeyInstallLinux extends BaseLinuxApp {
         $fileFactory = new \Model\File() ;
 
 //        foreach ($keys as $key) {
-            $params = $this->params ;
-            $params["file"] = $authFile ;
-            $params["search"] = $this->publicKey ;
-            $file = $fileFactory->getModel($params) ;
-            $res = $file->performShouldHaveLine();
+        $params = $this->params ;
+        $params["file"] = $authFile ;
+        $params["search"] = $this->publicKey ;
+        $file = $fileFactory->getModel($params) ;
+        $res = $file->performShouldHaveLine();
 //    }
 
 //        if (isset($keyExists) && $keyExists == true) {
