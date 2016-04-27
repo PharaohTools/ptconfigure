@@ -111,6 +111,7 @@ class SFTPAllLinux extends Base {
                     if ($sftpObject->_is_dir($dn)==false) {
                         $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
+                $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
                 $result .= $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
                 foreach ($ar as $s) {
@@ -121,6 +122,7 @@ class SFTPAllLinux extends Base {
                     if ($sftpObject->_is_dir($dn)==false) {
                         $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
+                $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
                 $result .= $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
                 foreach ($ar as $s) {
