@@ -193,7 +193,7 @@ class FileAllOS extends BaseLinuxApp {
     public function removeIfPresent($needle) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-
+        $logging->log("Removing line where present in file {$this->fileName}", $this->getModuleName()) ;
         if ($this->contains($needle)) {
             $logging->log("Specified line found, removing", $this->getModuleName()) ;
             if ($needle instanceof RegExp) {
@@ -219,6 +219,7 @@ class FileAllOS extends BaseLinuxApp {
     public function append($str = null) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to append to file {$this->fileName}", $this->getModuleName()) ;
         if (is_null($str)) {$str = $this->params["replace"].PHP_EOL ; }
         if (isset($this->params["after-line"]) && strlen($this->params["after-line"])>0) {
             $logging->log("Looking for line to append after...", $this->getModuleName()) ;
@@ -288,6 +289,9 @@ class FileAllOS extends BaseLinuxApp {
 
     public function shouldHaveLine($line = null) {
         $string = ($line === null) ? $this->search : $line ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring line does exist in file {$this->fileName}", $this->getModuleName()) ;
         if ($string instanceof RegExp) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
@@ -302,6 +306,7 @@ class FileAllOS extends BaseLinuxApp {
     public function shouldExist() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring existence of file {$this->fileName}", $this->getModuleName()) ;
         if ($this->exists()) {
             $logging->log("File exists as expected", $this->getModuleName()) ;
             return true ; }
@@ -312,6 +317,9 @@ class FileAllOS extends BaseLinuxApp {
 
     public function shouldNotHaveLine($line = null) {
         $string = ($line === null) ? $this->search : $line ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Ensuring line does not exist in file {$this->fileName}", $this->getModuleName()) ;
         if ($string instanceof RegExp) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
