@@ -178,6 +178,7 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($this->contains($needle)) {
+            $logging->log("$needle found in haystack, replacing", $this->getModuleName()) ;
             if ($needle instanceof RegExp) {
                 $this->fileData = preg_replace($needle->regexp, $newNeedle, $this->fileData, -1, $count);
                 $logging->log("$count replacements performed", $this->getModuleName()) ; }
@@ -296,6 +297,17 @@ class FileAllOS extends BaseLinuxApp {
         if ($this->findString($searchString) === false) {
             $this->append($searchString); }
         return $this;
+    }
+
+    public function shouldExist() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ($this->exists()) {
+            $logging->log("File exists as expected", $this->getModuleName()) ;
+            return true ; }
+        else {
+            $logging->log("File does not exist, attempting to create", $this->getModuleName()) ;
+            return $this->create() ; }
     }
 
     public function shouldNotHaveLine($line = null) {
