@@ -33,16 +33,16 @@ class SshKeyInstallInfo extends PTConfigureBase {
   SshKeyInstall, sshkeyinstall, ssh-key-install
 
         - public-key, public
-        Add an SSH Public Key to an account
+        Add an SSH Public Key to a User account
         example: ptconfigure ssh-key-install public-key
-        example: ptconfigure ssh-key-install public-key --yes --public-key-data="zzzzz"
-        example: ptconfigure ssh-key-install public-key --yes --public-key-file="id_rsa.pub" --user-name=dave
+        example: ptconfigure ssh-key-install public-key -yg --public-key-data="zzzzz"
+        example: ptconfigure ssh-key-install public-key -yg --public-key-file="id_rsa.pub" --user-name=dave
 
         - private-key, private
-        Add an SSH Public Key to an account
-        example: ptconfigure ssh-key-install public-key
-        example: ptconfigure ssh-key-install public-key --yes --public-key-data="zzzzz"
-        example: ptconfigure ssh-key-install public-key --yes --public-key-file="id_rsa.pub" --user-name=dave
+        Add an SSH Private Key to a User account
+        example: ptconfigure ssh-key-install private-key
+        example: ptconfigure ssh-key-install private-key -yg --private-key-data="zzzzz"
+        example: ptconfigure ssh-key-install private-key -yg --private-key-file="/tmp/sparekeys/id_rsa" --user-name=dave --key-name=id_rsa
 
 HELPDATA;
       return $help ;
