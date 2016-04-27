@@ -120,7 +120,9 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     }
 
     protected function setKey() {
-        if (isset($this->params["public-key-file"]) && file_exists($this->params["public-key-file"])) {
+        if (isset($this->params["public-key"]) && file_exists($this->params["public-key"])) {
+            $this->publicKey = file_get_contents($this->params["public-key-file"]) ; }
+        else if (isset($this->params["public-key-file"]) && file_exists($this->params["public-key-file"])) {
             $this->publicKey = file_get_contents($this->params["public-key-file"]) ; }
         else if (isset($this->params["public-key-data"])) {
             $this->publicKey = $this->params["public-key-data"] ; }
@@ -134,6 +136,11 @@ class SshKeyInstallLinux extends BaseLinuxApp {
 //        $keys = explode("\n", file_get_contents($authFile)) ;
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
+
+        if ($this->publicKey == false) {
+            $logging->log("Unable to use an empty Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
 
         $fileFactory = new \Model\File() ;
 
