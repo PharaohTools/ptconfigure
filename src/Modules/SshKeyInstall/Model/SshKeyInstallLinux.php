@@ -126,13 +126,17 @@ class SshKeyInstallLinux extends BaseLinuxApp {
         if (isset($this->params["public-key"])) {
             if (file_exists($this->params["public-key"])) {
                 $this->publicKey = file_get_contents($this->params["public-key"]) ;}
+            else if (strlen($this->params["public-key"]) > 5) {
+                $this->publicKey = $this->params["public-key"] ;}
             else {
-                $logging->log("Unable to find the specified Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                $logging->log("Unable to use the specified Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
-        else if (isset($this->params["public-key-file"]) && file_exists($this->params["public-key-file"])) {
+        else if (isset($this->params["public-key-file"])) {
             // $this->publicKey = file_get_contents($this->params["public-key-file"]) ;
             if (file_exists($this->params["public-key-file"])) {
                 $this->publicKey = file_get_contents($this->params["public-key-file"]) ;}
+            else if (strlen($this->params["public-key-file"]) > 5) {
+                $this->publicKey = $this->params["public-key-file"] ;}
             else {
                 $logging->log("Unable to find the specified Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
