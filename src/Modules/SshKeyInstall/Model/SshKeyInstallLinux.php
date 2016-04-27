@@ -75,6 +75,8 @@ class SshKeyInstallLinux extends BaseLinuxApp {
             $this->userHomeDir = $user->getHome(); }
         else if (isset($this->params["user-home"])) {
             $this->userHomeDir = $this->params["user-home"]; }
+        else if (isset($this->params["home"])) {
+            $this->userHomeDir = $this->params["home"]; }
         else if (isset($this->params["guess"])) {
             $this->userHomeDir = '/home/'.$this->params["username"]; }
         else {
@@ -83,37 +85,37 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     }
 
     protected function ensureSSHDir() {
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console() ;
+        $logging = $loggingFactory->getModel($this->params);
         $sshDir = $this->userHomeDir.'/.ssh' ;
         if (file_exists($sshDir)) {
-            $console->log("SSH Directory exists, so not creating.") ; }
+            $logging->log("SSH Directory exists, so not creating.") ; }
         else {
-            $console->log("SSH Directory does not exist, so creating.") ;
+            $logging->log("SSH Directory does not exist, so creating.") ;
             // @todo do a chown after?
             $this->setOwnership($sshDir); }
     }
 
     protected function ensureAuthUserFile() {
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console() ;
+        $logging = $loggingFactory->getModel($this->params);
         $authFile = $this->userHomeDir.'/.ssh/authorized_keys' ;
         if (file_exists($authFile)) {
-            $console->log("$authFile exists, so not creating.") ; }
+            $logging->log("$authFile exists, so not creating.") ; }
         else {
-            $console->log("$authFile does not exist, so creating.") ;
+            $logging->log("$authFile does not exist, so creating.") ;
             touch($authFile);
             // @todo do a chown after?
             $this->setOwnership($authFile); }
     }
 
     protected function setOwnership($file) {
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
+        $loggingFactory = new \Model\Console() ;
+        $logging = $loggingFactory->getModel($this->params);
         if (!file_exists($file)) {
-            $console->log("$file does not exist, so not changing ownership.") ; }
+            $logging->log("$file does not exist, so not changing ownership.") ; }
         else {
-            $console->log("Changing ownership of $file to user {$this->user}.") ;
+            $logging->log("Changing ownership of $file to user {$this->user}.") ;
             chown($file, $this->userName); }
     }
 
@@ -128,22 +130,30 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     }
 
     protected function ensureKeyInstalled() {
-        $authFile = $this->userHomeDir.'/.ssh/authorized_keys' ;
-        $keys = explode("\n", file_get_contents($authFile)) ;
-        $consoleFactory = new \Model\Console() ;
-        $console = $consoleFactory->getModel($this->params);
-        foreach ($keys as $key) {
-            if ($key == $this->publicKey) {
-                $keyExists = true ;
-                break ; } }
-        if (isset($keyExists) && $keyExists == true) {
-            $console->log("Key already exists, so not adding.") ; }
-        else {
-            $console->log("Key does not exist in file, so adding.") ;
-            $keys[] = $this->publicKey."\n" ;
-            $keyFileData = implode("\n", $keys) ;
-            file_put_contents($authFile, $keyFileData) ;
-            $this->setOwnership($authFile) ; }
+        $authFile = $this->userHomeDir.DS.'.ssh'.DS.'authorized_keys' ;
+//        $keys = explode("\n", file_get_contents($authFile)) ;
+        $loggingFactory = new \Model\Logging() ;
+        $logging = $loggingFactory->getModel($this->params);
+
+        $fileFactory = new \Model\File() ;
+
+//        foreach ($keys as $key) {
+            $params = $this->params ;
+            $params["file"] = $authFile ;
+            $params["search"] = $this->publicKey ;
+            $file = $fileFactory->getModel($params) ;
+            $res = $file->performShouldHaveLine();
+//    }
+
+//        if (isset($keyExists) && $keyExists == true) {
+//            $logging->log("Key already exists, so not adding.", $this->getModuleName()) ; }
+//        else {
+//            $logging->log("Key does not exist in file, so adding.", $this->getModuleName()) ;
+//            $keys[] = $this->publicKey."\n" ;
+//            $keyFileData = implode("\n", $keys) ;
+//            file_put_contents($authFile, $keyFileData) ; }
+        $this->setOwnership($authFile) ;
+        return $res ;
     }
 
     // @todo will restarting ssh break it all?
