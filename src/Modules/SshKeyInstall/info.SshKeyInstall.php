@@ -14,7 +14,7 @@ class SshKeyInstallInfo extends PTConfigureBase {
 
     public function routesAvailable() {
         return array( "SshKeyInstall" =>  array_merge(
-            array("help", "status", "public-key")
+            array("help", "status", "public-key", "public", "private-key", "private")
         ) );
     }
 
@@ -32,7 +32,13 @@ class SshKeyInstallInfo extends PTConfigureBase {
 
   SshKeyInstall, sshkeyinstall, ssh-key-install
 
-        - public-key
+        - public-key, public
+        Add an SSH Public Key to an account
+        example: ptconfigure ssh-key-install public-key
+        example: ptconfigure ssh-key-install public-key --yes --public-key-data="zzzzz"
+        example: ptconfigure ssh-key-install public-key --yes --public-key-file="id_rsa.pub" --user-name=dave
+
+        - private-key, private
         Add an SSH Public Key to an account
         example: ptconfigure ssh-key-install public-key
         example: ptconfigure ssh-key-install public-key --yes --public-key-data="zzzzz"
