@@ -5,7 +5,7 @@ Namespace Model;
 class SshKeyInstallLinux extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("any") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -17,7 +17,10 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     protected $userName ;
     protected $userHomeDir ;
     protected $publicKey ;
-    protected $actionsToMethods = array("public-key" => "askPublicKeyInstall") ;
+    protected $actionsToMethods = array(
+        "public-key" => "askPublicKeyInstall",
+        "public" => "askPublicKeyInstall",
+    ) ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -127,14 +130,14 @@ class SshKeyInstallLinux extends BaseLinuxApp {
             if (file_exists($this->params["public-key"])) {
                 $this->publicKey = file_get_contents($this->params["public-key"]) ;}
             else {
-                $logging->log("Unable to use the specified Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                $logging->log("Unable to use the requested Public Key from {$this->params["public-key"]}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
         else if (isset($this->params["public-key-file"])) {
             // $this->publicKey = file_get_contents($this->params["public-key-file"]) ;
             if (file_exists($this->params["public-key-file"])) {
                 $this->publicKey = file_get_contents($this->params["public-key-file"]) ;}
             else {
-                $logging->log("Unable to find the specified Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                $logging->log("Unable to find the requested Public Key from {$this->params["public-key-file"]}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
         else if (isset($this->params["public-key-data"])) {
             $this->publicKey = $this->params["public-key-data"] ; }
@@ -175,7 +178,7 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     }
 
     // @todo will restarting ssh break it all?
-    private function restartService() {
+    protected function restartService() {
         $serviceFactory = new \Model\Service();
         $service = $serviceFactory->getModel($this->params);
         $service->setService("ssh") ;
