@@ -58,6 +58,9 @@ class SshKeyInstallLinux extends BaseLinuxApp {
         else if (isset($this->params["user-name"])) {
             $this->params["username"] = $this->params["user-name"] ;
             $this->userName = $this->params["user-name"]; }
+        else if (isset($this->params["user"])) {
+            $this->params["username"] = $this->params["user"] ;
+            $this->userName = $this->params["user"]; }
         else {
             $question = "Enter Username to install SSH Key to:";
             $this->userName = self::askForInput($question, true); }
