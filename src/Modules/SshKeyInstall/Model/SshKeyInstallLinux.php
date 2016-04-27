@@ -46,7 +46,8 @@ class SshKeyInstallLinux extends BaseLinuxApp {
         $this->setUserHome() ;
         $this->ensureSSHDir() ;
         $this->ensureAuthUserFile() ;
-        $this->setKey();
+        if ($this->setKey() == false) {
+            return false ; }
         $this->ensureKeyInstalled() ;
         $this->restartService() ;
         return true ;
@@ -120,10 +121,21 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     }
 
     protected function setKey() {
-        if (isset($this->params["public-key"]) && file_exists($this->params["public-key"])) {
-            $this->publicKey = file_get_contents($this->params["public-key-file"]) ; }
+        $loggingFactory = new \Model\Logging() ;
+        $logging = $loggingFactory->getModel($this->params);
+        if (isset($this->params["public-key"])) {
+            if (file_exists($this->params["public-key"])) {
+                $this->publicKey = file_get_contents($this->params["public-key"]) ;}
+            else {
+                $logging->log("Unable to find the specified Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; } }
         else if (isset($this->params["public-key-file"]) && file_exists($this->params["public-key-file"])) {
-            $this->publicKey = file_get_contents($this->params["public-key-file"]) ; }
+            // $this->publicKey = file_get_contents($this->params["public-key-file"]) ;
+            if (file_exists($this->params["public-key-file"])) {
+                $this->publicKey = file_get_contents($this->params["public-key-file"]) ;}
+            else {
+                $logging->log("Unable to find the specified Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; } }
         else if (isset($this->params["public-key-data"])) {
             $this->publicKey = $this->params["public-key-data"] ; }
         else {
