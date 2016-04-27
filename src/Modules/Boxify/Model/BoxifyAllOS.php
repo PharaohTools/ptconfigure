@@ -213,12 +213,12 @@ class BoxifyAllOS extends BaseLinuxApp {
         // if 1) we have more than we want
         if ($how_many_current > $how_many_wanted) {
             $logging->log("Currently more Nodes than needed", $this->getModuleName()) ;
-        //     a) we have more healthy than we want
+            //     a) we have more healthy than we want
             if ($how_many_current_healthy > $how_many_wanted) {
                 $logging->log("Currently more healthy Nodes ({$how_many_current_healthy}) than needed ($how_many_wanted)", $this->getModuleName()) ;
-        //     + remove all unhealthy
+                //     + remove all unhealthy
                 $this->nodeAddRemove($curboxes, false, true) ;
-        //     + remove highest numbered healthy
+                //     + remove highest numbered healthy
 
                 $boxifyFactory = new \Model\Boxify();
                 $lister = $boxifyFactory->getModel($this->params, "Listing");
@@ -226,19 +226,19 @@ class BoxifyAllOS extends BaseLinuxApp {
 
                 $diff = $how_many_current_healthy - $how_many_wanted ;
                 $this->nodeRemove($curboxes, $diff) ;
-        //     b) we have less healthy than we want
+                //     b) we have less healthy than we want
             }
             else {
                 $logging->log("Currently less healthy Nodes ({$how_many_current_healthy}) than needed ($how_many_wanted)", $this->getModuleName()) ;
-        //     + fix broken (as many as needed, stop fixing if hit how many we want limit)
+                //     + fix broken (as many as needed, stop fixing if hit how many we want limit)
                 $this->nodeAddRemove($curboxes, true, true) ;
-        //       a) fixing has looped to the number of nodes we need
-        //       b) fixing has fixed all available
-        //     + calculate difference between healthy wanted and have
+                //       a) fixing has looped to the number of nodes we need
+                //       b) fixing has fixed all available
+                //     + calculate difference between healthy wanted and have
                 $diff = $how_many_wanted - $how_many_current_healthy ;
-        //     + create outstanding nodes (if needed)
+                //     + create outstanding nodes (if needed)
                 $this->nodeAdd($diff, $how_many_current_healthy) ;
-        }
+            }
         }
         //    2) we have less than or equal to what we want
         else if ($how_many_current <= $how_many_wanted) {
