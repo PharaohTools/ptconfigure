@@ -133,14 +133,13 @@ class SshKeyInstallLinux extends BaseLinuxApp {
 
     protected function ensureKeyInstalled() {
         $authFile = $this->userHomeDir.DS.'.ssh'.DS.'authorized_keys' ;
-//        $keys = explode("\n", file_get_contents($authFile)) ;
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
 
-        if ($this->publicKey == false) {
-            $logging->log("Unable to use an empty Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            return false ;
-        }
+        if ($this->publicKey === false || (is_string($this->publicKey) && strlen($this->publicKey)<1) ) {
+            $logging->log("Unable to use this Public Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $logging->log("{$this->publicKey}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
 
         $fileFactory = new \Model\File() ;
 
