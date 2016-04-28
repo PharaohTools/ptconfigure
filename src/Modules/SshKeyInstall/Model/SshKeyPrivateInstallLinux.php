@@ -66,6 +66,7 @@ class SshKeyPrivateInstallLinux extends SshKeyInstallLinux {
         else {
             $question = "Enter Private Key:";
             $this->privateKey = self::askForInput($question, true); }
+        return true ;
     }
 
     protected function ensureKeyInstalled() {
