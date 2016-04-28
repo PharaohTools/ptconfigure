@@ -51,6 +51,7 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performCreation() {
         $this->setFile();
+        $this->create();
         return $this->shouldExist();
     }
 
