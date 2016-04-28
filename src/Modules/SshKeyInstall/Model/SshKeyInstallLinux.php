@@ -92,6 +92,7 @@ class SshKeyInstallLinux extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
         $sshDir = $this->userHomeDir.DS.'.ssh' ;
+        $logging->log("Looking for User SSH Directory", $this->getModuleName()) ;
         if (file_exists($sshDir)) {
             $logging->log("SSH Directory exists, so not creating.", $this->getModuleName()) ; }
         else {
@@ -104,6 +105,7 @@ class SshKeyInstallLinux extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
         $authFile = $this->userHomeDir.DS.'.ssh'.DS.'authorized_keys' ;
+        $logging->log("Looking for User Authorized Keys File", $this->getModuleName()) ;
         if (file_exists($authFile)) {
             $logging->log("$authFile exists, so not creating.", $this->getModuleName()) ; }
         else {
@@ -116,6 +118,7 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     protected function setOwnership($file) {
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to set Ownership of {$file}", $this->getModuleName()) ;
         if (!file_exists($file)) {
             $logging->log("$file does not exist, so not changing ownership.", $this->getModuleName()) ; }
         else {
