@@ -71,12 +71,10 @@ class SshKeyPrivateInstallLinux extends SshKeyInstallLinux {
         $keyFile = $this->userHomeDir.DS.'.ssh'.DS.$this->keyName ;
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
-
         if ($this->privateKey === false || (is_string($this->privateKey) && strlen($this->privateKey)<1) ) {
             $logging->log("Unable to use this Private Key", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             $logging->log("{$this->privateKey}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
-
         $fileFactory = new \Model\File() ;
         $params = $this->params ;
         $params["file"] = $keyFile ;
