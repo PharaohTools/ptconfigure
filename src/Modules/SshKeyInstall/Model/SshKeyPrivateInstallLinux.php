@@ -47,6 +47,7 @@ class SshKeyPrivateInstallLinux extends SshKeyInstallLinux {
     protected function setKey() {
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to set Public Key", $this->getModuleName()) ;
         if (isset($this->params["private-key"])) {
             if (file_exists($this->params["private-key"])) {
                 $this->privateKey = file_get_contents($this->params["private-key"]) ;}
