@@ -80,11 +80,12 @@ class SshKeyPrivateInstallLinux extends SshKeyInstallLinux {
             return false ; }
         $fileFactory = new \Model\File() ;
         $params = $this->params ;
+        $res = array() ;
         $params["file"] = $keyFile ;
+        $file = $fileFactory->getModel($params) ;
+        $res[] = $file->shouldExist();
         $params["search"] = $this->privateKey ;
         $file = $fileFactory->getModel($params) ;
-        $res = array() ;
-        $res[] = $file->shouldExist();
         $res[] = $file->performShouldHaveLine();
         $this->setOwnership($keyFile) ;
         return !in_array(false, $res) ;
