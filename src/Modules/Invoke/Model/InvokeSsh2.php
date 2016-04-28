@@ -108,18 +108,58 @@ class InvokeSsh2 extends Base {
                 $logging->log('Cannot use the PHP Native SSH Driver.', "Invoke - PHP SSH") ;
                 \Core\BootStrap::setExitCode(1) ;
                 return false; } }
+//        if (!($this->stream = ssh2_exec($this->connection, $command, "vanilla"))) {
+//            $loggingFactory = new \Model\Logging();
+//            $logging = $loggingFactory->getModel($this->params) ;
+//            $logging->log("SSH command failed", "Invoke - PHP SSH") ;
+//            \Core\BootStrap::setExitCode(1) ; }
+//        stream_set_blocking($this->stream, true);
+//        $data = "";
+//        while ($buf = fread($this->stream, 4096)) {
+//            $data .= $buf;
+//            echo $buf ; }
+//        fclose($this->stream);
+        $rc = $this->improvedExec($command) ;
+        var_dump("cur rc: ", $rc) ;
+        return $rc;
+    }
+
+    protected function improvedExec( $command )
+    {
+        $result = $this->rawExec( $command.';echo -en "\n$?"' );
+        if( ! preg_match( "/^(.*)\n(0|-?[1-9][0-9]*)$/s", $result[0], $matches ) ) {
+            throw new \Exception( "output didn't contain return status" );
+        }
+        if( $matches[2] !== "0" ) {
+            throw new \Exception( $result[1], (int)$matches[2] );
+        }
+        return $matches[1];
+    }
+
+    protected function rawExec( $command )
+    {
+//        $stream = ssh2_exec( $this->_ssh2, $command );
+
         if (!($this->stream = ssh2_exec($this->connection, $command, "vanilla"))) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params) ;
             $logging->log("SSH command failed", "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ; }
-        stream_set_blocking($this->stream, true);
-        $data = "";
+
+        $error_stream = ssh2_fetch_stream( $this->stream, SSH2_STREAM_STDERR );
+        stream_set_blocking( $this->stream, TRUE );
+        stream_set_blocking( $error_stream, TRUE );
+
+        $data = "" ;
         while ($buf = fread($this->stream, 4096)) {
             $data .= $buf;
             echo $buf ; }
-        fclose($this->stream);
-        return "";
+
+        $output = stream_get_contents( $this->stream );
+        $error_output = stream_get_contents( $error_stream );
+        fclose( $this->stream );
+        fclose( $error_stream );
+        return array( $output, $error_output );
     }
 
     /**
