@@ -23,6 +23,7 @@ class FileAllOS extends BaseLinuxApp {
             "append" => "performAppendLine",
             "create" => "performCreation",
             "delete" => "performDeletion",
+            "should-exist" => "performCreation",
             "should-have-line" => "performShouldHaveLine",
             "should-not-have-line" => "performShouldNotHaveLine",
             "replace-line" => "performReplaceLine",
@@ -51,7 +52,7 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performCreation() {
         $this->setFile();
-        $this->create();
+//        $this->create();
         return $this->shouldExist();
     }
 
