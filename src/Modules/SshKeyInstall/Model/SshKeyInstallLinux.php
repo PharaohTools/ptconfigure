@@ -129,6 +129,7 @@ class SshKeyInstallLinux extends BaseLinuxApp {
     protected function setKey() {
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting to set Public Key", $this->getModuleName()) ;
         if (isset($this->params["public-key"])) {
             if (file_exists($this->params["public-key"])) {
                 $this->publicKey = file_get_contents($this->params["public-key"]) ;}
