@@ -159,7 +159,8 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Creating File {$this->fileName}", $this->getModuleName()) ;
-        touch($this->fileName);
+        $res = touch($this->fileName);
+        var_dump("touch res: ", $res) ;
         return $this;
     }
 
