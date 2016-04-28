@@ -73,6 +73,11 @@ class SystemDetectionFactory {
                     return true ; } }
             // if conditions
             if (is_array($modelVersions[$i])) {
+
+                if (!isset($modelVersions[$i][0])) {
+                    var_dump("mv: ", $modelVersions[$i]) ;
+                }
+
                 $svo->setCondition($modelVersions[$i][0], $modelVersions[$i][1]) ;
                 $matches[] = $svo->isCompatible() ; } }
         $res = (in_array(false, $matches)) ? false : true ;
