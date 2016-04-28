@@ -37,7 +37,7 @@ class SshKeyPrivateInstallLinux extends SshKeyInstallLinux {
         $this->setUsername() ;
         $this->setUserHome() ;
         $this->ensureSSHDir() ;
-//        $this->ensureAuthUserFile() ;
+        $this->setKeyName() ;
         if ($this->setKey() == false) { return false ; }
         if ($this->ensureKeyInstalled() == false) { return false ; }
         $this->restartService() ;
