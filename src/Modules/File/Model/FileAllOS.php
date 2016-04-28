@@ -158,10 +158,14 @@ class FileAllOS extends BaseLinuxApp {
     public function create() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Creating File {$this->fileName}", $this->getModuleName()) ;
+        $logging->log("Attempting to create File {$this->fileName}", $this->getModuleName()) ;
         $res = touch($this->fileName);
-        var_dump("touch res: ", $res) ;
-        return $this;
+        if ($res === false) {
+            $logging->log("Unable to write to File {$this->fileName}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        else {
+            $logging->log("Successfully written {$res} bytes to File {$this->fileName}", $this->getModuleName()) ;
+            return $this ; }
     }
 
     public function filedelete() {
