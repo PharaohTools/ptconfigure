@@ -92,11 +92,11 @@ class SshKeyInstallLinux extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging() ;
         $logging = $loggingFactory->getModel($this->params);
         $sshDir = $this->userHomeDir.DS.'.ssh' ;
-        $logging->log("Looking for User SSH Directory", $this->getModuleName()) ;
+        $logging->log("Looking for User SSH Directory {$sshDir}", $this->getModuleName()) ;
         if (file_exists($sshDir)) {
-            $logging->log("SSH Directory exists, so not creating.", $this->getModuleName()) ; }
+            $logging->log("SSH Directory {$sshDir} exists, so not creating.", $this->getModuleName()) ; }
         else {
-            $logging->log("SSH Directory does not exist, so creating.", $this->getModuleName()) ;
+            $logging->log("SSH Directory {$sshDir} does not exist, so creating.", $this->getModuleName()) ;
             // @todo do a chown after?
             $this->setOwnership($sshDir); }
     }
