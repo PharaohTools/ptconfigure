@@ -97,6 +97,8 @@ class ModuleManagerAnyOS extends BasePHPApp {
             if ( is_dir($md)  ) {
                 $logging->log("{$md} is a Directory as expected", $this->getModuleName()) ;
                 $mok = $this->moduleIsOkay() ;
+                if ($mok === false) {
+                    $logging->log("Unable to verify this module is in a usable state", $this->getModuleName()) ; }
                 return $mok ; }
             else {
                 $logging->log("{$md} is not a Directory", $this->getModuleName()) ;
