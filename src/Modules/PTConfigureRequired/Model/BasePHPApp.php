@@ -34,7 +34,7 @@ class BasePHPApp extends Base {
     }
 
     protected function populateStartDirectory() {
-        $this->startDirectory = str_replace(DS."$this->programNameMachine", "", $this->tempDir);
+        $this->startDirectory = str_replace(DS."$this->programNameMachine", "", self::$tempDir);
     }
 
     public function askWhetherToInstallPHPApp() {
