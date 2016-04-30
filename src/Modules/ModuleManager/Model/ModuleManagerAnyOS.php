@@ -26,6 +26,13 @@ class ModuleManagerAnyOS extends BasePHPApp {
         $this->initialize();
     }
 
+    public function initialize() {
+        $this->populateTitle();
+        $this->versionInstalledCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $this->versionRecommendedCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $this->versionLatestCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+    }
+
     protected function setParameterOverrides() {
         $ext_dir = dirname(dirname(dirname(dirname(__FILE__)))) ;
         $ext_dir .= DS."Extensions".DS.$this->getNameOfModuleToManage() ;
@@ -75,6 +82,37 @@ class ModuleManagerAnyOS extends BasePHPApp {
         $new_disabled_modules = array_diff($disabled_modules, array($this->params['module-enable'])) ;
         $appConfig->setAppVariable("disabled_modules", $new_disabled_modules) ;
         return true ;
+    }
+
+    // @todo refactor this into multiple methods
+    public function askStatus() {
+        // @todo also use install flag status from methods setInstallFlagStatus getInstallFlagStatus
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $mn = $this->getNameOfModuleToManage() ;
+        $md = $this->getModuleDirectory() ;
+        $logging->log("Looking for Module Directory {$md}", $this->getModuleName()) ;
+        if ( file_exists($md)  ) {
+            $logging->log("Looking for Module Directory {$md}", $this->getModuleName()) ;
+            if ( is_dir($md)  ) {
+                $logging->log("{$md} is a Directory as expected", $this->getModuleName()) ;
+                $status = true ; }
+            else {
+                $logging->log("{$md} is not a Directory", $this->getModuleName()) ;
+                $status = false ; } }
+        else {
+            $logging->log("Unable to find Module Directory {$md}", $this->getModuleName()) ;
+            $status = false ; }
+        $inst = ($status == true) ? "Installed" : "Not Installed, or Not Installed correctly " ;
+        $logging->log("ModuleManager Reports that Module ".$mn." is {$inst}", $this->getModuleName()) ;
+        return $status ;
+    }
+
+    protected function getModuleDirectory() {
+        $mn = $this->getNameOfModuleToManage() ;
+        $app_root = dirname(dirname(dirname(__DIR__))) ;
+        $mod_dir = $app_root.DS.'Extensions'.DS.$mn ;
+        return $mod_dir ;
     }
 
 }
