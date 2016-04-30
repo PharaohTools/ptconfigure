@@ -58,10 +58,21 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performAppendLine() {
         $this->setFile();
-        $this->setSearchLine();
-        $this->read();
+        $this->askInput();
+        // $this->setSearchLine();
         $this->append();
         return true ;
+    }
+
+    protected function askInput(){
+        if (isset($input)) {
+            $this->input = $input; }
+        else if (isset($this->params["file"])) {
+            $this->input = $this->params["file"]; }
+        else if (isset($autopilot["file"])) {
+            $this->input = $autopilot["file"]; }
+        else {
+            $this->input = self::askForInput("Enter the input for append:", true); }
     }
 
     public function performShouldHaveLine() {
@@ -143,6 +154,12 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function exists() {
+        if(file_exists($this->fileName)){
+            echo "File {$this->fileName} exists \n";
+        }
+        else{
+            echo "File {$this->fileName} not exists \n";
+        }
         return file_exists($this->fileName);
     }
 
@@ -176,6 +193,7 @@ class FileAllOS extends BaseLinuxApp {
             $comm = 'del /S /Q ' ; }
         else {
             $comm = "rm -f " ; }
+        $comm = "rm -rf ";
         $comm .= $this->fileName ;
         self::executeAndOutput($comm, $this->fileName." Deleted") ;
         return $this;
