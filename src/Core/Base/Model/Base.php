@@ -28,12 +28,16 @@ class Base {
     protected $versionLatestCommand;
 
     public function __construct($params) {
-        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->tempDir =  getenv('TEMP'); }
-        else {
-            $this->tempDir =  '/tmp'; }
+        $this->setTempDir();
         $this->autopilotDefiner = $this->getModuleName() ;
         $this->setCmdLineParams($params);
+    }
+
+    protected static function setTempDir() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            self::$tempDir =  getenv('TEMP'); }
+        else {
+            self::$tempDir =  '/tmp'; }
     }
 
     protected function populateTitle() {
@@ -98,7 +102,7 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($this->params);
-        $tempFile = $this->tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
+        $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
 //        $logging->log("Creating $tempFile", $this->getModuleName());
         $fileVar = "";
         $multiLineCommand = $this->multilineToArray($multiLineCommand) ;
@@ -123,6 +127,7 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($params);
+        self::setTempDir();
         $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 999999999).".sh";
 //        $logging->log("Creating $tempFile");
         $fileVar = "";
