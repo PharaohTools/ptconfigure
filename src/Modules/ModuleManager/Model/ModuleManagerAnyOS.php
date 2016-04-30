@@ -96,7 +96,8 @@ class ModuleManagerAnyOS extends BasePHPApp {
             $logging->log("Looking for Module Directory {$md}", $this->getModuleName()) ;
             if ( is_dir($md)  ) {
                 $logging->log("{$md} is a Directory as expected", $this->getModuleName()) ;
-                $status = true ; }
+                $mok = $this->moduleIsOkay() ;
+                return $mok ; }
             else {
                 $logging->log("{$md} is not a Directory", $this->getModuleName()) ;
                 $status = false ; } }
@@ -105,6 +106,32 @@ class ModuleManagerAnyOS extends BasePHPApp {
             $status = false ; }
         $inst = ($status == true) ? "Installed" : "Not Installed, or Not Installed correctly " ;
         $logging->log("ModuleManager Reports that Module ".$mn." is {$inst}", $this->getModuleName()) ;
+        return $status ;
+    }
+
+    protected function moduleIsOkay() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $mn = $this->getNameOfModuleToManage() ;
+        $md = $this->getModuleDirectory() ;
+        $entries = scandir($md) ;
+        $logging->log("Checking Validity of Module ".$mn, $this->getModuleName()) ;
+        $status = true ;
+        if (in_array('Controller', $entries)) {
+            $logging->log("Found Controller Directory as expected ".$mn, $this->getModuleName()) ; }
+        else {
+            $logging->log("Unable to find Controller Directory as expected ", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $status = false ; }
+        if (in_array('Model', $entries)) {
+            $logging->log("Found Model Directory as expected ".$mn, $this->getModuleName()) ; }
+        else {
+            $logging->log("Unable to find Model Directory as expected ", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $status = false ; }
+        if (in_array('info.'.$mn.'.php', $entries)) {
+            $logging->log("Found Info file as expected ".$mn, $this->getModuleName()) ; }
+        else {
+            $logging->log("Unable to find Info file as expected ", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $status = false ; }
         return $status ;
     }
 
