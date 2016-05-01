@@ -74,41 +74,61 @@ class BasePHPApp extends Base {
             $logging->log("Ensure install is checking versions", $this->getModuleName()) ;
             if ($this->askStatus() == true) {
                 $logging->log("Already installed, checking version constraints", $this->getModuleName()) ;
+                $this->transformLatestParameter() ;
                 if (!isset($this->params["version-operator"])) {
                     $logging->log("No --version-operator is set. Assuming requested version operator is minimum", $this->getModuleName()) ;
                     $this->params["version-operator"] = "+" ; }
-                $currentVersion = $this->getVersion() ;
+                $currentVersion = $this->getVersion("Installed") ;
                 $currentVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                 if ($currentVersion->isCompatible() == true) {
-                    $logging->log("Installed version {$currentVersion->shortVersionNumber} matches constraints, not installing", $this->getModuleName()) ; }
+                    $vn = (strlen($currentVersion->shortVersionNumber)>0) ? $currentVersion->shortVersionNumber : $currentVersion->fullVersionNumber ;
+                    $logging->log("Installed version {$vn} matches constraints, nothing to do", $this->getModuleName()) ;
+                    return true ; }
                 else {
                     // @todo check if requested version is available
-                    $logging->log("Installed version {$currentVersion->shortVersionNumber} does not match constraint, uninstalling", $this->getModuleName()) ;
-                    // $this->unInstall() ;
+                    $vn = (strlen($currentVersion->shortVersionNumber)>0) ? $currentVersion->shortVersionNumber : $currentVersion->fullVersionNumber ;
+                    $logging->log("Installed version {$vn} does not match constraint, updating", $this->getModuleName()) ;
+                    return $this->doGitCheckout() ;
                     /* @todo do a proper uninstall and install right version */ } }
             else {
                 $logging->log("Not already installed, checking version constraints", $this->getModuleName()) ;
+                $this->transformLatestParameter() ;
                 if (!isset($this->params["version-operator"])) {
                     $logging->log("No --version-operator is set. Assuming requested version is minimum", $this->getModuleName()) ;
                     $this->params["version-operator"] = "+" ; }
                 $recVersion = $this->getVersion("Recommended") ;
                 $recVersion->setCondition($this->params["version"], $this->params["version-operator"]) ;
                 if ($recVersion->isCompatible()) {
-                    $logging->log("Requested version {$recVersion->shortVersionNumber} matches constraints, installing", $this->getModuleName()) ;
+                    $vn = (strlen($recVersion->shortVersionNumber)>0) ? $recVersion->shortVersionNumber : $recVersion->fullVersionNumber ;
+                    $logging->log("Requested version {$vn} matches constraints, installing", $this->getModuleName()) ;
                     return $this->install() ;  }
                 else {
-                    // @todo check if requested version is available
-                    $logging->log("Installed version {$this->getVersion()} does not match constraint, uninstalling", $this->getModuleName()) ;
-                    return $this->unInstall() ;
-                    /* @todo do a proper uninstall and install right version */ } } }
+                    $vn = (strlen($recVersion->shortVersionNumber)>0) ? $recVersion->shortVersionNumber : $recVersion->fullVersionNumber ;
+                    $logging->log("Requested version {$vn} does not match constraint, unable to continue", $this->getModuleName()) ;
+                    return false ; } } }
         else { // not checking version
-            $logging->log("Ensure module install is not checking versions", $this->getModuleName()) ;
+            $logging->log("Ensure install is not checking versions", $this->getModuleName()) ;
             if ($this->askStatus() == true) {
-                $logging->log("Not installing as already installed", $this->getModuleName()) ; }
+                $logging->log("Not installing as already installed", $this->getModuleName()) ;
+                return true ; }
             else {
                 $logging->log("Installing as not installed", $this->getModuleName()) ;
-                return $this->install(); } }
+                return $this->install() ; } }
         return true;
+    }
+
+    public function transformLatestParameter() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ( (isset($this->params["version"]) && $this->params["version"] == "latest") ||
+             (isset($this->params["version-type"]) && $this->params["version-type"] == "latest") ) {
+            $this->params["version-type"] = "latest" ;
+            $this->params["version-operator"] = '=' ;
+            $logging->log("Requested version is latest, calculating", $this->getModuleName()) ;
+            $latestVersion = $this->getVersion("Latest") ;
+            $logging->log("Found latest version {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
+            $logging->log("Setting latest version to {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
+            $this->params["version"] = $latestVersion->fullVersionNumber ; }
     }
 
     public function install() {
@@ -123,7 +143,7 @@ class BasePHPApp extends Base {
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
         if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
         if ($this->makeProgramDataFolderIfNeeded() === false) { return false ; }
-        if ($this->doGitCommand() === false) { return false ; }
+        if ($this->doGitClone() === false) { return false ; }
         if ($this->copyFilesToProgramDataFolder() === false) { return false ; }
         $de = $this->deleteExecutorIfExists() ;
         if ($de === false) { return false ; }
@@ -254,7 +274,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $copy_comm =  'cp -r '; }
         foreach ($this->fileSources as $fileSource) {
             $fs = "" ;
-            if (isset($fileSource[3])&& $fileSource[3]==true) { $fs = DS.'*' ; }
+            if (isset($fileSource[3])&& $fileSource[3]==true) { $fs = DS.'.' ; }
             $command = $copy_comm.$this->tempFileStore.$fs.' '.$this->programDataFolder;
             $rc = self::executeAndGetReturnCode($command, true, true);
             if ($rc["rc"] !== 0) {
@@ -335,31 +355,66 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
   }
 
     // keep method for BC
-  protected function doGitCommandWithErrorCheck(){
-      return $this->doGitCommand();
+  protected function doGitCloneWithErrorCheck(){
+      return $this->doGitClone();
   }
 
-  protected function doGitCommand(){
-      $loggingFactory = new \Model\Logging();
-      $logging = $loggingFactory->getModel($this->params);
-      foreach ($this->fileSources as $fileSource) {
+    protected function doGitClone(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        foreach ($this->fileSources as $fileSource) {
             $this->tempFileStore = BASE_TEMP_DIR.$this->programNameMachine ;
             if ($fileSource[1] != null) {
                 $this->tempFileStore .= DIRECTORY_SEPARATOR.$fileSource[1] ; }
             $this->deleteProgramDataFolderAsRootIfExists($this->tempFileStore) ;
-          $command  = $this->executorPath.' clone ';
-          if (isset($fileSource[3]) &&
-            $fileSource[3] = true) { $command .= '--recursive ';}
-          if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
-          $command .= escapeshellarg($fileSource[0]).' ';
-          $command .= ' '.$this->tempFileStore ;
-          $logging->log("Git command is $command", $this->getModuleName()) ;
-          $rc = self::executeAndGetReturnCode($command, true, true);
-          if ($rc["rc"] !== 0) {
-              $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-              return false ; } }
-      return true ;
-  }
+            $command  = $this->executorPath.' clone ';
+            if (isset($fileSource[3]) &&
+                $fileSource[3] = true) { $command .= '--recursive ';}
+            if ($fileSource[2] != null) { $command .= '-b '.$fileSource[2].' ';}
+            $command .= escapeshellarg($fileSource[0]).' ';
+            $command .= ' '.$this->tempFileStore ;
+            $logging->log("Git command is $command", $this->getModuleName()) ;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; } }
+        return true ;
+    }
+
+    protected function doGitCheckout(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        foreach ($this->fileSources as $fileSource) {
+            $this->tempFileStore = BASE_TEMP_DIR.$this->programNameMachine ;
+            if ($fileSource[1] != null) {
+                $this->tempFileStore .= DIRECTORY_SEPARATOR.$fileSource[1] ; }
+            $this->deleteProgramDataFolderAsRootIfExists($this->tempFileStore) ;
+            $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' reset --hard ' ;
+            $logging->log("Git command is $command", $this->getModuleName()) ;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; }
+            $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' pull origin master ' ;
+            $logging->log("Git command is $command", $this->getModuleName()) ;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; }
+            $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' checkout master' ;
+            $logging->log("Git command is $command", $this->getModuleName()) ;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; }
+            $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS." checkout ".$this->params["version"];
+            $logging->log("Git command is $command", $this->getModuleName()) ;
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            if ($rc["rc"] !== 0) {
+                $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ; } }
+        return true ;
+    }
 
 
     public function versionInstalledCommandTrimmer($text) {
