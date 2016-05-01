@@ -198,7 +198,7 @@ if not doing versions
                             "versions are not allowed ... No More options! Cannot Continue.", $this->getModuleName()) ;
                         \Core\BootStrap::setExitCode(1) ; } } } }
         else { // not checking version
-            $logging->log("Ensure module install is not checking versions", $this->getModuleName()) ;
+            $logging->log("Ensure install is not checking versions", $this->getModuleName()) ;
             if ($this->askStatus() == true) {
                 // status 10
                 $logging->log("Not installing as already installed", $this->getModuleName()) ; }
