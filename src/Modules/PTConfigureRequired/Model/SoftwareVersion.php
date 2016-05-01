@@ -57,6 +57,19 @@ class SoftwareVersion {
         return false ;
     }
 
+    public function isEqualTo(\Model\SoftwareVersion $compare) {
+        if (is_object($compare) && $compare instanceof \Model\SoftwareVersion) {
+            if ( $this->shortVersionNumber != "" &&
+                 $compare->shortVersionNumber != "" &&
+                 $this->shortVersionNumber == $compare->shortVersionNumber) {
+                return true ; }
+            if ( $this->fullVersionNumber == $compare->fullVersionNumber) {
+                return true ; }
+            return false ; }
+        else {
+            return false; }
+    }
+
     public function setCondition($version, $operation) {
         $this->conditions[] = array("version" => $version, "operation" => $operation) ;
     }
@@ -70,16 +83,20 @@ class SoftwareVersion {
             $op = $this->getOpFromSymbol($condition["operation"]) ;
             if ($op == "gt") {
                 $conditionResults[] = ($this->isGreaterThan($conditionVersion) == true) ? true : false ;  }
-            if ($op == "lt") {
-                $conditionResults[] = ($this->isLessThan($conditionVersion) == true) ? true : false ;  } }
+            else if ($op == "lt") {
+                $conditionResults[] = ($this->isLessThan($conditionVersion) == true) ? true : false ;  }
+            else if ($op == "=") {
+                $conditionResults[] = ($this->isEqualTo($conditionVersion) == true) ? true : false ;  } }
         return !in_array(false, $conditionResults) ;
     }
 
     protected function getOpFromSymbol($symbol) {
         if (in_array($symbol, array("gt", ">", "+"))) {
             return "gt" ;  }
-        if (in_array($symbol, array("lt", "<", "-"))) {
+        else if (in_array($symbol, array("lt", "<", "-"))) {
             return "lt" ;  }
+        else if (in_array($symbol, array("=", "equals"))) {
+            return "=" ;  }
         return null ;
     }
 
