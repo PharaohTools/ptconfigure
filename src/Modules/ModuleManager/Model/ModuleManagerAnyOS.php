@@ -28,9 +28,11 @@ class ModuleManagerAnyOS extends BasePHPApp {
 
     public function initialize() {
         $this->populateTitle();
-        $this->versionInstalledCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
-        $this->versionRecommendedCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
-        $this->versionLatestCommand = $this->executorPath." --git-dir=".PFILESDIR."{$this->programNameMachine}".DS."{$this->programNameMachine}".DS.".git --work-tree=".DS."{$this->programNameMachine} tag" ;
+        $ms = $this->getModuleSource() ;
+        // $this->versionInstalledCommand = $this->executorPath." log --git-dir=".$this->getModuleDirectory().".git --work-tree=".$this->getModuleDirectory()." --pretty=format:'%H' -n 1" ;
+        $this->versionInstalledCommand = $this->executorPath." --git-dir '".$this->getModuleDirectory().DS.".git".DS."' log --pretty=format:'%H' -n 1" ;
+        $this->versionRecommendedCommand = $this->executorPath.' ls-remote '.$ms.' | head -1 | sed "s/HEAD//"';
+        $this->versionLatestCommand = $this->executorPath.' ls-remote '.$ms.' | head -1 | sed "s/HEAD//"';
     }
 
     protected function setParameterOverrides() {
@@ -134,6 +136,7 @@ class ModuleManagerAnyOS extends BasePHPApp {
         else {
             $logging->log("Unable to find Info file as expected ", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             $status = false ; }
+        $logging->log("Module structure valid", $this->getModuleName()) ;
         return $status ;
     }
 
@@ -144,4 +147,24 @@ class ModuleManagerAnyOS extends BasePHPApp {
         return $mod_dir ;
     }
 
+    public function versionInstalledCommandTrimmer($text) {
+//        $done = trim($text, "\n") ;
+//        $done = trim($done, "\r") ;
+        $done = trim($text) ;
+        return $done ;
+    }
+
+    public function versionLatestCommandTrimmer($text) {
+//        $done = trim($text, "\n") ;
+//        $done = trim($done, "\r") ;
+        $done = trim($text) ;
+        return $done ;
+    }
+
+    public function versionRecommendedCommandTrimmer($text) {
+//        $done = trim($text, "\n") ;
+//        $done = trim($done, "\r") ;
+        $done = trim($text) ;
+        return $done ;
+    }
 }
