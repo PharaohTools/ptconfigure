@@ -8,7 +8,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("12.04", "12.10", "13.04", "13.10", "14.04", "14.10") ;
+    public $versions = array(array("12.04" => "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
