@@ -16,7 +16,7 @@ class DigitalOceanV2 extends Base {
         if ($action=="box-add") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxAdd") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanV2Result"] = $thisModel->addBox();
+            $this->content["result"] = $thisModel->addBox();
             return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="box-remove") {
@@ -24,31 +24,37 @@ class DigitalOceanV2 extends Base {
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $isDefaultAction = self::checkDefaultActions($pageVars, array(), $thisModel) ;
             if ( is_array($isDefaultAction) ) { return $isDefaultAction; }
-            $this->content["digiOceanV2Result"] = $thisModel->askWhetherToSaveOverwriteCurrent();
+            $this->content["result"] = $thisModel->askWhetherToSaveOverwriteCurrent();
             return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="box-destroy") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxDestroy") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanV2Result"] = $thisModel->destroyBox();
+            $this->content["result"] = $thisModel->destroyBox();
             return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="box-destroy-all") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "BoxDestroyAll") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanV2Result"] = $thisModel->destroyAllBoxes();
+            $this->content["result"] = $thisModel->destroyAllBoxes();
             return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="save-ssh-key") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "SshKey") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanV2Result"] = $thisModel->askWhetherToSaveSshKey();
+            $this->content["result"] = $thisModel->askWhetherToSaveSshKey();
             return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
 
         if ($action=="list") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Listing") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-            $this->content["digiOceanV2Result"] = $thisModel->askWhetherToListData();
+            $this->content["result"] = $thisModel->askWhetherToListData();
+            return array ("type"=>"view", "view"=>"digitalOceanV2List", "pageVars"=>$this->content); }
+
+        if ($action=="test") {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "NodeTest") ;
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $this->content["result"] = $thisModel->askWhetherToTestAllEnvNodes();
             return array ("type"=>"view", "view"=>"digitalOceanV2List", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
