@@ -14,7 +14,7 @@ class DigitalOceanV2Info extends PTConfigureBase {
 
     public function routesAvailable() {
       return array( "DigitalOceanV2" => array_merge(parent::routesAvailable(), array("save-ssh-key",
-          "box-add", "box-remove", "box-destroy", "box-destroy-all", "list") ) );
+          "box-add", "box-remove", "box-destroy", "box-destroy-all", "list", "test") ) );
     }
 
     public function routeAliases() {
@@ -74,6 +74,11 @@ class DigitalOceanV2Info extends PTConfigureBase {
         example: ptconfigure digital-ocean-v2 list --yes
                     --guess # use project saved connection details if possible
                     --type=sizes # droplets, sizes, images, domains, regions, ssh_keys
+
+        - test
+        Will test health of nodes in an environment
+        example: ptconfigure digital-ocean-v2 test
+        example: ptconfigure digital-ocean-v2 test -yg --env=production
 
 HELPDATA;
       return $help ;

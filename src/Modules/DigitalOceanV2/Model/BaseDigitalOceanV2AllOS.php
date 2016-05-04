@@ -21,6 +21,9 @@ class BaseDigitalOceanV2AllOS extends Base {
     protected function askForDigitalOceanV2AccessToken(){
         if (isset($this->params["digital-ocean-v2-access-token"])) { return $this->params["digital-ocean-v2-access-token"] ; }
         $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-v2-access-token") ;
+
+        var_dump($this->params) ;
+
         if ($papyrusVar != null) {
             if (isset($this->params["guess"])) {
                 return $papyrusVar ; }

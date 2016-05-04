@@ -42,7 +42,7 @@ class DigitalOceanV2AllBoxesDestroy extends BaseDigitalOceanV2AllOS {
         $callOut = $this->digitalOceanV2Call($callVars, $curlUrl,'DELETE');
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
+        $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete", $this->getModuleName()) ;
         return $callOut ;
     }
 

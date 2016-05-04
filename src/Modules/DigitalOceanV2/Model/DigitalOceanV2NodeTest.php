@@ -22,6 +22,10 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         return $this->performDigitalOceanV2TestNode();
     }
 
+    public function askWhetherToTestAllEnvNodes() {
+        return $this->performDigitalOceanV2TestAllEnvNodes();
+    }
+
     protected function performDigitalOceanV2TestNode(){
         if ($this->askForTestNodeExecute() != true) { return false; }
         $this->accessToken = $this->askForDigitalOceanV2AccessToken();
@@ -32,9 +36,29 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         return $processed ;
     }
 
+    protected function performDigitalOceanV2TestAllEnvNodes(){
+        if ($this->askForTestNodeExecute() != true) { return false; }
+        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        $this->params["environment-name"] = $this->askForEnvironment();
+        $doFactory = new \Model\DigitalOceanV2();
+        $listParams = array("yes" => true, "guess" => true, "type" => "droplets") ;
+        $listParams = array_merge($listParams, $this->params) ;
+        $doListing = $doFactory->getModel($listParams, "Listing") ;
+        $allBoxes = $doListing->askWhetherToListData();
+        $processed = array() ;
+        $server_ids = $this->getEnvironmentServerIDs() ;
+        foreach($allBoxes->droplets as $box) {
+            if (in_array($box->id, $server_ids)) {
+                $this->params["id"] = $box->id;
+                $this->params["name"] = $box->name;
+                $this->params["image"] = $box->image->id;
+                $processed[] = $this->getDataTestNodeFromDigitalOceanV2(); } }
+        return $processed ;
+    }
+
     private function askForTestNodeExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Test Node Data?';
+        $question = 'Test Node Health?';
         return self::askYesOrNo($question);
     }
 
@@ -42,6 +66,15 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         if (isset($this->params["id"])) { return $this->params["id"] ; }
         $question = 'Enter Node ID';
         return self::askForInput($question, true);
+    }
+
+    private function askForEnvironment(){
+        if (isset($this->params["environment-name"])) { return $this->params["environment-name"] ; }
+        if (isset($this->params["env"])) { return $this->params["env"] ; }
+        $question = 'Enter Environment to test Node Health in:';
+        $res = self::askForInput($question, true);
+        $this->params["environment-name"] = $res  ;
+        return $res ;
     }
 
     private function askForNodeName (){
@@ -79,6 +112,7 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
             $node_id = $this->params["id"] ; }
 
         else {
+            var_dump('pars:', $this->params) ;
             $tx = "No ID or Name available" ;
             $logging->log($tx, $this->getModuleName()) ;
             $ret["status"] = false ;
@@ -107,7 +141,6 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Collecting data from cloud node", $this->getModuleName()) ;
-
         $ret = array() ;
         $ret["id"] = $data->droplet->id ;
         $ret["image"] = $data->droplet->image->id ;
@@ -116,7 +149,6 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         $ret["size"] = $data->droplet->size_slug ;
         $ret["region"] = $data->droplet->region->slug ;
         $ret["region_name"] = $data->droplet->region->name ;
-
         return $ret ;
     }
 
@@ -152,6 +184,30 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         $curlUrl = $this->_apiURL."/v2/droplets" ;
         $httpType = "GET" ;
         return $this->digitalOceanV2Call(array(), $curlUrl, $httpType);
+    }
+
+    protected function getEnvironment() {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        foreach ($envs as $env) {
+            if ($env["any-app"]["gen_env_name"] == $this->params["environment-name"]) {
+                return $env ; } }
+        return false ;
+    }
+
+    protected function getEnvironmentServerIDs() {
+        $envs = $this->getEnvironment();
+        $sids = array() ;
+        foreach ($envs["servers"] as $server) {
+            $sids[$server["any-app"]["gen_env_name"]][] = $server->id ; }
+        return false ;
+    }
+
+    protected function getEnvironmentServerNames() {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        $snames = array() ;
+        foreach ($envs["servers"] as $server) {
+            $snames[$server["any-app"]["gen_env_name"]][] = $server->name ; }
+        return (count($snames) > 0 ) ? $snames : false ;
     }
 
 }

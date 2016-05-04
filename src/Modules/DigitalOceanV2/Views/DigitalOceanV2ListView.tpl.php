@@ -1,6 +1,6 @@
 <?php
-if (is_object($pageVars["digiOceanV2Result"]) || is_array($pageVars["digiOceanV2Result"])) {
-    $arrayObject = new \ArrayObject($pageVars["digiOceanV2Result"]);
+if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
+    $arrayObject = new \ArrayObject($pageVars["result"]);
     foreach ($arrayObject as $arrayObjectKey => $arrayObjectValue) {
         $outVar = "" ;
         if ($arrayObjectKey == "status") {
