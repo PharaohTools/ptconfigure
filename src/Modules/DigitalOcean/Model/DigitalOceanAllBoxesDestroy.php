@@ -18,19 +18,14 @@ class DigitalOceanAllBoxesDestroy extends BaseDigitalOceanAllOS {
         if ($this->askForOverwriteExecute() != true) { return false; }
         $this->apiKey = $this->askForDigitalOceanAPIKey();
         $this->clientId = $this->askForDigitalOceanClientID();
-
         $doFactory = new \Model\DigitalOcean();
         $listParams = array("yes" => true, "guess" => true, "digital-ocean-list-data-type" => "droplets") ;
         $doListing = $doFactory->getModel($listParams, "Listing") ;
         $allBoxes = $doListing->askWhetherToListData();
-
         foreach($allBoxes->droplets as $box) {
             $serverData["dropletID"] = $box->id ;
-            $responses[] = $this->destroyServerFromDigitalOcean($serverData) ;
-        }
-
+            $responses[] = $this->destroyServerFromDigitalOcean($serverData) ; }
         return true ;
-
     }
 
     private function askForOverwriteExecute() {
@@ -46,7 +41,7 @@ class DigitalOceanAllBoxesDestroy extends BaseDigitalOceanAllOS {
         $callOut = $this->digitalOceanCall($callVars, $curlUrl);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
+        $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete", $this->getModuleName()) ;
         return $callOut ;
     }
 
