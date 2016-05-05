@@ -94,8 +94,11 @@ class PingUbuntu extends BaseLinuxApp {
     protected function getEnvironmentServerTargets($env) {
         $stargets = array() ;
         foreach ($env["servers"] as $server) {
-//            var_dump($server) ;
-            $stargets[] = $server["target"] ; }
+            $target_types = array("target", "target_public", "target_private") ;
+            foreach ($target_types as $target_type) {
+                if (isset($server[$target_type])) {
+                    $stargets[] = $server[$target_type] ;
+                    continue 1 ; } } }
         return (count($stargets) > 0 ) ? $stargets : false ;
     }
 
@@ -125,8 +128,8 @@ class PingUbuntu extends BaseLinuxApp {
         $logging->log("Attempting to Ping {$c} Host/s", $this->getModuleName()) ;
         for ($target_count = 0; $target_count < count($this->targets) ; $target_count++) {
             $logging->log("Attempting to Ping Host {$this->targets[$target_count]} once", $this->getModuleName()) ;
-            $ping = new \JJG\Ping($this->targets[$target_count]);
             try {
+                $ping = new \JJG\Ping($this->targets[$target_count]);
                 $latency = $ping->ping();
                 if ($latency !== false) {
                     $logging->log('Ping Latency is ' . $latency . ' ms', $this->getModuleName()) ;
@@ -135,11 +138,11 @@ class PingUbuntu extends BaseLinuxApp {
                     $logging->log("Ping Host {$this->targets[$target_count]} could not be reached.", $this->getModuleName()) ;
                     $statuses[$target_count] = false; } }
             catch (\Exception $e) {
-                $logging->log('Failed to initialize the Ping Library', $this->getModuleName()) ; } }
+                $logging->log('Failed to execute the Ping Library: '.$e->getMessage(), $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; } }
         return (in_array(false, $statuses)) ? false : true ;
     }
 
-    private function doTenPings() {
+    protected function doTenPings() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $statuses = array() ;
@@ -147,24 +150,27 @@ class PingUbuntu extends BaseLinuxApp {
         $logging->log("Attempting to Ping {$c} Host/s", $this->getModuleName()) ;
         for ($target_count = 0; $target_count < count($this->targets) ; $target_count++) {
             $logging->log("Attempting to Ping Host {$this->targets[$target_count]} ten times", $this->getModuleName()) ;
-            for ($i = 0; $i < 10; $i ++) {
-                $ping = new \JJG\Ping($this->targets[$target_count]);
-                $latency = $ping->ping();
-                if ($latency !== false) {
-                    $logging->log('Ping Latency is ' . $latency . ' ms', $this->getModuleName()) ;
-                    $foundSuccess = true; }
+            try {
+                for ($i = 0; $i < 10; $i ++) {
+                    $ping = new \JJG\Ping($this->targets[$target_count]);
+                    $latency = $ping->ping();
+                    if ($latency !== false) {
+                        $logging->log('Ping Latency is ' . $latency . ' ms', $this->getModuleName()) ;
+                        $foundSuccess = true; }
+                    else {
+                        $time = $i * $this->interval ;
+                        $logging->log("Ping Host {$this->targets[$target_count]} could not be reached after $i iterations and $time seconds", $this->getModuleName()) ; }
+                    sleep($this->interval) ; }
+                if (isset ($foundSuccess) && $foundSuccess==true) {
+                    $statuses[$target_count] = true ; }
                 else {
-                    $time = $i * $this->interval ;
-                    $logging->log("Ping Host {$this->targets[$target_count]} could not be reached after $i iterations and $time seconds", $this->getModuleName()) ; }
-                sleep($this->interval) ; }
-            if (isset ($foundSuccess) && $foundSuccess==true) {
-                $statuses[$target_count] = true ; }
-            else {
-                $statuses[$target_count] = false ; } }
+                    $statuses[$target_count] = false ; } }
+            catch (\Exception $e) {
+                $logging->log('Failed to execute the Ping Library: '.$e->getMessage(), $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; } }
         return (in_array(false, $statuses)) ? false : true ;
     }
 
-    private function doPingsUntil() {
+    protected function doPingsUntil() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $ping = new \JJG\Ping($this->targets);
