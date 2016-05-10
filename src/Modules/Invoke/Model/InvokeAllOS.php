@@ -14,27 +14,28 @@ class InvokeAllOS extends Base {
 	// Model Group
 	public $modelGroup = array("Default");
 
-	private $servers = array();
-	private $sshCommands;
+	protected $servers = array();
+	protected $sshCommands;
 	protected $isNativeSSH;
+    protected $hopScript ;
 
 	public function askWhetherToInvokeSSHShell() {
-		return $this->performInvokeSSHShell();
+		return $this->performInvokeSSHShellWithHops();
 	}
 
 	public function askWhetherToInvokeSSHScript() {
-		return $this->performInvokeSSHScript();
+		return $this->performInvokeSSHScriptWithHops();
 	}
 
 	public function askWhetherToInvokeSSHData() {
-		return $this->performInvokeSSHData();
+		return $this->performInvokeSSHDataWithHops();
 	}
 
-	public function performInvokeSSHShell() {
+	public function performInvokeSSHShellWithHops() {
 		if ($this->askForSSHShellExecute() != true) {
 			return false; }
 		$this->populateServers();
-		$commandExecution = true;
+        $commandExecution = true;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($this->servers) > 0) {
@@ -82,12 +83,11 @@ class InvokeAllOS extends Base {
 		return true;
 	}
 
-	public function performInvokeSSHData() {
-		if ($this->askForSSHDataExecute() != true) {
-			return false; }
-		$data = $this->askForSSHData();
-		$this->populateServers();
-		$this->sshCommands = explode("\n", $data);
+    public function performInvokeSSHScriptWithHops() {
+        if ($this->askForSSHScriptExecute() != true) {
+            return false; }
+        $this->populateServers();
+        $this->sshCommands = $this->getSSHCommandsForThisStage("script") ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($this->servers) > 0) {
@@ -99,7 +99,43 @@ class InvokeAllOS extends Base {
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
                         $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log(  "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }        }
+                        $logging->log( "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+        else {
+            $logging->log("No successful connections available", $this->getModuleName()) ;
+            \Core\BootStrap::setExitCode(1) ;
+            return false ; }
+        $logging->log("Script by SSH Completed", $this->getModuleName()) ;
+        return true;
+    }
+
+	public function performInvokeSSHDataWithHops() {
+		if ($this->askForSSHDataExecute() != true) {
+			return false; }
+        $ps = $this->populateServers();
+//        var_dump($ps) ;
+        $this->sshCommands = $this->getSSHCommandsForThisStage("data") ;
+//        var_dump('shc', $this->sshCommands, 'ps', $ps) ;
+		if ($ps == false) { return false ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if (count($this->servers) > 0) {
+            $logging->log("Opening CLI...", $this->getModuleName()) ;
+            foreach ($this->sshCommands as $sshCommand) {
+//                var_dump('sc', $sshCommand) ;
+                foreach ($this->servers as &$server) {
+//                    var_dump('sv', $server) ;
+                    if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
+                        $logging->log(  "[" . $server["target"] . "] Forwarding script $sshCommand...", $this->getModuleName()) ;
+                        $this->remotePushDataScriptForHop($this->hopScript, $server) ;
+                        $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $cur_res = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
+                        $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                    else {
+                        $logging->log(  "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; }
+                    if (isset($cur_res) && $cur_res == false) {
+                        ;
+                    }
+                } } }
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -109,44 +145,164 @@ class InvokeAllOS extends Base {
 		return true;
 	}
 
+    protected function getSSHCommandsForThisStage($type) {
+        // @todo lots of logging
+        //if (isset($this->params["hops"])) {
+            if ($type=="data") {
+                $cen = $this->getHopEnvironmentNames() ;
+                if (count($cen) > 0) {
+
+                    $data = $this->askForSSHData();
+                    $file = $this->turnDataIntoScriptForHop($data) ;
+                    $this->hopScript = $file ;
+                    $command = 'bash '.$file ;
+                    return array($command) ; }
+                else {
+                    $data = $this->askForSSHData();
+                    return explode("\n", $data); }  }
+            else if ($type=="script") {
+                $scriptLoc = $this->askForScriptLocation();
+                $shc = explode(PHP_EOL, file_get_contents($scriptLoc));
+                return array($shc) ; }
+            else {
+                return false; }
+        return array() ;
+        //}
+    }
+
+    protected function turnDataIntoScriptForHop($data) {
+        $long_file_name = $this->tempfileFromCommand($data) ;
+        // create a file containing the data
+        // return a super hashed filename
+        return $long_file_name ;
+    }
+
+    protected function remotePushDataScriptForHop($script_file, $env_name) {
+        $sftpFactory = new \Model\SFTP() ;
+        $params["yes"] = true ;
+        $params["guess"] = true ;
+        $params["environment-name"] = $env_name ;
+        $params["source"] = $script_file ;
+        $params["target"] = $script_file ;
+        $sftp = $sftpFactory->getModel($this->params, "Default") ;
+        $res = $sftp->put() ;
+        return $res ;
+    }
+
 	public function populateServers() {
-		$this->askForTimeout();
-		$this->askForPort();
-		$this->loadServerData();
-		$this->loadSSHConnections();
+		$to = $this->askForTimeout();
+        if ($to == false) { return false ; }
+        $port = $this->askForPort();
+        if ($port == false) { return false ; }
+        $sd = $this->loadServerData();
+        if ($sd == false) { return false ; }
+        $sshc = $this->loadSSHConnections();
+        if ($sshc == false) { return false ; }
+        return true ;
 	}
 
-	private function loadServerData() {
+	protected function loadServerData() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         // @todo if the below is emoty we have no server to connect to so should not continue
-		$allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
 		if (isset($this->params["servers"])) {
-			$this->servers = unserialize($this->params["servers"]); }
+            // @TODO CHECK OTHER TYPES OF ARRAY LIKE JSON
+			$this->servers = unserialize($this->params["servers"]);
+            $srv = $this->servers ; }
         else {
             if (isset($this->params["env"]) && !isset($this->params["environment-name"] )) {
                 $this->params["environment-name"] =$this->params["env"] ; }
-			if (isset($this->params["environment-name"])) {
-				$names = $this->getEnvironmentNames($allProjectEnvs);
-				$this->servers = $allProjectEnvs[ $names[ $this->params["environment-name"] ] ]["servers"]; }
+            if (isset($this->params["hops"]) && isset($this->params["environment-name"])) {
+                $logging->log("Attempting to load SSH Hop Servers, as Hops are set...", $this->getModuleName()) ;
+                $temp_environment = (isset($this->params["env"])) ? $this->params["env"] : null ;
+                $temp_environment = (is_null($temp_environment)) ? $this->params["environment-name"] : $temp_environment ;
+                $names = $this->getEnvironmentNames();
+                $logging->log("Attempting to use hop environment {$this->params["hops"]} to reach target environment {$temp_environment}", $this->getModuleName()) ;
+                // @todo allow other algorithms, the best ones will be share by availability zone or literally share evenly so 5 in top and 50 in target take
+                // @todo loadHopServersByAlgorithm()
+                // need to get
+                //   1) server/s to hop to
+                //   2) target servers, for EACH of those Servers to SSH to, in a further array
+                //   3) each array and their sub arrays need to have keynames or paths that already exist on the hop environment
+                $this->servers[] = $this->getFirstServerOnlyAlgorithm();
+                if ($this->servers ===false) {
+                    $logging->log("Unable to populate servers from hop environment {$this->params["hops"]}", $this->getModuleName()) ; }
+                $srv = $this->servers ; }
+			else if (isset($this->params["environment-name"])) {
+                $logging->log("Environment name is set without hops, loading servers...", $this->getModuleName()) ;
+                $names = $this->getEnvironmentNames();
+                $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+                $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"];
+                $srv = $this->servers ; }
             else {
+                $logging->log("Unable to find environment name", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                $srv = false ; }
+
+            if (!isset($this->params["environment-name"])) {
+                $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
 				if (count($allProjectEnvs) > 0) {
 					$question = 'Use Environments Configured in Project?';
 					$useProjEnvs = self::askYesOrNo($question, true);
 					if ($useProjEnvs == true) {
 						$this->servers = new \ArrayObject($allProjectEnvs);
-                        return; } }
+                        // @todo need to ask a question here, this wont work
+                        // give them an array option od environment name
+                        $srv = false ; } }
                 else {
-					$this->askForServerInfo(); } } }
+					$srv = $this->askForServerTarget(); } } }
+
+        if (is_array($srv) && count($srv)>0) { return $srv ; }
+        $logging->log("Unable to populate servers for environment", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
 	}
 
-	private function getEnvironmentNames($envs) {
-		$eNames = array();
-		foreach ($envs as $envKey => $env) {
-			$envName = $env["any-app"]["gen_env_name"];
-			$eNames[ $envName ] = $envKey; }
-		return $eNames;
-	}
+    protected function getFirstServerOnlyAlgorithm() {
+        // @todo probably move the available algorithms to their own classes
+        $env = $this->getNextHopEnvironment();
+//        $env =$this->getEnvironment($env_name) ;
+        $sv_zero = $env["servers"][0] ;
+//        var_dump('svz:', $env["servers"][0]) ;
+        return $sv_zero ;
+    }
 
-	private function loadSSHConnections() {
+    protected function getEnvironment($env_name) {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        foreach ($envs as $env) {
+            if ($env_name == $env["any-app"]["gen_env_name"]){
+                return $env ; } }
+        return false;
+    }
+
+    protected function getEnvironmentNames() {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        $eNames = array();
+        foreach ($envs as $envKey => $env) {
+            $envName = $env["any-app"]["gen_env_name"];
+            $eNames[ $envName ] = $envKey; }
+        return $eNames;
+    }
+
+    protected function getHopEnvironmentNames() {
+        if (isset($this->params["hops"])) {
+            return explode(',', $this->params["hops"]); }
+        else {
+            return false ; }
+    }
+
+    protected function getNextHopEnvironment() {
+        $allhe = $this->getHopEnvironmentNames() ;
+        if ($allhe !== false) {
+            $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+            foreach ($allProjectEnvs as $env) {
+//                var_dump("en:", $allhe[0], $env["any-app"]["gen_env_name"]) ;
+                if ($allhe[0] == $env["any-app"]["gen_env_name"]){
+                    return $env ; } }
+            return false ; }
+        else {
+            return false ; }
+    }
+
+    protected function loadSSHConnections() {
 		$loggingFactory = new \Model\Logging();
 		$logging = $loggingFactory->getModel($this->params);
 		$logging->log("Attempting to load SSH connections...", $this->getModuleName()) ;
@@ -161,17 +317,17 @@ class InvokeAllOS extends Base {
 					continue; } }
 			$attempt = $this->attemptSSH2Connection($server);
 			if ($attempt == null || $attempt == false) {
-                $logging->log("Connection to Server {$server["target"]} failed. Removing from pool.", $this->getModuleName()) ;
+                $logging->log("Connection to Server {$this->findTarget($server)} failed. Removing from pool.", $this->getModuleName()) ;
                 unset($this->servers[$srvId]);
                 return false ;}
             else {
 				$server["ssh2Object"] = $attempt;
-				$logging->log("Connection to Server {$server["target"]} successful.", $this->getModuleName()) ;
+				$logging->log("Connection to Server {$this->findTarget($server)} successful.", $this->getModuleName()) ;
 //				echo $this->changeBashPromptToPharaoh($server["ssh2Object"]);
 //				if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) && $this->isNativeSSH != true)) {
 //				}
 				echo $this->doSSHCommand($server["ssh2Object"],
-					'echo "Pharaoh Remote SSH on ...' . $server["target"] . '"', true); } }
+					'echo "Pharaoh Remote SSH on ...' . $this->findTarget($server) . '"', true); } }
 		return true;
 	}
 
@@ -180,7 +336,9 @@ class InvokeAllOS extends Base {
         $pword = (isset($server["password"])) ? $server["password"] : $pword;
         $invokeFactory = new \Model\Invoke() ;
         $serverObj = $invokeFactory->getModel($this->params, "Server") ;
-        $serverObj->init($server['target'], $server['user'], $pword, isset($server['port']) ? $server['port'] : 22);
+        $target = $this->findTarget($server) ;
+//        var_dump($server) ;
+        $serverObj->init($target, $server['user'], $pword, isset($server['port']) ? $server['port'] : 22);
 //      $server = new \Invoke\Server();
 //		$driverString = isset($this->params["driver"]) ? $this->params["driver"] : 'seclib';
 //      $options = array("os" => "DriverBashSSH", "native" => "DriverNativeSSH", "seclib" => "DriverSecLib") ;
@@ -193,7 +351,14 @@ class InvokeAllOS extends Base {
         return false;
     }
 
-    private function findDriver() {
+    protected function findTarget($server) {
+        if (isset($server["target"])) { return $server["target"] ; }
+        if (isset($server["target_public"])) { return $server["target_public"] ; }
+        if (isset($server["target_private"])) { return $server["target_private"] ; }
+        return false ;
+    }
+
+    protected function findDriver() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $optionsKeep = array("os" => "DriverBashSSH", "native" => "DriverNativeSSH", "seclib" => "DriverSecLib") ;
@@ -220,50 +385,47 @@ class InvokeAllOS extends Base {
         return $ofound ;
     }
 
-	private function askForSSHShellExecute() {
+	protected function askForSSHShellExecute() {
 		if (isset($this->params["yes"]) && $this->params["yes"] == true) {
 			return true;  }
 		$question = 'Invoke SSH Shell on Server group?';
 		return self::askYesOrNo($question);
 	}
 
-	private function askForSSHScriptExecute() {
+	protected function askForSSHScriptExecute() {
 		if (isset($this->params["yes"]) && $this->params["yes"] == true) {
 			return true; }
 		$question = 'Invoke SSH Script on Server group?';
 		return self::askYesOrNo($question);
 	}
 
-	private function askForSSHDataExecute() {
+	protected function askForSSHDataExecute() {
 		if (isset($this->params["yes"]) && $this->params["yes"] == true) {
 			return true;}
 		$question = 'Invoke SSH Data on Server group?';
 		return self::askYesOrNo($question);
 	}
 
-	private function askForScriptLocation() {
+	protected function askForScriptLocation() {
 		if (isset($this->params["ssh-script"])) {
 			return $this->params["ssh-script"]; }
 		$question = 'Enter Location of bash script to execute';
 		return self::askForInput($question, true);
 	}
 
-	private function askForSSHData() {
+	protected function askForSSHData() {
 		if (isset($this->params["ssh-data"])) {
 			return $this->params["ssh-data"]; }
 		$question = 'Enter data to execute via SSH';
 		return self::askForInput($question, true);
 	}
 
-	private function askForServerInfo() {
+	protected function askForServerInfo() {
 		$startQuestion = <<<QUESTION
 ***********************************
-*   Due to a software limitation, *
 *    The user that you use here   *
 *  will have their command prompt *
 *    changed to PHARAOHPROMPT     *
-*  ... I'm working on that one... *
-*  Exit program to stop (CTRL+C)  *
 ***********************************
 Enter Server Info:
 
@@ -283,68 +445,89 @@ QUESTION;
 		}
 	}
 
-	private function askForTimeout() {
+	protected function askForTimeout() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 		if (isset($this->params["timeout"])) {
-			return; }
+			return $this->params["timeout"]; }
 		if (isset($this->params["guess"])) {
 			$this->params["timeout"] = 100;
-			return; }
+            $logging->log("Guessing an SSH Timeout value of 100 seconds", $this->getModuleName()) ;
+			return $this->params["timeout"]; }
 		$question = 'Please Enter SSH Timeout in seconds';
 		$input = self::askForInput($question, true);
 		$this->params["timeout"] = $input;
+        return $this->params["timeout"];
 	}
 
-	private function askForPort() {
+	protected function askForPort() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 		if (isset($this->params["port"])) {
-			return; }
+			return $this->params["port"]; }
 		if (isset($this->params["guess"])) {
-			$this->params["port"] = 22;
-			return; }
+            $logging->log("Guessing an SSH Port value of 22", $this->getModuleName()) ;
+            $this->params["port"] = 22;
+			return $this->params["port"]; }
 		$question = 'Please Enter remote SSH Port';
 		$input = self::askForInput($question, true);
 		$this->params["port"] = $input;
+        return $this->params["port"];
 	}
 
-	private function askForServerTarget() {
-		if (isset($this->params["ssh-target"])) {
-			return $this->params["ssh-target"];	}
+	protected function askForServerTarget() {
+        if (isset($this->params["ssh-target"])) {
+            return $this->params["ssh-target"];	}
+        if (isset($this->params["target"])) {
+            $this->params["ssh-target"] = $this->params["target"];
+            return $this->params["target"];	}
+        if (isset($this->params["targets"])) {
+            $this->params["targets"] = $this->params["target"];
+            return $this->params["targets"];	}
 		$question = 'Please Enter SSH Server Target Host Name/IP';
 		$input = self::askForInput($question, true);
-
 		return $input;
 	}
 
-	private function askForServerUser() {
-		if (isset($this->params["ssh-user"])) {
-			return $this->params["ssh-user"]; }
+	protected function askForServerUser() {
+        if (isset($this->params["ssh-user"])) {
+            return $this->params["ssh-user"]; }
+        if (isset($this->params["user"])) {
+            $this->params["ssh-user"] = $this->params["user"];
+            return $this->params["ssh-user"]; }
 		$question = 'Please Enter SSH User';
-		$input = self::askForInput($question, true);
-		return $input;
+        $this->params["ssh-user"] = self::askForInput($question, true);
+		return $this->params["ssh-user"] ;
 	}
 
-	private function askForServerPassword()	{
-		if (isset($this->params["ssh-key-path"])) {
-			return $this->params["ssh-key-path"]; }
-        else {
-			if (isset($this->params["ssh-pass"])) {
-				return $this->params["ssh-pass"]; } }
+	protected function askForServerPassword()	{
+        if (isset($this->params["ssh-key-path"])) {
+            return $this->params["ssh-key-path"]; }
+        else if (isset($this->params["key-path"])) {
+            return $this->params["key-path"]; }
+        else if (isset($this->params["path"])) {
+            return $this->params["path"]; }
+        else if (isset($this->params["ssh-pass"])) {
+            return $this->params["ssh-pass"]; }
+        else if (isset($this->params["pass"])) {
+            return $this->params["pass"]; }
 		$question = 'Please Enter Server Password or Key Path';
 		$input = self::askForInput($question);
 		return $input;
 	}
 
-	private function askForACommand() {
+	protected function askForACommand() {
 		$question = 'Enter command to be executed on remote servers? Enter none to close connection and end program';
 		$input = self::askForInput($question);
 		return ($input == "") ? false : $input;
 	}
 
-	private function changeBashPromptToPharaoh($sshObject) {
+	protected function changeBashPromptToPharaoh($sshObject) {
 		$command = 'echo "export PS1=PHARAOHPROMPT" > ~/.bash_login ';
 		return $sshObject->exec("$command\n");
 	}
 
-	private function doSSHCommand($sshObject, $command, $first = null) {
+	protected function doSSHCommand($sshObject, $command, $first = null) {
 		return $sshObject->exec($command);
 	}
 
