@@ -18,6 +18,7 @@ class InvokeAllOS extends Base {
 	protected $sshCommands;
 	protected $isNativeSSH;
     protected $hopScript ;
+    protected $hopEndEnvironment ;
 
 	public function askWhetherToInvokeSSHShell() {
 		return $this->performInvokeSSHShellWithHops();
@@ -86,8 +87,9 @@ class InvokeAllOS extends Base {
     public function performInvokeSSHScriptWithHops() {
         if ($this->askForSSHScriptExecute() != true) {
             return false; }
-        $this->populateServers();
+        $ps = $this->populateServers();
         $this->sshCommands = $this->getSSHCommandsForThisStage("script") ;
+        if ($ps == false) { return false ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($this->servers) > 0) {
@@ -95,6 +97,8 @@ class InvokeAllOS extends Base {
             foreach ($this->sshCommands as $sshCommand) {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
+                        $logging->log(  "[" . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
+                        $this->remotePushDataScriptForHop($this->hopScript, $server) ;
                         $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
                         $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
@@ -109,12 +113,10 @@ class InvokeAllOS extends Base {
     }
 
 	public function performInvokeSSHDataWithHops() {
-		if ($this->askForSSHDataExecute() != true) {
+		if ($this->askForSSHScriptExecute() != true) {
 			return false; }
         $ps = $this->populateServers();
-//        var_dump($ps) ;
         $this->sshCommands = $this->getSSHCommandsForThisStage("data") ;
-//        var_dump('shc', $this->sshCommands, 'ps', $ps) ;
 		if ($ps == false) { return false ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -125,7 +127,7 @@ class InvokeAllOS extends Base {
                 foreach ($this->servers as &$server) {
 //                    var_dump('sv', $server) ;
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["target"] . "] Forwarding script $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
                         $this->remotePushDataScriptForHop($this->hopScript, $server) ;
                         $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         $cur_res = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
@@ -155,8 +157,8 @@ class InvokeAllOS extends Base {
                     $data = $this->askForSSHData();
                     $file = $this->turnDataIntoScriptForHop($data) ;
                     $this->hopScript = $file ;
-                    $command = 'bash '.$file ;
-                    return array($command) ; }
+                    $cli_command = 'ptconfigure invoke script -yg --env="'.$this->hopEndEnvironment.'" --ssh-script="'.$file.'" ';
+                    return array($cli_command) ; }
                 else {
                     $data = $this->askForSSHData();
                     return explode("\n", $data); }  }
@@ -166,8 +168,6 @@ class InvokeAllOS extends Base {
                 return array($shc) ; }
             else {
                 return false; }
-        return array() ;
-        //}
     }
 
     protected function turnDataIntoScriptForHop($data) {
@@ -177,16 +177,30 @@ class InvokeAllOS extends Base {
         return $long_file_name ;
     }
 
-    protected function remotePushDataScriptForHop($script_file, $env_name) {
+    protected function remotePushDataScriptForHop($script_file, $server) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $sftpFactory = new \Model\SFTP() ;
-        $params["yes"] = true ;
-        $params["guess"] = true ;
-        $params["environment-name"] = $env_name ;
+        $logging->log("Forwarding local papyrus settings ", $this->getModuleName()) ;
+        $params["yes"] = "true" ;
+        $params["guess"] = "true" ;
+        $params["servers"] = serialize(array($server)) ;
+//        $params["env"] = $env_name ;
+        $params["source"] = getcwd().DS.'papyrusfile' ;
+        $params["target"] = '/tmp/papyrusfile' ;
+        $sftp = $sftpFactory->getModel($params, "Default") ;
+        $res = $sftp->performSFTPPut() ;
+        if ($res ==false ) {
+            $logging->log("Forwarding failed for local papyrus settings", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;}
+        $logging->log("Forwarding Hop Data script ", $this->getModuleName()) ;
         $params["source"] = $script_file ;
         $params["target"] = $script_file ;
-        $sftp = $sftpFactory->getModel($this->params, "Default") ;
-        $res = $sftp->put() ;
-        return $res ;
+        $sftp = $sftpFactory->getModel($params, "Default") ;
+        $res = $sftp->performSFTPPut() ;
+        if ($res ==false ) {
+            $logging->log("Forwarding failed for Hop Data script ", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;}
     }
 
 	public function populateServers() {
@@ -214,10 +228,13 @@ class InvokeAllOS extends Base {
                 $this->params["environment-name"] =$this->params["env"] ; }
             if (isset($this->params["hops"]) && isset($this->params["environment-name"])) {
                 $logging->log("Attempting to load SSH Hop Servers, as Hops are set...", $this->getModuleName()) ;
-                $temp_environment = (isset($this->params["env"])) ? $this->params["env"] : null ;
-                $temp_environment = (is_null($temp_environment)) ? $this->params["environment-name"] : $temp_environment ;
+                $this->hopEndEnvironment = (isset($this->params["env"])) ? $this->params["env"] : null ;
+                $this->hopEndEnvironment = (is_null($this->hopEndEnvironment)) ? $this->params["environment-name"] : $this->hopEndEnvironment ;
                 $names = $this->getEnvironmentNames();
-                $logging->log("Attempting to use hop environment {$this->params["hops"]} to reach target environment {$temp_environment}", $this->getModuleName()) ;
+
+                // $this->hopEndEnvironment ;
+
+                $logging->log("Attempting to use hop environment {$this->params["hops"]} to reach target environment {$this->hopEndEnvironment}", $this->getModuleName()) ;
                 // @todo allow other algorithms, the best ones will be share by availability zone or literally share evenly so 5 in top and 50 in target take
                 // @todo loadHopServersByAlgorithm()
                 // need to get
@@ -407,8 +424,10 @@ class InvokeAllOS extends Base {
 	}
 
 	protected function askForScriptLocation() {
-		if (isset($this->params["ssh-script"])) {
-			return $this->params["ssh-script"]; }
+        if (isset($this->params["ssh-script"])) {
+            return $this->params["ssh-script"]; }
+        else if (isset($this->params["script"])) {
+            return $this->params["script"]; }
 		$question = 'Enter Location of bash script to execute';
 		return self::askForInput($question, true);
 	}
