@@ -146,35 +146,120 @@ class SFTPAllLinux extends Base {
     }
 
     public function populateServers() {
-        $this->askForTimeout();
-        $this->askForPort();
-        $this->loadServerData();
-        $this->loadSFTPConnections();
+        $to = $this->askForTimeout();
+        if ($to == false) { return false ; }
+        $port = $this->askForPort();
+        if ($port == false) { return false ; }
+        $sd = $this->loadServerData();
+        if ($sd == false) { return false ; }
+        $sshc = $this->loadSFTPConnections();
+        if ($sshc == false) { return false ; }
+        return true ;
     }
 
+    // @todo this should come from invoke, code duplication
     protected function loadServerData() {
-        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        // @todo if the below is emoty we have no server to connect to so should not continue
         if (isset($this->params["servers"])) {
-            $this->servers = unserialize($this->params["servers"]); }
-        else if (isset($this->params["environment-name"])) {
-            $names = $this->getEnvironmentNames($allProjectEnvs) ;
-            $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"]; }
-        else if (count($allProjectEnvs) > 0) {
-            $question = 'Use Environments Configured in Project?';
-            $useProjEnvs = self::askYesOrNo($question, true);
-            if ($useProjEnvs == true ) {
-                $this->servers = new \ArrayObject($allProjectEnvs) ;
-                return; } }
+            // @TODO CHECK OTHER TYPES OF ARRAY LIKE JSON
+            $this->servers = unserialize($this->params["servers"]);
+            $srv = $this->servers ; }
         else {
-            $this->askForServerInfo(); }
+            if (isset($this->params["env"]) && !isset($this->params["environment-name"] )) {
+                $this->params["environment-name"] =$this->params["env"] ; }
+            if (isset($this->params["hops"]) && isset($this->params["environment-name"])) {
+                $logging->log("Attempting to load SSH Hop Servers, as Hops are set...", $this->getModuleName()) ;
+                $this->hopEndEnvironment = (isset($this->params["env"])) ? $this->params["env"] : null ;
+                $this->hopEndEnvironment = (is_null($this->hopEndEnvironment)) ? $this->params["environment-name"] : $this->hopEndEnvironment ;
+                $names = $this->getEnvironmentNames();
+
+                // $this->hopEndEnvironment ;
+
+                $logging->log("Attempting to use hop environment {$this->params["hops"]} to reach target environment {$this->hopEndEnvironment}", $this->getModuleName()) ;
+                // @todo allow other algorithms, the best ones will be share by availability zone or literally share evenly so 5 in top and 50 in target take
+                // @todo loadHopServersByAlgorithm()
+                // need to get
+                //   1) server/s to hop to
+                //   2) target servers, for EACH of those Servers to SSH to, in a further array
+                //   3) each array and their sub arrays need to have keynames or paths that already exist on the hop environment
+                $this->servers[] = $this->getFirstServerOnlyAlgorithm();
+                if ($this->servers ===false) {
+                    $logging->log("Unable to populate servers from hop environment {$this->params["hops"]}", $this->getModuleName()) ; }
+                $srv = $this->servers ; }
+            else if (isset($this->params["environment-name"])) {
+                $logging->log("Environment name is set without hops, loading servers...", $this->getModuleName()) ;
+                $names = $this->getEnvironmentNames();
+                $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+                $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"];
+                $srv = $this->servers ; }
+            else {
+                $logging->log("Unable to find environment name", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                $srv = false ; }
+
+            if (!isset($this->params["environment-name"])) {
+                $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+                if (count($allProjectEnvs) > 0) {
+                    $question = 'Use Environments Configured in Project?';
+                    $useProjEnvs = self::askYesOrNo($question, true);
+                    if ($useProjEnvs == true) {
+                        $this->servers = new \ArrayObject($allProjectEnvs);
+                        // @todo need to ask a question here, this wont work
+                        // give them an array option od environment name
+                        $srv = false ; } }
+                else {
+                    $srv = $this->askForServerTarget(); } } }
+
+        if (is_array($srv) && count($srv)>0) { return $srv ; }
+        $logging->log("Unable to populate servers for environment", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
-    protected function getEnvironmentNames($envs) {
-        $eNames = array() ;
+    protected function getFirstServerOnlyAlgorithm() {
+        // @todo probably move the available algorithms to their own classes
+        $env = $this->getNextHopEnvironment();
+//        $env =$this->getEnvironment($env_name) ;
+        $sv_zero = $env["servers"][0] ;
+//        var_dump('svz:', $env["servers"][0]) ;
+        return $sv_zero ;
+    }
+
+    protected function getEnvironment($env_name) {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        foreach ($envs as $env) {
+            if ($env_name == $env["any-app"]["gen_env_name"]){
+                return $env ; } }
+        return false;
+    }
+
+    protected function getEnvironmentNames() {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        $eNames = array();
         foreach ($envs as $envKey => $env) {
-            $envName = $env["any-app"]["gen_env_name"] ;
-            $eNames[$envName] = $envKey ; }
-        return $eNames ;
+            $envName = $env["any-app"]["gen_env_name"];
+            $eNames[ $envName ] = $envKey; }
+        return $eNames;
+    }
+
+    protected function getHopEnvironmentNames() {
+        if (isset($this->params["hops"])) {
+            return explode(',', $this->params["hops"]); }
+        else {
+            return false ; }
+    }
+
+    protected function getNextHopEnvironment() {
+        $allhe = $this->getHopEnvironmentNames() ;
+        if ($allhe !== false) {
+            $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+            foreach ($allProjectEnvs as $env) {
+//                var_dump("en:", $allhe[0], $env["any-app"]["gen_env_name"]) ;
+                if ($allhe[0] == $env["any-app"]["gen_env_name"]){
+                    return $env ; } }
+            return false ; }
+        else {
+            return false ; }
     }
 
     protected function loadSFTPConnections() {
@@ -285,20 +370,22 @@ QUESTION;
 
 
     protected function askForTimeout(){
-        if (isset($this->params["timeout"])) { return ; }
+       if (isset($this->params["timeout"])) {
+            return $this->params["timeout"] ; }
         if (isset($this->params["guess"])) {
             $this->params["timeout"] = 100 ;
-            return ; }
+            return $this->params["timeout"]; }
         $question = 'Please Enter SSH Timeout in seconds';
         $input = self::askForInput($question, true) ;
         $this->params["timeout"] = $input ;
     }
 
     protected function askForPort(){
-        if (isset($this->params["port"])) { return ; }
+        if (isset($this->params["port"])) {
+            return $this->params["port"] ; }
         if (isset($this->params["guess"])) {
             $this->params["port"] = 22 ;
-            return ; }
+            return $this->params["port"] ; }
         $question = 'Please Enter remote SSH Port';
         $input = self::askForInput($question, true) ;
         $this->params["port"] = $input ;
