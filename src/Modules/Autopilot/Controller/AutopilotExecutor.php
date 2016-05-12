@@ -33,8 +33,13 @@ class AutopilotExecutor extends Base {
         if (isset($autoPilot->steps) && is_array($autoPilot->steps) && count($autoPilot->steps)>0) {
             $steps = $this->orderSteps($autoPilot->steps);
             foreach ($steps as $modelArray) {
-                $step_out = $this->executeStep($modelArray, $autopilotParams) ;
-//                var_dump($step_out["status"]) ;
+                $should_run = $this->onlyRunWhen($modelArray) ;
+//                var_dump("should run is:", $should_run) ;
+                if ($should_run["should_run"] != true) {
+                    $step_out["status"] = true ;
+                    $step_out["out"] = "No need to run this step" ; }
+                else {
+                    $step_out = $this->executeStep($modelArray, $autopilotParams) ; }
                 if ($step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
                     $dataFromThis[] = $step_out ;
@@ -48,6 +53,28 @@ class AutopilotExecutor extends Base {
             $step["error"] = "Received exit code: 1 " ;
             $dataFromThis[] = $step ;  }
         return $dataFromThis ;
+    }
+
+    protected function onlyRunWhen($current_params) {
+//        echo "Only running when" ;
+        $mod_ray_is = array_keys($current_params) ;
+        $mod_is = $mod_ray_is[0] ;
+        $act_ray_is = array_keys($current_params[$mod_is]) ;
+        $act_is = $act_ray_is[0] ;
+//        var_dump($current_params) ;
+        if (isset($current_params[$mod_is][$act_is]["when"])) {
+            $logFactory = new \Model\Logging() ;
+            $logging = $logFactory->getModel(array(), "Default") ;
+            $logging->log("When Condition found for Step", "Autopilot") ;
+            $autoFactory = new \Model\Autopilot() ;
+            $autoModel = $autoFactory->getModel(array(), "Default") ;
+            $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
+            $logging->log("When Condition evaluated to {$when_result}", "Autopilot") ;
+
+            $return_stat["should_run"] = $when_result ; }
+        else {
+            $return_stat["should_run"] = true ;  }
+        return $return_stat ;
     }
 
     protected function orderSteps($steps) {
