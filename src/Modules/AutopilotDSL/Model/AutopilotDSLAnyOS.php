@@ -35,7 +35,8 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
             else if (isset($cur_lines_trawled["name"]) && $cur_lines_trawled["name"] !=="" ) {
                 $new_vars[$cur_lines_trawled["name"]] = $cur_lines_trawled["value"] ; }
             else {
-                var_dump("the new vars", $cur_lines_trawled) ; }
+//                var_dump("the new vars", $cur_lines_trawled) ;
+            }
             // @todo below is for verbose logging
             // $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
             $trawl_line = $cur_lines_trawled["line"] ;
@@ -82,7 +83,7 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         $stend_sp_free = $this->removeStartAndEndSpaces($tab_free) ;
         if (substr($stend_sp_free, 0, 1) == '$') {
             $words_in_line = $this->getShortWords($stend_sp_free) ;
-            var_dump($words_in_line) ;
+//            var_dump($words_in_line) ;
             if (count($words_in_line)==3) {
                 $parts["name"] = $words_in_line[0] ;
                 $parts["value"] = $words_in_line[2] ; }
