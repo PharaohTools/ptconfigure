@@ -98,21 +98,17 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["name"]) &&
-            is_int($this->params["name"]) &&
             (!isset($this->params["id"]) || $this->params["id"] == "" ) ) {
             $tx = "Name Provided, Finding Node ID From Name" ;
             $logging->log($tx, $this->getModuleName()) ;
-            $node_id = $this->findIDFromName($this->params["name"]) ; }
+            $this->params["id"] = $this->findIDFromName($this->params["name"]) ; }
 
-        if (isset($this->params["id"]) &&
-            is_int($this->params["id"]) &&
-            $this->params["id"]>0) {
+        if (isset($this->params["id"]) && $this->params["id"] !== "") {
             $tx = "ID Provided, Finding Node from ID" ;
             $logging->log($tx, $this->getModuleName()) ;
             $node_id = $this->params["id"] ; }
 
         else {
-            var_dump('pars:', $this->params) ;
             $tx = "No ID or Name available" ;
             $logging->log($tx, $this->getModuleName()) ;
             $ret["status"] = false ;
@@ -173,9 +169,13 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
     }
 
     private function findIDFromName($name) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Finding ID of Node from name {$name}", $this->getModuleName()) ;
         $droplets = $this->getAllDroplets() ;
         foreach ($droplets as $droplet) {
             if ($droplet->name == $name) {
+                $logging->log("Found ID of {$droplet->ID} for Node from name {$name}", $this->getModuleName()) ;
                 return $droplet->ID ; } }
         return false ;
     }
