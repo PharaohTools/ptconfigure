@@ -22,7 +22,7 @@ class BaseDigitalOceanV2AllOS extends Base {
         if (isset($this->params["digital-ocean-v2-access-token"])) { return $this->params["digital-ocean-v2-access-token"] ; }
         $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-v2-access-token") ;
 
-        var_dump($this->params) ;
+//        var_dump($this->params) ;
 
         if ($papyrusVar != null) {
             if (isset($this->params["guess"])) {
