@@ -325,9 +325,9 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
     protected function saveExecutorFile(){
         if (isset($this->params["no-executor"])) { return true ; }
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $file_ext =  '.cmd'; }
+            $file_ext = '.cmd' ; }
         else {
-            $file_ext =  ''; }
+            $file_ext = '' ; }
         $this->populateExecutorFile();
         return file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.$file_ext, $this->bootStrapData);
     }
@@ -338,14 +338,14 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
       $loggingFactory = new \Model\Logging();
       $logging = $loggingFactory->getModel($this->params);
       $logging->log("Preparing to change file permissions", $this->getModuleName()) ;
-    $command = "chmod -R +x $this->programDataFolder";
-    $this->executeAndOutput($command);
+      $command = "chmod -R +x $this->programDataFolder";
+      $this->executeAndOutput($command);
       $rc = self::executeAndGetReturnCode($command, true, true);
       if ($rc["rc"] !== 0) {
           $logging->log("Error changing file permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
           return false ; }
       if (isset($this->params["no-executor"])) { return true ; }
-    $command = "chmod +x $this->programExecutorFolder/$this->programNameMachine";
+      $command = "chmod +x $this->programExecutorFolder/$this->programNameMachine";
       $rc = self::executeAndGetReturnCode($command, true, true);
       if ($rc["rc"] !== 0) {
           $logging->log("Error changing executor permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
@@ -445,8 +445,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         return $done ;
     }
 
-
-    protected function doInstallCommand($hook){
+    protected function doInstallCommand($hook) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $property = "{$hook}installCommands" ;
