@@ -17,7 +17,7 @@ class SshKeygenInfo extends PTConfigureBase {
   }
 
   public function routeAliases() {
-    return array("sshkeygen"=>"SshKeygen", "ssh-keygen"=>"SshKeygen");
+    return array("sshkeygen"=>"SshKeygen", "ssh-keygen"=>"SshKeygen", "SshKeyGen"=>"SshKeygen", "SSHKeyGen"=>"SshKeygen");
   }
 
   public function helpDefinition() {
