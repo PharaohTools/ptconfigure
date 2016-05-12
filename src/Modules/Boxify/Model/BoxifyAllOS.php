@@ -162,7 +162,8 @@ class BoxifyAllOS extends BaseLinuxApp {
                 return true ; }
             $logging->log("Found nodes in unexpected status", $this->getModuleName()) ;
             $logging->log("Fix broken nodes", $this->getModuleName()) ;
-            $this->fixBrokenNodes($cur_statuses);
+            $res = $this->fixBrokenNodes($cur_statuses);
+            return $res ;
 //            var_dump($cur_statuses) ;
         }
         return true ;
@@ -177,6 +178,8 @@ class BoxifyAllOS extends BaseLinuxApp {
         $results = array() ;
 
         $i = 0 ;
+
+//        var_dump("daze:", $curboxes) ;
         foreach($curboxes["servers"] as $oneNode) {
             $logging->log("Testing Node {$oneNode["name"]} from provider {$oneNode["provider"]}", $this->getModuleName()) ;
 
@@ -205,7 +208,7 @@ class BoxifyAllOS extends BaseLinuxApp {
         // how many do we have
         // how many do we have healthy
         $how_many_wanted = $this->boxAmount ;
-        $how_many_current = count($curboxes["tests"]) ;
+        $how_many_current = (isset($curboxes["tests"]) && is_array($curboxes["tests"])) ? count($curboxes["tests"]) : 0 ;
         $how_many_current_healthy = $this->countHealthyBoxes($curboxes) ;
         $logging->log("Expecting {$how_many_wanted} Nodes", $this->getModuleName()) ;
         $logging->log("{$how_many_current} current Nodes", $this->getModuleName()) ;
@@ -219,15 +222,12 @@ class BoxifyAllOS extends BaseLinuxApp {
                 //     + remove all unhealthy
                 $this->nodeAddRemove($curboxes, false, true) ;
                 //     + remove highest numbered healthy
-
                 $boxifyFactory = new \Model\Boxify();
                 $lister = $boxifyFactory->getModel($this->params, "Listing");
                 $curboxes = $lister->performListing() ;
-
                 $diff = $how_many_current_healthy - $how_many_wanted ;
-                $this->nodeRemove($curboxes, $diff) ;
-                //     b) we have less healthy than we want
-            }
+                $this->nodeRemove($curboxes, $diff) ; }
+            //     b) we have less healthy than we want
             else {
                 $logging->log("Currently less healthy Nodes ({$how_many_current_healthy}) than needed ($how_many_wanted)", $this->getModuleName()) ;
                 //     + fix broken (as many as needed, stop fixing if hit how many we want limit)
@@ -237,9 +237,8 @@ class BoxifyAllOS extends BaseLinuxApp {
                 //     + calculate difference between healthy wanted and have
                 $diff = $how_many_wanted - $how_many_current_healthy ;
                 //     + create outstanding nodes (if needed)
-                $this->nodeAdd($diff, $how_many_current_healthy) ;
-            }
-        }
+                $this->nodeAdd($diff, $how_many_current_healthy) ; }
+            return true ; }
         //    2) we have less than or equal to what we want
         else if ($how_many_current <= $how_many_wanted) {
             //     + fix all broken
@@ -249,7 +248,7 @@ class BoxifyAllOS extends BaseLinuxApp {
                 //     + create outstanding nodes
                 $diff = $how_many_wanted - $how_many_current;
                 $this->nodeAdd($diff, $how_many_current) ; }
-        }
+            return true ; }
 
     }
 
@@ -257,30 +256,32 @@ class BoxifyAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $i = 0 ;
-        foreach($curboxes["tests"] as $oneTest) {
-            if ($oneTest["status"]==false) {
 
-                if ($remove == true) {
-                    $logging->log( "Fixing broken node id {$oneTest["info"]["id"]}, name {$oneTest["info"]["name"]}", $this->getModuleName() ) ;
-                    $destroyParams = $this->params ;
-                    $destroyParams["destroy-box-id"] = $oneTest["info"]["id"] ;
-                    $nodeDestroy = $this->destroyBoxes($destroyParams) ;
-                    $i ++ ;
-                    $results["destroys"][$i] = $nodeDestroy ;
-                    if ($nodeDestroy["status"] == false) $all_stats_failure = false; }
+        if (isset($curboxes["tests"]) && is_array($curboxes["tests"])) {
+            foreach($curboxes["tests"] as $oneTest) {
+                if ($oneTest["status"]==false) {
+                    if ($remove == true) {
+                        $logging->log( "Fixing broken node id {$oneTest["info"]["id"]}, name {$oneTest["info"]["name"]}", $this->getModuleName() ) ;
+                        $destroyParams = $this->params ;
+                        $destroyParams["destroy-box-id"] = $oneTest["info"]["id"] ;
+                        $nodeDestroy = $this->destroyBoxes($destroyParams) ;
+                        $i ++ ;
+                        $results["destroys"][$i] = $nodeDestroy ;
+                        if ($nodeDestroy["status"] == false) $all_stats_failure = false; }
 
-                if ($add == true) {
-                    $logging->log( "Rebuilding new node", $this->getModuleName() ) ;
-                    $addParams = $this->params ;
-                    $addParams["box-amount"] = 1 ;
-                    $nodeAdd = $this->addBox($addParams) ;
-                    $i ++ ;
-                    $results["creates"][$i] = $nodeAdd ;
-                    if ($nodeAdd["status"] == false) $all_stats_failure = false; } }
-
-            else {
-                $logging->log(
-                    "Node id {$oneTest["info"]["id"]}, name {$oneTest["info"]["name"]} is healthy", $this->getModuleName() ) ;}}
+                    if ($add == true) {
+                        $logging->log( "Rebuilding new node", $this->getModuleName() ) ;
+                        $addParams = $this->params ;
+                        $addParams["box-amount"] = 1 ;
+                        $nodeAdd = $this->addBox($addParams) ;
+                        $i ++ ;
+                        $results["creates"][$i] = $nodeAdd ;
+                        if ($nodeAdd["status"] == false) $all_stats_failure = false; } }
+                else {
+                    $logging->log(
+                        "Node id {$oneTest["info"]["id"]}, name {$oneTest["info"]["name"]} is healthy", $this->getModuleName() ) ; } } }
+        else {
+            $logging->log("Unable to test boxes", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
         if (isset($all_stats_failure)) { $results["all_stats"] = false ; }
         else {  $results["all_stats"] = true ; }
         return $results ;
@@ -316,9 +317,12 @@ class BoxifyAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $healthy_count = 0 ;
-        foreach($curboxes["tests"] as $oneBox) {
-            if ($oneBox["status"]==true) {
-                $healthy_count ++ ; } }
+        if (isset($curboxes["tests"]) && is_array($curboxes["tests"])) {
+            foreach($curboxes["tests"] as $oneBox) {
+                if ($oneBox["status"]==true) {
+                    $healthy_count ++ ; } } }
+        else {
+            $logging->log("Unable to test boxes", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
         $logging->log("Healthy count is {$healthy_count}", $this->getModuleName()) ;
         return $healthy_count ;
     }
@@ -338,7 +342,8 @@ class BoxifyAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($params);
 
-        if ($params["destroy-all-boxes"] == true) { $params["destroy-all-boxes"] = "true" ; }
+        if (isset($params["destroy-all-boxes"]) && $params["destroy-all-boxes"] == true) {
+            $params["destroy-all-boxes"] = "true" ; }
 
         $provider = $this->getProvider("BoxDestroy", $params);
         if (!is_object($provider)) {
