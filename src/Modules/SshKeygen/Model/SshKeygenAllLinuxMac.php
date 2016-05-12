@@ -82,6 +82,8 @@ class SshKeygenAllLinuxMac extends BaseLinuxApp {
     public function askForKeygenPassphrase() {
         if (isset($this->params["passphrase"]) ) {
             $this->keygenPassphrase = $this->params["passphrase"] ; }
+        else if (isset($this->params["guess"]) ) {
+            $this->keygenPassphrase = "" ; }
         else {
             $question = "Passphrase to be bound to key. None is fine";
             $keygenPhrase = self::askForInput($question);
