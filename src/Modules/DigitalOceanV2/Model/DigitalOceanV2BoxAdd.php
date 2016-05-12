@@ -158,13 +158,16 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
     private function getSSHKeyLocation() {
         if (isset($this->params["key-path"])) {
-            return $this->params["key-path"] ; }
+            $this->params["private-ssh-key-path"] = $this->params["key-path"] ;
+            return $this->params["private-ssh-key-path"] ; }
+        if (isset($this->params["private-ssh-key-path"])) {
+            return $this->params["private-ssh-key-path"] ; }
         $question = 'Enter file path of private SSH Key';
-        return self::askForInput($question, true) ;
+        $this->params["private-ssh-key-path"] = self::askForInput($question, true) ;
+        return $this->params["private-ssh-key-path"] ;
     }
 
     private function getNewServerFromDigitalOceanV2($serverData) {
-
         $callVars = array() ;
         $callVars["name"] = $serverData["name"];
         $callVars["size"] = $serverData["sizeID"];
