@@ -305,9 +305,9 @@ COMPLETION;
         $modelGroup = $parts_array[1] ;
         $method = $parts_array[2] ;
         if (!isset($parts_array[1])) {
-
-            var_dump("pray:", $parts_array, $parts_string, "myi:", $i, "mysc:", $sc) ; }
-
+           // @todo exception and log
+           // var_dump("pray:", $parts_array, $parts_string, "myi:", $i, "mysc:", $sc) ;
+        }
 
         $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
         $full_factory = "\\Model\\{$module}" ;
@@ -579,7 +579,7 @@ COMPLETION;
                 $logging->log("Cannot find version", $this->getModuleName()) ;
                 return false; } }
         else {
-            var_dump("pro: ", $type) ;
+//            var_dump("pro: ", $type) ;
             return false; }
     }
 
