@@ -238,12 +238,12 @@ COMPLETION;
         $this->transformAllParameters() ;
     }
 
-    protected function transformAllParameters() {
+    public function transformAllParameters() {
         foreach ($this->params as $key => $val) {
             $this->params[$key] = $this->transformParameterValue($val) ; }
     }
 
-    protected function transformParameterValue($paramValue) {
+    public function transformParameterValue($paramValue) {
         $origParamValue = $paramValue ;
         $paramValue = str_replace("::~::", "::Default::", $paramValue) ;
         $paramValue = trim($paramValue, ' ') ;
