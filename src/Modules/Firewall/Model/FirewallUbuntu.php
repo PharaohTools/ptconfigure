@@ -8,13 +8,14 @@ class FirewallUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array(array("11.04" => "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
     protected $defaultPolicy ;
     protected $firewallRule ;
+    protected $targetInterface ;
     protected $actionsToMethods ;
 
     public function __construct($params) {
@@ -43,31 +44,37 @@ class FirewallUbuntu extends BaseLinuxApp {
 
     protected function performFirewallAllow() {
         $this->setFirewallRule();
+        $this->setInterface();
         return $this->allow();
     }
 
     protected function performFirewallDeny() {
         $this->setFirewallRule();
+        $this->setInterface();
         return $this->deny();
     }
 
     protected function performFirewallReject() {
         $this->setFirewallRule();
+        $this->setInterface();
         return $this->reject();
     }
 
     protected function performFirewallLimit() {
         $this->setFirewallRule();
+        $this->setInterface();
         return $this->limit();
     }
 
     protected function performFirewallDelete() {
         $this->setFirewallRule();
+        $this->setInterface();
         return $this->deleteRule();
     }
 
     protected function performFirewallInsert() {
         $this->setFirewallRule();
+        $this->setInterface();
         return $this->insert();
     }
 
@@ -92,6 +99,20 @@ class FirewallUbuntu extends BaseLinuxApp {
         else {
             $firewallRule = self::askForInput("Enter Port:", true); }
         $this->firewallRule = $firewallRule ;
+    }
+
+    public function setInterface() {
+        if (isset($this->params["interface"])) {
+            $this->targetInterface = $this->params["interface"]; }
+        else {
+            $this->targetInterface = self::askForInput("Enter Interface (none for all):") ; }
+    }
+
+    protected function getOnInterfaceString() {
+        if (isset($this->params["interface"])) {
+            $ois = "on {$this->params["interface"]} to any from any port " ;
+            return $ois ; }
+        return false ;
     }
 
     public function setDefaultPolicyParam() {
@@ -138,7 +159,9 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     public function deny() {
-        $out = $this->executeAndOutput(SUDOPREFIX."ufw deny $this->firewallRule");
+        $onInterface = $this->getOnInterfaceString();
+
+        $out = $this->executeAndOutput(SUDOPREFIX."ufw deny {$this->firewallRule} {$onInterface}");
         if (strpos($out, "Skipping adding existing rule") != false ||
             strpos($out, "Rule added") != false ) {
             $loggingFactory = new \Model\Logging();
