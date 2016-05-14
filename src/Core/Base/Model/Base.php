@@ -309,12 +309,12 @@ COMPLETION;
            // var_dump("pray:", $parts_array, $parts_string, "myi:", $i, "mysc:", $sc) ;
         }
 
-        $method_params = (isset($parts_array[3])) ? $parts_array[3] : array() ;
+        $method_params = (isset($parts_array[3])) ? explode(",", $parts_array[3]) : array() ;
         $full_factory = "\\Model\\{$module}" ;
         if (!class_exists($full_factory)) {
-//            $logging->log(
-//                "Parameter transform unable to find class $method in $module, $modelGroup model group",
-//                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $logging->log(
+                "Parameter transform unable to find method {$method} in {$module}, {$modelGroup} model group",
+                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return null ; }
         $foundFactory = new $full_factory();
         $madeModel = $foundFactory->getModel($this->params, $modelGroup);
