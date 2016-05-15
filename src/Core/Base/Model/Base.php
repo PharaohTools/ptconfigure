@@ -305,27 +305,33 @@ COMPLETION;
         $modelGroup = $parts_array[1] ;
         $method = $parts_array[2] ;
         if (!isset($parts_array[1])) {
-           // @todo exception and log
-           // var_dump("pray:", $parts_array, $parts_string, "myi:", $i, "mysc:", $sc) ;
+            // @todo exception and log
+            // var_dump("pray:", $parts_array, $parts_string, "myi:", $i, "mysc:", $sc) ;
         }
 
         $method_params = (isset($parts_array[3])) ? explode(",", $parts_array[3]) : array() ;
         $full_factory = "\\Model\\{$module}" ;
         if (!class_exists($full_factory)) {
             $logging->log(
-                "Parameter transform unable to find method {$method} in {$module}, {$modelGroup} model group",
+                "Parameter transform unable to find class {$full_factory} in {$module}, {$modelGroup} model group",
                 $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            return null ; }
+            return false ; }
         $foundFactory = new $full_factory();
-        $madeModel = $foundFactory->getModel($this->params, $modelGroup);
+        // send empty params or it causes a loop with this one
+        $madeModel = $foundFactory->getModel(array(), $modelGroup);
         if (method_exists($madeModel, $method)) {
 //            $logging->log("Parameter transform loading value from method $method in $module, $modelGroup model group", $this->getModuleName()) ;
-            $res = call_user_func_array(array($madeModel, $method), $method_params) ; }
+            $res = call_user_func_array(array($madeModel, $method), $method_params) ;
+            if ($res === null) {
+                $logging->log("Method should never return null, changing result to false", $this->getModuleName()) ;
+            }}
         else {
             $logging->log(
                 "Parameter transform unable to find method $method in $module, $modelGroup model group",
                 $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            $res = null ; }
+            $res = false ; }
+        var_dump("mossberg") ;
+
         \Model\RegistryStore::setValue($parts_string, $res) ;
         return $res ;
 
