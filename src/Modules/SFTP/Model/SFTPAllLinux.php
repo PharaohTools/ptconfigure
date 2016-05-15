@@ -16,6 +16,8 @@ class SFTPAllLinux extends Base {
 
     protected $servers = array();
     protected $isNativeSSH ;
+    protected $hopScript ;
+    protected $hopEndEnvironment ;
 
     public function askWhetherToSFTPPut() {
         return $this->performSFTPPut();
@@ -114,8 +116,12 @@ class SFTPAllLinux extends Base {
                 $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
                 $result .= $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
-                foreach ($ar as $s) {
-                    $result .= "$s\n" ; } }
+                if (count($ar)==0) {
+                    $hop_res = $this->runSFTPOnHop();
+                    $result .= $hop_res; }
+                else {
+                    foreach ($ar as $s) {
+                        $result .= "$s\n" ; } } }
             else {
                 if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
                     $dn = dirname($remoteFile) ;
@@ -125,12 +131,72 @@ class SFTPAllLinux extends Base {
                 $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
                 $result .= $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
-                foreach ($ar as $s) {
-                    $result .= "$s\n" ; } } }
+                if (count($ar)==0) {
+                    $hop_res = $this->runSFTPOnHop();
+                    $result .= $hop_res; }
+                else {
+                    foreach ($ar as $s) {
+                        $result .= "$s\n" ; } } } }
         else {
             $logging->log("No SFTP Object, Connection likely failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             $result = false; }
         return $result ;
+    }
+
+    protected function runSFTPOnHop() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Looking for Hop Environment", $this->getModuleName());
+        $cen = $this->getHopEnvironmentNames() ;
+        if ( $cen  !== false ) {
+            $logging->log("Found Hop Environment, running SSH Hop", $this->getModuleName());
+            return $this->remotePushDataScriptForHop($cen[0]) ; }
+        else { return true ; }
+    }
+
+
+
+    protected function remotePushDataScriptForHop($env) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $sftpFactory = new \Model\SFTP() ;
+        $logging->log("Forwarding local papyrus settings ", $this->getModuleName()) ;
+        $params["yes"] = "true" ;
+        $params["guess"] = "true" ;
+        $params["environment-name"] = $env ;
+        $params["first-server"] = true ;
+//        $params["env"] = $env_name ;
+        $params["source"] = getcwd().DS.'papyrusfile' ;
+        $params["target"] = '/tmp/papyrusfile' ;
+        $sftp = $sftpFactory->getModel($params, "Default") ;
+        $res = $sftp->performSFTPPut() ;
+        if ($res ==false ) {
+            $logging->log("Forwarding failed for local papyrus settings", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;}
+        $logging->log("Forwarding local papyrus settings successful", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        $logging->log("Using SSH to run SFTP from Hop Environment to Target", $this->getModuleName()) ;
+
+        $sshParams["yes"] = true ;
+        $sshParams["guess"] = true ;
+        $sshParams["driver"] = "seclib" ;
+        $sshParams["environment-name"] = $env ;
+        $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
+        $sshParams["timeout"] = (isset($papyrus["timeout"])) ? $papyrus["timeout"] : 30 ;
+        $comm  = "cd /tmp ; ptconfigure sftp put -yg --env={$this->hopEndEnvironment} ";
+        $comm .= " --source=\"{$this->params["target"]}\" --target=\"{$this->params["target"]}\" ; " ;
+        $comm .= " rm {$this->params["target"]} ; " ;
+        echo 'running: '.$comm."\n" ;
+
+        $sshParams["ssh-data"] = $comm ;
+        $sshFactory = new \Model\Invoke() ;
+        $ssh = $sshFactory->getModel($sshParams, "Default") ;
+        $res = $ssh->askWhetherToInvokeSSHData() ;
+        if ($res ==false ) {
+            $logging->log("Failed executing remote SFTP command via SSH", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        $logging->log("Successful transfer of {$this->params["source"]} {$this->params["target"]} through SSH Hop", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+
+        return true;
     }
 
     protected function doSFTPGet($sftpObject, $remoteFile, $localFile = false) {
@@ -170,7 +236,7 @@ class SFTPAllLinux extends Base {
             if (isset($this->params["env"]) && !isset($this->params["environment-name"] )) {
                 $this->params["environment-name"] =$this->params["env"] ; }
             if (isset($this->params["hops"]) && isset($this->params["environment-name"])) {
-                $logging->log("Attempting to load SSH Hop Servers, as Hops are set...", $this->getModuleName()) ;
+                $logging->log("Attempting to load SFTP Hop Servers, as Hops are set...", $this->getModuleName()) ;
                 $this->hopEndEnvironment = (isset($this->params["env"])) ? $this->params["env"] : null ;
                 $this->hopEndEnvironment = (is_null($this->hopEndEnvironment)) ? $this->params["environment-name"] : $this->hopEndEnvironment ;
                 $names = $this->getEnvironmentNames();
@@ -190,9 +256,14 @@ class SFTPAllLinux extends Base {
                 $srv = $this->servers ; }
             else if (isset($this->params["environment-name"])) {
                 $logging->log("Environment name is set without hops, loading servers...", $this->getModuleName()) ;
-                $names = $this->getEnvironmentNames();
-                $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
-                $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"];
+                $env = $this->getEnvironment($this->params["environment-name"]) ;
+                if (isset($this->params["first-server"])) {
+                    $logging->log("First Server parameter is set, will only connect to first server in environment pool...", $this->getModuleName()) ;
+                    $this->servers[] = $env["servers"][0]; }
+                else {
+                    $logging->log("Loading all servers in environment pool...", $this->getModuleName()) ;
+                    $this->servers = $env["servers"]; }
+//                var_dump("en:", $this->params["environment-name"], $this->servers);
                 $srv = $this->servers ; }
             else {
                 $logging->log("Unable to find environment name", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
@@ -238,7 +309,7 @@ class SFTPAllLinux extends Base {
         $eNames = array();
         foreach ($envs as $envKey => $env) {
             $envName = $env["any-app"]["gen_env_name"];
-            $eNames[ $envName ] = $envKey; }
+            $eNames[] = $envName; }
         return $eNames;
     }
 
