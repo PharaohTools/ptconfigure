@@ -25,11 +25,17 @@ class InvokeAllOS extends Base {
 	}
 
 	public function askWhetherToInvokeSSHScript() {
-		return $this->performInvokeSSHScriptWithHops();
+        if (isset($this->params["hops"])) {
+            return $this->performInvokeSSHScriptWithHops() ; }
+        else {
+            return $this->performInvokeSSHScript() ; }
 	}
 
 	public function askWhetherToInvokeSSHData() {
-		return $this->performInvokeSSHDataWithHops();
+        if (isset($this->params["hops"])) {
+            return $this->performInvokeSSHDataWithHops() ; }
+        else {
+            return $this->performInvokeSSHData() ; }
 	}
 
 	public function performInvokeSSHShellWithHops() {
@@ -58,12 +64,12 @@ class InvokeAllOS extends Base {
 		return true;
 	}
 
-	public function performInvokeSSHScript() {
-		if ($this->askForSSHScriptExecute() != true) {
-			return false; }
-		$scriptLoc = $this->askForScriptLocation();
-		$this->populateServers();
-		$this->sshCommands = explode("\n", file_get_contents($scriptLoc));
+    public function performInvokeSSHScript() {
+        if ($this->askForSSHScriptExecute() != true) {
+            return false; }
+        $scriptLoc = $this->askForScriptLocation();
+        $this->populateServers();
+        $this->sshCommands = explode("\n", file_get_contents($scriptLoc));
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($this->servers) > 0) {
@@ -81,8 +87,33 @@ class InvokeAllOS extends Base {
             \Core\BootStrap::setExitCode(1) ;
             return false ; }
         $logging->log("Script by SSH Completed", $this->getModuleName()) ;
-		return true;
-	}
+        return true;
+    }
+
+    public function performInvokeSSHData() {
+        if ($this->askForSSHDataExecute() != true) {
+            return false; }
+        $this->populateServers();
+        $this->sshCommands = $this->getSSHCommandsForThisStage("data") ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if (count($this->servers) > 0) {
+            $logging->log("Opening CLI...", $this->getModuleName()) ;
+            foreach ($this->sshCommands as $sshCommand) {
+                foreach ($this->servers as &$server) {
+                    if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
+                        $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
+                        $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                    else {
+                        $logging->log( "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+        else {
+            $logging->log("No successful connections available", $this->getModuleName()) ;
+            \Core\BootStrap::setExitCode(1) ;
+            return false ; }
+        $logging->log("Script by SSH Completed", $this->getModuleName()) ;
+        return true;
+    }
 
     public function performInvokeSSHScriptWithHops() {
         if ($this->askForSSHScriptExecute() != true) {
@@ -131,13 +162,13 @@ class InvokeAllOS extends Base {
                         $this->remotePushDataScriptForHop($this->hopScript, $server) ;
                         $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         $cur_res = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
+                        if (isset($cur_res) && $cur_res == false) {
+                            $logging->log(  "[" . $server["target"] . "] Command failed...", $this->getModuleName()) ; }
+                        else {
+                            echo $cur_res ; }
                         $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log(  "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; }
-                    if (isset($cur_res) && $cur_res == false) {
-                        ;
-                    }
-                } } }
+                        $logging->log(  "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } } }
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -152,7 +183,7 @@ class InvokeAllOS extends Base {
         //if (isset($this->params["hops"])) {
             if ($type=="data") {
                 $cen = $this->getHopEnvironmentNames() ;
-                if (count($cen) > 0) {
+                if ($cen !== false) {
 
                     $data = $this->askForSSHData();
                     $file = $this->turnDataIntoScriptForHop($data) ;
