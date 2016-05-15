@@ -29,9 +29,42 @@ class PharaohToolRunnerAnyOS extends Base {
 
     protected function doPharaohToolRun($tool, $module, $action) {
         $param_string = $this->getParametersToForward() ;
+
         $comm = "$tool $module $action $param_string" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
+
+        $env = $this->getEnvironmentName() ;
+        if ($env !== "") {
+            $logging->log("Environment name {$env} specified to execute command in environment", $this->getModuleName());
+            $sshParams["yes"] = true ;
+            $sshParams["guess"] = true ;
+            $sshParams["environment-name"] = $env ;
+            $sshParams["hops"] = $this->getHopEnvironmentName() ;
+            $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
+            $sshParams["timeout"] = (isset($papyrus["timeout"])) ? $papyrus["timeout"] : 30 ;
+            $sftpParams = $sshParams ;
+            $hopEnv = $this->getHopEnvironmentName() ;
+            $afn = $this->getAutopilotFileName() ;
+            if (!is_null($hopEnv) &&
+                isset($afn) &&
+                strlen($afn)>0 ) {
+                $logging->log("Setting SFTP details to push Autopilot file to Target", $this->getModuleName());
+                $sftpParams["source"] = $sftpParams["target"] = $afn ;
+                $sftpParams["environment-name"] = $hopEnv ;
+                $sftpFactory = new \Model\SFTP() ;
+                $sftp = $sftpFactory->getModel($sftpParams ,"Default") ;
+                $res = $sftp->performSFTPPut() ;
+                if ($res == false) { return false ; } }
+            $sshParams["ssh-data"] = "$comm" ;
+            $sshFactory = new \Model\Invoke() ;
+            $ssh = $sshFactory->getModel($sshParams ,"Default") ;
+            $res = $ssh->askWhetherToInvokeSSHData() ;
+            return ($res == true) ? true : false ; }
+        else {
+            $logging->log("No environment name specified, executing command locally", $this->getModuleName()); }
+
         $logging->log("Executing $comm", $this->getModuleName());
         $rc = self::executeAndGetReturnCode($comm, true, false) ;
         return ($rc["rc"]==0) ? true : false ;
@@ -48,6 +81,30 @@ class PharaohToolRunnerAnyOS extends Base {
         else { $question = "Enter tool name"; }
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;
+    }
+
+    protected function getHopEnvironmentName(){
+        if (isset($this->params["hops"])) { return $this->params["hops"] ; }
+        return false ;
+    }
+
+    protected function getAutopilotFileName(){
+        if (isset($this->params["autopilot-file"])) { return $this->params["autopilot-file"] ; }
+        if (isset($this->params["af"])) {
+            $this->params["autopilot-file"] = $this->params["af"] ;
+            return $this->params["af"] ; }
+        return false ;
+    }
+
+    protected function getEnvironmentName(){
+        if (isset($this->params["environment-name"])) { return $this->params["environment-name"] ; }
+        if (isset($this->params["env"])) { return $this->params["env"] ; }
+        if (isset($this->params["guess"])) {
+            $this->params["environment-name"] = "" ;
+            return $this->params["environment-name"] ; }
+        $question = "Enter Environment name, none to run locally";
+        $this->params["environment-name"] = self::askForInput($question) ;
+        return $this->params["environment-name"] ;
     }
 
     protected function parseAvailableTools($tool){
