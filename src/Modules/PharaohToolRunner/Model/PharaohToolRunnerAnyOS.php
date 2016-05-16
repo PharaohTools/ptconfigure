@@ -32,7 +32,7 @@ class PharaohToolRunnerAnyOS extends Base {
         $logging = $loggingFactory->getModel($this->params);
 
         $env = $this->getEnvironmentName() ;
-        if ($env !== false) {
+        if ($env !== false && strlen($env)>0) {
             $logging->log("Environment name {$env} specified to execute Pharaoh command in", $this->getModuleName());
             $sshParams["yes"] = true ;
             $sshParams["guess"] = true ;
