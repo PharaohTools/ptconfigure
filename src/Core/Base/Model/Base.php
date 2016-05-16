@@ -330,8 +330,6 @@ COMPLETION;
                 "Parameter transform unable to find method $method in $module, $modelGroup model group",
                 $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             $res = false ; }
-        var_dump("mossberg") ;
-
         \Model\RegistryStore::setValue($parts_string, $res) ;
         return $res ;
 
