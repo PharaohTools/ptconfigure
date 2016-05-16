@@ -189,12 +189,15 @@ class InvokeAllOS extends Base {
                     $file = $this->turnDataIntoScriptForHop($data) ;
                     $this->hopScript = $file ;
                     $cli_commands = array(
-                        "cd /tmp",
+//                        "pwd",
+                        "cp /tmp/papyrusfile .",
                         'ptconfigure invoke script -yg --env="'.$this->hopEndEnvironment.'" --ssh-script="'.$file.'" ');
                     return $cli_commands ; }
                 else {
                     $data = $this->askForSSHData();
-                    return explode("\n", $data); }  }
+                    $lines = explode("\n", $data);
+                    $lines[] = "\n" ;
+                    return $lines ;}  }
             else if ($type=="script") {
                 $scriptLoc = $this->askForScriptLocation();
                 $shc = explode(PHP_EOL, file_get_contents($scriptLoc));
