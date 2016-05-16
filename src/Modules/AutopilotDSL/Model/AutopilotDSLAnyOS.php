@@ -34,7 +34,7 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
                 $new_steps[] = $cur_lines_trawled["data"] ; }
             else if (isset($cur_lines_trawled["name"]) && $cur_lines_trawled["name"] !=="" ) {
                 $new_vars[$cur_lines_trawled["name"]] = $cur_lines_trawled["value"] ; }
-            else {
+            else if (isset($cur_lines_trawled["comments"])) {
 //                var_dump("the new vars", $cur_lines_trawled) ;
             }
             // @todo below is for verbose logging
@@ -50,11 +50,9 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         $i = $start_line ;
         // allow comments
         // @todo fix comments
-        $res = $this->parseVariables($lines[$i]) ;
-//        var_dump("r1", $res) ;
+        $res = $this->parseComments($lines, $i) ;
         if ($res !== false) {
-            $i++ ;
-            return array("line" => $i, "name"  => $res["name"], "value"  => $res["value"]) ; }
+            $i = $res["line"] + 1 ; }
         $parsedLine = $this->parseHeadLineText($lines[$i]) ;
         $i2 = $i + 1 ;
         $parsedParamsLine = $this->parseParamsText($lines, $i2, $total) ;
@@ -112,17 +110,20 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         return $parts ;
     }
 
-    public function parseComments($lines, $start, $total) {
+    public function parseComments($lines, $start) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $current = $start ;
-        echo "Starting comment trawl... \n" ;
-        for ( $i = $start ; $i < $total ; $i++ ) {
-            $first_char = substr($lines[$i], 0, 1) ;
+//        $logging->log("Starting comment trawl...", $this->getModuleName()) ;
+        $first_char = substr($lines[$start], 0, 1) ;
+        if ($first_char != '#') { return false ; }
+        for ( $i = $start ; $i < count($lines) ; $i++ ) {
             $current = $i ;
-            if ($first_char !== '#') { break ; } }
-        echo "Returning start $start, current $current... \n" ;
-        return $current ;
+//            var_dump($first_char, $lines[$i], $i) ;
+            $first_char = substr($lines[$i], 0, 1) ;
+            if ($first_char != '#') { break ; }}
+        $logging->log("Ignoring commented lines $start until $current... ", $this->getModuleName()) ;
+        return array( "line" => $current, "comments" => true) ;
     }
 
     public function parseParamsText($lines, $start, $total) {
