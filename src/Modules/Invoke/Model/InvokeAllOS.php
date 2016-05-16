@@ -277,7 +277,7 @@ class InvokeAllOS extends Base {
                     $logging->log("Unable to populate servers from hop environment {$this->params["hops"]}", $this->getModuleName()) ; }
                 $srv = $this->servers ; }
 			else if (isset($this->params["environment-name"])) {
-                $logging->log("Environment name is set without hops, loading servers...", $this->getModuleName()) ;
+                $logging->log("Environment name {$this->params["environment-name"]} is set without hops, loading servers...", $this->getModuleName()) ;
                 $names = $this->getEnvironmentNames();
                 $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
                 $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"];
