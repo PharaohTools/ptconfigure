@@ -28,46 +28,63 @@ class PharaohToolRunnerAnyOS extends Base {
     }
 
     protected function doPharaohToolRun($tool, $module, $action) {
-        $param_string = $this->getParametersToForward() ;
-
-        $comm = "$tool $module $action $param_string" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
 
         $env = $this->getEnvironmentName() ;
-        if ($env !== "") {
-            $logging->log("Environment name {$env} specified to execute command in environment", $this->getModuleName());
+        if ($env !== false) {
+            $logging->log("Environment name {$env} specified to execute Pharaoh command in", $this->getModuleName());
             $sshParams["yes"] = true ;
             $sshParams["guess"] = true ;
             $sshParams["environment-name"] = $env ;
-            $sshParams["hops"] = $this->getHopEnvironmentName() ;
+            $sshParams["driver"] = "seclib" ;
             $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
             $sshParams["timeout"] = (isset($papyrus["timeout"])) ? $papyrus["timeout"] : 30 ;
             $sftpParams = $sshParams ;
             $hopEnv = $this->getHopEnvironmentName() ;
-            $afn = $this->getAutopilotFileName() ;
-            if (!is_null($hopEnv) &&
+            if ($hopEnv !== false) {
+                $sshParams["hops"] = $this->$hopEnv() ;}
+            var_dump("p: ", $this->params) ;
+            $afn = $this->getRunAutopilotFileName() ;
+            var_dump("afn: ", $afn) ;
+            $file_only = basename($afn) ;
+            var_dump("fo: ", $file_only) ;
+            $target_path = '/tmp/'.$file_only ;
+            if (
+//                isset($hopEnv) &&
+//                strlen($hopEnv)>0 &&
                 isset($afn) &&
                 strlen($afn)>0 ) {
                 $logging->log("Setting SFTP details to push Autopilot file to Target", $this->getModuleName());
-                $sftpParams["source"] = $sftpParams["target"] = $afn ;
-                $sftpParams["environment-name"] = $hopEnv ;
+                $sftpParams["source"] = $afn ;
+                $sftpParams["target"] = $target_path ;
+                $sftpParams["environment-name"] = $env ;
                 $sftpFactory = new \Model\SFTP() ;
                 $sftp = $sftpFactory->getModel($sftpParams ,"Default") ;
                 $res = $sftp->performSFTPPut() ;
                 if ($res == false) { return false ; } }
-            $sshParams["ssh-data"] = "$comm" ;
+            $this->params["autopilot-file"] = $target_path ;
+//            $sshParams["ssh-data"] = "ptconfigure || bash <(wget -qO- http://www.pharaohtools.com/linux.bash)) " ;
             $sshFactory = new \Model\Invoke() ;
+//            $ssh = $sshFactory->getModel($sshParams ,"Default") ;
+//            $res = $ssh->askWhetherToInvokeSSHData() ;
+//            if ($res == false) { return false ; }
+            $param_string = $this->getParametersToForward() ;
+            $comm = "$tool $module $action $param_string" ;
+            $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
+            $sshParams["ssh-data"] = "$comm" ;
             $ssh = $sshFactory->getModel($sshParams ,"Default") ;
             $res = $ssh->askWhetherToInvokeSSHData() ;
             return ($res == true) ? true : false ; }
         else {
-            $logging->log("No environment name specified, executing command locally", $this->getModuleName()); }
+            $logging->log("No environment name specified, executing command locally", $this->getModuleName());
+            $param_string = $this->getParametersToForward() ;
+            $comm = "$tool $module $action $param_string" ;
+            $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
+            $logging->log("Executing $comm", $this->getModuleName());
+            $rc = self::executeAndGetReturnCode($comm, true, false) ;
+            return ($rc["rc"]==0) ? true : false ; }
 
-        $logging->log("Executing $comm", $this->getModuleName());
-        $rc = self::executeAndGetReturnCode($comm, true, false) ;
-        return ($rc["rc"]==0) ? true : false ;
     }
 
     protected function askForPharaohToolRunnerExecute(){
@@ -88,11 +105,25 @@ class PharaohToolRunnerAnyOS extends Base {
         return false ;
     }
 
+    protected function getRunAutopilotFileName(){
+        if (isset($this->params["runner-autopilot-file"])) { return $this->params["runner-autopilot-file"] ; }
+        else if (isset($this->params["raf"])) {
+            $this->params["runner-autopilot-file"] = $this->params["raf"] ;
+            return $this->params["runner-autopilot-file"] ; }
+        else if (isset($this->params["runauto"])) {
+            $this->params["runner-autopilot-file"] = $this->params["runauto"] ;
+            return $this->params["runner-autopilot-file"] ; }
+        else  if (isset($this->params["runnerauto"])) {
+            $this->params["runner-autopilot-file"] = $this->params["runnerauto"] ;
+            return $this->params["runner-autopilot-file"] ; }
+        return false ;
+    }
+
     protected function getAutopilotFileName(){
         if (isset($this->params["autopilot-file"])) { return $this->params["autopilot-file"] ; }
-        if (isset($this->params["af"])) {
+        else if (isset($this->params["af"])) {
             $this->params["autopilot-file"] = $this->params["af"] ;
-            return $this->params["af"] ; }
+            return $this->params["utopilot-file"] ; }
         return false ;
     }
 
@@ -136,8 +167,16 @@ class PharaohToolRunnerAnyOS extends Base {
     }
 
     protected function getParametersToForward(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["params"])) {
-            $res = $this->transformOurParams($this->params["params"]) ;
+            $res = $this->transformOurParams($this->params["params"], array("af", "autopilot-file")) ;
+            $afn = $this->getRunAutopilotFileName() ;
+            if ($afn !== false) {
+                $file_only = basename($afn) ;
+                $target_path = '/tmp/'.$file_only ;
+                $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
+                $res .= " --autopilot-file=".$target_path ; }
             return $res ; }
         else { $question = "Enter parameter string"; }
         $input = self::askForInput($question) ;
@@ -145,16 +184,16 @@ class PharaohToolRunnerAnyOS extends Base {
         return $res ;
     }
 
-    protected function transformOurParams($pstr) {
+    protected function transformOurParams($pstr, $drop_keys = array()) {
         $pairs = explode(",", $pstr) ;
         $parameter_string = "" ;
         foreach ($pairs as $pair) {
             if (strpos($pair, ":") !== false) {
                 $key = substr($pair, 0, strpos($pair, ":") ) ;
                 $val = substr($pair, strpos($pair, ":") + 1 ) ;
-                $parameter_string .= " --{$key}={$val}" ; }
+                if (!in_array($key, $drop_keys)) { $parameter_string .= " --{$key}={$val}" ; } }
             else {
-                $parameter_string .= " --{$pair}" ; } }
+                if (!in_array($key, $drop_keys)) { $parameter_string .= " --{$pair}" ; } } }
         return $parameter_string ;
     }
 
