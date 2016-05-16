@@ -104,6 +104,8 @@ class FirewallUbuntu extends BaseLinuxApp {
     public function setInterface() {
         if (isset($this->params["interface"])) {
             $this->targetInterface = $this->params["interface"]; }
+        else if (isset($this->params["guess"])) {
+            $this->targetInterface = ""; }
         else {
             $this->targetInterface = self::askForInput("Enter Interface (none for all):") ; }
     }
