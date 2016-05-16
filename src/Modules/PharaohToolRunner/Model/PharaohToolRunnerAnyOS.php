@@ -44,11 +44,8 @@ class PharaohToolRunnerAnyOS extends Base {
             $hopEnv = $this->getHopEnvironmentName() ;
             if ($hopEnv !== false) {
                 $sshParams["hops"] = $this->$hopEnv() ;}
-            var_dump("p: ", $this->params) ;
             $afn = $this->getRunAutopilotFileName() ;
-            var_dump("afn: ", $afn) ;
             $file_only = basename($afn) ;
-            var_dump("fo: ", $file_only) ;
             $target_path = '/tmp/'.$file_only ;
             if (
 //                isset($hopEnv) &&
