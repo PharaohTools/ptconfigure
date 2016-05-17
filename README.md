@@ -6,22 +6,30 @@ Configuration Management, Systems Automation and Infrastructure by Code in PHP. 
 with an Operating System agnostic method of ensuring environment stability.
 
 This tool is for provisioning software and configurations to your boxes. You can set up complex provisions to your
-systems with one or two PHP files, or quickly set up cloud friendly deployment patterns.
-
-PTConfigure is modular. object oriented and extendible, you can pretty easily write your own module if you want
-functionality we haven't yet covered. Feel free to submit us pull requests.
+systems with one or two PHP files, or our friendly DSL.
 
 This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
-Its easy to write modules for any Operating System but we've begun with Ubuntu and adding more as soon as possible.
-Currently, all of the Modules work on Ubuntu 12+, most on Centos and Windows.
+
+## Quick Examples
+
+# Create a Pharaoh Environment in your Papyrusfile to store servers in
+ptconfigure envconfig -yg --env=website --tmp-dir=/tmp/ --no-manual-servers --add-single-environment
+# Create server/s on Digital Ocean {Change the box-amount}
+ptconfigure boxify box-ensure -yg --env=website --provider-name=DigitalOceanV2 --box-amount=2 --image-id=17154032 \
+  --region-id=lon1 --size-id=512mb --server-prefix="" --box-user-name=root --private-ssh-key-path=KS::id_rsa \
+  --wait-for-box-info --wait-until-active --ssh-key-name={Your Key Name on Digital Ocean} --networks=default
+# Ping the Server
+ptconfigure ping once -yg --env=website
+# SSH in to the Server
+ptconfigure invoke cli -yg --env=website --driver=seclib
 
     
 ## Installation
 
 First you'll need to install Git and PHP5. If you don't have either, google them - they're easy to install. To install
-ptconfigure cli on your On your Mac, Linux or  Unix Machine silently do the following:
+ptconfigure cli on your On your Mac, Linux or Unix Machine silently do the following:
 
 git clone https://github.com/PharaohTools/ptconfigure.git && sudo php ptconfigure/install-silent
 
@@ -49,8 +57,7 @@ ptconfigure *ModuleName* help
 ...This will display the help for that module, and tell you a list of available alias for the module command, and the
 available actions too.
 
-You'll be able to automate any action from any available module into an autopilot file, or run it from the CLI. I'm
-working on a web front end, but you can also use JSON output and the PostInput module to use any module from an API.
+You'll be able to automate any action from any available module into an autopilot file, or run it from the CLI.
 
 
 ## Or some examples
@@ -59,10 +66,8 @@ The following URL contains a bunch of tutorials
 
 http://www.pharaohtools.com/tutorials
 
-Go to http://www.pharaohtools.com for more
 
-
-## Available Commands:
+## Available Modules:
 
  - DummyLinuxModule - Dummy Linux Module
  - AWSCloudFormation - The AWS CloudFormation CLI Tools
