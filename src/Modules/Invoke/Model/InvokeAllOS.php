@@ -196,7 +196,7 @@ class InvokeAllOS extends Base {
                 else {
                     $data = $this->askForSSHData();
                     $lines = explode("\n", $data);
-                    $lines[] = "\n" ;
+//                    $lines[] = "\n" ;
                     return $lines ;}  }
             else if ($type=="script") {
                 $scriptLoc = $this->askForScriptLocation();
