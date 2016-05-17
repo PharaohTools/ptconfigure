@@ -30,12 +30,13 @@ class PharaohToolRunnerAnyOS extends Base {
     protected function doPharaohToolRun($tool, $module, $action) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-
+        $logging->log("About to spawn execution of a Pharaoh Tool", $this->getModuleName());
         $env = $this->getEnvironmentName() ;
         if ($env !== false && strlen($env)>0) {
-            $logging->log("Environment name {$env} specified to execute Pharaoh command in", $this->getModuleName());
+            $logging->log("Environment specified, initiating a remote execution", $this->getModuleName());
             $sshParams["yes"] = true ;
             $sshParams["guess"] = true ;
+            $logging->log("Target Environment name {$env} specified to execute Pharaoh command in", $this->getModuleName());
             $sshParams["environment-name"] = $env ;
             $sshParams["driver"] = "seclib" ;
             $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
@@ -43,6 +44,7 @@ class PharaohToolRunnerAnyOS extends Base {
             $sftpParams = $sshParams ;
             $hopEnv = $this->getHopEnvironmentName() ;
             if ($hopEnv !== false) {
+                $logging->log("Hop environment specified, will connect to target environment through hop environment {$hopEnv}", $this->getModuleName());
                 $sshParams["hops"] = $hopEnv ;}
             $afn = $this->getRunAutopilotFileName() ;
             $file_only = basename($afn) ;
@@ -52,20 +54,26 @@ class PharaohToolRunnerAnyOS extends Base {
 //                strlen($hopEnv)>0 &&
                 isset($afn) &&
                 strlen($afn)>0 ) {
+                $logging->log("Autopilot has been specified", $this->getModuleName());
                 $logging->log("Setting SFTP details to push Autopilot file to Target", $this->getModuleName());
                 $sftpParams["source"] = $afn ;
                 $sftpParams["target"] = $target_path ;
                 $sftpParams["environment-name"] = $env ;
                 $sftpFactory = new \Model\SFTP() ;
                 $sftp = $sftpFactory->getModel($sftpParams ,"Default") ;
+                $logging->log("About to SFTP push local Autopilot file $afn to {$target_path} in Environment {$env}", $this->getModuleName());
                 $res = $sftp->performSFTPPut() ;
-                if ($res == false) { return false ; } }
+                if ($res == false) {
+                    $logging->log("Failed transfer of local Autopilot file $afn to {$target_path} in Environment {$env}", $this->getModuleName());
+                    return false ; }
+                else {
+                    $logging->log("Successful transfer of local Autopilot file $afn to {$target_path} in Environment {$env}", $this->getModuleName()); } }
             $this->params["autopilot-file"] = $target_path ;
 //            $sshParams["ssh-data"] = "ptconfigure || bash <(wget -qO- http://www.pharaohtools.com/linux.bash)) " ;
             $sshFactory = new \Model\Invoke() ;
-//            $ssh = $sshFactory->getModel($sshParams ,"Default") ;
-//            $res = $ssh->askWhetherToInvokeSSHData() ;
-//            if ($res == false) { return false ; }
+//          $ssh = $sshFactory->getModel($sshParams ,"Default") ;
+//          $res = $ssh->askWhetherToInvokeSSHData() ;
+//          if ($res == false) { return false ; }
             $param_string = $this->getParametersToForward() ;
             $comm = "$tool $module $action $param_string" ;
             $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
