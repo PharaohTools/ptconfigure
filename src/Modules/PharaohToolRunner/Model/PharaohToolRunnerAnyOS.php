@@ -59,6 +59,9 @@ class PharaohToolRunnerAnyOS extends Base {
                 $sftpParams["source"] = $afn ;
                 $sftpParams["target"] = $target_path ;
                 $sftpParams["environment-name"] = $env ;
+                if ($hopEnv !== false) {
+                    $logging->log("Hop environment specified, will connect to target environment through hop environment {$hopEnv}", $this->getModuleName());
+                    $sftpParams["hops"] = $hopEnv ;}
                 $sftpFactory = new \Model\SFTP() ;
                 $sftp = $sftpFactory->getModel($sftpParams ,"Default") ;
                 $logging->log("About to SFTP push local Autopilot file $afn to {$target_path} in Environment {$env}", $this->getModuleName());
