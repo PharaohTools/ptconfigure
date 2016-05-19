@@ -27,6 +27,7 @@ class PharaohToolRunnerAnyOS extends Base {
         return $this->doPharaohToolRun($tool, $module, $action) ;
     }
 
+    // @todo this is ridiculous
     protected function doPharaohToolRun($tool, $module, $action) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
