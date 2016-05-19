@@ -187,9 +187,12 @@ class PharaohToolRunnerAnyOS extends Base {
                 $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
                 $res .= " --autopilot-file=".$target_path ; }
             return $res ; }
-        else { $question = "Enter parameter string"; }
-        $input = self::askForInput($question) ;
-        $res = $this->transformOurParams($input) ;
+        else if (isset( $this->params["guess"]) && $this->params["guess"]==true) {
+            $res = ""; }
+        else {
+            $question = "Enter parameter string";
+            $input = self::askForInput($question) ;
+            $res = $this->transformOurParams($input) ;}
         return $res ;
     }
 
