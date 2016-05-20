@@ -132,7 +132,7 @@ class PharaohToolRunnerAnyOS extends Base {
         if (isset($this->params["autopilot-file"])) { return $this->params["autopilot-file"] ; }
         else if (isset($this->params["af"])) {
             $this->params["autopilot-file"] = $this->params["af"] ;
-            return $this->params["utopilot-file"] ; }
+            return $this->params["autopilot-file"] ; }
         return false ;
     }
 
@@ -149,6 +149,7 @@ class PharaohToolRunnerAnyOS extends Base {
 
     protected function parseAvailableTools($tool){
         $all_tool_synonyms = array();
+        $all_tool_synonyms["ptconfigure-enterprise"] = array("ptconfigure-ent", "configure-ent", "configent", "ptcent", "ptconfigure-ent.cmd") ;
         $all_tool_synonyms[PTCCOMM] = array("ptconfigure", "configure", "config", "ptc", "ptconfigure.cmd") ;
         $all_tool_synonyms[PTBCOMM] = array("ptbuild", "build", "ptb", "ptbuild.cmd") ;
         $all_tool_synonyms[PTDCOMM] = array("ptdeploy", "deploy", "ptd", "ptdeploy.cmd") ;
@@ -179,13 +180,13 @@ class PharaohToolRunnerAnyOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["params"])) {
-            $res = $this->transformOurParams($this->params["params"], array("af", "autopilot-file")) ;
+            $res = $this->transformOurParams($this->params["params"]) ;
             $afn = $this->getRunAutopilotFileName() ;
-            if ($afn !== false) {
-                $file_only = basename($afn) ;
-                $target_path = '/tmp/'.$file_only ;
-                $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
-                $res .= " --autopilot-file=".$target_path ; }
+//            if ($afn !== false) {
+//                $file_only = basename($afn) ;
+//                $target_path = '/tmp/'.$file_only ;
+//                $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
+//                $res .= " --autopilot-file=".$target_path ; }
             return $res ; }
         else if (isset( $this->params["guess"]) && $this->params["guess"]==true) {
             $res = ""; }
