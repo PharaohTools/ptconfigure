@@ -63,6 +63,11 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                             $serverData["name"] = (isset( $serverData["prefix"]) && strlen( $serverData["prefix"])>0)
                                 ? $serverData["prefix"].'-'.$serverData["envName"].'-'.$serverData["sCount"]
                                 : $serverData["envName"].'-'.$serverData["sCount"] ;
+                            $epn = $this->getEnablePrivateNetwork() ;
+                            if ($epn === true ) {
+                                $serverData["privateNetwork"] = true ;
+
+                            }
                             $serverData["sshKeyIds"] = $this->getSshKeyIds();
 
                             $response = $this->getNewServerFromDigitalOceanV2($serverData) ;
@@ -116,6 +121,28 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             return $this->params["image-id"] ; }
         $question = 'Enter Image ID';
         return self::askForInput($question, true);
+    }
+
+    protected function getEnablePrivateNetwork() {
+        $networks_param = (isset($this->params["networks"])) ? $this->params["networks"] : "" ;
+        $networks = explode(',', $networks_param) ;
+        if ( (count($networks)==0 && isset($this->params["guess"])) || $this->params["networks"]=="default") {
+            return true ; }
+        else if (count($networks)>0 && !in_array("default-private",$networks)) {
+            return false ; }
+        else if (!isset($this->params["networks"]) && !isset($this->params["guess"])) {
+            $question = 'Enter whether to enable private network (public always enabled)';
+            $enable = self::askYesOrNo($question, true);
+            return $enable ;}
+    }
+
+    protected function getNetworksString() {
+        $nobs = $this->getNetworks();
+        $nids = array();
+        foreach ($nobs as $nob) {
+            $nids[] = $nob->id ; }
+        $ns = implode(",", $nids) ;
+        return $ns ;
     }
 
     private function getServerGroupSizeID() {
@@ -174,6 +201,9 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $callVars["image"] = $serverData["imageID"];
         $callVars["region"] = $serverData["regionID"];
         $callVars["ssh_keys"] = $serverData["sshKeyIds"] ;
+        $epn = $this->getEnablePrivateNetwork() ;
+        if ($epn === true ) {
+            $callVars["private_networking"] = true ; }
         $curlUrl = $this->_apiURL."/v2/droplets/" ;
         $httpType = "POST" ;
         $callOut = $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
@@ -188,7 +218,9 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
 
         if (!isset($data->droplet)) {
-            var_dump($data) ;
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Error, attempted adding server to papyrus with no data", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ;
         }
 
@@ -199,7 +231,20 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
                 $dropletData = $this->waitUntilActive($data->droplet->id); }
             $server = array();
-            $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
+            var_dump('net', $dropletData->droplet->networks) ;
+
+            foreach ($dropletData->droplet->networks->v4[0] as $iface) {
+                if ($iface->type == 'private') {
+                    $server["target_private"] = $iface->ip_address;
+                    if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'private') ||
+                          !isset($this->params["default-target"])) {
+                        $server["target"] = $iface->ip_address; } }
+                else if ($iface->type == 'public') {
+                    $server["target_public"] = $iface->ip_address;
+                    if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'public') ||
+                        !isset($this->params["default-target"])) {
+                        $server["target"] = $iface->ip_address; } } }
+//            $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
             $server["user"] = $this->getUsernameOfBox() ;
             $server["password"] = $this->getSSHKeyLocation() ;
             $server["provider"] = "DigitalOceanV2";
