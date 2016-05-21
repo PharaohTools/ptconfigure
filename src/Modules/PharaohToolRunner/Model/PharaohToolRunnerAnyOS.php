@@ -49,7 +49,7 @@ class PharaohToolRunnerAnyOS extends Base {
                 $sshParams["hops"] = $hopEnv ;}
             $afn = $this->getAutopilotFileName() ;
             $file_only = basename($afn) ;
-            $target_path = self::$tempDir.$file_only ;
+            $target_path = self::$tempDir.DS.$file_only ;
             if (
 //                isset($hopEnv) &&
 //                strlen($hopEnv)>0 &&
@@ -175,7 +175,7 @@ class PharaohToolRunnerAnyOS extends Base {
             if ($afn !== false && $env !== false && strlen($env)>0) {
                 $res = $this->transformOurParams($this->params["params"], array("af", "autopilot-file") ) ;
                 $file_only = basename($afn) ;
-                $target_path = self::$tempDir.$file_only ;
+                $target_path = self::$tempDir.DS.$file_only ;
                 $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
                 $res .= " --autopilot-file=".$target_path ; }
             else {
