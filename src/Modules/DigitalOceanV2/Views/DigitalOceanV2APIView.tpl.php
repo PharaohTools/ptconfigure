@@ -3,7 +3,7 @@
 if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
     $arrayObject = new \ArrayObject($pageVars["result"]);
     foreach ($arrayObject as $arrayObjectKey => $arrayObjectValue) {
-        var_dump($arrayObjectKey);
+        echo $arrayObjectKey;
         if ($arrayObjectKey == "sizes") {
             $outVar = "" ;
             echo $arrayObjectKey.":\n";
@@ -24,6 +24,3 @@ else {
 }
 
 ?>
-
-------------------------------
-Digital Ocean API Finished
