@@ -67,13 +67,13 @@ class SFTPAllLinux extends Base {
                     $logging->log("Skipping {$$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
-                $logging->log("[".$server["target"]."] Executing SFTP Put...", $this->getModuleName());
+                $logging->log("[".$server["name"]." : ".$server["target"]."] Executing SFTP Put...", $this->getModuleName());
                 $res = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
                 $msg = ($res == true) ? "Put Successful" : "Put Failed";
                 $logging->log($msg, $this->getModuleName());
-                $logging->log("[".$server["target"]."] SFTP Put Completed...", $this->getModuleName()); }
+                $logging->log("[".$server["name"]." : ".$server["target"]."] SFTP Put Completed...", $this->getModuleName()); }
             else {
-                $logging->log("[".$server["target"]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
+                $logging->log("[".$server["name"]." : ".$server["target"]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
         $logging->log("All SFTP Puts Completed", $this->getModuleName());
         return "All SFTP Puts Completed";
     }
@@ -95,9 +95,9 @@ class SFTPAllLinux extends Base {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
         foreach ($this->servers as &$server) {
-            $logging->log("[".$server["target"]."] Executing SFTP Get...");
+            $logging->log("[".$server["name"]." : ".$server["target"]."] Executing SFTP Get...");
             $logging->log($this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath)) ;
-            $logging->log("[".$server["target"]."] SFTP Get Completed..."); }
+            $logging->log("[".$server["name"]." : ".$server["target"]."] SFTP Get Completed..."); }
         $logging->log("All SFTP Gets Completed", $this->getModuleName());
         return true;
     }

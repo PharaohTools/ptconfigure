@@ -53,9 +53,9 @@ class InvokeAllOS extends Base {
                     $commandExecution = false; }
                 else {
                     foreach ($this->servers as &$server) {
-                        $logging->log( "[" . $server["target"] . "] Executing $command...", $this->getModuleName()) ;
+                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Executing $command...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $command);
-                        $logging->log( "[" . $server["target"] . "] $command Completed...", $this->getModuleName()) ; } } } }
+                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] $command Completed...", $this->getModuleName()) ; } } } }
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -77,11 +77,11 @@ class InvokeAllOS extends Base {
             foreach ($this->sshCommands as $sshCommand) {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log( "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -102,11 +102,11 @@ class InvokeAllOS extends Base {
             foreach ($this->sshCommands as $sshCommand) {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log( "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -128,13 +128,13 @@ class InvokeAllOS extends Base {
             foreach ($this->sshCommands as $sshCommand) {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
                         $this->remotePushDataScriptForHop($this->hopScript, $server) ;
-                        $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log( "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -158,17 +158,17 @@ class InvokeAllOS extends Base {
                 foreach ($this->servers as &$server) {
 //                    var_dump('sv', $server) ;
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
                         $this->remotePushDataScriptForHop($this->hopScript, $server) ;
-                        $logging->log(  "[" . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         $cur_res = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
                         if (isset($cur_res) && $cur_res == false) {
-                            $logging->log(  "[" . $server["target"] . "] Command failed...", $this->getModuleName()) ; }
+                            $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Command failed...", $this->getModuleName()) ; }
                         else {
                             echo $cur_res ; }
-                        $logging->log(  "[" . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log(  "[" . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } } }
+                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } } }
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
