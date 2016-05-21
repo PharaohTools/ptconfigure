@@ -272,7 +272,7 @@ COMPLETION;
                 $parts_string = substr($paramValue, $or_st, $or_diff) ;
                 if (strpos($paramValue, '}}}')) {
                     $parts_string = substr($parts_string, 0, strpos($parts_string, '}}}')) ;
-                    $parts_string = str_replace("{{{::::", "", $parts_string) ; }
+                    $parts_string = str_replace("{{{", "", $parts_string) ; }
                 $parts_array = explode("::", $parts_string) ;
                 $module = $parts_array[0] ;
                 if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
@@ -286,7 +286,7 @@ COMPLETION;
     }
 
     protected function swapResForVariable($res, $paramValue, $parts_string) {
-        $orig = '{{{::::'.$parts_string.'}}}' ;
+        $orig = '{{{'.$parts_string.'}}}' ;
 //        if (is_array($res)) { var_dump("res is", $res) ; die("\n\nres\n\n"); }
 //        if (is_array($orig)) { var_dump("orig is", $orig) ; die("\n\norig\n\n"); }
 //        if (is_array($paramValue)) { var_dump("pv is", $paramValue) ; die("\n\nparamValue\n\n"); }
