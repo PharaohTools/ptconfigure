@@ -231,16 +231,16 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
                 $dropletData = $this->waitUntilActive($data->droplet->id); }
             $server = array();
-            var_dump('net', $dropletData->droplet->networks) ;
+//            var_dump('net', $dropletData->droplet->networks) ;
 
-            foreach ($dropletData->droplet->networks->v4[0] as $iface) {
-                if ($iface["type"] == 'private') {
-                    $server["target_private"] = $iface["ip_address"];
+            foreach ($dropletData->droplet->networks->v4 as $iface) {
+                if ($iface->type == 'private') {
+                    $server["target_private"] = $iface->ip_address;
                     if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'private') ||
                           !isset($this->params["default-target"])) {
                         $server["target"] = $iface->ip_address; } }
-                else if ($iface["type"] == 'public') {
-                    $server["target_public"] = $iface["ip_address"];
+                else if ($iface->type == 'public') {
+                    $server["target_public"] = $iface->ip_address;
                     if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'public') ||
                         !isset($this->params["default-target"])) {
                         $server["target"] = $iface["ip_address"]; } } }
