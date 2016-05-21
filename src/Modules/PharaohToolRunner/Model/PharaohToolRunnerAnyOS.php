@@ -47,9 +47,9 @@ class PharaohToolRunnerAnyOS extends Base {
             if ($hopEnv !== false) {
                 $logging->log("Hop environment specified, will connect to target environment through hop environment {$hopEnv}", $this->getModuleName());
                 $sshParams["hops"] = $hopEnv ;}
-            $afn = $this->getRunAutopilotFileName() ;
+            $afn = $this->getAutopilotFileName() ;
             $file_only = basename($afn) ;
-            $target_path = '/tmp/'.$file_only ;
+            $target_path = self::$tempDir.$file_only ;
             if (
 //                isset($hopEnv) &&
 //                strlen($hopEnv)>0 &&
@@ -114,25 +114,15 @@ class PharaohToolRunnerAnyOS extends Base {
         return false ;
     }
 
-    protected function getRunAutopilotFileName(){
-        if (isset($this->params["runner-autopilot-file"])) { return $this->params["runner-autopilot-file"] ; }
-        else if (isset($this->params["raf"])) {
-            $this->params["runner-autopilot-file"] = $this->params["raf"] ;
-            return $this->params["runner-autopilot-file"] ; }
-        else if (isset($this->params["runauto"])) {
-            $this->params["runner-autopilot-file"] = $this->params["runauto"] ;
-            return $this->params["runner-autopilot-file"] ; }
-        else  if (isset($this->params["runnerauto"])) {
-            $this->params["runner-autopilot-file"] = $this->params["runnerauto"] ;
-            return $this->params["runner-autopilot-file"] ; }
-        return false ;
-    }
-
     protected function getAutopilotFileName(){
-        if (isset($this->params["autopilot-file"])) { return $this->params["autopilot-file"] ; }
-        else if (isset($this->params["af"])) {
-            $this->params["autopilot-file"] = $this->params["af"] ;
-            return $this->params["autopilot-file"] ; }
+        if (isset($this->params["params"])) {
+            $temp_params = $this->transformOurParamsToArray($this->params["params"]) ;
+        if (isset($temp_params["autopilot-file"])) { return $temp_params["autopilot-file"] ; }
+        else if (isset($temp_params["af"])) {
+            $temp_params["autopilot-file"] = $temp_params["af"] ;
+            return $temp_params["autopilot-file"] ; } }
+        else {
+            return false; }
         return false ;
     }
 
@@ -180,13 +170,16 @@ class PharaohToolRunnerAnyOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["params"])) {
-            $res = $this->transformOurParams($this->params["params"]) ;
-            $afn = $this->getRunAutopilotFileName() ;
-//            if ($afn !== false) {
-//                $file_only = basename($afn) ;
-//                $target_path = '/tmp/'.$file_only ;
-//                $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
-//                $res .= " --autopilot-file=".$target_path ; }
+            $afn = $this->getAutopilotFileName() ;
+            $env = $this->getEnvironmentName() ;
+            if ($afn !== false && $env !== false && strlen($env)>0) {
+                $res = $this->transformOurParams($this->params["params"], array("af", "autopilot-file") ) ;
+                $file_only = basename($afn) ;
+                $target_path = self::$tempDir.$file_only ;
+                $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
+                $res .= " --autopilot-file=".$target_path ; }
+            else {
+                $res = $this->transformOurParams($this->params["params"]) ; }
             return $res ; }
         else if (isset( $this->params["guess"]) && $this->params["guess"]==true) {
             $res = ""; }
@@ -197,7 +190,7 @@ class PharaohToolRunnerAnyOS extends Base {
         return $res ;
     }
 
-    protected function transformOurParams($pstr, $drop_keys = array()) {
+    protected function transformOurParams($pstr, $drop_keys = array(), $to_array = false) {
         $pairs = explode(",", $pstr) ;
         $parameter_string = "" ;
         foreach ($pairs as $pair) {
@@ -208,6 +201,19 @@ class PharaohToolRunnerAnyOS extends Base {
             else {
                 if (!in_array($pair, $drop_keys)) { $parameter_string .= " --{$pair}" ; } } }
         return $parameter_string ;
+    }
+
+    protected function transformOurParamsToArray($pstr, $drop_keys = array()) {
+        $pairs = explode(",", $pstr) ;
+        $ray = array() ;
+        foreach ($pairs as $pair) {
+            if (strpos($pair, ":") !== false) {
+                $key = substr($pair, 0, strpos($pair, ":") ) ;
+                $val = substr($pair, strpos($pair, ":") + 1 ) ;
+                if (!in_array($key, $drop_keys)) { $ray[$key] = $val ; } }
+            else {
+                if (!in_array($pair, $drop_keys)) { $ray[$pair] = "true" ;} } }
+        return $ray ;
     }
 
 }
