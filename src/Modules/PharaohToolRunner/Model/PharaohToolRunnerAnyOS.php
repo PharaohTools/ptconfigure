@@ -93,7 +93,6 @@ class PharaohToolRunnerAnyOS extends Base {
             $logging->log("Executing $comm", $this->getModuleName());
             $rc = self::executeAndGetReturnCode($comm, true, false) ;
             return ($rc["rc"]==0) ? true : false ; }
-
     }
 
     protected function askForPharaohToolRunnerExecute(){
