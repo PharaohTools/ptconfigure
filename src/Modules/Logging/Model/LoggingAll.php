@@ -33,23 +33,23 @@ class LoggingAll extends BaseLinuxApp {
 
     public function setLogMessage() {
         if (isset($this->params["log-message"])) {
-            $this->logMessage = $this->params["log-message"] ; }
+            self::$logMessage = $this->params["log-message"] ; }
         if (isset($this->params["message"])) {
-            $this->logMessage = $this->params["message"] ; }
+            self::$logMessage = $this->params["message"] ; }
         else {
-            $this->logMessage = self::askForInput("Enter Log Message", true) ; }
+            self::$logMessage = self::askForInput("Enter Log Message", true) ; }
     }
 
     public function log($message = null, $source = null, $log_exit_code = null) {
 
         if (isset($this->params["log-message"])) {
-            $this->logMessage = $this->params["log-message"] ; }
+            self::$logMessage = $this->params["log-message"] ; }
         if (isset($this->params["message"])) {
-            $this->logMessage = $this->params["message"] ; }
+            self::$logMessage = $this->params["message"] ; }
 
         if (is_null($source) && isset($this->params["source"])) {
             $source = $this->params["source"] ; }
-        if (isset($this->logMessage)) { $message = $this->logMessage ; }
+        if (isset(self::$logMessage)) { $message = self::$logMessage ; }
         if (!is_null($log_exit_code)) {
             \Core\BootStrap::setExitCode($log_exit_code) ; }
         $stx = (strlen($source)>0) ? "[$source] " : "" ;
