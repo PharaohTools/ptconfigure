@@ -243,7 +243,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                     $server["target_public"] = $iface->ip_address;
                     if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'public') ||
                         !isset($this->params["default-target"])) {
-                        $server["target"] = $iface["ip_address"]; } } }
+                        $server["target"] = $iface->ip_address; } } }
 //            $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
             $server["user"] = $this->getUsernameOfBox() ;
             $server["password"] = $this->getSSHKeyLocation() ;
