@@ -12,7 +12,7 @@ class Base {
   public function __construct() {
     $this->content = array(); }
 
-  public function execute($pageVars) {
+  public function execute($pageVars, $autopilot, $test = false) {
     $defaultExecution = $this->defaultExecution($pageVars) ;
     if (is_array($defaultExecution)) { return $defaultExecution ; }
   }

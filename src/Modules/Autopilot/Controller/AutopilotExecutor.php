@@ -176,7 +176,9 @@ class AutopilotExecutor extends Base {
 
     protected function getArrayOfLoopItems($modParams) {
         if (isset($modParams["loop"])) {
-            return explode(",",  $modParams["loop"]) ; }
+            $litems =  explode(",",  $modParams["loop"]) ;
+            var_dump("li", $litems) ;
+            return $litems ; }
         $logFactory = new \Model\Logging() ;
         $logging = $logFactory->getModel(array(), "Default") ;
         $logging->log("Empty array of Loop items specified", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
