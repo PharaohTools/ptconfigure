@@ -4,7 +4,7 @@ Namespace Controller ;
 
 class Autopilot extends Base {
 
-    public function execute($pageVars) {
+    public function execute($pageVars, $autopilot, $test = false ) {
 
         $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
         // if we don't have an object, its an array of errors
