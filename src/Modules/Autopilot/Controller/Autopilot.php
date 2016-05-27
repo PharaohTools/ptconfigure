@@ -4,7 +4,7 @@ Namespace Controller ;
 
 class Autopilot extends Base {
 
-    public function execute($pageVars, $autopilot, $test = false ) {
+    public function execute($pageVars) {
 
         $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars) ;
         // if we don't have an object, its an array of errors
@@ -20,7 +20,7 @@ class Autopilot extends Base {
                     // get params from the base model to inject into the loaded autopilot object
                     $autoPilot->params = $thisModel->params ;
                     if ($action =="test" || (isset($thisModel->params["test"]) && $thisModel->params["test"]==true) ) { return $autoPilotExecutor->execute($pageVars, $autoPilot, true); }
-                    return $autoPilotExecutor->execute($pageVars, $autoPilot); }
+                    return $autoPilotExecutor->executeAuto($pageVars, $autoPilot); }
                 else {
 //                    echo "2" ;
                     \Core\BootStrap::setExitCode(1);
