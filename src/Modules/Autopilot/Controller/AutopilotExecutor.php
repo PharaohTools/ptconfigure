@@ -6,7 +6,7 @@ use Core\View;
 
 class AutopilotExecutor extends Base {
 
-    public function execute($pageVars, $autopilot, $test = false ) {
+    public function executeAuto($pageVars, $autopilot, $test = false ) {
         $params = $pageVars["route"]["extraParams"];
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
@@ -41,6 +41,7 @@ class AutopilotExecutor extends Base {
                     $dataFromThis[] = $step_out ; }
                 else {
                     $loopExpanded = $this->getLoopRay($modelArray) ;
+//                    var_dump('lx:', $loopExpanded) ;
                     foreach ($loopExpanded as $oneModelArray) {
                         $step_out = $this->executeStep($oneModelArray, $autopilotParams) ;
                         $dataFromThis[] = $step_out ; } }
@@ -177,7 +178,7 @@ class AutopilotExecutor extends Base {
     protected function getArrayOfLoopItems($modParams) {
         if (isset($modParams["loop"])) {
             $litems =  explode(",",  $modParams["loop"]) ;
-            var_dump("li", $litems) ;
+//            var_dump("li", $litems) ;
             return $litems ; }
         $logFactory = new \Model\Logging() ;
         $logging = $logFactory->getModel(array(), "Default") ;
