@@ -42,7 +42,7 @@ class AutopilotExecutor extends Base {
                 else {
                     $loopExpanded = $this->getLoopRay($modelArray) ;
 //                    var_dump('lx:', $loopExpanded) ;
-                    foreach ($loopExpanded as $oneModelArray) {
+                    foreach ($loopExpanded as $unused_index => $oneModelArray) {
                         $step_out = $this->executeStep($oneModelArray, $autopilotParams) ;
                         $dataFromThis[] = $step_out ; } }
                 if ($step_out["status"]==false ) {
@@ -125,11 +125,21 @@ class AutopilotExecutor extends Base {
 
     protected function executeStep($modelArray, $autopilotParams) {
 
+
         $currentControls = array_keys($modelArray) ;
         $currentControl = $currentControls[0] ;
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
+        if (!is_array($modParams)) {
+
+            var_dump('marz:', $modParams, $currentControl, $currentAction) ;
+            die() ;
+        } else {
+//            var_dump('m2:', $modParams) ;
+//            die() ;
+
+        }
         $modParams["layout"] = "blank" ;
         $modParams = $this->formatParams(array_merge($modParams, $autopilotParams)) ;
 
@@ -170,8 +180,15 @@ class AutopilotExecutor extends Base {
                     $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
                     $tempParams = $modParams ;
                     $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
-                    $newParams[][$currentControl][$currentAction] = $tempParams ; }
-                return $newParams ; } }
+                    $newParams[][$currentControl][$currentAction] = $tempParams ; } } }
+        if (count($newParams)>0) {
+//            var_dump("np", $newParams) ;
+
+            return $newParams ;
+//            return $newParams ;
+        } ;
+//            var_dump("ma", array($modelArray)) ;
+//        return $modelArray ;
         return array($modelArray) ;
     }
 
@@ -241,9 +258,28 @@ class AutopilotExecutor extends Base {
     }
 
     protected function formatParams($params) {
+//        var_dump("pars:", $params) ;
+//        $currentControls = array_keys($params) ;
+//        $currentControl = $currentControls[0] ;
+//        $currentActions = array_keys($params) ;
+//        $currentAction = $currentActions[0] ;
+//        $modParams = $params[$currentAction] ;
+//        var_dump("mp:", $params) ;
         $newParams = array();
         foreach($params as $origParamKey => $origParamVal) {
-            $newParams[] = '--'.$origParamKey.'='.$origParamVal ; }
+//            var_dump('fp:',  $origParamKey , $origParamVal) ;
+//            if (!is_array($origParamVal)) {
+                $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
+//        }
+//            else {
+//                $a = $origParamVal;
+//                $r=array();
+//                array_walk($a, create_function('$b, $c', 'global $r; $r[]="$c:$b";'));
+//                $newParamVal = implode(', ', $r);
+//                $curp ='--'.$origParamKey.'='.$newParamVal ;
+//                $newParams[] =  $curp ;
+//                var_dump($curp); }
+        }
         $newParams[] = '--yes' ;
         $newParams[] = "--hide-title=yes";
         $newParams[] = "--hide-completion=yes";
