@@ -91,29 +91,32 @@ class PharaohToolRunnerAnyOS extends Base {
             $comm = "$tool $module $action $param_string" ;
             $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
             $logging->log("Executing $comm", $this->getModuleName());
-            $rc = self::executeAndGetReturnCode($comm, true, false) ;
-            return ($rc["rc"]==0) ? true : false ; }
+            self::executeAndOutput($comm) ;
+            return true ;
+//            $rc = self::executeAndGetReturnCode($comm, true, false) ;
+//            return ($rc["rc"]==0) ? true : false ;
+            }
     }
 
-    protected function askForPharaohToolRunnerExecute(){
+    protected function askForPharaohToolRunnerExecute() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
         $question = 'Run command in a Pharaoh Tool?';
         return self::askYesOrNo($question);
     }
 
-    protected function getNameOfToolToRun(){
+    protected function getNameOfToolToRun() {
         if (isset($this->params["tool"])) { return $this->params["tool"] ; }
         else { $question = "Enter tool name"; }
         $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
+        return ($input =="") ? false : $input ;
     }
 
-    protected function getHopEnvironmentName(){
+    protected function getHopEnvironmentName() {
         if (isset($this->params["hops"])) { return $this->params["hops"] ; }
         return false ;
     }
 
-    protected function getAutopilotFileName(){
+    protected function getAutopilotFileName() {
         if (isset($this->params["params"])) {
             $temp_params = $this->transformOurParamsToArray($this->params["params"]) ;
         if (isset($temp_params["autopilot-file"])) { return $temp_params["autopilot-file"] ; }
