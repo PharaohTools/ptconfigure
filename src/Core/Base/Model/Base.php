@@ -546,11 +546,14 @@ COMPLETION;
 
     /*Versioning starts here*/
     public function getVersion($type = null) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $vt = array("Installed", "installed", "Recommended", "recommended", "Latest", "latest");
         if ($type==null && isset($this->params["version-type"]) && in_array($this->params["version-type"], $vt) ) {
             $type = $this->params["version-type"] ; }
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
+        if ($type==null) {
+            $logging->log("No version type set, guessing Installed", $this->getModuleName()) ;
+            $type = "installed" ; }
         if (in_array($type, array("Installed", "installed"))) {
             if ($this->askStatus() != true) {
                 $logging->log("This is not installed, so cannot find installed version", $this->getModuleName()) ;
