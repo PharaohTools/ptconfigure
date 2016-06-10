@@ -89,13 +89,16 @@ class PharaohToolRunnerAnyOS extends Base {
             $logging->log("No environment name specified, executing command locally", $this->getModuleName());
             $param_string = $this->getParametersToForward() ;
             $comm = "$tool $module $action $param_string" ;
-            $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
-            $logging->log("Executing $comm", $this->getModuleName());
-            self::executeAndOutput($comm) ;
-            return true ;
-//            $rc = self::executeAndGetReturnCode($comm, true, false) ;
-//            return ($rc["rc"]==0) ? true : false ;
-            }
+            $logging->log("Pharaoh Tool Runner creating and executing command $comm", $this->getModuleName());
+//            $logging->log("Executing $comm", $this->getModuleName());
+//            self::executeAndOutput($comm) ;
+//            return true ;
+            $rc = self::executeAndGetReturnCode($comm, true, false) ;
+            $wasOk = ($rc["rc"]==0) ;
+            if ($wasOk == true) { return true ; }
+            else {
+                $logging->log("Pharaoh Tool Runner received a non-zero exit code of {$rc["rc"]}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                return false ; } }
     }
 
     protected function askForPharaohToolRunnerExecute() {
