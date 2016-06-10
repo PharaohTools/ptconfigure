@@ -56,7 +56,8 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
             $command,
             'rm /tmp/mysql-adminshcript.sql' );
-        $this->executeAsShell($comms) ;
+        $rc = $this->executeAsShell($comms) ;
+        return ($rc ==0 ) ? true : false ;
     }
 
     protected function doUninstallCommands() {
@@ -68,7 +69,8 @@ class MysqlAdminsAllLinux extends BaseLinuxApp {
             'echo "'.$sqlCommand.'" > /tmp/mysql-adminshcript.sql ',
             $command,
             'rm /tmp/mysql-adminshcript.sql' );
-        $this->executeAsShell($comms) ;
+        $rc = $this->executeAsShell($comms) ;
+        return ($rc ==0 ) ? true : false ;
     }
 
     public function askForMysqlRootUserName(){
