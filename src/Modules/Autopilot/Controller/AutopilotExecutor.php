@@ -53,16 +53,16 @@ class AutopilotExecutor extends Base {
                 $should_run = $this->onlyRunWhen($modelArray) ;
                 if ($should_run["should_run"] != true) {
                     $step_out["status"] = true ;
-                    $step_out["out"] = "No need to run this step" ;
-                    $dataFromThis[] = $step_out ; }
+                    $step_out["out"] = "No need to run this step" ; }
                 else {
-                    $step_out = $this->executeStep($modelArray, $autopilotParams) ;
-                    $dataFromThis[] = $step_out ; }
+                    $step_out = $this->executeStep($modelArray, $autopilotParams) ; }
 
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
                     $dataFromThis[] = $step_out ;
                     return $dataFromThis ;  }
+
+                $dataFromThis[] = $step_out ;
 
                 $counter ++ ; } }
         else {
@@ -158,19 +158,8 @@ class AutopilotExecutor extends Base {
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
-        if (!is_array($modParams)) {
-//            var_dump('marz:', $modParams, $currentControl, $currentAction) ;
-//            die() ;
-        } else {
-//            var_dump('m2:', $modParams) ;
-//            die() ;
-
-        }
         $modParams["layout"] = "blank" ;
         $modParams = $this->formatParams($modParams) ;
-
-//        var_dump('m3', $modParams)  ;
-
         $params = array() ;
         $params["route"] =
             array(
@@ -178,11 +167,6 @@ class AutopilotExecutor extends Base {
                 "control" => $currentControl ,
                 "action" => $currentAction ) ;
         $step = array() ;
-
-//        var_dump('m4') ;
-//        die() ;
-
-//        var_dump($currentControl, $params) ;
         $step["out"] = $this->executeControl($currentControl, $params);
         $step["status"] = true ;
         $step["params"] = $params;
