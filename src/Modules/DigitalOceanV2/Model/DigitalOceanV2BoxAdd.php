@@ -261,10 +261,8 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             // file_put_contents("/tmp/outenv2", serialize($environments)) ;
             \Model\AppConfig::setProjectVariable("environments", $environments);
             return true ; }
-
         else {
             return false ; }
-
     }
 
     private function getSshKeyIds() {
