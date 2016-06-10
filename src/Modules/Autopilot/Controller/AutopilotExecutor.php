@@ -22,33 +22,49 @@ class AutopilotExecutor extends Base {
 
         $res2 = ($test) ?
             $this->executeMyTestsAutopilot($autopilot, $thisModel->params):
-            $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params);
+            $this->executeMyRegisteredModelsAutopilot($autopilot, $thisModel->params, $thisModel);
 
         $this->content["result"] = $res2 ;
         return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content);
     }
 
-    protected function executeMyRegisteredModelsAutopilot($autoPilot, $autopilotParams) {
+    protected function executeMyRegisteredModelsAutopilot($autoPilot, $autopilotParams, $thisModel) {
         $dataFromThis = array();
         if (isset($autoPilot->steps) && is_array($autoPilot->steps) && count($autoPilot->steps)>0) {
             $steps = $this->orderSteps($autoPilot->steps);
+//            var_dump("after order:", $steps) ;
+            $steps = $this->expandLoops($steps);
+//            var_dump("after expand:", $steps) ;
+
+
+            $counter = 0 ;
             foreach ($steps as $modelArray) {
+
+                $logFactory = new \Model\Logging() ;
+                $logging = $logFactory->getModel($thisModel->params) ;
+
+                echo PHP_EOL ;
+                $name_or_mod = $this->getNameOrMod($modelArray) ;
+                $label = (isset($name_or_mod["step-name"])) ? "Label: {$name_or_mod["step-name"]}" : "" ;
+                if (strlen($label) > 0) { $logging->log("{$label}", "Autopilot") ; }
+                $module = (isset($name_or_mod["module"])) ? "Module: {$name_or_mod["module"]}" : "" ;
+                if (strlen($module) > 0) { $logging->log("{$module}", "Autopilot") ; }
+
                 $should_run = $this->onlyRunWhen($modelArray) ;
-//                var_dump("should run is:", $should_run) ;
                 if ($should_run["should_run"] != true) {
                     $step_out["status"] = true ;
                     $step_out["out"] = "No need to run this step" ;
                     $dataFromThis[] = $step_out ; }
                 else {
-                    $loopExpanded = $this->getLoopRay($modelArray) ;
-//                    var_dump('lx:', $loopExpanded) ;
-                    foreach ($loopExpanded as $unused_index => $oneModelArray) {
-                        $step_out = $this->executeStep($oneModelArray, $autopilotParams) ;
-                        $dataFromThis[] = $step_out ; } }
-                if ($step_out["status"]==false ) {
+                    $step_out = $this->executeStep($modelArray, $autopilotParams) ;
+                    $dataFromThis[] = $step_out ; }
+
+                if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
                     $dataFromThis[] = $step_out ;
-                    return $dataFromThis ;  } } }
+                    return $dataFromThis ;  }
+
+                $counter ++ ; } }
         else {
             \Core\BootStrap::setExitCode(1);
             $step = array() ;
@@ -88,9 +104,14 @@ class AutopilotExecutor extends Base {
         $name_or_mod = array() ;
         $currentControls = array_keys($stepDetails) ;
         $currentControl = $currentControls[0] ;
+        $currentActions = array_keys($stepDetails[$currentControl]) ;
+        $currentAction = $currentActions[0] ;
+        $modParams = $stepDetails[$currentControl][$currentAction] ;
         $name_or_mod["module"] = $currentControl ;
-        if (isset($stepDetails["step-name"])) {
-            $name_or_mod["step-name"] = $stepDetails["step-name"] ; }
+        if (isset($modParams["step-name"])) {
+            $name_or_mod["step-name"] = $modParams["step-name"] ; }
+        if (isset($modParams["label"])) {
+            $name_or_mod["step-name"] = $modParams["label"] ; }
         return $name_or_mod ;
     }
 
@@ -110,7 +131,6 @@ class AutopilotExecutor extends Base {
                 $new_steps[] = $step ; } }
         return $new_steps ;
     }
-
     protected function isPreRequisite($step) {
         if (isset($step["pre"]) && $step["pre"] == true) { return true ; }
         if (isset($step["prerequisite"]) && $step["prerequisite"] == true) { return true ; }
@@ -120,28 +140,36 @@ class AutopilotExecutor extends Base {
     protected function isPostRequisite($step) {
         if (isset($step["post"]) && $step["post"] == true) { return true ; }
         if (isset($step["postrequisite"]) && $step["postrequisite"] == true) { return true ; }
+        if (isset($step["handler"]) && $step["handler"] == true) { return true ; }
         return false ;
     }
 
+    protected function expandLoops($steps) {
+        $new_steps = array() ;
+        foreach ($steps as $step) {
+            $loopExpanded = $this->getLoopRay($step) ;
+            $new_steps = array_merge($new_steps, $loopExpanded) ; }
+        return $new_steps ;
+    }
+
     protected function executeStep($modelArray, $autopilotParams) {
-
-
         $currentControls = array_keys($modelArray) ;
         $currentControl = $currentControls[0] ;
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
         if (!is_array($modParams)) {
-
-            var_dump('marz:', $modParams, $currentControl, $currentAction) ;
-            die() ;
+//            var_dump('marz:', $modParams, $currentControl, $currentAction) ;
+//            die() ;
         } else {
 //            var_dump('m2:', $modParams) ;
 //            die() ;
 
         }
         $modParams["layout"] = "blank" ;
-        $modParams = $this->formatParams(array_merge($modParams, $autopilotParams)) ;
+        $modParams = $this->formatParams($modParams) ;
+
+//        var_dump('m3', $modParams)  ;
 
         $params = array() ;
         $params["route"] =
@@ -150,6 +178,11 @@ class AutopilotExecutor extends Base {
                 "control" => $currentControl ,
                 "action" => $currentAction ) ;
         $step = array() ;
+
+//        var_dump('m4') ;
+//        die() ;
+
+//        var_dump($currentControl, $params) ;
         $step["out"] = $this->executeControl($currentControl, $params);
         $step["status"] = true ;
         $step["params"] = $params;
@@ -183,7 +216,6 @@ class AutopilotExecutor extends Base {
                     $newParams[][$currentControl][$currentAction] = $tempParams ; } } }
         if (count($newParams)>0) {
 //            var_dump("np", $newParams) ;
-
             return $newParams ;
 //            return $newParams ;
         } ;
@@ -233,7 +265,7 @@ class AutopilotExecutor extends Base {
                     "extraParams" => $modParams ,
                     "control" => $currentControl ,
                     "action" => $currentAction ) ;
-                $dataFromThis .= $this->executeControl($currentControl, $params);
+//                $dataFromThis .= $this->executeControl($currentControl, $params);
                 if ( \Core\BootStrap::getExitCode() !== 0 ) {
                         $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
                         break ; }
@@ -289,6 +321,7 @@ class AutopilotExecutor extends Base {
     public function executeControl($controlToExecute, $pageVars=null) {
         $control = new \Core\Control();
         $controlResult = $control->executeControl($controlToExecute, $pageVars);
+//        var_dump("xc: ",  $controlResult) ;
         if ($controlResult["type"]=="view") {
             return $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
         else if ($controlResult["type"]=="control") {
@@ -298,6 +331,10 @@ class AutopilotExecutor extends Base {
     public function executeView($view, Array $viewVars) {
         $viewObject = new View();
         $templateData = $viewObject->loadTemplate ($view, $viewVars) ;
+
+
+//        var_dump('td:', $templateData) ;
+
 //        @todo this should parse layouts properly but doesnt. so, templates only for autos for now
 //        if ($view == "parallaxCli") {
 //            var_dump("tdata: ", $templateData) ;
