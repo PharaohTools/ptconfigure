@@ -122,7 +122,8 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
 //            var_dump($first_char, $lines[$i], $i) ;
             $first_char = substr($lines[$i], 0, 1) ;
             if ($first_char != '#') { break ; }}
-        $logging->log("Ignoring commented lines $start until $current... ", $this->getModuleName()) ;
+        $show_start = $start + 1 ;
+        $logging->log("Ignoring commented lines $show_start until $current... ", $this->getModuleName()) ;
         return array( "line" => $current, "comments" => true) ;
     }
 
