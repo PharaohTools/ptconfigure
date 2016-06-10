@@ -41,24 +41,30 @@ class LoggingAll extends BaseLinuxApp {
     }
 
     public function log($message = null, $source = null, $log_exit_code = null) {
-
         if (isset($this->params["log-message"])) {
             self::$logMessage = $this->params["log-message"] ; }
         if (isset($this->params["message"])) {
             self::$logMessage = $this->params["message"] ; }
-
         if (is_null($source) && isset($this->params["source"])) {
             $source = $this->params["source"] ; }
-        if (isset(self::$logMessage)) { $message = self::$logMessage ; }
+        if (isset(self::$logMessage)) {
+            $message = self::$logMessage ; }
+
+        if (!isset($message) || is_null($message)) {
+            debug_print_backtrace() ;
+            return true ; }
+
         if (!is_null($log_exit_code)) {
             \Core\BootStrap::setExitCode($log_exit_code) ; }
         $stx = (strlen($source)>0) ? "[$source] " : "" ;
         $fullMessage = "[Pharaoh Logging] " . $stx . $message . "\n" ;
+
         $res = file_put_contents("php://stderr", $fullMessage );
         if ($res==false) { return false ;}
         if (isset($this->params["php-log"])) {
             $res = error_log($fullMessage) ;
             if ($res==false) { return false ;} }
+        self::$logMessage = null ;
         return true ;
     }
 
