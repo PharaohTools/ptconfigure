@@ -126,7 +126,7 @@ class BasePHPApp extends Base {
             $this->params["version-operator"] = '=' ;
             $logging->log("Requested version is latest, calculating", $this->getModuleName()) ;
             $latestVersion = $this->getVersion("Latest") ;
-            if (!is_null($latestVersion) && $latestVersion != false) {
+            if (!is_null($latestVersion) && $latestVersion != false && $latestVersion != "") {
                 $logging->log("Found latest version {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
                 $logging->log("Setting latest version to {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
                 $this->params["version"] = $latestVersion->fullVersionNumber ; }
