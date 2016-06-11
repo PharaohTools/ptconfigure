@@ -126,9 +126,12 @@ class BasePHPApp extends Base {
             $this->params["version-operator"] = '=' ;
             $logging->log("Requested version is latest, calculating", $this->getModuleName()) ;
             $latestVersion = $this->getVersion("Latest") ;
-            $logging->log("Found latest version {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
-            $logging->log("Setting latest version to {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
-            $this->params["version"] = $latestVersion->fullVersionNumber ; }
+            if (!is_null($latestVersion) && $latestVersion != false) {
+                $logging->log("Found latest version {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
+                $logging->log("Setting latest version to {$latestVersion->fullVersionNumber}", $this->getModuleName()) ;
+                $this->params["version"] = $latestVersion->fullVersionNumber ; }
+            else {
+                $logging->log("Unable to find latest version", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; } }
     }
 
     public function install() {
