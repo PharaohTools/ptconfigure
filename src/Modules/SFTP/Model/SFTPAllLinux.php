@@ -197,10 +197,11 @@ class SFTPAllLinux extends Base {
         $sshParams["guess"] = true ;
         $sshParams["driver"] = "seclib" ;
         $sshParams["environment-name"] = $env ;
-        $sshParams["env-scope"] = $this->params["hop-env-scope"] ;
+        $sshParams["env-scope"] = $this->params["env-scope"] ;
         $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
         $sshParams["timeout"] = (isset($papyrus["timeout"])) ? $papyrus["timeout"] : 30 ;
         $comm  = "cd /tmp ; ptconfigure sftp put -yg --env={$this->hopEndEnvironment} ";
+        $comm .= "--env-scope={$this->params["hop-env-scope"]} ";
         $comm .= " --source=\"{$this->params["target"]}\" --target=\"{$this->params["target"]}\" ; " ;
         $comm .= " rm {$this->params["target"]} ; " ;
         $sshParams["ssh-data"] = $comm ;
