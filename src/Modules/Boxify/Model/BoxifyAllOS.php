@@ -131,7 +131,12 @@ class BoxifyAllOS extends BaseLinuxApp {
         $serv_count = (is_array($curboxes["servers"]) && count($curboxes["servers"])>0) ? count($curboxes["servers"]) : 0 ;
         $logging->log("Current number of nodes in environment is {$serv_count}", $this->getModuleName()) ;
         $logging->log("Expected number of nodes in environment is {$this->boxAmount}", $this->getModuleName()) ;
+
+
         $cur_statuses = $this->checkCurNodeStatuses($curboxes) ;
+//        var_dump('csgas', $cur_statuses) ;
+//        die() ;
+
 
         if ($serv_count > $this->boxAmount) {
             $diff = $serv_count - $this->boxAmount ;
@@ -204,6 +209,9 @@ class BoxifyAllOS extends BaseLinuxApp {
     protected function fixBrokenNodes($curboxes) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+//        var_dump("ft:", $curboxes["tests"]) ;
+
         // how many do we want
         // how many do we have
         // how many do we have healthy
@@ -259,6 +267,8 @@ class BoxifyAllOS extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $i = 0 ;
 
+//        var_dump("cbcheck", $curboxes) ;
+
         if (isset($curboxes["tests"]) && is_array($curboxes["tests"]) && count($curboxes)>0) {
             foreach($curboxes["tests"] as $oneTest) {
                 if ($oneTest["status"]==false) {
@@ -282,7 +292,7 @@ class BoxifyAllOS extends BaseLinuxApp {
                 else {
                     $logging->log(
                         "Node id {$oneTest["info"]["id"]}, name {$oneTest["info"]["name"]} is healthy", $this->getModuleName() ) ; } } }
-        else if (count($curboxes)==0) {
+        else if (count($curboxes["servers"])==0) {
             $logging->log("No boxes available to test", $this->getModuleName()) ; }
         else {
             $logging->log("Unable to test boxes", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
@@ -310,8 +320,8 @@ class BoxifyAllOS extends BaseLinuxApp {
         $curboxes = array_reverse($curboxes) ;
         $nodeRemoves = array() ;
 //        var_dump($curboxes) ;
-        $icount = count($curboxes)-1 ;
-        for ($i=$icount; $i>=0; $i--) {
+        $icount = count($curboxes["servers"])-1 ;
+        for ($i=$icount; $i>=$diff; $i--) {
             $delParams = $this->params ;
             $delParams["destroy-box-id"] = $curboxes["servers"][$i]["id"] ;
             $nodeRemoves[] = $this->destroyBoxes($delParams) ; }
@@ -326,8 +336,10 @@ class BoxifyAllOS extends BaseLinuxApp {
             foreach($curboxes["tests"] as $oneBox) {
                 if ($oneBox["status"]==true) {
                     $healthy_count ++ ; } } }
+        else if (count($curboxes["servers"]) == 0) {
+            $logging->log("No boxes to test", $this->getModuleName() ) ; }
         else {
-            $logging->log("Unable to test boxes", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
+                $logging->log("Unable to test boxes", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
         $logging->log("Healthy count is {$healthy_count}", $this->getModuleName()) ;
         return $healthy_count ;
     }
