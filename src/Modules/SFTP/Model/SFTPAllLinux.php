@@ -58,13 +58,7 @@ class SFTPAllLinux extends Base {
         $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
 
-
-        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-            $target_scope_string = "target_public" ; }
-        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-            $target_scope_string = "target_private" ; }
-        else { $target_scope_string = "target" ; }
-
+        $target_scope_string = $this->findTargetScopeString();
 
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
@@ -104,11 +98,7 @@ class SFTPAllLinux extends Base {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
 
-        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-            $target_scope_string = "target_public" ; }
-        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-            $target_scope_string = "target_private" ; }
-        else { $target_scope_string = "target" ; }
+        $target_scope_string = $this->findTargetScopeString();
 
         foreach ($this->servers as &$server) {
             $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Get...");
@@ -365,29 +355,7 @@ class SFTPAllLinux extends Base {
                     continue ; } }
             $attempt = $this->attemptSFTPConnection($server) ;
 
-
-            if (isset($this->params["hops"])) {
-
-                if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "public") {
-                    $logging->log("Using a hop env scope of public", $this->getModuleName());
-                    $target_scope_string = "target_public" ; }
-                else if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "private") {
-                    $logging->log("Using a hop env scope of private", $this->getModuleName());
-                    $target_scope_string = "target_private" ; }
-                else {
-                    $logging->log("Using default hop env scope", $this->getModuleName());
-                    $target_scope_string = "target" ; }
-            }  else {
-
-                if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-                    $logging->log("Using an env scope of public", $this->getModuleName());
-                    $target_scope_string = "target_public" ; }
-                else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-                    $logging->log("Using an env scope of private", $this->getModuleName());
-                    $target_scope_string = "target_private" ; }
-                else {
-                    $logging->log("Using default env scope", $this->getModuleName());
-                    $target_scope_string = "target" ; } }
+            $target_scope_string = $this->findTargetScopeString();
 
             if ($attempt == null) {
                 $logging->log("Connection to Server {$server[$target_scope_string]} failed.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
@@ -397,6 +365,37 @@ class SFTPAllLinux extends Base {
                 $server["sftpObject"] = $attempt ; } }
 
             return true;
+    }
+
+    protected function findTargetScopeString() {
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
+        if (isset($this->params["hops"])) {
+
+            if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "public") {
+                $logging->log("Using a hop env scope of public", $this->getModuleName());
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "private") {
+                $logging->log("Using a hop env scope of private", $this->getModuleName());
+                $target_scope_string = "target_private" ; }
+            else {
+                $logging->log("Using default hop env scope", $this->getModuleName());
+                $target_scope_string = "target" ; }
+        }  else {
+
+            if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+                $logging->log("Using an env scope of public", $this->getModuleName());
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+                $logging->log("Using an env scope of private", $this->getModuleName());
+                $target_scope_string = "target_private" ; }
+            else {
+                $logging->log("Using default env scope", $this->getModuleName());
+                $target_scope_string = "target" ; } }
+
+        return $target_scope_string ;
     }
 
     // @todo it currently looks for both pword and password lets stick to one
@@ -427,39 +426,7 @@ class SFTPAllLinux extends Base {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
 
-            if (isset($this->params["hops"])) {
-
-                if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "public") {
-                    $logging->log("Using a hop env scope of public", $this->getModuleName());
-                    $target_scope_string = "target_public" ; }
-                else if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "private") {
-                    $logging->log("Using a hop env scope of private", $this->getModuleName());
-                    $target_scope_string = "target_private" ; }
-                else {
-
-                    var_dump("pars:", $this->params) ;
-
-                    $logging->log("Using default hop env scope", $this->getModuleName());
-                    $target_scope_string = "target" ; }
-            }  else {
-
-                if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-                    $logging->log("Using an env scope of public", $this->getModuleName());
-                    $target_scope_string = "target_public" ; }
-                else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-                    $logging->log("Using an env scope of private", $this->getModuleName());
-                    $target_scope_string = "target_private" ; }
-                else {
-                    $logging->log("Using default env scope", $this->getModuleName());
-                    $target_scope_string = "target" ; } }
-
-//            if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-//                $logging->log("Using Public scope...", $this->getModuleName());
-//                $target_scope_string = "target_public" ; }
-//            else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-//                $logging->log("Using Private scope...", $this->getModuleName());
-//                $target_scope_string = "target_private" ; }
-//            else { $target_scope_string = "target" ; }
+            $target_scope_string = $this->findTargetScopeString();
 
             $sftp = new \Net_SFTP($server[$target_scope_string], $this->params["port"], $this->params["timeout"]);
             $pword = (isset($server["pword"])) ? $server["pword"] : false ;
