@@ -292,7 +292,7 @@ class BoxifyAllOS extends BaseLinuxApp {
                 else {
                     $logging->log(
                         "Node id {$oneTest["info"]["id"]}, name {$oneTest["info"]["name"]} is healthy", $this->getModuleName() ) ; } } }
-        else if (count($curboxes["servers"])==0) {
+        else if (isset($curboxes["servers"]) && count($curboxes["servers"])==0) {
             $logging->log("No boxes available to test", $this->getModuleName()) ; }
         else {
             $logging->log("Unable to test boxes", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
@@ -336,7 +336,7 @@ class BoxifyAllOS extends BaseLinuxApp {
             foreach($curboxes["tests"] as $oneBox) {
                 if ($oneBox["status"]==true) {
                     $healthy_count ++ ; } } }
-        else if (count($curboxes["servers"]) == 0) {
+        else if (isset($curboxes["servers"]) && count($curboxes["servers"]) == 0) {
             $logging->log("No boxes to test", $this->getModuleName() ) ; }
         else {
                 $logging->log("Unable to test boxes", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
