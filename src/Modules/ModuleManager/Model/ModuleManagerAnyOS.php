@@ -58,6 +58,7 @@ class ModuleManagerAnyOS extends BasePHPApp {
     protected function getNameOfModuleToManage() {
         if (isset($this->params['module-name'])) { return $this->params['module-name'] ; }
         if (isset($this->params['name'])) { return $this->params['name'] ; }
+        return false ;
     }
 
     protected function getModuleSource() {
