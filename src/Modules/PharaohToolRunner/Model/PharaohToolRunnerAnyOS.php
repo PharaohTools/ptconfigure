@@ -39,6 +39,9 @@ class PharaohToolRunnerAnyOS extends Base {
             $sshParams["guess"] = true ;
             $logging->log("Target Environment name {$env} specified to execute Pharaoh command in", $this->getModuleName());
             $sshParams["environment-name"] = $env ;
+            $env_scope = $this->getEnvironmentScope() ;
+            $logging->log("Target Environment scope {$env_scope} specified to target machines", $this->getModuleName());
+            $sshParams["env-scope"] = $env_scope ;
             $sshParams["driver"] = "seclib" ;
             $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
             $sshParams["timeout"] = (isset($papyrus["timeout"])) ? $papyrus["timeout"] : 30 ;
@@ -46,7 +49,9 @@ class PharaohToolRunnerAnyOS extends Base {
             $hopEnv = $this->getHopEnvironmentName() ;
             if ($hopEnv !== false) {
                 $logging->log("Hop environment specified, will connect to target environment through hop environment {$hopEnv}", $this->getModuleName());
-                $sshParams["hops"] = $hopEnv ;}
+                $sshParams["hops"] = $hopEnv ;
+                $env_scope = $this->getHopEnvironmentScope() ;
+                $sshParams["hop-env-scope"] = $env_scope ;}
             $afn = $this->getAutopilotFileName() ;
             $file_only = basename($afn) ;
             $target_path = self::$tempDir.DS.$file_only ;
@@ -140,6 +145,28 @@ class PharaohToolRunnerAnyOS extends Base {
         $question = "Enter Environment name, none to run locally";
         $this->params["environment-name"] = self::askForInput($question) ;
         return $this->params["environment-name"] ;
+    }
+
+    protected function getEnvironmentScope(){
+        if (isset($this->params["environment-scope"])) { return $this->params["environment-scope"] ; }
+        if (isset($this->params["env-scope"])) { return $this->params["env-scope"] ; }
+        if (isset($this->params["guess"])) {
+            $this->params["environment-scope"] = "public" ;
+            return $this->params["environment-scope"] ; }
+        $question = "Enter Scope, public or private";
+        $this->params["environment-scope"] = self::askForInput($question) ;
+        return $this->params["environment-scope"] ;
+    }
+
+    protected function getHopEnvironmentScope(){
+        if (isset($this->params["hop-environment-scope"])) { return $this->params["hop-environment-scope"] ; }
+        if (isset($this->params["hop-env-scope"])) { return $this->params["hop-env-scope"] ; }
+        if (isset($this->params["guess"])) {
+            $this->params["hop-environment-scope"] = "public" ;
+            return $this->params["hop-environment-scope"] ; }
+        $question = "Enter Scope, public or private";
+        $this->params["hop-environment-scope"] = self::askForInput($question) ;
+        return $this->params["hop-environment-scope"] ;
     }
 
     protected function parseAvailableTools($tool){
