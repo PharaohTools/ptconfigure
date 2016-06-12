@@ -420,11 +420,31 @@ class InvokeAllOS extends Base {
 
     protected function findTarget($server) {
 
-        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-            $target_scope_string = "target_public" ; }
-        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-            $target_scope_string = "target_private" ; }
-        else if (isset($server["target"])) {  $target_scope_string = "target" ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
+        if (isset($this->params["hops"])) {
+
+            if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "public") {
+                $logging->log("Using a hop env scope of public", $this->getModuleName());
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "private") {
+                $logging->log("Using a hop env scope of private", $this->getModuleName());
+                $target_scope_string = "target_private" ; }
+            else {
+                $logging->log("Using default hop env scope", $this->getModuleName());
+                $target_scope_string = "target" ; }
+        }  else {
+
+            if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+                $logging->log("Using an env scope of public", $this->getModuleName());
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+                $logging->log("Using an env scope of private", $this->getModuleName());
+                $target_scope_string = "target_private" ; }
+            else {
+                $logging->log("Using default env scope", $this->getModuleName());
+                $target_scope_string = "target" ; } }
 
         if (isset($target_scope_string)) {
             return $server[$target_scope_string] ; }
