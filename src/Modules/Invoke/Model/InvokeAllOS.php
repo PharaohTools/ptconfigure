@@ -45,6 +45,8 @@ class InvokeAllOS extends Base {
         $commandExecution = true;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        $target_scope_string = $this->findTargetScopeString() ;
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
             while ($commandExecution == true) {
@@ -53,9 +55,9 @@ class InvokeAllOS extends Base {
                     $commandExecution = false; }
                 else {
                     foreach ($this->servers as &$server) {
-                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Executing $command...", $this->getModuleName()) ;
+                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $command...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $command);
-                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] $command Completed...", $this->getModuleName()) ; } } } }
+                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $command Completed...", $this->getModuleName()) ; } } } }
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -72,16 +74,19 @@ class InvokeAllOS extends Base {
         $this->sshCommands = explode("\n", file_get_contents($scriptLoc));
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        $target_scope_string = $this->findTargetScopeString() ;
+
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
             foreach ($this->sshCommands as $sshCommand) {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -97,16 +102,19 @@ class InvokeAllOS extends Base {
         $this->sshCommands = $this->getSSHCommandsForThisStage("data") ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        $target_scope_string = $this->findTargetScopeString() ;
+
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
             foreach ($this->sshCommands as $sshCommand) {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -124,11 +132,7 @@ class InvokeAllOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
-        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-            $target_scope_string = "target_public" ; }
-        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-            $target_scope_string = "target_private" ; }
-        else { $target_scope_string = "target" ; }
+        $target_scope_string = $this->findTargetScopeString() ;
 
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
@@ -160,11 +164,7 @@ class InvokeAllOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
-        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-            $target_scope_string = "target_public" ; }
-        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-            $target_scope_string = "target_private" ; }
-        else { $target_scope_string = "target" ; }
+        $target_scope_string = $this->findTargetScopeString() ;
 
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
