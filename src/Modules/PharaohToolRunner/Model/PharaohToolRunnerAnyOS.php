@@ -48,7 +48,7 @@ class PharaohToolRunnerAnyOS extends Base {
             $sftpParams = $sshParams ;
             $hopEnv = $this->getHopEnvironmentName() ;
             if ($hopEnv !== false) {
-                $logging->log("Hop environment specified, will connect to target environment through hop environment {$hopEnv}", $this->getModuleName());
+                $logging->log("Hop environment specified, will connect to target environment {$env} through hop environment {$hopEnv}", $this->getModuleName());
                 $sshParams["hops"] = $hopEnv ;
                 $env_scope = $this->getHopEnvironmentScope() ;
                 $sshParams["hop-env-scope"] = $env_scope ;}
@@ -60,8 +60,7 @@ class PharaohToolRunnerAnyOS extends Base {
 //                strlen($hopEnv)>0 &&
                 isset($afn) &&
                 strlen($afn)>0 ) {
-                $logging->log("Autopilot has been specified", $this->getModuleName());
-                $logging->log("Setting SFTP details to push Autopilot file to Target", $this->getModuleName());
+                $logging->log("Autopilot has been specified, Setting SFTP details to push Autopilot file to Target", $this->getModuleName());
                 $sftpParams["source"] = $afn ;
                 $sftpParams["target"] = $target_path ;
                 $sftpParams["environment-name"] = $env ;
@@ -87,7 +86,7 @@ class PharaohToolRunnerAnyOS extends Base {
 //          if ($res == false) { return false ; }
             $param_string = $this->getParametersToForward() ;
             $comm = "$tool $module $action $param_string" ;
-            $logging->log("Pharaoh Tool Runner creating command $comm", $this->getModuleName());
+            $logging->log("Pharaoh Tool Runner creating command $comm for remote execution on Environment {$env}", $this->getModuleName());
             $sshParams["ssh-data"] = "$comm" ;
             $ssh = $sshFactory->getModel($sshParams ,"Default") ;
             $res = $ssh->askWhetherToInvokeSSHData() ;
