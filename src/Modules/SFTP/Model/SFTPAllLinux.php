@@ -57,6 +57,15 @@ class SFTPAllLinux extends Base {
             return false ;}
         $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
+
+
+        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+            $target_scope_string = "target_public" ; }
+        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+            $target_scope_string = "target_private" ; }
+        else { $target_scope_string = "target" ; }
+
+
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
@@ -67,13 +76,13 @@ class SFTPAllLinux extends Base {
                     $logging->log("Skipping {$$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
-                $logging->log("[".$server["name"]." : ".$server["target"]."] Executing SFTP Put...", $this->getModuleName());
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Put...", $this->getModuleName());
                 $res = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
                 $msg = ($res == true) ? "Put Successful" : "Put Failed";
                 $logging->log($msg, $this->getModuleName());
-                $logging->log("[".$server["name"]." : ".$server["target"]."] SFTP Put Completed...", $this->getModuleName()); }
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Put Completed...", $this->getModuleName()); }
             else {
-                $logging->log("[".$server["name"]." : ".$server["target"]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
         $logging->log("All SFTP Puts Completed", $this->getModuleName());
         return "All SFTP Puts Completed";
     }
@@ -94,10 +103,17 @@ class SFTPAllLinux extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
+
+        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+            $target_scope_string = "target_public" ; }
+        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+            $target_scope_string = "target_private" ; }
+        else { $target_scope_string = "target" ; }
+
         foreach ($this->servers as &$server) {
-            $logging->log("[".$server["name"]." : ".$server["target"]."] Executing SFTP Get...");
+            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Get...");
             $logging->log($this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath)) ;
-            $logging->log("[".$server["name"]." : ".$server["target"]."] SFTP Get Completed..."); }
+            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed..."); }
         $logging->log("All SFTP Gets Completed", $this->getModuleName());
         return true;
     }
