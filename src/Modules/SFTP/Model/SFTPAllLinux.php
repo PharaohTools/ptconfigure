@@ -345,12 +345,20 @@ class SFTPAllLinux extends Base {
                     $logging->log("Skipping {$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             $attempt = $this->attemptSFTPConnection($server) ;
+
+            if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+                $target_scope_string = "target_private" ; }
+            else { $target_scope_string = "target" ; }
+
             if ($attempt == null) {
-                $logging->log("Connection to Server {$server["target"]} failed.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                $logging->log("Connection to Server {$server[$target_scope_string]} failed.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
                 $server["sftpObject"] = null ; }
             else {
-                $logging->log("Connection to Server {$server["target"]} successful.", $this->getModuleName());
+                $logging->log("Connection to Server {$server[$target_scope_string]} successful.", $this->getModuleName());
                 $server["sftpObject"] = $attempt ; } }
+
             return true;
     }
 
@@ -378,7 +386,18 @@ class SFTPAllLinux extends Base {
                 $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
                 $sftpFile = $srcFolder."/seclib/Net/SFTP.php" ;
                 require_once($sftpFile) ; }
-            $sftp = new \Net_SFTP($server["target"], $this->params["port"], $this->params["timeout"]);
+
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Attempting to load SFTP connections...", $this->getModuleName());
+
+            if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+                $target_scope_string = "target_private" ; }
+            else { $target_scope_string = "target" ; }
+
+            $sftp = new \Net_SFTP($server[$target_scope_string], $this->params["port"], $this->params["timeout"]);
             $pword = (isset($server["pword"])) ? $server["pword"] : false ;
             $pword = (isset($server["password"])) ? $server["password"] : $pword ;
             $pword = $this->getKeyIfAvailable($pword);
