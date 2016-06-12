@@ -34,7 +34,10 @@ class BoxifyListing extends BaseLinuxApp {
     public function performListing() {
         if (isset($this->params["env"])) { $this->params["environment-name"] = $this->params["env"]; }
         if (isset($this->params["environment-name"])) { $this->setEnvironment($this->params["environment-name"]); }
-        return $this->listBoxes();
+        $lb = $this->listBoxes();
+//        var_dump("lb:", $lb) ;
+//        die() ;
+        return $lb ;
     }
 
     public function setEnvironment($environmentName = null) {
@@ -59,7 +62,7 @@ class BoxifyListing extends BaseLinuxApp {
                 if ($env["any-app"]["gen_env_name"]=="{$this->params["environment-name"]}") {
 //                    var_dump("target 4", $env["servers"][0]["target"] ) ;
 //                    $ip_address = $env["servers"][0]["target"] ;
-                    $logging->log("Lister has found a matching environment", $this->getModuleName()) ;
+                    $logging->log("Lister has found an environment matching {$this->params["environment-name"]}", $this->getModuleName()) ;
                     return $env ; } } }
         $logging->log("Lister could not find a matching environment", $this->getModuleName()) ;
         return false ;
