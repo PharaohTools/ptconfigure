@@ -405,11 +405,12 @@ class SFTPAllLinux extends Base {
 
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempting to load SFTP connections...", $this->getModuleName());
 
             if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+                $logging->log("Using Public scope...", $this->getModuleName());
                 $target_scope_string = "target_public" ; }
             else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+                $logging->log("Using Private scope...", $this->getModuleName());
                 $target_scope_string = "target_private" ; }
             else { $target_scope_string = "target" ; }
 
