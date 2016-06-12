@@ -31,7 +31,7 @@ class GeneratorInfo extends PTConfigureBase {
         - copy
         Will create a copy from an existing local Module
         example: ptconfigure gen copy
-        example: ptconfigure gen copy -yg --source="SourceModule" --target="TargetModule"
+        example: ptconfigure gen copy -yg --source="SourceModule" --target="TargetModule" --translates=SwapThis,ForThis:andthis,forthis
 
         - template
         Will create a copy from a Downloadable Template Module
@@ -39,6 +39,7 @@ class GeneratorInfo extends PTConfigureBase {
         example: ptconfigure gen template -yg --source="{git repo}" --target="TargetModule"
         example: ptconfigure gen template -yg --source="{git repo}" --target="TargetModule" --key="/home/me/.ssh"
         example: ptconfigure gen template -yg --source="{git repo}" --target="TargetModule" --credentials={cred_name}
+        example: ptconfigure gen template -yg --source="{git repo}" --target="TargetModule" --translates=SwapThis,ForThis:andthis,forthis
 
 HELPDATA;
       return $help ;
