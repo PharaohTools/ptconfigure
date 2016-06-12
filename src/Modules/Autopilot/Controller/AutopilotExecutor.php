@@ -43,8 +43,10 @@ class AutopilotExecutor extends Base {
                 $logFactory = new \Model\Logging() ;
                 $logging = $logFactory->getModel($thisModel->params) ;
 
-                echo PHP_EOL ;
                 $name_or_mod = $this->getNameOrMod($modelArray) ;
+
+                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
+
                 $label = (isset($name_or_mod["step-name"])) ? "Label: {$name_or_mod["step-name"]}" : "" ;
                 if (strlen($label) > 0) { $logging->log("{$label}", "Autopilot") ; }
                 $module = (isset($name_or_mod["module"])) ? "Module: {$name_or_mod["module"]}" : "" ;
