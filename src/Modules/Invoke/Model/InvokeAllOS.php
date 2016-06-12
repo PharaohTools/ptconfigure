@@ -205,7 +205,7 @@ class InvokeAllOS extends Base {
                     $this->hopScript = $file ;
                         $cli_commands = array(
                         "cp /tmp/papyrusfile .",
-                        'ptconfigure invoke script -yg --env="'.$this->hopEndEnvironment.'" --ssh-script="'.$file.'" ');
+                        'ptconfigure invoke script -yg --env="'.$this->hopEndEnvironment.'" --hop-env-="'.$this->hopEndEnvironment.'" --ssh-script="'.$file.'" ');
                     return $cli_commands ; }
                 else {
                     $data = $this->askForSSHData();
@@ -418,8 +418,7 @@ class InvokeAllOS extends Base {
         return false;
     }
 
-    protected function findTarget($server) {
-
+    protected function findTargetScopeString() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
@@ -445,6 +444,16 @@ class InvokeAllOS extends Base {
             else {
                 $logging->log("Using default env scope", $this->getModuleName());
                 $target_scope_string = "target" ; } }
+
+        return $target_scope_string ;
+    }
+
+    protected function findTarget($server) {
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
+        $target_scope_string = $this->findTargetScopeString() ;
 
         if (isset($target_scope_string)) {
             return $server[$target_scope_string] ; }
