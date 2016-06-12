@@ -362,11 +362,21 @@ class SFTPAllLinux extends Base {
                     continue ; } }
             $attempt = $this->attemptSFTPConnection($server) ;
 
-            if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
-                $target_scope_string = "target_public" ; }
-            else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
-                $target_scope_string = "target_private" ; }
-            else { $target_scope_string = "target" ; }
+
+            if (isset($this->params["hops"])) {
+
+                if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "public") {
+                    $target_scope_string = "target_public" ; }
+                else if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "private") {
+                    $target_scope_string = "target_private" ; }
+                else { $target_scope_string = "target" ; }
+            }  else {
+
+                if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+                    $target_scope_string = "target_public" ; }
+                else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+                    $target_scope_string = "target_private" ; }
+                else { $target_scope_string = "target" ; } }
 
             if ($attempt == null) {
                 $logging->log("Connection to Server {$server[$target_scope_string]} failed.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
