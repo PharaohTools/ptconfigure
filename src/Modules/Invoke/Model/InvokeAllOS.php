@@ -404,9 +404,16 @@ class InvokeAllOS extends Base {
     }
 
     protected function findTarget($server) {
-        if (isset($server["target"])) { return $server["target"] ; }
-        if (isset($server["target_public"])) { return $server["target_public"] ; }
-        if (isset($server["target_private"])) { return $server["target_private"] ; }
+
+        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+            $target_scope_string = "target_public" ; }
+        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+            $target_scope_string = "target_private" ; }
+        else if (isset($server["target"])) {  $target_scope_string = "target" ; }
+
+        if (isset($target_scope_string)) {
+            return $server[$target_scope_string] ; }
+
         return false ;
     }
 
