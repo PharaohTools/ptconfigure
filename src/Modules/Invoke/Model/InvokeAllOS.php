@@ -123,18 +123,26 @@ class InvokeAllOS extends Base {
         if ($ps == false) { return false ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+            $target_scope_string = "target_public" ; }
+        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+            $target_scope_string = "target_private" ; }
+        else { $target_scope_string = "target" ; }
+
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
             foreach ($this->sshCommands as $sshCommand) {
+
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
                         $this->remotePushDataScriptForHop($this->hopScript, $server) ;
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         echo $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log( "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
@@ -151,6 +159,13 @@ class InvokeAllOS extends Base {
 		if ($ps == false) { return false ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+            $target_scope_string = "target_public" ; }
+        else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+            $target_scope_string = "target_private" ; }
+        else { $target_scope_string = "target" ; }
+
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
             foreach ($this->sshCommands as $sshCommand) {
@@ -158,17 +173,17 @@ class InvokeAllOS extends Base {
                 foreach ($this->servers as &$server) {
 //                    var_dump('sv', $server) ;
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Forwarding script {$this->hopScript}...", $this->getModuleName()) ;
                         $this->remotePushDataScriptForHop($this->hopScript, $server) ;
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
                         $cur_res = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
                         if (isset($cur_res) && $cur_res == false) {
-                            $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Command failed...", $this->getModuleName()) ; }
+                            $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Command failed...", $this->getModuleName()) ; }
                         else {
                             echo $cur_res ; }
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] $sshCommand Completed...", $this->getModuleName()) ; }
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ; }
                     else {
-                        $logging->log(  "[" . $server["name"] . " : " . $server["target"] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } } }
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } } }
         else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
