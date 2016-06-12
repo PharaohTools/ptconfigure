@@ -293,6 +293,8 @@ COMPLETION;
 //        if (is_array($orig)) { var_dump("orig is", $orig) ; die("\n\norig\n\n"); }
 //        if (is_array($paramValue)) { var_dump("pv is", $paramValue) ; die("\n\nparamValue\n\n"); }
         $paramValue = str_replace($orig, $res, $paramValue);
+        $orig = '{{{ '.$parts_string.' }}}' ;
+        $paramValue = str_replace($orig, $res, $paramValue);
         return $paramValue ;
     }
 
@@ -302,6 +304,9 @@ COMPLETION;
 
         $is_reg = \Model\RegistryStore::getValue($parts_string) ;
         if (!is_null($is_reg)) { return $is_reg ; }
+        $parts_string = trim($parts_string) ;
+
+//        var_dump("ps", $parts_string) ;
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
         $modelGroup = $parts_array[1] ;
@@ -312,21 +317,28 @@ COMPLETION;
         }
 
         $method_params = (isset($parts_array[3])) ? explode(",", $parts_array[3]) : array() ;
-        $full_factory = "\\Model\\{$module}" ;
-        if (!class_exists($full_factory)) {
+        $fclass = "\\Model\\{$module}" ;
+        $modFactory = new $fclass();
+
+        $madeModel = $modFactory->getModel(array(), $modelGroup);
+
+        if (!is_object($madeModel)) {
             $logging->log(
-                "Parameter transform unable to find class {$full_factory} in {$module}, {$modelGroup} model group",
+                "Parameter transform unable to find model group {$modelGroup} in {$module} ",
                 $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
-        $foundFactory = new $full_factory();
+//        $foundFactory = new $full_factory();
         // send empty params or it causes a loop with this one
-        $madeModel = $foundFactory->getModel(array(), $modelGroup);
         if (method_exists($madeModel, $method)) {
-//            $logging->log("Parameter transform loading value from method $method in $module, $modelGroup model group", $this->getModuleName()) ;
+
+//            var_dump($method_params) ;
+            $logging->log("Parameter transform loading value from method $method in $module, $modelGroup model group", $this->getModuleName()) ;
+
+//            var_dump('made', $madeModel) ;
+
             $res = call_user_func_array(array($madeModel, $method), $method_params) ;
             if ($res === null) {
-                $logging->log("Method should never return null, changing result to false", $this->getModuleName()) ;
-            }}
+                $logging->log("Method should never return null, changing result to false", $this->getModuleName()) ; } }
         else {
             $logging->log(
                 "Parameter transform unable to find method $method in $module, $modelGroup model group",
@@ -335,6 +347,19 @@ COMPLETION;
         \Model\RegistryStore::setValue($parts_string, $res) ;
         return $res ;
 
+    }
+
+    protected function paramFormatToArray($method_params) {
+        $new_params = array() ;
+        foreach($method_params as $a_param) {
+            $sp = strpos($a_param, ':') ;
+            if ($sp !== false) {
+                $before = substr($a_param, 0, $sp) ;
+                $after = substr($a_param, $sp) ;
+                $new_params[$before] = $after ; }
+            else {
+                $new_params[] = $a_param ; } }
+        return $new_params ;
     }
 
     protected function loadFromParameter($parts_array) {
