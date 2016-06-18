@@ -36,7 +36,6 @@ class AutopilotExecutor extends Base {
             $steps = $this->expandLoops($steps);
 //            var_dump("after expand:", $steps) ;
 
-
             $counter = 0 ;
             foreach ($steps as $modelArray) {
 
@@ -110,10 +109,12 @@ class AutopilotExecutor extends Base {
         $currentAction = $currentActions[0] ;
         $modParams = $stepDetails[$currentControl][$currentAction] ;
         $name_or_mod["module"] = $currentControl ;
+        $autoFactory = new \Model\Autopilot() ;
+        $autoModel = $autoFactory->getModel(array(), "Default") ;
         if (isset($modParams["step-name"])) {
-            $name_or_mod["step-name"] = $modParams["step-name"] ; }
+            $name_or_mod["step-name"] = $autoModel->transformParameterValue($modParams["step-name"]) ; }
         if (isset($modParams["label"])) {
-            $name_or_mod["step-name"] = $modParams["label"] ; }
+            $name_or_mod["step-name"] = $autoModel->transformParameterValue($modParams["label"]) ; }
         return $name_or_mod ;
     }
 
