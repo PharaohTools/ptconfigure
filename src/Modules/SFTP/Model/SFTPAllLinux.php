@@ -60,6 +60,7 @@ class SFTPAllLinux extends Base {
 
         $target_scope_string = $this->findTargetScopeString();
 
+        $res = array();
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
@@ -71,14 +72,18 @@ class SFTPAllLinux extends Base {
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Put...", $this->getModuleName());
-                $res = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
+                $res[] = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
                 $msg = ($res == true) ? "Put Successful" : "Put Failed";
                 $logging->log($msg, $this->getModuleName());
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Put Completed...", $this->getModuleName()); }
             else {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
-        $logging->log("All SFTP Puts Completed", $this->getModuleName());
-        return "All SFTP Puts Completed";
+        $logging->log("All SFTP Put Attempts Completed", $this->getModuleName());
+        if (in_array(false, $res)) {
+            $logging->log("Some SFTP Put Attempts Contained Failures", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false ; }
+        $logging->log("All SFTP Put Attempts Completed Successfully", $this->getModuleName());
+        return true;
     }
 
     protected function attemptToLoad($sourceDataPath){
@@ -111,7 +116,7 @@ class SFTPAllLinux extends Base {
     protected function doSFTPPut($sftpObject, $remoteFile, $data) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $result = "" ;
+        $result = array() ;
         if (is_object($sftpObject)) {
             if (isset($this->isNativeSSH) && $this->isNativeSSH==true) {
                 if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
@@ -120,14 +125,14 @@ class SFTPAllLinux extends Base {
                         $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
                 $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
-                $result .= $sftpObject->put($remoteFile, $data);
+                $result[] = $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
                 if (count($ar)==0) {
                     $hop_res = $this->runSFTPOnHop();
-                    $result .= $hop_res; }
+                    $result[] .= $hop_res; }
                 else {
                     foreach ($ar as $s) {
-                        $result .= "$s\n" ; } } }
+                        $result[] = "$s\n" ; } } }
             else {
                 if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
                     $dn = dirname($remoteFile) ;
@@ -135,18 +140,22 @@ class SFTPAllLinux extends Base {
                         $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
                 $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
-                $result .= $sftpObject->put($remoteFile, $data);
+                $result[] = $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
                 if (count($ar)==0) {
                     $hop_res = $this->runSFTPOnHop();
-                    $result .= $hop_res; }
+                    $result[] = $hop_res; }
                 else {
                     foreach ($ar as $s) {
-                        $result .= "$s\n" ; } } } }
+                        $result[] = "$s\n" ; } } } }
         else {
             $logging->log("No SFTP Object, Connection likely failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             $result = false; }
-        return $result ;
+        if (in_array(false, $result)) {
+            $logging->log("Single SFTP Put Attempt Contained Failures", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false ; }
+        $logging->log("Single SFTP Put Attempt Completed Successfully", $this->getModuleName());
+        return true;
     }
 
     protected function runSFTPOnHop() {
