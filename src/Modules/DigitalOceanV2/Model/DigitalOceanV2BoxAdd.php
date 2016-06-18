@@ -130,7 +130,10 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             return true ; }
         else if (count($networks)>0 && !in_array("default-private",$networks)) {
             return false ; }
-        else if (!isset($this->params["networks"]) && !isset($this->params["guess"])) {
+        else if (count($networks)>0 && in_array("default-private",$networks)) {
+            return true ; }
+//        else if (!isset($this->params["networks"]) && !isset($this->params["guess"])) {
+        else {
             $question = 'Enter whether to enable private network (public always enabled)';
             $enable = self::askYesOrNo($question, true);
             return $enable ;}
