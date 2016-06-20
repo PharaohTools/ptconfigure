@@ -20,7 +20,7 @@ class PharaohToolsAllOS extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTVirtualize")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTBuild")) ),
-            array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTConfigure")) ),
+            //array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTConfigure")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTDeploy")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("PTTest")) ),
             array("method"=> array("object" => $this, "method" => "ensurePharaoh", "params" => array("JRush")) ),
