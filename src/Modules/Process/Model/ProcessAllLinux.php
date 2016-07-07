@@ -37,6 +37,11 @@ class ProcessAllLinux extends Base {
         $res = array() ;
         foreach ($ids as $id) {
             $res[] = $this->doSingleProcessKillById($id) ; }
+        if (count($ids)==0) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("No process found by pid, no pid found", $this->getModuleName());
+            return false; }
 //        var_dump("res", $res, $ids ) ;
         if (in_array(false, $res)) { return false ; }
         return true ;
@@ -44,17 +49,23 @@ class ProcessAllLinux extends Base {
 
     private function doProcessKillByPsax() {
         $names = $this->getNames() ;
-        $comm = "ps ax | grep {$this->params["name"]}" ;
-        $psaxout = self::executeAndLoad($comm) ;
-        $lines = explode("\n", $psaxout) ;
         $rcs = array() ;
-        foreach ($lines as $line) {
-            foreach ($names as $name) {
+        foreach ($names as $name) {
+            $comm = "ps ax | grep {$name}" ;
+            $psaxout = self::executeAndLoad($comm) ;
+            $lines = explode("\n", $psaxout) ;
+            foreach ($lines as $line) {
                 if (strpos($line, $name) !== false
                     && strpos($line, " grep ") == false
                     && strpos($line, " process kill ") == false ) {
                     $id = $this->getIdFromPsaxLine($line) ;
-                    $rcs[] = $this->doSingleProcessKillById($id) ; } } }
+                    $rcs[] = $this->doSingleProcessKillById($id) ; } }
+            if (count($rcs)==0) {
+                $loggingFactory = new \Model\Logging();
+                $logging = $loggingFactory->getModel($this->params);
+                $logging->log("No process found by ps ax matching {$name}", $this->getModuleName()); } }
+
+
         // var_dump("rcs1", $rcs) ;
         if ($this->inArrayAll(true, $rcs)) { return true ; }
         return false ;
