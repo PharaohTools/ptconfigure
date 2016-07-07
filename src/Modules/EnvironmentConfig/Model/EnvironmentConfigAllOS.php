@@ -99,7 +99,6 @@ class EnvironmentConfigAllOS extends Base {
                             if (isset($this->params["keep-current-environments"]) && $this->params["keep-current-environments"]==true) {
                                 $tx = "This environment already exists, you've selected keep-current-environments so we won't modify it";
                                 $logging->log($tx, $this->getModuleName()) ;
-                                \Core\BootStrap::setExitCode(1);
                                 continue ; }
                             else {
                                 if (isset($this->params["yes"]) && $this->params["yes"]==true) {
