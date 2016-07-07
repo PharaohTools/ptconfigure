@@ -21,15 +21,15 @@ class IntelliJUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "IntelliJ";
         $this->installCommands = array (
             array("method"=> array("object" => $this, "method" => "askForIntelliJVersion", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
-            array("command" => array(
-                    "cd /tmp" ,
-                    "git clone https://github.com/PharaohTools/ptconfigure-intellij{$this->iv} intellij",
-                    "rm -rf ****PROGDIR****",
-                    "mkdir -p ****PROGDIR****",
-                    "mv /tmp/intellij/* ****PROGDIR****",
-                    "chmod -R 777 ****PROGDIR****",
-                    "rm -rf /tmp/intellij" ) ),
+       #     array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
+       #     array("command" => array(
+       #             "cd /tmp" ,
+       #             "git clone https://github.com/PharaohTools/ptconfigure-intellij{$this->iv} intellij",
+       #             "rm -rf ****PROGDIR****",
+       #             "mkdir -p ****PROGDIR****",
+       #             "mv /tmp/intellij/* ****PROGDIR****",
+       #             "chmod -R 777 ****PROGDIR****",
+       #             "rm -rf /tmp/intellij" ) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
