@@ -21,44 +21,58 @@ class ProcessAllLinux extends Base {
     public function performProcessKill() {
         if ($this->askForProcessExecute() != true) { return false; }
         $nameOrId = $this->getNameOrId() ;
-        if ($nameOrId == "name") { $this->doProcessKillByName() ; }
-        else {$this->doProcessKillByIds() ; }
-        return true;
+        if ($nameOrId == "name") { $res = $this->doProcessKillByName() ; }
+        else { $res = $this->doProcessKillByIds() ; }
+        return $res;
     }
 
     private function doProcessKillByName() {
-        if (isset($this->params["use-pkill"])) { $this->doProcessKillByPkill() ; }
-        else { $this->doProcessKillByPsax() ; }
+        if (isset($this->params["use-pkill"])) { $res = $this->doProcessKillByPkill() ; }
+        else { $res = $this->doProcessKillByPsax() ; }
+        return $res ;
     }
 
     private function doProcessKillByIds() {
         $ids = $this->getIds() ;
+        $res = array() ;
         foreach ($ids as $id) {
-            $this->doSingleProcessKillById($id) ;}
+            $res[] = $this->doSingleProcessKillById($id) ; }
+//        var_dump("res", $res, $ids ) ;
+        if (in_array(false, $res)) { return false ; }
+        return true ;
     }
 
     private function doProcessKillByPsax() {
         $names = $this->getNames() ;
-        $comm = "ps ax | grep {$this->params["name1"]}" ;
+        $comm = "ps ax | grep {$this->params["name"]}" ;
         $psaxout = self::executeAndLoad($comm) ;
         $lines = explode("\n", $psaxout) ;
+        $rcs = array() ;
         foreach ($lines as $line) {
             foreach ($names as $name) {
                 if (strpos($line, $name) !== false
                     && strpos($line, " grep ") == false
                     && strpos($line, " process kill ") == false ) {
                     $id = $this->getIdFromPsaxLine($line) ;
-                    $this->doSingleProcessKillById($id) ; } } }
+                    $rcs[] = $this->doSingleProcessKillById($id) ; } } }
+        // var_dump("rcs1", $rcs) ;
+        if ($this->inArrayAll(true, $rcs)) { return true ; }
+        return false ;
     }
 
     private function doProcessKillByPkill() {
         $names = $this->getNames() ;
+        $rcs = array() ;
         foreach ($names as $name) {
             $comm = SUDOPREFIX."pkill $name" ;
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Executing $comm", $this->getModuleName());
-            self::executeAndOutput($comm) ; }
+            $one_rc = self::executeAndGetReturnCode($comm, true, false) ;
+            $rcs[] = $one_rc["rc"] ; }
+        // var_dump("rcs", $rcs) ;
+        if ($this->inArrayAll("0", $rcs)) { return true ; }
+        return false ;
     }
 
     private function doSingleProcessKillById($id) {
@@ -67,7 +81,9 @@ class ProcessAllLinux extends Base {
         $logging->log("Killing process id $id", $this->getModuleName());
         $level = $this->getKillLevel();
         $comm = SUDOPREFIX."kill -$level $id" ;
-        self::executeAndOutput($comm) ;
+        $rc = self::executeAndGetReturnCode($comm, true, false) ;
+        if ($rc["rc"] == "0") { return true ; }
+        return false ;
     }
 
     private function askForProcessExecute(){
@@ -87,7 +103,8 @@ class ProcessAllLinux extends Base {
     }
 
     private function getNameOrId(){
-        if (isset($this->params["name1"])) { return "name" ; }
+        $names = $this->getNames() ;
+        if (count($names)>0) { return "name" ; }
         else { return "id"; }
     }
 
@@ -96,6 +113,13 @@ class ProcessAllLinux extends Base {
         for ($i = 1; $i<100; $i++) {
             if (isset($this->params["name$i"])) { $names[] = $this->params["name$i"] ; }
             else { break ; } }
+        if (isset($this->params["name"])) {
+            $names = array_merge($names, explode(',', $this->params["name"])) ; }
+        if (isset($this->params["names"])) {
+            $names = array_merge($names, explode(',', $this->params["names"])) ; }
+
+        // var_dump("names", $names) ;
+
         return $names;
     }
 
@@ -111,4 +135,10 @@ class ProcessAllLinux extends Base {
         $pid = substr($line, 0, strpos($line, " ")) ;
         return $pid;
     }
+
+    private function inArrayAll($value, $array) {
+        return (reset($array) == $value && count(array_unique($array)) == 1);
+    }
+
+
 }
