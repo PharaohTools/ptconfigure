@@ -35,6 +35,3 @@ else if ($pageVars["route"]["action"]=="list-records") {
                 echo "    Data: {$domainRecord->data}\n" ; } } } }
 
 ?>
-
-------------------------------
-DNSifying Finished

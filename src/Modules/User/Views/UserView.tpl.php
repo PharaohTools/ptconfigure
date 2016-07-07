@@ -1,7 +1,4 @@
-User Modifications:
---------------------------------------------
-
-<?php echo $pageVars["appName"] ; ?>: <?php
+User Modifications: <?php echo $pageVars["appName"] ; ?>: <?php
 
     if ($pageVars["pageVars"]["route"]["action"] == "exists") {
         $result_summary = ($pageVars["result"] == true) ? "Success = User Exists" : "Failure - User Does Not Exist" ;
@@ -16,6 +13,3 @@ User Modifications:
         echo $pageVars["result"]."\n" ; }
 
 ?>
-
-------------------------------
-User Mods Finished

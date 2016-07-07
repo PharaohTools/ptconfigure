@@ -41,6 +41,3 @@ foreach ($pageVars["result"] as $taskType => $details) {
 }
 
 ?>
-
-------------------------------
-Task Finished

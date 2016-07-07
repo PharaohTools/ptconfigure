@@ -13,5 +13,3 @@ if (is_array($pageVars["result"])) {
 else {
     echo "Unreadable output\n" ; }
 ?>
-------------------------------
-Task Finished

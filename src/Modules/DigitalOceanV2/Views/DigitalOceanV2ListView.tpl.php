@@ -73,6 +73,3 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
 else {
     echo "There was a problem listing Data. No results were found"; }
 ?>
-
-------------------------------
-Digital Ocean Listing Finished

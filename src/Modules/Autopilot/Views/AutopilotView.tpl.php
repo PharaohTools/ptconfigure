@@ -37,4 +37,4 @@ Execution Successful
 
 ?>
 ------------------------------
-Installer Finished
+Automation Run Finished
