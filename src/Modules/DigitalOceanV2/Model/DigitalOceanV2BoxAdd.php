@@ -64,19 +64,17 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                                 ? $serverData["prefix"].'-'.$serverData["envName"].'-'.$serverData["sCount"]
                                 : $serverData["envName"].'-'.$serverData["sCount"] ;
                             $epn = $this->getEnablePrivateNetwork() ;
-                            if ($epn === true ) {
-                                $serverData["privateNetwork"] = true ;
-
-                            }
+                            if ($epn === true ) { $serverData["privateNetwork"] = true ; }
                             $serverData["sshKeyIds"] = $this->getSshKeyIds();
-
                             $response = $this->getNewServerFromDigitalOceanV2($serverData) ;
-                            $this->addServerToPapyrus($envName, $response); } } } }
-
+                            if ( isset($response->id) && $response->id == "unprocessable_entity") {
+                                $logging->log("Node Request for {$serverData["name"]} failed", $this->getModuleName()) ;
+                                return false ; }
+                            else {
+                                $this->addServerToPapyrus($envName, $response); } } } } }
                 return true ; }
         else {
-            \Core\BootStrap::setExitCode(1) ;
-            $logging->log("The environment $workingEnvironment does not exist.") ; }
+            $logging->log("The environment $workingEnvironment does not exist.", LOG_FAILURE_EXIT_CODE) ; }
     }
 
     private function askForBoxAddExecute() {
@@ -126,7 +124,8 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
     protected function getEnablePrivateNetwork() {
         $networks_param = (isset($this->params["networks"])) ? $this->params["networks"] : "" ;
         $networks = explode(',', $networks_param) ;
-        if ( (count($networks)==0 && isset($this->params["guess"])) || $this->params["networks"]=="default") {
+        if ( (count($networks)==0 && isset($this->params["guess"])) ||
+             ( isset($this->params["networks"]) && $this->params["networks"]=="default" )) {
             return true ; }
         else if (count($networks)>0 && !in_array("default-private",$networks)) {
             return false ; }
@@ -213,19 +212,18 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for {$callVars["name"]} complete", $this->getModuleName()) ;
-//        var_dump($callOut) ;
+        if ( isset($callOut->id) && $callOut->id == "unprocessable_entity") {
+            $logging->log("Request for {$callVars["name"]} errored with message: {$callOut->message}", $this->getModuleName()) ; }
         return $callOut ;
     }
 
     private function addServerToPapyrus($envName, $data) {
 
-
         if (!isset($data->droplet)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Error, attempted adding server to papyrus with no data", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            return false ;
-        }
+            return false ; }
 
         if (isset($data) && is_object($data)) {
             $dropletData = $this->getDropletData($data->droplet->id);
@@ -287,6 +285,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             return array("{$this->getSshKeyInfoByKeyFingerprint($this->params["ssh-key-fingerprint"])}") ; }
         if (isset($this->params["ssh-key-name"])) {
             $id = $this->getSshKeyIdFromName($this->params["ssh-key-name"]) ;
+            if ( $id == false ) { return false ; }
             $logging->log("Found param --ssh-key-name with value {$this->params["ssh-key-name"]} and id {$id} for SSH Keys", $this->getModuleName()) ;
             return array("$id") ; }
         if (isset($this->params["guess"]) || isset($this->params["use-all-ssh-keys"])) {
@@ -343,7 +342,10 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         foreach($sshKeysObject->ssh_keys as $sshKey) {
             if ($sshKey->name == $name) {
                 return $sshKey->id ; } }
-        return null;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Unable to locate a key on Digital Ocean by name {$name}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
     /**
