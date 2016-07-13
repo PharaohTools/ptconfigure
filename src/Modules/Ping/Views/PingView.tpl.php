@@ -1,12 +1,6 @@
-Ping Modifications:
---------------------------------------------
-
 <?php echo $pageVars["appName"] ; ?>: <?php
   $result_summary = ($pageVars["result"] == true) ? "Success" : "Failure" ;
-  echo $result_summary."\n" ;
+  echo $result_summary ;
   if (is_string($pageVars["result"])) {
-    echo $pageVars["result"]."\n" ; }
+    echo $pageVars["result"] ; }
 ?>
-
-------------------------------
-Ping Mods Finished
