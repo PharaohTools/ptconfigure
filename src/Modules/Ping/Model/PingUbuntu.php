@@ -8,7 +8,7 @@ class PingUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array( array("11.04", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -36,7 +36,6 @@ class PingUbuntu extends BaseLinuxApp {
         $libDir = str_replace("Model", "Libraries", dirname(__FILE__) ) ;
         require_once ("{$libDir}".DS."JJG".DS."Ping.php") ;
         $this->setTarget();
-        $this->setInterval();
         return $this->doOnePing();
     }
 
@@ -173,19 +172,20 @@ class PingUbuntu extends BaseLinuxApp {
     protected function doPingsUntil() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $ping = new \JJG\Ping($this->targets);
         $totalTime = 0 ;
         $i = 0;
         while ($totalTime < $this->maxWait) {
-            $latency = $ping->ping();
-            if ($latency !== false) {
-                $logging->log('Ping Latency is ' . $latency . ' ms') ;
-                return true ; }
-            else {
-                $logging->log("Ping Host {$this->targets} could not be reached after $i iterations and $totalTime seconds") ; }
-            sleep($this->interval) ;
-            $totalTime = $totalTime + $this->interval ;
-            $i++; }
+            foreach ($this->targets as $target) {
+                $ping = new \JJG\Ping($target);
+                $latency = $ping->ping();
+                if ($latency !== false) {
+                    $logging->log('Ping Latency is ' . $latency . ' ms') ;
+                    return true ; }
+                else {
+                    $logging->log("Ping Host {$target} could not be reached after $i iterations and $totalTime seconds") ; }
+                sleep($this->interval) ;
+                $totalTime = $totalTime + $this->interval ;
+                $i++; } }
         return false ;
     }
 
