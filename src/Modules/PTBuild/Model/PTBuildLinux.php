@@ -34,23 +34,26 @@ class PTBuildLinux extends BasePHPApp {
 
     public function setpostinstallCommands() {
         $ray = array( ) ;
+        $ray[]["method"] = array("object" => $this, "method" => "ensureApplicationUser", "params" => array() ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $vhestring = '';
             $vheipport = '';
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
             if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
             $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
-            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
+//            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ; }
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/pipes/" ; }
         if ($this->askStatus() == true) {
+            $ray[]["command"][] = "echo 'Copy from temp ptbuild directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptbuild/keys/*" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/users.txt /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/ptbuildvars /opt/ptbuild/ptbuild/ptbuildvars" ; }
-        $ptb_user = PTBCOMM ;
-        $ray[]["command"][] = SUDOPREFIX."chown -R ".$ptb_user.":".$ptb_user." /opt/ptbuild/" ;
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptbuild:ptbuild /opt/ptbuild/" ;
+        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptbuild/" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
     }
@@ -58,14 +61,17 @@ class PTBuildLinux extends BasePHPApp {
     public function setpreinstallCommands() {
         $ray = array( ) ;
         if ($this->askStatus() == true) {
+            $ray[]["command"][] = "echo 'Create temp ptbuild directories'" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-pipes/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-settings/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-keys/" ;
+            $ray[]["command"][] = "echo 'Copy to temp ptbuild directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/pipes /tmp/ptbuild-pipes/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/keys /tmp/ptbuild-keys/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/ptbuildvars /tmp/ptbuild-settings/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt /tmp/ptbuild-settings/" ; }
         $this->preinstallCommands = $ray ;
+        return $ray ;
     }
 
     public function getDeployAutoPath() {
@@ -84,9 +90,14 @@ class PTBuildLinux extends BasePHPApp {
     }
 
     public function ensureApplicationUser() {
-        $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'create-linux-user.sh' ;
-        $this->executeAsShell("sh $path");
-        return $path ;
+        $userparams = $this->params ;
+        $userparams["username"] = "ptbuild" ;
+        $userparams["fullname"] = "ptbuild" ;
+        $userparams["home-directory"] = "" ;
+        $userparams["shell"] = "/bin/bash" ;
+        $userFactory = new \Model\User();
+        $user = $userFactory->getModel($this->params);
+        return $user->performUserEnsureExistence();
     }
 
 
