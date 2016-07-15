@@ -8,7 +8,7 @@ class UserUbuntu extends BaseLinuxApp {
     public $os = array("Linux") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $versions = array( array("11.04", "+")) ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -23,6 +23,7 @@ class UserUbuntu extends BaseLinuxApp {
             "add-to-group" => "performUserAddToGroup",
             "remove-from-group" => "performUserRemoveFromGroup",
             "exists" => "performUserExistenceCheck",
+            "ensure-exists" => "performUserEnsureExistence",
         ) ;
 
     public function __construct($params) {
@@ -75,14 +76,39 @@ class UserUbuntu extends BaseLinuxApp {
         return $this->exists();
     }
 
+    protected function performUserEnsureExistence() {
+        $this->setUser();
+        if ($this->exists()==true) { return true ; }
+        $result = $this->create();
+        return $result ;
+    }
+
     public function setUser($userName = null) {
-        if (isset($userName)) {
-            $this->userName = $userName; }
-        else if (isset($this->params["username"])) {
-            $this->userName = $this->params["username"]; }
-        else {
-            $this->userName = self::askForInput("Enter Username:", true); }
+        if (isset($userName)) { $this->userName = $userName; }
+        else if (isset($this->params["username"])) { $this->userName = $this->params["username"]; }
+        else { $this->userName = self::askForInput("Enter Username:", true); }
         return ;
+    }
+
+    public function getShell() {
+        if (isset($this->params["shell"])) { $shell = $this->params["shell"]; }
+        else if (isset($this->params["guess"])) { $shell = '/bin/bash' ; }
+        else { $shell = self::askForInput("Enter User Shell:", true); }
+        return $shell ;
+    }
+
+    public function getFullName() {
+        if (isset($this->params["fullname"])) { $fullname = $this->params["fullname"]; }
+        else if (isset($this->params["guess"])) { $fullname = $this->userName ; }
+        else { $fullname = self::askForInput("Enter User Full Name:", true); }
+        return $fullname ;
+    }
+
+    public function getHomeDirectory() {
+        if (isset($this->params["home-dir"])) { $home_dir = $this->params["home-dir"]; }
+        else if (isset($this->params["guess"])) { $home_dir = DS.'home'.DS.$this->userName.DS ; }
+        else { $home_dir = self::askForInput("Enter User Home Directory:", true); }
+        return $home_dir ;
     }
 
     public function setPassword() {
@@ -131,21 +157,35 @@ class UserUbuntu extends BaseLinuxApp {
     }*/
 
     public function ensurePresent() {
+        $this->setUser();
         if(!$this->exists()) { $this->create(); }
         return $this;
     }
 
     public function exists() {
         $retCode = $this->executeAndGetReturnCode("id {$this->userName} >/dev/null 2>&1") ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("User Add command did not execute correctly", $this->getModuleName()) ;
         return ($retCode == 0) ? true : false ;
     }
 
     public function create() {
-        $retCode = $this->executeAndGetReturnCode("adduser {$this->userName}") ;
+        # useradd -m -d /home/ptbuild -s /bin/bash -c "The Pharaoh Build User" -U ptbuild
+        $shell = $this->getShell();
+        $shell_string = ($shell == "" || $shell == false) ? "" : "-s {$shell} " ;
+        $fullName = $this->getFullName();
+        $fn_string = ($fullName == "" || $fullName == false) ? "" : "-c {$fullName} " ;
+        $directory = $this->getHomeDirectory();
+//        $username = $this->getUsername();
+        $dir_string = ($directory == "" || $directory == false) ? "" : "-d {$directory} " ;
+        $ua_comm = "useradd -m {$dir_string}{$shell_string} -c \"{$fn_string}\" -U {$this->userName}" ;
+//        $ua_comm = "adduser {$this->userName}" ;
+        $retCode = $this->executeAndGetReturnCode($ua_comm) ;
         if ($retCode !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("User Add command did not execute correctly", $this->getModuleName()) ;
+            $logging->log("User Add command did not execute correctly", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
         return true ;
     }
@@ -194,15 +234,18 @@ class UserUbuntu extends BaseLinuxApp {
     }
 
     private function removeFromGroup($groupName = null) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($groupName) ) { }
         else if (isset($this->params["group-name"])) {
             $groupName = $this->params["group-name"]; }
         else {
             $groupName = self::askForInput("Enter New Password:", true); }
+        if ($groupName == "") {
+            $logging->log("Group name cannot be empty", $this->getModuleName()) ;
+            return false ; }
         $returnCode = $this->executeAndGetReturnCode("deluser {$this->userName} {$groupName}");
         if ($returnCode !== 0) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
             $logging->log("Removing User {$this->userName} from the Group {$groupName} did not execute correctly", $this->getModuleName()) ;
             return false ; }
         return true ;
