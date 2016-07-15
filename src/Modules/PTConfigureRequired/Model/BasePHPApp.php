@@ -139,7 +139,7 @@ class BasePHPApp extends Base {
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
-        if (isset($this->preinstallCommands) && is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
+        if ($this->hookInstExists("pre")) {
             $logging->log("Executing Pre Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("pre") ; }
         $this->programDataFolder = $this->askForProgramDataFolder();
@@ -154,7 +154,7 @@ class BasePHPApp extends Base {
         if ($this->saveExecutorFile() === false) { return false ; }
         if ($this->deleteInstallationFiles() === false) { return false ; }
         if ($this->changePermissions() === false) { return false ; }
-        if ($this->postInstExists()) {
+        if ($this->hookInstExists("post")) {
             $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("post") ;  }
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
@@ -162,14 +162,14 @@ class BasePHPApp extends Base {
         return true ;
     }
 
-    private function postInstExists() {
-        $method = "setpostinstallCommands" ;
-//        var_dump($method) ;
+    private function hookInstExists($prepost) {
+        $method = "set{$prepost}installCommands" ;
         if (method_exists($this, $method)) {
             return true ; }
-        if (isset($this->postinstallCommands) &&
-            is_array($this->postinstallCommands) &&
-            count($this->postinstallCommands)>0) {
+        $ppc = "{$prepost}installCommands" ;
+        if (isset($this->{$ppc}) &&
+            is_array($this->{$ppc}) &&
+            count($this->{$ppc})>0) {
             return true ; }
         return false ;
     }
