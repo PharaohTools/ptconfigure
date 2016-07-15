@@ -20,6 +20,14 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP and Files for Pharaoh Build"),),),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure ptbuild user exists", ), ), ),
+                array ( "User" => array( "ensure-exists" => array(
+                    "username" => "ptbuild",
+                    "fullname" => "ptbuild",
+                    "home-directory" => "",
+                    "shell" => "/bin/bash"
+                ),),),
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure PHP Default Settings are okay", ), ), ),
                 array ( "PHPDefaults" => array( "install" => array( ), ), ),
 
