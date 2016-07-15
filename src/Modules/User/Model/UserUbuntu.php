@@ -36,47 +36,47 @@ class UserUbuntu extends BaseLinuxApp {
         $this->initialize();
     }
 
-    protected function performUserCreate() {
+    public function performUserCreate() {
         $this->setUser();
         $result = $this->create();
         return $result ;
     }
 
-    protected function performUserSetPassword() {
+    public function performUserSetPassword() {
         $this->setUser();
         $this->setPassword();
     }
 
-    protected function performUserRemove() {
+    public function performUserRemove() {
         $this->setUser();
         $result = $this->remove();
         return $result ;
     }
 
-    protected function performShowGroups() {
+    public function performShowGroups() {
         $this->setUser();
         $result = $this->getGroups();
         return $result ;
     }
 
-    protected function performUserAddToGroup() {
+    public function performUserAddToGroup() {
         $this->setUser();
         $result = $this->addToGroup();
         return $result ;
     }
 
-    protected function performUserRemoveFromGroup() {
+    public function performUserRemoveFromGroup() {
         $this->setUser();
         $result = $this->removeFromGroup();
         return $result ;
     }
 
-    protected function performUserExistenceCheck() {
+    public function performUserExistenceCheck() {
         $this->setUser();
         return $this->exists();
     }
 
-    protected function performUserEnsureExistence() {
+    public function performUserEnsureExistence() {
         $this->setUser();
         if ($this->exists()==true) { return true ; }
         $result = $this->create();
@@ -164,9 +164,6 @@ class UserUbuntu extends BaseLinuxApp {
 
     public function exists() {
         $retCode = $this->executeAndGetReturnCode("id {$this->userName} >/dev/null 2>&1") ;
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $logging->log("User Add command did not execute correctly", $this->getModuleName()) ;
         return ($retCode == 0) ? true : false ;
     }
 
