@@ -163,8 +163,8 @@ class UserUbuntu extends BaseLinuxApp {
     }
 
     public function exists() {
-        $retCode = $this->executeAndGetReturnCode("id {$this->userName} >/dev/null 2>&1") ;
-        return ($retCode == 0) ? true : false ;
+        $retCode = $this->executeAndGetReturnCode("id {$this->userName}") ;
+        return ($retCode["rc"] == 0) ? true : false ;
     }
 
     public function create() {
@@ -179,7 +179,7 @@ class UserUbuntu extends BaseLinuxApp {
         $ua_comm = "useradd -m {$dir_string}{$shell_string} -c \"{$fn_string}\" -U {$this->userName}" ;
 //        $ua_comm = "adduser {$this->userName}" ;
         $retCode = $this->executeAndGetReturnCode($ua_comm) ;
-        if ($retCode !== 0) {
+        if ($retCode["rc"] !== 0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("User Add command did not execute correctly", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;

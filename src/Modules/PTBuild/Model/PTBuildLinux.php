@@ -34,7 +34,7 @@ class PTBuildLinux extends BasePHPApp {
 
     public function setpostinstallCommands() {
         $ray = array( ) ;
-        $ray[]["method"] = array("object" => $this, "method" => "ensureApplicationUser", "params" => array() ) ;
+//        $ray[]["method"] = array("object" => $this, "method" => "ensureApplicationUser", "params" => array() ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
             $vhestring = '';
             $vheipport = '';
@@ -45,7 +45,7 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/pipes/" ; }
-        if ($this->askStatus() == true) {
+        if (is_dir(PIPEDIR)) {
             $ray[]["command"][] = "echo 'Copy from temp ptbuild directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/" ;
@@ -60,7 +60,7 @@ class PTBuildLinux extends BasePHPApp {
 
     public function setpreinstallCommands() {
         $ray = array( ) ;
-        if ($this->askStatus() == true) {
+        if (is_dir(PIPEDIR)) {
             $ray[]["command"][] = "echo 'Create temp ptbuild directories'" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-pipes/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-settings/" ;
@@ -96,7 +96,7 @@ class PTBuildLinux extends BasePHPApp {
         $userparams["home-directory"] = "" ;
         $userparams["shell"] = "/bin/bash" ;
         $userFactory = new \Model\User();
-        $user = $userFactory->getModel($this->params);
+        $user = $userFactory->getModel($userparams);
         return $user->performUserEnsureExistence();
     }
 
