@@ -17,7 +17,7 @@ class User extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("create", "remove", "set-password", "exists", "show-groups", "add-to-group", "remove-from-group") )) {
+        if (in_array($action, array("create", "remove", "set-password", "exists", "ensure-exists", "show-groups", "add-to-group", "remove-from-group") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             $this->content["pageVars"] = $pageVars ;
