@@ -45,7 +45,7 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/pipes/" ; }
-        if (is_dir(PIPEDIR)) {
+        if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptbuild directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/" ;
@@ -83,22 +83,5 @@ class PTBuildLinux extends BasePHPApp {
         $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'ptbconf.php' ;
         return $path ;
     }
-
-    public function getLinuxUserShellAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'create-linux-user.sh' ;
-        $this->executeAsShell("sh $path");
-    }
-
-    public function ensureApplicationUser() {
-        $userparams = $this->params ;
-        $userparams["username"] = "ptbuild" ;
-        $userparams["fullname"] = "ptbuild" ;
-        $userparams["home-directory"] = "" ;
-        $userparams["shell"] = "/bin/bash" ;
-        $userFactory = new \Model\User();
-        $user = $userFactory->getModel($userparams);
-        return $user->performUserEnsureExistence();
-    }
-
 
 }
