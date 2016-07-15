@@ -30,20 +30,24 @@ class UserInfo extends PTConfigureBase {
   User, user
 
         - create
-        Create a new system user, overwriting if it exists
+        Create a new system user
         example: ptconfigure user create --username="somename"
 
         - remove
         Remove a system user
         example: ptconfigure user remove --username="somename"
 
-        - set-password
-        Set the password of a system user
-        example: ptconfigure user set-password --username="somename" --new-password="somepassword"
+        - ensure-exists
+        Check the existence of a user, and if they don't exist, create them
+        example: ptconfigure user ensure-exists --username="somename"
 
         - exists
         Check the existence of a user
         example: ptconfigure user exists --username="somename"
+
+        - set-password
+        Set the password of a system user
+        example: ptconfigure user set-password --username="somename" --new-password="somepassword"
 
         - show-groups
         Show groups to which a user belongs
