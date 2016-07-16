@@ -28,20 +28,13 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Track Settings file writable", ), ), ),
                 array ( "Chmod" => array( "path" => array(
                     "path" => PFILESDIR.'pttrack'.DS.'pttrack'.DS.'pttrackvars',
-                    "mode" => 0777,
+                    "mode" => "777",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Jobs Directory exists", ), ), ),
                 array ( "Mkdir" => array( "path" => array(
                     "path" => PFILESDIR.'pttrack'.DS.'jobs',
-                    "mode" => 0777,
-                ), ), ),
-
-                array ( "Logging" => array( "log" => array( "log-message" => "Make the PT Track Settings file writable", ), ), ),
-                array ( "Chmod" => array( "path" => array(
-                    "path" => PFILESDIR.'pttrack'.DS.'jobs',
-                    "recursive" => true,
-                    "mode" => 0777,
+                    "mode" => "755",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Track Complete"),),),
