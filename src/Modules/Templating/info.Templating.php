@@ -29,6 +29,8 @@ class TemplatingInfo extends PTConfigureBase {
         - install
         Installs a template
         example: ptconfigure template install
+        example: ptconfigure template install -yg
+        example: ptconfigure template install -yg --source="" --target=""
 
 HELPDATA;
       return $help ;
