@@ -9,6 +9,8 @@ User Modifications: <?php echo $pageVars["appName"] ; ?>: <?php
         echo "User Name: ".$user_name."\n" ; }
     else if (is_string($pageVars["result"])) {
         echo $pageVars["result"]."\n" ; }
+    else if ($pageVars["result"] == true || $pageVars["result"] == false) {
+        echo ($pageVars["result"] == true) ? "Success" : "Failure"."\n" ; }
     else {
         echo $pageVars["result"]."\n" ; }
 
