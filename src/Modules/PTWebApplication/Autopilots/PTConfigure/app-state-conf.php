@@ -17,12 +17,14 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP and Files for Pharaoh Web Application"),),),
+                array ( "Logging" => array( "log" => array(
+                    "log-message" => "Lets configure PHP and Files for Pharaoh Web Application"
+                ),),),
 
                 array ( "User" => array( "ensure-exists" => array(
-                    "label" => "Ensure ptwebapplication user exists",
-                    "username" => "ptwebapplication",
-                    "fullname" => "ptwebapplication",
+                    "label" => "Ensure {{{ Parameter::app-slug }}} user exists",
+                    "username" => "{{{ Parameter::app-slug }}}",
+                    "fullname" => "{{{ Parameter::app-slug }}}",
                     "home-directory" => "",
                     "shell" => "/bin/bash"
                 ),),),
@@ -45,44 +47,34 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Chmod" => array( "path" => array(
                     "label" => "Make the PT Web Application Settings file writable",
-                    "path" => PFILESDIR.'ptwebapplication'.DS.'ptwebapplication'.DS.'ptwebapplicationvars',
-                    "mode" => '0755',
-                ), ), ),
-
-                array ( "Mkdir" => array( "path" => array(
-                    "label" => "Ensure the Pipes Directory exists",
-                    "path" => PIPEDIR
-                ), ), ),
-
-                array ( "Chmod" => array( "path" => array(
-                    "label" => "Ensure the Pipes Directory is writable",
-                    "path" => PIPEDIR,
-                    "recursive" => true,
-                    "mode" => '0755',
+                    "path" => PFILESDIR.'{{{ Parameter::app-slug }}}'.DS.'{{{ Parameter::app-slug }}}'.DS.'{{{ Parameter::app-slug }}}vars',
+                    "mode" => '755',
                 ), ), ),
 
                 array ( "Chown" => array( "path" => array(
                     "label" => "Ensure the Pharaoh Web Application user owns the Program Files",
-                    "path" => PFILESDIR.'ptwebapplication'.DS,
+                    "path" => PFILESDIR.'{{{ Parameter::app-slug }}}'.DS,
                     "recursive" => true,
-                    "user" => 'ptwebapplication',
+                    "user" => '{{{ Parameter::app-slug }}}',
                 ), ), ),
 
                 array ( "Chgrp" => array( "path" => array(
                     "label" => "Ensure the Pharaoh Group user owns the Program Files",
-                    "path" => PFILESDIR.'ptwebapplication'.DS,
+                    "path" => PFILESDIR.'{{{ Parameter::app-slug }}}'.DS,
                     "recursive" => true,
-                    "group" => 'ptwebapplication',
+                    "group" => '{{{ Parameter::app-slug }}}',
                 ), ), ),
 
-                array ( "Copy" => array( "put" => array(
-                    "label" => "PTWebApplication PHP FPM Pool Config",
-                    "source" => dirname(dirname(__DIR__)).DS.'Templates'.DS.'ptwebapplication_pool.conf',
-                    "target" => "{{{ PTWebApplication::~::getApachePoolDir }}}/ptwebapplication.conf",
+                array ( "Templating" => array( "install" => array(
+                    "label" => "{{{ Parameter::app-slug }}} PHP FPM Pool Config",
+                    "source" => dirname(dirname(__DIR__)).DS.'Templates'.DS.'ptapplication_pool.tpl.php',
+                    "target" => "{{{ PTWebApplication::~::getApachePoolDir }}}/{{{ Parameter::app-slug }}}.conf",
+                    "template_app-slug" => "{{{ Parameter::app-slug }}}",
+                    "template_fpm-port" => "{{{ Parameter::fpm-port }}}",
                 ), ), ),
 
                 array ( "PHPFPM" => array( "restart" => array(
-                    "label" => "PTWebApplication PHP FPM Restart",
+                    "label" => "{{{ Parameter::app-slug }}} PHP FPM Restart",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Web Application Complete"),),),
