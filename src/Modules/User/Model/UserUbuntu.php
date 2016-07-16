@@ -106,6 +106,7 @@ class UserUbuntu extends BaseLinuxApp {
 
     public function getHomeDirectory() {
         if (isset($this->params["home-dir"])) { $home_dir = $this->params["home-dir"]; }
+        else if (isset($this->params["home-directory"])) { $home_dir = $this->params["home-directory"]; }
         else if (isset($this->params["guess"])) { $home_dir = DS.'home'.DS.$this->userName.DS ; }
         else { $home_dir = self::askForInput("Enter User Home Directory:", true); }
         return $home_dir ;
@@ -116,14 +117,14 @@ class UserUbuntu extends BaseLinuxApp {
             $pword = $this->params["new-password"]; }
         else {
             $pword = self::askForInput("Enter New Password:", true); }
-        $command = 'sudo echo "'.$this->userName.':'.$pword.'"|chpasswd' ;
+        $command = SUDOPREFIX.' echo "'.$this->userName.':'.$pword.'"|chpasswd' ;
         $this->executeAndOutput($command) ;
         return ;
        
     }
 
     public function getHome() {
-        $command = "sudo -u {$this->userName} echo \$HOME" ;
+        $command = SUDOPREFIX." -u {$this->userName} echo \$HOME" ;
         $home = $this->executeAndLoad($command) ;
         return trim($home);
     }
