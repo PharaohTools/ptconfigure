@@ -24,7 +24,6 @@ class PTTrackLinux extends BasePHPApp {
               null // can be null for none
           )
         );
-        $this->postinstallCommands = $this->getPostInstallCommands();
         $this->programNameMachine = "pttrack"; // command and app dir name
         $this->programNameFriendly = " PTTrack! "; // 12 chars
         $this->programNameInstaller = "PTTrack - Update to latest version";
@@ -32,37 +31,57 @@ class PTTrackLinux extends BasePHPApp {
         $this->initialize();
     }
 
-    public function getPostInstallCommands() {
+    public function setpostinstallCommands() {
         $ray = array( ) ;
+//        $ray[]["method"] = array("object" => $this, "method" => "ensureApplicationUser", "params" => array() ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
-            $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath() ;
-            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getUserShellAutoPath() ;
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ; }
-        /*
-         * @todo create switching user -- user shell DONE
-         * @todo user can sudo without password -- first cm file step DONE
-         * @todo create default setting for switching user - how to do this? can we api settings changes
-         * @todo sudo chmod 777 /opt/ptbuild/ptbuild/ptbuildvars -- second CM file step DONE
-         * @todo sudo mkdir /opt/ptbuild/pipes -- third CM file step DONE
-         * @todo sudo chmod 777 /opt/ptbuild/pipes-- fourth CM file step DONE
-         */
+            $vhestring = '--vhe-url=track.pharaoh.tld';
+            $vheipport = '--vhe-ip-port=127.0.0.1:80';
+            if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
+            if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
+            $ray[]["command"][] = SUDOPREFIX.PTTRCOMM." assetpublisher publish --yes --guess" ;
+//            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath().' --app-slug=pttrack --fpm-port=6042' ;
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=pttrack --fpm-port=6042' ;
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=track --fpm-port=6042' ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/pttrack/pipes/" ; }
+        if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
+            $ray[]["command"][] = "echo 'Copy from temp pttrack directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-jobs/* /opt/pttrack/jobs/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/users.txt /opt/pttrack/pttrack/src/Modules/Signup/Data/users.txt" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/pttrackvars /opt/pttrack/pttrack/pttrackvars" ; }
+        $ray[]["command"][] = SUDOPREFIX."chown -R pttrack:pttrack /opt/pttrack/" ;
+        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/pttrack/" ;
+        $this->postinstallCommands = $ray ;
+        return $ray ;
+    }
+
+    public function setpreinstallCommands() {
+        $ray = array( ) ;
+        if (is_dir('/opt/pttrack/pttrack/')) {
+            $ray[]["command"][] = "echo 'Create temp pttrack directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/pttrack-jobs/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/pttrack-settings/" ;
+            $ray[]["command"][] = "echo 'Copy to temp pttrack directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/pttrack/jobs/* /tmp/pttrack-jobs/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/pttrack/pttrack/pttrackvars /tmp/pttrack-settings/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/pttrack/pttrack/src/Modules/Signup/Data/users.txt /tmp/pttrack-settings/" ; }
+        $this->preinstallCommands = $ray ;
         return $ray ;
     }
 
     public function getDeployAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
+        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
         return $path ;
     }
 
-    public function getConfigureAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'users-and-permissions.php' ;
+    public function getWebappConfigureAutoPath() {
+        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'app-state-conf.php' ;
         return $path ;
     }
 
-    public function getUserShellAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Scripts'.DS.'create-linux-user.sh' ;
-        $this->executeAsShell("sh $path");
+    public function getModuleConfigureAutoPath() {
+        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'app-conf.php' ;
         return $path ;
     }
 
