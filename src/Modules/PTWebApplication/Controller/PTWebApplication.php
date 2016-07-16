@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class PTBuild extends Base {
+class PTWebApplication extends Base {
 
 }

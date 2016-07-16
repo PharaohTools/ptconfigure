@@ -1,7 +1,7 @@
 ; Start a new pool named 'www'.
 ; the variable $pool can we used in any directive and will be replaced by the
 ; pool name ('www' here)
-[ptwebapplication]
+[<%tpl.php%>app-slug</%tpl.php%>]
 
 ; Per pool prefix
 ; It only applies on the following directives:
@@ -19,8 +19,8 @@
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
-user = ptwebapplication
-group = ptwebapplication
+user = <%tpl.php%>app-slug</%tpl.php%>
+group = <%tpl.php%>app-slug</%tpl.php%>
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -30,7 +30,7 @@ group = ptwebapplication
 ;                            specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-listen = 127.0.0.1:6041
+listen = 127.0.0.1:<%tpl.php%>fpm-port</%tpl.php%>
 
 ; Set listen(2) backlog.
 ; Default Value: 65535 (-1 on FreeBSD and OpenBSD)
@@ -41,8 +41,8 @@ listen = 127.0.0.1:6041
 ; BSD-derived systems allow connections regardless of permissions.
 ; Default Values: user and group are set as the running user
 ;                 mode is set to 0660
-listen.owner = ptwebapplication
-listen.group = ptwebapplication
+listen.owner = <%tpl.php%>app-slug</%tpl.php%>
+listen.group = <%tpl.php%>app-slug</%tpl.php%>
 listen.mode = 0666
 
 ; List of ipv4 addresses of FastCGI clients which are allowed to connect.
