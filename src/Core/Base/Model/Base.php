@@ -275,8 +275,11 @@ COMPLETION;
                 if (strpos($paramValue, '}}}')) {
                     $parts_string = substr($parts_string, 0, strpos($parts_string, '}}}')) ;
                     $parts_string = str_replace("{{{", "", $parts_string) ; }
+                $parts_string = trim($parts_string) ;
                 $parts_array = explode("::", $parts_string) ;
                 $module = $parts_array[0] ;
+//                var_dump("mod", $module) ;
+//                if ($module == "Parameter") { var_dump($module, $parts_string, $parts_array) ; }
                 if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
                     $res = $this->loadFromParameter($parts_array) ;
                     $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
@@ -304,7 +307,6 @@ COMPLETION;
 
         $is_reg = \Model\RegistryStore::getValue($parts_string) ;
         if (!is_null($is_reg)) { return $is_reg ; }
-        $parts_string = trim($parts_string) ;
 
 //        var_dump("ps", $parts_string) ;
         $parts_array = explode("::", $parts_string) ;
@@ -364,7 +366,11 @@ COMPLETION;
 
     protected function loadFromParameter($parts_array) {
         $param_requested = $parts_array[1] ;
-        return $this->params[$param_requested] ;
+        if (isset($this->params[$param_requested])) { return $this->params[$param_requested] ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel(array());
+        $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
     protected function askYesOrNo($question) {
