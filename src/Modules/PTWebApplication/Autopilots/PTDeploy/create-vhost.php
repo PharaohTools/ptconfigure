@@ -14,16 +14,29 @@ class AutoPilotConfigured extends AutoPilot {
     /* Steps */
     private function setSteps() {
 
-        $fpm_port = "6041" ;
-        $app_type = "build" ;
-        $uc_app_type = ucfirst($app_type) ;
-        $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : $app_type.'.pharaoh.tld' ;
+        if (!isset($this->params["fpm-port"]) || !isset($this->params["app-slug"])) {
+            $this->steps =
+                array(
+                    array ( "Logging" => array( "log" => array(
+                        "log-message" => "Need to provide FPM Port and App Type"
+                    ),),),
+                    array ( "Shell" => array( "execute" => array(
+                        "command" => "exit 1"
+                    ),),),
+                );
+            return false ;
+        }
+
+        $fpm_port = $this->params['fpm-port'] ; # "6041"
+        $app_slug = $this->params['app-slug'] ; # "build"
+        $uc_app_slug = ucfirst($app_slug) ;
+        $vhe_url = (isset($this->params['vhe-url'])) ? $this->params['vhe-url'] : $app_slug.'.pharaoh.tld' ;
         $vhe_ipport = (isset($this->params['vhe-ip-port'])) ? $this->params['vhe-ip-port'] : '127.0.0.1:80' ;
 
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Pharaoh {$uc_app_type} Web Interface"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets begin Configuration of a Pharaoh {$uc_app_slug} Web Interface"),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Create Host file entry for $vhe_url", ), ), ),
                 array ( "HostEditor" => array( "add" => array(
@@ -36,25 +49,25 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our Pharaoh Build VHost" ),),),
                 array ( "ApacheVHostEditor" => array( "add" => array(
-                    "vhe-docroot" => PFILESDIR.$app_type.DS.$app_type.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
+                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
                     "guess" => true,
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => $vhe_ipport,
 //                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
-                    "vhe-template" => $this->getTemplate($app_type, $fpm_port),
+                    "vhe-template" => $this->getTemplate($app_slug, $fpm_port),
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
                 array ( "ApacheControl" => array( "restart" => array( "guess" => true, ), ), ),
 
                 // End
-                array ( "Logging" => array( "log" => array( "log-message" => "Apache Web Server for Pharaoh {$uc_app_type} Complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Apache Web Server for Pharaoh {$uc_app_slug} Complete"),),),
 
             );
 
     }
 
-    private function getTemplate($app_type, $fpm_port) {
+    private function getTemplate($app_slug, $fpm_port) {
 
         $dir_section = $this->getA2DirSection() ;
 
@@ -76,8 +89,8 @@ class AutoPilotConfigured extends AutoPilot {
 
      AddHandler php5-fcgi .php
      Action php5-fcgi /php5-fcgi
-     Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi_pt'.$app_type.'
-     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_type.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
+     Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
+     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
 
       <FilesMatch "\.php$">
           SetHandler php5-fcgi
@@ -92,7 +105,7 @@ class AutoPilotConfigured extends AutoPilot {
    </IfModule>
 
    <IfModule mod_proxy_fcgi.c>
-     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_type.'/pt'.$app_type.'/src/Modules/PostInput/$1
+     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
    </IfModule>
 
  </VirtualHost> ' ;
