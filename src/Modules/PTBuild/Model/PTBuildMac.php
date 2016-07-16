@@ -28,7 +28,7 @@ class PTBuildMac extends PTBuildLinux {
             $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
             $ray[]["command"][] = SUDOPREFIX."sh ".$this->getMacUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getMacPortsAutoPath() ;
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getConfigureAutoPath() ;
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport" ; }
         $this->postinstallCommands = $ray ;
     }
