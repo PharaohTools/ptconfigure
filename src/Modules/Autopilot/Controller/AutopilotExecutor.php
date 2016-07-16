@@ -41,22 +41,24 @@ class AutopilotExecutor extends Base {
 
                 $logFactory = new \Model\Logging() ;
                 $logging = $logFactory->getModel($thisModel->params) ;
+                $autoFactory = new \Model\Autopilot() ;
+                $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
 
-                $name_or_mod = $this->getNameOrMod($modelArray) ;
-
-                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
+                $name_or_mod = $this->getNameOrMod($modelArray, $autoModel) ;
 
                 $label = (isset($name_or_mod["step-name"])) ? "Label: {$name_or_mod["step-name"]}" : "" ;
                 if (strlen($label) > 0) { $logging->log("{$label}", "Autopilot") ; }
                 $module = (isset($name_or_mod["module"])) ? "Module: {$name_or_mod["module"]}" : "" ;
                 if (strlen($module) > 0) { $logging->log("{$module}", "Autopilot") ; }
 
-                $should_run = $this->onlyRunWhen($modelArray) ;
+                $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
                 if ($should_run["should_run"] != true) {
                     $step_out["status"] = true ;
                     $step_out["out"] = "No need to run this step" ; }
                 else {
                     $step_out = $this->executeStep($modelArray, $autopilotParams) ; }
+
+                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
 
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
@@ -76,7 +78,7 @@ class AutopilotExecutor extends Base {
         return $dataFromThis ;
     }
 
-    protected function onlyRunWhen($current_params) {
+    protected function onlyRunWhen($current_params, $autoModel) {
 //        echo "Only running when" ;
         $mod_ray_is = array_keys($current_params) ;
         $mod_is = $mod_ray_is[0] ;
@@ -86,7 +88,7 @@ class AutopilotExecutor extends Base {
         if (isset($current_params[$mod_is][$act_is]["when"])) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
-            $name_or_mod = $this->getNameOrMod($current_params) ;
+            $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
@@ -101,7 +103,7 @@ class AutopilotExecutor extends Base {
         return $return_stat ;
     }
 
-    protected function getNameOrMod($stepDetails) {
+    protected function getNameOrMod($stepDetails, $autoModel) {
         $name_or_mod = array() ;
         $currentControls = array_keys($stepDetails) ;
         $currentControl = $currentControls[0] ;
@@ -109,8 +111,6 @@ class AutopilotExecutor extends Base {
         $currentAction = $currentActions[0] ;
         $modParams = $stepDetails[$currentControl][$currentAction] ;
         $name_or_mod["module"] = $currentControl ;
-        $autoFactory = new \Model\Autopilot() ;
-        $autoModel = $autoFactory->getModel(array(), "Default") ;
         if (isset($modParams["step-name"])) {
             $name_or_mod["step-name"] = $autoModel->transformParameterValue($modParams["step-name"]) ; }
         if (isset($modParams["label"])) {
@@ -156,13 +156,23 @@ class AutopilotExecutor extends Base {
     }
 
     protected function executeStep($modelArray, $autopilotParams) {
+
         $currentControls = array_keys($modelArray) ;
         $currentControl = $currentControls[0] ;
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
         $modParams["layout"] = "blank" ;
+
+        unset($autopilotParams["af"]) ;
+        unset($autopilotParams["autopilot-file"]) ;
+
+        $modParams = array_merge($modParams, $autopilotParams) ;
+//
+//        if ($currentControl == "User") { var_dump("mp", $modParams) ; }
+//
         $modParams = $this->formatParams($modParams) ;
+
         $params = array() ;
         $params["route"] =
             array(
