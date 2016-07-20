@@ -30,6 +30,8 @@ class SshKeygenInfo extends PTConfigureBase {
         Installs a new SSH Key
         example: ptconfigure ssh-keygen install
         example: ptconfigure ssh-keygen install --yes --bits=4096 --type=rsa --path="/home/dave/.ssh/id_rsa" --comment="Daves"
+        example: ptconfigure ssh-keygen install --yes --bits=4096 --type=rsa --path="/home/dave/.ssh/id_rsa" --comment="Daves" --passphrase="" # No Passphrase
+        example: ptconfigure ssh-keygen install --yes --bits=4096 --type=rsa --path="/home/dave/.ssh/id_rsa" --comment="Daves" --passphrase="A_New_Passphrase"
 
         - uninstall
         Removes an SSH Key
