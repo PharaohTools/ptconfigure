@@ -21,15 +21,15 @@ class IntelliJUbuntu extends BaseLinuxApp {
         $this->autopilotDefiner = "IntelliJ";
         $this->installCommands = array (
             array("method"=> array("object" => $this, "method" => "askForIntelliJVersion", "params" => array()) ),
-       #     array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
-       #     array("command" => array(
-       #             "cd /tmp" ,
-       #             "git clone https://github.com/PharaohTools/ptconfigure-intellij{$this->iv} intellij",
-       #             "rm -rf ****PROGDIR****",
-       #             "mkdir -p ****PROGDIR****",
-       #             "mv /tmp/intellij/* ****PROGDIR****",
-       #             "chmod -R 777 ****PROGDIR****",
-       #             "rm -rf /tmp/intellij" ) ),
+            array("method"=> array("object" => $this, "method" => "ensureJava", "params" => array()) ),
+            array("command" => array(
+                    "cd /tmp" ,
+                    "git clone https://github.com/PharaohTools/ptconfigure-intellij{$this->iv} intellij",
+                    "rm -rf ****PROGDIR****",
+                    "mkdir -p ****PROGDIR****",
+                    "mv /tmp/intellij/* ****PROGDIR****",
+                    "chmod -R 777 ****PROGDIR****",
+                    "rm -rf /tmp/intellij" ) ),
             array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
@@ -58,7 +58,8 @@ class IntelliJUbuntu extends BaseLinuxApp {
             $this->iv = $this->params["version"] ; }
         else if (isset($this->params["guess"])) {
             $index = count(array_keys($ao))-1 ;
-            $this->iv = ($index=="12") ? "" : "-".$ao[$index] ; }
+            $ind = (isset($ao[$index])) ? $ao[$index] : "12" ;
+            $this->iv = ($index=="12") ? "" : "-".$ind ; }
         else {
             $question = 'Enter IntelliJ Version';
             return self::askForArrayOption($question, $ao, true); }
@@ -68,7 +69,7 @@ class IntelliJUbuntu extends BaseLinuxApp {
     public function ensureJava() {
 		$javaFactory = new \Model\Java();
 		$java = $javaFactory->getModel($this->params);
-		$java->ensureInstalled();
+		return $java->ensureInstalled();
     }
 
     public function versionInstalledCommandTrimmer($text) {

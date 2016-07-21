@@ -300,8 +300,12 @@ if not doing versions
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
                 foreach ($installCommand["command"] as $command) {
+					// var_dump("cmm", $installCommand);
+					$logging->log("Executing Install Command: {$command}", $this->getModuleName()) ;
                     $rc = self::executeAndGetReturnCode($command, true, true);
-                    if ($rc["rc"] !== 0) { $res = false ; } } }
+                    if ($rc["rc"] !== 0) {
+						$res = false ;
+						break ; } } }
             if ($res === false) {
                 $logging->log("Failed Install Step", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
