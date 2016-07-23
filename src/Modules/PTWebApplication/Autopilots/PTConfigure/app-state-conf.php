@@ -41,6 +41,10 @@ class AutoPilotConfigured extends AutoPilot {
                     "label" => "Ensure PHP FPM is installed",
                 ), ), ),
 
+                array ( "PTDeploy" => array( "ensure" => array(
+                    "label" => "Ensure PHP FPM is installed",
+                ), ), ),
+
                 array ( "ApacheFastCGIModules" => array( "ensure" => array(
                     "label" => "Ensure Apache Fast CGI is installed",
                 ), ), ),
