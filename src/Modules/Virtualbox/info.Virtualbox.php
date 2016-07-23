@@ -29,6 +29,8 @@ class VirtualboxInfo extends PTConfigureBase {
         - install
         Installs Virtualbox through apt-get
         example: ptconfigure virtualbox install
+        example: ptconfigure virtualbox install -yg
+        example: ptconfigure virtualbox install --with-guest-additions
 
 HELPDATA;
       return $help ;
