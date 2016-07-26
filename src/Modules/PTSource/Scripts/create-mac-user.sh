@@ -2,49 +2,49 @@
 # Set the _www users shell to bash
 chsh -s /bin/bash _www
 
-# delete any previous ptbuild user
-dscl . -delete /Users/ptbuild
-echo "Deleted any previous ptbuild user"
-dscl . -delete /Groups/ptbuild
-echo "Deleted any previous ptbuild group"
+# delete any previous ptsource user
+dscl . -delete /Users/ptsource
+echo "Deleted any previous ptsource user"
+dscl . -delete /Groups/ptsource
+echo "Deleted any previous ptsource group"
 
 echo "remove home dir"
-rm -rf /Users/ptbuild
+rm -rf /Users/ptsource
 
-# Create the new ptbuild user
+# Create the new ptsource user
 maxuid=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -ug | tail -1)
 newuid=$((maxuid+1))
 randGid=`jot -r 1  2000 65000`
 # echo "new u id" $newuid
 # echo "rand g id" $randGid
 
-dscl . create /Groups/ptbuild
-echo $? "dscl . create /Groups/ptbuild"
-dscl . create /Groups/ptbuild RealName "Pharaoh Build"
-echo $? 'dscl . create /Groups/ptbuild RealName "Pharaoh Build"'
-dscl . create /Groups/ptbuild gid $randGid
-echo $? "dscl . create /Groups/ptbuild gid $randGid"
-dscl . -create /Users/ptbuild
-echo $? "dscl . -create /Users/ptbuild"
-dscl . -create /Users/ptbuild UserShell /bin/bash
-echo $? "dscl . -create /Users/ptbuild UserShell /bin/bash"
-dscl . -create /Users/ptbuild RealName "Pharaoh Build"
-echo $? 'dscl . -create /Users/ptbuild RealName "Pharaoh Build"'
-dscl . -create /Users/ptbuild UniqueID $newuid
-echo $? "dscl . -create /Users/ptbuild UniqueID $newuid"
-dscl . -create /Users/ptbuild PrimaryGroupID $randGid
-echo $? "dscl . -create /Users/ptbuild PrimaryGroupID $randGid"
-dscl . -create /Users/ptbuild NFSHomeDirectory /Users/ptbuild
-echo $? "dscl . -create /Users/ptbuild NFSHomeDirectory /Users/ptbuild"
-dscl . append /Groups/ptbuild GroupMembership ptbuild
-echo $? "dscl . append /Groups/ptbuild GroupMembership ptbuild"
+dscl . create /Groups/ptsource
+echo $? "dscl . create /Groups/ptsource"
+dscl . create /Groups/ptsource RealName "Pharaoh Source"
+echo $? 'dscl . create /Groups/ptsource RealName "Pharaoh Source"'
+dscl . create /Groups/ptsource gid $randGid
+echo $? "dscl . create /Groups/ptsource gid $randGid"
+dscl . -create /Users/ptsource
+echo $? "dscl . -create /Users/ptsource"
+dscl . -create /Users/ptsource UserShell /bin/bash
+echo $? "dscl . -create /Users/ptsource UserShell /bin/bash"
+dscl . -create /Users/ptsource RealName "Pharaoh Source"
+echo $? 'dscl . -create /Users/ptsource RealName "Pharaoh Source"'
+dscl . -create /Users/ptsource UniqueID $newuid
+echo $? "dscl . -create /Users/ptsource UniqueID $newuid"
+dscl . -create /Users/ptsource PrimaryGroupID $randGid
+echo $? "dscl . -create /Users/ptsource PrimaryGroupID $randGid"
+dscl . -create /Users/ptsource NFSHomeDirectory /Users/ptsource
+echo $? "dscl . -create /Users/ptsource NFSHomeDirectory /Users/ptsource"
+dscl . append /Groups/ptsource GroupMembership ptsource
+echo $? "dscl . append /Groups/ptsource GroupMembership ptsource"
 
-# dscl . -passwd /Users/ptbuild abcdef987654321
-# echo $? "dscl . -passwd /Users/ptbuild abcdef987654321"
+# dscl . -passwd /Users/ptsource abcdef987654321
+# echo $? "dscl . -passwd /Users/ptsource abcdef987654321"
 
-cp -R /System/Library/User\ Template/English.lproj /Users/ptbuild
+cp -R /System/Library/User\ Template/English.lproj /Users/ptsource
 createhomedir -c > /dev/null
 echo $? "createhomedir -c > /dev/null"
 
-chown -R ptbuild /Users/ptbuild
-echo $? "chown -R ptbuild /Users/ptbuild "
+chown -R ptsource /Users/ptsource
+echo $? "chown -R ptsource /Users/ptsource "

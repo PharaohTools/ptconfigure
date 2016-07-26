@@ -17,10 +17,10 @@ class AutoPilotConfigured extends AutoPilot {
         $this->steps =
             array(
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP and Files for Pharaoh Build"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP and Files for Pharaoh Source"),),),
 
                 array ( "Mkdir" => array( "path" => array(
-                    "label" => "Ensure the Pipes Directory exists",
+                    "label" => "Ensure the Projects Directory exists",
                     "path" => PIPEDIR
                 ), ), ),
 
@@ -31,7 +31,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "mode" => '0755',
                 ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Build Complete"),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Source Complete"),),),
 
             );
 

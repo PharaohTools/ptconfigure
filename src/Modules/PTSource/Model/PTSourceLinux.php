@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTPTBuildLinux extends BasePHPApp {
+class PTSourceLinux extends BasePHPApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -16,19 +16,19 @@ class PTPTBuildLinux extends BasePHPApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTPTBuild";
-        $this->filePTBuilds = array(
+        $this->autopilotDefiner = "PTSource";
+        $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/ptbuild.git",
-              "ptbuild",
+              "https://github.com/PharaohTools/ptsource.git",
+              "ptsource",
               null // can be null for none
           )
         );
 //        $this->postinstallCommands = $this->getLinuxPostInstallCommands();
-        $this->programNameMachine = "ptbuild"; // command and app dir name
-        $this->programNameFriendly = " PTPTBuild! "; // 12 chars
-        $this->programNameInstaller = "PTPTBuild - Update to latest version";
-        $this->programExecutorTargetPath = 'ptbuild/src/Bootstrap.php';
+        $this->programNameMachine = "ptsource"; // command and app dir name
+        $this->programNameFriendly = " PTSource! "; // 12 chars
+        $this->programNameInstaller = "PTSource - Update to latest version";
+        $this->programExecutorTargetPath = 'ptsource/src/Bootstrap.php';
         $this->initialize();
     }
 
@@ -36,25 +36,25 @@ class PTPTBuildLinux extends BasePHPApp {
         $ray = array( ) ;
 //        $ray[]["method"] = array("object" => $this, "method" => "ensureApplicationUser", "params" => array() ) ;
         if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
-            $vhestring = '--vhe-url=build.pharaoh.tld';
+            $vhestring = '--vhe-url=source.pharaoh.tld';
             $vheipport = '--vhe-ip-port=127.0.0.1:80';
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
             if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
             $ray[]["command"][] = SUDOPREFIX.PTBCOMM." assetpublisher publish --yes --guess" ;
 //            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath().' --app-slug=ptbuild --fpm-port=6041' ;
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptbuild --fpm-port=6041' ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=build --fpm-port=6041' ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/pipes/" ; }
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath().' --app-slug=ptsource --fpm-port=6041' ;
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptsource --fpm-port=6041' ;
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6041' ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/pipes/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
-            $ray[]["command"][] = "echo 'Copy from temp ptbuild directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptbuild/keys/*" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/users.txt /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/ptbuildvars /opt/ptbuild/ptbuild/ptbuildvars" ; }
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptbuild:ptbuild /opt/ptbuild/" ;
-        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptbuild/" ;
+            $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-pipes/pipes/* /opt/ptsource/pipes/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/" ;
+            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/*" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/users.txt /opt/ptsource/ptsource/src/Modules/Signup/Data/users.txt" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars" ; }
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/" ;
+        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
     }
@@ -62,15 +62,15 @@ class PTPTBuildLinux extends BasePHPApp {
     public function setpreinstallCommands() {
         $ray = array( ) ;
         if (is_dir(PIPEDIR)) {
-            $ray[]["command"][] = "echo 'Create temp ptbuild directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-pipes/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-keys/" ;
-            $ray[]["command"][] = "echo 'Copy to temp ptbuild directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/pipes /tmp/ptbuild-pipes/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/keys /tmp/ptbuild-keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/ptbuildvars /tmp/ptbuild-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt /tmp/ptbuild-settings/" ; }
+            $ray[]["command"][] = "echo 'Create temp ptsource directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-pipes/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-settings/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-keys/" ;
+            $ray[]["command"][] = "echo 'Copy to temp ptsource directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/pipes /tmp/ptsource-pipes/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/keys /tmp/ptsource-keys/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/ptsourcevars /tmp/ptsource-settings/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/src/Modules/Signup/Data/users.txt /tmp/ptsource-settings/" ; }
         $this->preinstallCommands = $ray ;
         return $ray ;
     }
