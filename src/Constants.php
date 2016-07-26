@@ -22,6 +22,7 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     define('PTVCOMM',  PFILESDIR."ptvirtualize.cmd") ;
     define('PTTRCOMM',  PFILESDIR."pttrack.cmd") ;
     define('PTTECOMM',  PFILESDIR."pttest.cmd") ;
+    define('PTSCOMM',  PFILESDIR."ptsource.cmd") ;
     define('PTMCOMM',  PFILESDIR."ptmanage.cmd") ;
     define('BOXDIR', $sd.'\\PharaohTools\boxes') ;
     define('PIPEDIR', $sd.'\\PharaohTools\pipes'.'\\') ;
@@ -41,6 +42,7 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
     define('PTTRCOMM', "pttrack") ;
     define('PTTECOMM', "pttest") ;
     define('PTMCOMM',  "ptmanage") ;
+    define('PTSCOMM', "ptsource") ;
     define("DS", "/");
     define("BASE_TEMP_DIR", '/tmp/');
     define('BOXDIR', '/ptvirtualize/boxes'.'\\') ;
