@@ -20,13 +20,13 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets configure PHP and Files for Pharaoh Source"),),),
 
                 array ( "Mkdir" => array( "path" => array(
-                    "label" => "Ensure the Projects Directory exists",
-                    "path" => PIPEDIR
+                    "label" => "Ensure the Repositories Directory exists",
+                    "path" => REPODIR
                 ), ), ),
 
                 array ( "Chmod" => array( "path" => array(
-                    "label" => "Ensure the Pipes Directory is writable",
-                    "path" => PIPEDIR,
+                    "label" => "Ensure the Repositories Directory is writable",
+                    "path" => REPODIR,
                     "recursive" => true,
                     "mode" => '0755',
                 ), ), ),
