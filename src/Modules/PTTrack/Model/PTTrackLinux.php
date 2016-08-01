@@ -33,8 +33,8 @@ class PTTrackLinux extends BasePHPApp {
 
     public function setpostinstallCommands() {
         $ray = array( ) ;
-//        $ray[]["method"] = array("object" => $this, "method" => "ensureApplicationUser", "params" => array() ) ;
-        if (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) {
+        if ( (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) ||
+            (isset($this->params["guess"]) && $this->params["guess"]==true) ) {
             $vhestring = '--vhe-url=track.pharaoh.tld';
             $vheipport = '--vhe-ip-port=127.0.0.1:80';
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
