@@ -26,6 +26,7 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     define('PTMCOMM',  PFILESDIR."ptmanage.cmd") ;
     define('BOXDIR', $sd.'\\PharaohTools\boxes') ;
     define('PIPEDIR', $sd.'\\PharaohTools\pipes'.'\\') ;
+    define('REPODIR', $sd.'\\PharaohTools\repositories'.'\\') ;
     define("DS", "\\");
     define("BASE_TEMP_DIR", getenv("SystemDrive").'\Temp\\'); }
 else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
@@ -46,7 +47,8 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
     define("DS", "/");
     define("BASE_TEMP_DIR", '/tmp/');
     define('BOXDIR', '/ptvirtualize/boxes'.'\\') ;
-    define('PIPEDIR', '/opt/ptbuild/pipes') ; }
+    define('PIPEDIR', '/opt/ptbuild/pipes') ;
+    define('REPODIR', '/opt/ptsource/repositories') ; }
 
 // LOG LEVELS
 define('LOG_FAILURE_EXIT_CODE', 1) ;
