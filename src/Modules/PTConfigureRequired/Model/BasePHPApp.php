@@ -332,7 +332,8 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         else {
             $file_ext = '' ; }
         $this->populateExecutorFile();
-        return file_put_contents($this->programExecutorFolder.DS.$this->programNameMachine.$file_ext, $this->bootStrapData);
+        $pxf = $this->ensureTrailingSlash($this->programExecutorFolder);
+        return file_put_contents($pxf.$this->programNameMachine.$file_ext, $this->bootStrapData);
     }
 
   protected function changePermissions(){
