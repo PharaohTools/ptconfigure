@@ -20,7 +20,7 @@ class Autopilot extends Base {
                     // get params from the base model to inject into the loaded autopilot object
                     $autoPilot->params = $thisModel->params ;
                     if ($action =="test" || (isset($thisModel->params["test"]) && $thisModel->params["test"]==true) ) { return $autoPilotExecutor->execute($pageVars, $autoPilot, true); }
-                    return $autoPilotExecutor->execute($pageVars, $autoPilot); }
+                    return $autoPilotExecutor->executeAuto($pageVars, $autoPilot); }
                 else {
 //                    echo "2" ;
                     \Core\BootStrap::setExitCode(1);
@@ -52,6 +52,8 @@ class Autopilot extends Base {
         $defaultFolderToCheck = str_replace("src".DS."Controller",
             "build".DS."config".DS.PHARAOH_APP, dirname(__FILE__));
         $defaultName = $defaultFolderToCheck.DS.$autoPilotFileName.".php";
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($params);
         if (file_exists($autoPilotFileName)) {
             $dsl_ext = substr($autoPilotFileName, -7) ;
             if ($dsl_ext=="dsl.php") {
@@ -59,18 +61,24 @@ class Autopilot extends Base {
                 if (is_object($dsl_au)) {
                     return $dsl_au ; }
                 else {
-                    $loggingFactory = new \Model\Logging();
-                    $logging = $loggingFactory->getModel($params);
                     $logging->log("Unable to build object from DSL", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ;
                     return false ; } }
             require_once($autoPilotFileName); }
 
-        else if (file_exists($defaultName)) {
+        if (file_exists($defaultName)) {
             include_once($defaultName); }
-        else if (file_exists("autopilot-".$defaultName)) {
+        else  {
+            $logging->log("Unable to find $defaultName", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ; }
+
+        if (file_exists("autopilot-".$defaultName)) {
             include_once("autopilot-".$defaultName); }
-        else if (file_exists($autoPilotFilePath)) {
+        else  {
+            $logging->log("Unable to find autopilot-{$defaultName}", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ; }
+
+        if (file_exists($autoPilotFilePath)) {
             require_once($autoPilotFilePath); }
+        else  {
+            $logging->log("Unable to find $autoPilotFilePath", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ; }
         // if a class exists by the name of the file use the name
         $bn = basename( $autoPilotFileName ) ;
         $fname = str_replace(".php", "", $bn);
