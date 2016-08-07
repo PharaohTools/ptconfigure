@@ -46,10 +46,10 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath().' --app-slug=ptsource --fpm-port=6044' ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptsource --fpm-port=6044' ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6044' ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/pipes/" ; }
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-pipes/repositories/* /opt/ptsource/repositories/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-repositories/repositories/* /opt/ptsource/repositories/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/*" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/users.txt /opt/ptsource/ptsource/src/Modules/Signup/Data/users.txt" ;
