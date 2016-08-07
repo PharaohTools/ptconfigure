@@ -464,7 +464,8 @@ COMPLETION;
             $res = $this->executeAndGetReturnCode($this->statusCommand, false, true) ;
             $status = ($res["rc"] == 0) ? true : false ; }
         else {
-            $status = ($this->executeAndGetReturnCode("{$this->defaultStatusCommandPrefix} {$this->programNameMachine}") == 0) ? true : false ; }
+            $res = $this->executeAndGetReturnCode("{$this->defaultStatusCommandPrefix} {$this->programNameMachine}") ;
+            $status = ($res["rc"] == 0) ? true : false ; }
         $inst = ($status == true) ? "Installed" : "Not Installed " ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
