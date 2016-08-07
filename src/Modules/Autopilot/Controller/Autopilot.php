@@ -49,6 +49,7 @@ class Autopilot extends Base {
     private function loadAutoPilot($params, $pageVars){
         $autoPilotFileName = escapeshellcmd($params["autopilot-file"]);
         $autoPilotFilePath = getcwd().DS.$autoPilotFileName;
+        $autoPilotFileRawPath = getcwd().DS.$autoPilotFileName;
         $defaultFolderToCheck = str_replace("src".DS."Controller",
             "build".DS."config".DS.PHARAOH_APP, dirname(__FILE__));
         $defaultName = $defaultFolderToCheck.DS.$autoPilotFileName.".php";
@@ -63,6 +64,10 @@ class Autopilot extends Base {
                 else {
                     $logging->log("Unable to build object from DSL", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ;
                     return false ; } }
+            else {
+                $logging->log("Loading {$autoPilotFileName}", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ;
+                require_once($autoPilotFileName); }
+            $logging->log("Loading {$autoPilotFileName}", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ;
             require_once($autoPilotFileName); }
 
         if (file_exists($defaultName)) {
