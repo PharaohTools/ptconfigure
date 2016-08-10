@@ -216,6 +216,8 @@ class BasePHPApp extends Base {
     protected function askForProgramExecutorFolder(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $default_dir =  PFILESDIR; }
+        else if (in_array(PHP_OS, array("Darwin"))) {
+            $default_dir =  '/usr/local/bin/'; }
         else {
             $default_dir =  '/usr/bin/'; }
         $question = 'What is the program executor directory?';
