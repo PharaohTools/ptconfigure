@@ -113,6 +113,9 @@ class Installer {
             $sd = getenv('SystemDrive') ;
             $this->programExecutorFolder = $sd.DS.'PharaohTools' ;
             return $this->programExecutorFolder ; }
+        else if (in_array(PHP_OS, array("Darwin"))) {
+            $this->programExecutorFolder = '/usr/local/bin' ;
+            return $this->programExecutorFolder ; }
         else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
             $this->programExecutorFolder = DS.'usr'.DS.'bin' ;
             return $this->programExecutorFolder ; }
