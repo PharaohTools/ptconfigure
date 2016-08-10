@@ -66,32 +66,35 @@ class Autopilot extends Base {
                     return false ; } }
             else {
                 $logging->log("Loading {$autoPilotFileName}", "AutopilotDSL") ;
-                require_once($autoPilotFileName); }
-            $logging->log("Loading {$autoPilotFileName}", "AutopilotDSL") ;
-            require_once($autoPilotFileName); }
+                return $this->apLoader($autoPilotFileName, $params); } }
 
         else {
             $logging->log("Unable to find $defaultName", "AutopilotDSL") ; }
 
-        if (file_exists($autoPilotFileRawPath)) {
-            include_once($autoPilotFileRawPath); }
-        else  {
-            $logging->log("Unable to find $autoPilotFileRawPath", "AutopilotDSL") ; }
+        $paths = array(
+            $autoPilotFileRawPath,
+            $defaultName,
+            "autopilot-".$defaultName,
+            $autoPilotFilePath
+        ) ;
 
-        if (file_exists($defaultName)) {
-            include_once($defaultName); }
-        else  {
-            $logging->log("Unable to find $defaultName", "AutopilotDSL") ; }
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                return $this->apLoader($path, $params); }
+            else  {
+                $logging->log("Unable to find $path", "AutopilotDSL") ; } }
 
-        if (file_exists("autopilot-".$defaultName)) {
-            include_once("autopilot-".$defaultName); }
-        else  {
-            $logging->log("Unable to find autopilot-{$defaultName}", "AutopilotDSL") ; }
+        $logging->log("No more paths to attempt to load", "Autopilot") ;
+        $logging->log("Looking for Default Autopilot Class", "Autopilot") ;
+        // else use default
+        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
+            new \Core\AutoPilotConfigured($params) : null ;
+        if ($autoPilot == null) {
+            $logging->log("Unable to find Default Autopilot Class", "Autopilot", LOG_FAILURE_EXIT_CODE) ; }
+        return $autoPilot;
+    }
 
-        if (file_exists($autoPilotFilePath)) {
-            require_once($autoPilotFilePath); }
-        else  {
-            $logging->log("Unable to find $autoPilotFilePath", "AutopilotDSL") ; }
+    protected function apLoader($autoPilotFileName, $params) {
         // if a class exists by the name of the file use the name
         $bn = basename( $autoPilotFileName ) ;
         $fname = str_replace(".php", "", $bn);
@@ -99,10 +102,7 @@ class Autopilot extends Base {
         if ($fname != "Autopilot" && $fname != "autopilot" && class_exists($c2c)) {
             $autoPilot = new $c2c($params) ;
             return $autoPilot; }
-        // else use default
-        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
-            new \Core\AutoPilotConfigured($params) : null ;
-        return $autoPilot;
+        return false ;
     }
 
     private function loadDSLAutoPilot($filename, $pageVars){
