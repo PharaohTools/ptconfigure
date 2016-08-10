@@ -80,6 +80,7 @@ class Autopilot extends Base {
 
         foreach ($paths as $path) {
             if (file_exists($path)) {
+                $logging->log("Loading {$path}", "AutopilotDSL") ;
                 return $this->apLoader($path, $params); }
             else  {
                 $logging->log("Unable to find $path", "AutopilotDSL") ; } }
