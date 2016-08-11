@@ -36,4 +36,13 @@ class PTWebApplicationAllOS extends Base {
         return $apachePD ;
     }
 
+    public function isNotOSX() {
+        $thisSystem = new \Model\SystemDetectionAllOS();
+        if (in_array($thisSystem->os, array("Darwin") ) ) {
+            $isNotOSX = false ; }
+        else {
+            $isNotOSX = true ; }
+        return $isNotOSX  ;
+    }
+
 }
