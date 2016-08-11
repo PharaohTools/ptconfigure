@@ -7,15 +7,14 @@ use Core\View;
 class AutopilotExecutor extends Base {
 
     public function executeAuto($pageVars, $autopilot, $test = false ) {
-        $params = $pageVars["route"]["extraParams"];
+//        $params = $pageVars["route"]["extraParams"];
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
         // if we don't have an object, its an array of errors
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-
         $this->content["package-friendly"] = ($test) ? "Autopilot Test Suite" : "Autopilot" ;
         $this->registeredModels = $autopilot->steps ;
-        $res1 = $this->checkForRegisteredModels($params);
+        $res1 = $this->checkForRegisteredModels($thisModel->params);
         if ($res1 !== true) {
             $this->content["result"] = false ;
             return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content); }
@@ -264,8 +263,8 @@ class AutopilotExecutor extends Base {
                     "action" => $currentAction ) ;
 //                $dataFromThis .= $this->executeControl($currentControl, $params);
                 if ( \Core\BootStrap::getExitCode() !== 0 ) {
-                    $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
-                    break ; }
+                        $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
+                        break ; }
                 $step = array() ;
                 $step["out"] = $this->executeControl($currentControl, $params);
                 $step["status"] = true ;
@@ -298,7 +297,7 @@ class AutopilotExecutor extends Base {
         foreach($params as $origParamKey => $origParamVal) {
 //            var_dump('fp:',  $origParamKey , $origParamVal) ;
 //            if (!is_array($origParamVal)) {
-            $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
+                $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
 //        }
 //            else {
 //                $a = $origParamVal;
