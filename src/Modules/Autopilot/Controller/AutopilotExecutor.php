@@ -7,7 +7,6 @@ use Core\View;
 class AutopilotExecutor extends Base {
 
     public function executeAuto($pageVars, $autopilot, $test = false ) {
-//        $params = $pageVars["route"]["extraParams"];
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
         // if we don't have an object, its an array of errors
