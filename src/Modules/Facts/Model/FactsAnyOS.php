@@ -14,33 +14,31 @@ class FactsAnyOS extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    public function find($name = null) {
+    public function find($name = null, $var_string = null) {
         $availableFacts = $this->getAvailableFactNames() ;
         $availableFactMethods = $this->getAvailableFactNamesAndMethods() ;
         $factToFind = $this->getFactNameToFind($name) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
         if ($factToFind == false) {
             $logging->log("Unable to find requested fact: {$factToFind}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
-
-//        var_dump('afm: ', $availableFactMethods) ;
 
         if (in_array($factToFind, $availableFacts)) {
             $logging->log("Fact available {$factToFind}", $this->getModuleName()) ;
             if (method_exists($this, $availableFactMethods[$factToFind])) {
                 $logging->log("Found fact method", $this->getModuleName()) ;
                 $meth = $availableFactMethods[$factToFind] ;
-                return $this->$meth() ; }
+                $var_string_param = explode(",", $var_string) ;
+                return $this->$meth(extract($var_string_param)) ; }
             else {
                 $logging->log("Method {$availableFactMethods[$factToFind]} does not exist when reporting it does ", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ;  } }
         else {
             $logging->log("Requested fact {$factToFind} not available", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-
             return false ; }
-//
-//        return $bastion_key_location ;
+
     }
 
     public function getAvailableFactNamesAndMethods() {
