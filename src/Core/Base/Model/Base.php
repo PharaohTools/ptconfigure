@@ -265,8 +265,10 @@ COMPLETION;
             return $res ; }
         if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
             $sc = substr_count($paramValue, '{{{') ;
+            $cur_prefix_pos = 0 ;
             for ($i=1 ; $i<=$sc; $i++) {
-                $or_st = strpos($paramValue, '{{{') ;
+//                var_dump("vdd:", $sc) ;
+                $cur_prefix_pos = $or_st = strpos($paramValue, '{{{', $cur_prefix_pos) ;
                 if ($or_st === false) {
                     return $paramValue ; }
                 $or_end = strpos($paramValue, '}}}', $or_st) ;
@@ -278,8 +280,6 @@ COMPLETION;
                 $parts_string = trim($parts_string) ;
                 $parts_array = explode("::", $parts_string) ;
                 $module = $parts_array[0] ;
-//                var_dump("mod", $module) ;
-//                if ($module == "Parameter") { var_dump($module, $parts_string, $parts_array) ; }
                 if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
                     $res = $this->loadFromParameter($parts_array) ;
                     $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
@@ -315,7 +315,7 @@ COMPLETION;
         $method = $parts_array[2] ;
         if (!isset($parts_array[1])) {
             // @todo exception and log
-            // var_dump("pray:", $parts_array, $parts_string, "myi:", $i, "mysc:", $sc) ;
+            // var_dump("pray:", $parts_afear and loathing in las vegasrray, $parts_string, "myi:", $i, "mysc:", $sc) ;
         }
 
         $method_params = (isset($parts_array[3])) ? explode(",", $parts_array[3]) : array() ;
