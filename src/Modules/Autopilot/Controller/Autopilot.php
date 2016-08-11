@@ -14,7 +14,7 @@ class Autopilot extends Base {
         if ( in_array($action, array("install", "execute", "x", "test") ) ) {
             if ( isset($thisModel->params["autopilot-file"]) && strlen($thisModel->params["autopilot-file"]) > 0 ) {
                 $autoPilot = $this->loadAutoPilot($thisModel->params, $pageVars);
-                if ( $autoPilot!==null ) {
+                if ( $autoPilot!==null && $autoPilot!==false ) {
 //                    echo "1" ;
                     $autoPilotExecutor = new \Controller\AutopilotExecutor();
                     // get params from the base model to inject into the loaded autopilot object
@@ -55,21 +55,21 @@ class Autopilot extends Base {
         $defaultName = $defaultFolderToCheck.DS.$autoPilotFileName.".php";
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($params);
-        if (file_exists($autoPilotFileName)) {
-            $dsl_ext = substr($autoPilotFileName, -7) ;
-            if ($dsl_ext=="dsl.php") {
-                $dsl_au = $this->loadDSLAutoPilot($autoPilotFileName, $pageVars) ;
-                if (is_object($dsl_au)) {
-                    return $dsl_au ; }
-                else {
-                    $logging->log("Unable to build object from DSL", "AutopilotDSL", LOG_FAILURE_EXIT_CODE) ;
-                    return false ; } }
-            else {
-                $logging->log("Loading {$autoPilotFileName}", "AutopilotDSL") ;
-                return $this->apLoader($autoPilotFileName, $params); } }
-
-        else {
-            $logging->log("Unable to find $defaultName", "AutopilotDSL") ; }
+//        if (file_exists($autoPilotFileName)) {
+//            $dsl_ext = substr($autoPilotFileName, -7) ;
+//            if ($dsl_ext=="dsl.php") {
+//                $dsl_au = $this->loadDSLAutoPilot($autoPilotFileName, $pageVars) ;
+//                if (is_object($dsl_au)) {
+//                    return $dsl_au ; }
+//                else {
+//                    $logging->log("Unable to build object from DSL", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
+//                    return false ; } }
+//            else {
+//                $logging->log("Loading Non-DSL Autopilot file {$autoPilotFileName}", "Autopilot") ;
+//                return $this->apLoader($autoPilotFileName, $params); } }
+//
+//        else {
+//            $logging->log("Unable to find $defaultName", "AutopilotDSL") ; }
 
         $paths = array(
             $autoPilotFileRawPath,
@@ -80,28 +80,46 @@ class Autopilot extends Base {
 
         foreach ($paths as $path) {
             if (file_exists($path)) {
-                $logging->log("Loading {$path}", "AutopilotDSL") ;
-                return $this->apLoader($path, $params); }
-            else  {
-                $logging->log("Unable to find $path", "AutopilotDSL") ; } }
+                if (substr($autoPilotFileName, -7) == "dsl.php") {
+                    $dsl_au = $this->loadDSLAutoPilot($autoPilotFileName, $pageVars) ;
+                    if (is_object($dsl_au)) {
+                        return $dsl_au ; }
+                    else {
+                        $logging->log("Unable to build object from DSL", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
+                        return false ; } }
+                else if (substr($autoPilotFileName, -4) == ".php") {
+                    $au = $this->apLoader($path, $params);
+                    if (is_object($au)) {
+                        return $au ; }
+                    else {
+                        $logging->log("Unable to build object from PHP File", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
+                        return false ; } }
+                else  {
+                    $logging->log("Unable to find $path", "AutopilotDSL") ; } } }
 
         $logging->log("No more paths to attempt to load", "Autopilot") ;
-        $logging->log("Looking for Default Autopilot Class", "Autopilot") ;
-        // else use default
-        $autoPilot = (class_exists('\Core\AutoPilotConfigured')) ?
-            new \Core\AutoPilotConfigured($params) : null ;
-        if ($autoPilot == null) {
-            $logging->log("Unable to find Default Autopilot Class", "Autopilot", LOG_FAILURE_EXIT_CODE) ; }
-        return $autoPilot;
+        $logging->log("Unable to find Default Autopilot Class", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
     protected function apLoader($autoPilotFileName, $params) {
-        // if a class exists by the name of the file use the name
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($params);
+
+        $logging->log("Looking for Default Autopilot file $autoPilotFileName", "Autopilot") ;
+        require_once $autoPilotFileName;
+        $logging->log("Looking for Default Autopilot Class", "Autopilot") ;
+        if (class_exists('\Core\AutoPilotConfigured')) {
+            $autoPilot = new \Core\AutoPilotConfigured($params) ;
+            return $autoPilot ; }
+
         $bn = basename( $autoPilotFileName ) ;
         $fname = str_replace(".php", "", $bn);
         $c2c = '\Core\\'.$fname;
+
         if ($fname != "Autopilot" && $fname != "autopilot" && class_exists($c2c)) {
             $autoPilot = new $c2c($params) ;
+            var_dump("apx: ", $autoPilot) ;
             return $autoPilot; }
         return false ;
     }

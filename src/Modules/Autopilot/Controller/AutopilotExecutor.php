@@ -7,15 +7,14 @@ use Core\View;
 class AutopilotExecutor extends Base {
 
     public function executeAuto($pageVars, $autopilot, $test = false ) {
-        $params = $pageVars["route"]["extraParams"];
+//        $params = $pageVars["route"]["extraParams"];
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
         // if we don't have an object, its an array of errors
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
-
         $this->content["package-friendly"] = ($test) ? "Autopilot Test Suite" : "Autopilot" ;
         $this->registeredModels = $autopilot->steps ;
-        $res1 = $this->checkForRegisteredModels($params);
+        $res1 = $this->checkForRegisteredModels($thisModel->params);
         if ($res1 !== true) {
             $this->content["result"] = false ;
             return array ("type"=>"view", "view"=>"autopilot", "pageVars"=>$this->content); }
