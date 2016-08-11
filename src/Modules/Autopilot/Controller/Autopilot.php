@@ -55,21 +55,6 @@ class Autopilot extends Base {
         $defaultName = $defaultFolderToCheck.DS.$autoPilotFileName.".php";
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($params);
-//        if (file_exists($autoPilotFileName)) {
-//            $dsl_ext = substr($autoPilotFileName, -7) ;
-//            if ($dsl_ext=="dsl.php") {
-//                $dsl_au = $this->loadDSLAutoPilot($autoPilotFileName, $pageVars) ;
-//                if (is_object($dsl_au)) {
-//                    return $dsl_au ; }
-//                else {
-//                    $logging->log("Unable to build object from DSL", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
-//                    return false ; } }
-//            else {
-//                $logging->log("Loading Non-DSL Autopilot file {$autoPilotFileName}", "Autopilot") ;
-//                return $this->apLoader($autoPilotFileName, $params); } }
-//
-//        else {
-//            $logging->log("Unable to find $defaultName", "AutopilotDSL") ; }
 
         $paths = array(
             $autoPilotFileRawPath,
@@ -119,7 +104,6 @@ class Autopilot extends Base {
 
         if ($fname != "Autopilot" && $fname != "autopilot" && class_exists($c2c)) {
             $autoPilot = new $c2c($params) ;
-            var_dump("apx: ", $autoPilot) ;
             return $autoPilot; }
         return false ;
     }
