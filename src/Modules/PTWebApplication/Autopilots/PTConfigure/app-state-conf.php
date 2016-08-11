@@ -22,6 +22,7 @@ class AutoPilotConfigured extends AutoPilot {
                 ),),),
 
                 array ( "User" => array( "ensure-exists" => array(
+                    "when" => "{{ PTWebApplication::~::isNotOSX }}",
                     "label" => "Ensure {{{ Parameter::app-slug }}} user exists",
                     "username" => "{{{ Parameter::app-slug }}}",
                     "fullname" => "{{{ Parameter::app-slug }}}",
