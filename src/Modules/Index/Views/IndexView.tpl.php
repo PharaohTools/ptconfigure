@@ -13,14 +13,6 @@ functionality we haven't yet covered. Feel free to submit us pull requests.
 This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
-Its easy to write modules for any Operating System but we've begun with Ubuntu and adding more as soon as possible.
-Currently, all of the Modules work on Ubuntu 12+, most on Centos and Windows.
-
----------------------------------------
-
-Available Commands:
----------------------------------------
-
 <?php
 
 //foreach ($pageVars["modulesInfo"] as $moduleInfo) {
