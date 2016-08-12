@@ -82,7 +82,7 @@ class PTBuildLinux extends BasePHPApp {
     }
 
     public function getWebappConfigureAutoPath() {
-        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'app-state-conf.php' ;
+        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'app-state-conf.dsl.php' ;
         return $path ;
     }
 
