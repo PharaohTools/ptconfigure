@@ -123,11 +123,16 @@ class MacPortsMac extends BasePackager {
             return false ; }
     }
 
+    protected function getPathSetString() {
+        return ' PATH=/opt/local/bin:/opt/local/sbin:$PATH ' ;
+    }
+
     public function isInstalled($packageName) {
+        $mpx = $this->getPathSetString() ;
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
         $passing = true ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad(SUDOPREFIX."port installed") ;
+            $out = $this->executeAndLoad(SUDOPREFIX.$mpx."port installed") ;
             if (strpos($out, $package) == false) { $passing = false ; } }
         return $passing ;
     }
@@ -144,10 +149,11 @@ class MacPortsMac extends BasePackager {
             \BootStrap::setExitCode(1) ;
             return false ; }
         foreach ($packageName as $package) {
+            $mpx = $this->getPathSetString() ;
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            $out = $this->executeAndOutput(SUDOPREFIX."port install $package -y");
+            $out = $this->executeAndOutput(SUDOPREFIX.$mpx."port install $package -y");
             if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
             else if (strpos($out, "is already the newest version.") != false) {
@@ -161,8 +167,9 @@ class MacPortsMac extends BasePackager {
     }
 
     public function removePackage($packageName) {
+        $mpx = $this->getPathSetString() ;
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput(SUDOPREFIX."port uninstall $packageName -y");
+        $out = $this->executeAndOutput(SUDOPREFIX.$mpx."port uninstall $packageName -y");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -177,8 +184,8 @@ class MacPortsMac extends BasePackager {
     }
 
     public function update() {
-        $this->sourcePaths() ;
-        $out = $this->executeAndGetReturnCode(SUDOPREFIX."port selfupdate", true, true);
+        $mpx = $this->getPathSetString() ;
+        $out = $this->executeAndGetReturnCode(SUDOPREFIX.$mpx."port selfupdate", true, true);
         if (strpos($out, "The ports tree has been updated.") == false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
