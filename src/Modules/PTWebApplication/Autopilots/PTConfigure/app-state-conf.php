@@ -52,7 +52,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Chmod" => array( "path" => array(
                     "label" => "Make the PT Web Application Settings file writable",
-                    "path" => PFILESDIR.'{{{ Parameter::app-slug }}}'.DS.'{{{ Parameter::app-slug }}}'.DS.'{{{ Parameter::app-slug }}}vars',
+                    "path" => '{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}{{{ Parameter::app-slug }}}/{{{ Parameter::app-slug }}}/{{{ Parameter::app-slug }}}vars',
                     "mode" => '755',
                 ), ), ),
 
