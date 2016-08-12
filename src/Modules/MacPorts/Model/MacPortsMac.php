@@ -95,7 +95,7 @@ class MacPortsMac extends BasePackager {
                 $filename = false ;
                 break ; }
         if ($filename == false) {
-            $logging->log("Unable to find correct version", $this->getModuleName()) ;
+            $logging->log("Unable to find correct version of MacPorts to install for this OSx version {$version}", $this->getModuleName()) ;
             return false ; }
         $url = 'https://distfiles.macports.org/MacPorts/' ;
         $msg = "Downloading file {$filename} from $url" ;
