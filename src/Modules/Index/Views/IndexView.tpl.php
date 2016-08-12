@@ -23,11 +23,11 @@ Available Commands:
 
 <?php
 
-foreach ($pageVars["modulesInfo"] as $moduleInfo) {
-  if ($moduleInfo["hidden"] != true) {
-    echo $moduleInfo["command"].' - '.$moduleInfo["name"]."\n";
-  }
-}
+//foreach ($pageVars["modulesInfo"] as $moduleInfo) {
+//  if ($moduleInfo["hidden"] != true) {
+//    echo $moduleInfo["command"].' - '.$moduleInfo["name"]."\n";
+//  }
+//}
 
 ?>
 
