@@ -10,7 +10,6 @@ User ensure-exists
   home-directory ""
   shell "/bin/bash"
 
-
 PHPDefaults install
   label "Ensure PHP Default Settings are okay"
 
