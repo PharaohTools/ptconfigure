@@ -34,7 +34,7 @@ ApacheFastCGIModules ensure
 Chmod path
   label "Make the PT Web Application Settings file writable"
   path '{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}{{{ Parameter::app-slug }}}/{{{ Parameter::app-slug }}}/{{{ Parameter::app-slug }}}vars'
-  mode '755'
+  mode "0755"
 
 
 Chown path
@@ -46,14 +46,14 @@ Chown path
 
 Chgrp path
   label "Ensure the Pharaoh Group user owns the Program Files"
-  path PFILESDIR.'{{{ Parameter::app-slug }}}'.DS
+  path '{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}{{{ Parameter::app-slug }}}/'
   recursive true
   group '{{{ Parameter::app-slug }}}'
 
 
 Templating install
   label "{{{ Parameter::app-slug }}} PHP FPM Pool Config"
-  source dirname(dirname(__DIR__)).DS.'Templates'.DS.'ptapplication_pool.tpl.php'
+  source '{{ Facts::~::factGetCwd }}Templates'.DS.'ptapplication_pool.tpl.php'
   target "{{{ PTWebApplication::~::getApachePoolDir }}}/{{{ Parameter::app-slug }}}.conf"
   template_app-slug "{{{ Parameter::app-slug }}}"
   template_fpm-port "{{{ Parameter::fpm-port }}}"
