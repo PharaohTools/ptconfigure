@@ -106,8 +106,8 @@ class MacPortsMac extends BasePackager {
             $logging->log("Performing .pkg install", $this->getModuleName()) ;
             $comm = SUDOPREFIX."installer -pkg /tmp/{$filename} -target /" ;
             $rc3 = $this->executeAndGetReturnCode($comm, true, false) ;
-            $is_false = in_array(false, array($rc3["rc"])) ;
-            return ($is_false) ? false : true ; }
+            $ret_stat = ($rc3["rc"] == 0) ? true : false ; // in_array(false, array($rc3["rc"])) ;
+            return $ret_stat ; }
         else if (strpos($filename, ".dmg") !== false) {
             $logging->log("Performing .dmg install", $this->getModuleName()) ;
             $comm = SUDOPREFIX."hdiutil attach /tmp/{$filename}" ;
