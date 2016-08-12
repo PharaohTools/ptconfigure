@@ -24,7 +24,7 @@ PHPFPM ensure
 
 
 PTDeploy ensure
-  label "Ensure PHP FPM is installed"
+  label "Ensure PHP Pharaoh Deploy is installed"
 
 
 ApacheFastCGIModules ensure
