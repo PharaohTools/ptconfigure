@@ -83,10 +83,13 @@ class MacPortsMac extends BasePackager {
                 $filename = "MacPorts-2.3.3-10.8-MountainLion.pkg" ;
                 break ;
             case "10.9" :
-                $filename = "MacPorts-2.3.3-10.9-Mavericks.pkg" ;
+                $filename = "MacPorts-2.3.4-10.9-Mavericks.pkg" ;
                 break ;
             case "10.10" :
-                $filename = "MacPorts-2.3.3-10.10-Yosemite.pkg" ;
+                $filename = "MacPorts-2.3.4-10.10-Yosemite.pkg" ;
+                break ;
+            case "10.11" :
+                $filename = "MacPorts-2.3.4-10.11-ElCapitan.pkg" ;
                 break ;
             default :
                 $filename = false ;
