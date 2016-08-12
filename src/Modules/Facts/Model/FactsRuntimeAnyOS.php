@@ -17,7 +17,8 @@ class FactsRuntimeAnyOS extends FactsAnyOS {
     public function getAllAvailableFactNamesAndMethods() {
         $all_fact_names = array(
             "cwd" => "factGetCwd",
-            "getcwd" => "factGetCwd"
+            "getcwd" => "factGetCwd",
+            "constant" => "factGetConstant"
         );
         return $all_fact_names ;
     }
@@ -25,6 +26,10 @@ class FactsRuntimeAnyOS extends FactsAnyOS {
     public function factGetCwd() {
         $cwd = getcwd() ;
         return $cwd ;
+    }
+
+    public function factGetConstant($const) {
+        return constant($const) ;
     }
 
 }
