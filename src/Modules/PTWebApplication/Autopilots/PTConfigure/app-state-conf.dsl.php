@@ -31,7 +31,7 @@ Chmod path
 
 Chown path
   label "Ensure the Pharaoh Web Application user owns the Program Files"
-  path PFILESDIR.'{{{ Parameter::app-slug }}}'.DS
+  path '{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}{{{ Parameter::app-slug }}}/{{{ Parameter::app-slug }}}/'
   recursive true
   user '{{{ Parameter::app-slug }}}'
 
@@ -50,6 +50,9 @@ Templating install
 
 PHPFPM restart
   label "{{{ Parameter::app-slug }}} PHP FPM Restart"
+
+File should-exist
+  file "/var/log/pharaoh.log"
 
 Logging log
   log-message "Configuration Management for Pharaoh Web Application Complete"
