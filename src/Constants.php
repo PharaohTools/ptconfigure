@@ -52,3 +52,4 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
 
 // LOG LEVELS
 define('LOG_FAILURE_EXIT_CODE', 1) ;
+define('APPLICATION_LOG', '/var/log/pharaoh/'.PHARAOH_APP.'.log') ;
