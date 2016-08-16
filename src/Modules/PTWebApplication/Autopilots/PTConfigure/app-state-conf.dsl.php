@@ -43,7 +43,7 @@ Chgrp path
 
 Templating install
   label "{{{ Parameter::app-slug }}} PHP FPM Pool Config"
-  source '{{ Facts::~::factGetCwd }}/Templates/ptapplication_pool.tpl.php'
+  source "{{ Facts::~::factGetCwd }}/Templates/ptapplication_pool.tpl.php"
   target "{{{ PTWebApplication::~::getApachePoolDir }}}/{{{ Parameter::app-slug }}}.conf"
   template_app-slug "{{{ Parameter::app-slug }}}"
   template_fpm-port "{{{ Parameter::fpm-port }}}"
