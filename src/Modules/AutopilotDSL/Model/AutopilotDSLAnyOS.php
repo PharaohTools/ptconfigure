@@ -165,8 +165,7 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
             if ($ix == $max_line) {
                 $logging->log(
                     "Autopilot DSL File has too many consecutive newlines at line {$ix}",
-                    $this->getModuleName(),
-                    LOG_FAILURE_EXIT_CODE) ;
+                    $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
         return array("params" => $params, "line" => $newline ) ;
     }
