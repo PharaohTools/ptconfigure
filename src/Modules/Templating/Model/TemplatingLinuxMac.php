@@ -42,7 +42,14 @@ class TemplatingLinuxMac extends BaseTemplater {
     public function template($original, $replacements, $targetLocation, $perms = null, $owner = null, $group = null) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $fData = (is_file($original)) ? file_get_contents($original) : $original ;
+
+        if (file_exists($original)) {
+            $logging->log("Found file {$original} as template source", $this->getModuleName()) ;
+            $fData = file_get_contents($original) ; }
+        else {
+            $logging->log("No File found matching template source Parameter", $this->getModuleName()) ;
+            $fData = $original ; }
+
         foreach ($replacements as $replaceKey => $replaceValue) {
             $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
         if (!file_exists(dirname($targetLocation))) {
@@ -50,8 +57,7 @@ class TemplatingLinuxMac extends BaseTemplater {
         $rcs = array() ;
         $res = file_put_contents($targetLocation, $fData) ;
         if ($res == false) {
-            $logging->log("Failed to write file in location $targetLocation", $this->getModuleName()) ;
-            \Core\BootStrap::setExitCode(1);
+            $logging->log("Failed to write file in location $targetLocation", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             return false; }
         if ($res === 0) {
             $logging->log("Empty file written in location $targetLocation", $this->getModuleName()) ; }
