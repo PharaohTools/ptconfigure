@@ -81,7 +81,7 @@ class PTTrackLinux extends BasePHPApp {
     }
 
     public function getModuleConfigureAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'app-conf.php' ;
+        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'app-conf.dsl.php' ;
         return $path ;
     }
 
