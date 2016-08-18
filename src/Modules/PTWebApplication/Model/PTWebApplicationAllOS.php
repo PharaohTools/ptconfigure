@@ -23,7 +23,7 @@ class PTWebApplicationAllOS extends Base {
         $this->programExecutorTargetPath = 'ptwebapplication/src/Bootstrap.php';
     }
 
-    protected function getApachePoolDir() {
+    protected function getFPMPoolDir() {
         $thisSystem = new \Model\SystemDetectionAllOS();
         if (in_array($thisSystem->os, array("Darwin") ) ) {
             $apachePD = "/etc/fpm.d/" ; }
