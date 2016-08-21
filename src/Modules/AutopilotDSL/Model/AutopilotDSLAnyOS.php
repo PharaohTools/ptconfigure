@@ -32,8 +32,11 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
             $cur_lines_trawled = $this->trawlFile($lines, $trawl_line) ;
             if (isset($cur_lines_trawled["data"])) {
                 $new_steps[] = $cur_lines_trawled["data"] ; }
-            else if (isset($cur_lines_trawled["name"])) {
+            else if (isset($cur_lines_trawled["name"]) && $cur_lines_trawled["name"] !=="" ) {
                 $new_vars[$cur_lines_trawled["name"]] = $cur_lines_trawled["value"] ; }
+            else if (isset($cur_lines_trawled["comments"])) {
+//                var_dump("the new vars", $cur_lines_trawled) ;
+            }
             // @todo below is for verbose logging
             // $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
             $trawl_line = $cur_lines_trawled["line"] ;
@@ -47,11 +50,9 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         $i = $start_line ;
         // allow comments
         // @todo fix comments
-        $res = $this->parseVariables($lines[$i]) ;
-//        var_dump("r1", $res) ;
+        $res = $this->parseComments($lines, $i) ;
         if ($res !== false) {
-            $i++ ;
-            return array("line" => $i, "name"  => $res["name"], "value"  => $res["value"]) ; }
+            $i = $res["line"] + 1 ; }
         $parsedLine = $this->parseHeadLineText($lines[$i]) ;
         $i2 = $i + 1 ;
         $parsedParamsLine = $this->parseParamsText($lines, $i2, $total) ;
@@ -80,7 +81,7 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         $stend_sp_free = $this->removeStartAndEndSpaces($tab_free) ;
         if (substr($stend_sp_free, 0, 1) == '$') {
             $words_in_line = $this->getShortWords($stend_sp_free) ;
-            var_dump($words_in_line) ;
+//            var_dump($words_in_line) ;
             if (count($words_in_line)==3) {
                 $parts["name"] = $words_in_line[0] ;
                 $parts["value"] = $words_in_line[2] ; }
@@ -109,38 +110,44 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         return $parts ;
     }
 
-    public function parseComments($lines, $start, $total) {
+    public function parseComments($lines, $start) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $current = $start ;
-        echo "Starting comment trawl... \n" ;
-        for ( $i = $start ; $i < $total ; $i++ ) {
-            $first_char = substr($lines[$i], 0, 1) ;
+//        $logging->log("Starting comment trawl...", $this->getModuleName()) ;
+        $first_char = substr($lines[$start], 0, 1) ;
+        if ($first_char != '#') { return false ; }
+        for ( $i = $start ; $i < count($lines) ; $i++ ) {
             $current = $i ;
-            if ($first_char !== '#') { break ; } }
-        echo "Returning start $start, current $current... \n" ;
-        return $current ;
+//            var_dump($first_char, $lines[$i], $i) ;
+            $first_char = substr($lines[$i], 0, 1) ;
+            if ($first_char != '#') { break ; }}
+        $show_start = $start + 1 ;
+        $logging->log("Ignoring commented lines $show_start until $current... ", $this->getModuleName()) ;
+        return array( "line" => $current, "comments" => true) ;
     }
 
     public function parseParamsText($lines, $start, $total) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 //    var_dump("param parse: ", "start: ",$start, "total", $total) ;
-            $params = array() ;
-            $current = $start ;
-            for ( $i = $start ; $i < $total ; $i++ ) {
-                $tab_free = $this->getTabFreeLine($lines[$i]) ;
-                $stend_sp_free = $this->removeStartAndEndSpaces($tab_free) ;
-                $words_in_line = $this->getLongWords($stend_sp_free) ;
-                if (count($words_in_line)==3) {
-                    $params[$words_in_line[0]] = $words_in_line[2] ; }
-                if (count($words_in_line)==2) {
-                    $params[$words_in_line[0]] = $words_in_line[1] ; }
-                if (count($words_in_line)==1) {
-                    $params[$words_in_line[0]] = "true" ; }
-                if (strlen($stend_sp_free)==0) {
-                    break ; }
-                $current = $i ; }
+        $params = array() ;
+        $current = $start ;
+        for ( $i = $start ; $i < $total ; $i++ ) {
+            $tab_free = $this->getTabFreeLine($lines[$i]) ;
+            $stend_sp_free = $this->removeStartAndEndSpaces($tab_free) ;
+            $words_in_line = $this->getLongWords($stend_sp_free) ;
+            if (count($words_in_line)==3) {
+                $params[$words_in_line[0]] = $words_in_line[2] ; }
+            else if (count($words_in_line)==2) {
+                $params[$words_in_line[0]] = $words_in_line[1] ; }
+            else if (count($words_in_line)==1 && $words_in_line[0] !=="") {
+                $params[$words_in_line[0]] = "true" ; }
+            else if (count($words_in_line)==1 && $words_in_line[0] =="") {
+                break ; }
+            if (strlen($stend_sp_free)==0) {
+                break ; }
+            $current = $i ; }
         $current++;
 //    var_dump("current last line:", $current) ;
         $max_line = $current + 10 ;
@@ -158,8 +165,7 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
             if ($ix == $max_line) {
                 $logging->log(
                     "Autopilot DSL File has too many consecutive newlines at line {$ix}",
-                    $this->getModuleName(),
-                    LOG_FAILURE_EXIT_CODE) ;
+                    $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
         return array("params" => $params, "line" => $newline ) ;
     }
