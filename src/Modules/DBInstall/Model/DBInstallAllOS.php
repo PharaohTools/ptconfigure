@@ -28,7 +28,7 @@ class DBInstallAllOS extends Base {
         $this->dbFilePath = "db".DS."database.sql";
     }
 
-    public function askWhetherToInstallDB(\Model\DBConfigureAllOS $dbConfigObject=null){
+    public function askInstall(\Model\DBConfigureAllOS $dbConfigObject=null){
         if ($dbConfigObject!=null) { return $this->performDBInstallation($dbConfigObject); }
         else { return $this->performDBInstallation(); }
     }
