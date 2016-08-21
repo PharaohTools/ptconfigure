@@ -198,7 +198,7 @@ if not doing versions
                             "versions are not allowed ... No More options! Cannot Continue.", $this->getModuleName()) ;
                         \Core\BootStrap::setExitCode(1) ; } } } }
         else { // not checking version
-            $logging->log("Ensure module install is not checking versions", $this->getModuleName()) ;
+            $logging->log("Ensure install is not checking versions", $this->getModuleName()) ;
             if ($this->askStatus() == true) {
                 // status 10
                 $logging->log("Not installing as already installed", $this->getModuleName()) ; }
@@ -210,16 +210,22 @@ if not doing versions
     }
 
     public function install() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
         $dic = $this->doInstallCommand() ;
-        if ($dic == false) { return false ; }
+        if ($dic === false) {
+            $logging->log("Install steps failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
         if ($this->programDataFolder) {
             $this->changePermissions($this->programDataFolder); }
         // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
         $this->showCompletion();
-        return $this->askStatus();
+        return true ;
+        // @todo should probably return askStatus
+//        return $this->askStatus();
     }
 
     public function unInstall() {
@@ -238,11 +244,11 @@ if not doing versions
             $serviceFactory = new Service();
             $serviceManager = $serviceFactory->getModel($this->params) ;
             foreach ($this->rebootsCommand as $rebootsCommand) {
-                $logging->log("Ensuring {$rebootsCommand} Will Run at Reboots") ;
+                $logging->log("Ensuring {$rebootsCommand} Will Run at Reboots", $this->getModuleName()) ;
                 $serviceManager->setService($rebootsCommand);
                 $serviceManager->runAtReboots(); } }
         else {
-            $logging->log("This module does not report any services which can run at reboots") ; }
+            $logging->log("This module does not report any services which can run at reboots", $this->getModuleName()) ; }
     }
 
     protected function showTitle() {
@@ -293,12 +299,17 @@ if not doing versions
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
-                $rc = self::executeAndGetReturnCode($installCommand["command"], true, true);
-                if ($rc["rc"] !== 0) { $res = false ; } }
+                foreach ($installCommand["command"] as $command) {
+					// var_dump("cmm", $installCommand);
+					$logging->log("Executing Install Command: {$command}", $this->getModuleName()) ;
+                    $rc = self::executeAndGetReturnCode($command, true, true);
+                    if ($rc["rc"] !== 0) {
+						$res = false ;
+						break ; } } }
             if ($res === false) {
-                $logging->log("Failed Install Step", $this->getModuleName()) ;
-                \Core\BootStrap::setExitCode(1) ;
+                $logging->log("Failed Install Step", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
+        return true ;
     }
 
     protected function doUnInstallCommand(){
@@ -317,7 +328,8 @@ if not doing versions
             if ($res === false) {
                 $logging->log("Failed Uninstall Step", $this->getModuleName()) ;
                 \Core\BootStrap::setExitCode(1) ;
-                break ; } }
+                return false ; } }
+        return true ;
     }
 
     protected function changePermissions($autoPilot, $target=null){
