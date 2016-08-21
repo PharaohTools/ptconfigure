@@ -11,9 +11,9 @@ class Base {
     public function __construct() {
     }
 
+    // PTConfigureBase specifies these
     public function routesAvailable() {
-      return array("help", "status", "install", "uninstall", "initialize", "init", "execute");
-      // @todo some app settings class should contain this instead, so an individual pyramid app can specify those
+        return array();
     }
 
     public function routeAliases() {

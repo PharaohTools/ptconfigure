@@ -5,14 +5,11 @@ Namespace Model;
 class Base {
 
     public $params ;
-
     public $autopilotDefiner ;
     public $programNameFriendly;
     public $programNameInstaller;
-
     protected $installUserName;
     protected $installUserHomeDir;
-
     protected $programNameMachine ;
     protected $programDataFolder;
     protected $startDirectory;
@@ -22,25 +19,31 @@ class Base {
     protected $extraBootStrap;
     protected $programExecutorFolder;
     protected $programExecutorTargetPath;
-    protected $tempDir;
+    protected static $tempDir;
+    protected $defaultStatusCommandPrefix ;
     protected $statusCommand;
     protected $statusCommandExpects;
     protected $versionInstalledCommand;
     protected $versionRecommendedCommand;
     protected $versionLatestCommand;
-    protected $baseTempDir ;
 
     public function __construct($params) {
-        $this->tempDir = BASE_TEMP_DIR;
-        $this->baseTempDir =  $this->tempDir ;
+        $this->setTempDir();
         $this->autopilotDefiner = $this->getModuleName() ;
         $this->setCmdLineParams($params);
+    }
+
+    protected static function setTempDir() {
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            self::$tempDir =  getenv('TEMP'); }
+        else {
+            self::$tempDir =  '/tmp'; }
     }
 
     protected function populateTitle() {
         $this->titleData = <<<TITLE
 *******************************
-*   Golden Contact Computing  *
+*        Pharaoh Tools        *
 *         $this->programNameFriendly        *
 *******************************
 
@@ -59,7 +62,7 @@ TITLE;
         $this->completionData = <<<COMPLETION
 ... All done!
 *******************************
-Thanks for installing , visit www.gcsoftshop.co.uk for more
+Thanks for installing , visit www.pharaohtools.com for more
 
 COMPLETION;
     }
@@ -75,13 +78,7 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $this->params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($this->params);
-        $tempFile = $this->tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
-        $logging->log("Creating $tempFile", $this->getModuleName());
-        $fileVar = "";
-        $multiLineCommand = str_replace("\r", "", $multiLineCommand) ;
-        $multiLineCommand = explode("\r\n", $multiLineCommand) ;
-        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
-        file_put_contents($tempFile, $fileVar) ;
+        $tempFile = $this->tempfileFromCommand($multiLineCommand) ;
         //@note these chmods are required to make bash run scripts
         // echo "chmod 755 $tempFile 2>/dev/null\n";
         if (!is_executable($tempFile)) {
@@ -89,7 +86,7 @@ COMPLETION;
             shell_exec("chmod 755 $tempFile 2>/dev/null");
             // echo "chmod +x $tempFile 2>/dev/null\n";
             shell_exec("chmod +x $tempFile 2>/dev/null"); }
-        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
+//        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
         $logging->log("Executing $tempFile", $this->getModuleName());
         // @todo this should refer to the actual shell we are running
         $commy = "{$tempFile}" ;
@@ -97,18 +94,54 @@ COMPLETION;
         if ($message !== null) { echo $message."\n"; }
         shell_exec("rm $tempFile");
         $logging->log("Temp File $tempFile Removed", $this->getModuleName());
+//        var_dump($rc) ;
         return $rc["rc"] ;
     }
 
-    protected function executeAndOutput($command, $message=null) {
+    protected function tempfileFromCommand($multiLineCommand) {
         $loggingFactory = new \Model\Logging();
-        $this->params["echo-log"] = true ;
+        $params["echo-log"] = true ;
         $logging = $loggingFactory->getModel($this->params);
+        $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 99999999999).".sh";
+//        $logging->log("Creating $tempFile", $this->getModuleName());
+        $fileVar = "";
+        $multiLineCommand = $this->multilineToArray($multiLineCommand) ;
+        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
+        file_put_contents($tempFile, $fileVar) ;
+        return $tempFile ;
+    }
+
+    protected static function multilineToArray($multiLineCommand) {
+        if (!is_array($multiLineCommand)) {
+            $multiLineCommand = explode("\n", $multiLineCommand) ;  }
+        $newRay = array() ;
+        foreach ($multiLineCommand as $singleCommand) {
+            $entry = str_replace(PHP_EOL, "", $singleCommand) ;
+            $entry = str_replace("\n", "", $entry) ;
+            $entry = str_replace("\r\n", "", $entry) ;
+            $newRay[] = $entry ; }
+        return $multiLineCommand ;
+    }
+
+    protected static function tempfileStaticFromCommand($multiLineCommand) {
+        $loggingFactory = new \Model\Logging();
+        $params["echo-log"] = true ;
+        $logging = $loggingFactory->getModel($params);
+        self::setTempDir();
+        $tempFile = self::$tempDir.DS."ptconfigure-temp-script-".mt_rand(100, 999999999).".sh";
+//        $logging->log("Creating $tempFile");
+        $fileVar = "";
+        $multiLineCommand = self::multilineToArray($multiLineCommand) ;
+        foreach ($multiLineCommand as $command) { $fileVar .= $command."\n" ; }
+        file_put_contents($tempFile, $fileVar) ;
+        return $tempFile ;
+    }
+
+    protected function executeAndOutput($command, $message=null) {
         $outputText = shell_exec($command);
-        print $outputText;
         if ($message !== null) {
-            $outputText .= "$message\n";
-            $logging->log("", $this->getModuleName());}
+            $outputText .= "$message\n"; }
+        print $outputText;
         return $outputText;
     }
 
@@ -117,7 +150,16 @@ COMPLETION;
         return $outputText;
     }
 
-    public static function executeAndGetReturnCode($command, $show_output = null, $get_output = null) {
+    public static function executeAndGetReturnCode($command, $show_output = true, $get_output = null) {
+        $tempFile = self::tempfileStaticFromCommand($command) ;
+        $loggingFactory = new \Model\Logging();
+        $params["echo-log"] = true ;
+        $logging = $loggingFactory->getModel($params);
+        if (!is_executable($tempFile)) {
+            // @todo this wont work on windows
+            shell_exec("chmod 755 $tempFile 2>/dev/null");
+            shell_exec("chmod +x $tempFile 2>/dev/null"); }
+
         $proc = proc_open($command, array(
             0 => array("pipe","r"),
             1 => array("pipe",'w'),
@@ -126,23 +168,29 @@ COMPLETION;
         if ($show_output==true) {
             stream_set_blocking($pipes[1], true);
             stream_set_blocking($pipes[2], true);
-
             $data = "";
-
             while ( ($buf = fread($pipes[1], 32768)) || ( $buf2 = fread($pipes[2], 32768))) {
                 if (isset($buf) && $buf !== false) {
                     $data .= $buf;
                     echo $buf ; }
                 if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 32768) ) {
-                    $buf2 = "ERR: ".$buf2;
+//                    $buf2 = "ERR: ".$buf2;
+//                    $data .= "ERR: ";
                     $data .= $buf2;
-                    echo $buf2 ; } } }
+//                    echo "ERR: " ;
+                    echo $buf2 ;
+                    unset($buf2) ;} } }
 
+        $status = proc_get_status($proc);
         $stdout = stream_get_contents($pipes[1]);
         fclose($pipes[1]);
         $stderr = stream_get_contents($pipes[2]);
-        fclose($pipes[2]);
+        fclose($pipes[2]) ;
+        // @note geting status s necessary as sometimes this doesn't return an exit code
+        // http://php.net/manual/en/function.proc-close.php
+        // morrisdavid gmail comment
         $retVal = proc_close($proc);
+        $retVal = ($status["running"] ? $retVal : $status["exitcode"] );
         $output = (isset($stderr)) ? $stdout.$stderr : $stdout ;
         $output = explode("\n", $output) ;
         if ($show_output == true) {
@@ -154,8 +202,7 @@ COMPLETION;
                 $stderr = explode("\n", $stderr) ;
                 foreach ($stderr as $stderrline) {
 //                    echo $stderrline."\n" ;
-                }
-            }
+                } }
             return array("rc"=>$retVal, "output"=>$output) ; }
         if ($get_output == true) {
             return array("rc"=>$retVal, "output"=>$output) ;}
@@ -165,10 +212,7 @@ COMPLETION;
 
     protected function setCmdLineParams($params) {
         $cmdParams = array();
-        if (!is_array($params)) {
-//            var_dump($params) ;
-//            debug_print_backtrace() ;
-        }
+//        if (!is_array($params)) { var_dump($params) ; debug_print_backtrace() ; }
         foreach ($params as $paramKey => $paramValue) {
 //            var_dump($paramValue);
             if (is_array($paramValue)) {
@@ -183,7 +227,7 @@ COMPLETION;
             else if ($paramValue=="-yg" || $paramValue=="-gy") {
                 $cmdParams = array_merge($cmdParams, array("yes" => true));
                 $paramKey = "guess" ;
-                $paramValue = true ; }
+                $paramValue = "true" ; }
             else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
                 $equalsPos = strpos($paramValue, "=") ;
                 $paramKey = substr($paramValue, 2, $equalsPos-2) ;
@@ -193,6 +237,140 @@ COMPLETION;
                 $paramValue = true ; }
             $cmdParams = array_merge($cmdParams, array($paramKey => $paramValue)); }
         $this->params = (is_array($this->params)) ? array_merge($this->params, $cmdParams) : $cmdParams;
+        $this->transformAllParameters() ;
+    }
+
+    public function transformAllParameters() {
+        foreach ($this->params as $key => $val) {
+            $this->params[$key] = $this->transformParameterValue($val) ; }
+    }
+
+    public function transformParameterValue($paramValue) {
+        $origParamValue = $paramValue ;
+        $paramValue = str_replace("::~::", "::Default::", $paramValue) ;
+        $paramValue = trim($paramValue, ' ') ;
+//        var_dump("vd", $paramValue) ;
+        $paramValue = trim($paramValue, "\n") ;
+        $paramValue = trim($paramValue, '"') ;
+//        var_dump("vd2", $paramValue) ;
+        $paramValue = rtrim($paramValue) ;
+        $paramValue = ltrim($paramValue) ;
+        $trimmedParamValue = $paramValue ;
+        if (substr($paramValue, 0, 4) == "::::") {
+            $parts_string = substr($paramValue, 4) ;
+            $parts_array = explode("::", $parts_string) ;
+            $module = $parts_array[0] ;
+            if ($module==$this->getModuleName()) { return $paramValue ; }
+            $res = $this->loadFromMethod($parts_string,0, 0) ;
+            return $res ; }
+        if ( (strpos($paramValue, '{{{') !== false) && (strpos($paramValue, '}}}') !== false) ) {
+            $sc = substr_count($paramValue, '{{{') ;
+            $cur_prefix_pos = 0 ;
+            for ($i=1 ; $i<=$sc; $i++) {
+//                var_dump("vdd:", $sc) ;
+                $cur_prefix_pos = $or_st = strpos($paramValue, '{{{', $cur_prefix_pos) ;
+                if ($or_st === false) {
+                    return $paramValue ; }
+                $or_end = strpos($paramValue, '}}}', $or_st) ;
+                $or_diff = ($or_end - $or_st) + 3 ;
+                $parts_string = substr($paramValue, $or_st, $or_diff) ;
+                if (strpos($paramValue, '}}}')) {
+                    $parts_string = substr($parts_string, 0, strpos($parts_string, '}}}')) ;
+                    $parts_string = str_replace("{{{", "", $parts_string) ; }
+                $parts_string = trim($parts_string) ;
+                $parts_array = explode("::", $parts_string) ;
+                $module = $parts_array[0] ;
+                if (in_array($module, array("Parameter", "Param", "param", "parameter"))) {
+                    $res = $this->loadFromParameter($parts_array) ;
+                    $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
+                    return $paramValue ; }
+                if ($module==$this->getModuleName()) { return $paramValue ; }
+                $res = $this->loadFromMethod($parts_string, $i, $sc) ;
+                $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string) ; } }
+        return $paramValue;
+    }
+
+    protected function swapResForVariable($res, $paramValue, $parts_string) {
+        $orig = '{{{'.$parts_string.'}}}' ;
+//        if (is_array($res)) { var_dump("res is", $res) ; die("\n\nres\n\n"); }
+//        if (is_array($orig)) { var_dump("orig is", $orig) ; die("\n\norig\n\n"); }
+//        if (is_array($paramValue)) { var_dump("pv is", $paramValue) ; die("\n\nparamValue\n\n"); }
+        $paramValue = str_replace($orig, $res, $paramValue);
+        $orig = '{{{ '.$parts_string.' }}}' ;
+        $paramValue = str_replace($orig, $res, $paramValue);
+        return $paramValue ;
+    }
+
+    protected function loadFromMethod(&$parts_string, $i, $sc) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel(array());
+
+        $is_reg = \Model\RegistryStore::getValue($parts_string) ;
+        if (!is_null($is_reg)) { return $is_reg ; }
+
+//        var_dump("ps", $parts_string) ;
+        $parts_array = explode("::", $parts_string) ;
+        $module = $parts_array[0] ;
+        $modelGroup = $parts_array[1] ;
+        $method = $parts_array[2] ;
+        if (!isset($parts_array[1])) {
+            // @todo exception and log
+            // var_dump("pray:", $parts_afear and loathing in las vegasrray, $parts_string, "myi:", $i, "mysc:", $sc) ;
+        }
+
+        $method_params = (isset($parts_array[3])) ? explode(",", $parts_array[3]) : array() ;
+        $fclass = "\\Model\\{$module}" ;
+        $modFactory = new $fclass();
+
+        $madeModel = $modFactory->getModel(array(), $modelGroup);
+
+        if (!is_object($madeModel)) {
+            $logging->log(
+                "Parameter transform unable to find model group {$modelGroup} in {$module} ",
+                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+//        $foundFactory = new $full_factory();
+        // send empty params or it causes a loop with this one
+        if (method_exists($madeModel, $method)) {
+
+//            var_dump($method_params) ;
+            $logging->log("Parameter transform loading value from method $method in $module, $modelGroup model group", $this->getModuleName()) ;
+
+//            var_dump('made', $madeModel) ;
+
+            $res = call_user_func_array(array($madeModel, $method), $method_params) ;
+            if ($res === null) {
+                $logging->log("Method should never return null, changing result to false", $this->getModuleName()) ; } }
+        else {
+            $logging->log(
+                "Parameter transform unable to find method $method in $module, $modelGroup model group",
+                $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $res = false ; }
+        \Model\RegistryStore::setValue($parts_string, $res) ;
+        return $res ;
+
+    }
+
+    protected function paramFormatToArray($method_params) {
+        $new_params = array() ;
+        foreach($method_params as $a_param) {
+            $sp = strpos($a_param, ':') ;
+            if ($sp !== false) {
+                $before = substr($a_param, 0, $sp) ;
+                $after = substr($a_param, $sp) ;
+                $new_params[$before] = $after ; }
+            else {
+                $new_params[] = $a_param ; } }
+        return $new_params ;
+    }
+
+    protected function loadFromParameter($parts_array) {
+        $param_requested = $parts_array[1] ;
+        if (isset($this->params[$param_requested])) { return $this->params[$param_requested] ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel(array());
+        $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
     protected function askYesOrNo($question) {
@@ -226,7 +404,7 @@ COMPLETION;
             $inputChar = fgetc($fp);
             if (in_array($inputChar, array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")) ) { $last_line = true; }
             else { echo "You must enter a single digit. Please try again\n"; continue; }
-        $i++; }
+            $i++; }
         return $inputChar;
     }
 
@@ -270,12 +448,11 @@ COMPLETION;
         return $inputLine;
     }
 
-    // @todo update this method to use model factory
     protected function setInstallFlagStatus($bool) {
         if ($bool) {
-            \Model\AppConfig::setProjectVariable("installed-modules", $this->getModuleName(), true); }
+            AppConfig::setProjectVariable("installed-modules", $this->getModuleName(), true); }
         else {
-            \Model\AppConfig::deleteProjectVariable("installed-modules", "any", $this->programNameMachine); }
+            AppConfig::deleteProjectVariable("installed-modules", "any", $this->programNameMachine); }
     }
 
     public function askStatus() {
@@ -284,9 +461,15 @@ COMPLETION;
             isset($this->statusCommandExpects) && !is_null($this->statusCommandExpects)) {
             $status = ($this->executeAndLoad("$this->statusCommand &") == $this->statusCommandExpects) ? true : false ; }
         else if (isset($this->statusCommand) && !is_null($this->statusCommand)) {
-            $status = ($this->executeAndGetReturnCode("$this->statusCommand") == 0) ? true : false ; }
+            $res = $this->executeAndGetReturnCode($this->statusCommand, false, true) ;
+            $status = ($res["rc"] == 0) ? true : false ; }
         else {
-            $status = ($this->executeAndGetReturnCode("command -v $this->programNameMachine") == 0) ? true : false ; }
+            $res = $this->executeAndGetReturnCode("{$this->defaultStatusCommandPrefix} {$this->programNameMachine}") ;
+            $status = ($res["rc"] == 0) ? true : false ; }
+        $inst = ($status == true) ? "Installed" : "Not Installed " ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Module ".$this->getModuleName()." reports itself as {$inst}", $this->getModuleName()) ;
         return $status ;
     }
 
@@ -337,6 +520,11 @@ COMPLETION;
         return $this->askWhetherToDoAction($action);
     }
 
+    public function ensureTrailingSlash($str) {
+        if (substr($str, -1, 1) != DIRECTORY_SEPARATOR) { $str .= DIRECTORY_SEPARATOR ; }
+        return $str ;
+    }
+
     protected function askWhetherToPerformActionToScreen($action){
         $question = "Perform ".$this->programNameInstaller." $action?";
         return self::askYesOrNo($question);
@@ -358,9 +546,11 @@ COMPLETION;
                 return $return ; }
             else {
                 $logging->log("No method {$this->actionsToMethods[$action]} in model ".get_class($this)) ;
+                \Core\BootStrap::setExitCode(1);
                 return false; } }
         else {
             $logging->log('No property $actionsToMethods in model '.get_class($this)) ;
+            \Core\BootStrap::setExitCode(1);
             return false; }
     }
 
@@ -374,43 +564,63 @@ COMPLETION;
         return $moduleName ;
     }
 
-    public function packageAdd($packager, $package) {
+    //@todo maybe this should be a helper
+    public function packageAdd($packager, $package, $version = null, $versionOperator = "+") {
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageEnsure($packager, $package, $this);
+        return $packageManager->performPackageEnsure($packager, $package, $this, $version, $versionOperator);
     }
 
+    //@todo maybe this should be a helper
     public function packageRemove($packager, $package) {
         $packageFactory = new PackageManager();
         $packageManager = $packageFactory->getModel($this->params) ;
-        $packageManager->performPackageRemove($packager, $package, $this);
+        return $packageManager->performPackageRemove($packager, $package, $this);
     }
 
     /*Versioning starts here*/
-
-    public function findVersion() {
-        if (isset($this->params["version-type"])) {
-            if (in_array($this->params["version-type"], array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))){
-                return $this->getVersion($this->params["version-type"]); }
-            else {
-                return "Wrong Version Type"; } }
-        else {
-           return $this->getVersion(); }
-    }
-
-    public function getVersion($type = "Installed") {
-        if (in_array($type, array("Installed", "installed", "Recommended", "recommended", "Latest", "latest"))) {
+    public function getVersion($type = null) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $vt = array("Installed", "installed", "Recommended", "recommended", "Latest", "latest");
+        if ($type==null && isset($this->params["version-type"]) && in_array($this->params["version-type"], $vt) ) {
+            $type = $this->params["version-type"] ; }
+        if ($type==null) {
+            $logging->log("No version type set, guessing Installed", $this->getModuleName()) ;
+            $type = "installed" ; }
+        if (in_array($type, array("Installed", "installed"))) {
+            if ($this->askStatus() != true) {
+                $logging->log("This is not installed, so cannot find installed version", $this->getModuleName()) ;
+                return false; }
             $type = ucfirst($type) ;
             $property = "version{$type}Command" ;
             $trimmer = "{$property}Trimmer" ;
             if (isset($this->$property) && method_exists($this, $trimmer)) {
                 $out = $this->executeAndLoad($this->$property);
-                return new SoftwareVersion($this->$trimmer($out)) ; }
+                return new \Model\SoftwareVersion($this->$trimmer($out)) ; }
             else if (isset($this->$property)) {
-                return $this->executeAndLoad($this->$property); }
+                $versionText = $this->executeAndLoad($this->$property);
+                $versionObject = new \Model\SoftwareVersion($versionText) ;
+                return $versionObject ; }
             else {
+                $logging->log("Cannot find version", $this->getModuleName()) ;
+                return false; } }
+        else if (in_array($type, array("Recommended", "recommended", "Latest", "latest"))) {
+            $type = ucfirst($type) ;
+            $property = "version{$type}Command" ;
+            $trimmer = "{$property}Trimmer" ;
+            if (isset($this->$property) && method_exists($this, $trimmer)) {
+                $out = $this->executeAndLoad($this->$property);
+                return new \Model\SoftwareVersion($this->$trimmer($out)) ; }
+            else if (isset($this->$property)) {
+                $versionText = $this->executeAndLoad($this->$property);
+                $versionObject = new \Model\SoftwareVersion($versionText) ;
+                return $versionObject ; }
+            else {
+                $logging->log("Cannot find version", $this->getModuleName()) ;
                 return false; } }
         else {
+//            var_dump("pro: ", $type) ;
             return false; }
     }
 
@@ -421,6 +631,23 @@ COMPLETION;
             return $this->versionsAvailable() ; }
         else {
             return false; }
+    }
+
+    /**
+     * Find the position of the Xth occurrence of a substring in a string
+     * @param $haystack
+     * @param $needle
+     * @param $number integer > 0
+     * @return int
+     */
+    protected function strposX($haystack, $needle, $number){
+        if($number == '1'){
+            return strpos($haystack, $needle);
+        }elseif($number > '1'){
+            return strpos($haystack, $needle, $this->strposX($haystack, $needle, $number - 1) + strlen($needle));
+        }else{
+            return false;
+        }
     }
 
 }
