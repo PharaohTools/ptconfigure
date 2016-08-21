@@ -16,6 +16,8 @@ class SFTPAllLinux extends Base {
 
     protected $servers = array();
     protected $isNativeSSH ;
+    protected $hopScript ;
+    protected $hopEndEnvironment ;
 
     public function askWhetherToSFTPPut() {
         return $this->performSFTPPut();
@@ -55,6 +57,10 @@ class SFTPAllLinux extends Base {
             return false ;}
         $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
+
+        $target_scope_string = $this->findTargetScopeString();
+
+        $res = array();
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
@@ -65,15 +71,19 @@ class SFTPAllLinux extends Base {
                     $logging->log("Skipping {$$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
-                $logging->log("[".$server["target"]."] Executing SFTP Put...", $this->getModuleName());
-                $res = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Put...", $this->getModuleName());
+                $res[] = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
                 $msg = ($res == true) ? "Put Successful" : "Put Failed";
                 $logging->log($msg, $this->getModuleName());
-                $logging->log("[".$server["target"]."] SFTP Put Completed...", $this->getModuleName()); }
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Put Completed...", $this->getModuleName()); }
             else {
-                $logging->log("[".$server["target"]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
-        $logging->log("All SFTP Puts Completed", $this->getModuleName());
-        return "All SFTP Puts Completed";
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Connection failure. Will not execute commands on this box...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE); } }
+        $logging->log("All SFTP Put Attempts Completed", $this->getModuleName());
+        if (in_array(false, $res)) {
+            $logging->log("Some SFTP Put Attempts Contained Failures", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false ; }
+        $logging->log("All SFTP Put Attempts Completed Successfully", $this->getModuleName());
+        return true;
     }
 
     protected function attemptToLoad($sourceDataPath){
@@ -92,10 +102,13 @@ class SFTPAllLinux extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Opening SFTP Connections...", $this->getModuleName());
+
+        $target_scope_string = $this->findTargetScopeString();
+
         foreach ($this->servers as &$server) {
-            $logging->log("[".$server["target"]."] Executing SFTP Get...");
+            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Get...");
             $logging->log($this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath)) ;
-            $logging->log("[".$server["target"]."] SFTP Get Completed..."); }
+            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed..."); }
         $logging->log("All SFTP Gets Completed", $this->getModuleName());
         return true;
     }
@@ -103,7 +116,7 @@ class SFTPAllLinux extends Base {
     protected function doSFTPPut($sftpObject, $remoteFile, $data) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $result = "" ;
+        $result = array() ;
         if (is_object($sftpObject)) {
             if (isset($this->isNativeSSH) && $this->isNativeSSH==true) {
                 if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
@@ -111,24 +124,95 @@ class SFTPAllLinux extends Base {
                     if ($sftpObject->_is_dir($dn)==false) {
                         $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
-                $result .= $sftpObject->put($remoteFile, $data);
+                $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
+                $result[] = $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
-                foreach ($ar as $s) {
-                    $result .= "$s\n" ; } }
+                if (count($ar)==0) {
+                    $hop_res = $this->runSFTPOnHop();
+                    $result[] .= $hop_res; }
+                else {
+                    foreach ($ar as $s) {
+                        $result[] = "$s\n" ; } } }
             else {
                 if (isset($this->params["mkdir"]) && $this->params["mkdir"]==true) {
                     $dn = dirname($remoteFile) ;
                     if ($sftpObject->_is_dir($dn)==false) {
                         $logging->log("Target directory does not exist, so creating...", $this->getModuleName());
                         $sftpObject->mkdir($dn) ; } }
-                $result .= $sftpObject->put($remoteFile, $data);
+                $logging->log("Attempting to put to $remoteFile", $this->getModuleName());
+                $result[] = $sftpObject->put($remoteFile, $data);
                 $ar = $sftpObject->getSFTPErrors() ;
-                foreach ($ar as $s) {
-                    $result .= "$s\n" ; } } }
+                if (count($ar)==0) {
+                    $hop_res = $this->runSFTPOnHop();
+                    $result[] = $hop_res; }
+                else {
+                    foreach ($ar as $s) {
+                        $result[] = "$s\n" ; } } } }
         else {
             $logging->log("No SFTP Object, Connection likely failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             $result = false; }
-        return $result ;
+        if (in_array(false, $result)) {
+            $logging->log("Single SFTP Put Attempt Contained Failures", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false ; }
+        $logging->log("Single SFTP Put Attempt Completed Successfully", $this->getModuleName());
+        return true;
+    }
+
+    protected function runSFTPOnHop() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Looking for Hop Environment", $this->getModuleName());
+        $cen = $this->getHopEnvironmentNames() ;
+        if ( $cen  !== false ) {
+            $logging->log("Found Hop Environment {$cen[0]}, running SSH Hop", $this->getModuleName());
+            return $this->remotePushDataScriptForHop($cen[0]) ; }
+        else { return true ; }
+    }
+
+
+
+    protected function remotePushDataScriptForHop($env) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $sftpFactory = new \Model\SFTP() ;
+        $params["yes"] = "true" ;
+        $params["guess"] = "true" ;
+        $params["environment-name"] = $env ;
+        $params["env-scope"] = $this->params["hop-env-scope"] ;
+        $params["first-server"] = true ;
+//        $params["env"] = $env_name ;
+        $params["source"] = getcwd().DS.'papyrusfile' ;
+        $params["target"] = '/tmp/papyrusfile' ;
+        $logging->log("Forwarding local papyrus settings from local {$params["source"]} to {$params["target"]}.", $this->getModuleName()) ;
+        $sftp = $sftpFactory->getModel($params, "Default") ;
+        $res = $sftp->performSFTPPut() ;
+        if ($res ==false ) {
+            $logging->log("Forwarding failed for local papyrus settings to Hop Environment {$env}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;}
+        $logging->log("Forwarding local papyrus settings to Hop Environment {$env} successful", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        $logging->log("Using SSH to run SFTP from Hop Environment {$env} to Target Environment {$this->hopEndEnvironment}", $this->getModuleName()) ;
+
+        $sshParams["yes"] = true ;
+        $sshParams["guess"] = true ;
+        $sshParams["driver"] = "seclib" ;
+        $sshParams["environment-name"] = $env ;
+        $sshParams["env-scope"] = $this->params["hop-env-scope"] ;
+        $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
+        $sshParams["timeout"] = (isset($papyrus["timeout"])) ? $papyrus["timeout"] : 30 ;
+        $comm  = "cd /tmp ; ptconfigure sftp put -yg --env={$this->hopEndEnvironment} ";
+        $comm .= "--env-scope=\"{$this->params["env-scope"]}\" ";
+        $comm .= "--source=\"{$this->params["target"]}\" --target=\"{$this->params["target"]}\" ; " ;
+        $comm .= " rm {$this->params["target"]} ; " ;
+        $sshParams["ssh-data"] = $comm ;
+        $sshFactory = new \Model\Invoke() ;
+        $ssh = $sshFactory->getModel($sshParams, "Default") ;
+        $res = $ssh->askWhetherToInvokeSSHData() ;
+        if ($res ==false ) {
+            $logging->log("Failed executing remote SFTP command via SSH", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        $logging->log("Successful transfer of {$this->params["source"]} {$this->params["target"]} through SSH Hop", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+
+        return true;
     }
 
     protected function doSFTPGet($sftpObject, $remoteFile, $localFile = false) {
@@ -144,35 +228,125 @@ class SFTPAllLinux extends Base {
     }
 
     public function populateServers() {
-        $this->askForTimeout();
-        $this->askForPort();
-        $this->loadServerData();
-        $this->loadSFTPConnections();
+        $to = $this->askForTimeout();
+        if ($to == false) { return false ; }
+        $port = $this->askForPort();
+        if ($port == false) { return false ; }
+        $sd = $this->loadServerData();
+        if ($sd == false) { return false ; }
+        $sshc = $this->loadSFTPConnections();
+        if ($sshc == false) { return false ; }
+        return true ;
     }
 
+    // @todo this should come from invoke, code duplication
     protected function loadServerData() {
-        $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        // @todo if the below is emoty we have no server to connect to so should not continue
         if (isset($this->params["servers"])) {
-            $this->servers = unserialize($this->params["servers"]); }
-        else if (isset($this->params["environment-name"])) {
-            $names = $this->getEnvironmentNames($allProjectEnvs) ;
-            $this->servers = $allProjectEnvs[$names[$this->params["environment-name"]]]["servers"]; }
-        else if (count($allProjectEnvs) > 0) {
-            $question = 'Use Environments Configured in Project?';
-            $useProjEnvs = self::askYesOrNo($question, true);
-            if ($useProjEnvs == true ) {
-                $this->servers = new \ArrayObject($allProjectEnvs) ;
-                return; } }
+            // @TODO CHECK OTHER TYPES OF ARRAY LIKE JSON
+            $this->servers = unserialize($this->params["servers"]);
+            $srv = $this->servers ; }
         else {
-            $this->askForServerInfo(); }
+            if (isset($this->params["env"]) && !isset($this->params["environment-name"] )) {
+                $this->params["environment-name"] =$this->params["env"] ; }
+            if (isset($this->params["hops"]) && isset($this->params["environment-name"])) {
+                $logging->log("Attempting to load SFTP Hop Servers, as Hops are set...", $this->getModuleName()) ;
+                $this->hopEndEnvironment = (isset($this->params["env"])) ? $this->params["env"] : null ;
+                $this->hopEndEnvironment = (is_null($this->hopEndEnvironment)) ? $this->params["environment-name"] : $this->hopEndEnvironment ;
+                $names = $this->getEnvironmentNames();
+
+                // $this->hopEndEnvironment ;
+
+                $logging->log("Attempting to use hop environment {$this->params["hops"]} to reach target environment {$this->hopEndEnvironment}", $this->getModuleName()) ;
+                // @todo allow other algorithms, the best ones will be share by availability zone or literally share evenly so 5 in top and 50 in target take
+                // @todo loadHopServersByAlgorithm()
+                // need to get
+                //   1) server/s to hop to
+                //   2) target servers, for EACH of those Servers to SSH to, in a further array
+                //   3) each array and their sub arrays need to have keynames or paths that already exist on the hop environment
+                $this->servers[] = $this->getFirstServerOnlyAlgorithm();
+                if ($this->servers ===false) {
+                    $logging->log("Unable to populate servers from hop environment {$this->params["hops"]}", $this->getModuleName()) ; }
+                $srv = $this->servers ; }
+            else if (isset($this->params["environment-name"])) {
+                $logging->log("Environment name {$this->params["environment-name"]} is set without hops, loading servers...", $this->getModuleName()) ;
+                $env = $this->getEnvironment($this->params["environment-name"]) ;
+                if (isset($this->params["first-server"])) {
+                    $logging->log("First Server parameter is set, will only connect to first server in environment pool...", $this->getModuleName()) ;
+                    $this->servers[] = $env["servers"][0]; }
+                else {
+                    $logging->log("Loading all servers in environment pool...", $this->getModuleName()) ;
+                    $this->servers = $env["servers"]; }
+//                var_dump("en:", $this->params["environment-name"], $this->servers);
+                $srv = $this->servers ; }
+            else {
+                $logging->log("Unable to find environment name", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                $srv = false ; }
+
+            if (!isset($this->params["environment-name"])) {
+                $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+                if (count($allProjectEnvs) > 0) {
+                    $question = 'Use Environments Configured in Project?';
+                    $useProjEnvs = self::askYesOrNo($question, true);
+                    if ($useProjEnvs == true) {
+                        $this->servers = new \ArrayObject($allProjectEnvs);
+                        // @todo need to ask a question here, this wont work
+                        // give them an array option od environment name
+                        $srv = false ; } }
+                else {
+                    $srv = $this->askForServerTarget(); } } }
+
+        if (is_array($srv) && count($srv)>0) { return $srv ; }
+        $logging->log("Unable to populate servers for environment", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
-    protected function getEnvironmentNames($envs) {
-        $eNames = array() ;
+    protected function getFirstServerOnlyAlgorithm() {
+        // @todo probably move the available algorithms to their own classes
+        $env = $this->getNextHopEnvironment();
+//        $env =$this->getEnvironment($env_name) ;
+        $sv_zero = $env["servers"][0] ;
+//        var_dump('svz:', $env["servers"][0]) ;
+        return $sv_zero ;
+    }
+
+    protected function getEnvironment($env_name) {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        foreach ($envs as $env) {
+            if ($env_name == $env["any-app"]["gen_env_name"]){
+                return $env ; } }
+        return false;
+    }
+
+    protected function getEnvironmentNames() {
+        $envs = \Model\AppConfig::getProjectVariable("environments");
+        $eNames = array();
         foreach ($envs as $envKey => $env) {
-            $envName = $env["any-app"]["gen_env_name"] ;
-            $eNames[$envName] = $envKey ; }
-        return $eNames ;
+            $envName = $env["any-app"]["gen_env_name"];
+            $eNames[] = $envName; }
+        return $eNames;
+    }
+
+    protected function getHopEnvironmentNames() {
+        if (isset($this->params["hops"])) {
+            return explode(',', $this->params["hops"]); }
+        else {
+            return false ; }
+    }
+
+    protected function getNextHopEnvironment() {
+        $allhe = $this->getHopEnvironmentNames() ;
+        if ($allhe !== false) {
+            $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+            foreach ($allProjectEnvs as $env) {
+//                var_dump("en:", $allhe[0], $env["any-app"]["gen_env_name"]) ;
+                if ($allhe[0] == $env["any-app"]["gen_env_name"]){
+                    return $env ; } }
+            return false ; }
+        else {
+            return false ; }
     }
 
     protected function loadSFTPConnections() {
@@ -189,13 +363,48 @@ class SFTPAllLinux extends Base {
                     $logging->log("Skipping {$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             $attempt = $this->attemptSFTPConnection($server) ;
+
+            $target_scope_string = $this->findTargetScopeString();
+
             if ($attempt == null) {
-                $logging->log("Connection to Server {$server["target"]} failed.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                $logging->log("Connection to Server {$server[$target_scope_string]} failed.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
                 $server["sftpObject"] = null ; }
             else {
-                $logging->log("Connection to Server {$server["target"]} successful.", $this->getModuleName());
+                $logging->log("Connection to Server {$server[$target_scope_string]} successful.", $this->getModuleName());
                 $server["sftpObject"] = $attempt ; } }
+
             return true;
+    }
+
+    protected function findTargetScopeString() {
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
+        if (isset($this->params["hops"])) {
+
+            if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "public") {
+                $logging->log("Using a hop env scope of public", $this->getModuleName());
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["hop-env-scope"]) && $this->params["hop-env-scope"] == "private") {
+                $logging->log("Using a hop env scope of private", $this->getModuleName());
+                $target_scope_string = "target_private" ; }
+            else {
+                $logging->log("Using default hop env scope", $this->getModuleName());
+                $target_scope_string = "target" ; }
+        }  else {
+
+            if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "public") {
+                $logging->log("Using an env scope of public", $this->getModuleName());
+                $target_scope_string = "target_public" ; }
+            else if (isset($this->params["env-scope"]) && $this->params["env-scope"] == "private") {
+                $logging->log("Using an env scope of private", $this->getModuleName());
+                $target_scope_string = "target_private" ; }
+            else {
+                $logging->log("Using default env scope", $this->getModuleName());
+                $target_scope_string = "target" ; } }
+
+        return $target_scope_string ;
     }
 
     // @todo it currently looks for both pword and password lets stick to one
@@ -222,7 +431,13 @@ class SFTPAllLinux extends Base {
                 $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
                 $sftpFile = $srcFolder."/seclib/Net/SFTP.php" ;
                 require_once($sftpFile) ; }
-            $sftp = new \Net_SFTP($server["target"], $this->params["port"], $this->params["timeout"]);
+
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+
+            $target_scope_string = $this->findTargetScopeString();
+
+            $sftp = new \Net_SFTP($server[$target_scope_string], $this->params["port"], $this->params["timeout"]);
             $pword = (isset($server["pword"])) ? $server["pword"] : false ;
             $pword = (isset($server["password"])) ? $server["password"] : $pword ;
             $pword = $this->getKeyIfAvailable($pword);
@@ -283,20 +498,22 @@ QUESTION;
 
 
     protected function askForTimeout(){
-        if (isset($this->params["timeout"])) { return ; }
+       if (isset($this->params["timeout"])) {
+            return $this->params["timeout"] ; }
         if (isset($this->params["guess"])) {
             $this->params["timeout"] = 100 ;
-            return ; }
+            return $this->params["timeout"]; }
         $question = 'Please Enter SSH Timeout in seconds';
         $input = self::askForInput($question, true) ;
         $this->params["timeout"] = $input ;
     }
 
     protected function askForPort(){
-        if (isset($this->params["port"])) { return ; }
+        if (isset($this->params["port"])) {
+            return $this->params["port"] ; }
         if (isset($this->params["guess"])) {
             $this->params["port"] = 22 ;
-            return ; }
+            return $this->params["port"] ; }
         $question = 'Please Enter remote SSH Port';
         $input = self::askForInput($question, true) ;
         $this->params["port"] = $input ;
