@@ -319,8 +319,8 @@ class BoxifyAllOS extends BaseLinuxApp {
         $logging->log("Removing nodes", $this->getModuleName() ) ;
         $curboxes = array_reverse($curboxes) ;
         $nodeRemoves = array() ;
-//        var_dump($curboxes) ;
         $icount = count($curboxes["servers"])-1 ;
+//        var_dump($curboxes, $icount, $diff) ;
         for ($i=$icount; $i>=$diff; $i--) {
             $delParams = $this->params ;
             $delParams["destroy-box-id"] = $curboxes["servers"][$i]["id"] ;
