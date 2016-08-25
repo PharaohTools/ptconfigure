@@ -104,15 +104,15 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     protected function createHostFile() {
-        $tmpDir = $this->baseTempDir.DS.'hostfile'.DS;
+        $tmpDir = self::$tempDir.DS.'hostfile'.DS;
         if (!file_exists($tmpDir)) { mkdir ($tmpDir, 0777, true); }
         return file_put_contents($tmpDir.'hosts', $this->hostFileData);
     }
 
     protected function moveHostFileAsRoot(){
-        $command = 'sudo mv '.$this->baseTempDir.DS.'hostfile'.DS.'hosts '.DS.'etc'.DS.'hosts';
+        $command = 'sudo mv '.self::$tempDir.DS.'hostfile'.DS.'hosts '.DS.'etc'.DS.'hosts';
         self::executeAndOutput($command);
-        $command = 'sudo rm -rf '.$this->baseTempDir.DS.'hostfile';
+        $command = 'sudo rm -rf '.self::$tempDir.DS.'hostfile';
         self::executeAndOutput($command);
     }
 

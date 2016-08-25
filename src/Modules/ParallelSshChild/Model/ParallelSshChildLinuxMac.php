@@ -105,7 +105,7 @@ class ParallelSshChildLinuxMac extends Base {
     }
 
     private function getFileToWrite($file_type) {
-        $random = $this->baseTempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
+        $random = self::$tempDir.DIRECTORY_SEPARATOR.mt_rand(100, 99999999999);
         if ($file_type == "temp") { return $random.'temp.txt'; }
         if ($file_type == "final") { return $random.'final.txt'; }
         else { return null ; }

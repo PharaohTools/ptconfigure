@@ -22,9 +22,9 @@ class HostEditorWindows extends HostEditorAllLinuxMac {
 
     protected function moveHostFileAsRoot(){
         $path = getenv('SystemRoot').'\system32\drivers\etc\hosts' ;
-        $command = 'move '.$this->baseTempDir.DS.'hostfile'.DS.'hosts '.$path;
+        $command = 'move '.self::$tempDir.DS.'hostfile'.DS.'hosts '.$path;
         self::executeAndOutput($command);
-        $command = 'del /S /Q '.$this->baseTempDir.DS.'hostfile';
+        $command = 'del /S /Q '.self::$tempDir.DS.'hostfile';
         self::executeAndOutput($command);
     }
 

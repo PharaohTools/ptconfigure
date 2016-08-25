@@ -234,13 +234,13 @@ class NginxSBEditorLinuxMac extends Base {
     }
 
     private function createServerBlock() {
-        $tmpDir = $this->baseTempDir.'/ServerBlocktemp/';
+        $tmpDir = self::$tempDir.'/ServerBlocktemp/';
         if (!file_exists($tmpDir)) {mkdir ($tmpDir, 0777, true);}
         return file_put_contents($tmpDir.'/'.$this->url, $this->ServerBlockTemplate);
     }
 
     private function moveServerBlockAsRoot($serverBlockEditorAdditionFileSuffix=null){
-        $command = 'sudo mv '.$this->baseTempDir.'/ServerBlocktemp/'.$this->url.' '.$this->ServerBlockDir.'/'.$this->url.$serverBlockEditorAdditionFileSuffix;
+        $command = 'sudo mv '.self::$tempDir.'/ServerBlocktemp/'.$this->url.' '.$this->ServerBlockDir.'/'.$this->url.$serverBlockEditorAdditionFileSuffix;
         return self::executeAndOutput($command);
     }
 
