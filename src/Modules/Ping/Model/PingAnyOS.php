@@ -5,7 +5,7 @@ Namespace Model;
 class PingUbuntu extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("any") ;
     public $linuxType = array("Debian") ;
     public $distros = array("Ubuntu") ;
     public $versions = array( array("11.04", "+")) ;
