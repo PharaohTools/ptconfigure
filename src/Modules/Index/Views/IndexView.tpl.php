@@ -15,11 +15,11 @@ Deployment, Build and Release Management and more, all implemented in code, and 
 
 <?php
 
-//foreach ($pageVars["modulesInfo"] as $moduleInfo) {
-//  if ($moduleInfo["hidden"] != true) {
-//    echo $moduleInfo["command"].' - '.$moduleInfo["name"]."\n";
-//  }
-//}
+foreach ($pageVars["modulesInfo"] as $moduleInfo) {
+  if ($moduleInfo["hidden"] != true) {
+    echo $moduleInfo["command"].' - '.$moduleInfo["name"]."\n";
+  }
+}
 
 ?>
 
