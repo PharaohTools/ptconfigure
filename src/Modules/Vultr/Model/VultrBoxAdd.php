@@ -208,7 +208,7 @@ class VultrBoxAdd extends BaseVultrAllOS {
             $callVars["private_networking"] = true ; }
         $curlUrl = $this->_apiURL."droplets/" ;
         $httpType = "POST" ;
-        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
+        $callOut = $this->vultrCall($callVars, $curlUrl, $httpType);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for {$callVars["name"]} complete", $this->getModuleName()) ;
@@ -306,7 +306,7 @@ class VultrBoxAdd extends BaseVultrAllOS {
      */
     private function getSshKeyInfoByKeyId($keyID){
         $curlUrl = $this->_apiURL."account/keys/".$keyID;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
 
         return $sshKeysObject;
     }
@@ -318,7 +318,7 @@ class VultrBoxAdd extends BaseVultrAllOS {
      */
     private function getSshKeyInfoByKeyFingerprint($keyFingerprint){
         $curlUrl = $this->_apiURL."account/keys/".$keyFingerprint;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
 
         return $sshKeysObject;
     }
@@ -332,13 +332,13 @@ class VultrBoxAdd extends BaseVultrAllOS {
             return $this->params["ssh-key-ids"] ;
         }
         $curlUrl = $this->_apiURL."account/keys" ;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
         return $sshKeysObject->ssh_keys;
     }
 
     private function getSshKeyIdFromName($name) {
         $curlUrl = $this->_apiURL."account/keys";
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
         foreach($sshKeysObject->ssh_keys as $sshKey) {
             if ($sshKey->name == $name) {
                 return $sshKey->id ; } }
@@ -355,7 +355,7 @@ class VultrBoxAdd extends BaseVultrAllOS {
      */
     private function getDropletData($dropletId) {
         $curlUrl = $this->_apiURL."droplets/$dropletId" ;
-        $dropletObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $dropletObject =  $this->vultrCall(array(), $curlUrl);
         return $dropletObject;
     }
 

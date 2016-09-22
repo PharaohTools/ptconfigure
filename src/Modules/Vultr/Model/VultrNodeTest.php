@@ -116,7 +116,7 @@ class VultrNodeTest extends BaseVultrAllOS {
 
         $curlUrl = $this->_apiURL."droplets/$node_id" ;
         $httpType = "GET" ;
-        $ret["data"] = $this->digitalOceanV2Call(array(), $curlUrl, $httpType);
+        $ret["data"] = $this->vultrCall(array(), $curlUrl, $httpType);
         $ret["info"] = $this->getInfoFromData($ret["data"]);
         $ret["status"] = $this->checkNodeStatusFromData($ret["data"]) ;
         $logging->log("Calling Vultr Cloud Data", $this->getModuleName()) ;
@@ -183,7 +183,7 @@ class VultrNodeTest extends BaseVultrAllOS {
     private function getAllDroplets() {
         $curlUrl = $this->_apiURL."droplets" ;
         $httpType = "GET" ;
-        return $this->digitalOceanV2Call(array(), $curlUrl, $httpType);
+        return $this->vultrCall(array(), $curlUrl, $httpType);
     }
 
     protected function getEnvironment() {

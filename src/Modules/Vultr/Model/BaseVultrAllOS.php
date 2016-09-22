@@ -40,7 +40,7 @@ class BaseVultrAllOS extends Base {
         return self::askForInput($question, true);
     }
 
-    protected function digitalOceanV2Call(Array $curlParams, $curlUrl, $httpType='GET') {
+    protected function vultrCall(Array $curlParams, $curlUrl, $httpType='GET') {
 
         \Model\AppConfig::setProjectVariable("vultr-access-token", $this->accessToken) ;
 

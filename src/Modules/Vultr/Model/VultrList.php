@@ -53,7 +53,7 @@ class VultrList extends BaseVultrAllOS {
         if ($dataToList == "os") {$dataToList = "os/list"; }
         $curlUrl = $this->_apiURL."$dataToList" ;
         $httpType = "GET" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
+        return $this->vultrCall($callVars, $curlUrl, $httpType);
     }
 
 }

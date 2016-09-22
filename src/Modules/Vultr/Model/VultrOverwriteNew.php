@@ -74,7 +74,7 @@ class VultrOverwriteNew extends BaseVultrAllOS {
     private function getNewServerFromVultr($serverData){
         $callVars = (array) $this->getNewServerCallVarsFromData($serverData) ;
         $curlUrl = $this->_apiURL."droplets/" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl);
+        return $this->vultrCall($callVars, $curlUrl);
     }
 
     private function getNewServerCallVarsFromData($serverData){
@@ -90,12 +90,12 @@ class VultrOverwriteNew extends BaseVultrAllOS {
         $callVars["region_id"] = $serverData["regionID"];
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
         $curlUrl = $this->_apiURL."droplets/" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl);
+        return $this->vultrCall($callVars, $curlUrl);
     }
 
     private function getAllSshKeyIdsString(){
         $curlUrl = $this->_apiURL."account/keys" ;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
         $keysString = "";
         for ($i=0; $i<count($sshKeysObject->ssh_keys); $i++) {
             $keysString .= "{$sshKeysObject->ssh_keys[$i]->id}" ;

@@ -88,7 +88,7 @@ class VultrBoxDestroy extends BaseVultrAllOS {
         $callVars = array() ;
         $callVars["droplet_id"] = $serverData["dropletID"];
         $curlUrl = $this->_apiURL."droplets/{$callVars["droplet_id"]}" ;
-        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl,'DELETE');
+        $callOut = $this->vultrCall($callVars, $curlUrl,'DELETE');
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
