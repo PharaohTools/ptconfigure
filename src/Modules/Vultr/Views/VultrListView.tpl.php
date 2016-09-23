@@ -67,9 +67,10 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
         else if ($pageVars["params"]["type"] == "regions") {
             foreach($arrayObject as $regionEntry) {
                 $outVar .= "name: ".$regionEntry->name.", ";
-                $outVar .= "slug: ".$regionEntry->slug.", ";
-                $outVar .= "features: ".implode(",", $regionEntry->features)." , ";
-                $outVar .= "sizes: ".implode(",", $regionEntry->sizes);
+                $outVar .= "slug: ".$regionEntry->DCID.", ";
+                $outVar .= "code: ".$regionEntry->regioncode.", ";
+                $outVar .= "features: ".$regionEntry->ddos_protection." , ";
+                $outVar .= "block storage: ".$regionEntry->block_storage;
                 $outVar .= "\n" ; } }
         else if ($pageVars["params"]["type"] == "ssh_keys") {
             foreach($arrayObject as $sshKeyEntry) {

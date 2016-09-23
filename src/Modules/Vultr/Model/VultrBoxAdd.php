@@ -198,15 +198,16 @@ class VultrBoxAdd extends BaseVultrAllOS {
 
     private function getNewServerFromVultr($serverData) {
         $callVars = array() ;
-        $callVars["name"] = $serverData["name"];
-        $callVars["size"] = $serverData["sizeID"];
-        $callVars["image"] = $serverData["imageID"];
-        $callVars["region"] = $serverData["regionID"];
-        $callVars["ssh_keys"] = $serverData["sshKeyIds"] ;
+        $callVars["label"] = $serverData["name"];
+        $callVars["VPSPLANID"] = $serverData["sizeID"];
+        $callVars["OSID"] = $serverData["imageID"];
+//        $callVars["ISOID"] = $serverData["imageID"];
+        $callVars["DCID"] = $serverData["regionID"];
+        $callVars["SSHKEYID"] = $serverData["sshKeyIds"] ;
         $epn = $this->getEnablePrivateNetwork() ;
         if ($epn === true ) {
             $callVars["private_networking"] = true ; }
-        $curlUrl = $this->_apiURL."droplets/" ;
+        $curlUrl = $this->_apiURL."server/create" ;
         $httpType = "POST" ;
         $callOut = $this->vultrCall($callVars, $curlUrl, $httpType);
         $loggingFactory = new \Model\Logging();
@@ -219,22 +220,22 @@ class VultrBoxAdd extends BaseVultrAllOS {
 
     private function addServerToPapyrus($envName, $data) {
 
-        if (!isset($data->droplet)) {
+        if (!isset($data->server)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
             $logging->log("Error, attempted adding server to papyrus with no data", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
 
         if (isset($data) && is_object($data)) {
-            $dropletData = $this->getDropletData($data->droplet->id);
-            if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
-                $dropletData = $this->waitForBoxInfo($data->droplet->id); }
-            if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
-                $dropletData = $this->waitUntilActive($data->droplet->id); }
+            $serverData = $this->getServerData($data->server->id);
+            if (!isset($serverData->server->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
+                $serverData = $this->waitForBoxInfo($data->server->id); }
+            if (($serverData->server->status != "active") && isset($this->params["wait-until-active"])) {
+                $serverData = $this->waitUntilActive($data->server->id); }
             $server = array();
-//            var_dump('net', $dropletData->droplet->networks) ;
+//            var_dump('net', $serverData->server->networks) ;
 
-            foreach ($dropletData->droplet->networks->v4 as $iface) {
+            foreach ($serverData->server->networks->v4 as $iface) {
                 if ($iface->type == 'private') {
                     $server["target_private"] = $iface->ip_address;
                     if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'private') ||
@@ -245,13 +246,13 @@ class VultrBoxAdd extends BaseVultrAllOS {
                     if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'public') ||
                         !isset($this->params["default-target"])) {
                         $server["target"] = $iface->ip_address; } } }
-//            $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
+//            $server["target"] = $serverData->server->networks->v4[0]->ip_address;
             $server["user"] = $this->getUsernameOfBox() ;
             $server["password"] = $this->getSSHKeyLocation() ;
             $server["provider"] = "Vultr";
-            $server["id"] = $data->droplet->id;
-            $server["name"] = $data->droplet->name;
-            $server["image"] = $data->droplet->image->id;
+            $server["id"] = $data->server->id;
+            $server["name"] = $data->server->name;
+            $server["image"] = $data->server->image->id;
             // file_put_contents("/tmp/outloc", getcwd()) ;
             // file_put_contents("/tmp/outsrv", $server) ;
             $environments = \Model\AppConfig::getProjectVariable("environments");
@@ -278,11 +279,11 @@ class VultrBoxAdd extends BaseVultrAllOS {
 
         if (isset($this->params["ssh-key-id"])) {
             $logging->log("Found param --ssh-key-id with value {$this->params["ssh-key-id"]} for SSH Key", $this->getModuleName()) ;
-            return array("{$this->getSshKeyInfoByKeyId($this->params["ssh-key-id"])}") ; }
+            return array($this->getSshKeyInfoByKeyId($this->params["ssh-key-id"])) ; }
 
         if (isset($this->params["ssh-key-fingerprint"])) {
             $logging->log("Found param --ssh-key-fingerprint with value {$this->params["ssh-key-fingerprint"]} for SSH Keys", $this->getModuleName()) ;
-            return array("{$this->getSshKeyInfoByKeyFingerprint($this->params["ssh-key-fingerprint"])}") ; }
+            return array($this->getSshKeyInfoByKeyFingerprint($this->params["ssh-key-fingerprint"])) ; }
         if (isset($this->params["ssh-key-name"])) {
             $id = $this->getSshKeyIdFromName($this->params["ssh-key-name"]) ;
             if ( $id == false ) { return false ; }
@@ -305,10 +306,9 @@ class VultrBoxAdd extends BaseVultrAllOS {
      * @return mixed
      */
     private function getSshKeyInfoByKeyId($keyID){
-        $curlUrl = $this->_apiURL."account/keys/".$keyID;
-        $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
-
-        return $sshKeysObject;
+        $keys = $this->getAllSshKeyIdsArray() ;
+        if (isset($keys[$keyID])) { return $keys[$keyID]; }
+        return null;
     }
 
     /**
@@ -319,7 +319,6 @@ class VultrBoxAdd extends BaseVultrAllOS {
     private function getSshKeyInfoByKeyFingerprint($keyFingerprint){
         $curlUrl = $this->_apiURL."account/keys/".$keyFingerprint;
         $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
-
         return $sshKeysObject;
     }
 
@@ -329,11 +328,13 @@ class VultrBoxAdd extends BaseVultrAllOS {
      */
     private function getAllSshKeyIdsArray() {
         if (isset($this->params["ssh-key-ids"])) {
-            return $this->params["ssh-key-ids"] ;
-        }
+            return $this->params["ssh-key-ids"] ; }
         $curlUrl = $this->_apiURL."account/keys" ;
-        $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
-        return $sshKeysObject->ssh_keys;
+        $sshKeys =  $this->vultrCall(array(), $curlUrl);
+        $sshKeyIDs = array() ;
+        foreach($sshKeys as $sshKey) {
+            $sshKeyIDs[$sshKey->SSHKEYID] = $sshKey ; }
+        return $sshKeyIDs;
     }
 
     private function getSshKeyIdFromName($name) {
@@ -341,7 +342,7 @@ class VultrBoxAdd extends BaseVultrAllOS {
         $sshKeysObject =  $this->vultrCall(array(), $curlUrl);
         foreach($sshKeysObject->ssh_keys as $sshKey) {
             if ($sshKey->name == $name) {
-                return $sshKey->id ; } }
+                return $sshKey->SSHKEYID ; } }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Unable to locate a key on Vultr Cloud by name {$name}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
@@ -349,41 +350,41 @@ class VultrBoxAdd extends BaseVultrAllOS {
     }
 
     /**
-     * Get droplet information via droplet-id
-     * @param $dropletId
+     * Get server information via server-id
+     * @param $serverId
      * @return mixed
      */
-    private function getDropletData($dropletId) {
-        $curlUrl = $this->_apiURL."droplets/$dropletId" ;
-        $dropletObject =  $this->vultrCall(array(), $curlUrl);
-        return $dropletObject;
+    private function getServerData($serverId) {
+        $curlUrl = $this->_apiURL."servers/$serverId" ;
+        $serverObject =  $this->vultrCall(array(), $curlUrl);
+        return $serverObject;
     }
 
-    private function waitForBoxInfo($dropletId) {
+    private function waitForBoxInfo($serverId) {
         $maxWaitTime = (isset($this->params["max-box-info-wait-time"])) ? $this->params["max-box-info-wait-time"] : "300" ;
         $i2 = 1 ;
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for droplet $dropletId box info...", $this->getModuleName()) ;
-            $dropletData = $this->getDropletData($dropletId);
-            if (isset($dropletData->droplet->networks->v4[0]->ip_address)) {
-                return $dropletData ; }
+            $logging->log("Attempt $i2 for server $serverId box info...", $this->getModuleName()) ;
+            $serverData = $this->getServerData($serverId);
+            if (isset($serverData->server->networks->v4[0]->ip_address)) {
+                return $serverData ; }
             sleep (10);
             $i2++; }
         return null;
     }
 
-    private function waitUntilActive($dropletId) {
+    private function waitUntilActive($serverId) {
         $maxWaitTime = (isset($this->params["max-active-wait-time"])) ? $this->params["max-active-wait-time"] : "300" ;
         $i2 = 1 ;
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for droplet $dropletId to become active...", $this->getModuleName()) ;
-            $dropletData = $this->getDropletData($dropletId);
-            if (isset($dropletData->droplet->status) && $dropletData->droplet->status=="active") {
-                return $dropletData ; }
+            $logging->log("Attempt $i2 for server $serverId to become active...", $this->getModuleName()) ;
+            $serverData = $this->getServerData($serverId);
+            if (isset($serverData->server->status) && $serverData->server->status=="active") {
+                return $serverData ; }
             sleep (10);
             $i2++; }
         return null;
