@@ -74,8 +74,8 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
         else if ($pageVars["params"]["type"] == "ssh_keys") {
             foreach($arrayObject as $sshKeyEntry) {
                 $outVar .= "name: ".$sshKeyEntry->name.", ";
-                $outVar .= "slug: ".$sshKeyEntry->id.", ";
-                $outVar .= "fingerprint: ".$sshKeyEntry->fingerprint ;
+                $outVar .= "slug: ".$sshKeyEntry->SSHKEYID.", ";
+//                $outVar .= "fingerprint: ".$sshKeyEntry->fingerprint ;
                 $outVar .= "ssh_key: ".$sshKeyEntry->ssh_key ;
                 $outVar .= "\n" ; } }
         echo $pageVars["params"]["type"].":\n\n";
