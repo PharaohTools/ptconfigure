@@ -53,7 +53,7 @@ class VultrSshKey extends BaseVultrAllOS {
         //$callVars["public_key"] = urlencode($keyData);
         $callVars["public_key"] = $keyData;
         $callVars["name"] = $keyName;
-        $curlUrl = $this->_apiURL."account/keys" ;
+        $curlUrl = $this->_apiURL."sshkey/list" ;
         $httpType = "POST" ;
         return $this->vultrCall($callVars, $curlUrl, $httpType);
     }
