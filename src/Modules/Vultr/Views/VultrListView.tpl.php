@@ -65,7 +65,7 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
                 $outVar .= "zone_file_with_error: ".$domainEntry->zone_file_with_error ;
                 $outVar .= "\n" ; } }
         else if ($pageVars["params"]["type"] == "regions") {
-            foreach($arrayObjectValue as $regionEntry) {
+            foreach($arrayObject as $regionEntry) {
                 $outVar .= "name: ".$regionEntry->name.", ";
                 $outVar .= "slug: ".$regionEntry->slug.", ";
                 $outVar .= "features: ".implode(",", $regionEntry->features)." , ";
@@ -74,8 +74,9 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
         else if ($pageVars["params"]["type"] == "ssh_keys") {
             foreach($arrayObject as $sshKeyEntry) {
                 $outVar .= "name: ".$sshKeyEntry->name.", ";
-                $outVar .= "id: ".$sshKeyEntry->id.", ";
+                $outVar .= "slug: ".$sshKeyEntry->id.", ";
                 $outVar .= "fingerprint: ".$sshKeyEntry->fingerprint ;
+                $outVar .= "ssh_key: ".$sshKeyEntry->ssh_key ;
                 $outVar .= "\n" ; } }
         echo $pageVars["params"]["type"].":\n\n";
         echo $outVar."\n" ; }
