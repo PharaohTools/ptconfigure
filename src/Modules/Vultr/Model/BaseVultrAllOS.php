@@ -65,7 +65,7 @@ class BaseVultrAllOS extends Base {
                 // curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($curlParams));
                 $postData = http_build_query($curlParams);
 
-var_dump("mydebug", $curlParams, $curlUrl, $postData) ;
+//var_dump("mydebug", $curlParams, $curlUrl, $postData) ;
                 curl_setopt($ch, CURLOPT_HTTPGET, 1);
                 break;
             case "PUT":
