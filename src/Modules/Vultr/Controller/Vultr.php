@@ -49,6 +49,7 @@ class Vultr extends Base {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "Listing") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
             $this->content["result"] = $thisModel->askWhetherToListData();
+            $this->content["params"] = $thisModel->params;
             return array ("type"=>"view", "view"=>"vultrList", "pageVars"=>$this->content); }
 
         if ($action=="test") {
