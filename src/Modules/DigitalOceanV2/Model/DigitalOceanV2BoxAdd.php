@@ -222,6 +222,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         if (!isset($data->droplet)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
+            debug_print_backtrace() ;
             $logging->log("Error, attempted adding server to papyrus with no data", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
 
