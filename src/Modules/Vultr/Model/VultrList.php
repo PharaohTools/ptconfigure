@@ -51,6 +51,9 @@ class VultrList extends BaseVultrAllOS {
         if ($dataToList == "images") {$dataToList = "iso/list";}
         if ($dataToList == "servers") {$dataToList = "server/list"; }
         if ($dataToList == "os") {$dataToList = "os/list"; }
+        if ($dataToList == "sizes") {$dataToList = "plans/list"; }
+        if ($dataToList == "domains") {$dataToList = "dns/list"; }
+        if ($dataToList == "regions") {$dataToList = "regions/list"; }
         $curlUrl = $this->_apiURL."$dataToList" ;
         $httpType = "GET" ;
         return $this->vultrCall($callVars, $curlUrl, $httpType);
