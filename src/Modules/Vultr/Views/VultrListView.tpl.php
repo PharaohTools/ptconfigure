@@ -30,14 +30,14 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
                 $outVar .= "\n\n" ; } }
         else if ($pageVars["params"]["type"] == "sizes") {
             foreach($arrayObject as $sizeEntry) {
-                $outVar .= "slug: ".$sizeEntry->slug.", ";
-                $outVar .= "memory: ".$sizeEntry->memory.", ";
-                $outVar .= "vcpus: ".$sizeEntry->vcpus.", ";
+                $outVar .= "slug: ".$sizeEntry->name.", ";
+                $outVar .= "memory: ".$sizeEntry->ram.", ";
+                $outVar .= "vcpus: ".$sizeEntry->vcpu_count.", ";
                 $outVar .= "disk: ".$sizeEntry->disk.", ";
-                $outVar .= "transfer: ".$sizeEntry->disk.", ";
-                $outVar .= "price_monthly: ".$sizeEntry->price_monthly.", ";
-                $outVar .= "price_hourly: ".$sizeEntry->price_hourly.", ";
-                $outVar .= "regions: ".implode(",", $sizeEntry->regions);
+                $outVar .= "transfer: ".$sizeEntry->bandwidth.", ";
+                $outVar .= "price_monthly: ".$sizeEntry->price_per_month.", ";
+//                $outVar .= "price_hourly: ".$sizeEntry->price_hourly.", ";
+                $outVar .= "regions: ".implode(",", $sizeEntry->available_locations);
                 $outVar .= "\n" ; } }
         else if ($pageVars["params"]["type"] == "images") {
             foreach($arrayObject as $imageEntry) {
