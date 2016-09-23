@@ -30,7 +30,8 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
                 $outVar .= "\n\n" ; } }
         else if ($pageVars["params"]["type"] == "sizes") {
             foreach($arrayObject as $sizeEntry) {
-                $outVar .= "slug: ".$sizeEntry->name.", ";
+                $outVar .= "slug: ".$sizeEntry->VPSPLANID.", ";
+                $outVar .= "name: ".$sizeEntry->name.", ";
                 $outVar .= "memory: ".$sizeEntry->ram.", ";
                 $outVar .= "vcpus: ".$sizeEntry->vcpu_count.", ";
                 $outVar .= "disk: ".$sizeEntry->disk.", ";
