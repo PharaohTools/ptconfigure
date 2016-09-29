@@ -147,28 +147,35 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
             $ret["region"] = $data->droplet->region->slug ;
             $ret["region_name"] = $data->droplet->region->name ; }
         else {
-            $logging->log("Unable to collect data from cloud node", $this->getModuleName()) ; }
+            $logging->log("Unable to collect node data from cloud node", $this->getModuleName()) ; }
         return $ret ;
     }
 
     private function checkNodeImageFromData($data) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ($data->droplet->image->id == $this->params["image"]) {
-            $logging->log("Node reports expected image id {$data->droplet->image->id}", $this->getModuleName()) ;
-            return true ; }
-        $logging->log("Node reports unexpected image id of {$data->droplet->image->id}", $this->getModuleName()) ;
+        if (isset($data->droplet)) {
+            if ($data->droplet->image->id == $this->params["image"]) {
+                $logging->log("Node reports expected image id {$data->droplet->image->id}", $this->getModuleName()) ;
+                return true ; }
+            $logging->log("Node reports unexpected image id of {$data->droplet->image->id}", $this->getModuleName()) ; }
+        else {
+            $logging->log("Unable to collect image data from cloud node", $this->getModuleName()) ; }
         return false ;
     }
 
     private function checkNodeActiveFromData($data) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ($data->droplet->status == "active") {
-            $logging->log("Node reports expected active status", $this->getModuleName()) ;
-            return true ; }
-        $logging->log("Node reports unexpected status of {$data->status} ", $this->getModuleName()) ;
-        return false ;
+        if (isset($data->droplet)) {
+            if ($data->droplet->status == "active") {
+                $logging->log("Node reports expected active status", $this->getModuleName()) ;
+                return true ; }
+            $logging->log("Node reports unexpected status of {$data->status} ", $this->getModuleName()) ;
+            return false ; }
+        else {
+            $logging->log("Unable to collect active status from cloud node", $this->getModuleName()) ;
+            return false ; }
     }
 
     private function findIDFromName($name) {
