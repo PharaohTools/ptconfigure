@@ -136,15 +136,18 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
     private function getInfoFromData($data) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Collecting data from cloud node", $this->getModuleName()) ;
         $ret = array() ;
-        $ret["id"] = $data->droplet->id ;
-        $ret["image"] = $data->droplet->image->id ;
-        $ret["target_ip"] = $data->droplet->networks->v4[0]->ip_address ;
-        $ret["name"] = $data->droplet->name ;
-        $ret["size"] = $data->droplet->size_slug ;
-        $ret["region"] = $data->droplet->region->slug ;
-        $ret["region_name"] = $data->droplet->region->name ;
+        if (isset($data->droplet)) {
+            $logging->log("Collecting data from cloud node", $this->getModuleName()) ;
+            $ret["id"] = $data->droplet->id ;
+            $ret["image"] = $data->droplet->image->id ;
+            $ret["target_ip"] = $data->droplet->networks->v4[0]->ip_address ;
+            $ret["name"] = $data->droplet->name ;
+            $ret["size"] = $data->droplet->size_slug ;
+            $ret["region"] = $data->droplet->region->slug ;
+            $ret["region_name"] = $data->droplet->region->name ; }
+        else {
+            $logging->log("Unable to collect data from cloud node", $this->getModuleName()) ; }
         return $ret ;
     }
 
