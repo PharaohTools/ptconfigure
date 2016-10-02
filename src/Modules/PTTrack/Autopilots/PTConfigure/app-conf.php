@@ -33,7 +33,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure the Jobs Directory exists", ), ), ),
                 array ( "Mkdir" => array( "path" => array(
-                    "path" => PFILESDIR.'pttrack'.DS.'jobs',
+                    "path" => PFILESDIR.'pttrack'.DS.'data',
                     "mode" => "755",
                 ), ), ),
 

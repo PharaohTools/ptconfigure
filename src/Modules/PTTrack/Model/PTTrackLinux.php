@@ -43,8 +43,7 @@ class PTTrackLinux extends BasePHPApp {
 //            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath().' --app-slug=pttrack --fpm-port=6042' ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=pttrack --fpm-port=6042' ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=track --fpm-port=6042' ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/pttrack/pipes/" ; }
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=track --fpm-port=6042' ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp pttrack directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-data/* /opt/pttrack/data/" ;
