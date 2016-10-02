@@ -47,6 +47,7 @@ class PTTrackLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/pttrack/pipes/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp pttrack directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-data/* /opt/pttrack/data/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-jobs/* /opt/pttrack/jobs/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/users.txt /opt/pttrack/pttrack/src/Modules/Signup/Data/users.txt" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/pttrackvars /opt/pttrack/pttrack/pttrackvars" ; }
@@ -61,9 +62,11 @@ class PTTrackLinux extends BasePHPApp {
         if (is_dir('/opt/pttrack/pttrack/')) {
             $ray[]["command"][] = "echo 'Create temp pttrack directories'" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/pttrack-jobs/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/pttrack-data/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/pttrack-settings/" ;
             $ray[]["command"][] = "echo 'Copy to temp pttrack directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/pttrack/jobs/* /tmp/pttrack-jobs/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/pttrack/data/* /tmp/pttrack-data/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/pttrack/pttrack/pttrackvars /tmp/pttrack-settings/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/pttrack/pttrack/src/Modules/Signup/Data/users.txt /tmp/pttrack-settings/" ; }
         $this->preinstallCommands = $ray ;
