@@ -83,6 +83,8 @@ class PackageManagerAllOS extends BaseLinuxApp {
             $this->packageName = $this->params["packagename"]; }
         else if (isset($this->params["package-name"])) {
             $this->packageName = $this->params["package-name"]; }
+        else if (isset($this->params["package"])) {
+            $this->packageName = $this->params["package"]; }
         else {
             $this->packageName = self::askForInput("Enter Package Name:", true); }
     }
@@ -94,6 +96,8 @@ class PackageManagerAllOS extends BaseLinuxApp {
             $this->packagerName = $this->params["packagername"]; }
         else if (isset($this->params["packager-name"])) {
             $this->packagerName = $this->params["packager-name"]; }
+        else if (isset($this->params["packager"])) {
+            $this->packagerName = $this->params["packager"]; }
         else {
             $this->packagerName = self::askForInput("Enter Packager Name:", true); }
     }
