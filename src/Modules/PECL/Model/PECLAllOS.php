@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class PECLUbuntu extends BasePackager {
+class PECLAllOS extends BasePackager {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array(array("11.04", "+")) ;
+    public $os = array("any") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
