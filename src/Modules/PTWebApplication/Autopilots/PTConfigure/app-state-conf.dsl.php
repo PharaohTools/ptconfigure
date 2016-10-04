@@ -9,6 +9,9 @@ User ensure-exists
   home-directory ""
   shell "/bin/bash"
 
+PHPModules ensure
+  label "Ensure PHP Default Modules are installed"
+
 PHPDefaults install
   label "Ensure PHP Default Settings are okay"
 
@@ -19,7 +22,7 @@ PHPFPM ensure
   label "Ensure PHP FPM is installed"
 
 PTDeploy ensure
-  label "Ensure PHP Pharaoh Deploy is installed"
+  label "Ensure Pharaoh Deploy is installed"
 
 ApacheFastCGIModules ensure
   label "Ensure Apache Fast CGI is installed"
