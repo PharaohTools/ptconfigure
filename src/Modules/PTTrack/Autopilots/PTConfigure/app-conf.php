@@ -19,6 +19,12 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets configure users and permissions for Pharaoh Track"),),),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Install the SQLLite Package", ), ), ),
+                array ( "PackageManager" => array( "pkg-install" => array(
+                    "package-name" => "sqllite",
+                    "packager" => 'Apt',
+                ), ), ),
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Allow user pttrack a passwordless sudo", ), ), ),
                 array ( "SudoNoPass" => array( "install" => array(
                     "guess" => true,
