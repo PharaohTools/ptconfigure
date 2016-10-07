@@ -31,7 +31,7 @@ class GeneratorInfo extends PTConfigureBase {
         - copy
         Will create a copy from an existing local Module
         example: ptconfigure gen copy
-        example: ptconfigure gen copy -yg --source="SourceModule" --target="TargetModule" --translates=SwapThis,ForThis:andthis,forthis
+        example: ptconfigure gen copy -yg --source="SourceModule" --target="TargetModule" --translates="SwapThis:ForThis,andthis:forthis,Then this:For this"
 
         - template
         Will create a copy from a Downloadable Template Module
