@@ -87,7 +87,7 @@ class FileWatcherAllLinuxMac extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($versioner == "git") {
-            $changedFilesCommand = "git diff --name-only $value HEAD" ;
+            $changedFilesCommand = "git diff --name-only HEAD $value" ;
             $cfout = self::executeAndLoad($changedFilesCommand) ;
             $changedFilesRay = explode("\n", $cfout);
             if (in_array($fileToWatch, $changedFilesRay)) {
