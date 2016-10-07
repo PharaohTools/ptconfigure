@@ -17,7 +17,9 @@ class MongoDBInfo extends PTConfigureBase {
   }
 
   public function routeAliases() {
-    return array("mongo-db-server"=>"MongoDB", "mongodb-server"=>"MongoDB", "mongodbserver"=>"MongoDB");
+    return array(
+        "mongo-db-server"=>"MongoDB", "mongodb-server"=>"MongoDB", "mongodbserver"=>"MongoDB",
+        "mongodb"=>"MongoDB", "mongo-db"=>"MongoDB");
   }
 
   public function helpDefinition() {
