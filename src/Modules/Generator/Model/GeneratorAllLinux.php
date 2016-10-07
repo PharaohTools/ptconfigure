@@ -39,7 +39,7 @@ class GeneratorAllLinux extends Base {
             $new_module = substr($target, $found_pos+1) ; }
         else { $mod_dir = 'Extensions' ; }
 
-        $ptc_trim = rtrim(PTCCOMM, " ") ;
+        $ptc_trim = rtrim(PHARAOH_APP, " ") ;
         $ptc_parent = PFILESDIR.$ptc_trim.DS.$ptc_trim.DS."src".DS.$mod_dir.DS ;
 
         if (file_exists($source)) {
