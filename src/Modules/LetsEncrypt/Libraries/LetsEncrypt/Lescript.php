@@ -1,7 +1,8 @@
 <?php
 
-class Lescript
-{
+
+class LetsEncryptWrap {
+
     public $ca = 'https://acme-v01.api.letsencrypt.org';
     // public $ca = 'https://acme-staging.api.letsencrypt.org'; // testing
     public $license = 'https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf';

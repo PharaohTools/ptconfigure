@@ -21,30 +21,10 @@ class LetsEncryptAllOS extends Base {
     protected $hopEndEnvironment ;
 
     public function __construct($params) {
-        require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'Lescript.php';
+        require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php';
     }
 
-	public function askWhetherToLetsEncryptSSHShell() {
-		return $this->performLetsEncryptSSHShellWithHops();
-	}
-
-	public function askWhetherToLetsEncryptSSHScript() {
-        if (isset($this->params["hops"])) {
-            return $this->performLetsEncryptSSHScriptWithHops() ; }
-        else {
-            return $this->performLetsEncryptSSHScript() ; }
-	}
-
-	public function askWhetherToLetsEncryptSSHData() {
-        if (isset($this->params["hops"])) {
-            return $this->performLetsEncryptSSHDataWithHops() ; }
-        else {
-            return $this->performLetsEncryptSSHData() ; }
-	}
-
-
 	public function performEncryptionInstall() {
-
 
         if(!defined("PHP_VERSION_ID") || PHP_VERSION_ID < 50300 || !extension_loaded('openssl') || !extension_loaded('curl')) {
             die("You need at least PHP 5.3.0 with OpenSSL and curl extension\n");
@@ -94,7 +74,7 @@ class LetsEncryptAllOS extends Base {
         // Do we need to generate a certificate?
         if ($needsgen) {
             try {
-                $le = new \Analogic\ACME\Lescript($certlocation, $webroot, null);
+                $le = new \LetsEncryptWrap($certlocation, $webroot, null);
                 # or without logger:
                 # $le = new Analogic\ACME\Lescript($certlocation, $webroot);
                 $le->initAccount();
