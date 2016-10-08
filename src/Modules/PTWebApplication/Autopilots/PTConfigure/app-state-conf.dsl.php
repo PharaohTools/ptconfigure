@@ -2,7 +2,7 @@ Logging log
   log-message "Lets configure PHP and Files for Pharaoh Web Application"
 
 User ensure-exists
-  when "{{ PTWebApplication::~::isNotOSX }}"
+  when "{{{ PTWebApplication::~::isNotOSX }}}"
   label "Ensure {{{ Parameter::app-slug }}} user exists"
   username "{{{ Parameter::app-slug }}}"
   fullname "{{{ Parameter::app-slug }}}"
@@ -55,6 +55,7 @@ PHPFPM restart
   label "{{{ Parameter::app-slug }}} PHP FPM Restart"
 
 File should-exist
+  label "Ensure the Pharaoh log file exists"
   file "/var/log/pharaoh.log"
 
 Logging log
