@@ -79,7 +79,7 @@ class LetsEncryptAllOS extends Base {
 //                $logger->error($e->getMessage());
 //                $logger->error($e->getTraceAsString());
                 // Exit with an error code, something went wrong.
-                $logging->log("No need to generate this certificate", $this->getModuleName()) ;
+                $logging->log("Unable to generate this certificate :{$e->getMessage()}", $this->getModuleName()) ;
                 return true ;
             }
         }
