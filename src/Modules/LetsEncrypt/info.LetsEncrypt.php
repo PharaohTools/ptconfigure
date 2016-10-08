@@ -24,7 +24,7 @@ class LetsEncryptInfo extends PTConfigureBase {
 
   public function helpDefinition() {
       $help = '
-  This module is part of the Default Distribution and handles SSH Connection Functions.
+  This module is part of the Default Distribution and handles Lets Encrypt SSL Integration
 
   LetsEncrypt, LetsEncrypt, letsencrypt, lets-encrypt, lenc
 
