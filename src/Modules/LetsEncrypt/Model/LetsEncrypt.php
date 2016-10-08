@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Invoke extends BaseModelFactory {
+class LetsEncrypt extends BaseModelFactory {
 
 }

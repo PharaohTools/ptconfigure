@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Invoke extends Base {
+class LetsEncrypt extends Base {
 
     public function execute($pageVars) {
 
@@ -20,17 +20,9 @@ class Invoke extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if ($action=="cli") {
-            $this->content["shlResult"] = $this->content["result"] = $thisModel->askWhetherToInvokeSSHShell();
-            return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
-
-        if ($action=="script") {
-            $this->content["shlResult"] = $this->content["result"] = $thisModel->askWhetherToInvokeSSHScript();
-            return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
-
-        if ($action=="data") {
-            $this->content["shlResult"] = $this->content["result"] = $thisModel->askWhetherToInvokeSSHData();
-            return array ("type"=>"view", "view"=>"invoke", "pageVars"=>$this->content); }
+        if ($action=="sign") {
+            $this->content["result"] = $thisModel->performEncryptionInstall();
+            return array ("type"=>"view", "view"=>"LetsEncrypt", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";

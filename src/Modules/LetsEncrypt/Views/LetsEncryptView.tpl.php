@@ -7,11 +7,11 @@ if ($pageVars["route"]["action"]=="data") {
     ?>
 Shell Result: <?php echo ($pageVars["shlResult"] == true) ? "Success" : "Failure" ; ?>
 
-Invoke Shell Cli
+LetsEncrypt Shell Cli
 <?php
 } else if ($pageVars["route"]["action"]=="script") {
     ?>Script: <?php echo ($pageVars["shlResult"] == true) ? "Success" : "Failure" ; ?>
 
-Invoke Script
+LetsEncrypt Script
 <?php
 } ?>

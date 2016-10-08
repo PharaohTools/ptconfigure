@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class InvokeInfo extends PTConfigureBase {
+class LetsEncryptInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -13,41 +13,28 @@ class InvokeInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "Invoke" => array_merge(parent::routesAvailable(), array("cli", "script", "data") ) );
+      return array( "LetsEncrypt" => array_merge(parent::routesAvailable(), array("sign") ) );
     }
 
     public function routeAliases() {
-      return array("invoke" => "Invoke", "inv" => "Invoke");
+      return array(
+          "LetsEncrypt" => "LetsEncrypt", "letsencrypt" => "LetsEncrypt", "lets-encrypt" => "LetsEncrypt",
+          "lenc" => "LetsEncrypt");
     }
 
   public function helpDefinition() {
       $help = '
   This module is part of the Default Distribution and handles SSH Connection Functions.
 
-  Invoke, invoke, inv
+  LetsEncrypt, LetsEncrypt, letsencrypt, lets-encrypt, lenc
 
-        - cli
+        - sign
         Will ask you for details for servers, then open a shell for you to execute on multiple servers
-        example: '.PHARAOH_APP.' invoke cli -yg
-            --env=staging # environment name to connect to
-            --driver=seclib # optional ssh client driver to choose (seclib/native/os)
-            --timeout=30 # will guess 30 seconds to wait for connections
+        example: '.PHARAOH_APP.' LetsEncrypt sign -yg
+            --domain=www.site.com
+            --webroot=/var/www/mysite
+            --cert-path=/etc/ssl/certificates
 
-        - script
-        Will ask you for details for servers, then execute each line of a provided script file on the remote/s
-        example: '.PHARAOH_APP.' invoke script -yg
-            --ssh-script="/var/www/project/script.sh"
-            --env=staging
-            --driver=seclib # optional ssh client driver to choose (seclib/native/os)
-            --timeout=30 # will guess 30 seconds to wait for connections
-
-        - data
-        Execute php variable data on one or more remotes
-        example: '.PHARAOH_APP.' invoke data -yg
-            --ssh-data="ls -lah"
-            --env=staging
-            --driver=seclib # optional ssh client driver to choose (seclib/native/os)
-            --timeout=30 # will guess 30 seconds to wait for connections
 
 ';
       return $help ;

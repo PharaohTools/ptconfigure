@@ -21,23 +21,14 @@ $domains = array('test.example.com', 'example.com');
 $webroot = "/var/www/html";
 $certlocation = "/usr/local/lescript";
 
-require 'Lescript.php';
-
 // Always use UTC
-date_default_timezone_set("UTC");
-
-// you can use any logger according to Psr\Log\LoggerInterface
-class Logger { function __call($name, $arguments) { echo date('Y-m-d H:i:s')." [$name] ${arguments[0]}\n"; }}
-$logger = new Logger();
+//date_default_timezone_set("UTC");
 
 // Make sure our cert location exists
 if (!is_dir($certlocation)) {
 	// Make sure nothing is already there.
-	if (file_exists($certlocation)) {
-		unlink($certlocation);
-	}
-	mkdir ($certlocation);
-}
+	if (file_exists($certlocation)) { unlink($certlocation); }
+	mkdir ($certlocation); }
 
 // Do we need to create or upgrade our cert? Assume no to start with.
 $needsgen = false;
@@ -65,7 +56,7 @@ foreach ($domains as $d) {
 // Do we need to generate a certificate?
 if ($needsgen) {
 	try {
-		$le = new Analogic\ACME\Lescript($certlocation, $webroot, $logger);
+		$le = new \Analogic\ACME\Lescript($certlocation, $webroot, $logger);
 		# or without logger:
 		# $le = new Analogic\ACME\Lescript($certlocation, $webroot);
 		$le->initAccount();
@@ -86,6 +77,7 @@ if ($needsgen) {
 foreach ($domains as $d) {
 	$pem = file_get_contents("$certlocation/$d/fullchain.pem")."\n".file_get_contents("$certlocation/$d/private.pem");
 	file_put_contents("$certlocation/$d.pem", $pem);
+
 }
 
 
