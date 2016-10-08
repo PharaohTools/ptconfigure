@@ -20,9 +20,9 @@ class LetsEncryptAllOS extends Base {
     protected $hopScript ;
     protected $hopEndEnvironment ;
 
-    public function __construct($params) {
-        require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php';
-    }
+//    public function __construct($params) {
+//        require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php';
+//    }
 
 	public function performEncryptionInstall() {
 
@@ -30,14 +30,17 @@ class LetsEncryptAllOS extends Base {
             die("You need at least PHP 5.3.0 with OpenSSL and curl extension\n");
         }
 
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
         // Configuration:
         $domain = $this->params["domain"];
         $webroot = $this->params["webroot"];
         $certlocation = $this->params["cert-path"];
 
         if ($domain=="" || $webroot=="" || $certlocation=="") {
-
-            echo "Fuckit im dead\n" ;
+            $logging->log("Domain, Webroot and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+//            echo "Fuckit im dead\n" ;
             return false ;
         }
 
@@ -84,8 +87,8 @@ class LetsEncryptAllOS extends Base {
 //                $logger->error($e->getMessage());
 //                $logger->error($e->getTraceAsString());
                 // Exit with an error code, something went wrong.
-                echo "Fuckit im dead\n" ;
-                exit(1);
+                $logging->log("No need to generate this certificate", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return true ;
             }
         }
 
