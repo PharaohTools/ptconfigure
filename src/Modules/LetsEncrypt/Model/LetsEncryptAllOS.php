@@ -79,7 +79,7 @@ class LetsEncryptAllOS extends Base {
 //                $logger->error($e->getMessage());
 //                $logger->error($e->getTraceAsString());
                 // Exit with an error code, something went wrong.
-                $logging->log("No need to generate this certificate", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                $logging->log("No need to generate this certificate", $this->getModuleName()) ;
                 return true ;
             }
         }
@@ -89,9 +89,14 @@ class LetsEncryptAllOS extends Base {
         // matter that this is updated each time, as it'll be exactly
         // the same.
         $pem = file_get_contents("$certlocation/$domain/fullchain.pem")."\n".file_get_contents("$certlocation/$domain/private.pem");
-        file_put_contents("$certlocation/$domain.pem", $pem);
+        $res = file_put_contents("$certlocation/$domain.pem", $pem);
 
-        return true;
+        if ($res === false) {
+            $logging->log("Certificate successfully generated", $this->getModuleName()) ;
+            return true;}
+        else {
+            $logging->log("Certificate successfully generated", $this->getModuleName()) ;
+            return true;}
 	}
 
 }
