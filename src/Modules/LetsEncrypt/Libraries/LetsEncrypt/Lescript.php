@@ -1,14 +1,12 @@
 <?php
 
-namespace Analogic\ACME;
-
 class Lescript
 {
     public $ca = 'https://acme-v01.api.letsencrypt.org';
     // public $ca = 'https://acme-staging.api.letsencrypt.org'; // testing
     public $license = 'https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf';
-    public $countryCode = 'CZ';
-    public $state = "Czech Republic";
+    public $countryCode = 'GB';
+    public $state = "Great Britain";
     public $challenge = 'http-01'; // http-01 challange only
     public $contact = array(); // optional
     // public $contact = array("mailto:cert-admin@example.com", "tel:+12025551212")
