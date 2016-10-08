@@ -20,18 +20,16 @@ class LetsEncryptAllOS extends Base {
     protected $hopScript ;
     protected $hopEndEnvironment ;
 
-//    public function __construct($params) {
-//        require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php';
-//    }
-
 	public function performEncryptionInstall() {
-
-        if(!defined("PHP_VERSION_ID") || PHP_VERSION_ID < 50300 || !extension_loaded('openssl') || !extension_loaded('curl')) {
-            die("You need at least PHP 5.3.0 with OpenSSL and curl extension\n");
-        }
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        if (!class_exists('LetsEncryptWrap')) {
+            require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php'; }
+
+        if(!defined("PHP_VERSION_ID") || PHP_VERSION_ID < 50300 || !extension_loaded('openssl') || !extension_loaded('curl')) {
+            $logging->log("You need at least PHP 5.3.0 with OpenSSL and curl extension", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
 
         // Configuration:
         $domain = $this->params["domain"];
