@@ -78,7 +78,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
                 array ( "ApacheVHostEditor" => array( "add" => array (
                     "guess" => true,
-                    "vhe-docroot" => "/var/www/applications/live/pharaohtools/{$this->getTime()}/",
+                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => $vhe_ip,
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
