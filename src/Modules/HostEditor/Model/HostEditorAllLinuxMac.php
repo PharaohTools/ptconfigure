@@ -123,8 +123,8 @@ class HostEditorAllLinuxMac extends Base {
         $newHostFileData = "";
         $logging->log("Attempting to add Host File Entry...", $this->getModuleName()) ;
         foreach ($hostFileLines as $line) {
-            $ipOccurs = substr_count($line, $ipEntry) ;
-            $uriOccurs = substr_count($line, $uri) ;
+            $ipOccurs = substr_count($line, "$ipEntry ") ;
+            $uriOccurs = substr_count($line, " $uri") ;
             $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
             if ( $bothOccur )  {
                 $logging->log("Host file entry already exists for Host Name {$uri}, with IP {$ipEntry} no need to edit...", $this->getModuleName()) ;
@@ -145,8 +145,8 @@ class HostEditorAllLinuxMac extends Base {
         $hostFileLines = explode(PHP_EOL , $this->hostFileData) ;
         $newHostFileData = "";
         foreach ($hostFileLines as $line) {
-            $ipOccurs = substr_count($line, $ipEntry) ;
-            $uriOccurs = substr_count($line, $uri) ;
+            $ipOccurs = substr_count($line, "$ipEntry ") ;
+            $uriOccurs = substr_count($line, " $uri") ;
             $bothOccur = ( $ipOccurs==1 && $uriOccurs==1);
             if (isset($this->params["guess"])) {
                 if ($uriOccurs) {
