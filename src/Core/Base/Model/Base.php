@@ -284,6 +284,10 @@ COMPLETION;
                     $res = $this->loadFromParameter($parts_array) ;
                     $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
                     return $paramValue ; }
+                else if (in_array($module, array("Variable", "Var", "Vars", "variable", "var", "vars"))) {
+                    $res = $this->loadFromVariable($parts_array) ;
+                    $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
+                    return $paramValue ; }
                 if ($module==$this->getModuleName()) { return $paramValue ; }
                 $res = $this->loadFromMethod($parts_string, $i, $sc) ;
                 $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string) ; } }
@@ -370,6 +374,23 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
+    }
+
+    protected function loadFromVariable($parts_array) {
+        $vars = \Model\RegistryStore::getValue("runtime_variables");
+        if (is_null($vars)) {
+            $variableGroupFactory = new \Model\VariableGroups() ;
+            $vg =  $variableGroupFactory->getModel($this->params) ;
+            $res = $vg->getVariables() ;
+            $runtime_vars = (is_null($res)) ? array() : $res ;
+            \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
+            $vars = \Model\RegistryStore::getValue("runtime_variables"); }
+        $var_requested = $parts_array[1] ;
+        if (isset($vars[$var_requested])) { return $vars[$var_requested] ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel(array());
+        $logging->log("No value set for requested Variable {$var_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
         return false ;
     }
 
