@@ -21,7 +21,7 @@ class AutoPilotConfigured extends AutoPilot {
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Install the SQLLite Package", ), ), ),
                 array ( "PackageManager" => array( "pkg-install" => array(
-                    "package-name" => "sqllite",
+                    "package-name" => "sqlite",
                     "packager" => 'Apt',
                 ), ), ),
 
