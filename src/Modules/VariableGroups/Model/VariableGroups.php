@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Templating extends BaseModelFactory {
+class VariableGroups extends BaseModelFactory {
 
 }

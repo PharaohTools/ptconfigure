@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class TemplatingInfo extends PTConfigureBase {
+class VariableGroupsInfo extends PTConfigureBase {
 
     public $hidden = false;
 
@@ -13,18 +13,18 @@ class TemplatingInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "Templating" =>  array_merge(parent::routesAvailable(), array("install") ) );
+      return array( "VariableGroups" =>  array_merge(parent::routesAvailable(), array("install") ) );
     }
 
     public function routeAliases() {
-      return array("templating"=>"Templating", "template"=>"Templating");
+      return array("VariableGroups"=>"VariableGroups", "template"=>"VariableGroups");
     }
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This module allows you to install a templated file with new values.
 
-  Templating, templating, template
+  VariableGroups, VariableGroups, template
 
         - install
         Installs a template

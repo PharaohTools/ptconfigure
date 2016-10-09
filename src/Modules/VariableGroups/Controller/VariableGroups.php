@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class Templating extends Base {
+class VariableGroups extends Base {
 
 }
