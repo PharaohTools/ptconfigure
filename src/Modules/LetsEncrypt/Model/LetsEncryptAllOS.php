@@ -23,7 +23,8 @@ class LetsEncryptAllOS extends Base {
             require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php'; }
 
         if(!defined("PHP_VERSION_ID") || PHP_VERSION_ID < 50300 || !extension_loaded('openssl') || !extension_loaded('curl')) {
-            $logging->log("You need at least PHP 5.3.0 with OpenSSL and curl extension", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
+            $logging->log("You need at least PHP 5.3.0 with OpenSSL and curl extension", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
 
         // Configuration:
         $domain = $this->params["domain"];
@@ -32,12 +33,7 @@ class LetsEncryptAllOS extends Base {
 
         if ($domain=="" || $webroot=="" || $certlocation=="") {
             $logging->log("Domain, Webroot and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-//            echo "Fuckit im dead\n" ;
-            return false ;
-        }
-
-        // Always use UTC
-        //date_default_timezone_set("UTC");
+            return false ; }
 
         // Make sure our cert location exists
         if (!is_dir($certlocation)) {
