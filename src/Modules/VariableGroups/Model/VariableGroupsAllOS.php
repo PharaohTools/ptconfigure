@@ -5,7 +5,7 @@ Namespace Model;
 class VariableGroupsAllOS extends Base {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("any") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -16,8 +16,6 @@ class VariableGroupsAllOS extends Base {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "VariableGroups";
-        $this->initialize();
     }
 
     public function getVariables() {
@@ -33,13 +31,14 @@ class VariableGroupsAllOS extends Base {
     protected function getVariableGroups() {
         $vg = null ;
         if (isset($this->params["vargroups"])) { $vg = $this->params["vargroups"] ; }
-        if (isset($this->params["varset"])) { $vg = $this->params["varset"] ; }
+        if (isset($this->params["vars"])) { $vg = $this->params["vars"] ; }
         if (isset($this->params["variables"])) { $vg = $this->params["variables"] ; }
         if (!is_null($vg)) { return explode(",", $vg) ; }
         return $vg ;
     }
 
     protected function loadVariableSet($set) {
+        $set = $this->findVariableFilePath($set) ;
         if (file_exists($set)) {
             $ext = pathinfo($set, PATHINFO_EXTENSION);
             switch ($ext) {
@@ -50,6 +49,13 @@ class VariableGroupsAllOS extends Base {
                     break; } }
         if (isset($variables) &&(is_array($variables))) { return $variables ; }
         return array();
+    }
+
+    protected function findVariableFilePath($set) {
+        if (file_exists($set)) {
+            return $set ; }
+        else if (file_exists(getcwd().DS.$set)) { return getcwd().DS.$set ; }
+        return null;
     }
 
 }
