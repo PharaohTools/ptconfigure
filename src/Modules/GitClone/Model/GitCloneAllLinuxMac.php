@@ -20,8 +20,18 @@ class GitCloneAllLinuxMac extends Base {
     public function checkoutProject(){
         if ($this->askWhetherToDownload() != true) { return false; }
         $this->askForGitCloneTargetRepo();
-        $status = $this->doGitCloneCommand();
-        if ($status == false) { return false ; }
+        $passed = false ;
+        for ($tried = 0; $tried < 3; $tried++) {
+            $status = $this->doGitCloneCommand();
+            if ($status == false) {
+                sleep(2) ;
+                continue ; }
+            if ($status == true) {
+                $passed = true ;
+                break ; } }
+        if ($passed == false) {
+            return false;
+        }
         if ($this->askAlsoChangePerms() == false ) { return true; }
         $this->setWebServerUser();
         $this->changeNewProjectPermissions();
@@ -64,6 +74,9 @@ class GitCloneAllLinuxMac extends Base {
     }
 
     protected function doGitCloneCommand() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Attempting Git Clone...", $this->getModuleName());
         $projectOriginRepo = $this->params["repository-url"] ;
         $customCloneFolder = (isset($this->params["custom-clone-dir"])) ? $this->params["custom-clone-dir"] : null ;
         $customBranch = (isset($this->params["custom-branch"])) ? $this->params["custom-branch"] : null ;

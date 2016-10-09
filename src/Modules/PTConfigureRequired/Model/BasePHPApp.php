@@ -380,10 +380,22 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $command .= escapeshellarg($fileSource[0]).' ';
             $command .= ' '.$this->tempFileStore ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
-                $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-                return false ; } }
+
+
+            $passed = false ;
+            for ($tried = 0; $tried < 3; $tried++) {
+                $rc = self::executeAndGetReturnCode($command, true, true);
+                $status = ($rc["rc"] !== 0) ? false : true ;
+                if ($status == false) {
+                    sleep(2) ;
+                    continue ; }
+                if ($status == true) {
+                    $passed = true ;
+                    break ; } }
+                if ($passed == false) {
+                    $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                    return false ;  } }
+
         return true ;
     }
 
