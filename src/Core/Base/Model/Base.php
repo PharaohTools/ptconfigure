@@ -284,6 +284,11 @@ COMPLETION;
                     $res = $this->loadFromParameter($parts_array) ;
                     $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string);
                     return $paramValue ; }
+                else if (in_array($module, array("Variable", "Var", "Vars", "variable", "var", "vars"))) {
+                    if ($this->getModuleName() != "VariableGroups") {
+                        $res = $this->loadFromVariable($parts_array) ;
+                        $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string); }
+                    return $paramValue ; }
                 if ($module==$this->getModuleName()) { return $paramValue ; }
                 $res = $this->loadFromMethod($parts_string, $i, $sc) ;
                 $paramValue = $this->swapResForVariable($res, $paramValue, $parts_string) ; } }
@@ -370,6 +375,24 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
+    }
+
+    protected function loadFromVariable($parts_array) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel(array());
+        $vars = \Model\RegistryStore::getValue("runtime_variables");
+        if (is_null($vars)) {
+            $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
+            $variableGroupFactory = new \Model\VariableGroups() ;
+            $vg =  $variableGroupFactory->getModel($this->params) ;
+            $res = $vg->getVariables() ;
+            $runtime_vars = (is_null($res)) ? array() : $res ;
+            \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
+            $vars = $runtime_vars; }
+        $var_requested = $parts_array[1] ;
+        if (isset($vars[$var_requested])) { return $vars[$var_requested] ; }
+        $logging->log("No value set for requested Variable {$var_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
         return false ;
     }
 
