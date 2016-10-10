@@ -155,7 +155,7 @@ class AutoPilotConfigured extends AutoPilot {
 
     private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip) {
 
-        $vhe_ip = substr($vhe_ip, 0, strpos($vhe_ip, ":")) ;
+        $vhe_ip = str_replace(":80", "", $vhe_ip) ;
 
         $dir_section = $this->getA2DirSection() ;
 
