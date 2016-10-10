@@ -16,6 +16,9 @@ class LetsEncryptAllOS extends Base {
 
 	public function performEncryptionInstall() {
 
+        // @todo, maybe make this timeout changeable. its to allow apache to restart before making requests
+        sleep(15) ;
+
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
@@ -88,8 +91,8 @@ class LetsEncryptAllOS extends Base {
         $res = file_put_contents("$certlocation/$domain.pem", $pem);
 
         if ($res === false) {
-            $logging->log("Certificate successfully generated", $this->getModuleName()) ;
-            return true;}
+            $logging->log("Unable to store certificate", $this->getModuleName()) ;
+            return false;}
         else {
             $logging->log("Certificate successfully generated", $this->getModuleName()) ;
             return true;}
