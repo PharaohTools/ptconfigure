@@ -66,10 +66,7 @@ class AutoPilotConfigured extends AutoPilot {
             );
 
         if (isset($this->params['enable-ssl'])) {
-            if (isset($this->params['certificate-domain'])) {
-                $cert_domain = $this->params['certificate-domain'] ; }
-            else {
-                $cert_domain = $vhe_url; }
+            $cert_domain = $this->params['certificate-domain'] ;
 
             $steps2 = array(
 
