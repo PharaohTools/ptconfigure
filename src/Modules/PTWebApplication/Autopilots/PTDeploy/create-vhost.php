@@ -80,9 +80,9 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
                     "vhe-url" => $vhe_url,
-                    "vhe-ip-port" => substr($vhe_ip, 0, strpos($vhe_ip, ":")) ,
+                    "vhe-ip-port" => $vhe_ip ,
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
-                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port),
+                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
@@ -153,13 +153,15 @@ class AutoPilotConfigured extends AutoPilot {
     }
 
 
-    private function getTemplateHTTPS($app_slug, $fpm_port) {
+    private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip) {
+
+        $vhe_ip = substr($vhe_ip, 0, strpos($vhe_ip, ":")) ;
 
         $dir_section = $this->getA2DirSection() ;
 
         $template ='
- NameVirtualHost ****IP ADDRESS****:80
- <VirtualHost ****IP ADDRESS****:80>
+ NameVirtualHost '.$vhe_ip.':80
+ <VirtualHost '.$vhe_ip.':80>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
  	DocumentRoot ****WEB ROOT****
@@ -197,8 +199,8 @@ class AutoPilotConfigured extends AutoPilot {
  </VirtualHost>
 
 
- NameVirtualHost ****IP ADDRESS****:443
- <VirtualHost ****IP ADDRESS****:443>
+ NameVirtualHost '.$vhe_ip.':443
+ <VirtualHost '.$vhe_ip.':443>
    ServerAdmin webmaster@localhost
    ServerName ****SERVER NAME****
    DocumentRoot ****WEB ROOT****
