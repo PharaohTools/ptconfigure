@@ -38,11 +38,15 @@ class VariableGroupsAllOS extends Base {
     }
 
     protected function loadVariableSet($set) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $set = $this->findVariableFilePath($set) ;
         if (file_exists($set)) {
             $ext = pathinfo($set, PATHINFO_EXTENSION);
             switch ($ext) {
                 case "php" :
+                    $params = $this->params ;
+                    $logging->log("Loading Variable Set from {$set}", $this->getModuleName());
                     require $set ;
                     break;
                 default:
