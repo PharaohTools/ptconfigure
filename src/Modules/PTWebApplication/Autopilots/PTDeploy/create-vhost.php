@@ -80,7 +80,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
                     "vhe-url" => $vhe_url,
-                    "vhe-ip-port" => str_replace(":80", "", $vhe_ip) ,
+                    "vhe-ip-port" => substr($vhe_ip, 0, strpos($vhe_ip, ":")) ,
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
                     "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port),
                 ), ), ),
