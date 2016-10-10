@@ -66,31 +66,30 @@ class AutoPilotConfigured extends AutoPilot {
             );
 
         if (isset($this->params['enable-ssl'])) {
-            $cert_domain = $this->params['certificate-domain'] ;
 
             $steps2 = array(
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next Get a Lets Encrypt Certificate"), ) ),
                 array ( "LetsEncrypt" => array( "sign" => array (
                     "webroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
-                    "domain" => $cert_domain,
+                    "domain" => $vhe_url,
                     "cert-path" => "/etc/ssl/certificates",
                 ), ), ),
 
-//                array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
-//                array ( "ApacheVHostEditor" => array( "add" => array (
-//                    "guess" => true,
-//                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
-//                    "vhe-url" => $cert_domain,
-//                    "vhe-ip-port" => $vhe_ip ,
-//                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
-//                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip, $cert_domain),
-//                ), ), ),
-//
-//                array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
-//                array ( "ApacheControl" => array( "restart" => array(
-//                    "guess" => true,
-//                ), ), ),
+                array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
+                array ( "ApacheVHostEditor" => array( "add" => array (
+                    "guess" => true,
+                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
+                    "vhe-url" => $vhe_url,
+                    "vhe-ip-port" => $vhe_ip ,
+                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
+                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
+                ), ), ),
+
+                array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
+                array ( "ApacheControl" => array( "restart" => array(
+                    "guess" => true,
+                ), ), ),
             ) ;
         } else {
             $steps2 = array() ;
@@ -155,7 +154,7 @@ class AutoPilotConfigured extends AutoPilot {
     }
 
 
-    private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip, $cert_domain) {
+    private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip) {
 
         $vhe_ip = str_replace(":80", "", $vhe_ip) ;
 
@@ -206,9 +205,9 @@ class AutoPilotConfigured extends AutoPilot {
    ServerName ****SERVER NAME****
    DocumentRoot ****WEB ROOT****
      SSLEngine on
- 	 SSLCertificateFile /etc/ssl/certificates/'.$cert_domain.'/cert.pem
-     SSLCertificateKeyFile /etc/ssl/certificates/'.$cert_domain.'/private.pem
-     SSLCertificateChainFile /etc/ssl/certificates/'.$cert_domain.'/fullchain.pem
+ 	 SSLCertificateFile /etc/ssl/certificates/****SERVER NAME****/cert.pem
+     SSLCertificateKeyFile /etc/ssl/certificates/****SERVER NAME****/private.pem
+     SSLCertificateChainFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
  	<Directory ****WEB ROOT****>
  	'. $dir_section .'
  	</Directory>
