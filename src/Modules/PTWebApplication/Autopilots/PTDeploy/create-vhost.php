@@ -159,7 +159,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $template ='
  NameVirtualHost ****IP ADDRESS****
- <VirtualHost ****IP ADDRESS****:80>
+ <VirtualHost ****IP ADDRESS****>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
  	DocumentRoot ****WEB ROOT****
@@ -198,7 +198,7 @@ class AutoPilotConfigured extends AutoPilot {
 
 
  NameVirtualHost ****IP ADDRESS****
- <VirtualHost ****IP ADDRESS****:443>
+ <VirtualHost ****IP ADDRESS****>
    ServerAdmin webmaster@localhost
    ServerName ****SERVER NAME****
    DocumentRoot ****WEB ROOT****
