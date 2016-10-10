@@ -21,6 +21,7 @@ class ChownAllLinux extends Base {
     public function performChown() {
         if ($this->askForChownExecute() != true) { return false; }
         $dirPath = $this->getDirectoryPath() ;
+        // @todo this looks very reliable
         $this->doChown($dirPath) ;
         return true;
     }
