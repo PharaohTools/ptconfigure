@@ -381,22 +381,28 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $command .= ' '.$this->tempFileStore ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
 
-
-            $passed = false ;
-            for ($tried = 0; $tried < 3; $tried++) {
-                $rc = self::executeAndGetReturnCode($command, true, true);
-                $status = ($rc["rc"] !== 0) ? false : true ;
-                if ($status == false) {
-                    sleep(2) ;
-                    continue ; }
-                if ($status == true) {
-                    $passed = true ;
-                    break ; } }
-                if ($passed == false) {
-                    $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-                    return false ;  } }
+            $res = $this->runWithRetries($command);
+            return $res ;}
 
         return true ;
+    }
+
+    protected function runWithRetries($command) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $passed = false ;
+        for ($tried = 0; $tried < 3; $tried++) {
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            $status = ($rc["rc"] !== 0) ? false : true ;
+            if ($status == false) {
+                sleep(2) ;
+                continue ; }
+            if ($status == true) {
+                $passed = true ;
+                break ; } }
+        if ($passed == false) {
+            $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;  }
     }
 
     protected function doGitCheckout(){
@@ -409,26 +415,26 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $this->deleteProgramDataFolderAsRootIfExists($this->tempFileStore) ;
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' reset --hard ' ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; }
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' pull origin master ' ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; }
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' checkout master' ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; }
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS." checkout ".$this->params["version"];
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
         return true ;
