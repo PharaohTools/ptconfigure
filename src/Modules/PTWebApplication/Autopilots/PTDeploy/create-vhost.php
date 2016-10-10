@@ -56,7 +56,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => $vhe_ipport,
-//                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
+                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
                     "vhe-template" => $this->getTemplateHTTP($app_slug, $fpm_port),
                 ),),),
 
@@ -75,15 +75,15 @@ class AutoPilotConfigured extends AutoPilot {
                     "cert-path" => "/etc/ssl/certificates",
                 ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
-                array ( "ApacheVHostEditor" => array( "add" => array (
-                    "guess" => true,
-                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
-                    "vhe-url" => $vhe_url,
-                    "vhe-ip-port" => substr($vhe_ip, 0, strpos($vhe_ip, ":")) ,
-                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
-                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port),
-                ), ), ),
+//                array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
+//                array ( "ApacheVHostEditor" => array( "add" => array (
+//                    "guess" => true,
+//                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
+//                    "vhe-url" => $vhe_url,
+//                    "vhe-ip-port" => substr($vhe_ip, 0, strpos($vhe_ip, ":")) ,
+//                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
+//                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port),
+//                ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
                 array ( "ApacheControl" => array( "restart" => array(
