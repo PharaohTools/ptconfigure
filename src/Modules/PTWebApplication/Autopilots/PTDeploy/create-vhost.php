@@ -197,50 +197,50 @@ class AutoPilotConfigured extends AutoPilot {
    </IfModule>
 
  </VirtualHost>
+';
 
-
- NameVirtualHost '.$vhe_ip.':443
- <VirtualHost '.$vhe_ip.':443>
-   ServerAdmin webmaster@localhost
-   ServerName ****SERVER NAME****
-   DocumentRoot ****WEB ROOT****
-     SSLEngine on
- 	 SSLCertificateFile /etc/ssl/certificates/****SERVER NAME****/cert.pem
-     SSLCertificateKeyFile /etc/ssl/certificates/****SERVER NAME****/private.pem
-     SSLCertificateChainFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
- 	<Directory ****WEB ROOT****>
- 	'. $dir_section .'
- 	</Directory>
-   ErrorLog /var/log/apache2/error.log
-   CustomLog /var/log/apache2/access.log combined
-
-
-   <IfModule mod_fastcgi.c>
-    <IfModule !mod_proxy_fcgi.c>
-
-     AddHandler php5-fcgi .php
-     Action php5-fcgi /php5-fcgi_'.$app_slug.'
-     Alias /php5-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
-     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
-
-      <FilesMatch "\.php$">
-          SetHandler php5-fcgi
-      </FilesMatch>
-
-     <Directory /usr/lib/cgi-bin>
- 	'. $dir_section .'
-      SetHandler fastcgi-script
-     </Directory>
-
-    </IfModule>
-   </IfModule>
-
-   <IfModule mod_proxy_fcgi.c>
-     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
-   </IfModule>
-
- </VirtualHost>
-  ' ;
+// NameVirtualHost '.$vhe_ip.':443
+// <VirtualHost '.$vhe_ip.':443>
+//   ServerAdmin webmaster@localhost
+//   ServerName ****SERVER NAME****
+//   DocumentRoot ****WEB ROOT****
+//     SSLEngine on
+// 	 SSLCertificateFile /etc/ssl/certificates/****SERVER NAME****/cert.pem
+//     SSLCertificateKeyFile /etc/ssl/certificates/****SERVER NAME****/private.pem
+//     SSLCertificateChainFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
+// 	<Directory ****WEB ROOT****>
+// 	'. $dir_section .'
+// 	</Directory>
+//   ErrorLog /var/log/apache2/error.log
+//   CustomLog /var/log/apache2/access.log combined
+//
+//
+//   <IfModule mod_fastcgi.c>
+//    <IfModule !mod_proxy_fcgi.c>
+//
+//     AddHandler php5-fcgi .php
+//     Action php5-fcgi /php5-fcgi_'.$app_slug.'
+//     Alias /php5-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
+//     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
+//
+//      <FilesMatch "\.php$">
+//          SetHandler php5-fcgi
+//      </FilesMatch>
+//
+//     <Directory /usr/lib/cgi-bin>
+// 	'. $dir_section .'
+//      SetHandler fastcgi-script
+//     </Directory>
+//
+//    </IfModule>
+//   </IfModule>
+//
+//   <IfModule mod_proxy_fcgi.c>
+//     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
+//   </IfModule>
+//
+// </VirtualHost>
+//  ' ;
 
         return $template ;
     }
