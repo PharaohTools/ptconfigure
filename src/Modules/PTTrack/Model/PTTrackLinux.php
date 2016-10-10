@@ -41,12 +41,11 @@ class PTTrackLinux extends BasePHPApp {
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
             if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
             if (isset($this->params["enable-ssl"])) { $sslstring = ' --enable-ssl' ; }
-            if (isset($this->params["certificate-domain"])) { $cdstring = ' --certificate-domain='.$this->params["certificate-domain"] ; }
             $ray[]["command"][] = SUDOPREFIX.PTTRCOMM." assetpublisher publish --yes --guess" ;
 //            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath().' --app-slug=pttrack --fpm-port=6042' ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=pttrack --fpm-port=6042' ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=track --fpm-port=6042'.$sslstring.$cdstring ; }
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=track --fpm-port=6042'.$sslstring ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp pttrack directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-data/* /opt/pttrack/data/" ;
