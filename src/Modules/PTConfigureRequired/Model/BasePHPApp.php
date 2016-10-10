@@ -54,16 +54,16 @@ class BasePHPApp extends Base {
     }
 
     protected function performPHPAppInstall() {
-    $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
-        true : $this->askWhetherToInstallPHPAppToScreen();
-    if (!$doInstall) { return false; }
+        $doInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
+            true : $this->askWhetherToInstallPHPAppToScreen();
+        if (!$doInstall) { return false; }
         return $this->install();
     }
 
     protected function performPHPAppUnInstall() {
-    $doUnInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
-        true : $this->askWhetherToUnInstallPHPAppToScreen();
-    if (!$doUnInstall) { return false; }
+        $doUnInstall = (isset($this->params["yes"]) && $this->params["yes"]==true) ?
+            true : $this->askWhetherToUnInstallPHPAppToScreen();
+        if (!$doUnInstall) { return false; }
         return $this->unInstall();
     }
 
@@ -121,7 +121,7 @@ class BasePHPApp extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( (isset($this->params["version"]) && $this->params["version"] == "latest") ||
-             (isset($this->params["version-type"]) && $this->params["version-type"] == "latest") ) {
+            (isset($this->params["version-type"]) && $this->params["version-type"] == "latest") ) {
             $this->params["version-type"] = "latest" ;
             $this->params["version-operator"] = '=' ;
             $logging->log("Requested version is latest, calculating", $this->getModuleName()) ;
@@ -177,8 +177,8 @@ class BasePHPApp extends Base {
     public function unInstall($autoPilot = null) {
         $this->showTitle();
         $this->programDataFolder = ($autoPilot)
-          ? $autoPilot->{$this->autopilotDefiner}
-          : $this->askForProgramDataFolder();
+            ? $autoPilot->{$this->autopilotDefiner}
+            : $this->askForProgramDataFolder();
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
         if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
         if ($this->deleteExecutorIfExists() === false) { return false ; }
@@ -338,32 +338,32 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         return file_put_contents($pxf.$this->programNameMachine.$file_ext, $this->bootStrapData);
     }
 
-  protected function changePermissions(){
-      if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-          return true ; }
-      $loggingFactory = new \Model\Logging();
-      $logging = $loggingFactory->getModel($this->params);
-      $logging->log("Preparing to change file permissions", $this->getModuleName()) ;
-      $command = "chmod -R +x $this->programDataFolder";
-      $this->executeAndOutput($command);
-      $rc = self::executeAndGetReturnCode($command, true, true);
-      if ($rc["rc"] !== 0) {
-          $logging->log("Error changing file permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-          return false ; }
-      if (isset($this->params["no-executor"])) { return true ; }
-      $command = "chmod +x $this->programExecutorFolder/$this->programNameMachine";
-      $rc = self::executeAndGetReturnCode($command, true, true);
-      if ($rc["rc"] !== 0) {
-          $logging->log("Error changing executor permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-          return false ; }
-      $logging->log("Changing permissions complete", $this->getModuleName()) ;
-      return true ;
-  }
+    protected function changePermissions(){
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            return true ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Preparing to change file permissions", $this->getModuleName()) ;
+        $command = "chmod -R +x $this->programDataFolder";
+        $this->executeAndOutput($command);
+        $rc = self::executeAndGetReturnCode($command, true, true);
+        if ($rc["rc"] !== 0) {
+            $logging->log("Error changing file permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        if (isset($this->params["no-executor"])) { return true ; }
+        $command = "chmod +x $this->programExecutorFolder/$this->programNameMachine";
+        $rc = self::executeAndGetReturnCode($command, true, true);
+        if ($rc["rc"] !== 0) {
+            $logging->log("Error changing executor permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ; }
+        $logging->log("Changing permissions complete", $this->getModuleName()) ;
+        return true ;
+    }
 
     // keep method for BC
-  protected function doGitCloneWithErrorCheck(){
-      return $this->doGitClone();
-  }
+    protected function doGitCloneWithErrorCheck(){
+        return $this->doGitClone();
+    }
 
     protected function doGitClone(){
         $loggingFactory = new \Model\Logging();
@@ -380,11 +380,29 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $command .= escapeshellarg($fileSource[0]).' ';
             $command .= ' '.$this->tempFileStore ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
-                $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-                return false ; } }
+
+            $res = $this->runWithRetries($command);
+            return $res ;}
+
         return true ;
+    }
+
+    protected function runWithRetries($command) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $passed = false ;
+        for ($tried = 0; $tried < 3; $tried++) {
+            $rc = self::executeAndGetReturnCode($command, true, true);
+            $status = ($rc["rc"] !== 0) ? false : true ;
+            if ($status == false) {
+                sleep(2) ;
+                continue ; }
+            if ($status == true) {
+                $passed = true ;
+                break ; } }
+        if ($passed == false) {
+            $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;  }
     }
 
     protected function doGitCheckout(){
@@ -397,26 +415,26 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
             $this->deleteProgramDataFolderAsRootIfExists($this->tempFileStore) ;
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' reset --hard ' ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; }
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' pull origin master ' ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; }
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS.' checkout master' ;
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; }
             $command  = $this->executorPath.' --git-dir '.$this->getModuleDirectory().DS.".git".DS." checkout ".$this->params["version"];
             $logging->log("Git command is $command", $this->getModuleName()) ;
-            $rc = self::executeAndGetReturnCode($command, true, true);
-            if ($rc["rc"] !== 0) {
+            $res = $this->runWithRetries($command);
+            if ($res == false) {
                 $logging->log("Error performing Git command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
         return true ;
