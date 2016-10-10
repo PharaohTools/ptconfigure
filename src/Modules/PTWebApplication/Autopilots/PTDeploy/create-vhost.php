@@ -66,12 +66,17 @@ class AutoPilotConfigured extends AutoPilot {
             );
 
         if (isset($this->params['enable-ssl'])) {
+            if (isset($this->params['certificate-domain'])) {
+                $cert_domain = $this->params['certificate-domain'] ; }
+            else {
+                $cert_domain = $vhe_url; }
+
             $steps2 = array(
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Next Get a Lets Encrypt Certificate"), ) ),
                 array ( "LetsEncrypt" => array( "sign" => array (
                     "webroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
-                    "domain" => $vhe_url,
+                    "domain" => $cert_domain,
                     "cert-path" => "/etc/ssl/certificates",
                 ), ), ),
 
@@ -79,10 +84,10 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "ApacheVHostEditor" => array( "add" => array (
                     "guess" => true,
                     "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
-                    "vhe-url" => $vhe_url,
+                    "vhe-url" => $cert_domain,
                     "vhe-ip-port" => $vhe_ip ,
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
-                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
+                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip, $cert_domain),
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
@@ -153,7 +158,7 @@ class AutoPilotConfigured extends AutoPilot {
     }
 
 
-    private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip) {
+    private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip, $cert_domain) {
 
         $vhe_ip = str_replace(":80", "", $vhe_ip) ;
 
@@ -197,50 +202,49 @@ class AutoPilotConfigured extends AutoPilot {
    </IfModule>
 
  </VirtualHost>
-';
 
-// NameVirtualHost '.$vhe_ip.':443
-// <VirtualHost '.$vhe_ip.':443>
-//   ServerAdmin webmaster@localhost
-//   ServerName ****SERVER NAME****
-//   DocumentRoot ****WEB ROOT****
-//     SSLEngine on
-// 	 SSLCertificateFile /etc/ssl/certificates/****SERVER NAME****/cert.pem
-//     SSLCertificateKeyFile /etc/ssl/certificates/****SERVER NAME****/private.pem
-//     SSLCertificateChainFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
-// 	<Directory ****WEB ROOT****>
-// 	'. $dir_section .'
-// 	</Directory>
-//   ErrorLog /var/log/apache2/error.log
-//   CustomLog /var/log/apache2/access.log combined
-//
-//
-//   <IfModule mod_fastcgi.c>
-//    <IfModule !mod_proxy_fcgi.c>
-//
-//     AddHandler php5-fcgi .php
-//     Action php5-fcgi /php5-fcgi_'.$app_slug.'
-//     Alias /php5-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
-//     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
-//
-//      <FilesMatch "\.php$">
-//          SetHandler php5-fcgi
-//      </FilesMatch>
-//
-//     <Directory /usr/lib/cgi-bin>
-// 	'. $dir_section .'
-//      SetHandler fastcgi-script
-//     </Directory>
-//
-//    </IfModule>
-//   </IfModule>
-//
-//   <IfModule mod_proxy_fcgi.c>
-//     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
-//   </IfModule>
-//
-// </VirtualHost>
-//  ' ;
+ NameVirtualHost '.$vhe_ip.':443
+ <VirtualHost '.$vhe_ip.':443>
+   ServerAdmin webmaster@localhost
+   ServerName ****SERVER NAME****
+   DocumentRoot ****WEB ROOT****
+     SSLEngine on
+ 	 SSLCertificateFile /etc/ssl/certificates'.$cert_domain.'/cert.pem
+     SSLCertificateKeyFile /etc/ssl/certificates'.$cert_domain.'/private.pem
+     SSLCertificateChainFile /etc/ssl/certificates'.$cert_domain.'/fullchain.pem
+ 	<Directory ****WEB ROOT****>
+ 	'. $dir_section .'
+ 	</Directory>
+   ErrorLog /var/log/apache2/error.log
+   CustomLog /var/log/apache2/access.log combined
+
+
+   <IfModule mod_fastcgi.c>
+    <IfModule !mod_proxy_fcgi.c>
+
+     AddHandler php5-fcgi .php
+     Action php5-fcgi /php5-fcgi_'.$app_slug.'
+     Alias /php5-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
+     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
+
+      <FilesMatch "\.php$">
+          SetHandler php5-fcgi
+      </FilesMatch>
+
+     <Directory /usr/lib/cgi-bin>
+ 	'. $dir_section .'
+      SetHandler fastcgi-script
+     </Directory>
+
+    </IfModule>
+   </IfModule>
+
+   <IfModule mod_proxy_fcgi.c>
+     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
+   </IfModule>
+
+ </VirtualHost>
+  ' ;
 
         return $template ;
     }
