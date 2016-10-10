@@ -16,9 +16,6 @@ class LetsEncryptAllOS extends Base {
 
 	public function performEncryptionInstall() {
 
-        // @todo, maybe make this timeout changeable. its to allow apache to restart before making requests
-        sleep(15) ;
-
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
