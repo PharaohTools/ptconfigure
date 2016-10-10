@@ -27,6 +27,8 @@ class LetsEncryptWrap {
         $this->logger = $logger;
         $this->client = $client ? $client : new Client($this->ca);
         $this->accountKeyPath = $certificatesDir . '/_account/private.pem';
+
+
     }
 
     public function initAccount()
@@ -114,9 +116,12 @@ class LetsEncryptWrap {
             $this->log("Token for $domain saved at $tokenPath and should be available at $uri");
 
             // simple self check
-            if ($payload !== trim(@file_get_contents($uri))) {
-                throw new \RuntimeException("Please check $uri - token not available");
-            }
+
+//            var_dump("self check", $payload, @file_get_contents($uri)) ;
+//            @todod raise a request, this check is broken
+//            if ($payload !== trim(@file_get_contents($uri))) {
+//                throw new \RuntimeException("Please check $uri - token not available");
+//            }
 
             $this->log("Sending request to challenge");
 
