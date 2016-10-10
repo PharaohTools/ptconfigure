@@ -158,8 +158,8 @@ class AutoPilotConfigured extends AutoPilot {
         $dir_section = $this->getA2DirSection() ;
 
         $template ='
- NameVirtualHost ****IP ADDRESS****
- <VirtualHost ****IP ADDRESS****>
+ NameVirtualHost ****IP ADDRESS****:80
+ <VirtualHost ****IP ADDRESS****:80>
    ServerAdmin webmaster@localhost
  	ServerName ****SERVER NAME****
  	DocumentRoot ****WEB ROOT****
@@ -197,8 +197,8 @@ class AutoPilotConfigured extends AutoPilot {
  </VirtualHost>
 
 
- NameVirtualHost ****IP ADDRESS****
- <VirtualHost ****IP ADDRESS****>
+ NameVirtualHost ****IP ADDRESS****:443
+ <VirtualHost ****IP ADDRESS****:443>
    ServerAdmin webmaster@localhost
    ServerName ****SERVER NAME****
    DocumentRoot ****WEB ROOT****
