@@ -72,7 +72,7 @@ class AppConfig {
     public static function saveProjectFile($appConfigArray, $pfile = null, $isLocal = false) {
         if ($isLocal == true) { $pfile = 'papyrusfilelocal' ; }
         if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
-        $appConfigSerialized = json_encode($appConfigArray);
+        $appConfigSerialized = json_encode($appConfigArray, JSON_PRETTY_PRINT);
         file_put_contents($pfile, $appConfigSerialized);
         // chmod($pfile, 0777);
     }
