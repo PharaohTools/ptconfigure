@@ -256,6 +256,22 @@ COMPLETION;
         $paramValue = rtrim($paramValue) ;
         $paramValue = ltrim($paramValue) ;
         $trimmedParamValue = $paramValue ;
+        $stc = substr_count($paramValue, "$") ;
+        $lastpos = 0 ;
+        if ($stc !== true) {
+            for ($i=1; $i<=$stc; $i++) {
+                $curpos = strpos($paramValue, "\$", $lastpos) ;
+                if ($curpos !== false) {
+                    $shortestSp = strlen($paramValue) ;
+                    $chars = array(",", " ", "}") ;
+                    foreach ($chars as $char) {
+                        $lastSp = (isset($sp)) ? $sp : $shortestSp ;
+                        $sp = strpos($paramValue, $char, $curpos) ;
+                        if ( ($sp !== false) && ($sp<$lastSp)) {
+                            $shortestSp = $sp ; } }
+                    $var_name = substr($paramValue, $curpos+1, $shortestSp) ;
+                    $var_val = $this->loadSingleVariable($var_name) ;
+                    $paramValue = str_replace('$'.$var_name, $var_val, $paramValue) ; } } }
         if (substr($paramValue, 0, 4) == "::::") {
             $parts_string = substr($paramValue, 4) ;
             $parts_array = explode("::", $parts_string) ;
@@ -385,7 +401,12 @@ COMPLETION;
         if (is_null($vars)) {
             $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
             $variableGroupFactory = new \Model\VariableGroups() ;
-            $vg =  $variableGroupFactory->getModel($this->params) ;
+            $tp = array();
+            $opts = array("vars", "varset", "variables" );
+            foreach ($opts as $opt) {
+                if (isset($this->params[$opt])) {
+                    $tp[$opt] = $this->params[$opt] ; } }
+            $vg =  $variableGroupFactory->getModel($tp) ;
             $res = $vg->getVariables() ;
             $runtime_vars = (is_null($res)) ? array() : $res ;
             \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
@@ -393,6 +414,28 @@ COMPLETION;
         $var_requested = $parts_array[1] ;
         if (isset($vars[$var_requested])) { return $vars[$var_requested] ; }
         $logging->log("No value set for requested Variable {$var_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
+    }
+
+    protected function loadSingleVariable($var) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel(array());
+        $vars = \Model\RegistryStore::getValue("runtime_variables");
+        if (is_null($vars)) {
+            $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
+            $variableGroupFactory = new \Model\VariableGroups() ;
+            $tp = array();
+            $opts = array("vars", "varset", "variables" );
+            foreach ($opts as $opt) {
+                if (isset($this->params[$opt])) {
+                    $tp[$opt] = $this->params[$opt] ; } }
+            $vg =  $variableGroupFactory->getModel($tp) ;
+            $res = $vg->getVariables() ;
+            $runtime_vars = (is_null($res)) ? array() : $res ;
+            \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
+            $vars = $runtime_vars; }
+        if (isset($vars[$var])) { return $vars[$var] ; }
+        $logging->log("No value set for requested Variable \${$var}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
         return false ;
     }
 
