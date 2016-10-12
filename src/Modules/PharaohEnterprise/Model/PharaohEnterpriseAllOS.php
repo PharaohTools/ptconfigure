@@ -238,13 +238,13 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
         $logging->log("Changing directory to {$ptc_dir}...", $this->getModuleName()) ;
         chdir($ptc_dir) ;
         $logging->log("Getting enterprise source...", $this->getModuleName()) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.PHARAOH_APP.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key fetch --all' ;
+        $comm = "git-key-safe -i ".PFILESDIR.PHARAOH_APP.DS.'keys'.DS.'enterprise_key fetch --all' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key reset --hard enterprise/master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.PHARAOH_APP.DS.'keys'.DS.'enterprise_key reset --hard enterprise/master' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.PHARAOH_APP.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
         passthru($comm, $return) ;
         return ($return==0) ? true : false ;
     }
