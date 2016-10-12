@@ -56,6 +56,7 @@ class PharaohEnterpriseLinux extends BaseLinuxApp {
     }
 
     protected function askForPharaohEnterpriseUsername(){
+        if (isset($this->params["user"])) { return $this->params["user"] ; }
         if (isset($this->params["username"])) { return $this->params["username"] ; }
         $appVar = \Model\AppConfig::getAppVariable("pharaoh-enterprise-username") ;
         if ($appVar != null) {
