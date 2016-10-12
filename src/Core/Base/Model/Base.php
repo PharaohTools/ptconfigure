@@ -264,14 +264,18 @@ COMPLETION;
         $paramValue = rtrim($paramValue) ;
         $paramValue = ltrim($paramValue) ;
         $trimmedParamValue = $paramValue ;
-        $stc = substr_count($paramValue, "$") ;
+        $vid = (isset($this->original_params["varsymbol"])) ? : '$$' ;
+        $stc = substr_count($paramValue, $vid) ;
         $lastpos = 0 ;
         if ($stc !== true) {
             for ($i=1; $i<=$stc; $i++) {
-                $curpos = strpos($paramValue, "\$") ;
+                $curpos = strpos($paramValue, $vid) ;
                 if ($curpos !== false) {
                     $shortestSp = strlen($paramValue) ;
-                    $chars = array(",", " ", "}") ;
+                    $chars = array(
+                        ",", " ", "}", ".", "£", "$", "%", "+", "/", '\\', '@', "'", "<", ">", "?", ":", ";",
+                        "*", "(", ")", "=", "~", "#", "&", "`",
+                    ) ;
                     foreach ($chars as $char) {
 //                        $lastSp = (isset($sp)) ? $sp : $shortestSp ;
                         $sp = strpos($paramValue, $char, $curpos) ;
@@ -281,7 +285,7 @@ COMPLETION;
 //                    var_dump($paramValue, $shortestSp, $sp) ;
                     $var_name = substr($paramValue, $curpos+1, $shortestSp-($curpos+1)) ;
                     $var_val = $this->loadSingleVariable($var_name) ;
-                    $paramValue = str_replace('$'.$var_name, $var_val, $paramValue) ; } } }
+                    $paramValue = str_replace($vid.$var_name, $var_val, $paramValue) ; } } }
         if (substr($paramValue, 0, 4) == "::::") {
             $parts_string = substr($paramValue, 4) ;
             $parts_array = explode("::", $parts_string) ;
