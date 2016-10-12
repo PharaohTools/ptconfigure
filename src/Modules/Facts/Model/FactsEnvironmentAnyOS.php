@@ -16,9 +16,7 @@ class FactsEnvironmentAnyOS extends FactsAnyOS {
 
     public function getAllAvailableFactNamesAndMethods() {
         $all_fact_names = array(
-            "target" => "factGetCwd",
-            "getcwd" => "factGetCwd",
-            "constant" => "factGetConstant"
+            "target" => "findTargetFrom",
         );
         return $all_fact_names ;
     }
