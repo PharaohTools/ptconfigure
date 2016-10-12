@@ -29,7 +29,7 @@ class Base {
     protected $versionLatestCommand;
 
     public function __construct($params) {
-        $this->original_params = $params ;
+        $this->original_params = $this->getParamsFromRaw($params) ;
         $this->setTempDir();
         $this->autopilotDefiner = $this->getModuleName() ;
         $this->setCmdLineParams($params);
