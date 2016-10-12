@@ -268,16 +268,18 @@ COMPLETION;
         $lastpos = 0 ;
         if ($stc !== true) {
             for ($i=1; $i<=$stc; $i++) {
-                $curpos = strpos($paramValue, "\$", $lastpos) ;
+                $curpos = strpos($paramValue, "\$") ;
                 if ($curpos !== false) {
                     $shortestSp = strlen($paramValue) ;
                     $chars = array(",", " ", "}") ;
                     foreach ($chars as $char) {
-                        $lastSp = (isset($sp)) ? $sp : $shortestSp ;
+//                        $lastSp = (isset($sp)) ? $sp : $shortestSp ;
                         $sp = strpos($paramValue, $char, $curpos) ;
-                        if ( ($sp !== false) && ($sp<$lastSp)) {
+//                        var_dump("spa:",  $sp) ;
+                        if ( ($sp !== false) && ($sp < $shortestSp)) {
                             $shortestSp = $sp ; } }
-                    $var_name = substr($paramValue, $curpos+1, $shortestSp) ;
+//                    var_dump($paramValue, $shortestSp, $sp) ;
+                    $var_name = substr($paramValue, $curpos+1, $shortestSp-($curpos+1)) ;
                     $var_val = $this->loadSingleVariable($var_name) ;
                     $paramValue = str_replace('$'.$var_name, $var_val, $paramValue) ; } } }
         if (substr($paramValue, 0, 4) == "::::") {
