@@ -45,7 +45,7 @@ class VariableGroupsAllOS extends Base {
             $ext = pathinfo($set, PATHINFO_EXTENSION);
             switch ($ext) {
                 case "php" :
-                    $params = $this->params ;
+                    $params = $this->original_params ;
                     $logging->log("Loading Variable Set from {$set}", $this->getModuleName());
                     require $set ;
                     break;
