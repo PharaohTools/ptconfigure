@@ -409,7 +409,8 @@ COMPLETION;
         if (is_null($vars)) {
             $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
             $variableGroupFactory = new \Model\VariableGroups() ;
-            $vg =  $variableGroupFactory->getModel($this->original_params) ;
+            $vg =  $variableGroupFactory->getModel(array()) ;
+            $vg->params["raw"] = $this->original_params ;
             $res = $vg->getVariables() ;
             $runtime_vars = (is_null($res)) ? array() : $res ;
             \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
@@ -427,7 +428,8 @@ COMPLETION;
         if (is_null($vars)) {
             $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
             $variableGroupFactory = new \Model\VariableGroups() ;
-            $vg =  $variableGroupFactory->getModel($this->original_params) ;
+            $vg =  $variableGroupFactory->getModel(array()) ;
+            $vg->params["raw"] = $this->original_params ;
             $res = $vg->getVariables() ;
             $runtime_vars = (is_null($res)) ? array() : $res ;
             \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
