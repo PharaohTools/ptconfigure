@@ -409,13 +409,7 @@ COMPLETION;
         if (is_null($vars)) {
             $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
             $variableGroupFactory = new \Model\VariableGroups() ;
-            $tp = array();
-            $tp["raw_parameters"] = $this->params;
-            $opts = array("vars", "varset", "variables" );
-            foreach ($opts as $opt) {
-                if (isset($this->params[$opt])) {
-                    $tp[$opt] = $this->params[$opt] ; } }
-            $vg =  $variableGroupFactory->getModel($tp) ;
+            $vg =  $variableGroupFactory->getModel($this->original_params) ;
             $res = $vg->getVariables() ;
             $runtime_vars = (is_null($res)) ? array() : $res ;
             \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
@@ -433,13 +427,7 @@ COMPLETION;
         if (is_null($vars)) {
             $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
             $variableGroupFactory = new \Model\VariableGroups() ;
-            $tp = array();
-            $tp["raw_parameters"] = $this->params;
-            $opts = array("vars", "varset", "variables" );
-            foreach ($opts as $opt) {
-                if (isset($this->params[$opt])) {
-                    $tp[$opt] = $this->params[$opt] ; } }
-            $vg =  $variableGroupFactory->getModel($tp) ;
+            $vg =  $variableGroupFactory->getModel($this->original_params) ;
             $res = $vg->getVariables() ;
             $runtime_vars = (is_null($res)) ? array() : $res ;
             \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
