@@ -39,7 +39,7 @@ class VariableGroupsAllOS extends Base {
 
     protected function loadVariableSet($set) {
         $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
+        $logging = $loggingFactory->getModel(array());
         $set = $this->findVariableFilePath($set) ;
         if (file_exists($set)) {
             $ext = pathinfo($set, PATHINFO_EXTENSION);
