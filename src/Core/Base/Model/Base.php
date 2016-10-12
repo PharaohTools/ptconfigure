@@ -264,7 +264,7 @@ COMPLETION;
         $paramValue = rtrim($paramValue) ;
         $paramValue = ltrim($paramValue) ;
         $trimmedParamValue = $paramValue ;
-        $vid = (isset($this->original_params["varsymbol"])) ? : '$$' ;
+        $vid = (isset($this->original_params["varsymbol"])) ? $this->original_params["varsymbol"] : '$$' ;
         $vid_len = strlen($vid) ;
         $stc = substr_count($paramValue, $vid) ;
         $lastpos = 0 ;
@@ -279,12 +279,12 @@ COMPLETION;
                     ) ;
                     foreach ($chars as $char) {
 //                        $lastSp = (isset($sp)) ? $sp : $shortestSp ;
-                        $sp = strpos($paramValue, $char, $curpos) ;
-//                        var_dump("spa:",  $sp) ;
+                        $sp = strpos($paramValue, $char, $curpos+$vid_len) ;
+//                        var_dump("spa:", $char, $curpos+$vid_len, $sp) ;
                         if ( ($sp !== false) && ($sp < $shortestSp)) {
                             $shortestSp = $sp ; } }
-//                    var_dump($paramValue, $shortestSp, $sp) ;
                     $var_name = substr($paramValue, $curpos+$vid_len, $shortestSp-($curpos+$vid_len)) ;
+//                    var_dump("pvx: ", $paramValue, $var_name, $curpos+$vid_len, $shortestSp-($curpos+$vid_len)) ;
                     $var_val = $this->loadSingleVariable($var_name) ;
                     $paramValue = str_replace($vid.$var_name, $var_val, $paramValue) ; } } }
         if (substr($paramValue, 0, 4) == "::::") {
