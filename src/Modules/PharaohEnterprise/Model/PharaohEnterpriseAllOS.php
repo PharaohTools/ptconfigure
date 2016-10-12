@@ -205,8 +205,8 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
                 if ($res == true) { continue ; }
                 else { return false ; } }  }
 
-        $logging->log("SSH Directory {$ssh_dir} does not exist, creating...", $this->getModuleName()) ;
-        $comm = "chmod 0700 ".PFILESDIR.'keys'.DS."enterprise_key*" ;
+        $logging->log("SSH Directory {$ssh_dir} permissions modify...", $this->getModuleName()) ;
+        $comm = "chmod 0700 ".PFILESDIR.PHARAOH_APP.DS.'keys'.DS."enterprise_key*" ;
         passthru($comm, $return) ;
 
         return true ;
@@ -238,13 +238,13 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
         $logging->log("Changing directory to {$ptc_dir}...", $this->getModuleName()) ;
         chdir($ptc_dir) ;
         $logging->log("Getting enterprise source...", $this->getModuleName()) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key pull enterprise master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key fetch --all' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key fetch --all' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key reset --hard enterprise/master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key reset --hard enterprise/master' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key pull enterprise master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'opt'.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
         passthru($comm, $return) ;
         return ($return==0) ? true : false ;
     }
