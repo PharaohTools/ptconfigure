@@ -131,7 +131,7 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
     public function step_two_attempt_bind($ldapconn) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ($bind = \ldap_bind($ldapconn, $this->get_bind_user(), $this->apiKey)) {
+        if ($bind = ldap_bind($ldapconn, $this->get_bind_user(), $this->apiKey)) {
             $logging->log("Authentication server login successful...", $this->getModuleName()) ;
             return $bind ; }
         else {
@@ -174,7 +174,7 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
     public function step_five_install_ssh_keys($step_four_ssh_key_fields) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $ssh_dir = PFILESDIR.DS.'ptconfigure'.DS."keys" ;
+        $ssh_dir = PFILESDIR.'ptconfigure'.DS."keys" ;
         if (!file_exists($ssh_dir) || !is_dir($ssh_dir)) {
             $logging->log("SSH Directory {$ssh_dir} does not exist, creating...", $this->getModuleName()) ;
             passthru("mkdir -p {$ssh_dir}") ; }
@@ -206,7 +206,7 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
                 else { return false ; } }  }
 
         $logging->log("SSH Directory {$ssh_dir} does not exist, creating...", $this->getModuleName()) ;
-        $comm = "chmod 0700 ".PFILESDIR.DS.'keys'.DS."enterprise_key*" ;
+        $comm = "chmod 0700 ".PFILESDIR.'keys'.DS."enterprise_key*" ;
         passthru($comm, $return) ;
 
         return true ;
@@ -216,7 +216,7 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
     public function step_six_add_enterprise_remote($step_three_user_output) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $ptc_dir = PFILESDIR.DS.'ptconfigure'.DS.'ptconfigure'.DS ;
+        $ptc_dir = PFILESDIR.'ptconfigure'.DS.'ptconfigure'.DS ;
         $logging->log("Changing directory to {$ptc_dir}...", $this->getModuleName()) ;
         chdir($ptc_dir) ;
         $logging->log("Configuring Source Control...", $this->getModuleName()) ;
@@ -234,17 +234,17 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
     public function step_seven_pull_enterprise() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $ptc_dir = PFILESDIR.DS.'ptconfigure'.DS.'ptconfigure'.DS ;
+        $ptc_dir = PFILESDIR.'ptconfigure'.DS.'ptconfigure'.DS ;
         $logging->log("Changing directory to {$ptc_dir}...", $this->getModuleName()) ;
         chdir($ptc_dir) ;
         $logging->log("Getting enterprise source...", $this->getModuleName()) ;
-        $comm = "git-key-safe -i ".PFILESDIR.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key pull enterprise master' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.DS.'keys'.DS.'enterprise_key fetch --all' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key fetch --all' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.DS.'keys'.DS.'enterprise_key reset --hard enterprise/master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key reset --hard enterprise/master' ;
         passthru($comm, $return) ;
-        $comm = "git-key-safe -i ".PFILESDIR.DS.'keys'.DS.'enterprise_key pull enterprise master' ;
+        $comm = "git-key-safe -i ".PFILESDIR.'keys'.DS.'enterprise_key pull enterprise master' ;
         passthru($comm, $return) ;
         return ($return==0) ? true : false ;
     }
@@ -257,7 +257,7 @@ class PharaohEnterpriseAllOS extends BaseLinuxApp {
     }
 
     public function get_key_path($type = "public") {
-        $ssh_dir = PFILESDIR.DS.'ptconfigure'.DS.'keys'.DS ;
+        $ssh_dir = PFILESDIR.'ptconfigure'.DS.'keys'.DS ;
         $key = 'enterprise_key' ;
         if ($type=="public") { $key .= ".pub" ; }
         return $ssh_dir.$key ;
