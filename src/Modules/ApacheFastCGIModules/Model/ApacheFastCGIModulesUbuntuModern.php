@@ -23,12 +23,15 @@ class ApacheFastCGIModulesUbuntuModern extends ApacheFastCGIModulesUbuntu {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-fastcgi")) ),
             array("command" => array(
                 "a2enmod proxy",
+                "a2enmod ssl",
                 "a2enmod proxy_fcgi",
 //                "a2enconf php5-fpm",
             ) ),
             array("method"=> array("object" => $this, "method" => "apacheReload", "params" => array())) );
         $this->uninstallCommands = array(
             array("command" => array(
+                "a2dismod proxy",
+                "a2dismod ssl",
                 "a2dismod proxy_fcgi",
 //                "a2enconf php5-fpm",
             ) ),
