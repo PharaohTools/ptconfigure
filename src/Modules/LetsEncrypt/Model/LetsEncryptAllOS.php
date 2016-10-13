@@ -19,6 +19,12 @@ class LetsEncryptAllOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
+        $wu_time = (isset($this->params["wait"]) && $this->params["wait"]==true) ? $this->params["wait"] : 15 ;
+        $logging->log("Waiting for Web Server warm up of {$wu_time} seconds", $this->getModuleName()) ;
+        for ($i=1; $i<=$wu_time; $i++)  {
+            sleep(1) ;
+            echo "." ; }
+
         if (!class_exists('LetsEncryptWrap')) {
             require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php'; }
 
