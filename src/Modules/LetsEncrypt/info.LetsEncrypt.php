@@ -34,6 +34,7 @@ class LetsEncryptInfo extends PTConfigureBase {
             --domain=www.site.com
             --webroot=/var/www/mysite
             --cert-path=/etc/ssl/certificates
+            --wait=15 # optional, will wait before execution if you need a web server to be ready first
 
 
 ';
