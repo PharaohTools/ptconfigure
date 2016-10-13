@@ -392,3 +392,4 @@ pm.max_spare_servers = 30
 ;php_admin_value[memory_limit] = 32M
 php_admin_value[session.save_path] = /tmp/
 php_admin_value[error_log] = /var/log/php-fpm.log
+php_admin_flag[log_errors] = on
