@@ -125,18 +125,13 @@ class BoxifyAllOS extends BaseLinuxApp {
         $lister = $boxifyFactory->getModel($this->params, "Listing");
         $curboxes = $lister->performListing() ;
         $logging->log("Ensuring environment", $this->getModuleName()) ;
-
 //        var_dump($curboxes[0]["servers"]) ;
-
         $serv_count = (is_array($curboxes["servers"]) && count($curboxes["servers"])>0) ? count($curboxes["servers"]) : 0 ;
         $logging->log("Current number of nodes in environment is {$serv_count}", $this->getModuleName()) ;
         $logging->log("Expected number of nodes in environment is {$this->boxAmount}", $this->getModuleName()) ;
-
-
         $cur_statuses = $this->checkCurNodeStatuses($curboxes) ;
 //        var_dump('csgas', $cur_statuses) ;
 //        die() ;
-
 
         if ($serv_count > $this->boxAmount) {
             $diff = $serv_count - $this->boxAmount ;
