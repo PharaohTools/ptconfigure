@@ -74,7 +74,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                                 $this->addServerToPapyrus($envName, $response); } } } } }
                 return true ; }
         else {
-            $logging->log("The environment $workingEnvironment does not exist.", LOG_FAILURE_EXIT_CODE) ; }
+            $logging->log("The environment $workingEnvironment does not exist.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ; }
     }
 
     private function askForBoxAddExecute() {
