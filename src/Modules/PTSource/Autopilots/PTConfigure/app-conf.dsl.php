@@ -1,22 +1,30 @@
 Logging log
   log-message "Lets configure PHP and Files for Pharaoh Source"
 
-Mkdir" => array( "path" => array(
-                    "label" => "Ensure the Repositories Directory exists",
-                    "path" => REPODIR
-                ), ), ),
+Mkdir path
+  label "Ensure the Repositories Directory exists"
+  path "{{{ Facts::~::factGetConstant::REPODIR }}}"
 
-                array ( "Chmod" => array( "path" => array(
-                    "label" => "Ensure the Repositories Directory is writable",
-                    "path" => REPODIR,
-                    "recursive" => true,
-                    "mode" => '0755',
-                ), ), ),
+Chmod path
+  label "Ensure the Repositories Directory is writable"
+  path "{{{ Facts::~::factGetConstant::REPODIR }}}"
+  recursive true
+  mode '0755'
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Configuration Management for Pharaoh Source Complete"),),),
+RunCommand install
+  guess
+  command "git config --global http.https://{{ Param::vhe-url }}.sslCAInfo '/etc/ssl/certificates/fullchain.pem'"
+  when "{{{ Param::enable-ssl }}}"
 
-            );
+RunCommand install
+  guess
+  command "git config --global http.https://{{ Param::vhe-url }}.sslCert '/etc/ssl/certificates/cert.pem'"
+  when "{{{ Param::enable-ssl }}}"
 
-    }
+RunCommand install
+  guess
+  command "git config --global http.https://{{ Param::vhe-url }}.sslKey '/etc/ssl/certificates/private.pem'"
+  when "{{{ Param::enable-ssl }}}"
 
-}
+Logging log
+  log-message "Configuration Management for Pharaoh Source Complete"

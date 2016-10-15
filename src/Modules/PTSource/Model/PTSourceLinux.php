@@ -90,7 +90,7 @@ class PTSourceLinux extends BasePHPApp {
     }
 
     public function getModuleConfigureAutoPath($type = "start") {
-        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'app-conf-'.$type.'.php' ;
+        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'app-conf-'.$type.'.dsl.php' ;
         return $path ;
     }
 
