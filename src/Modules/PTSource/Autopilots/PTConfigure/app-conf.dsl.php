@@ -3,11 +3,11 @@ Logging log
 
 Mkdir path
   label "Ensure the Repositories Directory exists"
-  path "{{{ Facts::~::factGetConstant::REPODIR }}}"
+  path "{{{ Facts::Runtime::factGetConstant::REPODIR }}}"
 
 Chmod path
   label "Ensure the Repositories Directory is writable"
-  path "{{{ Facts::~::factGetConstant::REPODIR }}}"
+  path "{{{ Facts::Runtime::factGetConstant::REPODIR }}}"
   recursive true
   mode '0755'
 
