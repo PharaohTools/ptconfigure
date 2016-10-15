@@ -12,6 +12,7 @@ class AutopilotExecutor extends Base {
         // if we don't have an object, its an array of errors
         if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
         $this->content["package-friendly"] = ($test) ? "Autopilot Test Suite" : "Autopilot" ;
+
         $this->registeredModels = $autopilot->steps ;
         $res1 = $this->checkForRegisteredModels($thisModel->params);
         if ($res1 !== true) {
@@ -82,7 +83,6 @@ class AutopilotExecutor extends Base {
         $mod_is = $mod_ray_is[0] ;
         $act_ray_is = array_keys($current_params[$mod_is]) ;
         $act_is = $act_ray_is[0] ;
-//        var_dump($current_params) ;
         if (isset($current_params[$mod_is][$act_is]["when"])) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
@@ -90,8 +90,6 @@ class AutopilotExecutor extends Base {
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            $autoFactory = new \Model\Autopilot() ;
-            $autoModel = $autoFactory->getModel(array(), "Default") ;
             $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
             $when_text = ($when_result == true) ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
@@ -166,11 +164,9 @@ class AutopilotExecutor extends Base {
         unset($autopilotParams["autopilot-file"]) ;
 
         $modParams = array_merge($modParams, $autopilotParams) ;
-//
 //        if ($currentControl == "User") { var_dump("mp", $modParams) ; }
 //
         $modParams = $this->formatParams($modParams) ;
-
         $params = array() ;
         $params["route"] =
             array(
