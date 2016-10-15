@@ -9,7 +9,7 @@ Chmod path
   label "Ensure the Repositories Directory is writable"
   path "{{{ Facts::Runtime::factGetConstant::REPODIR }}}"
   recursive true
-  mode '0755'
+  mode 0755
 
 Logging log
   log-message "Configuration Management for Pharaoh Source Complete"
