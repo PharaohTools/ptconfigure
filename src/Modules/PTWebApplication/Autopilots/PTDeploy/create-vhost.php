@@ -205,7 +205,7 @@ class AutoPilotConfigured extends AutoPilot {
    ServerName ****SERVER NAME****
    DocumentRoot ****WEB ROOT****
      SSLEngine on
- 	 SSLCertificateFile /etc/ssl/certificates/****SERVER NAME****/cert.pem
+ 	 SSLCertificateFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
      SSLCertificateKeyFile /etc/ssl/certificates/****SERVER NAME****/private.pem
      SSLCertificateChainFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
  	<Directory ****WEB ROOT****>
