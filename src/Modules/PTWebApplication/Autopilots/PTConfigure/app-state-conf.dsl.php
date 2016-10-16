@@ -47,7 +47,7 @@ Chgrp path
 Templating install
   label "{{{ Parameter::app-slug }}} PHP FPM Pool Config"
   source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}ptconfigure/ptconfigure/src/Modules/PTWebApplication/Templates/ptapplication_pool.tpl.php"
-  target "{{{ PTWebApplication::~::getFPMPoolDir }}}/{{{ Parameter::app-slug }}}.conf"
+  target "{{{ PTWebApplication::~::getFPMPoolDir }}}{{{ Parameter::app-slug }}}.conf"
   template_app-slug "{{{ Parameter::app-slug }}}"
   template_fpm-port "{{{ Parameter::fpm-port }}}"
 
