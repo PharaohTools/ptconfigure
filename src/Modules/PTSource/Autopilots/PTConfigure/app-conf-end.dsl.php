@@ -1,20 +1,20 @@
 Logging log
-  log-message "Lets configure SSL for Pharaoh Source"
+  log-message "Lets configure PHP specifically for Pharaoh Source"
 
-RunCommand install
-  guess
-  command "git config --global http.https://{{{ Param::vhe-url }}}.sslCAInfo '/etc/ssl/certificates/chain.pem'"
-  when "{{{ Param::enable-ssl }}}"
+File should-have-line
+  label "{{{ Parameter::app-slug }}} PHP Config for Memory Limit"
+  file "{{{ PTWebApplication::~::getFPMPoolDir }}}/{{{ Parameter::app-slug }}}.conf"
+  search "php_admin_flag[memory_limit] = 128M "
 
-RunCommand install
-  guess
-  command "git config --global http.https://{{{ Param::vhe-url }}}.sslCert '/etc/ssl/certificates/fullchain.pem'"
-  when "{{{ Param::enable-ssl }}}"
+File should-have-line
+  label "{{{ Parameter::app-slug }}} PHP Config for Upload Filesize Limit"
+  file "{{{ PTWebApplication::~::getFPMPoolDir }}}/{{{ Parameter::app-slug }}}.conf"
+  search "php_admin_flag[upload_max_filesize] = 128M "
 
-RunCommand install
-  guess
-  command "git config --global http.https://{{{ Param::vhe-url }}}.sslKey '/etc/ssl/certificates/private.pem'"
-  when "{{{ Param::enable-ssl }}}"
+File should-have-line
+  label "{{{ Parameter::app-slug }}} PHP Config for Post Size Limit"
+  file "{{{ PTWebApplication::~::getFPMPoolDir }}}/{{{ Parameter::app-slug }}}.conf"
+  search "php_admin_flag[post_max_size] = 128M "
 
 Logging log
   log-message "Configuration Management for Pharaoh Source Complete"
