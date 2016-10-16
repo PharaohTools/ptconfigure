@@ -57,7 +57,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => $vhe_ipport,
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
-                    "vhe-template" => $this->getTemplateHTTP($app_slug, $fpm_port),
+                    "vhe-template" => $this->getTemplateHTTP($app_slug, $fpm_port, $ap_auth),
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
@@ -83,7 +83,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => $vhe_ip ,
                     "vhe-vhost-dir" => "/etc/apache2/sites-available",
-                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
+                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip, $ap_auth),
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
@@ -107,7 +107,9 @@ class AutoPilotConfigured extends AutoPilot {
 
     }
 
-    private function getTemplateHTTP($app_slug, $fpm_port) {
+    private function getTemplateHTTP($app_slug, $fpm_port, $ap_auth=false) {
+
+        $pre_vhost_end_str = ($ap_auth==true) ? "/opt/{$app_slug}/{$app_slug}/src/Modules/Signup/Scripts/auth_check.php" : "" ;
 
         $dir_section = $this->getA2DirSection() ;
 
@@ -148,16 +150,18 @@ class AutoPilotConfigured extends AutoPilot {
      ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
    </IfModule>
 
+   '.$pre_vhost_end_str.'
+
  </VirtualHost> ' ;
 
         return $template ;
     }
 
 
-    private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip) {
+    private function getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip, $ap_auth=false) {
 
+        $pre_vhost_end_str = ($ap_auth==true) ? "/opt/{$app_slug}/{$app_slug}/src/Modules/Signup/Scripts/auth_check.php" : "" ;
         $vhe_ip = str_replace(":80", "", $vhe_ip) ;
-
         $dir_section = $this->getA2DirSection() ;
 
         $template ='
@@ -196,6 +200,8 @@ class AutoPilotConfigured extends AutoPilot {
    <IfModule mod_proxy_fcgi.c>
      ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
    </IfModule>
+
+   '.$pre_vhost_end_str.'
 
  </VirtualHost>
 
@@ -238,6 +244,8 @@ class AutoPilotConfigured extends AutoPilot {
    <IfModule mod_proxy_fcgi.c>
      ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:'.$fpm_port.'/opt/pt'.$app_slug.'/pt'.$app_slug.'/src/Modules/PostInput/$1
    </IfModule>
+
+   '.$pre_vhost_end_str.'
 
  </VirtualHost>
   ' ;

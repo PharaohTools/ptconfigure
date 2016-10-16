@@ -51,7 +51,7 @@ class LoggingAll extends BaseLinuxApp {
             $message = self::$logMessage ; }
 
         if (!isset($message) || is_null($message)) {
-            debug_print_backtrace() ;
+//            debug_print_backtrace() ;
             return true ; }
 
         if (!is_null($log_exit_code)) {
