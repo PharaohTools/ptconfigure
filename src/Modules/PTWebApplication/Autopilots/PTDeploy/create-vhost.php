@@ -264,11 +264,13 @@ class AutoPilotConfigured extends AutoPilot {
 
         if ($svObject->isLessThan($compareObject)) {
             $section = '
+            AllowOverride all
             Options Indexes FollowSymLinks MultiViews '.$cgiString.'
             Order allow,deny
             Allow from all' ; }
         else {
             $section = '
+            AllowOverride all
             Options Indexes FollowSymLinks MultiViews '.$cgiString.'
             Require all granted' ; }
         return $section ;
