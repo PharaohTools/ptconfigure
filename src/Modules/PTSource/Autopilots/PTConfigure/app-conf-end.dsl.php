@@ -17,4 +17,4 @@ File should-have-line
   search "php_admin_flag[post_max_size] = 128M "
 
 Logging log
-  log-message "Configuration Management for Pharaoh Source Complete"
+  log-message "PHP Configuration for Pharaoh Source Complete"
