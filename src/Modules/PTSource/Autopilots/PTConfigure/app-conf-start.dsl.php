@@ -28,5 +28,10 @@ Templating install
   target "/etc/apache2/conf-available/{{{ Parameter::app-slug }}}_auth.conf"
   template_app-slug "{{{ Parameter::app-slug }}}"
 
+RunCommand install
+  label "Enable apache Mod Auth External"
+  guess
+  command "a2enconf {{{ Parameter::app-slug }}}_auth"
+
 Logging log
   log-message "Configuration Management for Pharaoh Source Complete"
