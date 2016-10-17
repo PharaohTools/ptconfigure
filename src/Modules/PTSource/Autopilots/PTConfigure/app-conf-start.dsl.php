@@ -20,7 +20,7 @@ PackageManager pkg-install
 RunCommand install
   label "Enable apache Mod Auth External"
   guess
-  command "a2enmod authnz_external'"
+  command "a2enmod authnz_external"
 
 Templating install
   label "{{{ Parameter::app-slug }}} Apache Custom Authentication method"
