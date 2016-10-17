@@ -22,11 +22,10 @@ RunCommand install
   guess
   command "a2enmod authnz_external"
 
-Templating install
-  label "{{{ Parameter::app-slug }}} Apache Custom Authentication method"
+Copy put
+  label "{{{ Parameter::app-slug }}} Apache Custom Authentication method Conf file"
   source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}{{{ Parameter::app-slug }}}/{{{ Parameter::app-slug }}}/src/Modules/PTSource/Templates/{{{ Parameter::app-slug }}}_auth.conf"
   target "/etc/apache2/conf-available/{{{ Parameter::app-slug }}}_auth.conf"
-  template_app-slug "{{{ Parameter::app-slug }}}"
 
 RunCommand install
   label "Enable apache Mod Auth External"
