@@ -17,15 +17,16 @@ PackageManager pkg-install
   package-name libapache2-mod-authnz-external
   packager Apt
 
+RunCommand install
+  label "Enable apache Mod Auth External"
+  guess
+  command "a2enmod authnz_external'"
+
 Templating install
-  label "{{{ Parameter::app-slug }}} PHP FPM Pool Config"
+  label "{{{ Parameter::app-slug }}} Apache Custom Authentication method"
   source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}{{{ Parameter::app-slug }}}/{{{ Parameter::app-slug }}}/src/Modules/PTSource/Templates/{{{ Parameter::app-slug }}}_auth.conf"
   target "/etc/apache2/conf-available/{{{ Parameter::app-slug }}}_auth.conf"
   template_app-slug "{{{ Parameter::app-slug }}}"
-
-RunCommand install
-  guess
-  command "a2enmod authnz_external'"
 
 Logging log
   log-message "Configuration Management for Pharaoh Source Complete"
