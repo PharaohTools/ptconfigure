@@ -136,7 +136,7 @@ class InvokeSsh2 extends Base {
         stream_set_blocking( $error_stream, TRUE );
         $data = "" ;
         $error_output = "" ;
-        while ($buf = fread($this->stream, 4096)) {
+        while ($buf = fread($this->stream, 16384)) {
             $eo = stream_get_contents( $error_stream ) ;
             if (strlen($eo)>0) { $error_output .= $eo ; }
             $data .= $buf;
@@ -155,7 +155,7 @@ class InvokeSsh2 extends Base {
         stream_set_blocking( $this->stream, TRUE );
         $data = "" ;
         $error_output = "" ;
-        while ($buf = fread($this->stream, 4096)) { $data .= $buf; }
+        while ($buf = fread($this->stream, 16384)) { $data .= $buf; }
         fclose( $this->stream );
         return $data ;
     }
