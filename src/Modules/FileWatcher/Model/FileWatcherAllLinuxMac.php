@@ -108,6 +108,7 @@ class FileWatcherAllLinuxMac extends Base {
         if ($compareStatus == true) { // if file changed
             if ($scb !== false) { // and there is a success callback
                 $logging->log("Executing Success Callback", $this->getModuleName()) ;
+                $logging->log("Command: {$scb}", $this->getModuleName()) ;
                 $callbackOut = $this->doCallback($scb) ; // run callback
                 if ($escalate == true) {
                     $logging->log("Escalating exit status to match Success callback", $this->getModuleName()) ;
@@ -118,6 +119,7 @@ class FileWatcherAllLinuxMac extends Base {
         else { // if file not changed
             if ($fcb !== false) { // and there is a failure callback
                 $logging->log("Executing Failure Callback", $this->getModuleName()) ;
+                $logging->log("Command: {$fcb}", $this->getModuleName()) ;
                 $callbackOut = $this->doCallback($fcb) ; // run callback
                 if ($escalate == true) {
                     $logging->log("Escalating exit status to match Failure callback", $this->getModuleName()) ;
