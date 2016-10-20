@@ -56,7 +56,7 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
 
     protected function setSearchLocations() {
         if (isset($this->params["locations"])) { $searchLocations = explode(",", $this->params["locations"]) ; }
-        else { $searchLocations = array("user", "otheruser", "root", "specify") ; }
+        else { $searchLocations = array("user", "ptbuild", "otheruser", "root", "specify") ; }
         $this->searchLocations = $searchLocations ;
     }
 
@@ -117,6 +117,15 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
                     else {
                         $logging->log("User key not found at $kp", $this->getModuleName()); }
                     break ;
+                case "ptbuild" :
+                    $this->setUserHome() ;
+                    $kp = PFILESDIR.PTBCOMM.DS."keys".DS.$this->key ;
+                    if (file_exists($kp)) {
+                        $logging->log("PTBuild User key found at $kp", $this->getModuleName());
+                        return $kp ; }
+                    else {
+                        $logging->log("PTBuild key not found at $kp", $this->getModuleName()); }
+                    break ;
                 case "otheruser" :
                     $this->userName = (isset($this->params["otheruser"])) ? $this->params["otheruser"] : null ;
                     $this->setUserHome() ;
@@ -136,13 +145,6 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
                         $logging->log("Root key not found at $kp", $this->getModuleName()); }
                     break ;
                 case "specify" :
-                    $specdir = (isset($this->params["dir"])) ? $this->params["dir"] : null ;
-                    $kp = $specdir.DS.$this->key ;
-                    if (file_exists($kp)) {
-                        $logging->log("Specified path key found at $kp", $this->getModuleName());
-                        return $kp ; }
-                    else {
-                        $logging->log("Specified path key not found at $kp", $this->getModuleName()); }
                     break ;
             }
         }
