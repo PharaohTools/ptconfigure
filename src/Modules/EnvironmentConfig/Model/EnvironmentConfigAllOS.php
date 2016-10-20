@@ -69,15 +69,18 @@ class EnvironmentConfigAllOS extends Base {
     }
 
     public function getDefaultEnvironmentReplacements() {
-        return array( "any-app" => array(
+        $return = array( "any-app" => array(
             array( "var" =>"gen_env_name", "friendly_text" =>"Name of this Environment"),
             array( "var" =>"gen_env_tmp_dir", "friendly_text" =>"Default Temp Dir (should usually be /tmp/)"),) );
+        return $return ;
     }
 
     // @todo hahahahahahaha
     public function doQuestions() {
         $envSuffix = array_keys($this->environmentReplacements);
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (count($allProjectEnvs) > 0) {
             if (isset($this->params["yes"]) && $this->params["yes"]==true) { $useProjEnvs = true ; }
             else {
@@ -89,15 +92,19 @@ class EnvironmentConfigAllOS extends Base {
                     if (isset($this->params["environment-name"])) {
                         if ($this->params["environment-name"] != $oneEnvironment["any-app"]["gen_env_name"]) {
                             $tx = "Skipping Environment {$oneEnvironment["any-app"]["gen_env_name"]} " ;
-                            $tx .= "as specified Environment is {$this->params["environment-name"]} \n" ;
-                            echo $tx;
+                            $tx .= "as specified Environment is {$this->params["environment-name"]}" ;
+                            $logging->log($tx, $this->getModuleName()) ;
                             continue ; }
                         else {
                             if (isset($this->params["keep-current-environments"]) && $this->params["keep-current-environments"]==true) {
-                                echo "This environment already exists, you've selected keep-current-environments so we won't modify it\n";
-                                \Core\BootStrap::setExitCode(1);
-                            continue ; }
+                                $tx = "This environment already exists, you've selected keep-current-environments so we won't modify it";
+                                $logging->log($tx, $this->getModuleName()) ;
+                                continue ; }
                             else {
+                                if (isset($this->params["yes"]) && $this->params["yes"]==true) {
+                                    $tx = "This environment already exists, you've chosen to modify it";
+                                    $logging->log($tx, $this->getModuleName()) ;
+                                    continue ; }
                                 $q  = "This environment already exists, Do you want to modify it?" ;
                                 if (self::askYesOrNo($q)==false) { continue ; } } } }
                     $curEnvGroupRay = array_keys($this->environmentReplacements) ;
@@ -119,8 +126,9 @@ class EnvironmentConfigAllOS extends Base {
                         if (self::askYesOrNo($q)==true) {
                             $this->populateAnEnvironment($oneEnvironmentIndex, $curEnvGroup) ; } }
                     else {
-                        echo "Settings for ".$curEnvGroup." not setup for environment " .
+                        $tx = "Settings for ".$curEnvGroup." not setup for environment " .
                             "{$oneEnvironment["any-app"]["gen_env_name"]} enter them manually.\n";
+                        $logging->log($tx, $this->getModuleName()) ;
                         $this->populateAnEnvironment($oneEnvironmentIndex, $curEnvGroup) ; }
                 } } }
         $i = 0;
@@ -136,9 +144,9 @@ class EnvironmentConfigAllOS extends Base {
                     $more_envs = false; }
                 else if (isset($this->params["add-single-environment"])) {
                     if (isset($this->params["environment-name"]) && $this->isEnvironment($this->params["environment-name"])) {
-                        $m = "This environment already exists, and you've specified that you're adding a single ".
-                             "environment, so we won't add any more.\n";
-                        echo $m ;
+                        $tx = "This environment already exists, and you've specified that you're adding a single ".
+                            "environment, so we won't add any more.";
+                        $logging->log($tx, $this->getModuleName()) ;
                         break ; }
                     $i = count($this->environments) ;
                     $this->populateAnEnvironment($i, $envSuffix[0]);
@@ -168,6 +176,7 @@ class EnvironmentConfigAllOS extends Base {
     }
 
     public function doDelete() {
+        if (isset($this->params["env"])) { $this->params["environment-name"] = $this->params["env"]; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $allProjectEnvs = \Model\AppConfig::getProjectVariable("environments");
