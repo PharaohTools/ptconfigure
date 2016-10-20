@@ -72,7 +72,12 @@ class SFTPAllLinux extends Base {
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Put...", $this->getModuleName());
-                $res[] = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
+                $try_res = false ;
+                for ($i=1; $i<=3; $i++) {
+                    $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Attempt {$i}", $this->getModuleName());
+                    $try_res = $this->doSFTPPut($server["sftpObject"], $targetPath, $sourceData) ;
+                    if ($try_res == true) { break ; } }
+                $res[] = $try_res ;
                 $msg = ($res == true) ? "Put Successful" : "Put Failed";
                 $logging->log($msg, $this->getModuleName());
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Put Completed...", $this->getModuleName()); }
