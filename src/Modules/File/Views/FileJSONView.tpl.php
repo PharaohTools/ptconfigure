@@ -8,6 +8,6 @@
     "appInstallOutput" => $pageVars["result"],
   );
 
-  echo json_encode($jsonArray)."\n";
+  echo json_encode($jsonArray);
 
 ?>
