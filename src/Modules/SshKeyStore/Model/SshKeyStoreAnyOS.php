@@ -119,7 +119,7 @@ class SshKeyStoreAnyOS extends BaseLinuxApp {
                     break ;
                 case "ptbuild" :
                     $this->setUserHome() ;
-                    $kp = PFILESDIR.PTBCOMM.DS."keys".DS.$this->key ;
+                    $kp = PFILESDIR.trim(PTBCOMM).DS."keys".DS.$this->key ;
                     if (file_exists($kp)) {
                         $logging->log("PTBuild User key found at $kp", $this->getModuleName());
                         return $kp ; }
