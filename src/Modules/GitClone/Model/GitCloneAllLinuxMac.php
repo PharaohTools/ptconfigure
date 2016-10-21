@@ -22,16 +22,10 @@ class GitCloneAllLinuxMac extends Base {
         $this->askForGitCloneTargetRepo();
         $passed = false ;
         for ($tried = 0; $tried < 3; $tried++) {
-            $status = $this->doGitCloneCommand();
-            if ($status == false) {
-                sleep(2) ;
-                continue ; }
-            if ($status == true) {
-                $passed = true ;
-                break ; } }
-        if ($passed == false) {
-            return false;
-        }
+            $passed = $this->doGitCloneCommand();
+            if ($passed == true) { break ; }
+            sleep(2) ; }
+        if ($passed == false) { return false; }
         if ($this->askAlsoChangePerms() == false ) { return true; }
         $this->setWebServerUser();
         $this->changeNewProjectPermissions();
