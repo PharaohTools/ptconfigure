@@ -79,8 +79,9 @@ class GitCloneAllLinuxMac extends Base {
         // $branchParam = ($customBranch!=null) ? $customBranch.' --single-branch ' : "" ;
         $branchParam = ($customBranch != null) ? '--branch '.escapeshellarg($customBranch).' ' : "" ;
         $command  = $this->getGitCommand().' clone '.$branchParam.escapeshellarg($projectOriginRepo);
-        if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
         $nameInRepo = substr($projectOriginRepo, strrpos($projectOriginRepo, '/', -1) +1 );
+        if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
+        else { $command .= ' '.$nameInRepo; }
         $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
 //        $command .= " ".$this->projectDirectory ;
 //        var_dump($command);
