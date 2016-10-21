@@ -650,7 +650,7 @@ QUESTION;
 	protected function doSSHCommand($sshObject, $command, $first = null) {
         $out = $sshObject->exec($command);
         echo $out["data"] ;
-		return $out["status"] ;
+		return $out["rc"] ;
 //		return $sshObject->exec($command);
 	}
 
