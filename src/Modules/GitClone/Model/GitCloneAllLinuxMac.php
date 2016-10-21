@@ -90,6 +90,7 @@ class GitCloneAllLinuxMac extends Base {
         $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
 //        var_dump($command);
 //        echo $command;
+        $logging->log("Cloning to {$this->projectDirectory}", $this->getModuleName());
         $try_res = false ;
         for ($i=1; $i<=3; $i++) {
             $logging->log("Cloning $projectOriginRepo, Attempt {$i}", $this->getModuleName());
