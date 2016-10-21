@@ -117,12 +117,12 @@ class AppConfig {
     }
 
     private static function getVarFileLocation() {
-        $baseDir = self::getAppBaseDir().DS.'ptconfigurevars' ;
+        $baseDir = self::getAppBaseDir().DS.'ptdeployvars' ;
         return $baseDir;
     }
 
     private static function getAppBaseDir() {
-        $baseDir = PFILESDIR."ptconfigure".DS."ptconfigure";
+        $baseDir = PFILESDIR."ptdeploy".DS."ptdeploy";
         return $baseDir;
     }
 

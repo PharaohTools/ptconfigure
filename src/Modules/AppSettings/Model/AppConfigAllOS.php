@@ -14,21 +14,23 @@ class AppConfigAllOS extends Base {
     // Model Group
     public $modelGroup = array("AppConfig") ;
 
-    private static function checkSettingsExistOrCreateIt() {
-        // if (!file_exists('papyrusfile')) { touch('papyrusfile'); }
+    private static function checkSettingsExistOrCreateIt($pfile = null) {
+        $pfile = (isset($pfile)) ? $pfile : 'papyrusfile' ;
+        if (!file_exists($pfile)) { touch($pfile) ; }
         return true;
     }
 
-    public static function setProjectVariable($variable, $value, $listAdd=null, $listAddKey=null) {
-        if (self::checkSettingsExistOrCreateIt()) {
-            $appConfigArray = self::loadProjectFile();
+    public static function setProjectVariable($variable, $value, $listAdd=null, $listAddKey=null, $isLocal=false) {
+        $pFile = ($isLocal) ? 'papyrusfilelocal' : 'papyrusfile' ;
+        if (self::checkSettingsExistOrCreateIt($pFile)) {
+            $appConfigArray = self::loadProjectFile($pFile);
             if ( $listAdd == true && $listAddKey==null ) {
-                if (is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
+                if ( is_array($appConfigArray[$variable]) && !in_array($value, $appConfigArray[$variable])) {
                     $appConfigArray[$variable][] = $value ; } }
             else if ( $listAdd == true && $listAddKey!=null ) {
                 $appConfigArray[$variable][$listAddKey] = $value ; }
             else { $appConfigArray[$variable] = $value ; }
-            self::saveProjectFile( $appConfigArray ) ; }
+            self::saveProjectFile( $appConfigArray, null, $isLocal ) ; }
     }
 
     /*
@@ -37,9 +39,10 @@ class AppConfigAllOS extends Base {
      *  to delete a plain variable call deleteProjectVariable($variable)
      *
      */
-    public static function deleteProjectVariable($variable, $key=null, $value=null) {
-        if (self::checkSettingsExistOrCreateIt()) {
-            $appConfigArray = self::loadProjectFile();
+    public static function deleteProjectVariable($variable, $key=null, $value=null, $isLocal=false) {
+        $pFile = ($isLocal) ? 'papyrusfilelocal' : 'papyrusfile' ;
+        if (self::checkSettingsExistOrCreateIt($pFile)) {
+            $appConfigArray = self::loadProjectFile($pFile);
             if ( isset($key) ) {
                 // if variable is array without keys, delete entry by value
                 if ($key=="any" && isset($value)) {
@@ -51,28 +54,34 @@ class AppConfigAllOS extends Base {
                     unset($appConfigArray[$variable][$key]) ; } }
             else {
                 unset($appConfigArray[$variable]) ; }
-            self::saveProjectFile( $appConfigArray ) ; }
+            self::saveProjectFile( $appConfigArray, null, $isLocal ) ; }
     }
 
-    public static function getProjectVariable($variable) {
+    public static function getProjectVariable($variable, $isLocal=false) {
         $value = null;
-        // if (self::checkSettingsExistOrCreateIt()) {
-            $appConfigArray = self::loadProjectFile();
-            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ;
-        // }
+        $pFile = ($isLocal == true) ? 'papyrusfilelocal' : 'papyrusfile' ;
+        if (self::checkSettingsExistOrCreateIt($pFile)) {
+            $appConfigArray = self::loadProjectFile($pFile);
+            $value = (isset($appConfigArray[$variable])) ? $appConfigArray[$variable] : null ; }
         return $value;
     }
 
-    private function loadProjectFile() {
-        $appConfigArraySerialized = file_get_contents('papyrusfile');
-        $decoded = unserialize($appConfigArraySerialized);
-        return $decoded ;
+    public static function loadProjectFile($pfile = null, $isLocal = false) {
+        if ($isLocal == true) { $pfile = 'papyrusfilelocal' ; }
+        if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
+        if (file_exists($pfile)) {
+            $appConfigArraySerialized = file_get_contents($pfile);
+            $decoded = json_decode($appConfigArraySerialized, true);
+            return $decoded ; }
+        return array();
     }
 
-    private function saveProjectFile($appConfigArray) {
-        $appConfigSerialized = serialize($appConfigArray);
-        file_put_contents(getcwd().DIRECTORY_SEPARATOR.'papyrusfile', $appConfigSerialized);
-        chmod('papyrusfile', 0777);
+    public static function saveProjectFile($appConfigArray, $pfile = null, $isLocal = false) {
+        if ($isLocal == true) { $pfile = 'papyrusfilelocal' ; }
+        if (is_null($pfile)) {$pfile = 'papyrusfile' ; }
+        $appConfigSerialized = json_encode($appConfigArray, JSON_PRETTY_PRINT);
+        file_put_contents($pfile, $appConfigSerialized);
+        // chmod($pfile, 0777);
     }
 
     public static function setAppVariable($variable, $value, $listAdd=null) {
@@ -101,20 +110,26 @@ class AppConfigAllOS extends Base {
     }
 
     private static function loadAppFile() {
-        $appFile = self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptdeployapp';
+        $appFile = self::getVarFileLocation();
         if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
         $appConfigArrayString = file_get_contents($appFile);
-        $decoded = unserialize($appConfigArrayString);
+        $decoded = json_decode($appConfigArrayString, true);
         return $decoded;
     }
 
     private static function saveAppFile($appConfigArray) {
-        $coded = serialize($appConfigArray);
-        file_put_contents(self::getAppBaseDir().DIRECTORY_SEPARATOR.'ptdeployapp', $coded);
+        $coded = json_encode($appConfigArray);
+        $appFile = self::getVarFileLocation();
+        file_put_contents($appFile, $coded);
+    }
+
+    private static function getVarFileLocation() {
+        $baseDir = self::getAppBaseDir().DS.'ptdeployvars' ;
+        return $baseDir;
     }
 
     private static function getAppBaseDir() {
-        $baseDir = dirname(__FILE__)."/../../..";
+        $baseDir = PFILESDIR."ptdeploy".DS."ptdeploy";
         return $baseDir;
     }
 
