@@ -405,7 +405,7 @@ COMPLETION;
         if (isset($this->params[$param_requested])) { return $this->params[$param_requested] ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
-        $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName() ) ;
         return false ;
     }
 

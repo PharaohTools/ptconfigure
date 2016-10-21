@@ -24,7 +24,6 @@ class BootStrap {
     }
 
     public static function setExitCode($exitCode){
-        debug_print_backtrace() ;
         self::$exitCode = $exitCode ;
     }
 
