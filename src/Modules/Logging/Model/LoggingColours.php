@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class LoggingAll extends BaseLinuxApp {
+class LoggingColours extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -14,58 +14,61 @@ class LoggingAll extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    // Model Group
-    public static $logMessage = null ;
+    private $foreground_colors = array();
+    private $background_colors = array();
+
 
     public function __construct($params) {
-        parent::__construct($params);
-        $this->autopilotDefiner = "Logging";
-        $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "setLogMessage", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "log", "params" => array()) ),);
-        $this->uninstallCommands = array();
-        $this->programDataFolder = "/opt/Logging"; // command and app dir name
-        $this->programNameMachine = "logging"; // command and app dir name
-        $this->programNameFriendly = "  Logging!  "; // 12 chars
-        $this->programNameInstaller = "Logging";
-        $this->initialize();
+        // Set up shell colors
+        $this->foreground_colors['black'] = '0;30';
+        $this->foreground_colors['dark_gray'] = '1;30';
+        $this->foreground_colors['blue'] = '0;34';
+        $this->foreground_colors['light_blue'] = '1;34';
+        $this->foreground_colors['green'] = '0;32';
+        $this->foreground_colors['light_green'] = '1;32';
+        $this->foreground_colors['cyan'] = '0;36';
+        $this->foreground_colors['light_cyan'] = '1;36';
+        $this->foreground_colors['red'] = '0;31';
+        $this->foreground_colors['light_red'] = '1;31';
+        $this->foreground_colors['purple'] = '0;35';
+        $this->foreground_colors['light_purple'] = '1;35';
+        $this->foreground_colors['brown'] = '0;33';
+        $this->foreground_colors['yellow'] = '1;33';
+        $this->foreground_colors['light_gray'] = '0;37';
+        $this->foreground_colors['white'] = '1;37';
+
+        $this->background_colors['black'] = '40';
+        $this->background_colors['red'] = '41';
+        $this->background_colors['green'] = '42';
+        $this->background_colors['yellow'] = '43';
+        $this->background_colors['blue'] = '44';
+        $this->background_colors['magenta'] = '45';
+        $this->background_colors['cyan'] = '46';
+        $this->background_colors['light_gray'] = '47';
     }
 
-    public function setLogMessage() {
-        if (isset($this->params["log-message"])) {
-            self::$logMessage = $this->params["log-message"] ; }
-        if (isset($this->params["message"])) {
-            self::$logMessage = $this->params["message"] ; }
-        else {
-            self::$logMessage = self::askForInput("Enter Log Message", true) ; }
+    // Returns colored string
+    public function getColoredString($string, $foreground_color = null, $background_color = null) {
+        $colored_string = "";
+        // Check if given foreground color found
+        if (isset($this->foreground_colors[$foreground_color])) {
+            $colored_string .= "\033[" . $this->foreground_colors[$foreground_color] . "m"; }
+        // Check if given background color found
+        if (isset($this->background_colors[$background_color])) {
+            $colored_string .= "\033[" . $this->background_colors[$background_color] . "m"; }
+        // Add string and end coloring
+        $colored_string .=  $string . "\033[0m";
+        return $colored_string;
     }
 
-    public function log($message = null, $source = null, $log_exit_code = null) {
-        if (isset($this->params["log-message"])) {
-            self::$logMessage = $this->params["log-message"] ; }
-        if (isset($this->params["message"])) {
-            self::$logMessage = $this->params["message"] ; }
-        if (is_null($source) && isset($this->params["source"])) {
-            $source = $this->params["source"] ; }
-        if (isset(self::$logMessage)) {
-            $message = self::$logMessage ; }
+    // Returns all foreground color names
+    public function getForegroundColors() {
+        return array_keys($this->foreground_colors);
+    }
 
-        if (!isset($message) || is_null($message)) {
-//            debug_print_backtrace() ;
-            return true ; }
-
-        if (!is_null($log_exit_code)) {
-            \Core\BootStrap::setExitCode($log_exit_code) ; }
-        $stx = (strlen($source)>0) ? "[$source] " : "" ;
-        $fullMessage = "[Pharaoh Logging] " . $stx . $message . "\n" ;
-
-        $res = file_put_contents("php://stderr", $fullMessage );
-        if ($res==false) { return false ;}
-        if (isset($this->params["php-log"])) {
-            $res = error_log($fullMessage) ;
-            if ($res==false) { return false ;} }
-        self::$logMessage = null ;
-        return true ;
+    // Returns all background color names
+    public function getBackgroundColors() {
+        return array_keys($this->background_colors);
     }
 
 }
