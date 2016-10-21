@@ -36,7 +36,7 @@ class GitCloneAllLinuxMac extends Base {
         $this->setWebServerUser();
         $this->changeNewProjectPermissions();
         $this->changeNewProjectFolderOwner();
-        $this->changeToProjectDirectory();
+//        $this->changeToProjectDirectory();
         return true;
     }
 
@@ -90,7 +90,7 @@ class GitCloneAllLinuxMac extends Base {
         $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
 //        var_dump($command);
 //        echo $command;
-        $rc = self::executeAndGetReturnCode($command, true, true);
+        $rc = self::executeAndGetReturnCode($command, false, true);
         return ($rc["rc"] == 0) ? true : false ;
     }
 
