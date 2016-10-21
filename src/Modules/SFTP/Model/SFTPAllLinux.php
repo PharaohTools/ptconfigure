@@ -429,12 +429,16 @@ class SFTPAllLinux extends Base {
         else {
             if (!class_exists('Net_SSH2')) {
                 // Always load SSH2 class from here as SFTP class tries to load it wrongly
-                $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
-                $ssh2File = $srcFolder."/seclib/Net/SSH2.php" ;
+                $srcFolder =  str_replace(DS."Model", DS."Libraries", dirname(__FILE__) ) ;
+                $ssh2File = $srcFolder.DS."seclib".DS."Net".DS."SSH2.php" ;
+                $path = dirname(__DIR__).DS.'Libraries'.DS.'seclib'.DS ;
+                set_include_path(get_include_path() . PATH_SEPARATOR . $path);
                 require_once($ssh2File) ; }
             if (!class_exists('Net_SFTP')) {
-                $srcFolder =  str_replace("/Model", "/Libraries", dirname(__FILE__) ) ;
-                $sftpFile = $srcFolder."/seclib/Net/SFTP.php" ;
+                $srcFolder =  str_replace(DS."Model", DS."Libraries", dirname(__FILE__) ) ;
+                $sftpFile =$srcFolder.DS."seclib".DS."Net".DS."SFTP.php" ;
+                $path = dirname(__DIR__).DS.'Libraries'.DS.'seclib'.DS ;
+                set_include_path(get_include_path() . PATH_SEPARATOR . $path);
                 require_once($sftpFile) ; }
 
             $loggingFactory = new \Model\Logging();

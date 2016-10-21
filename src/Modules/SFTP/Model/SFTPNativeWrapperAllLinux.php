@@ -57,9 +57,9 @@ class SFTPNativeWrapperAllLinux extends Base {
 
     public function put($remotefile, $data) {
         // @todo randomly generate this
-        file_put_contents(self::$tempDir.DS.'sftptempfile', $data) ;
-        $res = ssh2_scp_send($this->connection, self::$tempDir.DS.'sftptempfile', $remotefile, 0644);
-        self::executeAndOutput('rm -f '.self::$tempDir.DS.'sftptempfile') ;
+        file_put_contents($this->tempDir.DS.'sftptempfile', $data) ;
+        $res = ssh2_scp_send($this->connection, $this->tempDir.DS.'sftptempfile', $remotefile, 0644);
+        self::executeAndOutput('rm -f '.$this->tempDir.DS.'sftptempfile') ;
         return $res ;
     }
 
