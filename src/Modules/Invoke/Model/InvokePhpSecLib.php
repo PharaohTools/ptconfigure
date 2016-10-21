@@ -39,6 +39,10 @@ class InvokePhpSecLib extends BaseLinuxApp
             // Always load SSH2 class from here as SFTP class tries to load it wrongly
             $srcFolder = str_replace(DS . "Model", DS . "Libraries", dirname(__FILE__));
             $ssh2File = $srcFolder . DS . "seclib" . DS . "Net" . DS . "SSH2.php";
+
+            $path = dirname(__DIR__).DS.'Libraries'.DS.'seclib'.DS ;
+            set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+
             require_once($ssh2File);
         }
         $this->connection = new \Net_SSH2($this->server->host, $this->server->port);
@@ -65,9 +69,9 @@ class InvokePhpSecLib extends BaseLinuxApp
     public function exec($command)
     {
         $command = "$command\n";
-        $stream = $this->connection->exec($command);
-
-        return $stream;
+        $ret["data"] = $stream = $this->connection->exec($command);
+        $ret["rc"] = $this->connection->getExitStatus() ;
+        return $ret;
     }
 
     public function __call($k, $args = array())
