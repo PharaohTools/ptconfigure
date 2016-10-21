@@ -57,7 +57,7 @@ class RunCommandLinuxMac extends BaseLinuxApp {
         if ($rc == 0) { return true; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Run Command failed", $this->getModuleName());
+        $logging->log("Run Command failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
         return false;
     }
 
