@@ -86,6 +86,7 @@ class ProjectLinuxMac extends Base  {
         $logging = $loggingFactory->getModel($this->params) ;
         $command = 'mkdir -p '.$this->projectContainerDirectory;
         self::executeAndOutput($command, "Project Container directory created");
+        $cur_dir = getcwd() ;
         chdir($this->projectContainerDirectory);
         echo getcwd().' space '.$this->projectContainerDirectory;
         $logging->log("Moving to Container", $this->getModuleName());
@@ -93,6 +94,7 @@ class ProjectLinuxMac extends Base  {
         self::executeAndOutput($command, "Showing Container Directory");
         $command = 'touch dhprojc';
         self::executeAndOutput($command, "Project Container file created");
+        chdir($cur_dir) ;
     }
 
     public static function checkIsPharaohProject($dir = null) {
