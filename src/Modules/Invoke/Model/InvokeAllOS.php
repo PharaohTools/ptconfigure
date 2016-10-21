@@ -114,7 +114,7 @@ class InvokeAllOS extends Base {
                         $out = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
                         echo $out["data"] ;
                         $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ;
-                        if ($out["rc"] !== 0) {
+                        if ($out["rc"] != 0) {
                             $logging->log("Command failed on remote with exit code {$out["rc"]}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                             return false ; } }
                     else {

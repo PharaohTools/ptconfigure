@@ -113,16 +113,17 @@ class InvokeSsh2 extends Base {
         return $rc;
     }
 
-    protected function improvedExec( $command ) {
-        // $result = $this->rawExec( $command = '(' . $command . ');echo -e "\n$?"' );
-        $result = $this->rawExec( $command = '(' . $command . ');' );
-        $findRC = "" ;
-//        $findRC = $this->findRC() ;
-//        var_dump("frc: ", $findRC) ;
-//        $no_trailing_newline = rtrim($result[0]) ;
-//        $last_newline = strrpos($no_trailing_newline, "\n") ;
-//        $rc = substr($no_trailing_newline, $last_newline+1) ;
-        return $findRC ;
+    function improvedExec( $command ) {
+        $result = $this->rawExec( '('.$command.'); echo -en "\n$?" ;' );
+        $pres =preg_match( "/^(.*)\n(0|-?[1-9][0-9]*)$/s", $result[0], $matches ) ;
+        if( $pres==false ) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params) ;
+            $logging->log("No return status found from command", LOG_FAILURE_EXIT_CODE) ;  }
+        $res = array() ;
+        $res["rc"] = $matches[2] ;
+        $res["data"] = $matches[1] ;
+        return $res;
     }
 
     protected function rawExec( $command ) {
@@ -140,7 +141,8 @@ class InvokeSsh2 extends Base {
             $eo = stream_get_contents( $error_stream ) ;
             if (strlen($eo)>0) { $error_output .= $eo ; }
             $data .= $buf;
-            echo $buf ; }
+            //echo $buf ;
+        }
         fclose( $this->stream );
         fclose( $error_stream );
         return array( $data, $error_output );
