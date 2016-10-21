@@ -171,11 +171,11 @@ COMPLETION;
             stream_set_blocking($pipes[1], true);
             stream_set_blocking($pipes[2], true);
             $data = "";
-            while ( ($buf = fread($pipes[1], 131072)) || ( $buf2 = fread($pipes[2], 131072))) {
+            while ( ($buf = fread($pipes[1], 32768)) || ( $buf2 = fread($pipes[2], 32768))) {
                 if (isset($buf) && $buf !== false) {
                     $data .= $buf;
                     echo $buf ; }
-                if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 131072) ) {
+                if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 32768) ) {
 //                    $buf2 = "ERR: ".$buf2;
 //                    $data .= "ERR: ";
                     $data .= $buf2;
@@ -405,7 +405,7 @@ COMPLETION;
         if (isset($this->params[$param_requested])) { return $this->params[$param_requested] ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
-        $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName() ) ;
         return false ;
     }
 
