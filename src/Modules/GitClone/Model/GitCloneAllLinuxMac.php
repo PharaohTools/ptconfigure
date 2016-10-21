@@ -90,8 +90,14 @@ class GitCloneAllLinuxMac extends Base {
         $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
 //        var_dump($command);
 //        echo $command;
-        $rc = self::executeAndGetReturnCode($command, false, true);
-        return ($rc["rc"] == 0) ? true : false ;
+        $try_res = false ;
+        for ($i=1; $i<=3; $i++) {
+            $logging->log("Cloning $projectOriginRepo, Attempt {$i}", $this->getModuleName());
+            $try_res = self::executeAndGetReturnCode($command, false, true);
+            if ($try_res["rc"] == 0) { break ; } }
+        $msg = (isset($try_res["rc"]) && $try_res["rc"] == 0) ? "Successful" : "Failed";
+        $logging->log("Clone $msg", $this->getModuleName());
+        return (isset($try_res["rc"]) && $try_res["rc"] == 0) ? true : false ;
     }
 
     protected function dropDirectory(){
