@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class RunCommandUbuntu extends BaseLinuxApp {
+class RunCommandLinuxMac extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
+    public $os = array("Linux", "Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -53,7 +53,12 @@ class RunCommandUbuntu extends BaseLinuxApp {
             $commandRay[] = "exit" ; }
         // @todo only show this under verbose output
         foreach ($commandRay as $command) { echo $command."\n" ; }
-        $this->executeAsShell($commandRay) ;
+        $rc = $this->executeAsShell($commandRay) ;
+        if ($rc == 0) { return true; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Run Command failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+        return false;
     }
 
     public function askForUserName() {
@@ -71,9 +76,18 @@ class RunCommandUbuntu extends BaseLinuxApp {
         $this->command = (isset($this->params["command"])) ? $this->params["command"] : self::askForInput($question);
     }
 
+    public function askExec() {
+        return $this->askInstall() ;
+    }
+
     public function askForNohup() {
         if (isset($this->params["nohup"]) && $this->params["nohup"]==true) {
             $useNoHup = (strlen($this->params["nohup"]) > 0) ? true : false ;
+            $this->nohup = $useNoHup ;
+            return ; }
+        if ( (isset($this->params["nohup"]) && $this->params["nohup"]===false) ||
+             (isset($this->params["nohup"]) && $this->params["nohup"]=="false")) {
+            $useNoHup = false ;
             $this->nohup = $useNoHup ;
             return ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
