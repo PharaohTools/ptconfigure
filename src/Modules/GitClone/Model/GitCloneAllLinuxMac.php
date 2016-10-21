@@ -82,7 +82,7 @@ class GitCloneAllLinuxMac extends Base {
         if (isset($customCloneFolder)) { $command .= ' '.escapeshellarg($customCloneFolder); }
         $nameInRepo = substr($projectOriginRepo, strrpos($projectOriginRepo, '/', -1) +1 );
         $this->projectDirectory = (isset($customCloneFolder)) ? $customCloneFolder : $nameInRepo ;
-        $command .= $this->projectDirectory ;
+        $command .= " ".$this->projectDirectory ;
 //        var_dump($command);
 //        echo $command;
         $cwd = getcwd() ;
