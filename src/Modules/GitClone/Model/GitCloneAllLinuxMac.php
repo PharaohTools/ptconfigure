@@ -99,6 +99,10 @@ class GitCloneAllLinuxMac extends Base {
             $logging->log("Cloning $projectOriginRepo, Attempt {$i}", $this->getModuleName());
             $logging->log("Command: {$command}", $this->getModuleName());
             $try_res = self::executeAndGetReturnCode($command, false, true);
+        ob_start() ;
+        var_dump("tr:", $try_res) ;
+        $out = ob_get_clean() ;
+        $logging->log("tr: {$out}", $this->getModuleName());
             if ($try_res["rc"] == 0) { break ; } }
         $msg = (isset($try_res["rc"]) && $try_res["rc"] == 0) ? "Successful" : "Failed";
         $logging->log("Clone $msg", $this->getModuleName());
