@@ -89,12 +89,11 @@ class GitCloneAllLinuxMac extends Base {
         $fullpath = $cwd.DS.$this->projectDirectory ;
         $logging->log("Cloning to {$fullpath}", $this->getModuleName());
 
-        ob_start() ;
-        var_dump($this->params) ;
-        $out = ob_get_clean() ;
+//        ob_start() ;
+//        var_dump($this->params) ;
+//        $out = ob_get_clean() ;
+//        $logging->log("pars {$out}", $this->getModuleName());
 
-
-        $logging->log("pars {$out}", $this->getModuleName());
         $try_res = false ;
         for ($i=1; $i<=3; $i++) {
             $logging->log("Cloning $projectOriginRepo, Attempt {$i}", $this->getModuleName());
