@@ -52,6 +52,14 @@ class AutopilotExecutor extends Base {
 
                 $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
                 if ($should_run["should_run"] != true) {
+
+                    $controlKeys = array_keys($modelArray) ;
+                    $control = $controlKeys[0] ;
+                    $actionKeys = array_keys($modelArray[$controlKeys[0]]) ;
+                    $action = $actionKeys[0] ;
+
+                    $step_out["params"]["route"]["control"] = $control ;
+                    $step_out["params"]["route"]["action"] = $action ;
                     $step_out["status"] = true ;
                     $step_out["out"] = "No need to run this step" ; }
                 else {
