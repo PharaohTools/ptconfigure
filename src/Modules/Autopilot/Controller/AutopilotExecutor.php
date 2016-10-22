@@ -98,10 +98,13 @@ class AutopilotExecutor extends Base {
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
             if (isset($current_params[$mod_is][$act_is]["when"])) {
+                $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
                 $when_text = ($when_result == true) ? "Do Run" : "Don't Run" ; }
             else {
+                if (isset($current_params[$mod_is][$act_is]["not_when"])) {
+                    $current_params[$mod_is][$act_is]["not-when"] = $current_params[$mod_is][$act_is]["not_when"] ; }
+                $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not-when"]) ;
                 $when_text = ($when_result == false) ? "Do Run" : "Don't Run" ;
                 $when_result = !$when_result ; }
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
