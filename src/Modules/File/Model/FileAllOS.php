@@ -154,12 +154,12 @@ class FileAllOS extends BaseLinuxApp {
     }
 
     public function exists() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if(file_exists($this->fileName)){
-            echo "File {$this->fileName} exists \n";
-        }
+            $logging->log("File {$this->fileName} exists", $this->getModuleName()) ; }
         else{
-            echo "File {$this->fileName} not exists \n";
-        }
+            $logging->log("File {$this->fileName} does not exist", $this->getModuleName()) ; }
         return file_exists($this->fileName);
     }
 
