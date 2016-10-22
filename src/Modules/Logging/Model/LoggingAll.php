@@ -59,14 +59,18 @@ class LoggingAll extends BaseLinuxApp {
         $stx = (strlen($source)>0) ? "[$source] " : "" ;
         $fullMessage = "[Pharaoh Logging] " . $stx . $message . "\n" ;
 
-        $logFactory = new \Model\Logging() ;
-        $colours = $logFactory->getModel($this->params, "Colours") ;
+        $disable_ansi = false ;
+        if (!isset($this->params["disable-ansi"]) ||
+            (isset($this->params["disable-ansi"]) && $this->params["disable-ansi"] == false)) {
+            $disable_ansi = true ;
+            $logFactory = new \Model\Logging() ;
+            $colours = $logFactory->getModel($this->params, "Colours") ; }
 
         if (!is_null($log_exit_code)) {
-            $fullMessage = $colours->getColoredString($fullMessage, "red", null) ;
+            if ($disable_ansi==false) { $fullMessage = $colours->getColoredString($fullMessage, "red", null) ; }
             $res = file_put_contents("php://stderr", $fullMessage ); }
         else {
-            $fullMessage = $colours->getColoredString($fullMessage, "green", null) ;
+            if ($disable_ansi==false) { $fullMessage = $colours->getColoredString($fullMessage, "green", null) ; }
             $res = file_put_contents("php://stdout", $fullMessage ); }
 
         if ($res==false) { return false ;}
