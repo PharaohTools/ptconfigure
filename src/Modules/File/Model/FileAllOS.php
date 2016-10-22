@@ -168,8 +168,8 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Writing File {$this->fileName}", $this->getModuleName()) ;
-        file_put_contents($this->fileName, $content);
-        return $this;
+        $res = file_put_contents($this->fileName, $content);
+        return ($res == false) ? false : true ;
     }
 
     public function create() {
