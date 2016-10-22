@@ -106,8 +106,11 @@ class GitCloneAllLinuxMac extends Base {
 //        $logging->log("tr: {$out}", $this->getModuleName());
             if ($try_res["rc"] == 0) { break ; } }
         $msg = (isset($try_res["rc"]) && $try_res["rc"] == 0) ? "Successful" : "Failed";
-        $logging->log("Clone $msg", $this->getModuleName());
-        return (isset($try_res["rc"]) && $try_res["rc"] == 0) ? true : false ;
+        if (isset($try_res["rc"]) && $try_res["rc"] == 0) {
+            $logging->log("Clone $msg", $this->getModuleName());
+            return true ; }
+        $logging->log("Clone $msg", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+        return false ;
     }
 
     protected function dropDirectory(){
