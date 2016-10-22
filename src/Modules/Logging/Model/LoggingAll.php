@@ -59,7 +59,16 @@ class LoggingAll extends BaseLinuxApp {
         $stx = (strlen($source)>0) ? "[$source] " : "" ;
         $fullMessage = "[Pharaoh Logging] " . $stx . $message . "\n" ;
 
-        $res = file_put_contents("php://stderr", $fullMessage );
+        $logFactory = new \Model\Logging() ;
+        $colours = $logFactory->getModel($this->params, "Colours") ;
+
+        if (!is_null($log_exit_code)) {
+            $fullMessage = $colours->getColoredString($fullMessage, "red", null) ;
+            $res = file_put_contents("php://stderr", $fullMessage ); }
+        else {
+            $fullMessage = $colours->getColoredString($fullMessage, "green", null) ;
+            $res = file_put_contents("php://stdout", $fullMessage ); }
+
         if ($res==false) { return false ;}
         if (isset($this->params["php-log"])) {
             $res = error_log($fullMessage) ;
