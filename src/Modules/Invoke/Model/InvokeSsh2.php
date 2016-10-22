@@ -138,11 +138,11 @@ class InvokeSsh2 extends Base {
         $data = "" ;
         $error_output = "" ;
         while ($buf = fread($this->stream, 4096)) {
-            $eo = stream_get_contents( $error_stream ) ;
-            if (strlen($eo)>0) { $error_output .= $eo ; }
             $data .= $buf;
             //echo $buf ;
         }
+        $eo = stream_get_contents( $error_stream ) ;
+        if (strlen($eo)>0) { $error_output .= $eo ; }
         fclose( $this->stream );
         fclose( $error_stream );
         return array( $data, $error_output );
