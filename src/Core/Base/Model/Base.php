@@ -162,7 +162,7 @@ COMPLETION;
             shell_exec("chmod 755 $tempFile 2>/dev/null");
             shell_exec("chmod +x $tempFile 2>/dev/null"); }
 
-        $proc = proc_open($command, array(
+        $proc = proc_open("bash -ex $tempFile", array(
             0 => array("pipe","r"),
             1 => array("pipe",'w'),
             2 => array("pipe",'w'),
