@@ -52,7 +52,7 @@ class RunCommandLinuxMac extends BaseLinuxApp {
         if (isset($this->runUser) && !is_null($this->runUser))  {
             $commandRay[] = "exit" ; }
         // @todo only show this under verbose output
-        foreach ($commandRay as $command) { echo $command."\n" ; }
+//        foreach ($commandRay as $command) { echo $command."\n" ; }
         $rc = self::executeAndGetReturnCode($commandRay, true, true) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
