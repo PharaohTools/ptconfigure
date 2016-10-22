@@ -12,7 +12,7 @@ class LoggingColours extends BaseLinuxApp {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Default") ;
+    public $modelGroup = array("Colours") ;
 
     private $foreground_colors = array();
     private $background_colors = array();
