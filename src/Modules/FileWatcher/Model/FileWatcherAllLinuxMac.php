@@ -130,11 +130,8 @@ class FileWatcherAllLinuxMac extends Base {
     }
 
     private function doCallback($comm){
-        self::executeAndOutput($comm);
-        $comm2 = "echo $?" ;
-        $rc = self::executeAndLoad($comm2) ;
-        $str = str_replace("\n", "", $rc);
-        return $str ;
+        $rc = self::executeAndGetReturnCode($comm, true, true) ;
+        return ($rc["rc"] == 0) ? true : false ;
     }
 
 }
