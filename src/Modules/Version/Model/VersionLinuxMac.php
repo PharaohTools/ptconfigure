@@ -37,10 +37,13 @@ class VersionLinuxMac extends Base {
         $this->appRootDirectory = $this->selectAppRoot();
         $this->appVersion = $this->selectAppVersion();
         $this->versionLimit = $this->selectVersionLimit();
-        $this->symlinkRemover();
-        $this->symlinkCreator();
-        $this->removeDirectoriesToLimit() ;
-        return "Seems Fine...";
+        $res = $this->symlinkRemover();
+        if ($res == false) { return false ; }
+        $res = $this->symlinkCreator();
+        if ($res == false) { return false ; }
+        $res = $this->removeDirectoriesToLimit() ;
+        if ($res == false) { return false ; }
+        return true ;
     }
 
     private function askForSymLinkChange() {
@@ -89,19 +92,33 @@ class VersionLinuxMac extends Base {
     }
 
     private function symlinkRemover() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $command  = 'rm -f '.$this->appRootDirectory.'/current';
-        echo "Removed Version Symlink\n";
-        self::executeAndOutput($command);
+        $logging->log("Removing Version Symlink ".$this->appRootDirectory.'/current', $this->getModuleName()) ;
+        $rc = $this->executeAndGetReturnCode($command, false, true);
+        if ($rc["rc"] == 0) {
+            $logging->log("Successfully Removed Version Symlink", $this->getModuleName()) ;
+            return true ; }
+        $logging->log("Failed Removing Version Symlink", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
     private function symlinkCreator() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $command  = 'ln -s '.$this->appRootDirectory.$this->appVersion.' '.$this->appRootDirectory.'current';
-        // echo $command . "\n" ;
-        echo "Created Version Symlink\n";
-        self::executeAndOutput($command);
-    }
+        $logging->log("Creating Version Symlink", $this->getModuleName()) ;
+        $rc = $this->executeAndGetReturnCode($command, false, true);
+        if ($rc["rc"] == 0) {
+            $logging->log("Successfully Created Version Symlink", $this->getModuleName()) ;
+            return true ; }
+        $logging->log("Failed Creating Version Symlink", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;    }
 
     private function removeDirectoriesToLimit() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if ($this->versionLimit != null && $this->versionLimit>0) {
           $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
           arsort($allEntries) ;
@@ -124,17 +141,25 @@ class VersionLinuxMac extends Base {
           foreach ($allEntries as &$oneEntry) {
             $fullDirPath = $this->appRootDirectory.$oneEntry;
             if ($i < $dirsToLeave) {
-              $this->deleteDirectory($fullDirPath);
-              echo "Removing Project Directory $fullDirPath as Versioning Limitation\n"; }
+                $logging->log("Removing Project Directory $fullDirPath as Versioning Limitation", $this->getModuleName()) ;
+                $this->deleteDirectory($fullDirPath); }
             $i++; } }
         else {
-          echo "Ignoring Versioning Limitation\n"; }
+            $logging->log("Ignoring Versioning Limitation", $this->getModuleName()) ;
+            return true ; }
     }
 
     private function deleteDirectory($fullDirPath) {
-		// @todo change this to executeAndGetReturnCode?
-        system('rm -rf ' . $fullDirPath, $retval);
-        return $retval == 0; // UNIX commands return zero on success
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $command  = 'rm -rf ' . $fullDirPath;
+        $logging->log("Attempting to delete directory {$fullDirPath}", $this->getModuleName()) ;
+        $rc = $this->executeAndGetReturnCode($command, false, true);
+        if ($rc["rc"] == 0) {
+            $logging->log("Successfully deleted directory", $this->getModuleName()) ;
+            return true ; }
+        $logging->log("Failed deleting directory", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        return false ;
     }
 
 }
