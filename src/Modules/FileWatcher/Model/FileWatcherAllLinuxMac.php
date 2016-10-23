@@ -112,7 +112,7 @@ class FileWatcherAllLinuxMac extends Base {
                 $callbackOut = $this->doCallback($scb) ; // run callback
                 if ($escalate == true) {
                     $logging->log("Escalating exit status to match Success callback", $this->getModuleName()) ;
-                    return !$callbackOut ; } // escalation specified, return callback status
+                    return $callbackOut ; } // escalation specified, return callback status
                 else { return $compareStatus ;  } } // no escalation specified, return status
             else {
                 return $compareStatus ; } } // no callback specified, so return status
@@ -123,7 +123,7 @@ class FileWatcherAllLinuxMac extends Base {
                 $callbackOut = $this->doCallback($fcb) ; // run callback
                 if ($escalate == true) {
                     $logging->log("Escalating exit status to match Failure callback", $this->getModuleName()) ;
-                    return !$callbackOut ; } // escalation specified, return callback status
+                    return $callbackOut ; } // escalation specified, return callback status
                 else { return $compareStatus ;  } } // no escalation specified, return status
             else {
                 return $compareStatus ; } } // no callback specified, so return status
