@@ -115,14 +115,14 @@ class InvokeSsh2 extends Base {
 
     function improvedExec( $command ) {
         $result = $this->rawExec( ''.$command.'; echo -en "\n$?" ;' );
-        $pres =preg_match( "/^(.*)\n(0|-?[1-9][0-9]*)$/s", $result[0], $matches ) ;
-        if( $pres==false ) {
+        $pres = preg_match( "/^(.*)\n(0|-?[1-9][0-9]*)$/s", $result[0], $matches ) ;
+        if( $pres == false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params) ;
             $logging->log("No return status found from command", LOG_FAILURE_EXIT_CODE) ;  }
         $res = array() ;
-        $res["rc"] = $matches[2] ;
-        $res["data"] = $matches[1] ;
+        $res["rc"] = (isset($matches[2])) ? $matches[2] : "0" ;
+        $res["data"] = (isset($matches[1])) ? $matches[1] : $result ;
         return $res;
     }
 
