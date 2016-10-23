@@ -649,8 +649,8 @@ QUESTION;
 
 	protected function doSSHCommand($sshObject, $command, $first = null) {
         $out = $sshObject->exec($command);
-        echo $out["data"] ;
-		return $out["rc"] ;
+//        echo $out["data"] ;
+		return $out ;
 //		return $sshObject->exec($command);
 	}
 
