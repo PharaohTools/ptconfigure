@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9990e296-845b-4edb-b1ab-9a166fd4c1c8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/ApacheVHostEditor/Model/ApacheVHostEditorMac.php" afterPath="$PROJECT_DIR$/src/Modules/ApacheVHostEditor/Model/ApacheVHostEditorMac.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/HostEditor/Controller/HostEditor.php" afterPath="$PROJECT_DIR$/src/Modules/HostEditor/Controller/HostEditor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modules/HostEditor/info.HostEditor.php" afterPath="$PROJECT_DIR$/src/Modules/HostEditor/info.HostEditor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dapperstrano.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
-    <file path="/Dummy.txt" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442758572249" ignored="false" />
+    <file path="/Dummy.txt" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477350111031" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/Signup/Model/SignupAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923640" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PostInput/Assets/Modules/DefaultSkin/startbootstrap-sb-admin-2-1.0.5/bower_components/datatables-responsive/examples/styling/foundation.xml" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441331703737" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PostInput/Assets/Modules/DefaultSkin/startbootstrap-sb-admin-2-1.0.5/bower_components/datatables-responsive/docs/option/responsive.xml" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441331703737" ignored="false" />
@@ -29,7 +25,7 @@
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Core/Base/Info/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923639" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Core/Base/Model/Authentication.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441770925672" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PostInput/Assets/startbootstrap-sb-admin-2-1.0.5/bower_components/datatables-responsive/examples/initialisation/ajax.xml" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923640" ignored="false" />
-    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Core/Base/Model/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442376365719" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Core/Base/Model/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477121598445" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Core/Base/Controller/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923639" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PostInput/Assets/startbootstrap-sb-admin-2-1.0.5/bower_components/datatables-responsive/examples/display-control/classes.xml" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923640" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/UserManager/info.UserManager.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923639" ignored="false" />
@@ -109,7 +105,7 @@
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PTConfigureRequired/Info/PTConfigureBase.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923639" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PTConfigureRequired/Model/SoftwareVersion.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440896633441" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PTConfigureRequired/Model/BaseModelFactory.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440896633441" ignored="false" />
-    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/ptbuildvars" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923639" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/ptbuildvars" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477114265003" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PTConfigureRequired/Model/BaseLinuxApp.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440896633441" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PTConfigureRequired/Model/BasePackager.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440896633441" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PTConfigureRequired/Model/BaseWindowsApp.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440896633441" ignored="false" />
@@ -236,7 +232,7 @@
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/UserProfile/Controller/UserProfile.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923640" ignored="false" />
     <file path="/UserProfile.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440906335854" ignored="false" />
     <file path="$PROJECT_DIR$/../../pttrack/pttrack/src/Modules/UserProfile/Views/UserProfileHTMLView.tpl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440906879347" ignored="false" />
-    <file path="/a.dummy" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442483193967" ignored="false" />
+    <file path="/a.dummy" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477201463672" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/PostInput/Assets/Modules/UserProfile/js/userprofile.js" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440907537714" ignored="false" />
     <file path="/users.txt" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440907555624" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/UserProfile/Model/UserProfile.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440910923640" ignored="false" />
@@ -257,7 +253,7 @@
     <file path="/XVFBLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440947082029" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/XVNC/Model/XVNCLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440947152482" ignored="false" />
     <file path="/XVNCLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440947141393" ignored="false" />
-    <file path="/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442375734545" ignored="false" />
+    <file path="/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477115443933" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/SendEmail/Model/SendEmailLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440948081194" ignored="false" />
     <file path="/SendEmailLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440948051782" ignored="false" />
     <file path="/SVNLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1440948161467" ignored="false" />
@@ -321,7 +317,7 @@
     <file path="/defaults" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441338120152" ignored="false" />
     <file path="$USER_HOME$/WebStuff/pharaohtools/Virtufile" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442155198792" ignored="false" />
     <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptbuild/pipes/pharaoh_tools_website_development/settings" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441338592485" ignored="false" />
-    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Core/Base/Model/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442375869918" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Core/Base/Model/Base.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477120506877" ignored="false" />
     <file path="/ApacheServerMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441479612261" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/ApacheFastCGIModules/Model/ApacheFastCGIModulesUbuntu.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441763730860" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/ApacheFastCGIModules/Model/ApacheFastCGIModulesCentos.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441478329279" ignored="false" />
@@ -344,7 +340,7 @@
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/SystemDetection/Model/SystemDetectionFactory.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441769295835" ignored="false" />
     <file path="/SystemDetectionFactory.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441767285833" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/SshKeyStore/Model/SshKeyStoreAnyOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441707888218" ignored="false" />
-    <file path="/InvokePhpSecLib.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441673440171" ignored="false" />
+    <file path="/InvokePhpSecLib.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477035484876" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Invoke/Model/InvokePhpSecLib.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441673674023" ignored="false" />
     <file path="/SshKeyStoreAnyOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441893016342" ignored="false" />
     <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/config/NUConfigFactory.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442448537108" ignored="false" />
@@ -352,7 +348,7 @@
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/ApacheFastCGIModules/Model/ApacheFastCGIModulesUbuntuModern.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441764149920" ignored="false" />
     <file path="/ApacheFastCGIModulesUbuntuModern.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441763699774" ignored="false" />
     <file path="/ptbconf.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441768621541" ignored="false" />
-    <file path="$USER_HOME$/WebStuff/pharaohtools/papyrusfile" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441770759660" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/papyrusfile" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477211725558" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Firefox33/Model/Firefox33Ubuntu.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441768324805" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/PHPModules/Model/PHPModulesUbuntu.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441768328488" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Virtualbox/Model/VirtualboxUbuntu.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441768339360" ignored="false" />
@@ -381,8 +377,8 @@
     <file path="/RecentChangesAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441967978346" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/Builder/Model/BuilderAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442086688127" ignored="false" />
     <file path="/BuilderAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1441967433849" ignored="false" />
-    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/Git/Model/GitLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442087073974" ignored="false" />
-    <file path="/GitCloneAllLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442097336603" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/Git/Model/GitLinuxUnix.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477104349222" ignored="false" />
+    <file path="/GitCloneAllLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477104460601" ignored="false" />
     <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptdeploy/dapperfy/custom/shared-temp-staging-node-install-code-data.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442155198792" ignored="false" />
     <file path="$USER_HOME$/WebStuff/pharaohtools/src/phpinfo.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442155198792" ignored="false" />
     <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Autopilot/Controller/Autopilot.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442226368328" ignored="false" />
@@ -411,6 +407,43 @@
     <file path="$USER_HOME$/WebStuff/nu-wordpress-platform/build/tests/behat/features/application_posts.feature" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442452535120" ignored="false" />
     <file path="/application_posts.feature" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442452535120" ignored="false" />
     <file path="$USER_HOME$/WebStuff/wordpress3.9/Virtufile" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1442758885977" ignored="false" />
+    <file path="$PROJECT_DIR$/src/Modules/Project/Model/ProjectLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477031748862" ignored="false" />
+    <file path="$PROJECT_DIR$/src/Modules/Project/Model/ProjectWindows.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477031748863" ignored="false" />
+    <file path="$PROJECT_DIR$/src/Modules/AppSettings/Model/AppConfigAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477031748863" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptdeploy/cloud/invoke-deployment.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477106929806" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/RunCommand/Model/RunCommandLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477122443199" ignored="false" />
+    <file path="/RunCommandLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477037089442" ignored="false" />
+    <file path="/invoke-deployment.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477105849034" ignored="false" />
+    <file path="/AutopilotExecutor.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477107344289" ignored="false" />
+    <file path="/Bootstrap.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477040480536" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Invoke/Model/InvokeAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477042662950" ignored="false" />
+    <file path="/InvokeAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477187298769" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/variable_groups/staging.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477210942356" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptdeploy/cloud/deploy-site.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477182547771" ignored="false" />
+    <file path="/deploy-site.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477182538747" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Logging/Model/LoggingAll.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477116394310" ignored="false" />
+    <file path="/LoggingAll.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477116348222" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Logging/Model/LoggingColours.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477114991865" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptbuild/ptbuild/src/Modules/Logging/Model/LoggingAll.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477117158904" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/PTConfigureRequired/Model/BasePHPApp.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477122588036" ignored="false" />
+    <file path="/FileAllOS.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477137426319" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/FileWatcher/Model/FileWatcherAllLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477185383230" ignored="false" />
+    <file path="/FileWatcherAllLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477136420201" ignored="false" />
+    <file path="/staging.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477182362166" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/File/Views/FileView.tpl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477185261094" ignored="false" />
+    <file path="/InvokeSsh2.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477185721626" ignored="false" />
+    <file path="$PROJECT_DIR$/../../ptconfigure/ptconfigure/src/Modules/Invoke/Model/InvokeSsh2.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477186905529" ignored="false" />
+    <file path="/VersionLinuxMac.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477188738311" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptdeploy/dev/dump-db.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477201209754" ignored="false" />
+    <file path="/dump-db.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477201209754" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/variable_groups/qa.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477210932833" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/variable_groups/dev.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477201447456" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptconfigure/infra/site/single-server/add/node.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477210985593" ignored="false" />
+    <file path="/node.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477210983475" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptconfigure/config/cloud/site/invoke-configuration.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477212182911" ignored="false" />
+    <file path="/invoke-configuration.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477212046934" ignored="false" />
+    <file path="$USER_HOME$/WebStuff/pharaohtools/build/config/ptconfigure/config/cloud/site/configure-node.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477213435924" ignored="false" />
+    <file path="/configure-node.dsl.php" changelist="9990e296-845b-4edb-b1ab-9a166fd4c1c8" time="1477213340154" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -471,82 +504,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AutopilotAllLinux.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Model/AutopilotAllLinux.php">
+      <file leaf-file-name="FileView.tpl.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/File/Views/FileView.tpl.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="2" column="22" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Autopilot.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Controller/Autopilot.php">
+      <file leaf-file-name="InvokeSsh2.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeSsh2.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="5" selection-start="773" selection-end="773" vertical-scroll-proportion="0.0">
+            <state line="125" column="44" selection-start="5019" selection-end="5019" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApacheVHostEditorMac.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheVHostEditor/Model/ApacheVHostEditorMac.php">
+      <file leaf-file-name="Base.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="58" selection-start="2132" selection-end="2132" vertical-scroll-proportion="-13.809524">
+            <state line="269" column="61" selection-start="10899" selection-end="10999" vertical-scroll-proportion="0.026833631">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HostEditorView.tpl.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/HostEditor/Views/HostEditorView.tpl.php">
+      <file leaf-file-name="InvokeAllOS.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeAllOS.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="120" column="50" selection-start="5292" selection-end="5362" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="info.HostEditor.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Modules/HostEditor/info.HostEditor.php">
+      <file leaf-file-name="VersionLinuxMac.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Version/Model/VersionLinuxMac.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="1016" selection-end="1016" vertical-scroll-proportion="0.9052224">
+            <state line="120" column="20" selection-start="5096" selection-end="5096" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HostEditor.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/HostEditor/Controller/HostEditor.php">
+      <file leaf-file-name="LoggingAll.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Modules/Logging/Model/LoggingAll.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="538" selection-end="538" vertical-scroll-proportion="-7.428571">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ApacheControl.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/ApacheControl/Controller/ApacheControl.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="108" selection-start="380" selection-end="539" vertical-scroll-proportion="-7.428571">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SshKeyStoreAnyOS.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/SshKeyStore/Model/SshKeyStoreAnyOS.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="144" column="53" selection-start="6276" selection-end="6276" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GitCloneAllLinuxMac.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modules/GitClone/Model/GitCloneAllLinuxMac.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="39" selection-start="870" selection-end="894" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -570,15 +576,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Modules/Invoke/Model/InvokePhpSecLib.php" />
-        <option value="$PROJECT_DIR$/src/Modules/SshKeyStore/Model/SshKeyStoreAnyOS.php" />
-        <option value="$PROJECT_DIR$/src/Modules/GitClone/Model/GitCloneAllLinuxMac.php" />
-        <option value="$PROJECT_DIR$/src/Core/Base/Model/Base.php" />
-        <option value="$PROJECT_DIR$/src/Modules/Autopilot/Controller/Autopilot.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheControl/Model/ApacheControlAllLinux.php" />
-        <option value="$PROJECT_DIR$/src/Modules/ApacheVHostEditor/Model/ApacheVHostEditorMac.php" />
         <option value="$PROJECT_DIR$/src/Modules/HostEditor/Controller/HostEditor.php" />
         <option value="$PROJECT_DIR$/src/Modules/HostEditor/info.HostEditor.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Invoke/Model/InvokePhpSecLib.php" />
+        <option value="$PROJECT_DIR$/src/Bootstrap.php" />
+        <option value="$PROJECT_DIR$/src/Modules/GitClone/Model/GitCloneAllLinuxMac.php" />
+        <option value="$PROJECT_DIR$/src/Modules/PHPSSH/Model/PHPSSHUbuntu.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Autopilot/Controller/AutopilotExecutor.php" />
+        <option value="$PROJECT_DIR$/src/Core/Base/Model/Base.php" />
+        <option value="$PROJECT_DIR$/src/Modules/RunCommand/Model/RunCommandLinuxMac.php" />
+        <option value="$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/BasePHPApp.php" />
+        <option value="$PROJECT_DIR$/src/Modules/File/Model/FileAllOS.php" />
+        <option value="$PROJECT_DIR$/src/Modules/File/Controller/File.php" />
+        <option value="$PROJECT_DIR$/src/Modules/File/Views/FileView.tpl.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeSsh2.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeAllOS.php" />
+        <option value="$PROJECT_DIR$/src/Modules/Version/Model/VersionLinuxMac.php" />
       </list>
     </option>
   </component>
@@ -588,9 +601,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="709" />
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1215" />
+    <option name="height" value="776" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -618,8 +632,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -638,224 +650,27 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HostEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HostEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HostEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ApacheVHostEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ApacheVHostEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ApacheControl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dapperstrano" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ptdeploy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ApacheControl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Project" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -918,12 +733,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="709" extended-state="6" />
-    <editor active="true" />
+    <frame x="65" y="24" width="1215" height="776" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -932,12 +747,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33925685" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27309564" sideWeight="0.53958" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20772532" sideWeight="0.54070663" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Sonar" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -945,9 +759,10 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.459375" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4592934" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Amazon EC2" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1025,114 +840,178 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Modules/Builderfy/Autopilots/Generic/DBReplication/db-replication.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/AutopilotDSL/Model/AutopilotDSLAnyOS.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="123.75" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokePhpSecLib.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Controller/AutopilotExecutor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="64" selection-start="2078" selection-end="2106" vertical-scroll-proportion="0.0" />
+        <state line="106" column="115" selection-start="5460" selection-end="5460" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheControl/Model/ApacheControlOSX.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/RunCommand/Model/RunCommandLinuxMac.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="5.142857">
+        <state line="55" column="63" selection-start="2329" selection-end="2329" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Builderfy/Controller/Builderfy.php">
+    <entry file="file://$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/BasePHPApp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="354" column="0" selection-start="17782" selection-end="17782" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/DBConfigure/Model/DBConfigureAllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/PTConfigureRequired/Model/BaseLinuxApp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="29" selection-start="25" selection-end="59" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/DBConfigure/Controller/DBConfigure.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/File/Model/FileAllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="305" column="20" selection-start="11978" selection-end="11978" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/File/info.File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/File/Controller/File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="118" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/File/Views/FileView.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="22" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeSsh2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="44" selection-start="5019" selection-end="5019" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Invoke/Model/InvokeAllOS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="120" column="50" selection-start="5292" selection-end="5362" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Logging/Model/LoggingAll.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modules/Version/Model/VersionLinuxMac.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="120" column="20" selection-start="5096" selection-end="5096" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Core/Base/Model/Base.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="0" selection-start="4579" selection-end="4579" vertical-scroll-proportion="-0.5714286">
+        <state line="269" column="61" selection-start="10899" selection-end="10999" vertical-scroll-proportion="0.026833631">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Model/AutopilotAllLinux.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/Autopilot/Controller/Autopilot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="5" selection-start="773" selection-end="773" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/SshKeyStore/Model/SshKeyStoreAnyOS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="144" column="53" selection-start="6276" selection-end="6276" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/GitClone/Model/GitCloneAllLinuxMac.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="39" selection-start="870" selection-end="894" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheVHostEditor/Model/ApacheVHostEditorMac.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="58" selection-start="2132" selection-end="2132" vertical-scroll-proportion="-13.809524">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/HostEditor/Views/HostEditorView.tpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/Base/Info/Base.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="20" selection-start="143" selection-end="143" vertical-scroll-proportion="0.30057803">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheControl/Model/ApacheControlAllLinux.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="29" selection-start="119" selection-end="119" vertical-scroll-proportion="0.023121387">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/ApacheControl/Controller/ApacheControl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="108" selection-start="380" selection-end="539" vertical-scroll-proportion="-7.428571">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/HostEditor/Controller/HostEditor.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="538" selection-end="538" vertical-scroll-proportion="-7.428571">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modules/HostEditor/info.HostEditor.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1016" selection-end="1016" vertical-scroll-proportion="0.9052224">
-          <folding />
-        </state>
-      </provider>
-    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>dapperstrano</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
 
