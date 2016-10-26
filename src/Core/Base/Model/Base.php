@@ -177,25 +177,33 @@ COMPLETION;
                     $data .= $buf;
                     echo $buf ; }
                 if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 131072) ) {
-//                    $buf2 = "ERR: ".$buf2;
-//                    echo "ERR: ".$buf2 ;
                     $data2 .= $buf2;
-//                    echo "ERR: " ;
                     unset($buf2) ;} }
             echo $data2 ; }
 
-//        $data = "";
-//            while ( ($buf = fread($pipes[1], 32768)) || ( $buf2 = fread($pipes[2], 32768))) {
-//                if (isset($buf) && $buf !== false) {
-//                    $data .= $buf;
-//                    echo $buf ; }
-//                if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 32768) ) {
-////                    $buf2 = "ERR: ".$buf2;
-////                    $data .= "ERR: ";
-//                    $data .= $buf2;
-////                    echo "ERR: " ;
-//                    echo $buf2 ;
-//                    unset($buf2) ;} } }
+
+            $logFactory = new \Model\Logging() ;
+            $colours = $logFactory->getModel(array(), "Colours") ;
+
+            $should_continue_err = $should_continue_out = true ;
+            while ( $should_continue_err == true || $should_continue_out == true ) {
+
+                $st_out_line = stream_get_line ( $pipes[1] , 131072 ) ;
+                if ($st_out_line !== false) {
+                    $fullMessage = $colours->getColoredString($st_out_line, "green", null) ;
+                    file_put_contents("php://stderr", $fullMessage ); }
+                else {
+                    $should_continue_out = false ; }
+
+                $st_err_line = stream_get_line ( $pipes[2] , 131072 ) ;
+                if ($st_err_line !== false) {
+                    $fullMessage = $colours->getColoredString($st_out_line, "red", null) ;
+                    file_put_contents("php://stderr", $fullMessage ); }
+                else {
+                    $should_continue_err = false ; }
+
+            }
+
 
         $status = proc_get_status($proc);
         $stdout = stream_get_contents($pipes[1]);
