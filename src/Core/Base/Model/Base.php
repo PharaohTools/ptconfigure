@@ -168,18 +168,17 @@ COMPLETION;
             2 => array("pipe",'w'),
         ),$pipes);
         if ($show_output==true) {
-            stream_set_blocking($pipes[1], true);
-            stream_set_blocking($pipes[2], true);
-            $data = "";
-            $data2 = "";
-            while ( ($buf = fread($pipes[1], 131072)) || ( $buf2 = fread($pipes[2], 131072))) {
-                if (isset($buf) && $buf !== false) {
-                    $data .= $buf;
-                    echo $buf ; }
-                if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 131072) ) {
-                    $data2 .= $buf2;
-                    unset($buf2) ;} }
-            echo $data2 ; }
+//            stream_set_blocking($pipes[1], true);
+//            stream_set_blocking($pipes[2], true);
+//            $data = "";
+//            $data2 = "";
+//            while ( ($buf = fread($pipes[1], 131072)) || ( $buf2 = fread($pipes[2], 131072))) {
+//                if (isset($buf) && $buf !== false) {
+//                    $data .= $buf;
+//                    echo $buf ; }
+//                if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 131072) ) {
+//                    $data2 .= $buf2;
+//                    unset($buf2) ;} }
 
 
             $logFactory = new \Model\Logging() ;
@@ -191,19 +190,20 @@ COMPLETION;
                 $st_out_line = stream_get_line ( $pipes[1] , 131072 ) ;
                 if ($st_out_line !== false) {
                     $fullMessage = $colours->getColoredString($st_out_line, "green", null) ;
-                    file_put_contents("php://stderr", $fullMessage ); }
+                    echo $fullMessage ; }
                 else {
                     $should_continue_out = false ; }
 
                 $st_err_line = stream_get_line ( $pipes[2] , 131072 ) ;
                 if ($st_err_line !== false) {
                     $fullMessage = $colours->getColoredString($st_out_line, "red", null) ;
-                    file_put_contents("php://stderr", $fullMessage ); }
+                    echo $fullMessage ; }
                 else {
                     $should_continue_err = false ; }
 
             }
 
+        echo $data2 ; }
 
         $status = proc_get_status($proc);
         $stdout = stream_get_contents($pipes[1]);
