@@ -78,7 +78,7 @@ class AutopilotExecutor extends Base {
     }
 
     protected function onlyRunWhen($current_params, $autoModel) {
-//        echo "Only running when" ;
+//        echo "Only running not_" ;
         $mod_ray_is = array_keys($current_params) ;
         $mod_is = $mod_ray_is[0] ;
         $act_ray_is = array_keys($current_params[$mod_is]) ;
@@ -94,6 +94,20 @@ class AutopilotExecutor extends Base {
             $when_text = ($when_result == true) ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_result ; }
+        else if (isset($current_params[$mod_is][$act_is]["not_when"]) ||
+                 isset($current_params[$mod_is][$act_is]["not-when"])) {
+            if (isset($current_params[$mod_is][$act_is]["not-when"])) {
+                $current_params[$mod_is][$act_is]["not_when"] = $current_params[$mod_is][$act_is]["not-when"] ;  }
+            $logFactory = new \Model\Logging() ;
+            $logging = $logFactory->getModel(array(), "Default") ;
+            $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
+            $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
+            $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
+            $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
+            $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
+            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
+            $logging->log("When Condition evaluated to {$not_when_text}", "Autopilot") ;
+            $return_stat["should_run"] = $not_when_result ; }
         else {
             $return_stat["should_run"] = true ;  }
         return $return_stat ;
