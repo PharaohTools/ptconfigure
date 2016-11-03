@@ -17,33 +17,17 @@ class ApacheReverseProxyModulesUbuntu14Plus extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "ApacheReverseProxyModules";
+        $mods  = " lbmethod_byrequests proxy proxy_http proxy_ftp proxy_connect proxy_ajp proxy_wstunnel"  ;
+        $mods .= " proxy_balancer cache headers"  ;
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libxml2-dev")) ),
-            array("command"=> "a2enmod lbmethod_byrequests" ),
-            array("command"=> "a2enmod proxy" ),
-            array("command"=> "a2enmod proxy_http" ),
-            array("command"=> "a2enmod proxy_ftp" ),
-            array("command"=> "a2enmod proxy_connect" ),
-            array("command"=> "a2enmod proxy_ajp" ),
-            array("command"=> "a2enmod proxy_wstunnel" ),
-            array("command"=> "a2enmod proxy_balancer" ),
-            array("command"=> "a2enmod cache" ),
-            array("command"=> "a2enmod headers" ),
+            array("command"=> "a2enmod {$mods}" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-proxy-html")) ),
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libxml2-dev")) ),
-            array("command"=> "a2dismod lbmethod_byrequests" ),
-            array("command"=> "a2dismod proxy" ),
-            array("command"=> "a2dismod proxy_http" ),
-            array("command"=> "a2dismod proxy_ftp" ),
-            array("command"=> "a2dismod proxy_connect" ),
-            array("command"=> "a2dismod proxy_ajp" ),
-            array("command"=> "a2dismod proxy_wstunnel" ),
-            array("command"=> "a2dismod proxy_balancer" ),
-            array("command"=> "a2dismod cache" ),
-            array("command"=> "a2dismod headers" ),
+            array("command"=> "a2dismod {$mods}" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->programDataFolder = "/opt/ApacheReverseProxyModules"; // command and app dir name
         $this->programNameMachine = "apachereverseproxymodules"; // command and app dir name
