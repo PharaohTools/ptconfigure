@@ -29,7 +29,7 @@ class BootStrap {
     }
 
     public function main($argv_or_boot_params_null) {
-        $this->start = microtime(true) ;
+        $this->start = number_format(microtime(true), 2, '.', '') ;
         $routeObject = new \Core\Router();
         $route = $routeObject->run($argv_or_boot_params_null);
         $emptyPageVars = array("messages"=>array(), "route"=>$route);
@@ -56,7 +56,8 @@ class BootStrap {
 
     private function exitGracefully() {
         // @note this must be the last executed line as it sets exit code
-        $finish = microtime(true) - $this->start ;
+        $cur = number_format(microtime(true), 2, '.', '') ;
+        $finish = $cur - $this->start ;
         echo "[Pharaoh Exit] Execution finished after ".$finish." seconds ".PHP_EOL;
         if (self::$exitCode == null) {
             exit(0) ; }
