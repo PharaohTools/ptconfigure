@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class HAProxyConfigureUbuntu extends BaseTemplater {
+class HAProxyConfigureLinuxMac extends BaseTemplater {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array(array("12.04" => "+")) ;
+    public $os = array("Linux", "Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -28,7 +28,7 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
         $this->programNameMachine = "haproxy"; // command and app dir name
         $this->programNameFriendly = "HA Proxy Server!"; // 12 chars
         $this->programNameInstaller = "HA Proxy Server";
-        $this->targetLocation = "/etc/haproxy/haproxy.cfg" ;
+        $this->targetLocation = DS."etc".DS."haproxy".DS."haproxy.cfg" ;
         $this->initialize();
     }
 
@@ -86,9 +86,9 @@ class HAProxyConfigureUbuntu extends BaseTemplater {
     protected function setTemplateFile() {
         $this->templateFile = str_replace("Model", "Templates", dirname(__FILE__) ) ;
         if (isset($this->params["with-stats"])) {
-            $this->templateFile .= DIRECTORY_SEPARATOR."haproxy-with-stats.cfg" ; }
+            $this->templateFile .= DS."haproxy-with-stats.cfg" ; }
         else {
-            $this->templateFile .= DIRECTORY_SEPARATOR."haproxy.cfg" ; }
+            $this->templateFile .= DS."haproxy.cfg" ; }
     }
 
     protected function getServersArray() {
