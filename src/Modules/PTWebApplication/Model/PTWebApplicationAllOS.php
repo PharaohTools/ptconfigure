@@ -26,14 +26,20 @@ class PTWebApplicationAllOS extends Base {
     protected function getFPMPoolDir() {
         $thisSystem = new \Model\SystemDetectionAllOS();
         if (in_array($thisSystem->os, array("Darwin") ) ) {
-            $apachePD = "/etc/fpm.d/" ; }
+            $fpmPD = "/etc/fpm.d/" ; }
         else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Debian") ) ) {
-            $apachePD = "/etc/php5/fpm/pool.d/" ; }
+            if (PHP_MAJOR_VERSION > 6) {
+                $fpmPD = "/etc/php/7.0/fpm/pool.d/" ; }
+            else {
+                $fpmPD = "/etc/php5/fpm/pool.d/" ; } }
         else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
-            $apachePD = "/etc/php5/fpm/pool.d/" ; }
+            $fpmPD = "/etc/php5/fpm/pool.d/" ; }
         else {
-            $apachePD = "/etc/php5/fpm/pool.d/" ; }
-        return $apachePD ;
+            if (PHP_MAJOR_VERSION > 6) {
+                $fpmPD = "/etc/php/7.0/fpm/pool.d/" ; }
+            else {
+                $fpmPD = "/etc/php5/fpm/pool.d/" ; } }
+        return $fpmPD ;
     }
 
     public function isNotOSX() {
