@@ -13,9 +13,10 @@ class PHPFPMUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php5-fpm") ;
+    public $packages ;
 
     public function __construct($params) {
+        $this->setPackages() ;
         parent::__construct($params);
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
@@ -29,6 +30,15 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "PHP FPM!"; // 12 chars
         $this->programNameInstaller = "PHP Fast Process Manager";
         $this->initialize();
+    }
+
+    private function setPackages() {
+
+        if (PHP_MAJOR_VERSION > 6) {
+            $this->packages = array("php7.0-fpm") ; }
+        else {
+            $this->packages = array("php5-fpm") ; }
+
     }
 
     public function askStatus() {
@@ -61,13 +71,19 @@ class PHPFPMUbuntu extends BaseLinuxApp {
     }
 
     public function restartFPM() {
+
+        if (PHP_MAJOR_VERSION > 6) {
+            $ps = "php7.0-fpm" ; }
+        else {
+            $ps = "php5-fpm" ; }
+
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Stopping any running PHP FPM Processes", $this->getModuleName()) ;
-        $comm = 'pkill php5-fpm' ;
+        $comm = "pkill {$ps}-fpm" ;
         $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
         $logging->log("Starting PHP FPM Processes", $this->getModuleName()) ;
-        $comm = 'php5-fpm' ;
+        $comm = $ps.'-fpm' ;
         $res[] = $this->executeAndGetReturnCode($comm, true, true) ;
         return in_array(false, $res)==false ;
     }
