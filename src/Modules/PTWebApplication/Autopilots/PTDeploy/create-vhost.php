@@ -127,13 +127,13 @@ class AutoPilotConfigured extends AutoPilot {
    <IfModule mod_fastcgi.c>
     <IfModule !mod_proxy_fcgi.c>
 
-     AddHandler php5-fcgi .php
-     Action php5-fcgi /php5-fcgi_'.$app_slug.'
-     Alias /php5-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
-     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
+     AddHandler php-fcgi .php
+     Action php-fcgi /php-fcgi_'.$app_slug.'
+     Alias /php-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php-fcgi_pt'.$app_slug.'
+     FastCgiExternalServer /usr/lib/cgi-bin/php-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
 
       <FilesMatch "\.php$">
-          SetHandler php5-fcgi
+          SetHandler php-fcgi
       </FilesMatch>
 
      <Directory /usr/lib/cgi-bin>
@@ -175,13 +175,13 @@ class AutoPilotConfigured extends AutoPilot {
    <IfModule mod_fastcgi.c>
     <IfModule !mod_proxy_fcgi.c>
 
-     AddHandler php5-fcgi .php
-     Action php5-fcgi /php5-fcgi_'.$app_slug.'
-     Alias /php5-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
-     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
+     AddHandler php-fcgi .php
+     Action php-fcgi /php-fcgi_'.$app_slug.'
+     Alias /php-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php-fcgi_pt'.$app_slug.'
+     FastCgiExternalServer /usr/lib/cgi-bin/php-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
 
       <FilesMatch "\.php$">
-          SetHandler php5-fcgi
+          SetHandler php-fcgi
       </FilesMatch>
 
      <Directory /usr/lib/cgi-bin>
@@ -217,13 +217,13 @@ class AutoPilotConfigured extends AutoPilot {
    <IfModule mod_fastcgi.c>
     <IfModule !mod_proxy_fcgi.c>
 
-     AddHandler php5-fcgi .php
-     Action php5-fcgi /php5-fcgi_'.$app_slug.'
-     Alias /php5-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.'
-     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
+     AddHandler php-fcgi .php
+     Action php-fcgi /php-fcgi_'.$app_slug.'
+     Alias /php-fcgi_'.$app_slug.' /usr/lib/cgi-bin/php-fcgi_pt'.$app_slug.'
+     FastCgiExternalServer /usr/lib/cgi-bin/php-fcgi_pt'.$app_slug.' -host 127.0.0.1:'.$fpm_port.' -pass-header Authorization
 
       <FilesMatch "\.php$">
-          SetHandler php5-fcgi
+          SetHandler php-fcgi
       </FilesMatch>
 
      <Directory /usr/lib/cgi-bin>
