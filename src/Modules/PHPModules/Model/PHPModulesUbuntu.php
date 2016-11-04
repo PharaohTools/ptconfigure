@@ -13,9 +13,10 @@ class PHPModulesUbuntu extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php-apc", "php5-dev", "php5-gd", "php5-imagick", "php5-curl", "php5-mysql", "php5-memcache", "php5-memcached", "php5-mongo", "php5-sqlite" ) ;
+    public $packages ;
 
     public function __construct($params) {
+        $this->setPackages() ;
         parent::__construct($params);
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
@@ -28,6 +29,21 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         $this->programNameFriendly = "PHP Mods!"; // 12 chars
         $this->programNameInstaller = "PHP Modules";
         $this->initialize();
+    }
+
+    private function setPackages() {
+
+        if (PHP_MAJOR_VERSION > 6) {
+            $ps1 = "php7.0-apcu" ;
+            $ps2 = "php7.0" ; }
+        else {
+            $ps1 = "php-apc" ;
+            $ps2 = "php5" ; }
+
+        $this->packages = array(
+            "{$ps1} {$ps2}-dev {$ps2}-gd {$ps2}-imagick {$ps2}-curl {$ps2}-mysql ".
+            "{$ps2}-memcache {$ps2}-memcached {$ps2}-mongo {$ps2}-sqlite"
+        ) ;
     }
 
     public function askStatus() {
