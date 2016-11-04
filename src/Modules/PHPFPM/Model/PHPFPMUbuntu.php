@@ -73,9 +73,9 @@ class PHPFPMUbuntu extends BaseLinuxApp {
     public function restartFPM() {
 
         if (PHP_MAJOR_VERSION > 6) {
-            $ps = "php7.0-fpm" ; }
+            $ps = "php7.0" ; }
         else {
-            $ps = "php5-fpm" ; }
+            $ps = "php5" ; }
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
