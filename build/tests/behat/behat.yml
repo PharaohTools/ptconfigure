@@ -1,7 +1,7 @@
 # behat.yml
 default:
     autoload:
-        '': %paths.base%/features/bootstrap
+        '': %paths.base%/features
     suites:
         default:
           paths:
