@@ -1,11 +1,11 @@
 {
     "require": {
-        "behat/behat": "~3.2",
-        "behat/mink": "~1.6",
-        "behat/mink-extension": "~2.2",
-        "behat/mink-selenium2-driver": "*",
-        "behat/mink-zombie-driver": "*",
-        "guzzle/http": "*"
+        "behat/behat": "3.*@stable",
+        "behat/mink": "1.6.*@stable",
+        "behat/mink-extension": "@stable",
+        "behat/mink-goutte-driver": "@stable",
+        "behat/mink-selenium2-driver": "@stable",
+        "behat/mink-zombie-driver": "@stable"
     },
     "config": {
         "bin-dir": "bin"
