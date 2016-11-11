@@ -1,8 +1,8 @@
 {
     "require": {
         "behat/behat": "~3.2",
-        "behat/mink": "~2.2",
-        "behat/mink-extension": "~1.6",
+        "behat/mink": "~1.6",
+        "behat/mink-extension": "~2.2",
         "behat/mink-selenium2-driver": "*",
         "behat/mink-zombie-driver": "*",
         "guzzle/http": "*"
