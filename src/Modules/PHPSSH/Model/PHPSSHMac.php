@@ -21,36 +21,23 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $this->initialize();
     }
 
-    protected function getInstallCommands() {
-        $php_vers = $this->getPHPVersion() ;
+    public function getInstallCommands() {
+        $php_vers = PHP_MAJOR_VERSION ;
         $ret = array(
             array("method"=> array("object" => $this, "method" => "ensureMacPorts", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("php{$php_vers}-ssh2"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("libssh2-php"))) ),
             array("method"=> array("object" => $this, "method" => "ensurePHPIniFile", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "addPHPIniExtension", "params" => array()) ) );
         return $ret ;
     }
 
-    protected function getUninstallCommands() {
-        $php_vers = $this->getPHPVersion() ;
+    public function getUninstallCommands() {
+        $php_vers = PHP_MAJOR_VERSION ;
         $ret = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", array("php{$php_vers}-ssh2"))) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", array("libssh2-php"))) ),
             array("method"=> array("object" => $this, "method" => "removePHPIniExtension", "params" => array()) ),
         );
         return $ret ;
-    }
-
-    protected function getPHPVersion() {
-        $text = $this->executeAndLoad("php -v") ;
-        $lines = explode("\n", $text) ;
-        foreach ($lines as $line) {
-            if (substr($line, 0, 5) == "PHP 5") {
-                $phpline = $line ;
-                break ; } }
-//        var_dump(substr($phpline, 0, 5), substr($phpline, 4, 3)) ;
-        $php_version_string = substr($phpline, 4, 3) ;
-        $digits_only = str_replace(".", "", $php_version_string) ;
-        return $digits_only ;
     }
 
     public function ensurePHPIniFile() {
