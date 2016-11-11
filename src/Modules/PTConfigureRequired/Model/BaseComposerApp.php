@@ -58,22 +58,13 @@ class BaseComposerApp extends BasePHPApp {
     }
 
     protected function doComposerCommand() {
-
-
+        $targetLocation = $this->programDataFolder.DS.$this->programNameMachine.DS ;
         $composerFactory = new \Model\Composer();
         $composer = $composerFactory->getModel($this->params);
         if ($composer->askStatus() !== true) {
-            $composer->install() ;
-        }
-
-//
-//        $sys = new \Model\SystemDetectionAllOS() ;
-//        if ($sys->os == "Darwin") { $dlcomm = "curl https://getcomposer.org/installer --insecure -o installer" ; }
-//        else { $dlcomm = "wget https://getcomposer.org/installer --no-check-certificate" ; }
-
+            $composer->install() ; }
         $command = array(
-
-            SUDOPREFIX."php composer.phar install -vvv --prefer-dist" );
+            "cd $targetLocation && php composer install -vvv --prefer-dist" );
         $res = self::executeAndGetReturnCode($command, true, true);
         return ($res["rc"]==0) ? true : false ;
     }
