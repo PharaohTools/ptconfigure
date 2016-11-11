@@ -11,7 +11,7 @@ use Behat\MinkExtension\Context\MinkContext;
  * Behat context class.
  */
 
-class AnyModuleActionsContext extends BehatContext {
+class AnyModuleActionsContext implements Context {
 
     private $returnCode ;
 

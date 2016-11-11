@@ -14,7 +14,7 @@ use Behat\Testwork\Hook\Scope\AfterSuiteScope;
  * Behat context class.
  */
 
-class FeatureContext extends MinkContext
+class FeatureContext  implements Context
 {
 
     private $output;

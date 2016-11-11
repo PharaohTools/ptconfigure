@@ -11,7 +11,7 @@ use Behat\MinkExtension\Context\MinkContext;
  * Behat context class.
  */
 
-class NoActionsContext extends BehatContext {
+class NoActionsContext implements Context {
 
 
     /**
