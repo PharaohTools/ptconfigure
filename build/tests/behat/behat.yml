@@ -1,8 +1,9 @@
 # behat.yml
-autoload:
-  '': %paths.base%/features/bootstrap
-suites:
-  default:
-    paths:
-      features: features
-      bootstrap: %behat.paths.features%/bootstrap
+default:
+    autoload:
+        '': %paths.base%/features/bootstrap
+    suites:
+        default:
+          paths:
+            features: features
+            bootstrap: %behat.paths.features%/bootstrap
