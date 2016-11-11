@@ -6,20 +6,3 @@ suites:
     paths:
       features: features
       bootstrap: %behat.paths.features%/bootstrap
-    extensions:
-      Behat\MinkExtension:
-        default_session: selenium2
-          base_url: http://127.0.0.1
-            selenium2:
-              browser: chrome
-                wd_host: 127.0.0.1:4444/wd/hub
-                capabilities: {"browser": "chrome"}
-  firefox-local:
-    extensions:
-      Behat\MinkExtension:
-        default_session: selenium2
-          base_url: http://127.0.0.1
-            selenium2:
-              browser: firefox
-              wd_host: 127.0.0.1:4444/wd/hub
-              capabilities: {"browser": "firefox"}
