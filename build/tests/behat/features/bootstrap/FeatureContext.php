@@ -24,7 +24,7 @@ class FeatureContext extends MinkContext
      *
      * @param array $parameters Suite parameters (set them up through behat.yml)
      */
-    public function __construct(Array $parameters) {
+    public function __construct() {
         $this->setup();
         $this->useContext('noactions', new \NoActionsContext()) ;
         $this->useContext('anymods', new \AnyModuleActionsContext()) ;

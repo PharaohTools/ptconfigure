@@ -1,9 +1,7 @@
-# behat.yml
 default:
     autoload:
-        '': %paths.base%/features
+        '' : %paths.base%/bootstrap
     suites:
-        default:
-          paths:
-            features: features
-            bootstrap: %behat.paths.features%/bootstrap
+        core_features:
+            paths: [ %paths.base%/features ]
+            contexts: [ FeatureContext,AnyModuleActionsContext,NoActionsContext ]
