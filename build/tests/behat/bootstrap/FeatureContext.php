@@ -26,8 +26,8 @@ class FeatureContext  implements Context
      */
     public function __construct() {
         $this->setup();
-        $this->useContext('noactions', new \NoActionsContext()) ;
-        $this->useContext('anymods', new \AnyModuleActionsContext()) ;
+//        $this->useContext('noactions', new \NoActionsContext()) ;
+//        $this->useContext('anymods', new \AnyModuleActionsContext()) ;
     }
 
     private function setup() {
