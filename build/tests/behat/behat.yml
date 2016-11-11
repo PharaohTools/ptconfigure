@@ -4,7 +4,7 @@ default:
         features: features
         bootstrap: %behat.paths.features%/bootstrap
     extensions:
-        Behat\MinkExtension\Extension:
+        Behat\MinkExtension:
             default_session: selenium2
             base_url:  'http://www.wordpress-ptvirtualize.vm'
             selenium2:
@@ -13,7 +13,7 @@ default:
                 capabilities: {"browser": "chrome"}
 firefox-local:
     extensions:
-        Behat\MinkExtension\Extension:
+        Behat\MinkExtension:
             default_session: selenium2
             base_url:  'http://www.wordpress-ptvirtualize.vm'
             selenium2:
