@@ -9,7 +9,7 @@ suites:
     extensions:
       Behat\MinkExtension:
         default_session: selenium2
-          base_url:  'http://www.wordpress-ptvirtualize.vm'
+          base_url: 'http://127.0.0.1'
             selenium2:
               browser: chrome
                 wd_host: 127.0.0.1:4444/wd/hub
@@ -18,7 +18,7 @@ suites:
     extensions:
       Behat\MinkExtension:
         default_session: selenium2
-          base_url:  'http://www.wordpress-ptvirtualize.vm'
+          base_url: 'http://127.0.0.1'
             selenium2:
               browser: firefox
               wd_host: 127.0.0.1:4444/wd/hub
