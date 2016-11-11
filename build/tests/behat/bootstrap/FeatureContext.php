@@ -1,6 +1,6 @@
 <?php
 
-use Behat\Behat\Context\ContextInterface;
+use Behat\Behat\Context\Context;
 use Behat\Behat\Exception\PendingException;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
