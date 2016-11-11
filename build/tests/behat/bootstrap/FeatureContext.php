@@ -31,7 +31,7 @@ class FeatureContext  implements Context
     }
 
     private function setup() {
-        $bd = dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))).DIRECTORY_SEPARATOR ;
+        $bd = dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR ;
         try {
             require_once ($bd.'src'.DIRECTORY_SEPARATOR. 'AutoLoad.php') ;
             $autoLoader = new \Core\autoLoader();
