@@ -62,7 +62,7 @@ class BaseComposerApp extends BasePHPApp {
 
         $composerFactory = new \Model\Composer();
         $composer = $composerFactory->getModel($this->params);
-        if ($composer->status() !== true) {
+        if ($composer->askStatus() !== true) {
             $composer->install() ;
         }
 
