@@ -15,7 +15,7 @@ class ApacheVHostEditorInfo extends Base {
     public function routesAvailable() {
       return array( "ApacheVHostEditor" => array_merge(parent::routesAvailable(), array("add", "add-balancer", "rm",
           "remove", "list", "enable", "en", "disable", "dis", "disable-default", "dis-default", "enable-default",
-          "en-default") ) );
+          "en-default", "help") ) );
     }
 
     public function routeAliases() {
