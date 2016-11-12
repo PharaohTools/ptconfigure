@@ -1,0 +1,7 @@
+default:
+    autoload:
+        '' : %paths.base%/bootstrap
+    suites:
+        core_features:
+            paths: [ %paths.base%/features ]
+            contexts: [ FeatureContext,AnyModuleActionsContext,NoActionsContext ]
