@@ -33,6 +33,7 @@ class FeatureContext  implements Context
     private function setup() {
         $bd = dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR ;
         try {
+//            require_once ($bd.'src'.DIRECTORY_SEPARATOR. 'AutoLoad.php') ;
             require_once ($bd.'src'.DIRECTORY_SEPARATOR. 'AutoLoad.php') ;
             $autoLoader = new \Core\autoLoader();
             $autoLoader->launch(); }
@@ -43,6 +44,11 @@ class FeatureContext  implements Context
             require_once ($bd.'src'.DIRECTORY_SEPARATOR. 'Constants.php') ; }
         catch (\Exception $e) {
             echo "Setup cant load constants\n" ;
+            echo 'Message: ' .$e->getMessage(); }
+        try {
+            require_once ($bd.'src'.DIRECTORY_SEPARATOR. 'BootstrapCore.php') ; }
+        catch (\Exception $e) {
+            echo "Setup cant load Bootstrap Core Class\n" ;
             echo 'Message: ' .$e->getMessage(); }
     }
 
