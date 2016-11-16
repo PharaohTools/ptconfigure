@@ -1,0 +1,8 @@
+
+default:
+    autoload:
+        '' : %paths.base%/ptvirtualize/build/tests/behat/bootstrap,/opt/ptvirtualize/ptvirtualize/build/tests/behat/bootstrap,/opt/ptvirtualize/ptvirtualize/src/Modules/Index/Tests/behat/bootstrap
+    suites:
+        core_features:
+            paths: [ %paths.base%/ptvirtualize/build/tests/behat/features,/opt/ptvirtualize/ptvirtualize/build/tests/behat/features,/opt/ptvirtualize/ptvirtualize/src/Modules/Index/Tests/behat/features ]
+            contexts: [ FeatureContext,AnyModuleActionsContext,NoActionsContext ]
