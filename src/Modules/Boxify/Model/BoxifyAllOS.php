@@ -264,11 +264,15 @@ class BoxifyAllOS extends BaseLinuxApp {
 
 //        var_dump("cbcheck", $curboxes) ;
 
-        if (isset($curboxes["tests"]) && is_array($curboxes["tests"]) && count($curboxes)>0) {
+        if (isset($curboxes["tests"]) && is_array($curboxes["tests"]) && count($curboxes["servers"])>0) {
+            var_dump($curboxes) ;
+
             foreach($curboxes["tests"] as $oneTest) {
-                if ($oneTest["status"]==false) {
+                if ($oneTest["status"]==false && isset($oneTest["info"]["id"]) && $oneTest["info"]["id"] !== "") {
                     if ($remove == true) {
-                        $logging->log( "Fixing broken node id {$oneTest["info"]["id"]}, name {$oneTest["info"]["name"]}", $this->getModuleName() ) ;
+                        $id_string = (isset($oneTest["info"]["id"])) ? $oneTest["info"]["id"] : "*none*" ;
+                        $name_string = (isset($oneTest["info"]["name"])) ? $oneTest["info"]["name"] : "*none*" ;
+                        $logging->log( "Fixing broken node id {$id_string}, name {$name_string}", $this->getModuleName() ) ;
                         $destroyParams = $this->params ;
                         $destroyParams["destroy-box-id"] = $oneTest["info"]["id"] ;
                         $nodeDestroy = $this->destroyBoxes($destroyParams) ;
