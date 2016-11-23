@@ -72,8 +72,14 @@ class HAProxyConfigureLinuxMac extends BaseTemplater {
     protected function getServerString() {
         $servers = $this->getServersArray() ;
         $st = "" ;
+        if (isset($this->params["private-targets"]) && $this->params["private-targets"]==true) {
+            $log = $loggingFactory->getModel($this->params) ;
+            $log->log("Attempting to use private targets for Load Balancing", $this->getModuleName()) ;
+            $target_scope = "target_private" ; }
+        else {
+            $target_scope = "target" ; }
         foreach ($servers as $server) {
-            $st .= "server {$server["name"]} {$server["target"]}:{$this->getTemplatePort()} check\n" ; }
+            $st .= "server {$server["name"]} {$server[$target_scope]}:{$this->getTemplatePort()} check\n" ; }
         return $st ;
     }
 
@@ -92,10 +98,12 @@ class HAProxyConfigureLinuxMac extends BaseTemplater {
     }
 
     protected function getServersArray() {
+        if (isset($this->params["env"])) {
+            $this->params["environment-name"] = $this->params["env"] ; }
         if (!isset($this->params["environment-name"])) {
             $loggingFactory = new \Model\Logging() ;
             $log = $loggingFactory->getModel($this->params) ;
-            $log->log("No environment name provided for Load Balancing") ;
+            $log->log("No environment name provided for Load Balancing", $this->getModuleName()) ;
             $this->params["environment-name"] = $this->askForEnvironment() ; }
         $envs = $this->getEnvironments();
         $names = $this->getEnvironmentNames($envs) ;
