@@ -51,7 +51,8 @@ class AutopilotExecutor extends Base {
                 if (strlen($module) > 0) { $logging->log("{$module}", "Autopilot") ; }
 
                 $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
-                if ($should_run["should_run"] != true) {
+
+                if ($should_run["should_run"] == false) {
                     $step_out["status"] = true ;
                     $step_out["out"] = "No need to run this step" ; }
                 else {
@@ -91,7 +92,7 @@ class AutopilotExecutor extends Base {
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
             $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
-            $when_text = ($when_result == true) ? "Do Run" : "Don't Run" ;
+            $when_text = ($when_result == true && $when_result != "") ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_result ; }
         else if (isset($current_params[$mod_is][$act_is]["not_when"]) ||
@@ -103,10 +104,25 @@ class AutopilotExecutor extends Base {
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
-            $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
+            $logging->log("Not When Condition found for Step {$module}{$name_text}", "Autopilot") ;
             $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
+            if (is_bool($not_when_result)) {
+//               var_dump("one") ;
+            }
+            else {
+//                var_dump("nwr1", $not_when_result) ;
+                if (strlen($not_when_result)>0) {
+//                    var_dump("two") ;
+                    $not_when_result = false ; }
+                else {
+//                    var_dump("three") ;
+                    $not_when_result = true ; }
+            }
+//            var_dump("nwr", $not_when_result, "pv", $current_params[$mod_is][$act_is]["not_when"]) ;
+//            var_dump("nwr2", $not_when_result) ;
             $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
-            $logging->log("When Condition evaluated to {$not_when_text}", "Autopilot") ;
+            $logging->log("Not When Condition evaluated to {$not_when_text}", "Autopilot") ;
+
             $return_stat["should_run"] = $not_when_result ; }
         else {
             $return_stat["should_run"] = true ;  }
@@ -144,6 +160,7 @@ class AutopilotExecutor extends Base {
                 $new_steps[] = $step ; } }
         return $new_steps ;
     }
+
     protected function isPreRequisite($step) {
         if (isset($step["pre"]) && $step["pre"] == true) { return true ; }
         if (isset($step["prerequisite"]) && $step["prerequisite"] == true) { return true ; }
