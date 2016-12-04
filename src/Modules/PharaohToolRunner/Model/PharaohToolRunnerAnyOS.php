@@ -230,6 +230,7 @@ class PharaohToolRunnerAnyOS extends Base {
             if (strpos($pair, ":") !== false) {
                 $key = substr($pair, 0, strpos($pair, ":") ) ;
                 $val = substr($pair, strpos($pair, ":") + 1 ) ;
+                $val = $this->transformParameterValue($val) ;
                 if (!in_array($key, $drop_keys)) { $parameter_string .= " --{$key}=\"{$val}\"" ; } }
             else {
                 if (!in_array($pair, $drop_keys)) { $parameter_string .= " --\"{$pair}\"" ; } } }
