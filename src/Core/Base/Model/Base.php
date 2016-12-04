@@ -453,7 +453,7 @@ COMPLETION;
             $vars = $runtime_vars; }
         $var_requested = $parts_array[1] ;
         if (isset($vars[$var_requested])) { return $vars[$var_requested] ; }
-        $logging->log("No value set for requested Variable {$var_requested}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        $logging->log("No value set for requested Variable \${$var_requested}", $this->getModuleName()) ;
         return false ;
     }
 
@@ -477,7 +477,7 @@ COMPLETION;
             \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
             $vars = $runtime_vars; }
         if (isset($vars[$var])) { return $vars[$var] ; }
-        $logging->log("No value set for requested Variable \${$var}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        $logging->log("No value set for requested Variable \${$var}", $this->getModuleName()) ;
         return false ;
     }
 
