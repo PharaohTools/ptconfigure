@@ -27,7 +27,7 @@ class PHPSSHUbuntu extends BaseLinuxApp {
             array('method'=> array("object" => $this, 'method' => "askStatus", "params" => array()) ),
         );
         $this->uninstallCommands = array(
-            array('method'=> array("object" => $this, 'method' => "packageRemove", "params" => array("Apt", array("libssh2-1-dev", "libssh2-php"))) ),
+            array('method'=> array("object" => $this, 'method' => "packageRemove", "params" => $APT_PARAMS) ),
 //            array('method'=> array("object" => $this, 'method' => "packageRemove", "params" => array("PECL", array("ssh2-beta"))) ),
         );
         $this->programDataFolder = "/opt/PHPSSH"; // command and app dir name
