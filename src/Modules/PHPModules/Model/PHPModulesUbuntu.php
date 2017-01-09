@@ -32,7 +32,6 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     }
 
     private function setPackages() {
-
         if (PHP_MAJOR_VERSION > 6) {
             $ps1 = "php7.0-apcu" ;
             $ps2 = "php7.0" ; }
@@ -42,7 +41,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
 
         $this->packages = array(
             "{$ps1} {$ps2}-dev {$ps2}-gd {$ps2}-imagick {$ps2}-curl {$ps2}-mysql ".
-            "{$ps2}-memcache {$ps2}-memcached {$ps2}-mongo {$ps2}-sqlite"
+            "{$ps2}-memcache {$ps2}-memcached {$ps2}-mongo {$ps2}-sqlite {$ps2}-xml"
         ) ;
     }
 
