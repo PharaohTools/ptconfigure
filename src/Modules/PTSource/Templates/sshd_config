@@ -1,0 +1,5 @@
+PasswordAuthentication yes
+Match User ptgit
+  PasswordAuthentication no
+  AuthorizedKeysCommand /Scripts/openssh_find_keys.php %u %k
+  AuthorizedKeysCommandRunAs root
