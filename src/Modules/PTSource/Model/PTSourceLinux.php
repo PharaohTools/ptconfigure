@@ -50,7 +50,7 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6044'.$sslstring ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("end").' --app-slug=ptsource' ;
             if (isset($this->params["enable-ssh"])) {
-                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource '.$sshstring ;
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true ' ;
             }
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
