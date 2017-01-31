@@ -5,6 +5,7 @@ RunCommand execute
   label 'Install Openssh'
   guess
   command "apt-get install openssh-server -y"
+  when "{{{ Param::enable-ssh }}}"
 
 RunCommand execute
   label 'Delete the Pharaoh Tools Git User (If existing)'
@@ -42,16 +43,18 @@ Copy put
   target "/home/ptgit/ptsource/"
   when "{{{ Param::enable-ssh }}}"
 
-# /home/ptgit/ptsource
-# make the above dir
-# then copy in wrap_git.bash and openssh_auth.ph
-# chown to ptgit user
-
 Chown path
   label "Copy in the auth script to the correct place /PTSourceScripts/ at root"
   path "/home/ptgit/ptsource"
   recursive true
   user ptgit
+  when "{{{ Param::enable-ssh }}}"
+
+RunCommand execute
+  label "Remove the SSH Auth script directory"
+  guess
+  command "rm -rf /PTSourceScripts/"
+  when "{{{ Param::disable-ssh }}}"
 
 Mkdir path
   label "Ensure the SSH Auth script directory exists"
@@ -68,46 +71,46 @@ Copy put
 RunCommand execute
   label "Make Auth script executable"
   guess
-  command "chmod +x /PTSourceScripts/openssh_find_keys.php"
+  command "chmod -R +x /PTSourceScripts/"
   when "{{{ Param::enable-ssh }}}"
-
-RunCommand execute
-  label "Remove the SSH Auth script directory"
-  guess
-  command "rm -rf /PTSourceScripts/"
-  when "{{{ Param::disable-ssh }}}"
 
 Chmod path
   label "Set mode for ptsource scripts"
   path "/PTSourceScripts/"
   recursive true
   mode 0600
+  when "{{{ Param::enable-ssh }}}"
 
 Chown path
   label "Set owner for ptsource scripts"
   path "/PTSourceScripts/"
   recursive true
   user root
+  when "{{{ Param::enable-ssh }}}"
 
 File should-have-line
   label "Add PT Config to SSH for user"
   file "/etc/ssh/sshd_config"
   search "Match User ptgit"
+  when "{{{ Param::enable-ssh }}}"
 
 File should-have-line
   label "Add PT Config to SSH for user"
   file "/etc/ssh/sshd_config"
   search '  PasswordAuthentication no'
+  when "{{{ Param::enable-ssh }}}"
 
 File should-have-line
   label "Add PT Config to SSH for user"
   file "/etc/ssh/sshd_config"
   search '  AuthorizedKeysCommand /PTSourceScripts/openssh_find_keys.php %u %k'
+  when "{{{ Param::enable-ssh }}}"
 
 File should-have-line
   label "Add PT Config to SSH for user"
   file "/etc/ssh/sshd_config"
   search '  AuthorizedKeysCommandUser root'
+  when "{{{ Param::enable-ssh }}}"
 
 RunCommand execute
   label "Restart SSH for New Git Settings"
