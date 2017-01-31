@@ -67,11 +67,13 @@ Copy put
 
 RunCommand execute
   label "Make Auth script executable"
+  guess
   command "chmod +x /PTSourceScripts/openssh_find_keys.php"
   when "{{{ Param::enable-ssh }}}"
 
 RunCommand execute
   label "Remove the SSH Auth script directory"
+  guess
   command "rm -rf /PTSourceScripts/"
   when "{{{ Param::disable-ssh }}}"
 
@@ -107,7 +109,8 @@ File should-have-line
   file "/etc/ssh/sshd_config"
   search '  AuthorizedKeysCommandUser root'
 
-RunCommand install
+RunCommand execute
+  label "Restart SSH for New Git Settings"
   guess
   command "service ssh restart"
   when "{{{ Param::enable-ssh }}}"
