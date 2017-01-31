@@ -68,7 +68,7 @@ Copy put
 RunCommand execute
   label "Make Auth script executable"
   command "chmod +x /PTSourceScripts/openssh_find_keys.php"
-  when "{{{ Param::disable-ssh }}}"
+  when "{{{ Param::enable-ssh }}}"
 
 RunCommand execute
   label "Remove the SSH Auth script directory"
