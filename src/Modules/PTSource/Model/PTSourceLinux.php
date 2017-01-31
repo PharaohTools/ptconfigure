@@ -43,7 +43,7 @@ class PTSourceLinux extends BasePHPApp {
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
             if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
             if (isset($this->params["enable-ssl"])) { $sslstring = ' --enable-ssl=true' ; }
-            if (isset($this->params["enable-ssl"])) { $sslstring = ' --enable-ssl=true' ; }
+            if (isset($this->params["enable-ssh"])) { $sslstring = ' --enable-ssh=true' ; }
             $ray[]["command"][] = SUDOPREFIX.PTSCOMM." assetpublisher publish --yes --guess" ;
 //            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044' ;
