@@ -9,7 +9,7 @@ RunCommand execute
 RunCommand execute
   label 'Delete the Pharaoh Tools Git User (If existing)'
   guess
-  command "userdel ptgit"
+  command "userdel ptgit || true"
 
 RunCommand execute
   label 'Add A Pharaoh Tools Git User'
