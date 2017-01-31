@@ -43,12 +43,14 @@ class PTSourceLinux extends BasePHPApp {
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
             if (isset($this->params["vhe-ip-port"])) { $vheipport = '--vhe-ip-port='.$this->params["vhe-ip-port"] ; }
             if (isset($this->params["enable-ssl"])) { $sslstring = ' --enable-ssl=true' ; }
+            if (isset($this->params["enable-ssl"])) { $sslstring = ' --enable-ssl=true' ; }
             $ray[]["command"][] = SUDOPREFIX.PTSCOMM." assetpublisher publish --yes --guess" ;
 //            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044' ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptsource --fpm-port=6044 '.$vhestring ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6044'.$sslstring ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("end").' --app-slug=ptsource' ;
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource' ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
@@ -80,17 +82,22 @@ class PTSourceLinux extends BasePHPApp {
     }
 
     public function getDeployAutoPath() {
-        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
+        $path = dirname(dirname(__DIR__)).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
         return $path ;
     }
 
     public function getWebappConfigureAutoPath() {
-        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'app-state-conf.dsl.php' ;
+        $path = dirname(dirname(__DIR__)).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'app-state-conf.dsl.php' ;
         return $path ;
     }
 
     public function getModuleConfigureAutoPath($type = "start") {
-        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'app-conf-'.$type.'.dsl.php' ;
+        $path = dirname(__DIR__).DS.'Autopilots'.DS.'PTConfigure'.DS.'app-conf-'.$type.'.dsl.php' ;
+        return $path ;
+    }
+
+    public function getSSHConfigureAutoPath() {
+        $path = dirname(__DIR__).DS.'Autopilots'.DS.'PTConfigure'.DS.'git-ssh.dsl.php' ;
         return $path ;
     }
 
