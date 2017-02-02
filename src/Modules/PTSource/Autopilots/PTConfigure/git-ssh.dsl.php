@@ -88,14 +88,9 @@ RunCommand execute
   command "chmod -R +x /PTSourceScripts/"
   when "{{{ Param::enable-ssh }}}"
 
-Copy put
+RunCommand execute
   label "Create a Copy of the sshd_config if one does not exist"
   shell "cp /etc/ssh/sshd_config /etc/ssh/sshd_config_ptsource"
-  when "{{{ Param::enable-ssh }}}"
-
-Copy put
-  label "Rewrite sshd_config from the copy if it exists"
-  shell "cp /etc/ssh/sshd_config_ptsource /etc/ssh/sshd_config"
   when "{{{ Param::enable-ssh }}}"
 
 File should-have-line
