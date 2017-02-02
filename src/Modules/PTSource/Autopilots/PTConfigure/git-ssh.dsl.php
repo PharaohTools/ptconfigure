@@ -68,12 +68,6 @@ Copy put
   target "/PTSourceScripts/"
   when "{{{ Param::enable-ssh }}}"
 
-RunCommand execute
-  label "Make Auth script executable"
-  guess
-  command "chmod -R +x /PTSourceScripts/"
-  when "{{{ Param::enable-ssh }}}"
-
 Chmod path
   label "Set mode for ptsource scripts"
   path "/PTSourceScripts/"
@@ -86,6 +80,22 @@ Chown path
   path "/PTSourceScripts/"
   recursive true
   user root
+  when "{{{ Param::enable-ssh }}}"
+
+RunCommand execute
+  label "Make Auth script executable"
+  guess
+  command "chmod -R +x /PTSourceScripts/"
+  when "{{{ Param::enable-ssh }}}"
+
+Copy put
+  label "Create a Copy of the sshd_config if one does not exist"
+  shell "cp /etc/ssh/sshd_config /etc/ssh/sshd_config_ptsource"
+  when "{{{ Param::enable-ssh }}}"
+
+Copy put
+  label "Rewrite sshd_config from the copy if it exists"
+  shell "cp /etc/ssh/sshd_config_ptsource /etc/ssh/sshd_config"
   when "{{{ Param::enable-ssh }}}"
 
 File should-have-line
