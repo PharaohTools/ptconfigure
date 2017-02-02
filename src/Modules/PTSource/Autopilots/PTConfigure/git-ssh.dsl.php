@@ -103,7 +103,7 @@ File should-have-line
 File should-have-line
   label "Add PT Config to SSH for user"
   file "/etc/ssh/sshd_config"
-  search '  AuthorizedKeysCommand /PTSourceScripts/openssh_find_keys.php %u %k'
+  search '  AuthorizedKeysCommand /PTSourceScripts/openssh_find_keys.php %u %f'
   when "{{{ Param::enable-ssh }}}"
 
 File should-have-line
