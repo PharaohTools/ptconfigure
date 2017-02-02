@@ -32,7 +32,6 @@ class FirewallCentos extends FirewallUbuntu {
         $this->initialize();
     }
 
-
     public function setDefaultPolicyParam() {
         $opts =  array("allow", "deny", "reject") ;
         if (isset($this->params["policy"]) && in_array($this->params["policy"], $opts)) {
@@ -132,7 +131,6 @@ class FirewallCentos extends FirewallUbuntu {
         return true ;
     }
 
-
     public function deleteRule() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -148,7 +146,7 @@ class FirewallCentos extends FirewallUbuntu {
     }
 
     public function resetRule() {
-        $out = $this->executeAndOutput("echo y | ".SUDOPREFIX." 3 reset --force $this->firewallRule");
+        $out = $this->executeAndOutput("echo y | ".SUDOPREFIX."firewall-cmd reset --force $this->firewallRule");
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
