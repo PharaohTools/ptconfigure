@@ -13,31 +13,31 @@ Chmod path
   mode 0755
 
 PackageManager pkg-install
-  label "Install apache Mod Auth External"
+  label "Install apache Mod Auth External for Debian"
   package-name libapache2-mod-authnz-external
   packager Apt
   when "{{ Param::is_debian }}"
 
 RunCommand install
-  label "Enable apache Mod Auth External"
+  label "Enable apache Mod Auth External for Debian"
   guess
   command "a2enmod authnz_external"
   when "{{ Param::is_debian }}"
 
 PackageManager pkg-install
-  label "Install apache Mod Auth External"
+  label "Install apache Mod Auth External for Redhat"
   package-name mod_authnz_external
   packager Yum
   when "{{ Param::is_redhat }}"
 
 PackageManager pkg-install
-  label "Install apache PWAuth"
+  label "Install apache PWAuth for Redhat"
   package-name pwauth
   packager Yum
   when "{{ Param::is_redhat }}"
 
 RunCommand install
-  label "Enable apache Mod Auth External"
+  label "Enable apache Mod Auth External for Redhat"
   guess
   command "a2enmod authnz_external"
   when "{{ Param::is_redhat }}"
