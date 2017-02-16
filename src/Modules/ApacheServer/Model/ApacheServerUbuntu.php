@@ -39,7 +39,7 @@ class ApacheServerUbuntu extends BaseLinuxApp {
     }
 
     public function apacheRestart() {
-        $serviceFactory = new Service();
+        $serviceFactory = new \Model\Service();
         $serviceManager = $serviceFactory->getModel($this->params) ;
         $serviceManager->setService("apache2");
         $serviceManager->restart();
