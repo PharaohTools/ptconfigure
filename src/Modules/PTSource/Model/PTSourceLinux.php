@@ -45,7 +45,13 @@ class PTSourceLinux extends BasePHPApp {
             if (isset($this->params["enable-ssl"])) { $sslstring = ' --enable-ssl=true' ; }
             $ray[]["command"][] = SUDOPREFIX.PTSCOMM." assetpublisher publish --yes --guess" ;
 //            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044' ;
+            $cur_os_family = $this->findOSFamily() ;
+            if ($cur_os_family === 'debian') {
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044 --is_debian ' ; }
+            else if ($cur_os_family === 'redhat') {
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044 --is_redhat ' ; }
+            else {
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044 ' ; }
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptsource --fpm-port=6044 '.$vhestring ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6044'.$sslstring ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("end").' --app-slug=ptsource' ;
@@ -80,6 +86,18 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/src/Modules/Signup/Data/users.txt /tmp/ptsource-settings/" ; }
         $this->preinstallCommands = $ray ;
         return $ray ;
+    }
+
+    public function findOSFamily() {
+        $sd = new \Model\SystemDetectionAllOS();
+        $fam = $sd->distro ;
+        if (in_array($fam, array('Ubuntu', 'Debian'))) {
+            return 'debian' ;
+        } else if (in_array($fam, array('Redhat', 'CentOS'))) {
+            return 'redhat' ;
+        } else {
+            return false ;
+        }
     }
 
     public function getDeployAutoPath() {
