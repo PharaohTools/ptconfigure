@@ -16,11 +16,31 @@ PackageManager pkg-install
   label "Install apache Mod Auth External"
   package-name libapache2-mod-authnz-external
   packager Apt
+  when "{{ Param::is_debian }}"
 
 RunCommand install
   label "Enable apache Mod Auth External"
   guess
   command "a2enmod authnz_external"
+  when "{{ Param::is_debian }}"
+
+PackageManager pkg-install
+  label "Install apache Mod Auth External"
+  package-name mod_authnz_external
+  packager Yum
+  when "{{ Param::is_redhat }}"
+
+PackageManager pkg-install
+  label "Install apache PWAuth"
+  package-name pwauth
+  packager Yum
+  when "{{ Param::is_redhat }}"
+
+RunCommand install
+  label "Enable apache Mod Auth External"
+  guess
+  command "a2enmod authnz_external"
+  when "{{ Param::is_redhat }}"
 
 Copy put
   label "{{{ Parameter::app-slug }}} Apache Custom Authentication method Conf file"
