@@ -11,8 +11,33 @@ class AutoPilotConfigured extends AutoPilot {
         $this->setSteps();
     }
 
+    private function findPackageStep() {
+
+
+        $systemDetection = new \Model\SystemDetectionAllOS();
+        if ($systemDetection->linuxType === 'Debian') {
+            $ray =
+                array ( "PackageManager" => array( "pkg-install" => array(
+                    "package-name" => "sqlite",
+                    "packager" => 'Apt',
+                ), ), ) ;
+            return $ray ;
+        }
+        else if ($systemDetection->linuxType === 'Redhat') {
+            $ray =
+                array ( "PackageManager" => array( "pkg-install" => array(
+                    "package-name" => "sqlite",
+                    "packager" => 'Yum',
+                ), ), ) ;
+            return $ray ;
+        }
+        return array() ;
+    }
+
     /* Steps */
     private function setSteps() {
+
+        $package_ray = $this->findPackageStep() ;
 
         $this->steps =
             array(
@@ -20,10 +45,8 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets configure users and permissions for Pharaoh Track"),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Install the SQLLite Package", ), ), ),
-                array ( "PackageManager" => array( "pkg-install" => array(
-                    "package-name" => "sqlite",
-                    "packager" => 'Apt',
-                ), ), ),
+
+                $package_ray,
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Allow user pttrack a passwordless sudo", ), ), ),
                 array ( "SudoNoPass" => array( "install" => array(
