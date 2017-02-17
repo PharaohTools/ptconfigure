@@ -33,7 +33,7 @@ class PTWebApplicationAllOS extends Base {
             else {
                 $fpmPD = "/etc/php5/fpm/pool.d/" ; } }
         else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
-            $fpmPD = "/etc/php5/fpm/pool.d/" ; }
+            $fpmPD = "/etc/php-fpm.d/" ; }
         else {
             if (PHP_MAJOR_VERSION > 6) {
                 $fpmPD = "/etc/php/7.0/fpm/pool.d/" ; }
