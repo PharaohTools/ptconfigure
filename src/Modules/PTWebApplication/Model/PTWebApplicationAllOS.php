@@ -27,12 +27,12 @@ class PTWebApplicationAllOS extends Base {
         $thisSystem = new \Model\SystemDetectionAllOS();
         if (in_array($thisSystem->os, array("Darwin") ) ) {
             $fpmPD = "/etc/fpm.d/" ; }
-        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Debian") ) ) {
+        else if ($thisSystem->os == "Linux" && in_array($thisSystem->distro, array("Debian") ) ) {
             if (PHP_MAJOR_VERSION > 6) {
                 $fpmPD = "/etc/php/7.0/fpm/pool.d/" ; }
             else {
                 $fpmPD = "/etc/php5/fpm/pool.d/" ; } }
-        else if ($thisSystem->os == "Linux" && in_array($thisSystem->os, array("Redhat") ) ) {
+        else if ($thisSystem->os == "Linux" && in_array($thisSystem->distro, array("Redhat") ) ) {
             $fpmPD = "/etc/php-fpm.d/" ; }
         else {
             if (PHP_MAJOR_VERSION > 6) {
