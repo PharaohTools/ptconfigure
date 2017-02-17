@@ -66,7 +66,7 @@ class AutopilotExecutor extends Base {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
 
                     if (isset($modParams["ignore_errors"])) {
-                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK.", "Autopilot") ;
+                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK. \n", "Autopilot") ;
                         \Core\BootStrap::setExitCode(0) ; }
                     else {
                         $dataFromThis[] = $step_out ;
