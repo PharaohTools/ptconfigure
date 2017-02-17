@@ -60,11 +60,13 @@ class AutopilotExecutor extends Base {
 
                 if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
 
-                var_dump($modelArray ) ;
+                $modParams = $this->getModParamsFromArray($modelArray);
+                var_dump($modParams ) ;
 
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
-                    if (isset($modelArray["ignore_errors"])) {
+
+                    if (isset($modParams["ignore_errors"])) {
                         $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK.", "Autopilot") ;
                         \Core\BootStrap::setExitCode(0) ; }
                     else {
@@ -188,13 +190,17 @@ class AutopilotExecutor extends Base {
         return $new_steps ;
     }
 
-    protected function executeStep($modelArray, $autopilotParams) {
-
+    private function getModParamsFromArray($modelArray) {
         $currentControls = array_keys($modelArray) ;
         $currentControl = $currentControls[0] ;
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
+        return $modParams ;
+    }
+
+    protected function executeStep($modelArray, $autopilotParams) {
+        $modParams = $this->getModParamsFromArray($modelArray);
         $modParams["layout"] = "blank" ;
 
         unset($autopilotParams["af"]) ;
