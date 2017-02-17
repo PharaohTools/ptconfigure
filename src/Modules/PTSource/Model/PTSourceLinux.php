@@ -56,11 +56,15 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6044'.$sslstring ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("end").' --app-slug=ptsource' ;
             if (isset($this->params["enable-http"])) {
-                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptsource --enable-http=true ' ;
-            }
+                if ($cur_os_family === 'debian') {
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptsource --enable-http=true --is_debian ' ; }
+                else if ($cur_os_family === 'redhat') {
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptsource --enable-http=true --is_redhat ' ; } }
             if (isset($this->params["enable-ssh"])) {
-                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true ' ;
-            }
+                if ($cur_os_family === 'debian') {
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true --is_debian ' ; }
+                else if ($cur_os_family === 'redhat') {
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true --is_redhat ' ; } }
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
