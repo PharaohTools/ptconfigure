@@ -20,7 +20,7 @@ class PackageManager extends Base {
         if (in_array($action, array("pkg-install", "pkg-remove", "pkg-ensure") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"apt", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"packageManager", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
