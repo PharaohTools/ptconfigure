@@ -20,6 +20,7 @@ ApacheDefaults install
 
 PHPFPM ensure
   label "Ensure PHP FPM is installed"
+  ignore_errors
 
 PTDeploy ensure
   label "Ensure Pharaoh Deploy is installed"
