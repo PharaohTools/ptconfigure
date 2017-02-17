@@ -207,8 +207,12 @@ class AutopilotExecutor extends Base {
         unset($autopilotParams["autopilot-file"]) ;
 
         $modParams = array_merge($modParams, $autopilotParams) ;
-//        if ($currentControl == "User") { var_dump("mp", $modParams) ; }
-//
+
+        $currentControls = array_keys($modelArray) ;
+        $currentControl = $currentControls[0] ;
+        $currentActions = array_keys($modelArray[$currentControl]) ;
+        $currentAction = $currentActions[0] ;
+
         $modParams = $this->formatParams($modParams) ;
         $params = array() ;
         $params["route"] =
