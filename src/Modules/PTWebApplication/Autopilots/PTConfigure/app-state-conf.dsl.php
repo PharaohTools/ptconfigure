@@ -27,6 +27,7 @@ PTDeploy ensure
 
 ApacheFastCGIModules ensure
   label "Ensure Apache Fast CGI is installed"
+  ignore_errors
 
 Chmod path
   label "Make the PT Web Application Settings file writable"
