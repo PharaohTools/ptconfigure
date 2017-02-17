@@ -6,6 +6,14 @@ RunCommand execute
   guess
   command "apt-get install openssh-server -y"
   when "{{{ Param::enable-ssh }}}"
+  ignore_errors
+
+RunCommand execute
+  label 'Install Openssh'
+  guess
+  command "yum install openssh-server -y"
+  when "{{{ Param::enable-ssh }}}"
+  ignore_errors
 
 RunCommand execute
   label 'Delete the Pharaoh Tools Git User (If existing)'
