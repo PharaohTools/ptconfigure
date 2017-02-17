@@ -1,16 +1,5 @@
 Logging log
-  log-message "Lets configure for Pharaoh Source"
-
-Mkdir path
-  label "Ensure the Repositories Directory exists"
-  path "{{{ Facts::Runtime::factGetConstant::REPODIR }}}"
-  recursive
-
-Chmod path
-  label "Ensure the Repositories Directory is writable"
-  path "{{{ Facts::Runtime::factGetConstant::REPODIR }}}"
-  recursive
-  mode 0755
+  log-message "Lets configure HTTP Git Settings for Pharaoh Source"
 
 PackageManager pkg-install
   label "Install apache Mod Auth External for Debian"
@@ -53,4 +42,4 @@ RunCommand install
   command "a2enconf {{{ Parameter::app-slug }}}_auth"
 
 Logging log
-  log-message "Configuration Management for Pharaoh Source Complete"
+  log-message "Configuration Management for HTTP Git Settings for Pharaoh Source Complete"

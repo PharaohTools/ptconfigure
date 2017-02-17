@@ -55,6 +55,9 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptsource --fpm-port=6044 '.$vhestring ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6044'.$sslstring ;
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("end").' --app-slug=ptsource' ;
+            if (isset($this->params["enable-http"])) {
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptsource --enable-http=true ' ;
+            }
             if (isset($this->params["enable-ssh"])) {
                 $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true ' ;
             }
@@ -117,6 +120,11 @@ class PTSourceLinux extends BasePHPApp {
 
     public function getSSHConfigureAutoPath() {
         $path = dirname(__DIR__).DS.'Autopilots'.DS.'PTConfigure'.DS.'git-ssh.dsl.php' ;
+        return $path ;
+    }
+
+    public function getHTTPConfigureAutoPath() {
+        $path = dirname(__DIR__).DS.'Autopilots'.DS.'PTConfigure'.DS.'git-http.dsl.php' ;
         return $path ;
     }
 
