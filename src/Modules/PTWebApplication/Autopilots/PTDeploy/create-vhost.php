@@ -114,6 +114,7 @@ class AutoPilotConfigured extends AutoPilot {
     private function getTemplateHTTP($app_slug, $fpm_port) {
 
         $dir_section = $this->getA2DirSection() ;
+        $comm = $this->findA2Command() ;
 
         $template ='
  NameVirtualHost ****IP ADDRESS****
@@ -124,8 +125,8 @@ class AutoPilotConfigured extends AutoPilot {
  	<Directory ****WEB ROOT****>
  	'. $dir_section .'
  	</Directory>
-   ErrorLog /var/log/apache2/error.log
-   CustomLog /var/log/apache2/access.log combined
+   ErrorLog /var/log/'.$comm.'/error.log
+   CustomLog /var/log/'.$comm.'/access.log combined
 
 
    <IfModule mod_fastcgi.c>
