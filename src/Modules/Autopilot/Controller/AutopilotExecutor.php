@@ -61,7 +61,6 @@ class AutopilotExecutor extends Base {
                 if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
 
                 $modParams = $this->getModParamsFromArray($modelArray);
-                var_dump($modParams ) ;
 
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
