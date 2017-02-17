@@ -27,6 +27,7 @@ class AutoPilotConfigured extends AutoPilot {
             return false ;
         }
 
+        $a2dir = $this->findA2Dir() ;
         $fpm_port = $this->params['fpm-port'] ; # "6041"
         $app_slug = $this->params['app-slug'] ; # "build"
         $uc_app_slug = ucfirst($app_slug) ;
@@ -56,7 +57,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "guess" => true,
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => $vhe_ipport,
-                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
+                    "vhe-vhost-dir" => $a2dir,
                     "vhe-template" => $this->getTemplateHTTP($app_slug, $fpm_port),
                 ),),),
 
@@ -82,7 +83,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
                     "vhe-url" => $vhe_url,
                     "vhe-ip-port" => $vhe_ip ,
-                    "vhe-vhost-dir" => "/etc/apache2/sites-available",
+                    "vhe-vhost-dir" => $a2dir,
                     "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
                 ), ), ),
 
@@ -273,6 +274,20 @@ class AutoPilotConfigured extends AutoPilot {
             Options Indexes FollowSymLinks MultiViews '.$cgiString.'
             Require all granted' ; }
         return $section ;
+    }
+
+    private function findA2Dir() {
+
+        $systemDetection = new \Model\SystemDetectionAllOS();
+        if ($systemDetection->linuxType === 'Debian') {
+            return '/etc/apache2/sites-available';
+        }
+        else if ($systemDetection->linuxType === 'Redhat') {
+            return '/etc/httpd/conf.d/';
+        }
+        else {
+            return '' ;
+        }
     }
 
 }
