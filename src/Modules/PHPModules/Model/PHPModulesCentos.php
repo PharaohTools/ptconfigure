@@ -13,7 +13,7 @@ class PHPModulesCentos extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php-pecl-apc", "gd", "gd-devel", "php-gd", "php-pecl-imagick", "php-curl", "php-mysql", "php-pecl-memcache", "php-pecl-memcache", "php-pecl-mongo" ) ;
+    public $packages = array("php-pecl-apc", "gd", "gd-devel", "php-gd", "php-curl", "php-mysql" ) ;
 
     public function __construct($params) {
         parent::__construct($params);
