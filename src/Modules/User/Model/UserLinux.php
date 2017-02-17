@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class UserUbuntu extends BaseLinuxApp {
+class UserLinux extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array( array("11.04", "+")) ;
+    public $linuxType = array("Debian", "Redhat") ;
+    public $distros = array("Ubuntu", "Redhat", "CentOS") ;
+    public $versions = array( "any") ;
     public $architectures = array("any") ;
 
     // Model Group
