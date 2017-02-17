@@ -13,7 +13,7 @@ class PHPFPMCentos extends BaseLinuxApp {
 
     // Model Group
     public $modelGroup = array("Default") ;
-    public $packages = array("php5-fpm" ) ;
+    public $packages = array("php-fpm" ) ;
 
     public function __construct($params) {
         parent::__construct($params);
