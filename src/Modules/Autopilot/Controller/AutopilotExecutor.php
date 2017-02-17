@@ -62,8 +62,12 @@ class AutopilotExecutor extends Base {
 
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
-                    $dataFromThis[] = $step_out ;
-                    return $dataFromThis ;  }
+                    if (isset($modelArray["ignore_errors"])) {
+                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK.", "Autopilot") ;
+                        \Core\BootStrap::setExitCode(0) ; }
+                    else {
+                        $dataFromThis[] = $step_out ;
+                        return $dataFromThis ; } }
 
                 $dataFromThis[] = $step_out ;
 
