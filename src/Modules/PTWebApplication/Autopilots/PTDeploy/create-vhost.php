@@ -162,6 +162,7 @@ class AutoPilotConfigured extends AutoPilot {
 
         $vhe_ip = str_replace(":80", "", $vhe_ip) ;
         $dir_section = $this->getA2DirSection() ;
+        $comm = $this->findA2Command() ;
 
         $template ='
  NameVirtualHost '.$vhe_ip.':80
@@ -172,8 +173,8 @@ class AutoPilotConfigured extends AutoPilot {
  	<Directory ****WEB ROOT****>
  	'. $dir_section .'
  	</Directory>
-   ErrorLog /var/log/apache2/error.log
-   CustomLog /var/log/apache2/access.log combined
+   ErrorLog /var/log/'.$comm.'/error.log
+   CustomLog /var/log/'.$comm.'/access.log combined
 
 
    <IfModule mod_fastcgi.c>
@@ -214,8 +215,8 @@ class AutoPilotConfigured extends AutoPilot {
  	<Directory ****WEB ROOT****>
  	'. $dir_section .'
  	</Directory>
-   ErrorLog /var/log/apache2/error.log
-   CustomLog /var/log/apache2/access.log combined
+   ErrorLog /var/log/'.$comm.'/error.log
+   CustomLog /var/log/'.$comm.'/access.log combined
 
 
    <IfModule mod_fastcgi.c>
@@ -277,6 +278,20 @@ class AutoPilotConfigured extends AutoPilot {
             Options Indexes FollowSymLinks MultiViews '.$cgiString.'
             Require all granted' ; }
         return $section ;
+    }
+
+    private function findA2Command() {
+
+        $systemDetection = new \Model\SystemDetectionAllOS();
+        if ($systemDetection->linuxType === 'Debian') {
+            return 'apache2';
+        }
+        else if ($systemDetection->linuxType === 'Redhat') {
+            return 'httpd';
+        }
+        else {
+            return '' ;
+        }
     }
 
     private function findA2Dir() {
