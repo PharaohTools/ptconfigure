@@ -112,7 +112,7 @@ class SystemDetectionAllOS extends Base {
     }
 
     private function setArchitecture() {
-        if(($this->os == "Linux" && in_array($this->distro, array("Ubuntu", "CentOS"))) ||
+        if(($this->os == "Linux" && in_array($this->distro, array("Ubuntu", "CentOS", "Redhat"))) ||
             $this->os == "Darwin") {
             $output = exec("arch");
             if (strpos($output, "s390x") !== false ) {
