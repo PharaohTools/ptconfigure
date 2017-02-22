@@ -51,7 +51,7 @@ class AppConfig {
     }
 
     public static function getProjectVariable($variable, $isLocal=false) {
-        $value = null;
+        $value = array();
         $pFile = ($isLocal == true) ? 'papyrusfilelocal' : 'papyrusfile' ;
         if (self::checkSettingsExistOrCreateIt($pFile)) {
             $appConfigArray = self::loadProjectFile($pFile);
