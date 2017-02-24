@@ -107,6 +107,15 @@ class PTSourceLinux extends BasePHPApp {
         }
     }
 
+    public function isS390xArch() {
+        $sd = new \Model\SystemDetectionAllOS();
+        $arch = $sd->arch ;
+        if ($arch === 's390x') {
+            return true ;
+        }
+        return false ;
+    }
+
     public function getDeployAutoPath() {
         $path = dirname(dirname(__DIR__)).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
         return $path ;
