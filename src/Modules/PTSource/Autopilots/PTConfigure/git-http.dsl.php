@@ -19,10 +19,15 @@ PackageManager pkg-install
   packager Yum
   when "{{{ Param::is_redhat }}}"
 
-PackageManager pkg-install
-  label "Install apache Mod Auth External for Redhat"
-  package-name mod_authnz_external
-  packager Yum
+RunCommand Install
+  label "Clone momdauthnz external"
+  guess
+  command "cd /opt/ && git clone https://github.com/phokz/mod-auth-external.git"
+  when "{{{ PTSource::isS390xArch }}}"
+
+LinuxCompiler directory
+  label "Compile Mod Auth External for Redhat"
+  directory /opt/mod-auth-external/mod_authnz_external
   when "{{{ PTSource::isS390xArch }}}"
 
 #PackageManager pkg-install
