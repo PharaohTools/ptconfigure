@@ -19,6 +19,12 @@ PackageManager pkg-install
   packager Yum
   when "{{{ Param::is_redhat }}}"
 
+PackageManager pkg-install
+  label "Install apache Mod Auth External for Redhat"
+  package-name mod_authnz_external
+  packager Yum
+  when "{{{ PTSource::isS390xArch }}}"
+
 #PackageManager pkg-install
 #  label "Install apache PWAuth for Redhat"
 #  package-name pwauth
