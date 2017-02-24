@@ -62,12 +62,11 @@ class LinuxCompilerCentos extends BaseLinuxApp {
         return $commandOutputFilePath ;
     }
 
-
     private function installFromDirectory($pageVars) {
         $directory = $this->params["directory"] ;
         $command = array (
             "cd $directory",
-            "$directory/configure",
+            "./configure || true",
             "make",
             "make install"
         );
