@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class UbuntuCompilerInfo extends PTConfigureBase {
+class LinuxCompilerInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -13,22 +13,31 @@ class UbuntuCompilerInfo extends PTConfigureBase {
   }
 
   public function routesAvailable() {
-    return array( "UbuntuCompiler" =>  array_merge(parent::routesAvailable(), array("install") ) );
+    return array( "LinuxCompiler" =>  array_merge(
+        parent::routesAvailable(), array("install", "archive", "directory") ) );
   }
 
   public function routeAliases() {
-    return array("ubuntu-compiler"=>"UbuntuCompiler", "ubuntucompiler"=>"UbuntuCompiler");
+    return array("linux-compiler"=>"LinuxCompiler", "linuxcompiler"=>"LinuxCompiler");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This allows you to Complie programs written in C Source
 
-  UbuntuCompiler, ubuntu-compiler, ubuntucompiler
+  LinuxCompiler, linux-compiler, linuxcompiler
 
         - install
-        Installs Ubuntu Compiling tools through apt-get.
-        example: ptconfigure ubuntu-compiler install
+        Installs Linux tools for Compiling software
+        example: ptconfigure linux-compiler install
+
+        - archive
+        Installs compiled Linux Software from an archive
+        example: ptconfigure linux-compiler archive
+
+        - directory
+        Installs compiled Linux Software from a directory
+        example: ptconfigure linux-compiler directory
 
 HELPDATA;
     return $help ;

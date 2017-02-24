@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class UbuntuCompiler extends BaseModelFactory {
+class LinuxCompiler extends BaseModelFactory {
 
 }
