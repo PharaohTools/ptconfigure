@@ -109,7 +109,7 @@ class PTSourceLinux extends BasePHPApp {
 
     public function isS390xArch() {
         $sd = new \Model\SystemDetectionAllOS();
-        $arch = $sd->arch ;
+        $arch = $sd->architecture ;
         if ($arch === 's390x') {
             return true ;
         }
