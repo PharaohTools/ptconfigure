@@ -23,12 +23,12 @@ RunCommand Install
   label "Clone momdauthnz external"
   guess
   command "rm -rf /opt/mod-auth-external && cd /opt/ && git clone https://github.com/phokz/mod-auth-external.git"
-  when "{{{ PTSource::isS390xArch }}}"
+  when "{{{ PTSource::~::isS390xArch }}}"
 
 LinuxCompiler directory
   label "Compile Mod Auth External for Redhat"
   directory /opt/mod-auth-external/mod_authnz_external
-  when "{{{ PTSource::isS390xArch }}}"
+  when "{{{ PTSource::~::isS390xArch }}}"
 
 #PackageManager pkg-install
 #  label "Install apache PWAuth for Redhat"
