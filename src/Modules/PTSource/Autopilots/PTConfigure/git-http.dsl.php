@@ -43,10 +43,16 @@ LinuxCompiler directory
 #  when "{{{ Param::is_redhat }}}"
 
 Copy put
-  label "{{{ Parameter::app-slug }}} Apache Custom Authentication method Conf file"
+  label "{{{ Parameter::app-slug }}} Apache Custom Authentication method Conf file to Debian Directory"
   source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}ptconfigure/ptconfigure/src/Modules/PTSource/Templates/{{{ Parameter::app-slug }}}_auth.conf"
   target "/etc/apache2/conf-available/{{{ Parameter::app-slug }}}_auth.conf"
   when "{{{ Param::is_debian }}}"
+
+Copy put
+  label "{{{ Parameter::app-slug }}} Apache Custom Authentication method Conf file to Redhat Directory"
+  source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}ptconfigure/ptconfigure/src/Modules/PTSource/Templates/{{{ Parameter::app-slug }}}_auth.conf"
+  target "/etc/httpd/conf.d/{{{ Parameter::app-slug }}}_auth.conf"
+  when "{{{ Param::is_redhat }}}"
 
 RunCommand install
   label "Enable apache Mod Auth External"
