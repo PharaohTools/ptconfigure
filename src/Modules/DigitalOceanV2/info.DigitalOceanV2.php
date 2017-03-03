@@ -14,7 +14,7 @@ class DigitalOceanV2Info extends PTConfigureBase {
 
     public function routesAvailable() {
       return array( "DigitalOceanV2" => array_merge(parent::routesAvailable(), array("save-ssh-key",
-          "box-add", "box-remove", "box-destroy", "box-destroy-all", "list", "test") ) );
+          "box-add", "box-remove", "box-destroy", "box-destroy-all", "list", "test", 'loadbalancer-add') ) );
     }
 
     public function routeAliases() {
