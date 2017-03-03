@@ -51,6 +51,12 @@ class DigitalOceanV2 extends Base {
             $this->content["result"] = $thisModel->askWhetherToListData();
             return array ("type"=>"view", "view"=>"digitalOceanV2List", "pageVars"=>$this->content); }
 
+        if ($action=="loadbalancer-add") {
+            $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "LoadBalancer") ;
+            if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
+            $this->content["result"] = $thisModel->askWhetherToAddLoadBalancer();
+            return array ("type"=>"view", "view"=>"digitalOceanV2API", "pageVars"=>$this->content); }
+
         if ($action=="test") {
             $thisModel = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "NodeTest") ;
             if (is_array($thisModel)) { return $this->failDependencies($pageVars, $this->content, $thisModel) ; }
