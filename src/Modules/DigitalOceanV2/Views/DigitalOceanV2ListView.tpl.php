@@ -68,6 +68,40 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
                 $outVar .= "id: ".$sshKeyEntry->id.", ";
                 $outVar .= "fingerprint: ".$sshKeyEntry->fingerprint ;
                 $outVar .= "\n" ; } }
+        else if ($arrayObjectKey == "load_balancers") {
+            // var_dump($arrayObjectValue) ;
+            foreach($arrayObjectValue as $loadBalancerEntry) {
+                $outVar .= "name: ".$loadBalancerEntry->name."\n";
+                $outVar .= "id: ".$loadBalancerEntry->id."\n";
+                $outVar .= "ip: ".$loadBalancerEntry->ip."\n";
+                $outVar .= "status: ".$loadBalancerEntry->status."\n";
+                $outVar .= "algorithm: ".$loadBalancerEntry->algorithm."\n";
+                $outVar .= "sticky_sessions: ".$loadBalancerEntry->sticky_sessions->type."\n";
+                $outVar .= "created_at: ".$loadBalancerEntry->created_at."\n";
+                $outVar .= "droplet_ids: \n" ;
+                foreach ($loadBalancerEntry->droplet_ids as $droplet_id) {
+                    $outVar .= "  ".$droplet_id."\n" ; }
+                $outVar .= "health_check: \n" ;
+                $outVar .= "  protocol: ".$loadBalancerEntry->health_check->protocol."\n" ;
+                $outVar .= "  port: ".$loadBalancerEntry->health_check->port."\n" ;
+                $outVar .= "  path: ".$loadBalancerEntry->health_check->path."\n" ;
+                $outVar .= "  check_interval_seconds: ".$loadBalancerEntry->health_check->check_interval_seconds."\n" ;
+                $outVar .= "  response_timeout_seconds: ".$loadBalancerEntry->health_check->response_timeout_seconds."\n" ;
+                $outVar .= "  healthy_threshold: ".$loadBalancerEntry->health_check->healthy_threshold."\n" ;
+                $outVar .= "  unhealthy_threshold: ".$loadBalancerEntry->health_check->unhealthy_threshold."\n" ;
+                $outVar .= "forwarding_rules: \n" ;
+                $i = 1 ;
+                foreach ($loadBalancerEntry->forwarding_rules as $forwarding_rule) {
+                    $outVar .= "  {$i}: " ;
+                    $outVar .= " entry_protocol: ".$forwarding_rule->entry_protocol."," ;
+                    $outVar .= " entry_port: ".$forwarding_rule->entry_port."," ;
+                    $outVar .= " target_protocol: ".$forwarding_rule->target_protocol."," ;
+                    $outVar .= " target_port: ".$forwarding_rule->target_port."," ;
+                    $outVar .= " certificate_id: ".$forwarding_rule->certificate_id."," ;
+                    $outVar .= " tls_passthrough: ".$forwarding_rule->tls_passthrough."\n" ;
+                    $i ++ ; }
+
+                $outVar .= "\n" ; } }
         echo $arrayObjectKey.":\n\n";
         echo $outVar."\n" ; } }
 else {
