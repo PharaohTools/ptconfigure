@@ -71,7 +71,7 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-repositories/repositories/* /opt/ptsource/repositories/" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/*" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/users.txt /opt/ptsource/ptsource/src/Modules/Signup/Data/users.txt" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-data/ /opt/ptsource/data/*" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars" ; }
         $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/" ;
         $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/" ;
@@ -84,13 +84,14 @@ class PTSourceLinux extends BasePHPApp {
         if (is_dir(PIPEDIR)) {
             $ray[]["command"][] = "echo 'Create temp ptsource directories'" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-repositories/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-data/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-settings/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-keys/" ;
             $ray[]["command"][] = "echo 'Copy to temp ptsource directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/repositories /tmp/ptsource-repositories/" ;
 //            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/keys /tmp/ptsource-keys/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/ptsourcevars /tmp/ptsource-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/src/Modules/Signup/Data/users.txt /tmp/ptsource-settings/" ; }
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/data/* /tmp/ptsource-data/" ; }
         $this->preinstallCommands = $ray ;
         return $ray ;
     }
