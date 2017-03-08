@@ -91,7 +91,7 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/repositories /tmp/ptsource-repositories/" ;
 //            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/keys /tmp/ptsource-keys/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/ptsourcevars /tmp/ptsource-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/data/* /tmp/ptsource-data/" ; }
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/data/* /tmp/ptsource-data/" ; }
         $this->preinstallCommands = $ray ;
         return $ray ;
     }
