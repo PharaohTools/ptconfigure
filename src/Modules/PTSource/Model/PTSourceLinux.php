@@ -65,6 +65,7 @@ class PTSourceLinux extends BasePHPApp {
                     $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true --is_debian ' ; }
                 else if ($cur_os_family === 'redhat') {
                     $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true --is_redhat ' ; } }
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/data/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
