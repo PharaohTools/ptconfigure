@@ -75,6 +75,7 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-data/* /opt/ptsource/data/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars" ; }
         $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/" ;
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptgit /opt/ptsource/repositories/" ;
         $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
