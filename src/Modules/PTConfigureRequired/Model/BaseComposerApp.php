@@ -11,6 +11,8 @@ class BaseComposerApp extends BasePHPApp {
     }
 
     public function install($autoPilot = null) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
         if ($this->hookInstExists("pre")) {
