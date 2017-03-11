@@ -180,20 +180,22 @@ class BoxifyAllOS extends BaseLinuxApp {
         $i = 0 ;
 
 //        var_dump("daze:", $curboxes) ;
-        foreach($curboxes["servers"] as $oneNode) {
-            $logging->log("Testing Node {$oneNode["name"]} from provider {$oneNode["provider"]}", $this->getModuleName()) ;
+        if (isset($curboxes["servers"])) {
+            foreach($curboxes["servers"] as $oneNode) {
+                $logging->log("Testing Node {$oneNode["name"]} from provider {$oneNode["provider"]}", $this->getModuleName()) ;
 
-            $providerParams = $this->params ;
+                $providerParams = $this->params ;
 //            $providerParams["yes"] = true ;
-            $providerParams["id"] = $oneNode["id"] ;
-            $providerParams["name"] = $oneNode["name"] ;
-            $providerParams["image"] = $oneNode["image"] ;
-            $provider = $this->getProvider("NodeTest", $providerParams);
-            $nodeTest = $provider->askWhetherToTestNode() ;
-            $i ++ ;
-            $results["tests"][$i] = $nodeTest ;
-            if ($nodeTest["status"] == false) $all_stats_failure = false;
+                $providerParams["id"] = $oneNode["id"] ;
+                $providerParams["name"] = $oneNode["name"] ;
+                $providerParams["image"] = $oneNode["image"] ;
+                $provider = $this->getProvider("NodeTest", $providerParams);
+                $nodeTest = $provider->askWhetherToTestNode() ;
+                $i ++ ;
+                $results["tests"][$i] = $nodeTest ;
+                if ($nodeTest["status"] == false) $all_stats_failure = false;
 //            var_dump($nodeTest) ;
+            }
         }
 
         if (isset($all_stats_failure)) { $results["all_stats"] = false ; }
