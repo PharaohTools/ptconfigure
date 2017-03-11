@@ -162,7 +162,7 @@ class BasePHPApp extends Base {
         return true ;
     }
 
-    private function hookInstExists($prepost) {
+    protected function hookInstExists($prepost) {
         $method = "set{$prepost}installCommands" ;
         if (method_exists($this, $method)) {
             return true ; }
