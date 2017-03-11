@@ -275,14 +275,14 @@ class AutopilotExecutor extends Base {
     public function findLoopInParameterValue($paramValue) {
         if (is_array($paramValue))  {
             var_dump($paramValue) ; }
-        if ( (strpos($paramValue, '{{{ loop }}}') !== false) || (strpos($paramValue, '{{{loop}}}') !== false) ) {
+        if ( (strpos($paramValue, '{{ loop }}') !== false) || (strpos($paramValue, '{{loop}}') !== false) ) {
             return true ;}
         return false ;
     }
 
     public function swapLoopPlaceholder($paramValue, $newVal) {
-        $paramValue = str_replace('{{{ loop }}}', $newVal, $paramValue) ;
-        $paramValue = str_replace('{{{loop}}}', $newVal, $paramValue) ;
+        $paramValue = str_replace('{{ loop }}', $newVal, $paramValue) ;
+        $paramValue = str_replace('{{loop}}', $newVal, $paramValue) ;
         return $paramValue ;
     }
 
