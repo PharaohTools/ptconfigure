@@ -25,4 +25,12 @@ class BehatAllOS extends BaseComposerApp {
         $this->initialize();
     }
 
+
+    public function setpreinstallCommands() {
+        $ray = array( ) ;
+        $ray[]["command"][] = SUDOPREFIX." apt-get install -y php-mbstring php-curl php-zip unzip" ;
+        $this->preinstallCommands = $ray ;
+        return $ray ;
+    }
+
 }
