@@ -18,10 +18,10 @@ class NodeJSUbuntu extends BaseLinuxApp {
         parent::__construct($params);
         $this->autopilotDefiner = "NodeJS";
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("nodejs"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", array("npm", "nodejs"))) ),
         );
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("nodejs"))) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", array("npm", "nodejs"))) ),
         );
         $this->programDataFolder = "/opt/NodeJS"; // command and app dir name
         $this->programNameMachine = "nodejs"; // command and app dir name
