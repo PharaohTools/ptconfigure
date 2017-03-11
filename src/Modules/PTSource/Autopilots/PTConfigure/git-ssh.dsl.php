@@ -27,9 +27,15 @@ RunCommand execute
   when "{{{ Param::enable-ssh }}}"
 
 RunCommand execute
-  label 'Add A Password to the Pharaoh Tools Git User'
+  label 'Add A Random Password to the Pharaoh Tools Git User'
   guess
   command "usermod -p `date +%s | sha256sum | base64 | head -c 32 ; echo` ptgit"
+  when "{{{ Param::enable-ssh }}}"
+
+RunCommand execute
+  label 'Add the Pharaoh Tools Git User to the Pharaoh Source User Group'
+  guess
+  command "usermod -a -G ptsource ptgit"
   when "{{{ Param::enable-ssh }}}"
 
 Mkdir path
