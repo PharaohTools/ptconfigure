@@ -13,6 +13,9 @@ class BaseComposerApp extends BasePHPApp {
     public function install($autoPilot = null) {
         if (isset($this->params["hide-title"])) { $this->populateTinyTitle() ; }
         $this->showTitle();
+        if ($this->hookInstExists("pre")) {
+            $logging->log("Executing Pre Install Commands", $this->getModuleName()) ;
+            $this->doInstallCommand("pre") ; }
         $this->programDataFolder = ($autoPilot)
           ? $autoPilot->{$this->autopilotDefiner."InstallDirectory"}
           : $this->askForProgramDataFolder();
@@ -28,6 +31,9 @@ class BaseComposerApp extends BasePHPApp {
         $this->saveExecutorFile();
         $this->deleteInstallationFiles();
         $this->changePermissions();
+        if ($this->hookInstExists("post")) {
+            $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
+            $this->doInstallCommand("post") ;  }
         // $this->setInstallFlagStatus(true) ; @todo we can deprecate this now as status is dynamic, and install is used by everything not just installers
         if (isset($this->params["hide-completion"])) { $this->populateTinyCompletion(); }
         $this->showCompletion();
