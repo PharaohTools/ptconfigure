@@ -123,11 +123,10 @@ class InvokeAllOS extends Base {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
                         $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
-                        $out = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        echo $out["data"] ;
+                        $rc = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
                         $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ;
-                        if ($out["rc"] != 0) {
-                            $logging->log("Command failed on remote with exit code {$out["rc"]}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                        if ($rc != 0) {
+                            $logging->log("Command failed on remote with exit code {$rc}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                             return false ; } }
                     else {
                         $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
@@ -408,8 +407,8 @@ class InvokeAllOS extends Base {
 //				echo $this->changeBashPromptToPharaoh($server["ssh2Object"]);
 //				if (!isset($this->isNativeSSH) || (isset($this->isNativeSSH) && $this->isNativeSSH != true)) {
 //				}
-				$out = $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...' . $this->findTarget($server) . '"', true);
-                echo $out["data"] ;} }
+				$rc = $this->doSSHCommand($server["ssh2Object"], 'echo "Pharaoh Remote SSH on ...' . $this->findTarget($server) . '"', true);
+                echo ($rc == 0) ? 'Success ' : 'Failure '; } }
 		return true;
 	}
 
@@ -650,7 +649,7 @@ QUESTION;
 	protected function doSSHCommand($sshObject, $command, $first = null) {
         $out = $sshObject->exec($command);
         echo $out["data"] ;
-		return $out["status"] ;
+		return $out['rc'] ;
 //		return $sshObject->exec($command);
 	}
 
