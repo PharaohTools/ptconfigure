@@ -117,7 +117,7 @@ class InvokeSsh2 extends Base {
     }
 
     function improvedExec( $command ) {
-        $result = $this->rawExec( ''.$command.'; echo -en "\n$?" ;' );
+        $result = $this->rawExec( '('.$command.'); echo -en "\n$?" ;' );
         $pres = preg_match( "/^(.*)\n(0|-?[1-9][0-9]*)$/s", $result[0], $matches ) ;
         if( $pres == false ) {
             $loggingFactory = new \Model\Logging();
