@@ -32,4 +32,11 @@ class ComposerLinuxMac extends BasePHPApp {
         $this->initialize();
     }
 
+    public function setpostinstallCommands() {
+        $ray = array( ) ;
+        $ray[]["command"][] = SUDOPREFIX." /opt/composer/composer/composer.phar selfupdate" ;
+        $this->preinstallCommands = $ray ;
+        return $ray ;
+    }
+
 }
