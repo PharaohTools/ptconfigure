@@ -42,7 +42,7 @@ class PharaohToolRunnerAnyOS extends Base {
             $env_scope = $this->getEnvironmentScope() ;
             $logging->log("Target Environment scope {$env_scope} specified to target machines", $this->getModuleName());
             $sshParams["env-scope"] = $env_scope ;
-            $sshParams["driver"] = "seclib" ;
+            $sshParams["driver"] = (isset($this->params["driver"])) ? $this->params["driver"] : "seclib" ;
             $sshParams["port"] = (isset($papyrus["port"])) ? $papyrus["port"] : 22 ;
             $sshParams["timeout"] = (isset($papyrus["timeout"])) ? $papyrus["timeout"] : 30 ;
             $sftpParams = $sshParams ;
