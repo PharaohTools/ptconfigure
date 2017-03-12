@@ -77,8 +77,11 @@ class InvokeSsh2 extends Base {
         if(file_exists($this->server->password)){
             if (isset($this->params["public-key"])) {
                 $pubkey = $this->params["public-key"] ; }
-            if (isset($this->params["guess"])) {
-                $pubkey = $this->server->password.".pub" ; }
+//            if (isset($this->params["guess"])) {
+            else {
+                $pubkey = $this->server->password.".pub" ;
+            }
+//            }
             $rt = ssh2_auth_pubkey_file ($this->connection, $this->server->username, $pubkey, $this->server->password) ; }
         else{
             $rt = ssh2_auth_password($this->connection, $this->server->username, $this->server->password); }
