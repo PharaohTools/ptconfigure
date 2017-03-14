@@ -119,7 +119,7 @@ class InvokeSsh2 extends Base {
     protected function improvedExec( $command ) {
         $result = $this->rawExec( '('.$command.' && echo -en "\n$?" ;)' );
         $pres = preg_match( "/^(.*)\n(0|-?[1-9][0-9]*)$/s", $result[0], $matches ) ;
-        if( $pres == false ) {
+        if( $pres === false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params) ;
             $logging->log("No return status found from command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;  }
@@ -140,7 +140,7 @@ class InvokeSsh2 extends Base {
         stream_set_blocking( $error_stream, TRUE );
         $data = "" ;
         $error_output = "" ;
-        while ($buf = fread($this->stream, 262144)) {
+        while ($buf = fread($this->stream, 1048576)) {
             $data .= $buf;
             //echo $buf ;
         }
@@ -160,7 +160,7 @@ class InvokeSsh2 extends Base {
         stream_set_blocking( $this->stream, TRUE );
         $data = "" ;
         $error_output = "" ;
-        while ($buf = fread($this->stream, 262144)) { $data .= $buf; }
+        while ($buf = fread($this->stream, 1048576)) { $data .= $buf; }
         fclose( $this->stream );
         return $data ;
     }
