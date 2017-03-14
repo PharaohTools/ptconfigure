@@ -116,7 +116,7 @@ class InvokeSsh2 extends Base {
         return $rc;
     }
 
-    function improvedExec( $command ) {
+    protected function improvedExec( $command ) {
         $result = $this->rawExec( '('.$command.' && echo -en "\n$?" ;)' );
         $pres = preg_match( "/^(.*)\n(0|-?[1-9][0-9]*)$/s", $result[0], $matches ) ;
         if( $pres == false ) {
@@ -160,7 +160,7 @@ class InvokeSsh2 extends Base {
         stream_set_blocking( $this->stream, TRUE );
         $data = "" ;
         $error_output = "" ;
-        while ($buf = fread($this->stream, 4096)) { $data .= $buf; }
+        while ($buf = fread($this->stream, 262144)) { $data .= $buf; }
         fclose( $this->stream );
         return $data ;
     }
