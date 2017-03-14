@@ -37,7 +37,8 @@ class AptUbuntu extends BasePackager {
 
     public function installPackage($packageName, $version=null, $versionAccuracy=null) {
         $packageName = $this->getPackageName($packageName);
-        if (!is_array($packageName)) { $packageName = array($packageName) ; }
+        if (!is_array($packageName)) {
+            $packageName = array($packageName) ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
@@ -49,7 +50,7 @@ class AptUbuntu extends BasePackager {
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            $out = $this->executeAndOutput(SUDOPREFIX."apt-get install $package -y --force-yes");
+            $out = $this->executeAndOutput(SUDOPREFIX."apt-get install $package -y ");
             if (strpos($out, "Setting up $package") != false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
             else if (strpos($out, "is already the newest version.") != false) {
@@ -64,7 +65,7 @@ class AptUbuntu extends BasePackager {
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput(SUDOPREFIX."apt-get remove $packageName -y --force-yes");
+        $out = $this->executeAndOutput(SUDOPREFIX."apt-get remove $packageName -y ");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -79,7 +80,7 @@ class AptUbuntu extends BasePackager {
     }
 
     public function update() {
-        $out = $this->executeAndOutput(SUDOPREFIX."apt-get update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."apt-get update -y ");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -89,7 +90,7 @@ class AptUbuntu extends BasePackager {
     }
 
     public function versionCompatible() {
-        $out = $this->executeAndOutput(SUDOPREFIX."apt-get update -y");
+        $out = $this->executeAndOutput(SUDOPREFIX."apt-get update -y ");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
