@@ -72,7 +72,7 @@ class BaseComposerApp extends BasePHPApp {
         if ($composer->askStatus() !== true) {
             $composer->install() ; }
         $command = array(
-            "cd $targetLocation && composer install -vvv --prefer-dist" );
+            "cd $targetLocation && composer install -q --prefer-dist" );
         $res = self::executeAndGetReturnCode($command, true, true);
         return ($res["rc"]==0) ? true : false ;
     }
