@@ -64,11 +64,11 @@ class SFTPAllLinux extends Base {
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
-                    $logging->log("Skipping {$$server["name"]} for box id Include constraint", $this->getModuleName());
+                    $logging->log("Skipping {$server["name"]} for box id Include constraint", $this->getModuleName());
                     continue ; } }
             if (isset($this->params["environment-box-id-ignore"])) {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
-                    $logging->log("Skipping {$$server["name"]} for box id Ignore constraint", $this->getModuleName());
+                    $logging->log("Skipping {$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Put...", $this->getModuleName());
