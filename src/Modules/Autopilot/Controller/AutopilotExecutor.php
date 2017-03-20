@@ -51,15 +51,8 @@ class AutopilotExecutor extends Base {
                 if (strlen($module) > 0) { $logging->log("{$module}", "Autopilot") ; }
 
                 $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
-                if ($should_run["should_run"] != true) {
 
-                    $controlKeys = array_keys($modelArray) ;
-                    $control = $controlKeys[0] ;
-                    $actionKeys = array_keys($modelArray[$controlKeys[0]]) ;
-                    $action = $actionKeys[0] ;
-
-                    $step_out["params"]["route"]["control"] = $control ;
-                    $step_out["params"]["route"]["action"] = $action ;
+                if ($should_run["should_run"] == false) {
                     $step_out["status"] = true ;
                     $step_out["out"] = "No need to run this step" ; }
                 else {
@@ -67,10 +60,17 @@ class AutopilotExecutor extends Base {
 
                 if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
 
+                $modParams = $this->getModParamsFromArray($modelArray);
+
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
-                    $dataFromThis[] = $step_out ;
-                    return $dataFromThis ;  }
+
+                    if (isset($modParams["ignore_errors"])) {
+                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK. \n", "Autopilot") ;
+                        \Core\BootStrap::setExitCode(0) ; }
+                    else {
+                        $dataFromThis[] = $step_out ;
+                        return $dataFromThis ; } }
 
                 $dataFromThis[] = $step_out ;
 
@@ -86,29 +86,51 @@ class AutopilotExecutor extends Base {
     }
 
     protected function onlyRunWhen($current_params, $autoModel) {
-//        echo "Only running when" ;
+//        echo "Only running not_" ;
         $mod_ray_is = array_keys($current_params) ;
         $mod_is = $mod_ray_is[0] ;
         $act_ray_is = array_keys($current_params[$mod_is]) ;
         $act_is = $act_ray_is[0] ;
-        if (isset($current_params[$mod_is][$act_is]["when"]) || isset($current_params[$mod_is][$act_is]["not-when"]) || isset($current_params[$mod_is][$act_is]["not_when"])) {
+        if (isset($current_params[$mod_is][$act_is]["when"])) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            if (isset($current_params[$mod_is][$act_is]["when"])) {
-                $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
-                $when_text = ($when_result == true) ? "Do Run" : "Don't Run" ; }
-            else {
-                if (isset($current_params[$mod_is][$act_is]["not_when"])) {
-                    $current_params[$mod_is][$act_is]["not-when"] = $current_params[$mod_is][$act_is]["not_when"] ; }
-                $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not-when"]) ;
-                $when_text = ($when_result == false) ? "Do Run" : "Don't Run" ;
-                $when_result = !$when_result ; }
+            $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
+            $when_text = ($when_result == true && $when_result != "") ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_result ; }
+        else if (isset($current_params[$mod_is][$act_is]["not_when"]) ||
+                 isset($current_params[$mod_is][$act_is]["not-when"])) {
+            if (isset($current_params[$mod_is][$act_is]["not-when"])) {
+                $current_params[$mod_is][$act_is]["not_when"] = $current_params[$mod_is][$act_is]["not-when"] ;  }
+            $logFactory = new \Model\Logging() ;
+            $logging = $logFactory->getModel(array(), "Default") ;
+            $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
+            $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
+            $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
+            $logging->log("Not When Condition found for Step {$module}{$name_text}", "Autopilot") ;
+            $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
+            if (is_bool($not_when_result)) {
+//               var_dump("one") ;
+            }
+            else {
+//                var_dump("nwr1", $not_when_result) ;
+                if (strlen($not_when_result)>0) {
+//                    var_dump("two") ;
+                    $not_when_result = false ; }
+                else {
+//                    var_dump("three") ;
+                    $not_when_result = true ; }
+            }
+//            var_dump("nwr", $not_when_result, "pv", $current_params[$mod_is][$act_is]["not_when"]) ;
+//            var_dump("nwr2", $not_when_result) ;
+            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
+            $logging->log("Not When Condition evaluated to {$not_when_text}", "Autopilot") ;
+
+            $return_stat["should_run"] = $not_when_result ; }
         else {
             $return_stat["should_run"] = true ;  }
         return $return_stat ;
@@ -145,6 +167,7 @@ class AutopilotExecutor extends Base {
                 $new_steps[] = $step ; } }
         return $new_steps ;
     }
+
     protected function isPreRequisite($step) {
         if (isset($step["pre"]) && $step["pre"] == true) { return true ; }
         if (isset($step["prerequisite"]) && $step["prerequisite"] == true) { return true ; }
@@ -166,21 +189,29 @@ class AutopilotExecutor extends Base {
         return $new_steps ;
     }
 
-    protected function executeStep($modelArray, $autopilotParams) {
-
+    private function getModParamsFromArray($modelArray) {
         $currentControls = array_keys($modelArray) ;
         $currentControl = $currentControls[0] ;
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
+        return $modParams ;
+    }
+
+    protected function executeStep($modelArray, $autopilotParams) {
+        $modParams = $this->getModParamsFromArray($modelArray);
         $modParams["layout"] = "blank" ;
 
         unset($autopilotParams["af"]) ;
         unset($autopilotParams["autopilot-file"]) ;
 
         $modParams = array_merge($modParams, $autopilotParams) ;
-//        if ($currentControl == "User") { var_dump("mp", $modParams) ; }
-//
+
+        $currentControls = array_keys($modelArray) ;
+        $currentControl = $currentControls[0] ;
+        $currentActions = array_keys($modelArray[$currentControl]) ;
+        $currentAction = $currentActions[0] ;
+
         $modParams = $this->formatParams($modParams) ;
         $params = array() ;
         $params["route"] =

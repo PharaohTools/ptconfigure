@@ -2,9 +2,14 @@ Autopilot Execution - <?php echo $pageVars["package-friendly"] ; ?> Installer:
 --------------------------------------------
 <?php
 
+//var_dump($pageVars) ;
+
 if (isset($pageVars["result"]) && is_array($pageVars["result"])) {
     foreach ($pageVars["result"] as $key => $value) {
-        ?>Step <?php echo $key ; ?> : <?php echo $value["params"]["route"]["control"] ; ?>, <?php echo $value["params"]["route"]["action"] ; ?> : <?php
+        $prc = (isset($value["params"]["route"]["control"])) ? $value["params"]["route"]["control"] : "" ;
+        $pra = (isset($value["params"]["route"]["action"])) ? $value["params"]["route"]["action"] : "" ;
+
+        ?>Step <?php echo $key ; ?> : <?php echo $prc ; ?>, <?php echo $pra ; ?> : <?php
 
 
 if ($value["status"]==true) {
