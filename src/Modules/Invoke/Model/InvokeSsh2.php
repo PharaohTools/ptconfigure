@@ -124,7 +124,7 @@ class InvokeSsh2 extends Base {
             $logging = $loggingFactory->getModel($this->params) ;
             $logging->log("No return status found from command", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;  }
         $res = array() ;
-        $res["rc"] = (isset($matches[2])) ? $matches[2] : "0" ;
+        $res["rc"] = (isset($matches[2])) ? (int) $matches[2] : 0 ;
         $res["data"] = (isset($matches[1])) ? $matches[1] : $result[0] ;
         return $res;
     }
