@@ -38,11 +38,8 @@ class AptUbuntu extends BasePackager {
     public function installPackage($packageName, $version=null, $versionAccuracy=null) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) {
-            if (strpos($packageName, " ") !== false) {
-                $packageName = explode(" ", $packageName) ;
-            } else {
-                $packageName = array($packageName) ;
-            } }
+               $packageName = array($packageName) ;
+            }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
@@ -55,13 +52,19 @@ class AptUbuntu extends BasePackager {
                  $versionToInstall = "" ;
             }
             $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq install $package -y ");
-            if (strpos($out, "Setting up $package") != false) {
+            if (strpos($out, "Setting up $package") !== false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
-            else if (strpos($out, "is already the newest version.") != false) {
+            else if (strpos($packageName, " ") !== false) {
+                $packageNames = explode(" ", $packageName) ;
+                foreach ($packageNames as $onePackageName) {
+                    if (strpos($out, "Setting up $onePackageName") !== false) {
+                        $logging->log("Adding Package $onePackageName from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
+                } }
+            else if (strpos($out, "is already the newest version.") !== false) {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
                 $logging->log($ltext, $this->getModuleName()) ; }
-            else if (strpos($out, "ldconfig deferred processing now taking place") == false) {
+            else if (strpos($out, "ldconfig deferred processing now taking place") === false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
                 return false ; } }
         return true ;
