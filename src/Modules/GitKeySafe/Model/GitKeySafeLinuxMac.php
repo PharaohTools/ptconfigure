@@ -28,17 +28,17 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
         $this->programNameMachine = "gitkeysafe"; // command and app dir name
         $this->programNameFriendly = "Git Key-Safe Server!"; // 12 chars
         $this->programNameInstaller = "Git Key-Safe Server";
-        $this->statusCommand =  $this->checkGitKeySafeStatus() ; //"command git-key-safe" ; //
+        $this->statusCommand =  $this->checkGitKeySafeStatus() ; // command git-key-safe"
         $this->versionInstalledCommand = "echo 1.0" ;
         $this->versionRecommendedCommand = "echo 1.0" ;
         $this->versionLatestCommand = "echo 1.0" ;
         $this->initialize();
     }
 
-    protected function checkGitKeySafeStatus() {
+    public function askStatus() {
         if (file_exists("/usr/bin/git-key-safe")) {
-            return "exit 0"; }
-        return "exit 1" ;
+            return true; }
+        return false ;
     }
 
     public function addGitKeySafeScript() {
