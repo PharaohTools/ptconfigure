@@ -64,9 +64,10 @@ class AptUbuntu extends BasePackager {
                 $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
                 $logging->log($ltext, $this->getModuleName()) ; }
-            else if (strpos($out, "ldconfig deferred processing now taking place") === false) {
-                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
-                return false ; } }
+//            else if (strpos($out, "ldconfig deferred processing now taking place") === false) {
+//                $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} did not execute correctly", $this->getModuleName()) ;
+//                return false ; }
+        }
         return true ;
     }
 
