@@ -38,7 +38,11 @@ class AptUbuntu extends BasePackager {
     public function installPackage($packageName, $version=null, $versionAccuracy=null) {
         $packageName = $this->getPackageName($packageName);
         if (!is_array($packageName)) {
-            $packageName = array($packageName) ; }
+            if (strpos($packageName, " ") !== false) {
+                $packageName = explode(" ", $packageName) ;
+            } else {
+                $packageName = array($packageName) ;
+            } }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (count($packageName) > 1 && ($version != null || $versionAccuracy != null) ) {
