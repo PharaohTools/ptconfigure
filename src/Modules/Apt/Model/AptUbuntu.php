@@ -54,8 +54,8 @@ class AptUbuntu extends BasePackager {
             $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq install $package -y ");
             if (strpos($out, "Setting up $package") !== false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
-            else if (strpos($packageName, " ") !== false) {
-                $packageNames = explode(" ", $packageName) ;
+            else if (strpos($package, " ") !== false) {
+                $packageNames = explode(" ", $package) ;
                 foreach ($packageNames as $onePackageName) {
                     if (strpos($out, "Setting up $onePackageName") !== false) {
                         $logging->log("Adding Package $onePackageName from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
