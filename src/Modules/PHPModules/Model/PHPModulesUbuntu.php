@@ -40,7 +40,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
             $ps2 = "php5" ; }
 
         $pstr = "{$ps1} {$ps2}-dev {$ps2}-gd {$ps2}-imagick {$ps2}-curl {$ps2}-mysql ".
-        "{$ps2}-memcache {$ps2}-memcached {$ps2}-mongo {$ps2}-sqlite " ;
+        "{$ps2}-memcache {$ps2}-memcached {$ps2}-mongo {$ps2}-sqlite {$ps2}-ldap " ;
 
         if (PHP_MAJOR_VERSION > 6) {
             $pstr .= " {$ps2}-xml " ; }
