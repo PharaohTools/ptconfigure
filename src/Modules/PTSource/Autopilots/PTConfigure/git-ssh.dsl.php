@@ -132,6 +132,30 @@ File should-have-line
   search '  AuthorizedKeysCommandUser root'
   when "{{{ Param::enable-ssh }}}"
 
+File should-have-line
+  label "Allow Sudo From PTSource To PTGit"
+  file "/etc/sudoers"
+  search 'ptsource ALL=(ptgit) NOPASSWD:/usr/bin/chown'
+  when "{{{ Param::enable-ssh }}}"
+
+File should-have-line
+  label "Allow Sudo From PTSource To PTGit"
+  file "/etc/sudoers"
+  search 'ptsource ALL=(ptgit) NOPASSWD:/usr/bin/chgrp'
+  when "{{{ Param::enable-ssh }}}"
+
+File should-have-line
+  label "Allow Sudo From PTSource To PTGit"
+  file "/etc/sudoers"
+  search 'ptsource ALL=(ptgit) NOPASSWD:/bin/chown'
+  when "{{{ Param::enable-ssh }}}"
+
+File should-have-line
+  label "Allow Sudo From PTSource To PTGit"
+  file "/etc/sudoers"
+  search 'ptsource ALL=(ptgit) NOPASSWD:/bin/mkdir'
+  when "{{{ Param::enable-ssh }}}"
+
 RunCommand execute
   label "Restart SSH for New Git Settings"
   guess
