@@ -33,33 +33,17 @@ class AptInfo extends PTConfigureBase {
 
   Apt, apt
 
-        - create
-        Create a new system apt, overwriting if it exists
-        example: ptconfigure apt create --aptname="somename"
+        - pkg-install
+        Install an Apt Package
+        example: ptconfigure apt pkg-install -yg --package-name="somename"
 
-        - remove
-        Remove a system apt
-        example: ptconfigure apt remove --aptname="somename"
-
-        - set-password
-        Set the password of a system apt
-        example: ptconfigure apt set-password --aptname="somename" --new-password="somepassword"
+        - pkg-remove
+        Remove an Apt package
+        example: ptconfigure apt pkg-remove -yg --package-name="somename"
 
         - exists
-        Check the existence of a apt
-        example: ptconfigure apt exists --aptname="somename"
-
-        - show-groups
-        Show groups to which a apt belongs
-        example: ptconfigure apt show-groups --aptname="somename"
-
-        - add-to-group
-        Add apt to a group
-        example: ptconfigure apt add-to-group --aptname="somename" --groupname="somegroupname"
-
-        - remove-from-group
-        Remove apt from a group
-        example: ptconfigure apt remove-from-group --aptname="somename" --groupname="somegroupname"
+        Check the existence of an apt package
+        example: ptconfigure apt pkg-exists --package-name="somename"
 
 HELPDATA;
       return $help ;
