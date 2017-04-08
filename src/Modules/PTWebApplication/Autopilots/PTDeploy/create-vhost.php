@@ -28,7 +28,6 @@ class AutoPilotConfigured extends AutoPilot {
         }
 
         $a2dir = $this->findA2Dir() ;
-        $a2fe = $this->findA2fe() ;
         $fpm_port = $this->params['fpm-port'] ; # "6041"
         $app_slug = $this->params['app-slug'] ; # "build"
         $uc_app_slug = ucfirst($app_slug) ;
@@ -60,7 +59,6 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-ip-port" => $vhe_ipport,
                     "vhe-vhost-dir" => $a2dir,
                     "vhe-template" => $this->getTemplateHTTP($app_slug, $fpm_port),
-                    'vhe-file-ext' => $a2fe
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
@@ -87,7 +85,6 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-ip-port" => $vhe_ip ,
                     "vhe-vhost-dir" => $a2dir,
                     "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
-                    'vhe-file-ext' => $a2fe
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
@@ -303,20 +300,6 @@ class AutoPilotConfigured extends AutoPilot {
         }
         else if ($systemDetection->linuxType === 'Redhat') {
             return '/etc/httpd/conf.d/';
-        }
-        else {
-            return '' ;
-        }
-    }
-
-    private function findA2fe() {
-
-        $systemDetection = new \Model\SystemDetectionAllOS();
-        if ($systemDetection->linuxType === 'Debian') {
-            return '';
-        }
-        else if ($systemDetection->linuxType === 'Redhat') {
-            return '.conf';
         }
         else {
             return '' ;
