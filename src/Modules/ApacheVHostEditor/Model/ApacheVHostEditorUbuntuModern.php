@@ -91,8 +91,10 @@ TEMPLATE2;
     protected function askForFileExtension() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        if (isset($this->params["vhe-file-ext"])) {
+            $logging->log("Setting forced file extension of '{$this->params["vhe-file-ext"]}'", $this->getModuleName()) ;
+            return $this->params["vhe-file-ext"] ; }
         $logging->log("Setting a file extension for Modern Ubuntu (14+)?", $this->getModuleName()) ;
-        if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         if (isset($this->params["guess"])) {
             $logging->log("Guessing your VHost on Modern Ubuntu (14+) uses a .conf extension", $this->getModuleName()) ;
             return ".conf" ; }
