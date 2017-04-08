@@ -229,7 +229,7 @@ class ApacheVHostEditorUbuntuLegacy extends Base {
         $logging->log("Setting a file extension for Older Ubuntu (14-)?", $this->getModuleName()) ;
         if (isset($this->params["vhe-file-ext"])) { return $this->params["vhe-file-ext"] ; }
         if (isset($this->params["guess"])) {
-            if ($this->detectDebianApacheVHostFolderExistence()) { return "" ; }
+            if ($this->detectDebianApacheVHostFolderExistence()) { return null ; }
             else { return ".conf" ; } }
         $question = 'What File Extension should be used? Enter nothing for None (hint: ubuntu probably none centos, .conf)';
         $input = self::askForInput($question) ;
