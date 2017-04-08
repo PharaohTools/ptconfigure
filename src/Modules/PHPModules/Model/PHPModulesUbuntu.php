@@ -21,6 +21,15 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
         );
+
+        if (PHP_MAJOR_VERSION > 6) {
+            $ray = $this->installCommands ;
+            $first = $ray[0] ;
+            $second =
+                array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("PECL", array("mongodb") ) ) ) ;
+            $this->installCommands = array($first, $second) ;
+        }
+
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
         );
@@ -33,14 +42,14 @@ class PHPModulesUbuntu extends BaseLinuxApp {
 
     private function setPackages() {
         if (PHP_MAJOR_VERSION > 6) {
-            $ps1 = "php7.0-apcu" ;
-            $ps2 = "php7.0" ; }
+            $ps2 = "php7.0" ;
+            $ps1 = "php7.0-opcache " ; }
         else {
-            $ps1 = "php-apc" ;
-            $ps2 = "php5" ; }
+            $ps2 = "php5" ;
+            $ps1 = "php-apc {$ps2}-memcached php5-memcache {$ps2}-mongo {$ps2}-imagick" ; }
 
-        $pstr = "{$ps1} {$ps2}-dev {$ps2}-gd {$ps2}-imagick {$ps2}-curl {$ps2}-mysql ".
-        "{$ps2}-memcache {$ps2}-memcached {$ps2}-mongo {$ps2}-sqlite {$ps2}-ldap " ;
+        $pstr = "{$ps1} {$ps2}-dev {$ps2}-gd {$ps2}-curl {$ps2}-mysql ".
+        "{$ps2}-sqlite {$ps2}-ldap php-pear" ;
 
         if (PHP_MAJOR_VERSION > 6) {
             $pstr .= " {$ps2}-xml " ; }
