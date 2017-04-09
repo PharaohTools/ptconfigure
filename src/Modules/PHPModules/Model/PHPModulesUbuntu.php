@@ -52,7 +52,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         "{$ps2}-sqlite {$ps2}-ldap php-pear" ;
 
         if (PHP_MAJOR_VERSION > 6) {
-            $pstr .= " {$ps2}-xml " ; }
+            $pstr .= " {$ps2}-xml openssl" ; }  // openssl is required for mongo in php7
 
         $this->packages = array( $pstr ) ;
     }
