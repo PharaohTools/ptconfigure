@@ -16,21 +16,26 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
 
     public function __construct($params) {
         parent::__construct($params);
+        if (PHP_MAJOR_VERSION >6) {
+            $phpv = 7.0 ;
+        } else {
+            $phpv = 5 ;
+        }
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libxml2-dev")) ),
             array("command"=> "a2enmod rewrite" ),
             array("command"=> "a2enmod deflate" ),
             array("command"=> "a2enmod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-php5")) ),
-            array("command"=> "a2enmod php5" ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libapache2-mod-php{$phpv}")) ),
+            array("command"=> "a2enmod php{$phpv}" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libxml2-dev")) ),
             array("command"=> "a2dismod rewrite" ),
             array("command"=> "a2dismod deflate" ),
             array("command"=> "a2dismod ssl" ),
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-php5")) ),
-            array("command"=> "a2dismod php5" ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", "libapache2-mod-php{$phpv}")) ),
+            array("command"=> "a2dismod php{$phpv}" ),
             array("method"=> array("object" => $this, "method" => "apacheRestart", "params" => array())) );
         $this->programDataFolder = "/opt/ApacheModules"; // command and app dir name
         $this->programNameMachine = "apachemodules"; // command and app dir name
