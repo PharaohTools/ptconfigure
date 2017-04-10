@@ -17,9 +17,9 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         if (PHP_MAJOR_VERSION >6) {
-            $phpv = 7.0 ;
+            $phpv = '7.0' ;
         } else {
-            $phpv = 5 ;
+            $phpv = '5' ;
         }
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", "libxml2-dev")) ),
