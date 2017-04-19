@@ -13,7 +13,7 @@ class Base {
 
     // PTConfigureBase specifies these
     public function routesAvailable() {
-        return array();
+        return array("help");
     }
 
     public function routeAliases() {
