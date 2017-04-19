@@ -88,14 +88,14 @@ class VersionLinuxMac extends Base {
         if ( isset($this->params["container"])) { return $this->params["container"] ; }
         $question = 'What is the Project Container Directory? (The one with versions in) Enter none for '.getcwd();
         $input = self::askForInput($question) ;
-        return ($input=="") ? getcwd() : $input ;
+        return ($input=="") ? getcwd() : $this->ensureTrailingSlash($input);
     }
 
     private function symlinkRemover() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $command  = 'rm -f '.$this->appRootDirectory.'/current';
-        $logging->log("Removing Version Symlink ".$this->appRootDirectory.'/current', $this->getModuleName()) ;
+        $command  = 'rm -f '.$this->appRootDirectory.'current';
+        $logging->log("Removing Version Symlink ".$this->appRootDirectory.'current', $this->getModuleName()) ;
         $rc = $this->executeAndGetReturnCode($command, false, true);
         if ($rc["rc"] == 0) {
             $logging->log("Successfully Removed Version Symlink", $this->getModuleName()) ;
