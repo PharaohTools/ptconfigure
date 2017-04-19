@@ -120,7 +120,8 @@ class VersionLinuxMac extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($this->versionLimit != null && $this->versionLimit>0) {
-          $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
+            $logging->log("Versioning Limitation", $this->getModuleName()) ;
+            $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
           arsort($allEntries) ;
           $i = 0;
             $projectFactory = new \Model\Project();
@@ -143,7 +144,8 @@ class VersionLinuxMac extends Base {
             if ($i < $dirsToLeave) {
                 $logging->log("Removing Project Directory $fullDirPath as Versioning Limitation", $this->getModuleName()) ;
                 $this->deleteDirectory($fullDirPath); }
-            $i++; } }
+            $i++; }
+            return true ; }
         else {
             $logging->log("Ignoring Versioning Limitation", $this->getModuleName()) ;
             return true ; }
