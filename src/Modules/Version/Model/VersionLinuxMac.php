@@ -120,18 +120,18 @@ class VersionLinuxMac extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($this->versionLimit != null && $this->versionLimit>0) {
-            $logging->log("Versioning Limitation", $this->getModuleName()) ;
+            $logging->log("Starting Versioning Limitation", $this->getModuleName()) ;
             $allEntries = (is_dir($this->appRootDirectory)) ? scandir($this->appRootDirectory) : array();
           arsort($allEntries) ;
           $i = 0;
-            $projectFactory = new \Model\Project();
-            $project = $projectFactory->getModel($this->params) ;
+//            $projectFactory = new \Model\Project();
+//            $project = $projectFactory->getModel($this->params) ;
           foreach ($allEntries as $currentKey => $oneEntry) {
             $fullDirPath = $this->appRootDirectory.'/'.$oneEntry;
             if ( is_dir($fullDirPath) == null ) {
               unset ($allEntries[$currentKey]); } // remove entry from array if not directory
-            else if ($project::checkIsPharaohProject($fullDirPath) == false) {
-              unset ($allEntries[$currentKey]); } // remove entry from array if directory not a project
+//            else if ($project::checkIsPharaohProject($fullDirPath) == false) {
+//              unset ($allEntries[$currentKey]); } // remove entry from array if directory not a project
             else if ($oneEntry=="." || $oneEntry=="..") {
               unset ($allEntries[$currentKey]); }// remove entry from array if its dot notation
             $i++; }
