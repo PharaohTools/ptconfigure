@@ -120,6 +120,7 @@ class InvokeAllOS extends Base {
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
             foreach ($this->sshCommands as $sshCommand) {
+                if ($sshCommand === "") continue ;
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
                         $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
