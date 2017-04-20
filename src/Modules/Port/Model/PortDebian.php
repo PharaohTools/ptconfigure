@@ -81,13 +81,27 @@ class PortDebian extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ($this->installDependencies() == false) { return false ;}
-        $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN';
+        $comm = SUDOPREFIX.'lsof -i :'.$this->portNumber.' | grep LISTEN ';
         $out = self::executeAndGetReturnCode($comm, false, true) ;
         if ( ($out["rc"] == "1" && $out["output"] === array())) {
             \Core\BootStrap::setExitCode(1);
             $logging->log("Port {$this->portNumber} is not being used by a process", $this->getModuleName()) ;
             return false; }
-        $process = substr($out["output"][0], 0, strpos($out["output"][0], " ")) ;
+        $ox =  self::executeAndLoad($comm) ;
+//        var_dump($out) ;
+        $out["output"][0] = $ox ;
+        $process = substr($ox, 0, strpos($ox, " ")) ;
+
+        $comm2 = SUDOPREFIX.'lsof -ti :'.$this->portNumber.' | grep LISTEN ';
+        $ox2 =  self::executeAndLoad($comm2) ;
+
+        $proc_tails = explode(" ", $out["output"][0]) ;;
+        $proc_tails = array_diff($proc_tails, array("")) ;
+        $proc_tails = array_values($proc_tails) ;
+
+        var_dump('oxy', $proc_tails[5]) ;
+        $process_id = $proc_tails[5] ;
+
         if (isset($process)) {
             $logging->log("Port {$this->portNumber} is being used by the process {$process}", $this->getModuleName()) ;
             if (isset($this->params["expect"])) {
@@ -96,8 +110,8 @@ class PortDebian extends BaseLinuxApp {
                     $logging->log("Unexpected process '{$process}' using Port {$this->portNumber}", $this->getModuleName()) ;
                     \Core\BootStrap::setExitCode(1);
                     return false ; } }
-            $logging->log("Process was found", $this->getModuleName()) ;
-            return true; }
+            $logging->log("Process was found with id: {$process_id}", $this->getModuleName()) ;
+            return $process_id ; }
         return false ;
     }
 
