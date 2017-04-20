@@ -54,6 +54,7 @@ class RunCommandLinuxMac extends BaseLinuxApp {
         // @todo only show this under verbose output
 //        foreach ($commandRay as $command) { echo $command."\n" ; }
         $rc = $this->executeAsShell($commandRay) ;
+//        var_dump('cray: ', $commandRay) ;
         if ($rc == 0) { return true; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -81,13 +82,13 @@ class RunCommandLinuxMac extends BaseLinuxApp {
     }
 
     public function askForNohup() {
-        if (isset($this->params["nohup"]) && $this->params["nohup"]==true) {
-            $useNoHup = (strlen($this->params["nohup"]) > 0) ? true : false ;
+        if ( (isset($this->params["nohup"]) && $this->params["nohup"]===false) ||
+            (isset($this->params["nohup"]) && $this->params["nohup"]=="false")) {
+            $useNoHup = false ;
             $this->nohup = $useNoHup ;
             return ; }
-        if ( (isset($this->params["nohup"]) && $this->params["nohup"]===false) ||
-             (isset($this->params["nohup"]) && $this->params["nohup"]=="false")) {
-            $useNoHup = false ;
+        if (isset($this->params["nohup"]) && $this->params["nohup"]===true) {
+            $useNoHup = (strlen($this->params["nohup"]) > 0) ? true : false ;
             $this->nohup = $useNoHup ;
             return ; }
         if (isset($this->params["guess"]) && $this->params["guess"]==true) {
