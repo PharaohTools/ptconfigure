@@ -33,31 +33,11 @@ class InvokeBashSsh {
 		$this->server = $server;
 	}
 
-//	public function connect() {
-//        if (substr($this->server->password, 0, 4) == 'KS::') {
-//            $ksf = new SshKeyStore();
-//            $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
-//            $this->server->password = $ks->findKey() ; }
-//		if(file_exists($this->server->password)){
-//			$launcher = 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i '.escapeshellarg($this->server->password); }
-//        else{
-//			$launcher = 'sshpass -p '.escapeshellarg($this->server->password).' ssh -o UserKnownHostsFile=/dev/null ' .
-//                '-o StrictHostKeyChecking=no -o PubkeyAuthentication=no'; }
-//		$this->commandsPipe = tempnam(null, 'ssh');
-//		$launcher .= " -T -p {$this->server->port} ";
-//		$launcher .= escapeshellarg($this->server->username.'@'.$this->server->host);
-//		$pipe = "tail -f {$this->commandsPipe}";
-//		if(!pcntl_fork()){
-//			$fp = popen("$pipe | $launcher" ,"r");
-//			while (!feof($fp)) {
-//				echo fgets($fp, 4096); }
-//			pclose($fp);
-//			exit; }
-//        return true ;
-//	}
-
-
     public function connect() {
+        if (substr($this->server->password, 0, 4) == 'KS::') {
+            $ksf = new SshKeyStore();
+            $ks = $ksf->getModel(array("key" => $this->server->password, "guess" => "true")) ;
+            $this->server->password = $ks->findKey() ; }
         $launcher = $this->getLauncher() ;
         $this->commandsPipe = tempnam(null, 'ssh');
         if (!function_exists("pcntl_fork")) {
@@ -70,16 +50,12 @@ class InvokeBashSsh {
         return true ;
     }
 
-    /**
-     * @param $command
-     * @return string
-     */
     public function exec($command) {
         $launcher = $this->getLauncher() ;
         $pcomm = "$launcher $command" ;
-        passthru($pcomm, $res) ;
+        $data = system($pcomm, $res) ;
+        return array("rc" => $res, "data" => $data) ;
     }
-
 
     public function getLauncher() {
         if(file_exists($this->server->password)){
@@ -91,4 +67,5 @@ class InvokeBashSsh {
         $launcher .= escapeshellarg($this->server->username.'@'.$this->server->host);
         return $launcher ;
     }
+
 }
