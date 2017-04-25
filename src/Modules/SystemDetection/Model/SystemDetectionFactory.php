@@ -15,7 +15,7 @@ class SystemDetectionFactory {
         $groupModels = array() ;
         foreach ($allModelsOfModule as $modelOfModule) {
             if ( (isset($modelOfModule->modelGroup) && in_array($modelGroup, $modelOfModule->modelGroup) ) ||
-                (isset($modelOfModule->modelGroup) && in_array("any", $modelOfModule->modelGroup) ) ) {
+                 (isset($modelOfModule->modelGroup) && in_array("any", $modelOfModule->modelGroup) ) ) {
                 $groupModels[] = $modelOfModule ; } }
         return $groupModels;
     }
@@ -28,14 +28,13 @@ class SystemDetectionFactory {
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->distro, $model->distros) || in_array("any", $model->distros)) &&
+                //(in_array($system->version, $model->versions) || in_array("any", $model->versions)) &&
                 (self::versionsAreCompatible($system->version, $model->versions) || in_array("any", $model->versions)) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
             ) {
                 // if the everything matches, we have an exact match so return it
-                return $model; } }
-
-        foreach($models as $model) {
-            if (
+                return $model; }
+            else if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->distro, $model->distros) || in_array("any", $model->distros)) &&
@@ -46,10 +45,8 @@ class SystemDetectionFactory {
                 $message ="PTConfigure Warning!: Model ".get_class($model)." may not work as expected, since it " .
                     "doesn't specify exact OS version match";
                 // error_log($message);
-                return $model; } }
-
-        foreach($models as $model) {
-            if (
+                return $model; }
+            else if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
@@ -64,24 +61,30 @@ class SystemDetectionFactory {
     }
 
     private static function versionsAreCompatible($systemVersion, $modelVersions) {
+
         $matches = array() ;
-        $svo = (is_object($systemVersion)) ? $systemVersion : new \Model\SoftwareVersion($systemVersion) ;
-        for ($i=0; $i<count($modelVersions) ; $i++) {
+
+        foreach ($modelVersions as $modelVersion) {
+
             // if string literal version
-            if (is_string($modelVersions[$i])) {
-                if (is_object($svo) && $svo->shortVersionNumber == $modelVersions[$i]) {
-                    return true ; } }
+            if (is_string($modelVersion)) {
+                if ($systemVersion == $modelVersion) {
+                    // echo "**vac 1**\n" ;
+                    $matches[] = true ; } }
+
             // if conditions
-            if (is_array($modelVersions[$i])) {
+            if (is_array($modelVersion)) {
+                $criteriaResults = array() ;
+                $svo = new \Model\SoftwareVersion($systemVersion) ;
+                foreach ($modelVersion as $criteriaValue => $criteriaOperator) {
+                    $svo->setCondition($criteriaValue, $criteriaOperator) ; }
+                    $criteriaResults[] = $svo->isCompatible() ;
+                if (!in_array(false, $criteriaResults)) {
+                    // echo "**vac 2**\n" ;
+                    $matches[] = true ; } } }
 
-                if (!isset($modelVersions[$i][0])) {
-                    var_dump("mv: ", $modelVersions[$i]) ;
-                }
+        return $matches ;
 
-                $svo->setCondition($modelVersions[$i][0], $modelVersions[$i][1]) ;
-                $matches[] = $svo->isCompatible() ; } }
-        $res = (in_array(false, $matches)) ? false : true ;
-        return $res ;
     }
 
 }
