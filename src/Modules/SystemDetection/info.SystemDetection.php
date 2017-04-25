@@ -13,7 +13,7 @@ class SystemDetectionInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "SystemDetection" =>  array_merge(array("detect", "help") ) );
+      return array( "SystemDetection" =>  array_merge(array("detect", 'generate-defaults', "help") ) );
     }
 
     public function routeAliases() {
@@ -22,14 +22,17 @@ class SystemDetectionInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This is a default Module and provides you with a method by which you can configure Application Settings.
-  You can configure default application settings, ie: mysql admin user, host, pass
+  This is a default Module and provides you with a method for accessing basic system values
 
   SystemDetection, system-detection, systemdetection
 
         - detect
         Detects the Operating System
-        example: ptconfigure system-detection detect
+        example: ptbuild system-detection detect
+
+        - generate-defaults
+        Generates a file of defaults for better performance
+        example: ptbuild system-detection generate-defaults
 
 HELPDATA;
       return $help ;
