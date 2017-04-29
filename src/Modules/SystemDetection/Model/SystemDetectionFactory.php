@@ -33,8 +33,9 @@ class SystemDetectionFactory {
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
             ) {
                 // if the everything matches, we have an exact match so return it
-                return $model; }
-            else if (
+                return $model; } }
+        foreach($models as $model) {
+            if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->distro, $model->distros) || in_array("any", $model->distros)) &&
@@ -44,9 +45,10 @@ class SystemDetectionFactory {
                 // warning during expected models phase
                 $message ="PTConfigure Warning!: Model ".get_class($model)." may not work as expected, since it " .
                     "doesn't specify exact OS version match";
-                // error_log($message);
-                return $model; }
-            else if (
+                error_log($message);
+                return $model; } }
+        foreach($models as $model) {
+            if (
                 (in_array($system->os, $model->os) || in_array("any", $model->os)) &&
                 (in_array($system->linuxType, $model->linuxType) || in_array("any", $model->linuxType)) &&
                 (in_array($system->architecture, $model->architectures) || in_array("any", $model->architectures))
@@ -55,8 +57,9 @@ class SystemDetectionFactory {
                 // during expected models phase
                 $message = "PTConfigure Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
                     "it doesn't specify matching OS version or distro match";
-                // error_log($message);
+                error_log($message);
                 return $model; } }
+
         return null ;
     }
 
