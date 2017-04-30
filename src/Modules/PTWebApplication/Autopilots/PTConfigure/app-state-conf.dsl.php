@@ -9,6 +9,9 @@ User ensure-exists
   home-directory ""
   shell "/bin/bash"
 
+ApacheServer ensure
+  label "Ensure Apache Server is installed"
+
 PHPModules ensure
   label "Ensure PHP Default Modules are installed"
 
