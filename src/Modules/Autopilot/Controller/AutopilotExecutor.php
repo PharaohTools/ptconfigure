@@ -6,6 +6,8 @@ use Core\View;
 
 class AutopilotExecutor extends Base {
 
+    protected $liRay ;
+
     public function executeAuto($pageVars, $autopilot, $test = false ) {
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
@@ -32,7 +34,7 @@ class AutopilotExecutor extends Base {
         if (isset($autoPilot->steps) && is_array($autoPilot->steps) && count($autoPilot->steps)>0) {
             $steps = $this->orderSteps($autoPilot->steps);
 //            var_dump("after order:", $steps) ;
-            $steps = $this->expandLoops($steps);
+            $steps = $this->expandLoops($steps, $thisModel);
 //            var_dump("after expand:", $steps) ;
 
             $counter = 0 ;
@@ -103,7 +105,7 @@ class AutopilotExecutor extends Base {
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_result ; }
         else if (isset($current_params[$mod_is][$act_is]["not_when"]) ||
-                 isset($current_params[$mod_is][$act_is]["not-when"])) {
+            isset($current_params[$mod_is][$act_is]["not-when"])) {
             if (isset($current_params[$mod_is][$act_is]["not-when"])) {
                 $current_params[$mod_is][$act_is]["not_when"] = $current_params[$mod_is][$act_is]["not-when"] ;  }
             $logFactory = new \Model\Logging() ;
@@ -181,10 +183,10 @@ class AutopilotExecutor extends Base {
         return false ;
     }
 
-    protected function expandLoops($steps) {
+    protected function expandLoops($steps, $thisModel) {
         $new_steps = array() ;
         foreach ($steps as $step) {
-            $loopExpanded = $this->getLoopRay($step) ;
+            $loopExpanded = $this->getLoopRay($step, $thisModel) ;
             $new_steps = array_merge($new_steps, $loopExpanded) ; }
         return $new_steps ;
     }
@@ -232,7 +234,7 @@ class AutopilotExecutor extends Base {
         return $step ;
     }
 
-    protected function getLoopRay($modelArray) {
+    protected function getLoopRay($modelArray, $thisModel) {
         $newParams = array();
         $currentControls = array_keys($modelArray) ;
         $currentControl = $currentControls[0] ;
@@ -245,12 +247,17 @@ class AutopilotExecutor extends Base {
                 $logFactory = new \Model\Logging() ;
                 $logging = $logFactory->getModel(array(), "Default") ;
                 $logging->log("Found loop for parameter {$origParamKey}", "Autopilot") ;
-                $liRay = $this->getArrayOfLoopItems($modParams) ;
-                foreach ($liRay as $loop_iteration) {
-                    $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
-                    $tempParams = $modParams ;
-                    $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
-                    $newParams[][$currentControl][$currentAction] = $tempParams ; } } }
+                if (!isset($this->liRay) || !is_array($this->liRay)) {
+                    $logging->log("Processing Loop Values", "Autopilot") ;
+                    $liRay = $this->getArrayOfLoopItems($modParams, $thisModel) ;
+                    $this->liRay = $liRay ;
+                    foreach ($liRay as $loop_iteration) {
+                        $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
+                        $tempParams = $modParams ;
+                        $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
+                        $newParams[][$currentControl][$currentAction] = $tempParams ; } } }
+        }
+
         if (count($newParams)>0) {
 //            var_dump("np", $newParams) ;
             return $newParams ;
@@ -261,10 +268,13 @@ class AutopilotExecutor extends Base {
         return array($modelArray) ;
     }
 
-    protected function getArrayOfLoopItems($modParams) {
+    protected function getArrayOfLoopItems($modParams, $thisModel) {
         if (isset($modParams["loop"])) {
-            $litems =  explode(",",  $modParams["loop"]) ;
-//            var_dump("li", $litems) ;
+            $autoFactory = new \Model\Autopilot() ;
+            $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
+            $loop_value = $modParams["loop"] ;
+            $loop_value = $autoModel->transformParameterValue($loop_value) ;
+            $litems =  explode(",", $loop_value) ;
             return $litems ; }
         $logFactory = new \Model\Logging() ;
         $logging = $logFactory->getModel(array(), "Default") ;
@@ -304,8 +314,8 @@ class AutopilotExecutor extends Base {
                     "action" => $currentAction ) ;
 //                $dataFromThis .= $this->executeControl($currentControl, $params);
                 if ( \Core\BootStrap::getExitCode() !== 0 ) {
-                        $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
-                        break ; }
+                    $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
+                    break ; }
                 $step = array() ;
                 $step["out"] = $this->executeControl($currentControl, $params);
                 $step["status"] = true ;
@@ -338,7 +348,7 @@ class AutopilotExecutor extends Base {
         foreach($params as $origParamKey => $origParamVal) {
 //            var_dump('fp:',  $origParamKey , $origParamVal) ;
 //            if (!is_array($origParamVal)) {
-                $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
+            $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
 //        }
 //            else {
 //                $a = $origParamVal;
