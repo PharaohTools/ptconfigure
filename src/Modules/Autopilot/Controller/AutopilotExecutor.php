@@ -241,24 +241,32 @@ class AutopilotExecutor extends Base {
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
+
+        $resRay = array() ;
         foreach($modParams as $origParamKey => $origParamVal) {
-            $res = $this->findLoopInParameterValue($origParamVal) ;
-            if ($res !== false) {
-                $logFactory = new \Model\Logging() ;
-                $logging = $logFactory->getModel(array(), "Default") ;
-                $logging->log("Found loop for parameter {$origParamKey}", "Autopilot") ;
-                if (!isset($this->liRay) || !is_array($this->liRay)) {
-                    $logging->log("Processing Loop Values", "Autopilot");
-                    $liRay = $this->getArrayOfLoopItems($modParams, $thisModel);
-                    $this->liRay = $liRay;
-                }
-                foreach ($this->liRay as $loop_iteration) {
-                    $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
-                    $tempParams = $modParams ;
-                    $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
-                    $newParams[][$currentControl][$currentAction] = $tempParams ;
-                }
+            $resRay[] = $this->findLoopInParameterValue($origParamVal) ;
+        }
+
+        $logFactory = new \Model\Logging() ;
+        $logging = $logFactory->getModel(array(), "Default") ;
+        if (in_array(true, $resRay)) {
+            $logging->log("Found loop for parameters in step", "Autopilot") ;
+            if (!isset($this->liRay) || !is_array($this->liRay)) {
+                $logging->log("Processing Loop Values", "Autopilot");
+                $liRay = $this->getArrayOfLoopItems($modParams, $thisModel);
+                $this->liRay = $liRay;
             }
+            foreach ($this->liRay as $loop_iteration) {
+                $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
+                $tempParams = $modParams ;
+                foreach($tempParams as $origParamKey => $origParamVal) {
+                    $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
+                }
+                $newParams[][$currentControl][$currentAction] = $tempParams ;
+            }
+        } else {
+            $logging->log("Found no loops for parameters in this step", "Autopilot") ;
+            return array($modelArray) ;
         }
 
         if (count($newParams)>0) {
