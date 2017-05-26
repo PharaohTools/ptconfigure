@@ -265,7 +265,7 @@ class AutopilotExecutor extends Base {
                 $newParams[][$currentControl][$currentAction] = $tempParams ;
             }
         } else {
-            $logging->log("Found no loops for parameters in this step", "Autopilot") ;
+//            $logging->log("Found no loops for parameters in this step", "Autopilot") ;
             return array($modelArray) ;
         }
 
