@@ -248,14 +248,17 @@ class AutopilotExecutor extends Base {
                 $logging = $logFactory->getModel(array(), "Default") ;
                 $logging->log("Found loop for parameter {$origParamKey}", "Autopilot") ;
                 if (!isset($this->liRay) || !is_array($this->liRay)) {
-                    $logging->log("Processing Loop Values", "Autopilot") ;
-                    $liRay = $this->getArrayOfLoopItems($modParams, $thisModel) ;
-                    $this->liRay = $liRay ;
-                    foreach ($liRay as $loop_iteration) {
-                        $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
-                        $tempParams = $modParams ;
-                        $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
-                        $newParams[][$currentControl][$currentAction] = $tempParams ; } } }
+                    $logging->log("Processing Loop Values", "Autopilot");
+                    $liRay = $this->getArrayOfLoopItems($modParams, $thisModel);
+                    $this->liRay = $liRay;
+                }
+                foreach ($this->liRay as $loop_iteration) {
+                    $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
+                    $tempParams = $modParams ;
+                    $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
+                    $newParams[][$currentControl][$currentAction] = $tempParams ;
+                }
+            }
         }
 
         if (count($newParams)>0) {
