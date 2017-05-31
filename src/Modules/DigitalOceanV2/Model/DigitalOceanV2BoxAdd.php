@@ -68,7 +68,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                             $serverData["sshKeyIds"] = $this->getSshKeyIds();
                             $response = $this->getNewServerFromDigitalOceanV2($serverData) ;
                             if ( isset($response->id) && $response->id == "unprocessable_entity") {
-                                $logging->log("Node Request for {$serverData["name"]} failed", $this->getModuleName()) ;
+                                $logging->log("Node Request for {$serverData["name"]} failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                                 return false ; }
                             else {
                                 $this->addServerToPapyrus($envName, $response); } } } } }
@@ -211,9 +211,12 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $callOut = $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Request for {$callVars["name"]} complete", $this->getModuleName()) ;
         if ( isset($callOut->id) && $callOut->id == "unprocessable_entity") {
             $logging->log("Request for {$callVars["name"]} errored with message: {$callOut->message}", $this->getModuleName()) ; }
+        else if ( is_null($callOut)) {
+            $logging->log("Request for {$callVars["name"]} failed", $this->getModuleName()) ; }
+        else {
+            $logging->log("Request for {$callVars["name"]} complete", $this->getModuleName()) ; }
         return $callOut ;
     }
 
