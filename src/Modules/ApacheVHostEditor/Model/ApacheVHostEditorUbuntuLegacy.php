@@ -283,6 +283,10 @@ class ApacheVHostEditorUbuntuLegacy extends Base {
         }
     }
 
+    protected function detectRHVHostFolderExistence(){
+        return file_exists("/etc/httpd/vhosts.d");
+    }
+
     protected function detectDebianApacheVHostFolderExistence(){
         return file_exists("/etc/apache2/sites-available");
     }

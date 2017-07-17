@@ -51,8 +51,4 @@ class ApacheVHostEditorCentos extends ApacheVHostEditorUbuntuLegacy {
         return self::askForInput($question, true);
     }
 
-    protected function detectRHVHostFolderExistence(){
-        return file_exists("/etc/httpd/vhosts.d");
-    }
-
 }
