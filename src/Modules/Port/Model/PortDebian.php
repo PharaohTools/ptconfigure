@@ -16,7 +16,10 @@ class PortDebian extends BaseLinuxApp {
     protected $ipAddress ;
     protected $iptype ;
     protected $portNumber ;
+    protected $maxWait ;
+    protected $interval ;
     protected $actionsToMethods = array(
+        "until-responding" => "checkPortUntil",
         "is-responding" => "performPortCheck",
         "process" => "performPortServiceCheck"
     ) ;
@@ -49,8 +52,10 @@ class PortDebian extends BaseLinuxApp {
             $this->ipAddress = $this->params["ip-address"]; }
         else if (isset($this->params["ip"])) {
             $this->ipAddress = $this->params["ip"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->ipAddress = '127.0.0.1'; }
         else {
-            $this->ipAddress = self::askForInput("Enter IP Adress:", true); }
+            $this->ipAddress = self::askForInput("Enter IP Address:", true); }
     }
 
     public function setPort($portNumber = null) {
@@ -64,6 +69,24 @@ class PortDebian extends BaseLinuxApp {
             $this->portNumber = self::askForInput("Enter Port Number:", true); }
     }
 
+    protected function setInterval() {
+        if (isset($this->params["interval"])) {
+            $this->interval = $this->params["interval"]; }
+        else if (isset($this->params["guess"])) {
+            $this->interval = "2" ; }
+        else {
+            $this->interval = self::askForInput("Enter Interval: ", true); }
+    }
+
+    protected function setMaxWait() {
+        if (isset($this->params["max-wait"])) {
+            $this->maxWait = $this->params["max-wait"]; }
+        else if (isset($this->params["guess"])) {
+            $this->maxWait = "60" ; }
+        else {
+            $this->maxWait = self::askForInput("Enter Max Wait Time: ", true); }
+    }
+
     protected function getPortStatus() {
         // @todo fsockopen takes a while, fixed with 5 sec timeout?
         $loggingFactory = new \Model\Logging();
@@ -75,6 +98,25 @@ class PortDebian extends BaseLinuxApp {
         else {
             $logging->log("Port {$this->portNumber} is not responding. Error: $errno, $errstr", $this->getModuleName()) ;
             return false; }
+    }
+
+    protected function checkPortUntil() {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params) ;
+        $this->setInterval();
+        $this->setMaxWait();
+        $totalTime = 0 ;
+        $i = 0;
+        while ($totalTime < $this->maxWait) {
+            $port_result = $this->performPortCheck() ;
+            if ($port_result == true) {
+                $logging->log("Port {$this->portNumber} is responding after {$totalTime} seconds", $this->getModuleName()) ;
+                return true ;
+            }
+            sleep($this->interval) ;
+            $totalTime = $totalTime + $this->interval ;
+            $i++; }
+        return false ;
     }
 
     protected function getPortService() {
