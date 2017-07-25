@@ -39,7 +39,8 @@ class VirtualboxMac extends BaseLinuxApp {
         $dmgFile = BASE_TEMP_DIR."virtualbox.dmg" ;
         $ray = array(
             array("command" => array( SUDOPREFIX."rm -rf $dmgFile") ),
-            array("command" => array( 'curl "http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg" -o "'.$dmgFile.'"') ),
+            array("command" => array( 'curl "http://download.virtualbox.org/virtualbox/5.1.22/VirtualBox-5.1.22-115126-OSX.dmg" -o "'.$dmgFile.'"') ),
+//            array("command" => array( 'curl "http://download.virtualbox.org/virtualbox/4.3.28/VirtualBox-4.3.28-100309-OSX.dmg" -o "'.$dmgFile.'"') ),
             array("command" => array( SUDOPREFIX."hdiutil attach $dmgFile") ),
             array("command" => array( SUDOPREFIX.'installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /') ),
             array("method"=> array("object" => $this, "method" => "ensureDefaultHostOnlyNetwork", "params" => array()) ),
@@ -74,9 +75,9 @@ class VirtualboxMac extends BaseLinuxApp {
             $out = $this->executeAndLoad($comm);
             if (strpos($out, "vboxnet0") === false) {
                 \Core\BootStrap::setExitCode(1);
-                $logging->log("Unable to create Default host only network vboxnet0.", $this->getModuleName()) ;
+                $logging->log("Unable to create Default host only network vboxnet0 ", $this->getModuleName()) ;
                 return false ; }
-            $logging->log("Successfully created Default host only network vboxnet0.", $this->getModuleName()) ; }
+            $logging->log("Successfully created Default host only network vboxnet0 ", $this->getModuleName()) ; }
 
         $c1 = VBOXMGCOMM.'dhcpserver add --ifname vboxnet0 --ip 192.168.56.1 --netmask 255.255.255.0 --lowerip 192.168.56.100 --upperip 192.168.56.200' ;
         $out = $this->executeAndGetReturnCode($c1, true, true);
