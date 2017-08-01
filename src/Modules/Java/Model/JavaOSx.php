@@ -2,45 +2,17 @@
 
 Namespace Model;
 
-class JavaUbuntu64 extends BaseLinuxApp {
+class JavaOSx extends JavaUbuntu64 {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array("11.04", "11.10", "12.04", "12.10", "13.04") ;
-    public $architectures = array("64") ;
+    public $os = array("Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
+    public $architectures = array("any") ;
 
     // Model Group
     public $modelGroup = array("Default") ;
-
-    public function __construct($params) {
-        parent::__construct($params);
-        $this->autopilotDefiner = "Java";
-        $this->installCommands = $this->getInstallCommands() ;
-        //@todo uninstall commands of java
-        $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),);
-        $this->programDataFolder = "/var/lib/jvm/jdk1.7";
-        $this->programNameMachine = "java"; // command and app dir name
-        $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
-        $this->programNameInstaller = "The Oracle Java JDK 1.7";
-        $this->statusCommand = 'java -version' ;
-        $this->versionInstalledCommand = 'java -version 2>&1' ;
-        $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy java" ;
-        $this->versionLatestCommand = SUDOPREFIX."apt-cache policy java" ;
-        $this->initialize();
-    }
-
-    protected function askForJavaInstallDirectory() {
-        if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-            return; }
-        else if (isset($this->params["java-install-dir"])) {
-            $this->programDataFolder = $this->params["java-install-dir"]; }
-        else {
-            $question = "Enter Java Install Directory (no trailing slash):";
-            $this->programDataFolder = self::askForInput($question, true); }
-    }
 
     // @todo this should definitely be using a package manager module
     protected function getInstallCommands() {
@@ -76,7 +48,6 @@ class JavaUbuntu64 extends BaseLinuxApp {
                 SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
                 '. /etc/profile' ) )
         );
-        return $ray ;
 
 
         $dmgFile = BASE_TEMP_DIR."virtualbox.dmg" ;
@@ -88,6 +59,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "ensureDefaultHostOnlyNetwork", "params" => array()) ),
             array("command" => array( SUDOPREFIX."hdiutil unmount /Volumes/VirtualBox/VirtualBox.pkg") ),
         ) ;
+        return $ray ;
     }
 
     public function versionInstalledCommandTrimmer($text) {
