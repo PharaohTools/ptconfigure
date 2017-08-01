@@ -17,7 +17,7 @@ class Port extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("is-responding", "process") )) {
+        if (in_array($action, array("is-responding", "until-responding", "process") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             $this->content["module"] = $thisModel->getModuleName();
