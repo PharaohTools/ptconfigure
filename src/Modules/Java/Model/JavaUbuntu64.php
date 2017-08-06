@@ -76,12 +76,12 @@ class JavaUbuntu64 extends BaseLinuxApp {
 
     public function getJavaDetails($version) {
         if ($version == "1.8") {
-            $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk-18.zip" ;
+            $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk.1.8.zip" ;
             $details['path_in_repo'] = "phpengine-cleo-jdk-64-6c383e2868bd/jdk-7u60-linux-x64.tar.gz" ;
             $details['fname_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
             $details['extracted_dir'] = "jdk1.7.0_60" ;
         } else {
-            $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk-17.zip" ;
+            $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk1.7.zip" ;
             $details['path_in_repo'] = "phpengine-cleo-jdk-64-6c383e2868bd/jdk-7u60-linux-x64.tar.gz" ;
             $details['fname_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
             $details['extracted_dir'] = "jdk1.7.0_60" ;
