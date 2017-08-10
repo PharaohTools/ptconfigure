@@ -61,6 +61,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
                     "tar -xzf /tmp/oraclejdk.tar.gz -C /tmp/oraclejdk",
                     "rm -f /tmp/oraclejdk.tar.gz",
                     "mkdir -p ****PROGDIR****" ,
+                    "rm -rf ****PROGDIR****/*" ,
 //                    "apt-get install libc6-i386" ,
                     "cp -r /tmp/oraclejdk/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" ,
                     "rm -rf /tmp/oraclejdk" ,
