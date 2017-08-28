@@ -52,7 +52,7 @@ class SFTPAllLinux extends Base {
         if (is_null($sourceData)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("SFTP Put will cancel, no source file", $this->getModuleName());
+            $logging->log("SFTP Put will cancel, no source file $sourceDataPath", $this->getModuleName());
             \Core\BootStrap::setExitCode(1) ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
