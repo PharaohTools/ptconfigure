@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DapperfyJoomlaPTVirtualizeAllOS extends DapperfyAllOS {
+class DapperfyISOPHPPTVirtualizeAllOS extends DapperfyAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -12,9 +12,9 @@ class DapperfyJoomlaPTVirtualizeAllOS extends DapperfyAllOS {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("DapperfyJoomlaPTVirtualize") ;
+    public $modelGroup = array("DapperfyISOPHPPTVirtualize") ;
 
-    public $platform = "joomla30" ;
+    public $platform = "isophp" ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -22,7 +22,7 @@ class DapperfyJoomlaPTVirtualizeAllOS extends DapperfyAllOS {
 
     public function askToScreenWhetherToDapperfy() {
         if (isset($this->params["yes"])) { return true ; }
-        $question = 'Dapperfy This for Joomla on PTVirtualize?';
+        $question = 'Dapperfy This for ISOPHP on PTVirtualize?';
         return self::askYesOrNo($question, true);
     }
 
@@ -47,7 +47,7 @@ class DapperfyJoomlaPTVirtualizeAllOS extends DapperfyAllOS {
 
     public function doDapperfy() {
 
-        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/Joomla30PTVirtualize", dirname(__FILE__) ) ;
+        $templatesDir2 = str_replace("Model", "Templates/Dapperfy/ISOPHPPTVirtualize", dirname(__FILE__) ) ;
         $templates2 = scandir($templatesDir2);
 
         foreach ($this->environments as $environment) {
@@ -83,7 +83,7 @@ class DapperfyJoomlaPTVirtualizeAllOS extends DapperfyAllOS {
 
             if (!isset($this->params["no-autopilot-creation"])) {
 
-                echo "Joomla Dapperfies for PTVirtualize:\n" ;
+                echo "ISOPHP Dapperfies for PTVirtualize:\n" ;
                 foreach ($templates2 as $template) {
                     if (!in_array($template, array(".", ".."))) {
                         $templatorFactory = new \Model\Templating();

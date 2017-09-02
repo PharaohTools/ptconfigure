@@ -17,7 +17,7 @@ class AutoPilotConfigured extends AutoPilot {
             array(
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets begin creating Autopilots to install a remote continuous build"),),),
 
-                array ( "Dapperfy" => array("joomla-tiny" => array(
+                array ( "Dapperfy" => array("isophp-tiny" => array(
                     "jenkins-home" => "/var/lib/jenkins",
                     // "target-job-name" => "my-project-continuous",
                     // "project-description" => "This is the Continuous Delivery build for My Project",

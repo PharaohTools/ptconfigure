@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DapperfyJoomlaAllOS extends DapperfyAllOS {
+class DapperfyISOPHPAllOS extends DapperfyAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -12,9 +12,9 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("DapperfyJoomla") ;
+    public $modelGroup = array("DapperfyISOPHP") ;
 
-    public $platform = "joomla30" ;
+    public $platform = "isophp" ;
 
     public function __construct($params) {
         parent::__construct($params);
@@ -22,7 +22,7 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
 
     public function askToScreenWhetherToDapperfy() {
         if (isset($this->params["yes"])) { return true ; }
-        $question = 'Dapperfy This for Joomla?';
+        $question = 'Dapperfy This for ISOPHP?';
         return self::askYesOrNo($question, true);
     }
 
@@ -52,7 +52,7 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
 
 
     public function doDapperfy() {
-        $templatesDir1 = str_replace("Joomla", "Dapperfy", dirname(__FILE__) ) ;
+        $templatesDir1 = str_replace("ISOPHP", "Dapperfy", dirname(__FILE__) ) ;
         $templatesDir1 = str_replace("Model", "Templates", $templatesDir1 ) ;
         $templates1 = scandir($templatesDir1);
 
@@ -100,7 +100,7 @@ class DapperfyJoomlaAllOS extends DapperfyAllOS {
                             $targetLocation );
                         echo $targetLocation."\n"; } }
 
-                echo "Joomla Dapperfies:\n" ;
+                echo "ISOPHP Dapperfies:\n" ;
                 foreach ($templates2 as $template) {
                     if (!in_array($template, array(".", ".."))) {
                         $templatorFactory = new \Model\Templating();

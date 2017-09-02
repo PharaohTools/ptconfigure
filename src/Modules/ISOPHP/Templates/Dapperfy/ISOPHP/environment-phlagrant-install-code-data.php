@@ -42,7 +42,7 @@ class AutoPilotConfigured extends AutoPilot {
                   "vhe-template" => $this->getTemplate(),
               ), ), ),
 
-              array ( "Logging" => array( "log" => array("log-message" => "Lets ensure our Joomla temp and cache directories are writable"), ) ),
+              array ( "Logging" => array( "log" => array("log-message" => "Lets ensure our ISOPHP temp and cache directories are writable"), ) ),
               array ( "RunCommand" => array("install" => array(
                   "guess" => true,
                   "command" => "sudo chown -R www-data <%tpl.php%>dap_proj_cont_dir</%tpl.php%>{$this->getTime()}/src/cache",

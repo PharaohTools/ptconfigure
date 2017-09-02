@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Joomla extends BaseModelFactory {
+class ISOPHP extends BaseModelFactory {
 
 }

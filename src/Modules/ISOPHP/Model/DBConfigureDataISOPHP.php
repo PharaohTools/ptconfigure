@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DBConfigureDataJoomla30 extends Base {
+class DBConfigureDataISOPHP extends Base {
 
     // Compatibility
     public $os = array("Linux", "Darwin") ;
@@ -12,10 +12,10 @@ class DBConfigureDataJoomla30 extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Default", "Joomla30Config") ;
+    public $modelGroup = array("Default", "ISOPHPConfig") ;
 
-    private $friendlyName = 'Joomla 3.x Series';
-    private $shortName = 'Joomla30';
+    private $friendlyName = 'ISOPHP';
+    private $shortName = 'ISOPHP';
     private $settingsFileLocation = ''; // no trail slash, empty for root
     private $settingsFileName = 'configuration.php';
     private $settingsFileReplacements ;
@@ -45,7 +45,7 @@ class DBConfigureDataJoomla30 extends Base {
             \Core\Bootstrap::setExitCode(1);
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Unable to load Joomla Configuration File ", $this->getModuleName());
+            $logging->log("Unable to load ISOPHP Configuration File ", $this->getModuleName());
             return false ; }
         $jconf =  new \JConfig() ;
         $cprops["dbHost"] = $jconf->host ;
