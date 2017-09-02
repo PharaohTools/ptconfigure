@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description><%tpl.php%>project_description</%tpl.php%></description>
+  <logRotator>
+    <daysToKeep><%tpl.php%>days_to_keep</%tpl.php%></daysToKeep>
+    <numToKeep><%tpl.php%>num_to_keep</%tpl.php%></numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+      <projectUrl><%tpl.php%>github_url</%tpl.php%></projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+      <skip>true</skip>
+    </org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>PUSH</name>
+          <description>Your developer build will push to the repo for you
+a) Run all Tests against your work
+b) Run all tests, then push your work to the main repo master branch
+c) Run all tests, push to the main repo <%tpl.php%>target_branch</%tpl.php%> branch, and tag, so that it is queued
+   to be tested automatically again by the build system then put into staging.
+</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>TEST_NO_PUSH</string>
+              <string>TEST_PUSH_BRANCH</string>
+              <string>TEST_PUSH_BRANCH_TAGGED</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name></name>
+        <refspec></refspec>
+        <url><%tpl.php%>source_scm_url</%tpl.php%></url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name><%tpl.php%>source_branch_spec</%tpl.php%></name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+    <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>deployed</relativeTargetDir>
+    </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd $WORKSPACE/deployed
+echo &quot;Running Application Installation...&quot;
+echo &quot;sudo ptdeploy autopilot execute <%tpl.php%>autopilot_install</%tpl.php%>&quot;
+sudo ptdeploy autopilot execute <%tpl.php%>autopilot_install</%tpl.php%></command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+echo &quot;Running PTTest Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;
+cd $WORKSPACE/deployed
+testingkamen autopilot execute build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php</command>
+    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+      <condition class="org.jenkins_ci.plugins.run_condition.core.StatusCondition">
+        <worstResult>
+          <name>SUCCESS</name>
+          <ordinal>0</ordinal>
+          <color>BLUE</color>
+        </worstResult>
+        <bestResult>
+          <name>SUCCESS</name>
+          <ordinal>0</ordinal>
+          <color>BLUE</color>
+        </bestResult>
+      </condition>
+      <buildStep class="hudson.tasks.Shell">
+        <command>echo &quot;ALL SHELL STEPS FINISHED&quot;
+#!/bin/bash
+cd $WORKSPACE/deployed
+if [ $PUSH = &quot;TEST_PUSH_BRANCH&quot; ||  $PUSH = &quot;TEST_PUSH_BRANCH_TAGGED&quot;  ]
+then
+    echo &quot;Successful build, set to push, so adding remote...&quot;
+    git remote add ptdeploytarget <%tpl.php%>target_scm_url</%tpl.php%>
+fi
+if [ $PUSH = &quot;TEST_PUSH_BRANCH&quot; ]
+then
+    echo &quot;Successful build, set to push, so pushing...&quot;
+    git push ptdeploytarget <%tpl.php%>target_branch</%tpl.php%>
+fi
+if [ $PUSH = &quot;TEST_PUSH_BRANCH_TAGGED&quot; ]
+then
+    echo &quot;Successful build, set to tag, so tagging...&quot;
+    git tag -a BUILD_ID -m &quot;Jenkins Development Tag&quot;
+    echo &quot;Pushing to master with New Tag&quot;
+    git push  <%tpl.php%>target_scm_url</%tpl.php%> --tags
+    git remote remove
+fi
+if [ $PUSH = &quot;TEST_PUSH_BRANCH&quot; ||  $PUSH = &quot;TEST_PUSH_BRANCH_TAGGED&quot;  ]
+    then
+    echo &quot;Successful build, pushed, so removing remote...&quot;
+    git remote remove ptdeploytarget
+fi</command>
+      </buildStep>
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail"/>
+    </org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.postbuildtask.PostbuildTask>
+      <tasks>
+        <hudson.plugins.postbuildtask.TaskProperties>
+          <logTexts>
+            <hudson.plugins.postbuildtask.LogProperties>
+              <logText>Building in workspace</logText>
+              <operator>AND</operator>
+            </hudson.plugins.postbuildtask.LogProperties>
+          </logTexts>
+          <EscalateStatus>true</EscalateStatus>
+          <RunIfJobSuccessful>false</RunIfJobSuccessful>
+          <script>#!/bin/bash&#xd;
+echo &quot;Running Application Uninstallation...&quot;&#xd;
+cd $WORKSPACE/deployed&#xd;
+echo &quot;sudo ptdeploy autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%>&quot;&#xd;
+sudo ptdeploy autopilot execute <%tpl.php%>autopilot_uninstall</%tpl.php%></script>
+        </hudson.plugins.postbuildtask.TaskProperties>
+      </tasks>
+    </hudson.plugins.postbuildtask.PostbuildTask>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.xvnc.Xvnc>
+      <takeScreenshot>false</takeScreenshot>
+    </hudson.plugins.xvnc.Xvnc>
+  </buildWrappers>
+</project>
