@@ -12,7 +12,7 @@ class DBConfigureDataISOPHP extends Base {
     public $architectures = array("any") ;
 
     // Model Group
-    public $modelGroup = array("Default", "ISOPHPConfig") ;
+    public $modelGroup = array("ISOPHPConfig") ;
 
     private $friendlyName = 'ISOPHP';
     private $shortName = 'ISOPHP';
