@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="direct.digitalmoney.bank" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>ISOPHP</name>
+<widget id="<%tpl.php%>project_widget_id</%tpl.php%>" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name><%tpl.php%>project_name_trimmed</%tpl.php%></name>
     <description>
-        The ISO PHP Web Application
+        <%tpl.php%>project_description</%tpl.php%>
     </description>
-    <author email="tech@digitalmoney.direct" href="http://www.digitalmoney.direct">
-        ISO PHP
+    <author email="<%tpl.php%>project_email</%tpl.php%>" href="<%tpl.php%>project_website</%tpl.php%>">
+        <%tpl.php%>author_name</%tpl.php%>
     </author>
     <content src="index.html" />
     <access origin="*" />

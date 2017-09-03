@@ -1,6 +1,6 @@
 {
-    "name": "pharaohtools/isophp",
-    "description": "ISO PHP Framework",
+    "name": "<%tpl.php%>author_slug</%tpl.php%>/<%tpl.php%>project_slug</%tpl.php%>/",
+    "description": "<%tpl.php%>project_description_web</%tpl.php%>",
     "autoload": {
         "psr-0": {
             "": "php/src/"
@@ -13,12 +13,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Dan Phillimore",
-            "email": "dan@ovms.co"
-        },
-        {
-            "name": "Pharaoh Tools",
-            "email": "dave@pharaohtools.com"
+            "name": "<%tpl.php%>author_name</%tpl.php%>",
+            "email": "<%tpl.php%>email</%tpl.php%>"
         }
     ]
 }

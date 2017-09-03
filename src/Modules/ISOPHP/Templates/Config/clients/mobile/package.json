@@ -1,16 +1,16 @@
 {
-    "name": "isophp",
-    "displayName": "isophp",
+    "name": "<%tpl.php%>project_slug</%tpl.php%>",
+    "displayName": "<%tpl.php%>project_slug</%tpl.php%>",
     "version": "1.0.0",
-    "description": "The ISO PHP Mobile client",
+    "description": "<%tpl.php%>project_description_mobile</%tpl.php%>",
     "main": "index.js",
     "scripts": {
-        "build": "browserify app --standalone=isophp | uglifyjs > www/uniter_bundle/bundle.js",
+        "build": "browserify app --standalone=<%tpl.php%>project_slug</%tpl.php%>/ | uglifyjs > www/uniter_bundle/bundle.js",
         "webpack": "webpack"
     },
-    "author": "Pharaoh Tools",
+    "author": "<%tpl.php%>author_name</%tpl.php%>",
     "license": "none",
-    "repository": "https://anon:any@source.internal.pharaohtools.com/git/public/isophp",
+    "repository": "https://anon:any@source.internal.pharaohtools.com/git/public/<%tpl.php%>project_slug</%tpl.php%>/",
     "dependencies": {
         "async": "^2.1.4",
         "browserify": "^10.2.0",
