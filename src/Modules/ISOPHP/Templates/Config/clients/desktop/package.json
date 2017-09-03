@@ -1,6 +1,6 @@
 {
-  "name": "<%tpl.php%>project_slug</%tpl.php%>/",
-  "displayName": "<%tpl.php%>project_slug</%tpl.php%>/",
+  "name": "<%tpl.php%>project_slug</%tpl.php%>",
+  "displayName": "<%tpl.php%>project_slug</%tpl.php%>",
   "version": "1.0.0",
   "author": "<%tpl.php%>author_name</%tpl.php%>",
   "license": "none",
@@ -8,7 +8,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "node fs > /dev/null && (browserify app --standalone=<%tpl.php%>project_slug</%tpl.php%>/ | uglifyjs > uniter_bundle/bundle.js)",
+    "build": "node fs > /dev/null && (browserify app --standalone=<%tpl.php%>project_slug</%tpl.php%> | uglifyjs > uniter_bundle/bundle.js)",
     "webpack": "webpack"
   },
   "repository": "https://anon:any@source.internal.pharaohtools.com/git/public/<%tpl.php%>project_slug</%tpl.php%>/",
