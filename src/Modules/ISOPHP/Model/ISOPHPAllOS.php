@@ -56,14 +56,35 @@ class ISOPHPAllOS extends Base {
     }
 
     protected function performCreateISOPHPApplication() {
-        $tmp_dir = '/tmp/isophp_tmp/'.time() ;
-        mkdir($tmp_dir, 0777, true) ;
 
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+
+        $start_dir = getcwd() ;
+        $tmp_parent_dir = '/tmp/isophp_tmp/'.time() ;
+
+        $replacements = $this->getReplacements() ;
+
+        $location = $start_dir.DIRECTORY_SEPARATOR.$replacements['project_slug'] ;
+        if (file_exists($location)) {
+            $message = "Unable to create project {$replacements['project_slug']} at location {$location}. File exists" ;
+            $logging->log($message, $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
+
+        $message = "Creating temp directory {$tmp_parent_dir}" ;
+        $logging->log($message, $this->getModuleName()) ;
+        mkdir($tmp_parent_dir, 0777, true) ;
+
+        $tmp_app_dir = $tmp_parent_dir.DIRECTORY_SEPARATOR.$replacements['project_slug'] ;
         $isophp_git_home = "https://anon:any@source.internal.pharaohtools.com/git/public/isophp" ;
-        $comm = "cd {$tmp_dir} && git clone {$isophp_git_home} {$this->params["slug"]}" ;
+
+        $message = "Cloning ISOPHP Repository {$isophp_git_home}" ;
+        $logging->log($message, $this->getModuleName()) ;
+
+        $comm = "git clone {$isophp_git_home} {$tmp_app_dir}" ;
 
         self::executeAndOutput($comm);
-        $prefix = $tmp_dir.DIRECTORY_SEPARATOR.$this->params["slug"].DIRECTORY_SEPARATOR ;
         $templates_array = array(
             array('source' => "Templates/Config/clients/desktop/package.json", 'target' => "clients/desktop/package.json"),
             array('source' => "Templates/Config/clients/desktop/composer.json", 'target' => "clients/desktop/composer.json"),
@@ -76,18 +97,41 @@ class ISOPHPAllOS extends Base {
 
         $templating_factory = new \Model\Templating();
         $templating = $templating_factory->getModel($this->params) ;
-        $replacements = $this->getReplacements() ;
 
+        $prefix = $tmp_app_dir.DIRECTORY_SEPARATOR ;
         foreach ($templates_array as $one_template) {
             $source = dirname(__DIR__).DIRECTORY_SEPARATOR.$one_template['source'] ;
             $target = $prefix.$one_template['target'] ;
-//            echo "source: {$source} \n" ;
-//            echo "target: {$target} \n\n" ;
             $templating->template($source, $replacements, $target, null, null, null) ;
         }
+
+        $file_factory = new \Model\File();
+        $message = "Updating default project variables" ;
+        $logging->log($message, $this->getModuleName()) ;
+
+        $temp_params = $this->params ;
+        $temp_params['file'] = $prefix.'vars'.DIRECTORY_SEPARATOR.'default.php' ;
+        $temp_params['search'] = '$variables[\'application_slug\'] = \'isophp\' ;' ;
+        $temp_params['replace'] = '$variables[\'application_slug\'] = \''.$replacements['project_slug'].'\' ;' ;
+        $file = $file_factory->getModel($temp_params) ;
+        $file->performReplaceText() ;
+
+        $temp_params['search'] = '$variables[\'description\'] = \'\' ;' ;
+        $temp_params['replace'] = '$variables[\'description\'] = \''.$replacements['project_description'].'\' ;' ;
+        $file = $file_factory->getModel($temp_params) ;
+        $file->performReplaceText() ;
+
+        $message = "Moving new project to correct folder {$start_dir}" ;
+        $logging->log($message, $this->getModuleName()) ;
+        $comm = "mv {$tmp_app_dir} {$start_dir}" ;
+        self::executeAndOutput($comm);
+
+        $message = "Removing temp directory {$tmp_parent_dir}" ;
+        $logging->log($message, $this->getModuleName()) ;
+        $comm = "rm -rf {$tmp_parent_dir}" ;
+        self::executeAndOutput($comm);
+
         return true ;
-//        "cd < slug >" ;
-//        "git clone < iso php fw git home> < slug >" ;
 
     }
 
