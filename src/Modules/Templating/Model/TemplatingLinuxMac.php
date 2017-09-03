@@ -43,6 +43,10 @@ class TemplatingLinuxMac extends BaseTemplater {
             $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
         if (!file_exists(dirname($targetLocation))) {
             mkdir(dirname($targetLocation), 0775, true) ; }
+        $message = "Writing templated file to $targetLocation" ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log($message, $this->getModuleName()) ;
         file_put_contents($targetLocation, $fData) ;
         if ($perms != null) { exec("chmod $perms $targetLocation") ; }
         if ($owner != null) { exec("chown $owner $targetLocation") ; }
