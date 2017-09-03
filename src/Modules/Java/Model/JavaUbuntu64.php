@@ -56,7 +56,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
         $ray =
             array(
                 array("command" => array(
-                    "(java -version || true) | grep '{$this->javaDetails['version_short']}' &> /dev/null ; if [ $? == 0 ] ; " .
+                    "((java -version || true) | grep '{$this->javaDetails['version_short']}' || true ) &> /dev/null ; if [ $? == 0 ] ; " .
                         " then echo \"Java Found: {$this->javaDetails['version_short']} \" ; ".
                         " exit 0 ;".
                         " fi" ,
