@@ -56,6 +56,10 @@ class JavaUbuntu64 extends BaseLinuxApp {
         $ray =
             array(
                 array("command" => array(
+                    "java -version | grep '{$this->javaDetails['version_short']}' &> /dev/null ; if [ $? == 0 ] ; " .
+                        " then echo \"Java Found: {$this->javaDetails['version_short']} \" ; ".
+                        " exit 0 ;".
+                        " fi" ,
                     "if [ ! -f /tmp/oraclejdk.tar.gz ] ; then curl -o /tmp/oraclejdk.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
                     "mkdir -p /tmp/oraclejdk",
                     "tar -xzf /tmp/oraclejdk.tar.gz -C /tmp/oraclejdk",
@@ -93,12 +97,14 @@ class JavaUbuntu64 extends BaseLinuxApp {
             $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk1.8x64.tar.gz" ;
             $details['path_in_repo'] = "phpengine-cleo-jdk-64-6c383e2868bd/jdk-7u60-linux-x64.tar.gz" ;
             $details['fname_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
-            $details['extracted_dir'] = "jdk1.8.0_144" ;
+            $details['version_short'] = "1.8.0" ;
+            $details['extracted_dir'] = "jdk{$details['version_short']}_144" ;
         } else {
             $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk1.7.tar.gz" ;
             $details['path_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
             $details['fname_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
-            $details['extracted_dir'] = "jdk1.7.0_60" ;
+            $details['version_short'] = "1.7.0" ;
+            $details['extracted_dir'] = "jdk{$details['version_short']}_60" ;
         }
         return $details ;
     }
