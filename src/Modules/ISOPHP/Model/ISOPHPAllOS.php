@@ -11,147 +11,149 @@ class ISOPHPAllOS extends Base {
     public $versions = array("any") ;
     public $architectures = array("any") ;
 
+    public $params_to_load ;
+
     // Model Group
     public $modelGroup = array("Default") ;
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->dbFilePath = "db".DS."database.sql";
     }
 
-    public function askWhetherToAddUser(){
-        return $this->performAddUser();
+    public function askWhetherToCreateISOPHPApplication(){
+        $res = $this->createISOPHPApplication();
+        if ($res === false) {
+            return false;
+        }
+        $this->loadParams() ;
+        $res2 = $this->performCreateISOPHPApplication() ;
+        return $res2 ;
     }
 
-    public function askWhetherToDropUser(){
-        return $this->performDropUser();
+    protected function createISOPHPApplication(){
+        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
+        $question = 'Do you want to create an ISOPHP Application?' ;
+        return self::askYesOrNo($question);
     }
 
-    // @todo add logging of install hook outputs
-    protected function doInstallHook($hook) {
+    protected function loadParams(){
+
+        $this->params_to_load = array(
+            array('type' => 'string', 'slug' => 'email', 'question' => 'Enter an author email address (email)'),
+            array('type' => 'string', 'slug' => 'web_link', 'question' => 'Enter a Website Address (web_link)'),
+            array('type' => 'string', 'slug' => 'project_name', 'question' => 'Enter an Full Name for the project (project_name)'),
+            array('type' => 'string', 'slug' => 'author_name', 'question' => 'Enter a Full Name for the author (author_name)'),
+            array('type' => 'string', 'slug' => 'description', 'question' => 'Enter a Project Description (description)'),
+            array('type' => 'string', 'slug' => 'domainid', 'question' => 'Cordova widget id eg: com.project.subdomain (domainid)'),
+        );
+
+        foreach ($this->params_to_load as $param_to_load) {
+            if (isset($this->params[$param_to_load['slug']])) {
+                continue ; }
+            $this->params[$param_to_load['slug']] = self::askForInput($param_to_load['question']);
+        }
+
+    }
+
+    protected function performCreateISOPHPApplication() {
+        $tmp_dir = '/tmp/isophp_tmp/'.time() ;
+        mkdir($tmp_dir, 0777, true) ;
+
+        $isophp_git_home = "https://anon:any@source.internal.pharaohtools.com/git/public/isophp" ;
+        $comm = "cd {$tmp_dir} && git clone {$isophp_git_home} {$this->params["slug"]}" ;
+
+        self::executeAndOutput($comm);
+        $prefix = $tmp_dir.DIRECTORY_SEPARATOR.$this->params["slug"].DIRECTORY_SEPARATOR ;
+        $templates_array = array(
+            array('source' => "Templates/Config/clients/desktop/package.json", 'target' => "clients/desktop/package.json"),
+            array('source' => "Templates/Config/clients/desktop/composer.json", 'target' => "clients/desktop/composer.json"),
+            array('source' => "Templates/Config/clients/web/package.json", 'target' => "clients/desktop/web/package.json"),
+            array('source' => "Templates/Config/clients/web/composer.json", 'target' => "clients/web/composer.json"),
+            array('source' => "Templates/Config/clients/mobile/package.json", 'target' => "clients/mobile/package.json"),
+            array('source' => "Templates/Config/clients/mobile/composer.json", 'target' => "clients/mobile/composer.json"),
+            array('source' => "Templates/Config/clients/mobile/config.xml", 'target' => "clients/mobile/config.xml"),
+        );
+
+        $templating_factory = new \Model\Templating();
+        $templating = $templating_factory->getModel($this->params) ;
+        $replacements = $this->getReplacements() ;
+
+        foreach ($templates_array as $one_template) {
+            $source = dirname(__DIR__).DIRECTORY_SEPARATOR.$one_template['source'] ;
+            $target = $prefix.$one_template['target'] ;
+//            echo "source: {$source} \n" ;
+//            echo "target: {$target} \n\n" ;
+            $templating->template($source, $replacements, $target, null, null, null) ;
+        }
+        return true ;
+//        "cd < slug >" ;
+//        "git clone < iso php fw git home> < slug >" ;
+
+    }
+
+
+    protected function getReplacements() {
+        $replacements = array() ;
+        foreach ($this->params_to_load as $param_to_load) {
+            $replacements[$param_to_load['slug']] = $this->params[$param_to_load['slug']];
+        }
+
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $hook = strtolower($hook) ;
-        if (in_array($hook, array("pre", "post"))) {
-            if (!is_null($this->platformHooks)) {
-                if (is_object($this->platformHooks)) {
-                    if (method_exists($this->platformHooks, "{$hook}InstallHook")) {
-                        $fullMethodName = "{$hook}InstallHook" ;
-                        $res = $this->platformHooks->$fullMethodName($this) ;
-                        return $res; }
-                    else {
-                        $logging->log("The specified Database Install Hook {$hook}InstallHook does not exist for this platform", $this->getModuleName());
-                        // no specified install hook exists
-                        return false; } }
-                else {
-                    $logging->log("Database Install Hooks are set, but not as a readable object", $this->getModuleName());
-                    // platform hooks is set but is not an object
-                    return false; } }
-            else {
-                 $logging->log("Database Install Hooks are set, but not as a readable object", $this->getModuleName());
-                // no platform hooks model
-                return false; ; } }
-        else {
-            $logging->log("Requested DB Install Hook {$hook} is not supported", $this->getModuleName());
-            // non existent hook
-            return false ; }
-    }
 
-    protected function performAddUser() {
-        if ( $this->askForDBUserAdd() ) {
-            $this->dbUser = $this->askForFreeFormDBUser();
-            $this->dbPass = $this->askForDBPass();
-            $this->dbName = $this->askForDBFixedName();
-            $this->userCreator(); }
-        return true;
-    }
+        $replacements['project_email'] = $this->params['email'] ;
+        $replacements['project_website'] = $this->params['web_link'] ;
+        $replacements['project_description'] = $this->params['description'] ;
+        $replacements['project_name'] = $this->params['project_name'] ;
+        $replacements['project_widget_id'] = $this->params['domainid'] ;
+        $pnt = str_replace(' ', '', $replacements['project_name']) ;
+        $pnt = str_replace('-', '', $pnt) ;
+        $pnt = str_replace('_', '', $pnt) ;
+        $replacements['project_name_trimmed'] = $pnt ;
+        $psl = str_replace(' ', '', $replacements['project_name']) ;
+        $psl = str_replace('-', '', $psl) ;
+        $psl = str_replace('_', '', $psl) ;
+        $psl = strtolower($psl) ;
+        $replacements['project_slug'] = $psl ;
 
-    protected function performDropUser() {
-        if ( $this->askForDBUserDrop() ) {
-            $this->dbUser = $this->askForDBUser();
-            $this->userDropper(); }
-        return true;
-    }
+        $message = "Created Project Slug of {$replacements['project_slug']}" ;
+        $logging->log($message, $this->getModuleName()) ;
 
-    protected function askForDBInstall(){
-        $question = 'Do you want to install a database?' ;
-        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
-    }
+        $replacements['author_name'] = $this->params['author_name'] ;
+        $asl = str_replace(' ', '', $replacements['author_name']) ;
+        $asl = str_replace('-', '', $asl) ;
+        $asl = str_replace('_', '', $asl) ;
+        $asl = strtolower($asl) ;
+        $replacements['author_slug'] = $asl ;
 
-    protected function setDBFilePath(){
-        if (isset($this->params["db-file-path"])) {
-            $this->dbFilePath = $this->params["db-file-path"] ; }
-    }
+        $message = "Created Author Slug of {$replacements['author_slug']}" ;
+        $logging->log($message, $this->getModuleName()) ;
 
-    protected function askForDBSave(){
-        $question = 'Do you want to save a database?' ;
-        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
-    }
+        if(isset($this->params['project_description_mobile'])) {
+            $replacements['project_description_mobile'] = $this->params['project_description_mobile'] ;
+        } else {
+            $message = "Copying Default Project Description to Mobile Project Description" ;
+            $logging->log($message, $this->getModuleName()) ;
+            $replacements['project_description_mobile'] = $this->params['description'] ;
+        }
 
-    protected function askForDBDropActions(){
-        $question = 'Do you want to perform drop actions (user/db)?' ;
-        return (isset($this->params["yes"])) ? true : self::askYesOrNo($question);
-    }
+        if(isset($this->params['project_description_desktop'])) {
+            $replacements['project_description_desktop'] = $this->params['project_description_desktop'] ;
+        } else {
+            $message = "Copying Default Project Description to Desktop Project Description" ;
+            $logging->log($message, $this->getModuleName()) ;
+            $replacements['project_description_desktop'] = $this->params['description'] ;
+        }
 
-    protected function askForDBHost(){
-        if (isset($this->params["host"])) { return $this->params["host"] ; };
-        $question = 'What\'s the Mysql Host? Enter for 127.0.0.1';
-        $input = self::askForInput($question) ;
-        return ($input=="") ? '127.0.0.1' : $input ;
-    }
+        if(isset($this->params['project_description_web'])) {
+            $replacements['project_description_web'] = $this->params['project_description_web'] ;
+        } else {
+            $message = "Copying Default Project Description to Web Project Description" ;
+            $logging->log($message, $this->getModuleName()) ;
+            $replacements['project_description_web'] = $this->params['description'] ;
+        }
 
-    protected function askForDBUser(){
-        if (isset($this->params["user"])) { return $this->params["user"] ; }
-        if (isset($this->params["user-name"])) { return $this->params["user-name"] ; };
-        if (isset($this->params["username"])) { return $this->params["username"] ; };
-        $question = 'What\'s the application DB User?';
-        $allDbUsers = array_merge(array("**CREATE NEW USER**"), $this->getDbUsers()) ;
-        $user = self::askForArrayOption($question, $allDbUsers, true);
-        if ($user=="**CREATE NEW USER**") {
-            $question = 'Enter New User Name?';
-            $user = self::askForInput($question, true); }
-        return $user;
-    }
-
-    protected function askForFreeFormDBUser(){
-        if (isset($this->params["user"])) { return $this->params["user"] ; }
-        if (isset($this->params["user-name"])) { return $this->params["user-name"] ; };
-        if (isset($this->params["username"])) { return $this->params["username"] ; };
-        $question = 'What\'s the application DB User?';
-        return self::askForInput($question, true);
-    }
-
-    protected function askForDBFreeFormName(){
-        if (isset($this->params["database"])) { return $this->params["database"] ; }
-        if (isset($this->params["db"])) { return $this->params["db"] ; }
-        $question = 'What\'s the application DB Name?'."\n";
-        $question .= 'Current Db\'s are:'."\n";
-        $allDbNames = $this->getDbNameList();
-        foreach ($allDbNames as $onedbname) {
-            $question .= $onedbname."\n"; }
-        return self::askForInput($question, true);
-    }
-
-    protected function askForDBFixedName(){
-        if (isset($this->params["database"])) { return $this->params["database"] ; }
-        if (isset($this->params["db"])) { return $this->params["db"] ; }
-        $question = 'What\'s the application DB Name?';
-        $allDbNames = $this->getDbNameList();
-        return self::askForArrayOption($question, $allDbNames, true);
-    }
-
-    protected function canIConnect(){
-      error_reporting(0);
-      $con = mysqli_connect($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
-      error_reporting(E_ALL ^ E_WARNING);
-      $loggingFactory = new \Model\Logging();
-      $logging = $loggingFactory->getModel($this->params);
-      if (mysqli_connect_errno($con)) {
-          $logging->log("Failed to connect to MySQL: " . mysqli_connect_error(), $this->getModuleName());
-          return false ;}
-      else {
-        mysqli_close($con);
-        return true;}
+        return $replacements ;
     }
 
 }
