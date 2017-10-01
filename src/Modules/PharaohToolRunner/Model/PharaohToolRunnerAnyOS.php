@@ -24,11 +24,12 @@ class PharaohToolRunnerAnyOS extends Base {
         $tool = $this->parseAvailableTools($tool);
         $module = $this->getNameOfModuleToRun() ;
         $action = $this->getNameOfActionToRun() ;
-        return $this->doPharaohToolRun($tool, $module, $action) ;
+        $prefix = $this->getForcePrefix() ;
+        return $this->doPharaohToolRun($tool, $module, $action, $prefix) ;
     }
 
     // @todo this is ridiculous
-    protected function doPharaohToolRun($tool, $module, $action) {
+    protected function doPharaohToolRun($tool, $module, $action, $prefix  = false) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("About to spawn execution of a Pharaoh Tool", $this->getModuleName());
@@ -86,6 +87,10 @@ class PharaohToolRunnerAnyOS extends Base {
 //          if ($res == false) { return false ; }
             $param_string = $this->getParametersToForward() ;
             $comm = "$tool $module $action $param_string" ;
+            if ($prefix !== true) {
+                $logging->log("Prefixing command with {$prefix}", $this->getModuleName());
+                $comm = $prefix." ".$comm ;
+            }
             $logging->log("Pharaoh Tool Runner creating command $comm for remote execution on Environment {$env}", $this->getModuleName());
             $sshParams["ssh-data"] = "$comm" ;
             $ssh = $sshFactory->getModel($sshParams ,"Default") ;
@@ -95,6 +100,10 @@ class PharaohToolRunnerAnyOS extends Base {
             $logging->log("No environment name specified, executing command locally", $this->getModuleName());
             $param_string = $this->getParametersToForward() ;
             $comm = "$tool $module $action $param_string" ;
+            if ($prefix === true) {
+                $logging->log("Prefixing command with {$prefix}", $this->getModuleName());
+                $comm = $prefix." ".$comm ;
+            }
             $logging->log("Pharaoh Tool Runner creating and executing command $comm", $this->getModuleName());
 //            $logging->log("Executing $comm", $this->getModuleName());
 //            self::executeAndOutput($comm) ;
@@ -185,18 +194,35 @@ class PharaohToolRunnerAnyOS extends Base {
         return $tool ;
     }
 
-    protected function getNameOfModuleToRun(){
-        if (isset($this->params["module"])) { return $this->params["module"] ; }
+    protected function getNameOfModuleToRun() {
+        if (isset($this->params["module"])) {
+            return $this->params["module"] ;
+        }
         else { $question = "Enter module name"; }
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;
     }
 
-    protected function getNameOfActionToRun(){
-        if (isset($this->params["action"])) { return $this->params["action"] ; }
-        else { $question = "Enter action name"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
+    protected function getNameOfActionToRun() {
+        if (isset($this->params["action"])) {
+            return $this->params["action"] ; }
+        else {
+            $question = "Enter action name";
+            $input = self::askForInput($question) ;
+            return ($input=="") ? false : $input ;
+        }
+    }
+
+    protected function getForcePrefix() {
+        if (isset($this->params["prefix"])) {
+            return $this->params["prefix"] ;
+        } else if (isset($this->params["guess"])) {
+            return false ;
+        } else {
+            $question = "Add prefix to command on Target?";
+            $input = self::askYesOrNo($question) ;
+            return ($input== true) ? true : false ;
+        }
     }
 
     protected function getParametersToForward(){
