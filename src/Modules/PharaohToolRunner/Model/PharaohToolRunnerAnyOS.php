@@ -55,7 +55,14 @@ class PharaohToolRunnerAnyOS extends Base {
                 $sshParams["hop-env-scope"] = $env_scope ;}
             $afn = $this->getAutopilotFileName() ;
             $file_only = basename($afn) ;
-            $target_path = self::$tempDir.DS.$file_only ;
+
+            if (isset($this->params["remote-tmp-dir"])) {
+                $remote_tmp_dir = $this->params["remote-tmp-dir"] ;
+            } else {
+                $remote_tmp_dir = self::$tempDir ;
+            }
+
+            $target_path = $remote_tmp_dir.DS.$file_only ;
             if (
 //                isset($hopEnv) &&
 //                strlen($hopEnv)>0 &&
