@@ -25,11 +25,12 @@ class PharaohToolRunnerAnyOS extends Base {
         $module = $this->getNameOfModuleToRun() ;
         $action = $this->getNameOfActionToRun() ;
         $prefix = $this->getForcePrefix() ;
-        return $this->doPharaohToolRun($tool, $module, $action, $prefix) ;
+        $suffix = $this->getForceSuffix() ;
+        return $this->doPharaohToolRun($tool, $module, $action, $prefix, $suffix) ;
     }
 
     // @todo this is ridiculous
-    protected function doPharaohToolRun($tool, $module, $action, $prefix  = false) {
+    protected function doPharaohToolRun($tool, $module, $action, $prefix  = false, $suffix  = false) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("About to spawn execution of a Pharaoh Tool", $this->getModuleName());
@@ -58,11 +59,12 @@ class PharaohToolRunnerAnyOS extends Base {
 
             if (isset($this->params["remote-tmp-dir"])) {
                 $remote_tmp_dir = $this->params["remote-tmp-dir"] ;
+                $remote_tmp_dir = $this->ensureTrailingSlash($remote_tmp_dir) ;
             } else {
-                $remote_tmp_dir = self::$tempDir ;
+                $remote_tmp_dir = $this->ensureTrailingSlash(self::$tempDir) ;
             }
 
-            $target_path = $remote_tmp_dir.DS.$file_only ;
+            $target_path = $remote_tmp_dir.$file_only ;
             if (
 //                isset($hopEnv) &&
 //                strlen($hopEnv)>0 &&
@@ -98,6 +100,10 @@ class PharaohToolRunnerAnyOS extends Base {
                 $logging->log("Prefixing command with {$prefix}", $this->getModuleName());
                 $comm = $prefix." ".$comm ;
             }
+            if ($suffix != false) {
+                $logging->log("Suffixing command with {$suffix}", $this->getModuleName());
+                $comm = $comm.' '.$suffix ;
+            }
             $logging->log("Pharaoh Tool Runner creating command $comm for remote execution on Environment {$env}", $this->getModuleName());
             $sshParams["ssh-data"] = "$comm" ;
             $ssh = $sshFactory->getModel($sshParams ,"Default") ;
@@ -107,9 +113,13 @@ class PharaohToolRunnerAnyOS extends Base {
             $logging->log("No environment name specified, executing command locally", $this->getModuleName());
             $param_string = $this->getParametersToForward() ;
             $comm = "$tool $module $action $param_string" ;
-            if ($prefix === true) {
+            if ($prefix != false) {
                 $logging->log("Prefixing command with {$prefix}", $this->getModuleName());
                 $comm = $prefix." ".$comm ;
+            }
+            if ($suffix != false) {
+                $logging->log("Suffixing command with {$suffix}", $this->getModuleName());
+                $comm = $comm.' '.$suffix ;
             }
             $logging->log("Pharaoh Tool Runner creating and executing command $comm", $this->getModuleName());
 //            $logging->log("Executing $comm", $this->getModuleName());
@@ -232,6 +242,19 @@ class PharaohToolRunnerAnyOS extends Base {
         }
     }
 
+
+    protected function getForceSuffix() {
+        if (isset($this->params["suffix"])) {
+            return $this->params["suffix"] ;
+        } else if (isset($this->params["guess"])) {
+            return false ;
+        } else {
+            $question = "Add suffix to command on Target?";
+            $input = self::askYesOrNo($question) ;
+            return ($input== true) ? true : false ;
+        }
+    }
+
     protected function getParametersToForward(){
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -241,7 +264,15 @@ class PharaohToolRunnerAnyOS extends Base {
             if ($afn !== false && $env !== false && strlen($env)>0) {
                 $res = $this->transformOurParams($this->params["params"], array("af", "autopilot-file") ) ;
                 $file_only = basename($afn) ;
-                $target_path = self::$tempDir.DS.$file_only ;
+
+                if (isset($this->params["remote-tmp-dir"])) {
+                    $remote_tmp_dir = $this->params["remote-tmp-dir"] ;
+                    $remote_tmp_dir = $this->ensureTrailingSlash($remote_tmp_dir) ;
+                } else {
+                    $remote_tmp_dir = $this->ensureTrailingSlash(self::$tempDir) ;
+                }
+
+                $target_path = $remote_tmp_dir.$file_only ;
                 $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
                 $res .= " --autopilot-file=".$target_path ; }
             else {
