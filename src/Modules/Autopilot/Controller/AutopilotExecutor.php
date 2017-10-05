@@ -93,7 +93,21 @@ class AutopilotExecutor extends Base {
         $mod_is = $mod_ray_is[0] ;
         $act_ray_is = array_keys($current_params[$mod_is]) ;
         $act_is = $act_ray_is[0] ;
-        if (isset($current_params[$mod_is][$act_is]["when"])) {
+        if (isset($current_params[$mod_is][$act_is]["when"]) && isset($current_params[$mod_is][$act_is]["equals"])) {
+            $logFactory = new \Model\Logging() ;
+            $logging = $logFactory->getModel(array(), "Default") ;
+            $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
+            $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
+            $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
+            $logging->log("When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
+            $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
+            $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
+            var_dump($when_result, $equals_result) ;
+            $when_text = ( ($when_result == $equals_result) && ($when_result != "") ) ? "Do Run" : "Don't Run" ;
+            $when_bool = ( ($when_result == $equals_result) && ($when_result != "") ) ? true : false ;
+            $logging->log("When Equals Condition evaluated to {$when_text}", "Autopilot") ;
+            $return_stat["should_run"] = $when_bool ; }
+        else if (isset($current_params[$mod_is][$act_is]["when"])) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
@@ -101,13 +115,26 @@ class AutopilotExecutor extends Base {
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
             $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
-            $when_text = ($when_result == true && $when_result != "") ? "Do Run" : "Don't Run" ;
+            $when_text = ( ($when_result == true) && ($when_result != "")) ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_result ; }
-        else if (isset($current_params[$mod_is][$act_is]["not_when"]) ||
-            isset($current_params[$mod_is][$act_is]["not-when"])) {
-            if (isset($current_params[$mod_is][$act_is]["not-when"])) {
-                $current_params[$mod_is][$act_is]["not_when"] = $current_params[$mod_is][$act_is]["not-when"] ;  }
+        else if ((isset($current_params[$mod_is][$act_is]["not_when"])) && (isset($current_params[$mod_is][$act_is]["equals"]))) {
+            $logFactory = new \Model\Logging() ;
+            $logging = $logFactory->getModel(array(), "Default") ;
+            $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
+            $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
+            $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
+            $logging->log("Not When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
+            $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
+            $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
+            var_dump($not_when_result, $equals_result) ;
+            $not_when_text = ( ($not_when_result != $equals_result) && ($not_when_result != "") ) ? "Do Run" : "Don't Run" ;
+//            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
+            $not_when_bool = ( ($not_when_result != $equals_result) && ($not_when_result != "") ) ? true : false ;
+            $logging->log("Not When Equals Condition evaluated to {$not_when_text}", "Autopilot") ;
+
+            $return_stat["should_run"] = $not_when_bool ; }
+        else if (isset($current_params[$mod_is][$act_is]["not_when"])) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
@@ -127,8 +154,6 @@ class AutopilotExecutor extends Base {
 //                    var_dump("three") ;
                     $not_when_result = true ; }
             }
-//            var_dump("nwr", $not_when_result, "pv", $current_params[$mod_is][$act_is]["not_when"]) ;
-//            var_dump("nwr2", $not_when_result) ;
             $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
             $logging->log("Not When Condition evaluated to {$not_when_text}", "Autopilot") ;
 
