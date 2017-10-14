@@ -53,41 +53,64 @@ class JavaUbuntu64 extends BaseLinuxApp {
     }
 
     protected function runJavaInstall() {
-        $ray =
-            array(
-                array("command" => array(
-                    "((java -version || true) | grep '{$this->javaDetails['version_short']}' || true ) &> /dev/null ; if [ $? == 0 ] ; " .
-                        " then echo \"Java Found: {$this->javaDetails['version_short']} \" ; ".
-                        " exit 0 ;".
-                        " fi" ,
-                    "if [ ! -f /tmp/oraclejdk.tar.gz ] ; then curl -o /tmp/oraclejdk.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
-                    "mkdir -p /tmp/oraclejdk",
-                    "tar -xzf /tmp/oraclejdk.tar.gz -C /tmp/oraclejdk",
-                    "rm -f /tmp/oraclejdk.tar.gz",
-                    "mkdir -p ****PROGDIR****" ,
-                    "rm -rf ****PROGDIR****/*" ,
+
+        $is_java_installed_command =
+                    " bash -c ' ((java -version || true) | grep {$this->javaDetails['version_short']} || true ) &> /dev/null ; if [ $? == 0 ] ; " .
+                    " then echo \"{$this->javaDetails['version_short']}\" ; ".
+                    " exit 0 ;".
+                    " fi '" ;
+
+        $is_java_installed = $this->executeAndLoad($is_java_installed_command) ;
+        $is_java_installed = rtrim($is_java_installed) ;
+        $requested_version_is_installed = ($this->javaDetails['version_short'] === $is_java_installed) ;
+        $force_param_is_set = (isset($this->params["force"]) && $this->params["force"] != false ) ;
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ($requested_version_is_installed && !$force_param_is_set) {
+            $msg = "Requested Java JDK Version $is_java_installed is already installed. Use force parameter to install anyway." ;
+            $logging->log($msg) ;
+            $ray = array( ) ;
+
+        } else {
+
+            if ($force_param_is_set && $is_java_installed != "") {
+                $msg = "Found $is_java_installed version already installed, though installing anyway as force param is set." ;
+                $logging->log($msg) ;
+            }
+
+            $ray =
+                array(
+                    array("command" => array(
+                        "if [ ! -f /tmp/oraclejdk.tar.gz ] ; then curl -o /tmp/oraclejdk.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
+                        "mkdir -p /tmp/oraclejdk",
+                        "tar -xzf /tmp/oraclejdk.tar.gz -C /tmp/oraclejdk",
+                        "rm -f /tmp/oraclejdk.tar.gz",
+                        "mkdir -p ****PROGDIR****" ,
+                        "rm -rf ****PROGDIR****/*" ,
 //                    "apt-get install libc6-i386" ,
-                    "cp -r /tmp/oraclejdk/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" ,
-                    "rm -rf /tmp/oraclejdk" ,
-                    "cd ****PROGDIR****",
-                    "chmod a+x ****PROGDIR****",
-                    'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/profile',
-                    'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
-                    'echo \'export JAVA_HOME\' >> /etc/profile',
-                    'echo \'export PATH\' >> /etc/profile',
-                    'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/bash.bashrc',
-                    'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/bash.bashrc',
-                    'echo \'export JAVA_HOME\' >> /etc/bash.bashrc',
-                    'echo \'export PATH\' >> /etc/bash.bashrc',
-                    SUDOPREFIX.'update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
-                    SUDOPREFIX.'update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
-                    SUDOPREFIX.'update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
-                    SUDOPREFIX.'update-alternatives --set java ****PROGDIR****/bin/java ',
-                    SUDOPREFIX.'update-alternatives --set javac ****PROGDIR****/bin/javac ',
-                    SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
-                    '. /etc/profile' )
-                )
-            ) ;
+                        "cp -r /tmp/oraclejdk/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" ,
+                        "rm -rf /tmp/oraclejdk" ,
+                        "cd ****PROGDIR****",
+                        "chmod a+x ****PROGDIR****",
+                        'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/profile',
+                        'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
+                        'echo \'export JAVA_HOME\' >> /etc/profile',
+                        'echo \'export PATH\' >> /etc/profile',
+                        'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/bash.bashrc',
+                        'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/bash.bashrc',
+                        'echo \'export JAVA_HOME\' >> /etc/bash.bashrc',
+                        'echo \'export PATH\' >> /etc/bash.bashrc',
+                        SUDOPREFIX.'update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
+                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
+                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
+                        SUDOPREFIX.'update-alternatives --set java ****PROGDIR****/bin/java ',
+                        SUDOPREFIX.'update-alternatives --set javac ****PROGDIR****/bin/javac ',
+                        SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
+                        '. /etc/profile' )
+                    )
+                ) ;
+        }
         $this->installCommands = $ray ;
         return $this->doInstallCommand() ;
     }
