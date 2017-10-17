@@ -128,10 +128,10 @@ class AutopilotExecutor extends Base {
             $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
             $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
             var_dump($not_when_result, $equals_result) ;
-            $not_when_text = ( ($not_when_result != $equals_result) && ($not_when_result != "") ) ? "Do Run" : "Don't Run" ;
-//            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
-            $not_when_bool = ( ($not_when_result != $equals_result) && ($not_when_result != "") ) ? true : false ;
+            $not_when_text = ( $not_when_result != $equals_result ) ? "Do Run" : "Don't Run" ;
             $logging->log("Not When Equals Condition evaluated to {$not_when_text}", "Autopilot") ;
+//            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
+            $not_when_bool = ( $not_when_result != $equals_result ) ? true : false ;
 
             $return_stat["should_run"] = $not_when_bool ; }
         else if (isset($current_params[$mod_is][$act_is]["not_when"])) {
