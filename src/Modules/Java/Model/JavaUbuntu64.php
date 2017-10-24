@@ -57,7 +57,9 @@ class JavaUbuntu64 extends BaseLinuxApp {
         $is_java_installed_command =
                     " bash -c ' ((java -version || true) | grep {$this->javaDetails['version_short']} || true ) &> /dev/null ; if [ $? == 0 ] ; " .
                     " then echo \"{$this->javaDetails['version_short']}\" ; ".
-                    " exit 0 ;".
+                    "   exit 0 ;".
+                    " else ".
+                    "   exit 1 ;".
                     " fi '" ;
 
         $is_java_installed = $this->executeAndLoad($is_java_installed_command) ;
