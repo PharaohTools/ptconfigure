@@ -55,17 +55,30 @@ class JavaUbuntu64 extends BaseLinuxApp {
     protected function runJavaInstall() {
 
         $is_java_installed_command =
-                    " bash -c ' ((java -version || true) | grep {$this->javaDetails['version_short']} || true ) &> /dev/null ; if [ $? == 0 ] ; " .
-                    " then echo \"{$this->javaDetails['version_short']}\" ; ".
+                    " bash -c ' java -version &> /dev/null ; if [ $? == 0 ] ; " .
+                    " then ".
                     "   exit 0 ;".
                     " else ".
                     "   exit 1 ;".
                     " fi '" ;
 
-        $is_java_installed = $this->executeAndLoad($is_java_installed_command) ;
-        $is_java_installed = rtrim($is_java_installed) ;
-        $requested_version_is_installed = ($this->javaDetails['version_short'] === $is_java_installed) ;
+        $is_java_installed_rc = $this->executeAndGetReturnCode($is_java_installed_command) ;
+        $is_java_installed = ($is_java_installed_rc === 0) ? true : false ;
         $force_param_is_set = (isset($this->params["force"]) && $this->params["force"] != false ) ;
+
+        if ($is_java_installed === true) {
+
+            $java_details_command = "java -version" ;
+            $java_details = $this->executeAndLoad($java_details_command) ;
+            $str_to_find = 'build '.$this->javaDetails['version_short'] ;
+            if (substr_count($java_details, $str_to_find) == 1 ) {
+                $requested_version_is_installed = true ;
+            } else {
+                $requested_version_is_installed = false ;
+            }
+        } else {
+            $requested_version_is_installed = false ;
+        }
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
