@@ -28,7 +28,6 @@ class JavaUbuntu64 extends BaseLinuxApp {
         //@todo uninstall commands of java
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "askForJavaInstallDirectory", "params" => array()) ),);
-        $this->programDataFolder = "/var/lib/jvm/jdk".$this->params["java-install-version"];
         $this->programNameMachine = "java"; // command and app dir name
         $this->programNameFriendly = "!!Java JDK!!"; // 12 chars
         $this->programNameInstaller = "The Oracle Java JDK";
@@ -50,40 +49,43 @@ class JavaUbuntu64 extends BaseLinuxApp {
             $jd = self::askForInput($question, true);
             $this->params["java-install-version"] = $jd ;
             $this->javaDetails = $this->getJavaDetails($jd); }
+        $this->programDataFolder = "/var/lib/jvm/jdk".$this->params["java-install-version"];
     }
 
     protected function runJavaInstall() {
-
-        $is_java_installed_command =
-                    " bash -c ' java -version &> /dev/null ; if [ $? == 0 ] ; " .
-                    " then ".
-                    "   exit 0 ;".
-                    " else ".
-                    "   exit 1 ;".
-                    " fi '" ;
-
-        $is_java_installed_rc = $this->executeAndGetReturnCode($is_java_installed_command) ;
-        $is_java_installed = ($is_java_installed_rc === 0) ? true : false ;
-        $force_param_is_set = (isset($this->params["force"]) && $this->params["force"] != false ) ;
-
-        if ($is_java_installed === true) {
-
-            $java_details_command = "java -version" ;
-            $java_details = $this->executeAndLoad($java_details_command) ;
-            $str_to_find = 'build '.$this->javaDetails['version_short'] ;
-            if (substr_count($java_details, $str_to_find) == 1 ) {
-                $requested_version_is_installed = true ;
-            } else {
-                $requested_version_is_installed = false ;
-            }
+        $is_java_installed_command = "bash -c '. /etc/profile ; java -version;' 2>&1" ;
+        $is_java_installed_out = $this->executeAndLoad($is_java_installed_command) ;
+        $str_to_find = 'java version' ;
+        if (substr_count($is_java_installed_out, $str_to_find) == 1 ) {
+            $is_java_installed = true ;
         } else {
-            $requested_version_is_installed = false ;
+            $is_java_installed = false ;
         }
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        if ($is_java_installed === true) {
+            $str_two_to_find = 'build '.$this->javaDetails['version_short'] ;
+            if (substr_count($is_java_installed_out, $str_two_to_find) == 1 ) {
+                $requested_version_is_installed = true ;
+            } else {
+                $msg =
+                    "A Different Java JDK Version than the requested {$this->javaDetails['version_short']} has ben found." ;
+                $logging->log($msg) ;
+                $requested_version_is_installed = false ;
+            }
+        } else {
+            $msg =
+                "No Java JDK installation has ben found." ;
+            $logging->log($msg) ;
+            $requested_version_is_installed = false ;
+        }
+        $force_param_is_set = (isset($this->params["force"]) && $this->params["force"] != false ) ;
         if ($requested_version_is_installed && !$force_param_is_set) {
-            $msg = "Requested Java JDK Version $is_java_installed is already installed. Use force parameter to install anyway." ;
+            $msg =
+                "Requested Java JDK Version {$this->javaDetails['version_short']} is already installed." .
+                " Use force parameter to install anyway." ;
             $logging->log($msg) ;
             $ray = array( ) ;
 
@@ -97,15 +99,15 @@ class JavaUbuntu64 extends BaseLinuxApp {
             $ray =
                 array(
                     array("command" => array(
-                        "if [ ! -f /tmp/oraclejdk.tar.gz ] ; then curl -o /tmp/oraclejdk.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
-                        "mkdir -p /tmp/oraclejdk",
-                        "tar -xzf /tmp/oraclejdk.tar.gz -C /tmp/oraclejdk",
-                        "rm -f /tmp/oraclejdk.tar.gz",
+                        "if [ ! -f /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz ] ; then curl -o /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
+                        "mkdir -p /tmp/oraclejdk{$this->javaDetails['version_short']}",
+                        "tar -xzf /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz -C /tmp/oraclejdk{$this->javaDetails['version_short']}",
+                        "rm -f /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz",
                         "mkdir -p ****PROGDIR****" ,
                         "rm -rf ****PROGDIR****/*" ,
 //                    "apt-get install libc6-i386" ,
-                        "cp -r /tmp/oraclejdk/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" ,
-                        "rm -rf /tmp/oraclejdk" ,
+                        "cp -r /tmp/oraclejdk{$this->javaDetails['version_short']}/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" ,
+                        "rm -rf /tmp/oraclejdk{$this->javaDetails['version_short']}" ,
                         "cd ****PROGDIR****",
                         "chmod a+x ****PROGDIR****",
                         'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/profile',
