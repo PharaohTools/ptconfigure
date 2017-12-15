@@ -128,7 +128,7 @@ class AutopilotExecutor extends Base {
             $logging->log("When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
             $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
             $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
-            var_dump($when_result, $equals_result) ;
+//            var_dump($when_result, $equals_result) ;
             $when_text = ( ($when_result == $equals_result) && ($when_result != "") ) ? "Do Run" : "Don't Run" ;
             $when_bool = ( ($when_result == $equals_result) && ($when_result != "") ) ? true : false ;
             $logging->log("When Equals Condition evaluated to {$when_text}", "Autopilot") ;
