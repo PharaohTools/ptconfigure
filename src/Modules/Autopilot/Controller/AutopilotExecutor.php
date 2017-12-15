@@ -36,6 +36,7 @@ class AutopilotExecutor extends Base {
 //            var_dump("after order:", $steps) ;
             $steps = $this->expandLoops($steps, $thisModel);
 //            var_dump("after expand:", $steps) ;
+            $registered_vars = array() ;
 
             $counter = 0 ;
             foreach ($steps as $modelArray) {
@@ -43,30 +44,55 @@ class AutopilotExecutor extends Base {
                 $logFactory = new \Model\Logging() ;
                 $logging = $logFactory->getModel($thisModel->params) ;
                 $autoFactory = new \Model\Autopilot() ;
+                $mod_ray_is = array_keys($modelArray) ;
+                $mod_is = $mod_ray_is[0] ;
+                $act_ray_is = array_keys($modelArray[$mod_is]) ;
+                $act_is = $act_ray_is[0] ;
+                if (count($registered_vars) > 0) {
+//                    var_dump('add regvar:', $registered_vars) ;
+                    foreach ($registered_vars as $registered_var_key => $registered_var_value) {
+                        $logging->log("Adding registered variable to step, named {$registered_var_key}.", "Autopilot") ;
+                        $thisModel->params[$registered_var_key] = $registered_var_value ;
+                        $modelArray[$mod_is][$act_is][$registered_var_key] = $registered_var_value ;
+                    }
+                }
+
                 $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
-
                 $name_or_mod = $this->getNameOrMod($modelArray, $autoModel) ;
-
                 $label = (isset($name_or_mod["step-name"])) ? "Label: {$name_or_mod["step-name"]}" : "" ;
                 if (strlen($label) > 0) { $logging->log("{$label}", "Autopilot") ; }
                 $module = (isset($name_or_mod["module"])) ? "Module: {$name_or_mod["module"]}" : "" ;
                 if (strlen($module) > 0) { $logging->log("{$module}", "Autopilot") ; }
-
                 $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
+                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
+
+                $modParams = $this->getModParamsFromArray($modelArray);
+//                var_dump('modray:', $modelArray, $autopilotParams) ;
 
                 if ($should_run["should_run"] == false) {
                     $step_out["status"] = true ;
                     $step_out["out"] = "No need to run this step" ; }
                 else {
-                    $step_out = $this->executeStep($modelArray, $autopilotParams) ; }
-
-                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
-
-                $modParams = $this->getModParamsFromArray($modelArray);
+                    ob_start() ;
+                    $step_out = $this->executeStep($modelArray, $autopilotParams) ;
+                    $raw_out = ob_get_clean() ;
+                    echo $raw_out ;
+                    if (isset($modParams["register"])) {
+                        $reg = trim($modParams["register"],'"') ;
+                        $reg = trim($reg,"'") ;
+                        $logging->log("Registering result of step as a new variable, named {$reg}.", "Autopilot") ;
+                        $raw_out = trim($raw_out) ;
+                        $lines = explode("\n", $raw_out) ;
+                        $line_count = count($lines) - 1 ;
+                        unset($lines[$line_count]) ;
+                        $raw_without_end = implode( "\n", $lines) ;
+                        $registered_vars[$reg] = $raw_without_end ;
+//                        var_dump('new vo:', $raw_without_end, $registered_vars) ;
+                    }
+                }
 
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
-
                     if (isset($modParams["ignore_errors"])) {
                         $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK. \n", "Autopilot") ;
                         \Core\BootStrap::setExitCode(0) ; }
@@ -192,6 +218,11 @@ class AutopilotExecutor extends Base {
             if ($this->isPostRequisite($step)) {
                 $new_steps[] = $step ; } }
         return $new_steps ;
+    }
+
+    protected function shouldRegister($step) {
+        if ( isset($step["register"]) ) { return $step["register"] ; }
+        return false ;
     }
 
     protected function isPreRequisite($step) {
@@ -413,9 +444,7 @@ class AutopilotExecutor extends Base {
     public function executeView($view, Array $viewVars) {
         $viewObject = new View();
         $templateData = $viewObject->loadTemplate ($view, $viewVars) ;
-
-
-//        var_dump('td:', $templateData) ;
+//        var_dump('td:', $view, $viewVars, $templateData) ;
 
 //        @todo this should parse layouts properly but doesnt. so, templates only for autos for now
 //        if ($view == "parallaxCli") {
