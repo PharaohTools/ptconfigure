@@ -75,6 +75,8 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
             "15.10" => "wily",
             "16.04" => "xenial",
             "16.10" => "kylin",
+            "17.04" => "zesty",
+            "17.10" => "artful",
         ) ;
         return $ubuntuDevCodeNames[$code] ;
     }
