@@ -89,13 +89,13 @@ COMPLETION;
             // echo "chmod +x $tempFile 2>/dev/null\n";
             shell_exec("chmod +x $tempFile 2>/dev/null"); }
 //        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
-        $logging->log("Executing $tempFile", $this->getModuleName());
+//        $logging->log("Executing $tempFile", $this->getModuleName());
         // @todo this should refer to the actual shell we are running
         $commy = "{$tempFile}" ;
         $rc = $this->executeAndGetReturnCode($commy, true) ;
         if ($message !== null) { echo $message."\n"; }
         shell_exec("rm $tempFile");
-        $logging->log("Temp File $tempFile Removed", $this->getModuleName());
+//        $logging->log("Temp File $tempFile Removed", $this->getModuleName());
 //        var_dump($rc) ;
         return $rc["rc"] ;
     }
