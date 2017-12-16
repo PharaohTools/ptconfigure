@@ -49,9 +49,7 @@ class AutopilotExecutor extends Base {
                 $act_ray_is = array_keys($modelArray[$mod_is]) ;
                 $act_is = $act_ray_is[0] ;
                 if (count($registered_vars) > 0) {
-//                    var_dump('add regvar:', $registered_vars) ;
                     foreach ($registered_vars as $registered_var_key => $registered_var_value) {
-                        $logging->log("Adding registered variable to step, named {$registered_var_key}.", "Autopilot") ;
                         $thisModel->params[$registered_var_key] = $registered_var_value ;
                         $modelArray[$mod_is][$act_is][$registered_var_key] = $registered_var_value ;
                     }
@@ -101,7 +99,7 @@ class AutopilotExecutor extends Base {
                         return $dataFromThis ; } }
 
                 $dataFromThis[] = $step_out ;
-                echo "\n" ;
+                echo "\n\n" ;
 
                 $counter ++ ; } }
         else {
