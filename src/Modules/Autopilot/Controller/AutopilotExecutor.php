@@ -152,7 +152,7 @@ class AutopilotExecutor extends Base {
             $logging->log("Not When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
             $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
             $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
-            var_dump($not_when_result, $equals_result) ;
+//            var_dump($not_when_result, $equals_result) ;
             $not_when_text = ( $not_when_result != $equals_result ) ? "Do Run" : "Don't Run" ;
             $logging->log("Not When Equals Condition evaluated to {$not_when_text}", "Autopilot") ;
 //            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
