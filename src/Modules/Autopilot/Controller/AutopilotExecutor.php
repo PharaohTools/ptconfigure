@@ -64,7 +64,7 @@ class AutopilotExecutor extends Base {
                 $module = (isset($name_or_mod["module"])) ? "Module: {$name_or_mod["module"]}" : "" ;
                 if (strlen($module) > 0) { $logging->log("{$module}", "Autopilot") ; }
                 $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
-                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
+                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "" ; }
 
                 $modParams = $this->getModParamsFromArray($modelArray);
 //                var_dump('modray:', $modelArray, $autopilotParams) ;
@@ -94,13 +94,14 @@ class AutopilotExecutor extends Base {
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
                     if (isset($modParams["ignore_errors"])) {
-                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK. \n", "Autopilot") ;
+                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK.", "Autopilot") ;
                         \Core\BootStrap::setExitCode(0) ; }
                     else {
                         $dataFromThis[] = $step_out ;
                         return $dataFromThis ; } }
 
                 $dataFromThis[] = $step_out ;
+                echo "\n" ;
 
                 $counter ++ ; } }
         else {
