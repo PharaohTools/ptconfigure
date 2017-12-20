@@ -29,7 +29,15 @@ class BasePHPApp extends Base {
     protected function findExecutorPath() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             var_dump('windows env', $_ENV) ;
-            $this->executorPath = 'git.exe ' ; }
+            $file_orig_pfiles = "{$_ENV['ProgramFiles']}\\Git\\bin\\" ;
+            $file_new_pfiles = "{$_ENV['ProgramW6432']}\\Git\\bin\\" ;
+            if (file_exists($file_orig_pfiles)) {
+                $this->executorPath = $file_orig_pfiles.'git.exe ' ;
+            } else if (file_exists($file_new_pfiles)) {
+                $this->executorPath = $file_new_pfiles.'git.exe ' ;
+            } else {
+                $this->executorPath = 'git.exe ' ;
+            } }
         else {
             $this->executorPath = "/usr/bin/git " ; }
     }
