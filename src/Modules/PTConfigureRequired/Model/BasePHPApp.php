@@ -28,7 +28,7 @@ class BasePHPApp extends Base {
 
     protected function findExecutorPath() {
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-            $this->executorPath = 'git ' ; }
+            $this->executorPath = 'git.exe ' ; }
         else {
             $this->executorPath = "/usr/bin/git " ; }
     }
