@@ -28,7 +28,7 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     define('PIPEDIR', $sd.'\\PharaohTools\pipes'.'\\') ;
     define('REPODIR', $sd.'\\PharaohTools\repositories'.'\\') ;
     define("DS", "\\");
-    define("BASE_TEMP_DIR", getenv("SystemDrive").'\Temp\\'); }
+    define("BASE_TEMP_DIR", getenv("TEMP").'\\'); }
 else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
     $uname = exec('whoami');
     $isAdmin = ($uname == "root") ? true : false ;
