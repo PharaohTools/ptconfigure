@@ -255,11 +255,13 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $logging->log("Checking for existing data folder to delete {$del_dir}", $this->getModuleName()) ;
         if ( is_dir($del_dir)) {
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-                $del_comm =  'del /S /Q '; }
+                $rc = array();
+                $rc['rc'] = (rmdir($del_dir) == true) ? 0 : 1 ;
+            }
             else {
-                $del_comm =  SUDOPREFIX.' rm -rf '; }
-            $command = $del_comm.$del_dir;
-            $rc = self::executeAndGetReturnCode($command, true, true);
+                $del_comm =  SUDOPREFIX.' rm -rf ';
+                $command = $del_comm.$del_dir;
+                $rc = self::executeAndGetReturnCode($command, true, true); }
             if ($rc["rc"] !== 0) {
                 $logging->log("Error deleting data folder {$del_dir}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; }
