@@ -255,8 +255,8 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $logging->log("Checking for existing data folder to delete {$del_dir}", $this->getModuleName()) ;
         if ( is_dir($del_dir)) {
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
-                $rc = array();
-                $rc['rc'] = (rmdir($del_dir) == true) ? 0 : 1 ;
+                $del_comm =  'rd '.$del_dir.' /S /Q';
+                $rc = self::executeAndGetReturnCode($del_comm, true, true);
             }
             else {
                 $del_comm =  SUDOPREFIX.' rm -rf ';
