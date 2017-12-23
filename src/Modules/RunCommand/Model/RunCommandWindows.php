@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class RunCommandLinuxMac extends BaseLinuxApp {
+class RunCommandWindows extends BaseWindowsApp {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("Windows", 'WINNT') ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -27,7 +27,7 @@ class RunCommandLinuxMac extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForUserName", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "askForCommand", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "askForBackground", "params" => array() ) ) ,
-            array("method"=> array("object" => $this, "method" => "askForNohup", "params" => array() ) ) ,
+//            array("method"=> array("object" => $this, "method" => "askForNohup", "params" => array() ) ) ,
             array("method"=> array("object" => $this, "method" => "runCommand", "params" => array()) ),
         );
         $this->uninstallCommands = array();
@@ -43,8 +43,8 @@ class RunCommandLinuxMac extends BaseLinuxApp {
         $commandRay[] = "cd ".getcwd() ;
         if (isset($this->runUser) && !is_null($this->runUser))  {
             $commandRay[] = "su  ".$this->runUser ; }
-        if (isset($this->nohup) && strlen($this->nohup)>0)  {
-            $this->command = "nohup ".$this->command ; }
+//        if (isset($this->nohup) && strlen($this->nohup)>0)  {
+//            $this->command = "nohup ".$this->command ; }
         if (isset($this->background) && !is_null($this->background))  {
             $commandRay[] = $this->command.' &' ; }
         else  {
