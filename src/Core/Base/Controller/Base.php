@@ -130,9 +130,11 @@ class Base {
             foreach ($errors as $error) {
                 $logging->log(
                     $error,
-                    "Autopilot",
-                    LOG_FAILURE_EXIT_CODE
-                ); }
+                    "Autopilot"
+                );
+                // Make these warnings, not fatal. We should be able to not_when in a DSL based on OS
+                // LOG_FAILURE_EXIT_CODE
+            }
             return $errors; }
         // echo "All required Modules found, all with compatible Models"."\n";
         return true ;
