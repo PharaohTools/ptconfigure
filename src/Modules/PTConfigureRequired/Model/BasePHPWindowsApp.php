@@ -29,7 +29,7 @@ class BasePHPWindowsApp extends BasePHPApp {
     protected function populateExecutorFile() {
         if (isset($this->params["no-executor"])) { return ; }
             $this->bootStrapData =
-                "@echo off\r\n\r\nphp ".'"'.$this->programDataFolder.DS.$this->programNameMachine.DS."src".DS."Bootstrap.php".'" %*' ;
+                "@echo off\r\n\r\n%SystemDrive%\php\php.exe ".'"'.$this->programDataFolder.DS.$this->programNameMachine.DS."src".DS."Bootstrap.php".'" %*' ;
     }
 
     protected function makeProgramDataFolderIfNeeded() {       
