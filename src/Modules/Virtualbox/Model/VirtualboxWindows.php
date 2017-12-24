@@ -5,10 +5,10 @@ Namespace Model;
 class VirtualboxWindows extends BaseWindowsApp {
 
     // Compatibility
-    public $os = array("Windows") ;
+    public $os = array("Windows", "WINNT") ;
     public $linuxType = array("None") ;
     public $distros = array("None") ;
-    public $versions = array("6") ;
+    public $versions = array("6", "7", "8", "9", '10') ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -54,12 +54,12 @@ class VirtualboxWindows extends BaseWindowsApp {
     }
 
     protected function askForVirtualboxVersion(){
-        $ao = array("4.3.18") ;
+        $ao = array("5.2.0") ;
         if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
             $this->vbv = $this->params["version"] ; }
         else if (isset($this->params["guess"])) {
-            $count = count($ao)-1 ;
-            $this->vbv = $ao[$count] ; }
+            $index = count($ao)-1 ;
+            $this->vbv = $ao[$index] ; }
         else {
             $question = 'Enter Virtualbox Version';
             $this->vbv = self::askForArrayOption($question, $ao, true); }
@@ -67,7 +67,7 @@ class VirtualboxWindows extends BaseWindowsApp {
 
     protected function setPackageUrl(){
         $pus = array(
-            "4.3.18" => "http://download.virtualbox.org/virtualbox/4.3.18/VirtualBox-4.3.18-96516-Win.exe" ,
+            "5.2.0" => "http://download.virtualbox.org/virtualbox/5.2.0/VirtualBox-5.2.0-118431-Win.exe" ,
         ) ;
         $this->packageUrl = $pus[$this->params["version"]] ;
     }
