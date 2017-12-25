@@ -24,7 +24,7 @@ class VirtualboxWindows extends BaseWindowsApp {
         parent::__construct($params);
         $this->autopilotDefiner = "Virtualbox";
         $this->installCommands = $this->getInstallCommands() ;
-        $this->uninstallCommands = array( array("command" => array( SUDOPREFIX."apt-get remove -y virtualbox") ) ) ;
+        $this->uninstallCommands = array( ) ;
         $this->programDataFolder = "/var/lib/virtualbox"; // command and app dir name
         $this->programNameMachine = "virtualbox"; // command and app dir name
         $this->programNameFriendly = " ! Virtualbox !"; // 12 chars
