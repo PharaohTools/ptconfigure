@@ -104,7 +104,7 @@ class AppConfig {
 
     private static function loadAppFile() {
         $appFile = self::getVarFileLocation();
-        if (!file_exists($appFile)){ shell_exec("touch ".$appFile); }
+        if (!file_exists($appFile)){ touch($appFile); }
         $appConfigArrayString = file_get_contents($appFile);
         $decoded = json_decode($appConfigArrayString, true);
         return $decoded;
