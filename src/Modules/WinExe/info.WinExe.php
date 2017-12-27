@@ -6,7 +6,7 @@ class WinExeInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Add, Remove or Modify WinExes";
+    public $name = "Add, Remove or Modify Windows Executable Packages";
 
     public function __construct() {
       parent::__construct();
@@ -29,7 +29,7 @@ class WinExeInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module allows you to modify create or modify winexes
+  This module allows you to {$this->name}
 
   WinExe, winexe
 
