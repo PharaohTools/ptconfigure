@@ -37,7 +37,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
     }
 
     public function performPackageInstall($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
-        $this->setPackage($packageName);
+        $this->setPackage($packageName, $requestingModel);
         $this->setPackager($packagerName);
         $this->setModule($requestingModel);
         $this->setVersion($version) ;
@@ -47,17 +47,18 @@ class PackageManagerAllOS extends BaseLinuxApp {
     }
 
     public function performPackageEnsure($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
-        $this->setPackage($packageName);
+        $this->setPackage($packageName, $requestingModel);
         $this->setPackager($packagerName);
         $this->setModule($requestingModel);
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
         $this->setModel($requestingModel) ;
+        # var_dump('PM AllOS performPackageEnsure') ;
         return $this->ensureInstalled();
     }
 
     public function performPackageRemove($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
-        $this->setPackage($packageName);
+        $this->setPackage($packageName, $requestingModel);
         $this->setPackager($packagerName);
         $this->setModule($requestingModel);
         $this->setVersion($version) ;
@@ -67,7 +68,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
     }
 
     public function performPackageExistenceCheck($packagerName=null, $packageName=null, $requestingModel=null, $version=null, $versionAccuracy=null) {
-        $this->setPackage($packageName);
+        $this->setPackage($packageName, $requestingModel);
         $this->setPackager($packagerName);
         $this->setModule($requestingModel);
         $this->setVersion($version) ;
@@ -76,7 +77,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
         return $this->isInstalled();
     }
 
-    public function setPackage($packageName = null) {
+    public function setPackage($packageName = null, $search_string) {
         if (isset($packageName)) {
             $this->packageName = $packageName; }
         else if (isset($this->params["packagename"])) {
@@ -137,7 +138,9 @@ class PackageManagerAllOS extends BaseLinuxApp {
         $packager = $this->getPackager();
         if (!is_array($this->packageName)) { $this->packageName = array($this->packageName); }
         $returns = array() ;
+        # var_dump('PM AllOS installPackages') ;
         foreach($this->packageName as $onePackage) {
+            # var_dump('PM AllOS installPackages loop', $onePackage, $this->version, $this->versionAccuracy) ;
             $result = $packager->installPackage($onePackage, $this->version, $this->versionAccuracy, $this->requestingModel) ;
             if ($result == true) { $this->setPackageStatusInCleovars($onePackage, true) ; } ;
             $returns[] = $result ; }
@@ -162,7 +165,9 @@ class PackageManagerAllOS extends BaseLinuxApp {
     }
 
     public function ensureInstalled() {
-        if ($this->isInstalled()==false) {
+        $is_in = $this->isInstalled() ;
+        # var_dump('PackageMAnager AllOS ensureInstalled') ;
+        if ($is_in == false) {
             return $this->installPackages(); }
         else {
             $this->setPackageStatusInCleovars($this->packageName, true);
@@ -180,7 +185,9 @@ class PackageManagerAllOS extends BaseLinuxApp {
 
     public function isInstalled() {
         $packager = $this->getPackager() ;
-        if ($packager->isInstalled($this->packageName)) { return true ; }
+        $search_string = $this->requestingModel->getPackageSearchString() ;
+        $is_in = $packager->isInstalled($this->packageName, $search_string) ;
+        if ($is_in) { return true ; }
         return false;
     }
 
@@ -191,7 +198,7 @@ class PackageManagerAllOS extends BaseLinuxApp {
         foreach ($modsWithPackages as $modWithPackages) {
             if (isset($installedPackages[$modWithPackages][$this->packagerName][$packageName]) &&
                 $installedPackages[$modWithPackages][$this->packagerName][$packageName] == true) {
-                 $modsRequiring[] = $modWithPackages ; } }
+                $modsRequiring[] = $modWithPackages ; } }
         $finalModsRequiring = array() ;
         foreach ($modsRequiring as $modRequiring) {
             if ($modRequiring != $this->moduleName) { $finalModsRequiring[] = $modRequiring ; } }
