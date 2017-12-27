@@ -13,8 +13,13 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     $command = "where /R \"{$pf}\" *VBoxManage* " ;
     $outputArray = array();
     exec($command, $outputArray);
+    if (isset($outputArray[0])) {
+        $vbc = $outputArray[0] ;
+    } else {
+        $vbc = 'exit 1' ;
+    }
     define('SUDOPREFIX', "");
-    define('VBOXMGCOMM', "\"{$outputArray[0]}\" ") ;
+    define('VBOXMGCOMM', "\"{$vbc}\" ") ;
     define('PFILESDIR', $sd."\\PharaohTools\\") ;
     define('PTCCOMM', PFILESDIR.'ptconfigure.cmd"') ;
     define('PTBCOMM', PFILESDIR.'ptbuild.cmd"') ;
