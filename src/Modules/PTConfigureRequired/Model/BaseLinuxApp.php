@@ -225,7 +225,8 @@ if not doing versions
         $this->showCompletion();
         return true ;
         // @todo should probably return askStatus
-//        return $this->askStatus();
+        // return $this->askStatus();
+        // return $this->askStatus();
     }
 
     public function unInstall() {
@@ -292,20 +293,28 @@ if not doing versions
         $logging = $loggingFactory->getModel($this->params);
         if (method_exists($this, "setInstallCommands")) { $this->setInstallCommands() ; }
         $this->swapCommandArrayPlaceHolders($this->installCommands);
+        # var_dump('BaseLinuxApp') ;
+        $i = 1 ;
         foreach ($this->installCommands as $installCommand) {
+            # var_dump('bla do inst command current count is:', $i) ;
+            $i++ ;
             $res = "" ;
             if ( array_key_exists("method", $installCommand)) {
-                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
+                # var_dump('bla before cufa', get_class($installCommand["method"]["object"]), $installCommand["method"]["method"], $installCommand["method"]["params"]);
+                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]);
+                # var_dump('bla res') ;
+            }
             else if ( array_key_exists("command", $installCommand)) {
                 if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
                 $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
                 foreach ($installCommand["command"] as $command) {
-					// var_dump("cmm", $installCommand);
-					$logging->log("Executing Install Command: {$command}", $this->getModuleName()) ;
+                    // var_dump("cmm", $installCommand);
+                    $logging->log("Executing Install Command: {$command}", $this->getModuleName()) ;
                     $rc = self::executeAndGetReturnCode($command, true, true);
                     if ($rc["rc"] !== 0) {
-						$res = false ;
-						break ; } } }
+                        $res = false ;
+                        break ; } } }
+            # var_dump('dumps');
             if ($res === false) {
                 $logging->log("Failed Install Step", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 return false ; } }
@@ -352,10 +361,18 @@ if not doing versions
     }
 
     protected function populateExecutorFile() {
-      $this->bootStrapData = "#!/usr/bin/php\n
+        $this->bootStrapData = "#!/usr/bin/php\n
 <?php\n
 exec('".$this->programExecutorCommand."');\n
 ?>";
+    }
+
+    public function getPackageSearchString() {
+        if (isset($this->packageSearchString)) {
+            return $this->packageSearchString ;
+        } else {
+            return $this->programNameInstaller ;
+        }
     }
 
 }
