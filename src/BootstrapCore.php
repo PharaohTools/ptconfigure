@@ -24,6 +24,8 @@ class BootStrap {
 
     public function main($argv_or_boot_params_null) {
         $this->start = time() ;
+        $date_format = date('H:i:s', $this->start) ;
+        echo "[Pharaoh Start] Execution begun at ".$date_format.PHP_EOL;
         $routeObject = new \Core\Router();
         $route = $routeObject->run($argv_or_boot_params_null);
         $emptyPageVars = array("messages"=>array(), "route"=>$route);
@@ -52,7 +54,8 @@ class BootStrap {
         // @note this must be the last executed line as it sets exit code
         $cur = time() ;
         $finish = $cur - $this->start ;
-        echo "[Pharaoh Exit] Execution finished after ".$finish." seconds ".PHP_EOL;
+        $date_format = date('H:i:s', $finish) ;
+        echo "[Pharaoh Exit] Execution finished at {$date_format}, after ".$finish." seconds ".PHP_EOL;
         if (self::$exitCode == null) {
             exit(0) ; }
         else if (!is_int(self::$exitCode)) {
