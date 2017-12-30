@@ -81,16 +81,23 @@ class BaseWindowsApp extends BaseLinuxApp {
         return $temp_exe_file ;
     }
 
-    public function progress($resource,$download_size, $downloaded, $upload_size, $uploaded) {
-        if($download_size > 0) {
-            $dl = ($downloaded / $download_size)  * 100 ;
-            # var_dump('downloaded', $dl) ;
-            $perc = round($dl, 2) ;
-            # var_dump('perc', $perc) ;
-            echo "{$perc} % \r" ;
+    public function progress($resource, $download_size, $downloaded, $upload_size, $uploaded) {
+        $is_quiet = (isset($this->params['quiet']) && ($this->params['quiet'] == true) ) ;
+        if ($is_quiet) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Quiet Mode, no progess bar", $this->getModuleName() ) ;
+        } else {
+            if($download_size > 0) {
+                $dl = ($downloaded / $download_size)  * 100 ;
+                # var_dump('downloaded', $dl) ;
+                $perc = round($dl, 2) ;
+                # var_dump('perc', $perc) ;
+                echo "{$perc} % \r" ;
+            }
+            ob_flush();
+            flush();
         }
-        ob_flush();
-        flush();
     }
 
     public function askForVersion(){
