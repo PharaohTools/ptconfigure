@@ -24,7 +24,7 @@ class BootStrap {
 
     public function main($argv_or_boot_params_null) {
         $this->start = time() ;
-        $date_format = date('H:i:s', $this->start) ;
+        $date_format = date('H:i:s, d/m/Y', $this->start) ;
         echo "[Pharaoh Start] Execution begun at ".$date_format.PHP_EOL;
         $routeObject = new \Core\Router();
         $route = $routeObject->run($argv_or_boot_params_null);
