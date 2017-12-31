@@ -54,7 +54,7 @@ class BootStrap {
         // @note this must be the last executed line as it sets exit code
         $cur = time() ;
         $finish = $cur - $this->start ;
-        $date_format = date('H:i:s', $finish) ;
+        $date_format = date('H:i:s, d/m/Y', $cur) ;
         echo "[Pharaoh Exit] Execution finished at {$date_format}, after ".$finish." seconds ".PHP_EOL;
         if (self::$exitCode == null) {
             exit(0) ; }
