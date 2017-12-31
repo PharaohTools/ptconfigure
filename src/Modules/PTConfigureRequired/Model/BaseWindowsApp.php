@@ -83,11 +83,7 @@ class BaseWindowsApp extends BaseLinuxApp {
 
     public function progress($resource, $download_size, $downloaded, $upload_size, $uploaded) {
         $is_quiet = (isset($this->params['quiet']) && ($this->params['quiet'] == true) ) ;
-        if ($is_quiet) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Quiet Mode, no progess bar", $this->getModuleName() ) ;
-        } else {
+        if ($is_quiet == false) {
             if($download_size > 0) {
                 $dl = ($downloaded / $download_size)  * 100 ;
                 # var_dump('downloaded', $dl) ;
