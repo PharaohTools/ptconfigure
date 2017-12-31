@@ -52,9 +52,10 @@ class BootStrap {
 
     private function exitGracefully() {
         // @note this must be the last executed line as it sets exit code
-        $finish = microtime(true) - $this->start ;
-        $date_format = date('H:i:s, d/m/Y', $finish) ;
-        echo "[Pharaoh Exit] Execution finished at {$date_format}, after ".$finish." seconds ".PHP_EOL;
+        $cur = time() ;
+        $finish = $cur - $this->start ;
+        $date_format = date('H:i:s, d/m/Y', $cur) ;
+        echo "[Pharaoh Exit] Execution finished at {$date_format}, after ".$finish." seconds ".PHP_EOL ;
         if (self::$exitCode == null) {
             exit(0) ; }
         else if (!is_int(self::$exitCode)) {
