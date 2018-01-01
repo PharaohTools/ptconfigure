@@ -21,7 +21,7 @@ Deployment, Build and Release Management and more, all implemented in code, and 
 Its easy to write modules for any Operating System but we've begun with Ubuntu and adding more as soon as possible.
 Currently, all of the Modules work on Ubuntu 12, most on 13, and a few on Centos.
 
-If you've heard of the Ruby tool Capistrano, then you can probably guess why this is called PTDeploy. It performs a
+Pharaoh Deploy is a little like the Ruby tool Capistrano. It performs a
 similar function (app deployment), but does it in PHP (Because PHP is way cooler). This tool helps just as well with
 setting up projects locally or on 50 remote servers. It's really cool for cloning / installing / spinning up web
 apps easily and quickly - to one or multiple servers using one or two config files. Just as Capistrano is a must for
