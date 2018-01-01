@@ -164,7 +164,9 @@ COMPLETION;
                 }
                 if ($show_output == true) {
                     if (isset($output) ) {
-                        echo $output ;
+                        foreach ($output as $output_line) {
+                            echo $output_line.PHP_EOL ;
+                        }
                     }
                 }
                 return $return_var ;
