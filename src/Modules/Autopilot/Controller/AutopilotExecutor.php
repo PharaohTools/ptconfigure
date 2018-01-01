@@ -6,6 +6,8 @@ use Core\View;
 
 class AutopilotExecutor extends Base {
 
+    protected $liRay ;
+
     public function executeAuto($pageVars, $autopilot, $test = false ) {
 
         $thisModel = $this->getModelAndCheckDependencies("Autopilot", $pageVars) ;
@@ -32,8 +34,9 @@ class AutopilotExecutor extends Base {
         if (isset($autoPilot->steps) && is_array($autoPilot->steps) && count($autoPilot->steps)>0) {
             $steps = $this->orderSteps($autoPilot->steps);
 //            var_dump("after order:", $steps) ;
-            $steps = $this->expandLoops($steps);
+            $steps = $this->expandLoops($steps, $thisModel);
 //            var_dump("after expand:", $steps) ;
+            $registered_vars = array() ;
 
             $counter = 0 ;
             foreach ($steps as $modelArray) {
@@ -41,38 +44,62 @@ class AutopilotExecutor extends Base {
                 $logFactory = new \Model\Logging() ;
                 $logging = $logFactory->getModel($thisModel->params) ;
                 $autoFactory = new \Model\Autopilot() ;
+                $mod_ray_is = array_keys($modelArray) ;
+                $mod_is = $mod_ray_is[0] ;
+                $act_ray_is = array_keys($modelArray[$mod_is]) ;
+                $act_is = $act_ray_is[0] ;
+                if (count($registered_vars) > 0) {
+                    foreach ($registered_vars as $registered_var_key => $registered_var_value) {
+                        $thisModel->params[$registered_var_key] = $registered_var_value ;
+                        $modelArray[$mod_is][$act_is][$registered_var_key] = $registered_var_value ;
+                    }
+                }
+
                 $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
-
                 $name_or_mod = $this->getNameOrMod($modelArray, $autoModel) ;
-
                 $label = (isset($name_or_mod["step-name"])) ? "Label: {$name_or_mod["step-name"]}" : "" ;
                 if (strlen($label) > 0) { $logging->log("{$label}", "Autopilot") ; }
                 $module = (isset($name_or_mod["module"])) ? "Module: {$name_or_mod["module"]}" : "" ;
                 if (strlen($module) > 0) { $logging->log("{$module}", "Autopilot") ; }
-
                 $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
+                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "" ; }
+
+                $modParams = $this->getModParamsFromArray($modelArray);
+//                var_dump('modray:', $modelArray, $autopilotParams) ;
 
                 if ($should_run["should_run"] == false) {
                     $step_out["status"] = true ;
                     $step_out["out"] = "No need to run this step" ; }
                 else {
-                    $step_out = $this->executeStep($modelArray, $autopilotParams) ; }
-
-                if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "\n" ; }
-
-                $modParams = $this->getModParamsFromArray($modelArray);
+                    ob_start() ;
+                    $step_out = $this->executeStep($modelArray, $autopilotParams) ;
+                    $raw_out = ob_get_clean() ;
+                    echo $raw_out ;
+                    if (isset($modParams["register"])) {
+                        $reg = trim($modParams["register"],'"') ;
+                        $reg = trim($reg,"'") ;
+                        $logging->log("Registering result of step as a new variable, named {$reg}.", "Autopilot") ;
+                        $raw_out = trim($raw_out) ;
+                        $lines = explode("\n", $raw_out) ;
+                        $line_count = count($lines) - 1 ;
+                        unset($lines[$line_count]) ;
+                        $raw_without_end = implode( "\n", $lines) ;
+                        $registered_vars[$reg] = $raw_without_end ;
+//                        var_dump('new vo:', $raw_without_end, $registered_vars) ;
+                    }
+                }
 
                 if (isset($step_out["status"]) && $step_out["status"]==false ) {
                     $step_out["error"] = "Received exit code: ".\Core\BootStrap::getExitCode();
-
                     if (isset($modParams["ignore_errors"])) {
-                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK. \n", "Autopilot") ;
+                        $logging->log("Ignoring errors for this step. Setting Current Runtime Status to OK.", "Autopilot") ;
                         \Core\BootStrap::setExitCode(0) ; }
                     else {
                         $dataFromThis[] = $step_out ;
                         return $dataFromThis ; } }
 
                 $dataFromThis[] = $step_out ;
+                echo "\n\n" ;
 
                 $counter ++ ; } }
         else {
@@ -91,7 +118,21 @@ class AutopilotExecutor extends Base {
         $mod_is = $mod_ray_is[0] ;
         $act_ray_is = array_keys($current_params[$mod_is]) ;
         $act_is = $act_ray_is[0] ;
-        if (isset($current_params[$mod_is][$act_is]["when"])) {
+        if (isset($current_params[$mod_is][$act_is]["when"]) && isset($current_params[$mod_is][$act_is]["equals"])) {
+            $logFactory = new \Model\Logging() ;
+            $logging = $logFactory->getModel(array(), "Default") ;
+            $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
+            $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
+            $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
+            $logging->log("When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
+            $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
+            $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
+//            var_dump($when_result, $equals_result) ;
+            $when_text = ( ($when_result == $equals_result) && ($when_result != "") ) ? "Do Run" : "Don't Run" ;
+            $when_bool = ( ($when_result == $equals_result) && ($when_result != "") ) ? true : false ;
+            $logging->log("When Equals Condition evaluated to {$when_text}", "Autopilot") ;
+            $return_stat["should_run"] = $when_bool ; }
+        else if (isset($current_params[$mod_is][$act_is]["when"])) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
@@ -99,13 +140,25 @@ class AutopilotExecutor extends Base {
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
             $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
-            $when_text = ($when_result == true && $when_result != "") ? "Do Run" : "Don't Run" ;
+            $when_text = ( ($when_result == true) && ($when_result != "")) ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_result ; }
-        else if (isset($current_params[$mod_is][$act_is]["not_when"]) ||
-                 isset($current_params[$mod_is][$act_is]["not-when"])) {
-            if (isset($current_params[$mod_is][$act_is]["not-when"])) {
-                $current_params[$mod_is][$act_is]["not_when"] = $current_params[$mod_is][$act_is]["not-when"] ;  }
+        else if ((isset($current_params[$mod_is][$act_is]["not_when"])) && (isset($current_params[$mod_is][$act_is]["equals"]))) {
+            $logFactory = new \Model\Logging() ;
+            $logging = $logFactory->getModel(array(), "Default") ;
+            $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
+            $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
+            $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
+            $logging->log("Not When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
+            $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
+            $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
+//            var_dump($not_when_result, $equals_result) ;
+            $not_when_text = ( $not_when_result != $equals_result ) ? "Do Run" : "Don't Run" ;
+            $logging->log("Not When Equals Condition evaluated to {$not_when_text}", "Autopilot") ;
+//            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
+            $not_when_bool = ( $not_when_result != $equals_result ) ? true : false ;
+            $return_stat["should_run"] = $not_when_bool ; }
+        else if (isset($current_params[$mod_is][$act_is]["not_when"])) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
@@ -125,8 +178,6 @@ class AutopilotExecutor extends Base {
 //                    var_dump("three") ;
                     $not_when_result = true ; }
             }
-//            var_dump("nwr", $not_when_result, "pv", $current_params[$mod_is][$act_is]["not_when"]) ;
-//            var_dump("nwr2", $not_when_result) ;
             $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
             $logging->log("Not When Condition evaluated to {$not_when_text}", "Autopilot") ;
 
@@ -168,6 +219,11 @@ class AutopilotExecutor extends Base {
         return $new_steps ;
     }
 
+    protected function shouldRegister($step) {
+        if ( isset($step["register"]) ) { return $step["register"] ; }
+        return false ;
+    }
+
     protected function isPreRequisite($step) {
         if (isset($step["pre"]) && $step["pre"] == true) { return true ; }
         if (isset($step["prerequisite"]) && $step["prerequisite"] == true) { return true ; }
@@ -181,10 +237,10 @@ class AutopilotExecutor extends Base {
         return false ;
     }
 
-    protected function expandLoops($steps) {
+    protected function expandLoops($steps, $thisModel) {
         $new_steps = array() ;
         foreach ($steps as $step) {
-            $loopExpanded = $this->getLoopRay($step) ;
+            $loopExpanded = $this->getLoopRay($step, $thisModel) ;
             $new_steps = array_merge($new_steps, $loopExpanded) ; }
         return $new_steps ;
     }
@@ -232,25 +288,41 @@ class AutopilotExecutor extends Base {
         return $step ;
     }
 
-    protected function getLoopRay($modelArray) {
+    protected function getLoopRay($modelArray, $thisModel) {
         $newParams = array();
         $currentControls = array_keys($modelArray) ;
         $currentControl = $currentControls[0] ;
         $currentActions = array_keys($modelArray[$currentControl]) ;
         $currentAction = $currentActions[0] ;
         $modParams = $modelArray[$currentControl][$currentAction] ;
+
+        $resRay = array() ;
         foreach($modParams as $origParamKey => $origParamVal) {
-            $res = $this->findLoopInParameterValue($origParamVal) ;
-            if ($res !== false) {
-                $logFactory = new \Model\Logging() ;
-                $logging = $logFactory->getModel(array(), "Default") ;
-                $logging->log("Found loop for parameter {$origParamKey}", "Autopilot") ;
-                $liRay = $this->getArrayOfLoopItems($modParams) ;
-                foreach ($liRay as $loop_iteration) {
-                    $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
-                    $tempParams = $modParams ;
+            $resRay[] = $this->findLoopInParameterValue($origParamVal) ;
+        }
+
+        $logFactory = new \Model\Logging() ;
+        $logging = $logFactory->getModel(array(), "Default") ;
+        if (in_array(true, $resRay)) {
+            $logging->log("Found loop for parameters in step", "Autopilot") ;
+            if (!isset($this->liRay) || !is_array($this->liRay)) {
+                $logging->log("Processing Loop Values", "Autopilot");
+                $liRay = $this->getArrayOfLoopItems($modParams, $thisModel);
+                $this->liRay = $liRay;
+            }
+            foreach ($this->liRay as $loop_iteration) {
+                $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
+                $tempParams = $modParams ;
+                foreach($tempParams as $origParamKey => $origParamVal) {
                     $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
-                    $newParams[][$currentControl][$currentAction] = $tempParams ; } } }
+                }
+                $newParams[][$currentControl][$currentAction] = $tempParams ;
+            }
+        } else {
+//            $logging->log("Found no loops for parameters in this step", "Autopilot") ;
+            return array($modelArray) ;
+        }
+
         if (count($newParams)>0) {
 //            var_dump("np", $newParams) ;
             return $newParams ;
@@ -261,10 +333,13 @@ class AutopilotExecutor extends Base {
         return array($modelArray) ;
     }
 
-    protected function getArrayOfLoopItems($modParams) {
+    protected function getArrayOfLoopItems($modParams, $thisModel) {
         if (isset($modParams["loop"])) {
-            $litems =  explode(",",  $modParams["loop"]) ;
-//            var_dump("li", $litems) ;
+            $autoFactory = new \Model\Autopilot() ;
+            $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
+            $loop_value = $modParams["loop"] ;
+            $loop_value = $autoModel->transformParameterValue($loop_value) ;
+            $litems =  explode(",", $loop_value) ;
             return $litems ; }
         $logFactory = new \Model\Logging() ;
         $logging = $logFactory->getModel(array(), "Default") ;
@@ -304,8 +379,8 @@ class AutopilotExecutor extends Base {
                     "action" => $currentAction ) ;
 //                $dataFromThis .= $this->executeControl($currentControl, $params);
                 if ( \Core\BootStrap::getExitCode() !== 0 ) {
-                        $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
-                        break ; }
+                    $dataFromThis .= "Received exit code: ".\Core\BootStrap::getExitCode();
+                    break ; }
                 $step = array() ;
                 $step["out"] = $this->executeControl($currentControl, $params);
                 $step["status"] = true ;
@@ -338,7 +413,7 @@ class AutopilotExecutor extends Base {
         foreach($params as $origParamKey => $origParamVal) {
 //            var_dump('fp:',  $origParamKey , $origParamVal) ;
 //            if (!is_array($origParamVal)) {
-                $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
+            $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
 //        }
 //            else {
 //                $a = $origParamVal;
@@ -368,9 +443,7 @@ class AutopilotExecutor extends Base {
     public function executeView($view, Array $viewVars) {
         $viewObject = new View();
         $templateData = $viewObject->loadTemplate ($view, $viewVars) ;
-
-
-//        var_dump('td:', $templateData) ;
+//        var_dump('td:', $view, $viewVars, $templateData) ;
 
 //        @todo this should parse layouts properly but doesnt. so, templates only for autos for now
 //        if ($view == "parallaxCli") {
