@@ -64,7 +64,7 @@ class BaseWindowsApp extends BaseLinuxApp {
 
         $fp = fopen ($temp_exe_file, 'w') ;
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->packageUrl);
+        curl_setopt($ch, CURLOPT_URL, $remote_source);
         // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
