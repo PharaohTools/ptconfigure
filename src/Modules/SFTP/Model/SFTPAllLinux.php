@@ -117,6 +117,7 @@ class SFTPAllLinux extends Base {
             $res = $this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath) ;
             if ($res === false) {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Failed...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                return false ;
             } else {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed Successfully...", $this->getModuleName());
             }
