@@ -122,7 +122,7 @@ class SFTPAllLinux extends Base {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed Successfully...", $this->getModuleName());
             }
         }
-        $logging->log("All SFTP Gets Completed", $this->getModuleName());
+        $logging->log("All SFTP Gets Completed Successfully...", $this->getModuleName());
         return true;
     }
 
