@@ -116,6 +116,7 @@ class SFTPAllLinux extends Base {
             $logging->log("Local File ".$targetPath, $this->getModuleName());
             $res = $this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath) ;
             if ($res === false) {
+                # BUG IF I SET THE LOG_FAILURE_EXIT CODE, IT DOESNT ACTUALLY DISPLAY THE ERROR MESSAGE. LOG AND ERROR SEPERATELY
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Failed...", $this->getModuleName());
                 \Core\BootStrap::setExitCode(1) ;
                 return false ;
