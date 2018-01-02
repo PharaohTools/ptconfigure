@@ -52,7 +52,7 @@ class SFTPAllLinux extends Base {
         if (is_null($sourceData)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("SFTP Put will cancel, no source file", $this->getModuleName());
+            $logging->log("SFTP Put will cancel, no source file $sourceDataPath", $this->getModuleName());
             \Core\BootStrap::setExitCode(1) ;
             return false ;}
         $targetPath = $this->getTargetFilePath("remote", $this->getModuleName());
@@ -64,11 +64,11 @@ class SFTPAllLinux extends Base {
         foreach ($this->servers as $srvId => &$server) {
             if (isset($this->params["environment-box-id-include"])) {
                 if ($srvId != $this->params["environment-box-id-include"] ) {
-                    $logging->log("Skipping {$$server["name"]} for box id Include constraint", $this->getModuleName());
+                    $logging->log("Skipping {$server["name"]} for box id Include constraint", $this->getModuleName());
                     continue ; } }
             if (isset($this->params["environment-box-id-ignore"])) {
                 if ($srvId == $this->params["environment-box-id-ignore"] ) {
-                    $logging->log("Skipping {$$server["name"]} for box id Ignore constraint", $this->getModuleName());
+                    $logging->log("Skipping {$server["name"]} for box id Ignore constraint", $this->getModuleName());
                     continue ; } }
             if (isset($server["sftpObject"]) && is_object($server["sftpObject"])) {
                 $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Put...", $this->getModuleName());
@@ -111,9 +111,16 @@ class SFTPAllLinux extends Base {
         $target_scope_string = $this->findTargetScopeString();
 
         foreach ($this->servers as &$server) {
-            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Get...");
-            $logging->log($this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath)) ;
-            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed..."); }
+            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Get...", $this->getModuleName());
+            $logging->log("Remote File ".$sourceDataPath, $this->getModuleName());
+            $logging->log("Local File ".$targetPath, $this->getModuleName());
+            $res = $this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath) ;
+            if ($res === false) {
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Failed...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            } else {
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed Successfully...", $this->getModuleName());
+            }
+        }
         $logging->log("All SFTP Gets Completed", $this->getModuleName());
         return true;
     }
