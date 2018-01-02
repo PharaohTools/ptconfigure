@@ -111,9 +111,16 @@ class SFTPAllLinux extends Base {
         $target_scope_string = $this->findTargetScopeString();
 
         foreach ($this->servers as &$server) {
-            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Get...");
-            $logging->log($this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath)) ;
-            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed..."); }
+            $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] Executing SFTP Get...", $this->getModuleName());
+            $logging->log("Remote File ".$sourceDataPath, $this->getModuleName());
+            $logging->log("Local File ".$targetPath, $this->getModuleName());
+            $res = $this->doSFTPGet($server["sftpObject"], $sourceDataPath, $targetPath) ;
+            if ($res === false) {
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Failed...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            } else {
+                $logging->log("[".$server["name"]." : ".$server[$target_scope_string]."] SFTP Get Completed Successfully...", $this->getModuleName());
+            }
+        }
         $logging->log("All SFTP Gets Completed", $this->getModuleName());
         return true;
     }
