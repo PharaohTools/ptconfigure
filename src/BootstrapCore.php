@@ -45,6 +45,7 @@ class BootStrap {
                 $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); }
         } catch (\Exception $e) {
             throw new \Exception( 'No controller result type specified', 0, $e); }
+
     }
 
     private function executeView($viewTemplate, $viewVars) {
@@ -59,14 +60,14 @@ class BootStrap {
         $date_format = date('H:i:s, d/m/Y', $cur) ;
         $friendly = substr(PHARAOH_APP, 2) ;
         $friendly = ucfirst($friendly) ;
-        echo "[Pharaoh {$friendly}] [Exit] Execution finished at {$date_format}, after ".$finish." seconds ".PHP_EOL ;
+        echo "[Pharaoh {$friendly}] [Exit] Execution finished at {$date_format}, after ".$finish." seconds ".PHP_EOL;
         if (self::$exitCode == null) {
             exit(0) ; }
         else if (!is_int(self::$exitCode)) {
-            echo "[Pharaoh Exit] Non Integer Exit Code Attempted".PHP_EOL; ;
+            echo "[Pharaoh {$friendly}] [Exit] Non Integer Exit Code Attempted".PHP_EOL; ;
             exit(1) ; }
         else {
-            echo "[Pharaoh Exit] Exiting with exit code: ".self::$exitCode.PHP_EOL; ;
+            echo "[Pharaoh {$friendly}] [Exit] Exiting with exit code: ".self::$exitCode.PHP_EOL; ;
             exit(self::$exitCode) ; }
     }
 
