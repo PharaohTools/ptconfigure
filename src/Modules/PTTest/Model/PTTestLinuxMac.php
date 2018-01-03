@@ -28,6 +28,7 @@ class PTTestLinuxMac extends BasePHPApp {
         $this->programNameFriendly = " PTTest! "; // 12 chars
         $this->programNameInstaller = "PTTest - Update to latest version";
         $this->programExecutorTargetPath = 'pttest/src/Bootstrap.php';
+        $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->initialize();
     }
 

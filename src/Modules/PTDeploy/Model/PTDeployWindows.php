@@ -28,6 +28,7 @@ class PTDeployWindows extends BasePHPWindowsApp {
         $this->programNameFriendly = " PTDeploy! "; // 12 chars
         $this->programNameInstaller = "PTDeploy - Update to latest version";
         $this->programExecutorTargetPath = 'ptdeploy/src/Bootstrap.php';
+        $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->initialize();
     }
 

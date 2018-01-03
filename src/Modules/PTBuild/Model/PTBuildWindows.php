@@ -28,6 +28,7 @@ class PTBuildWindows extends BasePHPWindowsApp {
         $this->programNameFriendly = " PTBuild! "; // 12 chars
         $this->programNameInstaller = "PTBuild - Update to latest version";
         $this->programExecutorTargetPath = 'ptbuild/src/Bootstrap.php';
+        $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->initialize();
     }
 

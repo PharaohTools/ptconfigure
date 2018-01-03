@@ -28,6 +28,7 @@ class PTSourceWindows extends BasePHPWindowsApp {
         $this->programNameFriendly = " PTSource! "; // 12 chars
         $this->programNameInstaller = "PTSource - Update to latest version";
         $this->programExecutorTargetPath = 'ptsource/src/Bootstrap.php';
+        $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->initialize();
     }
 

@@ -28,6 +28,7 @@ class PTVirtualizeWindows extends BasePHPWindowsApp {
         $this->programNameFriendly = " PTVirtualize "; // 12 chars
         $this->programNameInstaller = "PTVirtualize";
         $this->programExecutorTargetPath = 'ptvirtualize/src/Bootstrap.php';
+        $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->initialize();
     }
 
