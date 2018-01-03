@@ -75,7 +75,7 @@ class AutopilotExecutor extends Base {
                 if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "" ; }
 
                 if ($show_step_numbers === true) {
-                    $step_number = $counter + 1 ;
+                    $step_number = $counter ;
                     $logging->log("Step Number: {$step_number}", "Autopilot") ;
                 }
                 if ($show_step_times === true) {
