@@ -14,6 +14,12 @@ class IndexAllOS extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
+    public function isQuiet() {
+        if (isset($this->params["quiet"]) && $this->params["quiet"] == true) {
+            return true ; }
+        return false ;
+    }
+
     public function findModuleNames($params) {
         if (isset($this->params["compatible-only"]) && $this->params["compatible-only"]=="true") {
             return $this->findOnlyCompatibleModuleNames($params); }

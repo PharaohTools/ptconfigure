@@ -1,3 +1,8 @@
+<?php
+if ($pageVars["quiet"] == false) {
+
+?>
+
 Pharaoh Deploy
 -------------------
 
@@ -30,9 +35,16 @@ Available Commands:
 ---------------------------------------
 
 <?php
-foreach ($pageVars["modulesInfo"] as $moduleInfo) {
-  if ($moduleInfo["hidden"] != true) {
-    echo $moduleInfo["command"].' - '.$moduleInfo["name"]."\n"; }
-}
 
+    if (isset($pageVars["modulesInfo"]) && is_array($pageVars["modulesInfo"])) {
+        foreach ($pageVars["modulesInfo"] as $moduleInfo) {
+            if ($moduleInfo["hidden"] != true) {
+                echo $moduleInfo["command"].' - '.$moduleInfo["name"]."\n"; }
+        }
+    }
+
+} else {
+
+    echo "Pharaoh Deploy" ;
+}
 ?>
