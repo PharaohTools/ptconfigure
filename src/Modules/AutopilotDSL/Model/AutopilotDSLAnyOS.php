@@ -26,8 +26,9 @@ class AutopilotDSLAnyOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("About to parse $total_line_count lines from {$file}\n\n", $this->getModuleName()) ;
-        $mt = microtime() ;
-        $logging->log("Execution started at {$mt}\n\n", $this->getModuleName()) ;
+        $start_time = time() ;
+        $date_format = date('H:i:s, d/m/Y', $start_time) ;
+        $logging->log("Execution started at {$date_format}\n\n", $this->getModuleName()) ;
         $trawl_line = 0 ;
         $total_loops = 0 ;
         while ( $trawl_line < $total_line_count && $total_loops < 10000) {
