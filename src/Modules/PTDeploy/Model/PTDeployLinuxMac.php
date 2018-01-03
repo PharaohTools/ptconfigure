@@ -28,7 +28,7 @@ class PTDeployLinuxMac extends BasePHPApp {
         $this->programNameFriendly = " PTDeploy "; // 12 chars
         $this->programNameInstaller = "PTDeploy";
         $this->programExecutorTargetPath = 'ptdeploy/src/Bootstrap.php';
-        $this->statusCommand = 'ptdeploy --quiet' ;
+        $this->statusCommand = 'ptdeploy --quiet > /dev/null' ;
         $this->initialize();
     }
 
