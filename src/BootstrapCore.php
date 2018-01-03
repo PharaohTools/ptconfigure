@@ -8,8 +8,8 @@ class BootStrap {
     private $start ;
 
     public function __construct() {
-        require_once("Constants.php");
-        require_once("AutoLoad.php");
+        require_once(__DIR__.DIRECTORY_SEPARATOR."Constants.php");
+        require_once(__DIR__.DIRECTORY_SEPARATOR."AutoLoad.php");
         $autoLoader = new autoLoader();
         $autoLoader->launch();
     }
@@ -39,12 +39,13 @@ class BootStrap {
         $control = new \Core\Control();
         $controlResult = $control->executeControl($controlToExecute, $pageVars);
         try {
-            if ($controlResult["type"]=="view") {
+            if ($controlResult["type"] === "view") {
                 $this->executeView( $controlResult["view"], $controlResult["pageVars"] ); }
-            else if ($controlResult["type"]=="control") {
-                $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); } }
-        catch (\Exception $e) {
+            else if ($controlResult["type"] === "control") {
+                $this->executeControl( $controlResult["control"], $controlResult["pageVars"] ); }
+        } catch (\Exception $e) {
             throw new \Exception( 'No controller result type specified', 0, $e); }
+
     }
 
     private function executeView($viewTemplate, $viewVars) {
