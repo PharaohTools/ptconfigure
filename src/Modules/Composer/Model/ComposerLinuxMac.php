@@ -28,7 +28,8 @@ class ComposerLinuxMac extends BasePHPApp {
         $this->programNameMachine = "composer"; // command and app dir name
         $this->programNameFriendly = " Composer! "; // 12 chars
         $this->programNameInstaller = "Composer - Update to latest version";
-        $this->programExecutorTargetPath = 'composer/composer.phar';
+        $this->programExecutorTargetPath = 'composer'.DIRECTORY_SEPARATOR.'composer.phar';
+        $this->statusCommand = 'composer -q' ;
         $this->initialize();
     }
 
