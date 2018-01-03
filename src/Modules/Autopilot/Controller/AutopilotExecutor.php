@@ -39,11 +39,11 @@ class AutopilotExecutor extends Base {
             $registered_vars = array() ;
 
             $show_step_times = false;
-            if ($thisModel->params['step-times'] == true) {
+            if (isset($thisModel->params['step-times']) && $thisModel->params['step-times'] == true) {
                 $show_step_times = true;
             }
             $show_step_numbers = false;
-            if ($thisModel->params['step-numbers'] == true) {
+            if (isset($thisModel->params['step-numbers']) && $thisModel->params['step-numbers'] == true) {
                 $show_step_numbers = true;
             }
 
