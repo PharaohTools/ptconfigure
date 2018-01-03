@@ -38,8 +38,14 @@ class AutopilotExecutor extends Base {
 //            var_dump("after expand:", $steps) ;
             $registered_vars = array() ;
 
-
-            $show_step_times = true; # for now
+            $show_step_times = false;
+            if ($thisModel->params['step-times'] == true) {
+                $show_step_times = true;
+            }
+            $show_step_numbers = false;
+            if ($thisModel->params['step-numbers'] == true) {
+                $show_step_numbers = true;
+            }
 
             $counter = 0 ;
             foreach ($steps as $modelArray) {
@@ -59,11 +65,6 @@ class AutopilotExecutor extends Base {
                 }
 
 
-
-                if ($show_step_times === true) {
-                    $date_format = date('H:i:s, d/m/Y', time()) ;
-                    $logging->log("Step Begun at {$date_format}", "Autopilot") ;
-                }
                 $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
                 $name_or_mod = $this->getNameOrMod($modelArray, $autoModel) ;
                 $label = (isset($name_or_mod["step-name"])) ? "Label: {$name_or_mod["step-name"]}" : "" ;
@@ -73,6 +74,14 @@ class AutopilotExecutor extends Base {
                 $should_run = $this->onlyRunWhen($modelArray, $autoModel) ;
                 if (isset($name_or_mod["step-name"]) || isset($name_or_mod["module"])) { echo "" ; }
 
+                if ($show_step_numbers === true) {
+                    $step_number = $counter + 1 ;
+                    $logging->log("Step Number: {$step_number}", "Autopilot") ;
+                }
+                if ($show_step_times === true) {
+                    $date_format = date('H:i:s, d/m/Y', time()) ;
+                    $logging->log("Step Begun at {$date_format}", "Autopilot") ;
+                }
                 $modParams = $this->getModParamsFromArray($modelArray);
 //                var_dump('modray:', $modelArray, $autopilotParams) ;
 
