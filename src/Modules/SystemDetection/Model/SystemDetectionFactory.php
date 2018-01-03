@@ -45,7 +45,7 @@ class SystemDetectionFactory {
                 // warning during expected models phase
                 $message ="PTConfigure Warning!: Model ".get_class($model)." may not work as expected, since it " .
                     "doesn't specify exact OS version match";
-                error_log($message);
+//                error_log($message);
                 return $model; } }
         foreach($models as $model) {
             if (
@@ -57,7 +57,7 @@ class SystemDetectionFactory {
                 // during expected models phase
                 $message = "PTConfigure Urgent Warning!: Model ".get_class($model)." may not work as expected, since " .
                     "it doesn't specify matching OS version or distro match";
-                error_log($message);
+//                error_log($message);
                 return $model; } }
         return null ;
     }
