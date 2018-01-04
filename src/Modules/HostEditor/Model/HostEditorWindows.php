@@ -21,11 +21,17 @@ class HostEditorWindows extends HostEditorAllLinuxMac {
     }
 
     protected function moveHostFileAsRoot(){
-        $path = getenv('SystemRoot').'\system32\drivers\etc\hosts' ;
-        $command = 'move '.self::$tempDir.DS.'hostfile'.DS.'hosts '.$path;
-        self::executeAndOutput($command);
-        $command = 'del /S /Q '.self::$tempDir.DS.'hostfile';
-        self::executeAndOutput($command);
+        $path = getenv('SystemRoot').'\System32\drivers\etc\hosts' ;
+        $copy_from_temp = 'copy '.self::$tempDir.DS.'hostfile'.DS.'hosts '.$path;
+        $res1 = self::executeAndGetReturnCode($copy_from_temp, true, true) ;
+        if ($res1['rc'] != 0) { return false ; }
+        $delete_temp = 'del /S /Q '.self::$tempDir.DS.'hostfile';
+        $res2 = self::executeAndGetReturnCode($delete_temp, true, true) ;
+        if ($res2['rc'] != 0) { return false ; }
+        $hosts_perms = 'icacls "'.$path.'" /grant Everyone:M' ;
+        $res3 = self::executeAndGetReturnCode($hosts_perms, true, true) ;
+        if ($res3['rc'] != 0) { return false ; }
+        return true ;
     }
 
 
