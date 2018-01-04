@@ -19,7 +19,7 @@ class LetsEncryptAllOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
-        $wu_time = (isset($this->params["wait"]) && $this->params["wait"]==true) ? $this->params["wait"] : 15 ;
+        $wu_time = (isset($this->params["wait"]) && $this->params["wait"]==true) ? $this->params["wait"] : 3 ;
         $logging->log("Waiting for Web Server warm up of {$wu_time} seconds", $this->getModuleName()) ;
         for ($i=1; $i<=$wu_time; $i++)  {
             sleep(1) ;
@@ -29,7 +29,7 @@ class LetsEncryptAllOS extends Base {
             require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php'; }
 
         if(!defined("PHP_VERSION_ID") || PHP_VERSION_ID < 50300 || !extension_loaded('openssl') || !extension_loaded('curl')) {
-            $logging->log("You need at least PHP 5.3.0 with OpenSSL and curl extension", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            $logging->log("You need at least PHP 5.3.0 with OpenSSL and curl extensions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
 
         // Configuration:
