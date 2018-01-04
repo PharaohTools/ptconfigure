@@ -19,29 +19,25 @@ class ApacheControlAllLinux extends Base {
     public function askWhetherToStartApache() {
         if ( !$this->askForApacheCtl("start") ) { return false; }
         $this->apacheCommand = $this->askForApacheCommand();
-        $this->startApache();
-        return true;
+        return $this->apacheCommand('start');
     }
 
     public function askWhetherToStopApache() {
         if ( !$this->askForApacheCtl("stop") ) { return false; }
         $this->apacheCommand = $this->askForApacheCommand();
-        $this->stopApache();
-        return true;
+        return $this->apacheCommand('stop');
     }
 
     public function askWhetherToRestartApache() {
         if ( !$this->askForApacheCtl("restart") ) { return false; }
         $this->apacheCommand = $this->askForApacheCommand();
-        $this->restartApache();
-        return true;
+        return $this->apacheCommand('restart');
     }
 
     public function askWhetherToReloadApache() {
         if ( !$this->askForApacheCtl("reload") ) { return false; }
         $this->apacheCommand = $this->askForApacheCommand();
-        $this->reloadApache();
-        return true;
+        return $this->apacheCommand('reload');
     }
 
     private function askForApacheCtl($type) {
@@ -72,29 +68,27 @@ class ApacheControlAllLinux extends Base {
         return file_exists("/etc/apache2/sites-available");
     }
 
-    private function restartApache(){
-        echo "Restarting Apache...\n";
-        $command = "sudo service $this->apacheCommand restart";
-        return self::executeAndOutput($command);
-    }
 
-    private function reloadApache(){
-        echo "Reloading Apache Configuration...\n";
-        $command = "sudo service $this->apacheCommand reload";
-        return self::executeAndOutput($command);
-    }
-
-    private function startApache(){
-        echo "Starting Apache...\n";
-        $command = "sudo service $this->apacheCommand start";
-        return self::executeAndOutput($command);
-    }
-
-
-    private function stopApache(){
-        echo "Stopping Apache...\n";
-        $command = "sudo service $this->apacheCommand stop";
-        return self::executeAndOutput($command);
+    protected function apacheCommand($action) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $options = array('start', 'stop', 'reload', 'restart') ;
+        if (in_array($action, $options)) {
+            $ucf = ucfirst($action) ;
+            $logging->log("{$ucf}ing Apache...", $this->getModuleName()) ;
+            $command = "sudo service $this->apacheCommand {$action}";
+            $res = self::executeAndGetReturnCode($command, true);
+            $bool = ($res['rc'] == 0) ? true : false ;
+            if ($bool == true) {
+                $logging->log("{$ucf}ing Apache Successful", $this->getModuleName()) ;
+            } else {
+                $logging->log("{$ucf}ing Apache Failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            }
+            return $bool ;
+        } else {
+            $logging->log("Unknown Apache Control Action Requested", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
     }
 
 }
