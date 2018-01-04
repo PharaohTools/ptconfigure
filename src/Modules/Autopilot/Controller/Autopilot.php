@@ -64,6 +64,15 @@ class Autopilot extends Base {
             $autoPilotFilePath
         ) ;
 
+        if (in_array(PHP_OS, array('Windows', 'WINNT'))) {
+            $wpath1 = addslashes($autoPilotFilePath) ;
+            $wpath1 = str_replace('^\\', '\\', $wpath1) ;
+            $paths[] = $wpath1 ;
+            $wpath2 = addslashes($autoPilotFileRawPath) ;
+            $wpath2 = str_replace('^\\', '\\', $wpath2) ;
+            $paths[] = $wpath2 ;
+        }
+
         foreach ($paths as $path) {
             if (file_exists($path)) {
                 if (substr($autoPilotFileName, -7) == "dsl.php") {
