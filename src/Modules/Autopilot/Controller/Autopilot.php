@@ -76,7 +76,7 @@ class Autopilot extends Base {
         foreach ($paths as $path) {
             if (file_exists($path)) {
                 if (substr($autoPilotFileName, -7) == "dsl.php") {
-                    $dsl_au = $this->loadDSLAutoPilot($autoPilotFileName, $pageVars) ;
+                    $dsl_au = $this->loadDSLAutoPilot($path, $pageVars) ;
                     if (is_object($dsl_au)) {
                         return $dsl_au ; }
                     else {
