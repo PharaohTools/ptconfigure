@@ -72,13 +72,13 @@ class JavaUbuntu64 extends BaseLinuxApp {
             } else {
                 $msg =
                     "A Different Java JDK Version than the requested {$this->javaDetails['version_short']} has ben found." ;
-                $logging->log($msg) ;
+                $logging->log($msg, $this->getModuleName()) ;
                 $requested_version_is_installed = false ;
             }
         } else {
             $msg =
                 "No Java JDK installation has ben found." ;
-            $logging->log($msg) ;
+            $logging->log($msg, $this->getModuleName()) ;
             $requested_version_is_installed = false ;
         }
         $force_param_is_set = (isset($this->params["force"]) && $this->params["force"] != false ) ;
@@ -86,20 +86,25 @@ class JavaUbuntu64 extends BaseLinuxApp {
             $msg =
                 "Requested Java JDK Version {$this->javaDetails['version_short']} is already installed." .
                 " Use force parameter to install anyway." ;
-            $logging->log($msg) ;
+            $logging->log($msg, $this->getModuleName()) ;
             $ray = array( ) ;
 
         } else {
 
             if ($force_param_is_set && $is_java_installed != "") {
                 $msg = "Found $is_java_installed version already installed, though installing anyway as force param is set." ;
-                $logging->log($msg) ;
+                $logging->log($msg, $this->getModuleName()) ;
+            }
+
+            $tmp_java = "/tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz" ;
+            if (!file_exists($tmp_java)) {
+                $this->packageDownload($this->javaDetails['jdk_url'], $tmp_java) ;
             }
 
             $ray =
                 array(
                     array("command" => array(
-                        "if [ ! -f /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz ] ; then curl -o /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
+//                        "if [ ! -f /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz ] ; then curl -o /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
                         "mkdir -p /tmp/oraclejdk{$this->javaDetails['version_short']}",
                         "tar -xzf /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz -C /tmp/oraclejdk{$this->javaDetails['version_short']}",
                         "rm -f /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz",
@@ -130,6 +135,61 @@ class JavaUbuntu64 extends BaseLinuxApp {
         }
         $this->installCommands = $ray ;
         return $this->doInstallCommand() ;
+    }
+
+
+
+    public function packageDownload($remote_source, $temp_exe_file) {
+        if (file_exists($temp_exe_file)) {
+            unlink($temp_exe_file) ;
+        }
+        # var_dump('BWA packageDownload 2', $_ENV, $temp_exe_file) ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
+
+        echo "Download Starting ...".PHP_EOL;
+        ob_start();
+        ob_flush();
+        flush();
+
+        $fp = fopen ($temp_exe_file, 'w') ;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $remote_source);
+        // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_exec($ch);
+        # $error = curl_error($ch) ;
+        # var_dump('downloaded', $downloaded, $error) ;
+        curl_close($ch);
+
+        ob_flush();
+        flush();
+
+        echo "Done".PHP_EOL ;
+        return $temp_exe_file ;
+    }
+
+    public function progress($resource, $download_size, $downloaded, $upload_size, $uploaded) {
+        $is_quiet = (isset($this->params['quiet']) && ($this->params['quiet'] == true) ) ;
+        if ($is_quiet == false) {
+            if($download_size > 0) {
+                $dl = ($downloaded / $download_size)  * 100 ;
+                # var_dump('downloaded', $dl) ;
+                $perc = round($dl, 2) ;
+                # var_dump('perc', $perc) ;
+                echo "{$perc} % \r" ;
+            }
+            ob_flush();
+            flush();
+        }
     }
 
     public function getJavaDetails($version) {
