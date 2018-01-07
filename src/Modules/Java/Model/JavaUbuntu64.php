@@ -39,7 +39,12 @@ class JavaUbuntu64 extends BaseLinuxApp {
     }
 
     protected function askForJavaInstallVersion() {
-        if (isset($this->params["java-install-version"])) {
+        if (isset($this->params["version"])) {
+            $this->params["java-install-version"] = $this->params["version"] ;
+            $this->javaDetails = $this->getJavaDetails($this->params["version"]);
+            $this->programDataFolder = "/var/lib/jvm/jdk".$this->params["version"] ;
+            return ;  }
+        else if (isset($this->params["java-install-version"])) {
             $this->javaDetails = $this->getJavaDetails($this->params["java-install-version"]); }
         else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             $this->params["java-install-version"] = "1.7" ;
