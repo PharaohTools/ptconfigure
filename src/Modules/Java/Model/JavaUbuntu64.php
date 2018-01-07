@@ -134,8 +134,8 @@ class JavaUbuntu64 extends BaseLinuxApp {
                         SUDOPREFIX.'update-alternatives --set java ****PROGDIR****/bin/java ',
                         SUDOPREFIX.'update-alternatives --set javac ****PROGDIR****/bin/javac ',
                         SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
-                        '. /etc/profile' )
-                    )
+//                        '. /etc/profile'
+                    )   )
                 ) ;
         }
         $this->installCommands = $ray ;
