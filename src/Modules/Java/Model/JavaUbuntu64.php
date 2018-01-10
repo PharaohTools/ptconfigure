@@ -101,13 +101,13 @@ class JavaUbuntu64 extends BaseLinuxApp {
                 $logging->log($msg, $this->getModuleName()) ;
             }
 
-            $tmp_java = "/tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz" ;
+            $stamp = time() ;
+            $tmp_java = "/tmp/oraclejdk{$stamp}.tar.gz" ;
             if (!file_exists($tmp_java)) {
                 $this->packageDownload($this->javaDetails['jdk_url'], $tmp_java) ;
             }
 
-
-            $tmp_str = "/tmp/oraclejdk{$this->javaDetails['version_short']}" ;
+            $tmp_str = "/tmp/oraclejdk{$stamp}" ;
 
             mkdir($tmp_str, 0775) ;
 
@@ -121,14 +121,19 @@ class JavaUbuntu64 extends BaseLinuxApp {
 
             unlink($tmp_str.'.tar.gz') ;
 
-            mkdir($this->programDataFolder, 0775) ;
+            if (!is_dir($this->programDataFolder)) {
+                mkdir($this->programDataFolder, 0775) ;
+            }
 
-            unlink($this->programDataFolder) ;
+            $comm = "rm -rf {$this->programDataFolder}" ;
+            $this->executeAndOutput($comm) ;
 
             // MAKE IT RECURSIVE
-            copy("{$tmp_str}/{$this->javaDetails['extracted_dir']}", $this->programDataFolder) ;
+            $comm = 'cp -r '.$tmp_str.DIRECTORY_SEPARATOR."{$this->javaDetails['extracted_dir']} {$this->programDataFolder}" ;
+            $this->executeAndOutput($comm) ;
 
-            unlink($tmp_str) ;
+//            $comm = "rm -rf {$tmp_str}" ;
+//            $this->executeAndOutput($comm) ;
 
             chmod($tmp_str, octdec('0711') ) ;
 
@@ -143,7 +148,6 @@ class JavaUbuntu64 extends BaseLinuxApp {
             foreach ($profile_lines as $profile_line) {
                 $this->executeAndOutput($profile_line) ;
             }
-
 
             $j_opts = array('java', 'javac', 'javaws') ;
             foreach ($j_opts as $j_opt) {
