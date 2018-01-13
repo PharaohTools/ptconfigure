@@ -46,30 +46,27 @@ class ISOPHPInfo extends Base {
 
     public function helpDefinition() {
         $help = <<<"HELPDATA"
-  This module is a Default one, and provides integration for the ISOPHP Framework from Pharaoh Tools. This integration
-  will allow you to create new projects. 
+  This module is a Default one, and provides integration for the ISOPHP Framework from Pharaoh Tools. This command
+  will is the preferred method to create new projects. 
   
   ptdeploy isophp create
   
-  
-  
-  
-  It has tailored Builderfy and Dapperfy
-  Autopilots and also provides ISOPHP Database Configuration for the DBConfigure Module.
+    ptdeploy isophp create # interactive cli session
+    ptdeploy isophp create -yg \
+        --email="me@mynewwebsite.com" \ # Enter an author email address
+        --web_link="http://www.mynewwebsite.com" \ # Enter a Website Address
+        --project_name="My New Website" \ # Enter an Full Name for the project
+        --author_name="Pharaoh Tools" \ # Enter a Full Name for the author
+        --description="A New Web, Mobile and Desktop Application." \ # Enter a Project Description
+        --domainid="com.mynewwebsite.mobile" \ #  Cordova widget id eg: com.project.subdomain
+        
+        
+    ptdeploy isophp create -yg --email="me@mynewwebsite.com" --web_link="http://www.mynewwebsite.com" --project_name="My New Website" --author_name="Pharaoh Tools" --description="A New Web, Mobile and Desktop Application." --domainid="com.mynewwebsite.mobile"
 
   ISOPHP, isophp
 
-  This module adds multiple actions to both builderfy and dapperfy. This will let you produce autopilots for both
-  which are tailored to ISOPHP.
-
-  // dapperfy - create our auto deploy files
-  ptdeploy dapperfy isophp --yes --guess
-
-  // builderfy - create templates to install build
-  sudo ptdeploy builderfy continuous --yes --jenkins-home="/var/lib/jenkins" --target-job-name="my-project-continuous" --project-description="This is the Continuous Delivery build for My Project" --primary-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --source-branch-spec="origin/master" --source-scm-url="http://146.185.129.66:8080/git/root/first-pharaoh-cd.git" --days-to-keep="-1" --amount-to-keep="10" --autopilot-test-invoke-install-file="build/config/ptdeploy/autopilots/tiny-staging-invoke-code-no-dbconf.php" --autopilot-prod-invoke-install-file="build/config/ptdeploy/autopilots/tiny-prod-invoke-code-no-dbconf.php" --error-email="phpengine@hotmail.co.uk" --only-autopilots
-
-  // execute the build creator
-  ptdeploy autopilot execute build/config/ptdeploy/builderfy/autopilots/tiny-jenkins-invoke-continuous.php
+  Other modules for frameworks add multiple actions to both builderfy and dapperfy. Due to the complete integration with
+  Pharaoh Tools from Development through to Production, there is no integration with other sets of tools yet.
 
 HELPDATA;
         return $help ;
