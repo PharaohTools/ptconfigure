@@ -91,6 +91,12 @@ class MacPortsMac extends BasePackager {
             case "10.11" :
                 $filename = "MacPorts-2.3.4-10.11-ElCapitan.pkg" ;
                 break ;
+            case "10.12" :
+                $filename = "MacPorts-2.4.2-10.12-Sierra.pkg" ;
+                break ;
+            case "10.13" :
+                $filename = "MacPorts-2.4.2-10.13-HighSierra.pkg" ;
+                break ;
             default :
                 $filename = false ;
                 break ; }
@@ -116,7 +122,9 @@ class MacPortsMac extends BasePackager {
             $rc2 = $this->executeAndGetReturnCode($comm, true, false) ;
             $comm = SUDOPREFIX."hdiutil detach /Volumes/MacPorts-2.3.3/MacPorts-2.3.3.pkg" ;
             $rc3 = $this->executeAndGetReturnCode($comm, true, false) ;
-            $is_false = in_array(false, array($rc1["rc"], $rc2["rc"], $rc3["rc"])) ;
+            $comm = SUDOPREFIX.' port selfupdate' ;
+            $rc4 = $this->executeAndGetReturnCode($comm, true, false) ;
+            $is_false = in_array(false, array($rc1["rc"], $rc2["rc"], $rc3["rc"], $rc4["rc"])) ;
             return ($is_false) ? false : true ; }
         else {
             $logging->log("Filename error for MacPorts download", $this->getModuleName()) ;
