@@ -101,47 +101,113 @@ class JavaUbuntu64 extends BaseLinuxApp {
                 $logging->log($msg, $this->getModuleName()) ;
             }
 
-            $tmp_java = "/tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz" ;
+            $stamp = time() ;
+            $tmp_java = "/tmp/oraclejdk{$stamp}.tar.gz" ;
             if (!file_exists($tmp_java)) {
                 $this->packageDownload($this->javaDetails['jdk_url'], $tmp_java) ;
             }
 
-            $ray =
-                array(
-                    array("command" => array(
-//                        "if [ ! -f /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz ] ; then curl -o /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz {$this->javaDetails['jdk_url']} ; fi" ,
-                        "mkdir -p /tmp/oraclejdk{$this->javaDetails['version_short']}",
-                        "tar -xzf /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz -C /tmp/oraclejdk{$this->javaDetails['version_short']}",
-                        "rm -f /tmp/oraclejdk{$this->javaDetails['version_short']}.tar.gz",
-                        "mkdir -p ****PROGDIR****" ,
-                        "rm -rf ****PROGDIR****/*" ,
-//                    "apt-get install libc6-i386" ,
-                        "cp -r /tmp/oraclejdk{$this->javaDetails['version_short']}/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" ,
-                        "rm -rf /tmp/oraclejdk{$this->javaDetails['version_short']}" ,
-                        "cd ****PROGDIR****",
-                        "chmod a+x ****PROGDIR****",
-                        'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/profile',
-                        'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
-                        'echo \'export JAVA_HOME\' >> /etc/profile',
-                        'echo \'export PATH\' >> /etc/profile',
-                        'echo \'JAVA_HOME=****PROGDIR****\' >> /etc/bash.bashrc',
-                        'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/bash.bashrc',
-                        'echo \'export JAVA_HOME\' >> /etc/bash.bashrc',
-                        'echo \'export PATH\' >> /etc/bash.bashrc',
-                        SUDOPREFIX.'update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
-                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
-                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
-                        SUDOPREFIX.'update-alternatives --set java ****PROGDIR****/bin/java ',
-                        SUDOPREFIX.'update-alternatives --set javac ****PROGDIR****/bin/javac ',
-                        SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
-//                        '. /etc/profile'
-                    )   )
-                ) ;
+            $tmp_str = "/tmp/oraclejdk{$stamp}" ;
+
+            mkdir($tmp_str, 0775) ;
+
+            // decompress from gz
+            $p = new \PharData($tmp_str.'.tar.gz');
+            $p->decompress(); // creates /path/to/my.tar
+
+            // unarchive from the tar
+            $phar = new \PharData($tmp_str.'.tar');
+            $phar->extractTo($tmp_str);
+
+            unlink($tmp_str.'.tar.gz') ;
+
+            if (!is_dir($this->programDataFolder)) {
+                mkdir($this->programDataFolder, 0775) ;
+            }
+
+            $comm = "rm -rf {$this->programDataFolder}" ;
+            $this->executeAndOutput($comm) ;
+
+            // MAKE IT RECURSIVE
+            $comm = 'cp -r '.$tmp_str.DIRECTORY_SEPARATOR."{$this->javaDetails['extracted_dir']} {$this->programDataFolder}" ;
+            $this->executeAndOutput($comm) ;
+
+//            $comm = "rm -rf {$tmp_str}" ;
+//            $this->executeAndOutput($comm) ;
+
+            chmod($tmp_str, octdec('0711') ) ;
+
+
+            $profile_lines = array(
+                'echo \'JAVA_HOME='.$this->programDataFolder.'\' >> /etc/profile',
+                'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
+                'echo \'export JAVA_HOME\' >> /etc/profile',
+                'echo \'export PATH\' >> /etc/profile',
+            ) ;
+
+            foreach ($profile_lines as $profile_line) {
+                $this->executeAndOutput($profile_line) ;
+            }
+
+            $j_opts = array('java', 'javac', 'javaws') ;
+            foreach ($j_opts as $j_opt) {
+                $comm = SUDOPREFIX.'update-alternatives --install "/usr/bin/'.$j_opt.'" "'.$j_opt.'" "'.$this->programDataFolder.'/bin/'.$j_opt.'" 1 ' ;
+                $this->executeAndOutput($comm) ;
+            }
+
+            foreach ($j_opts as $j_opt) {
+                $comm = SUDOPREFIX.'update-alternatives --set '.$j_opt.' '.$this->programDataFolder.'/bin/'.$j_opt.' ' ;
+                $this->executeAndOutput($comm) ;
+            }
+
+//            $ray =
+//                array(
+//                    array("command" => array(
+//                        "mkdir -p {$tmp_str}", // DONE
+//                        "tar -xzf {$tmp_str}.tar.gz -C {$tmp_str}", // DONE
+//                        "rm -f {$tmp_str}.tar.gz", // DONE
+//                        "mkdir -p ****PROGDIR****" , // DONE
+//                        "rm -rf ****PROGDIR****/*" , // DONE
+//                        "cp -r {$tmp_str}/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" , // DONE
+//                        "rm -rf {$tmp_str}" , // DONE
+//
+//                        "cd ****PROGDIR****", // DONE
+//                        "chmod a+x ****PROGDIR****", // DONE
+//
+//
+//
+//                        SUDOPREFIX.'update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
+//                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
+//                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
+//                        SUDOPREFIX.'update-alternatives --set java ****PROGDIR****/bin/java ',
+//                        SUDOPREFIX.'update-alternatives --set javac ****PROGDIR****/bin/javac ',
+//                        SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
+////                        '. /etc/profile'
+//                    )   )
+//                ) ;
         }
-        $this->installCommands = $ray ;
-        return $this->doInstallCommand() ;
+//        $this->installCommands = $ray ;
+//        return $this->doInstallCommand() ;
+        return true ;
     }
 
+    public function fsmodify($obj) {
+        $chunks = explode(DIRECTORY_SEPARATOR, $obj);
+        chmod($obj, is_dir($obj) ? 0755 : 0644);
+        chown($obj, $chunks[2]);
+        chgrp($obj, $chunks[2]);
+    }
+
+
+    public function fsmodifyr($dir) {
+        if($objs = glob($dir.DIRECTORY_SEPARATOR."*")) {
+            foreach($objs as $obj) {
+                $this->fsmodify($obj);
+                if(is_dir($obj)) $this->fsmodifyr($obj);
+            }
+        }
+        return $this->fsmodify($dir);
+    }
 
 
     public function packageDownload($remote_source, $temp_exe_file) {
