@@ -22,19 +22,19 @@ class PHPSSHMac extends PHPSSHUbuntu {
     }
 
     public function getInstallCommands() {
-        $php_vers = PHP_MAJOR_VERSION ;
+        $php_vers = PHP_MAJOR_VERSION.PHP_MINOR_VERSION ;
         $ret = array(
             array("method"=> array("object" => $this, "method" => "ensureMacPorts", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("libssh2-php"))) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", array("php{$php_vers}-ssh2"))) ),
             array("method"=> array("object" => $this, "method" => "ensurePHPIniFile", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "addPHPIniExtension", "params" => array()) ) );
         return $ret ;
     }
 
     public function getUninstallCommands() {
-        $php_vers = PHP_MAJOR_VERSION ;
+        $php_vers = PHP_MAJOR_VERSION.PHP_MINOR_VERSION ;
         $ret = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", array("libssh2-php"))) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", array("php{$php_vers}-ssh2"))) ),
             array("method"=> array("object" => $this, "method" => "removePHPIniExtension", "params" => array()) ),
         );
         return $ret ;
