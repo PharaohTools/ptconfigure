@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTVGUIAllWindows extends BaseWindowsApp {
+class PTVGUIWindows extends BaseWindowsApp {
 
     // Compatibility
     public $os = array("Windows") ;

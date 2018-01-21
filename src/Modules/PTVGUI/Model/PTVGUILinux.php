@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTVGUIAllLinux extends BaseLinuxApp {
+class PTVGUILinux extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;

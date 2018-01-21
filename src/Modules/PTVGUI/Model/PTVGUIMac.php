@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTVGUIAllMac extends BaseLinuxApp {
+class PTVGUIMac extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Darwin") ;
