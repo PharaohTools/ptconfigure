@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class SeleniumServer extends Base {
+class PTVGUI extends Base {
 
     public function execute($pageVars) {
         $defaultExecution = $this->defaultExecution($pageVars) ;

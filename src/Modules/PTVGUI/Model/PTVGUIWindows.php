@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class PTVGUIAllLinux extends BaseLinuxApp {
+class PTVGUIAllWindows extends BaseWindowsApp {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("Windows") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;

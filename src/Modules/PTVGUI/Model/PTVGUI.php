@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class SeleniumServer extends BaseModelFactory {
+class PTVGUI extends BaseModelFactory {
 
 }

@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class PTVGUIAllLinux extends BaseLinuxApp {
+class PTVGUIAllMac extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("Linux") ;
+    public $os = array("Darwin") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -15,6 +15,8 @@ class PTVGUIAllLinux extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
     public $sv ;
 
+    protected $cur_progress ;
+
     // @todo ensure wget is installed
     public function __construct($params) {
         parent::__construct($params);
@@ -23,8 +25,6 @@ class PTVGUIAllLinux extends BaseLinuxApp {
 //            array("method"=> array("object" => $this, "method" => "askForPTVGUIVersion", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("command"=> array("rm -rf {$this->programDataFolder}")));
@@ -43,79 +43,100 @@ class PTVGUIAllLinux extends BaseLinuxApp {
         $this->initialize();
     }
 
-    public function executeDependencies() {
-        if (isset($this->params["no-dependencies"])) {
-            return;
-        }
-        $tempVersion = isset($this->params["version"]) ? $this->params["version"] : null ;
-        unset($this->params["version"]) ;
-        $gitToolsFactory = new \Model\GitTools($this->params);
-        $gitTools = $gitToolsFactory->getModel($this->params);
-        $gitTools->ensureInstalled();
-        $javaFactory = new \Model\Java();
-        $java = $javaFactory->getModel($this->params);
-        $java->ensureInstalled();
-        $this->params["version"] = $tempVersion ;
-    }
-
     public function doInstallCommands() {
 
-        // http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/pharaohinstaller-darwin-x64.zip
+        $this->params['noprogress'] = true ;
 
+        $slug = 'pharaohinstaller-darwin-x64' ;
 
-        $comms = array(
-            "cd /tmp" ,
-            "mkdir -p /tmp/ptvgui" ,
-            "cd /tmp/ptvgui" ,
-            "wget http://ptvgui-release.storage.googleapis.com/{$this->sv}/ptvgui-server-standalone-{$this->sv}.0.jar",
-            "mkdir -p {$this->programDataFolder}",
-            "mv /tmp/ptvgui/* {$this->programDataFolder}",
-            "rm -rf /tmp/ptvgui/",
-            "cd {$this->programDataFolder}",
-            "mv ptvgui-server-standalone-{$this->sv}.0.jar ptvgui-server.jar" ) ;
+        // download the package
+        $source = 'http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/pharaohinstaller-darwin-x64.zip' ;
+        $this->packageDownload($source, '/tmp/'.$slug) ;
+
+        // unzip the package
+        $comms = array( SUDOPREFIX."unzip /tmp/".$slug.".zip -d /tmp/".$slug ) ;
         $this->executeAsShell($comms) ;
-    }
 
-    public function startPTVGUI() {
-        $silentFlag = (isset($this->params["silent"])) ? " &" : "" ;
-        if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedriver" : "" ;
-            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
-            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
-            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
-        else {
-            $cdFlag = "" ; }
-        $comms = array(
-            'java -jar ' . $this->programDataFolder . "/ptvgui-server.jar {$cdFlag}{$silentFlag}") ;
+        // move to applications dir
+        $comms = array( SUDOPREFIX."mv /tmp/{$slug} /Applications" ) ;
         $this->executeAsShell($comms) ;
+
+        // delete package
+        $comms = array( SUDOPREFIX."rm -rf /tmp/{$slug}" ) ;
+        $this->executeAsShell($comms) ;
+
     }
 
-    public function getExecutorCommand() {
-        if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedriver" : "" ;
-            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
-            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
-            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
-        else {
-            $cdFlag = "" ; }
-        return 'java -jar ' . $this->programDataFolder . "/ptvgui-server.jar {$cdFlag}" ;
+    public function packageDownload($remote_source, $temp_exe_file) {
+        if (file_exists($temp_exe_file)) {
+            unlink($temp_exe_file) ;
+        }
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
+
+        echo "Download Starting ...".PHP_EOL;
+        ob_start();
+        ob_flush();
+        flush();
+
+        $fp = fopen ($temp_exe_file, 'w') ;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $remote_source);
+        // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_exec($ch);
+        # $error = curl_error($ch) ;
+        # var_dump('downloaded', $downloaded, $error) ;
+        curl_close($ch);
+
+        ob_flush();
+        flush();
+
+        echo "Done".PHP_EOL ;
+        return $temp_exe_file ;
     }
 
-//    protected function askForPTVGUIVersion(){
-//        $ao = array("2.39", "2.40", "2.41", "2.42", "2.43", "2.44") ;
-//        if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
-//            $this->sv = $this->params["version"] ; }
-//        else if (isset($this->params["guess"])) {
-//            $count = count($ao)-1 ;
-//            $this->sv = $ao[$count] ; }
-//        else {
-//            $question = 'Enter PTVGUI Version';
-//            return self::askForArrayOption($question, $ao, true); }
-//    }
+    public function progress($resource, $download_size, $downloaded, $upload_size, $uploaded) {
+        $is_noprogress = (isset($this->params['noprogress']) ) ? true : false ;
+        if ($is_noprogress == false) {
+            if($download_size > 0) {
+                $dl = ($downloaded / $download_size)  * 100 ;
+                # var_dump('downloaded', $dl) ;
+                $perc = round($dl, 2) ;
+                # var_dump('perc', $perc) ;
+                echo "{$perc} % \r" ;
+            }
+        } else {
+            if($download_size > 0) {
+                $dl = ($downloaded / $download_size)  * 100 ;
+                # var_dump('downloaded', $dl) ;
+                $perc = round($dl) ;
+                # var_dump('perc', $perc) ;
 
-    protected function askForChromeDriverPath(){
-        $question = 'Enter Chrome Driver Version';
-        return self::askForInput($question, true);
+                if ($perc !== $this->cur_progress) {
+                    echo "{$perc} %  \r\n" ;
+                    $this->cur_progress = $perc ;
+                }
+
+//                $is_five_multiple = (is_int($perc / 5)) ? true : false ;
+////                $fm = fmod($perc, 1) ;
+////                $is_five_multiple = (is_int($fm)) ? true : false ;
+//                if ($is_five_multiple) {
+////                    echo "$fm\n" ;
+//                }
+            }
+        }
+        ob_flush();
+        flush();
     }
 
     public function versionInstalledCommandTrimmer($text) {
