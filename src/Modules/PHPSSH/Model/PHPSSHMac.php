@@ -81,9 +81,37 @@ class PHPSSHMac extends PHPSSHUbuntu {
             return false ; }
     }
 
+    public function findInstalledExtensionPath() {
+
+        $php_dir = 'php'.PHP_MAJOR_VERSION.PHP_MINOR_VERSION ;
+        $php_ext_dir = '/opt/local/lib/'.$php_dir.'/extensions' ;
+        $ext_dirs = scandir($php_ext_dir) ;
+        $ssh_extension_file = false ;
+        foreach ($ext_dirs as $ext_dir) {
+            $ext_files = scandir($php_ext_dir.DIRECTORY_SEPARATOR.$ext_dir) ;
+            foreach ($ext_files as $ext_file) {
+                if ($ext_file == 'ssh2.so') {
+                    $ssh_extension_file = $php_ext_dir.DIRECTORY_SEPARATOR.$ext_dir.DIRECTORY_SEPARATOR.$ext_file ;
+
+                }
+            }
+        }
+        return $ssh_extension_file ;
+    }
+
     public function addPHPIniExtension() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        $logging->log("Finding PHP SSH Extension", $this->getModuleName()) ;
+
+        $ssh_file = $this->findInstalledExtensionPath() ;
+        if ($ssh_file == false) {
+            $logging->log("Unable to find PHP SSH Extension", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
+
+
         $logging->log("Removing any old extension line from PHP Ini", $this->getModuleName()) ;
         $iniFileLocation = '/private/etc/php.ini' ;
         $params1 = $params2 = $this->params ;
@@ -94,9 +122,8 @@ class PHPSSHMac extends PHPSSHUbuntu {
         $file1->performShouldNotHaveLine() ;
         $logging->log("Adding extension line from PHP Ini.", $this->getModuleName()) ;
         $params2["file"] = $iniFileLocation ;
-        $params2["after-line"] = '[PHP]' ;
-        $php_vers = $this->getPHPVersion() ;
-        $params2["search"] = "extension=/opt/local/lib/php{$php_vers}/extensions/no-debug-non-zts-20121212/ssh2.so" ;
+        $params2["after-line"] = '; Dynamic Extensions ;' ;
+        $params2["search"] = "extension=".$ssh_file ;
         $file2 = $fileFactory->getModel($params2) ;
         $file2->performShouldHaveLine() ;
     }
