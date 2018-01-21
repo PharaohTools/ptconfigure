@@ -23,7 +23,7 @@ class BootStrap {
     }
 
     public function main($argv_or_boot_params_null) {
-        date_default_timezone_set('Europe\London');
+        date_default_timezone_set('Europe/London');
         $this->start = time() ;
         $date_format = date('H:i:s, d/m/Y', $this->start) ;
         $friendly = substr(PHARAOH_APP, 2) ;
