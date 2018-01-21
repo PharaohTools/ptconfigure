@@ -23,7 +23,7 @@ class PTVGUIMac extends BaseLinuxApp {
         $this->autopilotDefiner = "PTVGUI";
         $this->installCommands = array(
 //            array("method"=> array("object" => $this, "method" => "askForPTVGUIVersion", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
         );
         $this->uninstallCommands = array(
@@ -47,23 +47,42 @@ class PTVGUIMac extends BaseLinuxApp {
 
         $this->params['noprogress'] = true ;
 
-        $slug = 'pharaohinstaller-darwin-x64' ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 
-        // download the package
-        $source = 'http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/pharaohinstaller-darwin-x64.zip' ;
-        $this->packageDownload($source, '/tmp/'.$slug) ;
+//        // delete package
+//        $logging->log("Delete previous packages", $this->getModuleName() ) ;
+//        $comms = array( SUDOPREFIX." rm -rf /tmp/ptvgui.app.zip",  SUDOPREFIX." rm -rf /tmp/created_app" ) ;
+//        $this->executeAsShell($comms) ;
+//
+//        // download the package
+//        $source = 'http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/ptvgui.app.zip' ;
+//        $this->packageDownload($source, '/tmp/ptvgui.app.zip') ;
 
         // unzip the package
-        $comms = array( SUDOPREFIX."unzip /tmp/".$slug.".zip -d /tmp/".$slug ) ;
+        $logging->log("Unzip the packages", $this->getModuleName() ) ;
+        $comms = array( SUDOPREFIX." unzip -quo /tmp/ptvgui.app.zip -d /tmp/created_app" ) ;
+//        var_dump($comms) ;
+        $this->executeAsShell($comms) ;
+
+        // change mode
+        $logging->log("Change Mode", $this->getModuleName() ) ;
+        $comms = array( SUDOPREFIX." chmod -R 777 /tmp/created_app/ptvgui.app" ) ;
         $this->executeAsShell($comms) ;
 
         // move to applications dir
-        $comms = array( SUDOPREFIX."mv /tmp/{$slug}/pharaohinstaller.app /Applications" ) ;
+        $logging->log("Move to Apps Dir", $this->getModuleName() ) ;
+        $comms = array( SUDOPREFIX."mv /tmp/created_app/ptvgui.app /Applications/" ) ;
         $this->executeAsShell($comms) ;
 
-        // delete package
-        $comms = array( SUDOPREFIX."rm -rf /tmp/{$slug}" ) ;
+        // change file name
+        $logging->log("Change File Name", $this->getModuleName() ) ;
+        $comms = array( SUDOPREFIX."mv /Applications/ptvgui.app /Applications/PTV\ GUI.app" ) ;
         $this->executeAsShell($comms) ;
+
+//        // delete package
+//        $comms = array( SUDOPREFIX."rm -rf /tmp/{$slug}" ) ;
+//        $this->executeAsShell($comms) ;
 
     }
 
