@@ -34,7 +34,7 @@ class PTVGUIMac extends BaseLinuxApp {
         $this->programNameInstaller = "Pharaoh Vitualize GUI";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "ptvgui";
-        $this->programExecutorCommand = $this->getExecutorCommand();
+        $this->programExecutorCommand = '/Applications/pharaohinstaller.app' ;
         $this->statusCommand = "cat /usr/bin/ptvgui > /dev/null 2>&1";
         // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.44.0"' ;
