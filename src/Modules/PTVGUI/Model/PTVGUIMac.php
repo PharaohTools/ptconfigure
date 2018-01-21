@@ -58,7 +58,7 @@ class PTVGUIAllMac extends BaseLinuxApp {
         $this->executeAsShell($comms) ;
 
         // move to applications dir
-        $comms = array( SUDOPREFIX."mv /tmp/{$slug} /Applications" ) ;
+        $comms = array( SUDOPREFIX."mv /tmp/{$slug}/pharaohinstaller.app /Applications" ) ;
         $this->executeAsShell($comms) ;
 
         // delete package
