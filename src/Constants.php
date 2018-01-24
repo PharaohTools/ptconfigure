@@ -39,16 +39,32 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
     $isAdmin = ($uname == "root") ? true : false ;
     if ($isAdmin == true) { define('SUDOPREFIX', ""); }
     else { define('SUDOPREFIX', "sudo "); }
-    define('VBOXMGCOMM', "vboxmanage ") ;
+
     define('PFILESDIR', "/opt/") ;
-    define('PTCCOMM', "ptconfigure ") ;
-    define('PTBCOMM', "ptbuild ") ;
-    define('PTDCOMM', "ptdeploy ") ;
-    define('PTVCOMM', "ptvirtualize") ;
-    define('PTTRCOMM', "pttrack") ;
-    define('PTTECOMM', "pttest") ;
-    define('PTMCOMM',  "ptmanage") ;
-    define('PTSCOMM', "ptsource") ;
+
+    if (PHP_OS == 'Darwin') {
+        $prefix = '/usr/local/bin/' ;
+        define('VBOXMGCOMM', "{$prefix}vboxmanage ") ;
+        define('PTCCOMM', "{$prefix}ptconfigure ") ;
+        define('PTBCOMM', "{$prefix}ptbuild ") ;
+        define('PTDCOMM', "{$prefix}ptdeploy ") ;
+        define('PTVCOMM', "{$prefix}ptvirtualize") ;
+        define('PTTRCOMM', "{$prefix}pttrack") ;
+        define('PTTECOMM', "{$prefix}pttest") ;
+        define('PTMCOMM', "{$prefix}ptmanage") ;
+        define('PTSCOMM', "{$prefix}ptsource") ;
+    } else {
+        define('VBOXMGCOMM', "vboxmanage ") ;
+        define('PTCCOMM', "ptconfigure ") ;
+        define('PTBCOMM', "ptbuild ") ;
+        define('PTDCOMM', "ptdeploy ") ;
+        define('PTVCOMM', "ptvirtualize") ;
+        define('PTTRCOMM', "pttrack") ;
+        define('PTTECOMM', "pttest") ;
+        define('PTMCOMM',  "ptmanage") ;
+        define('PTSCOMM', "ptsource") ;
+    }
+
     define("DS", "/");
     define("BASE_TEMP_DIR", '/tmp/');
     define('BOXDIR', '/ptvirtualize/boxes'.'\\') ;
