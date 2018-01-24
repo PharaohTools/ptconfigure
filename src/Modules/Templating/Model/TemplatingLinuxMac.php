@@ -56,7 +56,7 @@ class TemplatingLinuxMac extends BaseTemplater {
             mkdir(dirname($targetLocation), 0775, true) ; }
         $rcs = array() ;
         $res = file_put_contents($targetLocation, $fData) ;
-        if ($res == false) {
+        if ($res === false) {
             $logging->log("Failed to write file in location $targetLocation", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             return false; }
         if ($res === 0) {
