@@ -48,7 +48,13 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
         $templateSource = $templatesDir.'/git-key-safe.sh';
         $templatorFactory = new \Model\Templating();
         $templator = $templatorFactory->getModel($this->params);
-        $newFileName = "/usr/bin/git-key-safe" ;
+
+        if (PHP_OS === 'Darwin') {
+            $newFileName = "/usr/local/bin/git-key-safe" ;
+        } else {
+            $newFileName = "/usr/bin/git-key-safe" ;
+        }
+
         $logging->log("About to add Git Key-Safe script $newFileName", $this->getModuleName()) ;
         $res =  $templator->template(
             file_get_contents($templateSource),
