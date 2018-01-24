@@ -73,8 +73,14 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
     public function chmodGitKeySafeScript() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $newFileName = "/usr/bin/git-key-safe" ;
-        $cmd = SUDOPREFIX."chmod 775 $newFileName" ;
+
+        if (PHP_OS === 'Darwin') {
+            $newFileName = "/usr/local/bin/git-key-safe" ;
+        } else {
+            $newFileName = "/usr/bin/git-key-safe" ;
+        }
+
+        $cmd = SUDOPREFIX." chmod 775 $newFileName" ;
         $rc = $this->executeAndGetReturnCode($cmd, true, true) ;
         if ($rc["rc"]==0) {
             $logging->log("Git Key-Safe script $newFileName permissions changed to 775",
@@ -89,7 +95,12 @@ class GitKeySafeLinuxMac extends BaseLinuxApp {
     public function delGitKeySafeScript() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $res = unlink("/usr/bin/git-key-safe");
+        if (PHP_OS === 'Darwin') {
+            $newFileName = "/usr/local/bin/git-key-safe" ;
+        } else {
+            $newFileName = "/usr/bin/git-key-safe" ;
+        }
+        $res = unlink($newFileName);
         if ($res==true) {
             $logging->log("Git Key-Safe Init script config file /usr/bin/git-key-safe removed",
                 $this->getModuleName()) ; }
