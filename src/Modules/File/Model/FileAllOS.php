@@ -58,10 +58,9 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performAppendLine() {
         $this->setFile();
-        $this->askInput();
-        // $this->setSearchLine();
+        $this->read();
         $this->append();
-        return true ;
+        return $this->write() ;
     }
 
     protected function askInput(){
@@ -69,8 +68,6 @@ class FileAllOS extends BaseLinuxApp {
             $this->input = $input; }
         else if (isset($this->params["file"])) {
             $this->input = $this->params["file"]; }
-        else if (isset($autopilot["file"])) {
-            $this->input = $autopilot["file"]; }
         else {
             $this->input = self::askForInput("Enter the input for append:", true); }
     }
@@ -193,7 +190,6 @@ class FileAllOS extends BaseLinuxApp {
             $comm = 'del /S /Q ' ; }
         else {
             $comm = "rm -f " ; }
-        $comm = "rm -rf ";
         $comm .= $this->fileName ;
         self::executeAndOutput($comm, $this->fileName." Deleted") ;
         return $this;
@@ -245,7 +241,7 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting to append to file {$this->fileName}", $this->getModuleName()) ;
-        if (is_null($str)) {$str = $this->params["replace"].PHP_EOL ; }
+        if (is_null($str)) {$str = $this->params["line"].PHP_EOL ; }
         if (isset($this->params["after-line"]) && strlen($this->params["after-line"])>0) {
             $logging->log("Looking for line to append after...", $this->getModuleName()) ;
             $fileData = "" ;
@@ -258,6 +254,7 @@ class FileAllOS extends BaseLinuxApp {
                 else { $fileData .= "$fileLine\n" ; } }
             $this->fileData = $fileData ; }
         else { $this->fileData .= $str ; }
+        return true;
     }
 
     public function chmod($string) {
