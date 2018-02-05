@@ -375,4 +375,71 @@ exec('".$this->programExecutorCommand."');\n
         }
     }
 
+
+    public function packageDownload($remote_source, $temp_exe_file) {
+        if (file_exists($temp_exe_file)) {
+            unlink($temp_exe_file) ;
+        }
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
+
+        echo "Download Starting ...".PHP_EOL;
+        ob_start();
+        ob_flush();
+        flush();
+
+        $fp = fopen ($temp_exe_file, 'w') ;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $remote_source);
+        // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_exec($ch);
+        # $error = curl_error($ch) ;
+        # var_dump('downloaded', $downloaded, $error) ;
+        curl_close($ch);
+
+        ob_flush();
+        flush();
+
+        echo "Done".PHP_EOL ;
+        return $temp_exe_file ;
+    }
+
+    public function progress($resource, $download_size, $downloaded, $upload_size, $uploaded) {
+        $is_noprogress = (isset($this->params['noprogress']) ) ? true : false ;
+        if ($is_noprogress == false) {
+            if($download_size > 0) {
+                $dl = ($downloaded / $download_size)  * 100 ;
+                # var_dump('downloaded', $dl) ;
+                $perc = round($dl, 2) ;
+                # var_dump('perc', $perc) ;
+                echo "{$perc} % \r" ;
+            }
+        } else {
+            if($download_size > 0) {
+                $dl = ($downloaded / $download_size)  * 100 ;
+                # var_dump('downloaded', $dl) ;
+                $perc = round($dl) ;
+                # var_dump('perc', $perc) ;
+
+                if ($perc !== $this->cur_progress) {
+                    echo "{$perc} %  \r\n" ;
+                    $this->cur_progress = $perc ;
+                }
+
+            }
+        }
+        ob_flush();
+        flush();
+    }
+
 }
