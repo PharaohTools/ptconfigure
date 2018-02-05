@@ -34,7 +34,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->programNameInstaller = "Pharaoh Vitualize GUI";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "ptvgui";
-        $this->programExecutorCommand = $this->getExecutorCommand();
+        $this->programExecutorCommand = 'ptvgui';
         $this->statusCommand = "cat /usr/bin/ptvgui > /dev/null 2>&1";
         // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.44.0"' ;
@@ -43,79 +43,50 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->initialize();
     }
 
-    public function executeDependencies() {
-        if (isset($this->params["no-dependencies"])) {
-            return;
-        }
-        $tempVersion = isset($this->params["version"]) ? $this->params["version"] : null ;
-        unset($this->params["version"]) ;
-        $gitToolsFactory = new \Model\GitTools($this->params);
-        $gitTools = $gitToolsFactory->getModel($this->params);
-        $gitTools->ensureInstalled();
-        $javaFactory = new \Model\Java();
-        $java = $javaFactory->getModel($this->params);
-        $java->ensureInstalled();
-        $this->params["version"] = $tempVersion ;
-    }
 
     public function doInstallCommands() {
 
-        // http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/pharaohinstaller-darwin-x64.zip
+        $this->params['noprogress'] = true ;
 
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 
-        $comms = array(
-            "cd /tmp" ,
-            "mkdir -p /tmp/ptvgui" ,
-            "cd /tmp/ptvgui" ,
-            "wget http://ptvgui-release.storage.googleapis.com/{$this->sv}/ptvgui-server-standalone-{$this->sv}.0.jar",
-            "mkdir -p {$this->programDataFolder}",
-            "mv /tmp/ptvgui/* {$this->programDataFolder}",
-            "rm -rf /tmp/ptvgui/",
-            "cd {$this->programDataFolder}",
-            "mv ptvgui-server-standalone-{$this->sv}.0.jar ptvgui-server.jar" ) ;
+        // delete package
+        $logging->log("Delete previous packages", $this->getModuleName() ) ;
+        $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-x64.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
         $this->executeAsShell($comms) ;
-    }
 
-    public function startPTVGUI() {
-        $silentFlag = (isset($this->params["silent"])) ? " &" : "" ;
-        if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedriver" : "" ;
-            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
-            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
-            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
-        else {
-            $cdFlag = "" ; }
-        $comms = array(
-            'java -jar ' . $this->programDataFolder . "/ptvgui-server.jar {$cdFlag}{$silentFlag}") ;
+        // download the package
+        $source = 'http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/ptvgui-win32-x64.zip' ;
+        $this->packageDownload($source, BASE_TEMP_DIR.'ptvgui-win32-x64.zip') ;
+
+        // unzip the package
+        $logging->log("Unzip the packages", $this->getModuleName() ) ;
+        $comms = array( "unzip -quo ".BASE_TEMP_DIR."ptvgui-win32-x64.zip -d ".PFILESDIR."PTVGUI" ) ;
         $this->executeAsShell($comms) ;
-    }
 
-    public function getExecutorCommand() {
-        if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedriver" : "" ;
-            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
-            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
-            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
-        else {
-            $cdFlag = "" ; }
-        return 'java -jar ' . $this->programDataFolder . "/ptvgui-server.jar {$cdFlag}" ;
-    }
+//        // change mode
+//        $logging->log("Change Mode", $this->getModuleName() ) ;
+//        $comms = array( "chmod -R 777 ".BASE_TEMP_DIR."created_app/ptvgui-win32-x64" ) ;
+//        $this->executeAsShell($comms) ;
 
-//    protected function askForPTVGUIVersion(){
-//        $ao = array("2.39", "2.40", "2.41", "2.42", "2.43", "2.44") ;
-//        if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
-//            $this->sv = $this->params["version"] ; }
-//        else if (isset($this->params["guess"])) {
-//            $count = count($ao)-1 ;
-//            $this->sv = $ao[$count] ; }
-//        else {
-//            $question = 'Enter PTVGUI Version';
-//            return self::askForArrayOption($question, $ao, true); }
-//    }
+        // move to applications dir
+        $logging->log("Move to Apps Dir", $this->getModuleName() ) ;
+        $comms = array( "mv ".BASE_TEMP_DIR."created_app/ptvgui-win32-x64 C:\\PharaohTools/" ) ;
+        $this->executeAsShell($comms) ;
 
-    protected function askForChromeDriverPath(){
-        $question = 'Enter Chrome Driver Version';
-        return self::askForInput($question, true);
+        // change file name
+        $logging->log("Change File Name", $this->getModuleName() ) ;
+        $comms = array( "mv /Applications/ptvgui-win32-x64 /Applications/PTV\ GUI.app" ) ;
+        $this->executeAsShell($comms) ;
+
+        // delete package
+        $logging->log("Delete previous packages", $this->getModuleName() ) ;
+        $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-x64.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
+        $this->executeAsShell($comms) ;
+
+        return true;
+
     }
 
     public function versionInstalledCommandTrimmer($text) {
