@@ -2,41 +2,34 @@
 
 Namespace Info;
 
-class SFTPInfo extends PTConfigureBase {
+class DownloadInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "SFTP Functionality";
+    public $name = "Download Functionality";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "SFTP" => array_merge(parent::routesAvailable(), array("put", "get") ) );
+      return array( "Download" => array_merge(parent::routesAvailable(), array("file") ) );
     }
 
     public function routeAliases() {
-      return array("sftp" => "SFTP");
+      return array("download" => "Download");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module handles SFTP Transfer Functions.
+  This module handles HTTP File Download Functions.
 
-  SFTP, sftp
+  Download, dowload
 
-        - put
-        Will ask you for details for servers, then copy a file or directory from local to remote
-        example: ptconfigure sftp put
-        example: ptconfigure sftp put --yes --environment-name=staging --source="/tmp/file" --target="/home/user/file"
-        example: ptconfigure sftp put --yes --source="/tmp/file" --target="/home/user/file" # will ask for server details
-
-        - get
-        Will ask you for details for servers, then copy a file or directory from remote to local
-        example: ptconfigure sftp get
-        example: ptconfigure sftp get --yes --environment-name=staging --source="/tmp/file" --target="/home/user/file"
-        example: ptconfigure sftp get --yes --source="/tmp/file" --target="/home/user/file" # will ask for server details
+        - file
+        Will ask you for a Source URL, and Download to a Target File
+        example: ptconfigure download file
+        example: ptconfigure download file --yes --source="http://www.google.co.uk" --target="/tmp/myfile.html"
 
 HELPDATA;
       return $help ;

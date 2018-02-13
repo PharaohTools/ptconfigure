@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class SFTP extends BaseModelFactory {
+class Download extends BaseModelFactory {
 
 }

@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class SFTP extends Base {
+class Download extends Base {
 
     public function execute($pageVars) {
 
@@ -15,13 +15,9 @@ class SFTP extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="put") {
-            $this->content["result"] = $thisModel->askWhetherToSFTPPut();
-            return array ("type"=>"view", "view"=>"SFTP", "pageVars"=>$this->content); }
-
-        if ($action=="get") {
-            $this->content["result"] = $thisModel->askWhetherToSFTPGet();
-            return array ("type"=>"view", "view"=>"SFTP", "pageVars"=>$this->content); }
+        if ($action=="file") {
+            $this->content["result"] = $thisModel->askWhetherToDownload();
+            return array ("type"=>"view", "view"=>"Download", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
