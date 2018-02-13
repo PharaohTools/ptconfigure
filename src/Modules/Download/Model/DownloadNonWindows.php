@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class DownloadAllOS extends BaseWindowsApp {
+class DownloadNonWindows extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array("any") ;
+    public $os = array('Linux', 'Darwin') ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;

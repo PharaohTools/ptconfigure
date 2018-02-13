@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DownloadAllOS extends BaseWindowsApp {
+class DownloadWindows extends BaseWindowsApp {
 
     // Compatibility
     public $os = array("any") ;
