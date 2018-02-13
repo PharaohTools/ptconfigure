@@ -117,12 +117,12 @@ class JavaUbuntu64 extends BaseLinuxApp {
 
             // unarchive from the tar
             $phar = new \PharData($tmp_str.'.tar');
-            $phar->extractTo($tmp_str);
+            $phar->extractTo($tmp_str, null, true);
 
             unlink($tmp_str.'.tar.gz') ;
 
             if (!is_dir($this->programDataFolder)) {
-                mkdir($this->programDataFolder, 0775) ;
+                mkdir($this->programDataFolder, 0775, true) ;
             }
 
             $comm = "rm -rf {$this->programDataFolder}" ;
