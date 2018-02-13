@@ -10,6 +10,7 @@ class BaseLinuxApp extends Base {
     protected $installUserHomeDir;
     protected $programExecutorCommand;
     public $defaultStatusCommandPrefix = "command -v";
+    public $cur_progress ;
 
     public function __construct($params) {
         parent::__construct($params);
