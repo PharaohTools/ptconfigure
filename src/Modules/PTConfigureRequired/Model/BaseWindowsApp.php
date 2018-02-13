@@ -45,16 +45,17 @@ class BaseWindowsApp extends BaseLinuxApp {
         return true;
     }
 
-    public function packageDownload($remote_source) {
+    public function packageDownload($remote_source, $temp_exe_file) {
         # var_dump('BWA packageDownload 1') ;
-        $temp_exe_file = $_ENV['TEMP'].DS.'temp.exe' ;
+        if (is_null($temp_exe_file)) {
+            $temp_exe_file = $_ENV['TEMP'].DS.'temp.exe' ;
+        }
         if (file_exists($temp_exe_file)) {
             unlink($temp_exe_file) ;
         }
         # var_dump('BWA packageDownload 2', $_ENV, $temp_exe_file) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Downloading Package {$this->programNameInstaller} from the Packager Windows Executable", $this->getModuleName() ) ;
         $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
 
         echo "Download Starting ...".PHP_EOL;
