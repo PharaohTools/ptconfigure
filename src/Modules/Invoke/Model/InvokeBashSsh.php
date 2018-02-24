@@ -2,7 +2,7 @@
 
 namespace Model ;
 
-class InvokeBashSsh {
+class InvokeBashSsh extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any");
@@ -43,7 +43,7 @@ class InvokeBashSsh {
         if (!function_exists("pcntl_fork")) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Unable to use pcntl_fork, ending", 'Invoke') ;
+            $logging->log("Unable to use pcntl_fork, ending", $this->getModuleName()) ;
             return false ; }
         $pcomm = "$launcher 'echo Pharaoh Tools'" ;
         passthru($pcomm, $res) ;
