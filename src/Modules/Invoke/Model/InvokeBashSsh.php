@@ -2,7 +2,7 @@
 
 namespace Model ;
 
-class InvokeBashSsh {
+class InvokeBashSsh extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("any");
