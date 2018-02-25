@@ -24,7 +24,7 @@ class DownloadInfo extends PTConfigureBase {
       $help = <<<"HELPDATA"
   This module handles HTTP File Download Functions.
 
-  Download, dowload
+  Download, download
 
         - file
         Will ask you for a Source URL, and Download to a Target File
