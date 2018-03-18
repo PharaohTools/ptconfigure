@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class PTSource extends Base {
+class PTArtefacts extends Base {
 
 }

@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTSourceLinux extends BasePHPApp {
+class PTArtefactsLinux extends BasePHPApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -16,19 +16,19 @@ class PTSourceLinux extends BasePHPApp {
 
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTSource";
+        $this->autopilotDefiner = "PTArtefacts";
         $this->fileSources = array(
           array(
-              "https://github.com/PharaohTools/ptsource.git",
-              "ptsource",
+              "https://github.com/PharaohTools/ptartefacts.git",
+              "ptartefacts",
               null // can be null for none
           )
         );
 //        $this->postinstallCommands = $this->getLinuxPostInstallCommands();
-        $this->programNameMachine = "ptsource"; // command and app dir name
-        $this->programNameFriendly = " PTSource! "; // 12 chars
-        $this->programNameInstaller = "PTSource - Update to latest version";
-        $this->programExecutorTargetPath = 'ptsource/src/Bootstrap.php';
+        $this->programNameMachine = "ptartefacts"; // command and app dir name
+        $this->programNameFriendly = " PTArtefacts! "; // 12 chars
+        $this->programNameInstaller = "PTArtefacts - Update to latest version";
+        $this->programExecutorTargetPath = 'ptartefacts/src/Bootstrap.php';
         $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->initialize();
     }
@@ -38,7 +38,7 @@ class PTSourceLinux extends BasePHPApp {
 //        $ray[]["method"] = array("object" => $this, "method" => "ensureApplicationUser", "params" => array() ) ;
         if ( (isset($this->params["with-webfaces"]) && $this->params["with-webfaces"]==true) ||
              (isset($this->params["guess"]) && $this->params["guess"]==true) ) {
-            $vhestring = '--vhe-url=source.pharaoh.tld';
+            $vhestring = '--vhe-url=artefacts.pharaoh.tld';
             $vheipport = '--vhe-ip-port=127.0.0.1:80';
             $sslstring = '';
             if (isset($this->params["vhe-url"])) { $vhestring = '--vhe-url='.$this->params["vhe-url"] ; }
@@ -48,36 +48,36 @@ class PTSourceLinux extends BasePHPApp {
 //            $ray[]["command"][] = SUDOPREFIX."sh ".$this->getLinuxUserShellAutoPath() ;
             $cur_os_family = $this->findOSFamily() ;
             if ($cur_os_family === 'debian') {
-                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044 --is_debian ' ; }
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptartefacts --fpm-port=6045 --is_debian ' ; }
             else if ($cur_os_family === 'redhat') {
-                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044 --is_redhat ' ; }
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptartefacts --fpm-port=6045 --is_redhat ' ; }
             else {
-                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptsource --fpm-port=6044 ' ; }
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptsource --fpm-port=6044 '.$vhestring ;
-            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=source --fpm-port=6044'.$sslstring ;
-            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("end").' --app-slug=ptsource' ;
+                $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("start").' --app-slug=ptartefacts --fpm-port=6045 ' ; }
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptartefacts --fpm-port=6045 '.$vhestring ;
+            $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=artefacts --fpm-port=6045'.$sslstring ;
+            $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getModuleConfigureAutoPath("end").' --app-slug=ptartefacts' ;
             if (isset($this->params["enable-http"])) {
                 if ($cur_os_family === 'debian') {
-                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptsource --enable-http=true --is_debian ' ; }
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptartefacts --enable-http=true --is_debian ' ; }
                 else if ($cur_os_family === 'redhat') {
-                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptsource --enable-http=true --is_redhat ' ; } }
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getHTTPConfigureAutoPath().' --app-slug=ptartefacts --enable-http=true --is_redhat ' ; } }
             if (isset($this->params["enable-ssh"])) {
                 if ($cur_os_family === 'debian') {
-                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true --is_debian ' ; }
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptartefacts --enable-ssh=true --is_debian ' ; }
                 else if ($cur_os_family === 'redhat') {
-                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true --is_redhat ' ; } }
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/data/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
+                    $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptartefacts --enable-ssh=true --is_redhat ' ; } }
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptartefacts/data/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptartefacts/repositories/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
-            $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-repositories/repositories/* /opt/ptsource/repositories/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/*" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-data/* /opt/ptsource/data/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars" ; }
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/" ;
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptsource /opt/ptsource/repositories/" ;
-        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/" ;
+            $ray[]["command"][] = "echo 'Copy from temp ptartefacts directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptartefacts-repositories/repositories/* /opt/ptartefacts/repositories/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptartefacts-keys/* /opt/ptartefacts/keys/" ;
+            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptartefacts/keys/*" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptartefacts-data/* /opt/ptartefacts/data/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptartefacts-settings/ptartefactsvars /opt/ptartefacts/ptartefacts/ptartefactsvars" ; }
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptartefacts:ptartefacts /opt/ptartefacts/" ;
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptartefacts /opt/ptartefacts/repositories/" ;
+        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptartefacts/" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
     }
@@ -85,16 +85,16 @@ class PTSourceLinux extends BasePHPApp {
     public function setpreinstallCommands() {
         $ray = array( ) ;
         if (is_dir(PIPEDIR)) {
-            $ray[]["command"][] = "echo 'Create temp ptsource directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-repositories/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-data/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-keys/" ;
-            $ray[]["command"][] = "echo 'Copy to temp ptsource directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/repositories /tmp/ptsource-repositories/" ;
-//            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/keys /tmp/ptsource-keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/ptsourcevars /tmp/ptsource-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/data/* /tmp/ptsource-data/" ; }
+            $ray[]["command"][] = "echo 'Create temp ptartefacts directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptartefacts-repositories/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptartefacts-data/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptartefacts-settings/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptartefacts-keys/" ;
+            $ray[]["command"][] = "echo 'Copy to temp ptartefacts directories'" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptartefacts/repositories /tmp/ptartefacts-repositories/" ;
+//            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptartefacts/keys /tmp/ptartefacts-keys/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptartefacts/ptartefacts/ptartefactsvars /tmp/ptartefacts-settings/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptartefacts/data/* /tmp/ptartefacts-data/" ; }
         $this->preinstallCommands = $ray ;
         return $ray ;
     }

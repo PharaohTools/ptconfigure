@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTSourceMac extends PTSourceLinux {
+class PTArtefactsMac extends PTArtefactsLinux {
 
     // Compatibility
     public $os = array("Darwin") ;

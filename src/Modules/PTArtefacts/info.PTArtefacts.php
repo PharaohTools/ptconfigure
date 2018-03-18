@@ -32,6 +32,8 @@ class PTArtefactsInfo extends PTConfigureBase {
         example: ptconfigure ptartefacts install -yg --with-webfaces # will guess artefacts.pharaoh.tld at 127.0.0.1
         example: ptconfigure ptartefacts install -yg --with-webfaces --vhe-url=artefacts.site.com --vhe-ip-port=1.2.3.4:80
         example: ptconfigure ptartefacts install -yg --version=latest # will keep your settings files while upgrading code to latest
+        example: ptconfigure ptartefacts install -yg --enable-ssh # Enable Inbound Connections via SSH (SFTP/SCP)
+        example: ptconfigure ptartefacts install -yg --enable-http # Enable Inbound Connections via HTTP
 
 
 HELPDATA;

@@ -27,7 +27,7 @@ PHPFPM restart
 File should-have-line
   label "{{{ Parameter::app-slug }}} Allow Source to perform HTTP Git Actions as the ptgit user"
   file "/etc/sudoers"
-  search "ptsource ALL = (ptgit) NOPASSWD: /usr/bin/git-*"
+  search "ptartefacts ALL = (ptgit) NOPASSWD: /usr/bin/git-*"
 
 Logging log
   log-message "PHP Configuration for Pharaoh Source Complete"

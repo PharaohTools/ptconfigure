@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class PTSource extends BaseModelFactory {
+class PTArtefacts extends BaseModelFactory {
 
 }

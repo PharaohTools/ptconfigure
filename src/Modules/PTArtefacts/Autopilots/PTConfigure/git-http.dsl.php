@@ -23,12 +23,12 @@ RunCommand Install
   label "Clone momdauthnz external"
   guess
   command "rm -rf /opt/mod-auth-external && cd /opt/ && git clone https://github.com/phokz/mod-auth-external.git"
-  when "{{{ PTSource::~::isS390xArch }}}"
+  when "{{{ PTArtefacts::~::isS390xArch }}}"
 
 LinuxCompiler directory
   label "Compile Mod Auth External for Redhat"
   directory /opt/mod-auth-external/mod_authnz_external
-  when "{{{ PTSource::~::isS390xArch }}}"
+  when "{{{ PTArtefacts::~::isS390xArch }}}"
 
 #PackageManager pkg-install
 #  label "Install apache PWAuth for Redhat"
@@ -44,13 +44,13 @@ LinuxCompiler directory
 
 Copy put
   label "{{{ Parameter::app-slug }}} Apache Custom Authentication method Conf file to Debian Directory"
-  source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}ptconfigure/ptconfigure/src/Modules/PTSource/Templates/{{{ Parameter::app-slug }}}_auth.conf"
+  source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}ptconfigure/ptconfigure/src/Modules/PTArtefacts/Templates/{{{ Parameter::app-slug }}}_auth.conf"
   target "/etc/apache2/conf-available/{{{ Parameter::app-slug }}}_auth.conf"
   when "{{{ Param::is_debian }}}"
 
 Copy put
   label "{{{ Parameter::app-slug }}} Apache Custom Authentication method Conf file to Redhat Directory"
-  source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}ptconfigure/ptconfigure/src/Modules/PTSource/Templates/{{{ Parameter::app-slug }}}_auth.conf"
+  source "{{{ Facts::Runtime::factGetConstant::PFILESDIR }}}ptconfigure/ptconfigure/src/Modules/PTArtefacts/Templates/{{{ Parameter::app-slug }}}_auth.conf"
   target "/etc/httpd/conf.d/{{{ Parameter::app-slug }}}_auth.conf"
   when "{{{ Param::is_redhat }}}"
 
