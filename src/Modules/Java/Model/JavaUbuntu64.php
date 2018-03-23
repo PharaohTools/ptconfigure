@@ -132,11 +132,7 @@ class JavaUbuntu64 extends BaseLinuxApp {
             $comm = 'cp -r '.$tmp_str.DIRECTORY_SEPARATOR."{$this->javaDetails['extracted_dir']} {$this->programDataFolder}" ;
             $this->executeAndOutput($comm) ;
 
-//            $comm = "rm -rf {$tmp_str}" ;
-//            $this->executeAndOutput($comm) ;
-
             chmod($tmp_str, octdec('0711') ) ;
-
 
             $profile_lines = array(
                 'echo \'JAVA_HOME='.$this->programDataFolder.'\' >> /etc/profile',
@@ -160,31 +156,6 @@ class JavaUbuntu64 extends BaseLinuxApp {
                 $this->executeAndOutput($comm) ;
             }
 
-//            $ray =
-//                array(
-//                    array("command" => array(
-//                        "mkdir -p {$tmp_str}", // DONE
-//                        "tar -xzf {$tmp_str}.tar.gz -C {$tmp_str}", // DONE
-//                        "rm -f {$tmp_str}.tar.gz", // DONE
-//                        "mkdir -p ****PROGDIR****" , // DONE
-//                        "rm -rf ****PROGDIR****/*" , // DONE
-//                        "cp -r {$tmp_str}/{$this->javaDetails['extracted_dir']}/* ****PROGDIR****" , // DONE
-//                        "rm -rf {$tmp_str}" , // DONE
-//
-//                        "cd ****PROGDIR****", // DONE
-//                        "chmod a+x ****PROGDIR****", // DONE
-//
-//
-//
-//                        SUDOPREFIX.'update-alternatives --install "/usr/bin/java" "java" "****PROGDIR****/bin/java" 1 ',
-//                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javac" "javac" "****PROGDIR****/bin/javac" 1 ',
-//                        SUDOPREFIX.'update-alternatives --install "/usr/bin/javaws" "javaws" "****PROGDIR****/bin/javaws" 1 ',
-//                        SUDOPREFIX.'update-alternatives --set java ****PROGDIR****/bin/java ',
-//                        SUDOPREFIX.'update-alternatives --set javac ****PROGDIR****/bin/javac ',
-//                        SUDOPREFIX.'update-alternatives --set javaws ****PROGDIR****/bin/javaws ',
-////                        '. /etc/profile'
-//                    )   )
-//                ) ;
         }
 //        $this->installCommands = $ray ;
 //        return $this->doInstallCommand() ;
