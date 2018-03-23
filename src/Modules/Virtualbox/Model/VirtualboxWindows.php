@@ -25,7 +25,8 @@ class VirtualboxWindows extends BaseWindowsApp {
         $this->autopilotDefiner = "Virtualbox";
         $this->installCommands = $this->getInstallCommands() ;
         $this->uninstallCommands = array( ) ;
-        $this->programDataFolder = $_ENV['ProgramFiles']."\\Virtualbox\\"; // command and app dir name
+        $pf = (isset($_ENV['ProgramFiles'])) ? $_ENV['ProgramFiles'] : 'C:\\' ;
+        $this->programDataFolder = $pf."\\Virtualbox\\"; // command and app dir name
         $this->programNameMachine = "virtualbox"; // command and app dir name
         $this->programNameFriendly = "! VirtualBox !"; // 12 chars
         $this->programNameInstaller = "Virtualbox";
