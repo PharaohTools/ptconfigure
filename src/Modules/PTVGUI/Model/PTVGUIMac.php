@@ -15,7 +15,7 @@ class PTVGUIMac extends BaseLinuxApp {
     public $modelGroup = array("Default") ;
     public $sv ;
 
-    protected $cur_progress ;
+    public $cur_progress ;
 
     // @todo ensure wget is installed
     public function __construct($params) {
