@@ -21,7 +21,9 @@ class PharaohToolRunnerAnyOS extends Base {
     public function performPharaohToolRunnerPut() {
         if ($this->askForPharaohToolRunnerExecute() != true) { return false; }
         $tool = $this->getNameOfToolToRun() ;
+//        var_dump('tool one', $tool) ;
         $tool = $this->parseAvailableTools($tool);
+//        var_dump('tool two', $tool) ;
         $module = $this->getNameOfModuleToRun() ;
         $action = $this->getNameOfActionToRun() ;
         $prefix = $this->getForcePrefix() ;
@@ -96,7 +98,8 @@ class PharaohToolRunnerAnyOS extends Base {
 //          if ($res == false) { return false ; }
             $param_string = $this->getParametersToForward() ;
             $comm = "$tool $module $action $param_string" ;
-            if ($prefix !== true) {
+//            var_dump('com com', $comm) ;
+            if ($prefix != false) {
                 $logging->log("Prefixing command with {$prefix}", $this->getModuleName());
                 $comm = $prefix." ".$comm ;
             }
@@ -199,12 +202,12 @@ class PharaohToolRunnerAnyOS extends Base {
     protected function parseAvailableTools($tool){
         $all_tool_synonyms = array();
         $all_tool_synonyms["ptconfigure-enterprise"] = array("ptconfigure-ent", "configure-ent", "configent", "ptcent", "ptconfigure-ent.cmd") ;
-        $all_tool_synonyms[PTCCOMM] = array("ptconfigure", "configure", "config", "ptc", "ptconfigure.cmd") ;
-        $all_tool_synonyms[PTBCOMM] = array("ptbuild", "build", "ptb", "ptbuild.cmd") ;
-        $all_tool_synonyms[PTDCOMM] = array("ptdeploy", "deploy", "ptd", "ptdeploy.cmd") ;
-        $all_tool_synonyms[PTVCOMM] = array("ptvirtualize", "virtualize", "ptv", "develop", "virtualize.cmd") ;
-        $all_tool_synonyms[PTTRCOMM] = array("pttrack", "track", "pttr", "pttrack.cmd") ;
-        $all_tool_synonyms[PTTECOMM] = array("pttest", "test", "ptte", "pttest.cmd") ;
+        $all_tool_synonyms["ptconfigure"] = array("ptconfigure", "configure", "config", "ptc", "ptconfigure.cmd") ;
+        $all_tool_synonyms["ptbuild"] = array("ptbuild", "build", "ptb", "ptbuild.cmd") ;
+        $all_tool_synonyms["ptdeploy"] = array("ptdeploy", "deploy", "ptd", "ptdeploy.cmd") ;
+        $all_tool_synonyms["ptvirtualize"] = array("ptvirtualize", "virtualize", "ptv", "develop", "virtualize.cmd") ;
+        $all_tool_synonyms["pttrack"] = array("pttrack", "track", "pttr", "pttrack.cmd") ;
+        $all_tool_synonyms["pttest"] = array("pttest", "test", "ptte", "pttest.cmd") ;
         foreach ($all_tool_synonyms as $final_tool => $cur_synonyms) {
             if (in_array($tool, $cur_synonyms)) {
                 $tool = $final_tool ; } }
