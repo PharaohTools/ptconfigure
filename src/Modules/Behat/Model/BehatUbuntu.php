@@ -32,8 +32,8 @@ class BehatUbuntu extends BehatBase {
 //            $ray[]["command"][] = SUDOPREFIX." apt-get install -y php5-mbstring php5-curl php5-zip php5-dom unzip" ;
 //        } elseif (PHP_MAJOR_VERSION == 7) {
             $ray[]["command"][] =
-                SUDOPREFIX." apt-get install -y php7.".PHP_MINOR_VERSION."-mbstring php7.".PHP_MINOR_VERSION.
-                "-curl php7.".PHP_MINOR_VERSION."-zip php-xml unzip" ;
+                SUDOPREFIX." apt-get install -y php".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION."-mbstring php".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION.
+                "-curl php".PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION."-zip php-xml unzip" ;
 //        }
         $this->preinstallCommands = $ray ;
         return $ray ;
