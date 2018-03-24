@@ -28,13 +28,13 @@ class BehatUbuntu extends BehatBase {
 
     public function setpreinstallCommands() {
         $ray = array( ) ;
-        if (PHP_MAJOR_VERSION == 5) {
-            $ray[]["command"][] = SUDOPREFIX." apt-get install -y php5-mbstring php5-curl php5-zip php5-dom unzip" ;
-        } elseif (PHP_MAJOR_VERSION == 7) {
+//        if (PHP_MAJOR_VERSION == 5) {
+//            $ray[]["command"][] = SUDOPREFIX." apt-get install -y php5-mbstring php5-curl php5-zip php5-dom unzip" ;
+//        } elseif (PHP_MAJOR_VERSION == 7) {
             $ray[]["command"][] =
                 SUDOPREFIX." apt-get install -y php7.".PHP_MINOR_VERSION."-mbstring php7.".PHP_MINOR_VERSION.
                 "-curl php7.".PHP_MINOR_VERSION."-zip php-xml unzip" ;
-        }
+//        }
         $this->preinstallCommands = $ray ;
         return $ray ;
     }
