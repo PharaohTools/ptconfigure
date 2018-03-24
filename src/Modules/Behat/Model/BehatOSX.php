@@ -2,12 +2,12 @@
 
 Namespace Model;
 
-class BehatUbuntu extends BehatBase {
+class BehatOSX extends BehatBase {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
+    public $os = array("Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
     public $versions = array('any') ;
     public $architectures = array("any") ;
 
@@ -23,18 +23,6 @@ class BehatUbuntu extends BehatBase {
         $this->programExecutorTargetPath = 'behat/bin/behat';
         $this->statusCommand = "behat -h" ;
         $this->initialize();
-    }
-
-
-    public function setpreinstallCommands() {
-        $ray = array( ) ;
-        if (PHP_MAJOR_VERSION == 5) {
-            $ray[]["command"][] = SUDOPREFIX." apt-get install -y php-mbstring php-curl php-zip php-dom unzip" ;
-        } elseif (PHP_MAJOR_VERSION == 7) {
-            $ray[]["command"][] = SUDOPREFIX." apt-get install -y php7.0-mbstring php7.0-curl php7.0-zip php-xml unzip" ;
-        }
-        $this->preinstallCommands = $ray ;
-        return $ray ;
     }
 
 }

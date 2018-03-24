@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class BehatOSX extends BehatBase {
+class BehatWindows extends BehatBase {
 
     // Compatibility
-    public $os = array("Darwin") ;
+    public $os = array("Windows", 'WINNT') ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array('any') ;
