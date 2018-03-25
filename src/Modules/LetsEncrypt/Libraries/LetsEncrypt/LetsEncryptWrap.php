@@ -1,13 +1,11 @@
 <?php
 
-
 class LetsEncryptWrap {
 
     public $ca = 'https://acme-v01.api.letsencrypt.org';
-    // public $ca = 'https://acme-staging.api.letsencrypt.org'; // testing
-    public $license = 'https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf';
-    public $countryCode = 'GB';
-    public $state = "Great Britain";
+    //public $ca = 'https://acme-staging.api.letsencrypt.org'; // testing
+    public $countryCode = 'CZ';
+    public $state = "Czech Republic";
     public $challenge = 'http-01'; // http-01 challange only
     public $contact = array(); // optional
     // public $contact = array("mailto:cert-admin@example.com", "tel:+12025551212")
@@ -27,8 +25,6 @@ class LetsEncryptWrap {
         $this->logger = $logger;
         $this->client = $client ? $client : new Client($this->ca);
         $this->accountKeyPath = $certificatesDir . '/_account/private.pem';
-
-
     }
 
     public function initAccount()
@@ -71,7 +67,7 @@ class LetsEncryptWrap {
                 "/acme/new-authz",
                 array("resource" => "new-authz", "identifier" => array("type" => "dns", "value" => $domain))
             );
-            
+
             if(empty($response['challenges'])) {
                 throw new \RuntimeException("HTTP Challenge for $domain is not available. Whole response: ".json_encode($response));
             }
@@ -116,12 +112,9 @@ class LetsEncryptWrap {
             $this->log("Token for $domain saved at $tokenPath and should be available at $uri");
 
             // simple self check
-
-//            var_dump("self check", $payload, @file_get_contents($uri)) ;
-//            @todod raise a request, this check is broken
-//            if ($payload !== trim(@file_get_contents($uri))) {
-//                throw new \RuntimeException("Please check $uri - token not available");
-//            }
+            if ($payload !== trim(@file_get_contents($uri))) {
+                throw new \RuntimeException("Please check $uri - token not available");
+            }
 
             $this->log("Sending request to challenge");
 
@@ -252,9 +245,17 @@ class LetsEncryptWrap {
 
     private function postNewReg()
     {
+        $this->log('Getting last terms of service URL');
+
+        $directory = $this->client->get('/directory');
+        if (!isset($directory['meta']) || !isset($directory['meta']['terms-of-service'])) {
+            throw new \RuntimeException("No terms of service link available!");
+        }
+
+        $data = array('resource' => 'new-reg', 'agreement' => $directory['meta']['terms-of-service']);
+
         $this->log('Sending registration to letsencrypt server');
 
-        $data = array('resource' => 'new-reg', 'agreement' => $this->license);
         if(!$this->contact) {
             $data['contact'] = $this->contact;
         }
