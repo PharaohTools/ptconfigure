@@ -5,7 +5,7 @@ Namespace Model;
 class PTVGUIWindows extends BaseWindowsApp {
 
     // Compatibility
-    public $os = array("Windows") ;
+    public $os = array("Windows", 'WINNT') ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
