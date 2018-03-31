@@ -94,7 +94,7 @@ COMPLETION;
         $commy = "{$tempFile}" ;
         $rc = $this->executeAndGetReturnCode($commy, true) ;
         if ($message !== null) { echo $message."\n"; }
-        shell_exec("rm $tempFile");
+        unlink($tempFile);
 //        $logging->log("Temp File $tempFile Removed", $this->getModuleName());
 //        var_dump($rc) ;
         return $rc["rc"] ;
