@@ -51,7 +51,7 @@ class AptUbuntu extends BasePackager {
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq install $package -y ");
+            $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq install $package -y > /dev/null ");
             if (strpos($out, "Setting up $package") !== false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
             else if (strpos($package, " ") !== false) {
@@ -73,7 +73,7 @@ class AptUbuntu extends BasePackager {
 
     public function removePackage($packageName) {
         $packageName = $this->getPackageName($packageName);
-        $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq remove $packageName -y ");
+        $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq remove $packageName -y > /dev/null ");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( strpos($out, "The following packages will be REMOVED") != false ) {
@@ -88,7 +88,7 @@ class AptUbuntu extends BasePackager {
     }
 
     public function update() {
-        $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq update -y ");
+        $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq update -y > /dev/null ");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
@@ -98,7 +98,7 @@ class AptUbuntu extends BasePackager {
     }
 
     public function versionCompatible() {
-        $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq update -y ");
+        $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq update -y > /dev/null ");
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
