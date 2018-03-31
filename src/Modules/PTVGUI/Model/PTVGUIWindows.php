@@ -49,13 +49,22 @@ class PTVGUIWindows extends BaseWindowsApp {
         $logging = $loggingFactory->getModel($this->params);
 
         // delete package
-        $logging->log("Delete previous packages", $this->getModuleName() ) ;
-        $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-x64.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
-        $this->executeAsShell($comms) ;
+        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-x64.zip")) {
+            $logging->log("Delete previous package file", $this->getModuleName() ) ;
+            $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-x64.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
+            $this->executeAsShell($comms) ;
+        }
+        if (is_dir(BASE_TEMP_DIR."created_ptvgui_app")) {
+            $logging->log("Delete previous package directory", $this->getModuleName() ) ;
+            $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-x64.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
+            $this->executeAsShell($comms) ;
+        }
 
         // download the package
         $source = 'http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/ptvgui-win32-x64.zip' ;
         $this->packageDownload($source, BASE_TEMP_DIR.'ptvgui-win32-x64.zip') ;
+        $logging->log("Download to: ". BASE_TEMP_DIR.'ptvgui-win32-x64.zip') ;
+
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
