@@ -21,10 +21,9 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->autopilotDefiner = "PTVGUI";
         $this->installCommands = array(
 //            array("method"=> array("object" => $this, "method" => "askForPTVGUIVersion", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("command"=> array("rm -rf {$this->programDataFolder}")));
