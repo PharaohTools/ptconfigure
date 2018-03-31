@@ -75,13 +75,13 @@ class PTVGUIWindows extends BaseWindowsApp {
         $lib_dir = dirname(__DIR__).DS.'Libraries' ;
         $scr_dir = "\\batch.scripts\\hybrids\\jscript\\" ;
         $comm  = "call \"{$lib_dir}{$scr_dir}pinnerJS.bat\" " ;
-        $comm .= " \"%windir%\\system32\\cmd.exe\" startmenu"  ;
+        $comm .= " \"".PFILESDIR."PTVGUI\" startmenu"  ;
         $this->executeAsShell(array($comm)) ;
 
-        // change file name
-        $logging->log("Change File Name", $this->getModuleName() ) ;
-        $comms = array( "mv /Applications/ptvgui-win32-x64 /Applications/PTV\ GUI.app" ) ;
-        $this->executeAsShell($comms) ;
+//        // change file name
+//        $logging->log("Change File Name", $this->getModuleName() ) ;
+//        $comms = array( "mv /Applications/ptvgui-win32-x64 /Applications/PTV\ GUI.app" ) ;
+//        $this->executeAsShell($comms) ;
 
         // delete package
         $logging->log("Delete previous packages", $this->getModuleName() ) ;
