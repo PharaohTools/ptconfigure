@@ -67,12 +67,12 @@ class PTVGUIMac extends BaseLinuxApp {
 
         // change mode
         $logging->log("Change Mode", $this->getModuleName() ) ;
-        $comms = array( SUDOPREFIX." chmod -R 777 /tmp/created_app/ptvgui.app" ) ;
+        $comms = array( SUDOPREFIX." chmod -R 777 /tmp/created_ptvgui_app/ptvgui.app" ) ;
         $this->executeAsShell($comms) ;
 
         // move to applications dir
         $logging->log("Move to Apps Dir", $this->getModuleName() ) ;
-        $comms = array( SUDOPREFIX."mv /tmp/created_app/ptvgui.app /Applications/" ) ;
+        $comms = array( SUDOPREFIX."mv /tmp/created_ptvgui_app/ptvgui.app /Applications/" ) ;
         $this->executeAsShell($comms) ;
 
         // change file name

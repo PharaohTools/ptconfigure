@@ -33,7 +33,8 @@ if (in_array(PHP_OS, array("Windows", "WINNT"))) {
     define('PIPEDIR', $sd.'\\PharaohTools\pipes'.'\\') ;
     define('REPODIR', $sd.'\\PharaohTools\repositories'.'\\') ;
     define("DS", "\\");
-    define("BASE_TEMP_DIR", getenv("TEMP").'\\'); }
+    $btd = str_replace('ADMINI~1', 'Administrator', getenv("TEMP"));
+    define("BASE_TEMP_DIR", $btd.'\\'); }
 else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwin"))) {
     $uname = exec('whoami');
     $isAdmin = ($uname == "root") ? true : false ;
