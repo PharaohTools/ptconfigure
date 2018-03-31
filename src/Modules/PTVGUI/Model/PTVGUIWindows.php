@@ -20,13 +20,11 @@ class PTVGUIWindows extends BaseWindowsApp {
         parent::__construct($params);
         $this->autopilotDefiner = "PTVGUI";
         $this->installCommands = array(
-//            array("method"=> array("object" => $this, "method" => "askForPTVGUIVersion", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
-//            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
-//            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
-        );
+       );
         $this->uninstallCommands = array(
-            array("command"=> array("rm -rf {$this->programDataFolder}")));
+            array("method"=> array("object" => $this, "method" => "doUninstallCommands", "params" => array()) ),
+        );
         $this->programDataFolder = "/opt/ptvgui"; // command and app dir name
         $this->programNameMachine = "ptvgui"; // command and app dir name
         $this->programNameFriendly = "PTV GUI"; // 12 chars
@@ -81,6 +79,21 @@ class PTVGUIWindows extends BaseWindowsApp {
 //        $logging->log("Change File Name", $this->getModuleName() ) ;
 //        $comms = array( "mv /Applications/ptvgui-win32-x64 /Applications/PTV\ GUI.app" ) ;
 //        $this->executeAsShell($comms) ;
+
+        // delete package
+        $logging->log("Delete previous packages", $this->getModuleName() ) ;
+        $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-x64.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
+        $this->executeAsShell($comms) ;
+
+        return true;
+
+    }
+
+
+    public function doUninstallCommands() {
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 
         // delete package
         $logging->log("Delete previous packages", $this->getModuleName() ) ;
