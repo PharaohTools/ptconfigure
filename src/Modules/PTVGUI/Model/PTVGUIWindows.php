@@ -49,7 +49,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $logging = $loggingFactory->getModel($this->params);
         
         $sys = new \Model\SystemDetectionAllOS();
-        $arch = $sys->$architecture ;
+        $arch = $sys->architecture ;
         if ($arch == '32') {
             $arch_string = 'ia32' ;
         } else if ($arch == '64') {
@@ -62,7 +62,7 @@ class PTVGUIWindows extends BaseWindowsApp {
             $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
             $this->executeAsShell($comms) ;
         }
-        if (is_dir(BASE_TEMP_DIR."created_ptvgui_app")) {
+        if (file_exists(BASE_TEMP_DIR."created_ptvgui_app") && is_dir(BASE_TEMP_DIR."created_ptvgui_app")) {
             $logging->log("Delete previous package directory", $this->getModuleName() ) ;
             $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
             $this->executeAsShell($comms) ;
@@ -73,16 +73,16 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->packageDownload($source, BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
         $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
 
+        // Ensure App Directory
+        $logging->log("Ensure App Directory", $this->getModuleName() ) ;
+        if (!file_exists(PFILESDIR."PTVGUI")) {
+            mkdir(PFILESDIR."PTVGUI", null, true) ;
+        }
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = "unzip -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTVGUI\"" ;
+        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTVGUI\"" ;
         $comms = array( $uzc ) ;
-        $logging->log("from: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
-        $logging->log("to: ". PFILESDIR."PTVGUI") ;
-        $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
-
-
         $this->executeAsShell($comms) ;
 
 //        // change mode
@@ -92,9 +92,9 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         // move to applications dir
         $logging->log("Add to Start Menu", $this->getModuleName() ) ;
-        $lib_dir = dirname(__DIR__).DS.'Libraries' ;
-        $scr_dir = "\\batch.scripts\\hybrids\\jscript\\" ;
-        $comm  = "call \"{$lib_dir}{$scr_dir}pinnerJS.bat\" " ;
+        $lib_path = dirname(__DIR__).DS.'Libraries' ;
+        $lib_path .= "\\bscripts\\pinnerJS.bat" ;
+        $comm  = "call \"{$lib_path}\" " ;
         $comm .= " \"".PFILESDIR."PTVGUI\" startmenu"  ;
         $this->executeAsShell(array($comm)) ;
 
@@ -102,12 +102,18 @@ class PTVGUIWindows extends BaseWindowsApp {
 //        $logging->log("Change File Name", $this->getModuleName() ) ;
 //        $comms = array( "mv /Applications/ptvgui-win32-{$arch_string} /Applications/PTV\ GUI.app" ) ;
 //        $this->executeAsShell($comms) ;
-
+        
         // delete package
-        $logging->log("Delete previous packages", $this->getModuleName() ) ;
-        $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
-        $this->executeAsShell($comms) ;
-
+        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+            $logging->log("Delete previous package file", $this->getModuleName() ) ;
+            $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
+            $this->executeAsShell($comms) ;
+        }
+        if (file_exists(BASE_TEMP_DIR."created_ptvgui_app") && is_dir(BASE_TEMP_DIR."created_ptvgui_app")) {
+            $logging->log("Delete previous package directory", $this->getModuleName() ) ;
+            $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
+            $this->executeAsShell($comms) ;
+        }
         return true;
 
     }
