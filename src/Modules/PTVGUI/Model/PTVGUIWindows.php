@@ -68,7 +68,7 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = "unzip -quo ".BASE_TEMP_DIR."ptvgui-win32-x64.zip -d ".PFILESDIR."PTVGUI" ;
+        $uzc = "unzip -quo \"".BASE_TEMP_DIR."ptvgui-win32-x64.zip\" -d \"".PFILESDIR."PTVGUI\"" ;
         $comms = array( $uzc ) ;
         $logging->log("from: ". BASE_TEMP_DIR.'ptvgui-win32-x64.zip') ;
         $logging->log("to: ". PFILESDIR."PTVGUI") ;
