@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class CopyAllLinux extends Base {
+class CopyWindows extends Base {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("Windows", 'WINNT') ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -14,19 +14,8 @@ class CopyAllLinux extends Base {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    public function askWhetherToCopyPut() {
-        return $this->performCopyPut();
-    }
-
-    public function performCopyPut() {
-        if ($this->askForCopyExecute() != true) { return false; }
-        $sourcePath = $this->getSourceFilePath() ;
-        $targetPath = $this->getTargetFilePath() ;
-        return $this->doCopyPut($sourcePath, $targetPath) ;
-    }
-
-    private function doCopyPut($source, $target) {
-        $comm = "cp -r $source $target" ;
+    public function doCopyPut($source, $target) {
+        $comm = "copy $source $target" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Executing $comm", $this->getModuleName());
@@ -34,23 +23,4 @@ class CopyAllLinux extends Base {
         return ($rc["rc"]==0) ? true : false ;
     }
 
-    private function askForCopyExecute(){
-        if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Copy files?';
-        return self::askYesOrNo($question);
-    }
-
-    private function getSourceFilePath(){
-        if (isset($this->params["source"])) { return $this->params["source"] ; }
-        else { $question = "Enter source file path"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
-    }
-
-    private function getTargetFilePath(){
-        if (isset($this->params["target"])) { return $this->params["target"] ; }
-        else { $question = "Enter target file path"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
-    }
 }
