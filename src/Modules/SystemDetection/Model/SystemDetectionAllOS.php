@@ -14,6 +14,7 @@ class SystemDetectionAllOS extends Base {
     protected $defaults = null ;
 
     public function __construct() {
+        parent::__construct(array()) ;
         $this->setDefaults() ;
         if (is_array($this->defaults)) {
             $this->setByDefaults();
