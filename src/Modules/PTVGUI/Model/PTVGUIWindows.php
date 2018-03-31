@@ -71,9 +71,12 @@ class PTVGUIWindows extends BaseWindowsApp {
 //        $this->executeAsShell($comms) ;
 
         // move to applications dir
-        $logging->log("Move to Apps Dir", $this->getModuleName() ) ;
-        $comms = array( "mv ".BASE_TEMP_DIR."created_app/ptvgui-win32-x64 C:\\PharaohTools/" ) ;
-        $this->executeAsShell($comms) ;
+        $logging->log("Add to Start Menu", $this->getModuleName() ) ;
+        $lib_dir = dirname(__DIR__).DS.'Libraries' ;
+        $scr_dir = "\\batch.scripts\\hybrids\\jscript\\" ;
+        $comm  = "call \"{$lib_dir}{$scr_dir}pinnerJS.bat\" " ;
+        $comm .= " \"%windir%\\system32\\cmd.exe\" startmenu"  ;
+        $this->executeAsShell(array($comm)) ;
 
         // change file name
         $logging->log("Change File Name", $this->getModuleName() ) ;
