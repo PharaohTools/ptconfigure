@@ -56,6 +56,10 @@ class PTVGUIWindows extends BaseWindowsApp {
             $arch_string = 'x64' ;
         }
 
+        // Stop running PTV GUI
+        $comms = array( "taskkill /T /F /IM ptvgui.exe" ) ;
+        $this->executeAsShell($comms) ;
+
         // delete package
         if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
