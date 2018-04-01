@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class CopyWindows extends Base {
+class CopyWindows extends CopyAllLinux {
 
     // Compatibility
     public $os = array("Windows", 'WINNT') ;
