@@ -58,14 +58,12 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         // Stop running PTV GUI
         $comms = array( "taskkill /T /F /IM ptvgui.exe" ) ;
-        $this->executeAsShell($comms) ;
+        $this->executeAndOutput($comms) ;
 
         // delete package
         if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
             unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
-//            $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip" ) ;
-//            $this->executeAsShell($comms) ;
         }
 
         // download the package
@@ -89,16 +87,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         // $uzc = "cd \"".PFILESDIR."PTVGUI\\\" && ".getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" " ;
         $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
 //        $logging->log("UZ: $uzc", $this->getModuleName() ) ;
-
-
-//        $comms = array( $uzc ) ;
         $this->executeAndOutput($uzc) ;
-//        $this->executeAsShell($comms) ;
-
-//        // change mode
-//        $logging->log("Change Mode", $this->getModuleName() ) ;
-//        $comms = array( "chmod -R 777 ".BASE_TEMP_DIR."created_app/ptvgui-win32-{$arch_string}" ) ;
-//        $this->executeAsShell($comms) ;
 
         // move to applications dir
         $logging->log("Add to Start Menu", $this->getModuleName() ) ;
@@ -112,22 +101,12 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->executeAndOutput($comm1) ;
         $this->executeAndOutput($comm2) ;
 
-//        // change file name
-//        $logging->log("Change File Name", $this->getModuleName() ) ;
-//        $comms = array( "mv /Applications/ptvgui-win32-{$arch_string} /Applications/PTV\ GUI.app" ) ;
-//        $this->executeAsShell($comms) ;
-
         // delete package
-//        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
-//            $logging->log("Delete previous package file", $this->getModuleName() ) ;
-//            $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
-//            $this->executeAsShell($comms) ;
-//        }
-//        if (file_exists(BASE_TEMP_DIR."created_ptvgui_app") && is_dir(BASE_TEMP_DIR."created_ptvgui_app")) {
-//            $logging->log("Delete previous package directory", $this->getModuleName() ) ;
-//            $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
-//            $this->executeAsShell($comms) ;
-//        }
+        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+            $logging->log("Delete previous package file", $this->getModuleName() ) ;
+            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+        }
+
         return true;
 
     }
