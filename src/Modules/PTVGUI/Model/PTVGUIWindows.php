@@ -102,6 +102,20 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->executeAndOutput($comm1) ;
         $this->executeAndOutput($comm2) ;
 
+        $logging->log("Add log tailing script", $this->getModuleName() ) ;
+        $params = $this->params ;
+        $params['source'] = dirname(__DIR__).DS.'Files'.DS.'logtail.php' ;
+        $params['target'] = getenv('SystemDrive')."\\logtail.php" ;
+        $copyFac = new \Model\Copy();
+        $copy = $copyFac->getModel('Default', $params);
+        $copy->put();
+
+        // delete package
+        if (is_dir(PFILESDIR."PTVGUI")) {
+            $logging->log("Delete previous App Directory", $this->getModuleName() ) ;
+            $this-> delTree(PFILESDIR."PTVGUI") ;
+        }
+
         // delete package
         if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
