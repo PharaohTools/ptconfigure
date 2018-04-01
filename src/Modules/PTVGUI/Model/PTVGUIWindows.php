@@ -211,7 +211,7 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         $fp = fopen ($temp_exe_file, 'w') ;
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://repositories.internal.pharaohtools.com/index.php?');
+        curl_setopt($ch, CURLOPT_URL, 'https://repositories.internal.pharaohtools.com/index.php');
         // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
