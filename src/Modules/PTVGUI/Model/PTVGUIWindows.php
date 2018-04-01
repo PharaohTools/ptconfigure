@@ -64,7 +64,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         // download the package
         // $source = "http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/ptvgui-win32-{$arch_string}.zip" ;
         $source = "https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_windows_{$arch_string}" ;
-        $this->packageDownload($source, BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+        $this->guiDownload($source, BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
         // $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
 
         // delete package
@@ -186,5 +186,48 @@ class PTVGUIWindows extends BaseWindowsApp {
         rmdir($src);
     }
 
+
+    public function guiDownload($remote_source, $temp_exe_file) {
+        if (is_null($temp_exe_file)) {
+            $temp_exe_file = $_ENV['TEMP'].DS.'temp.exe' ;
+        }
+        if (file_exists($temp_exe_file)) {
+            unlink($temp_exe_file) ;
+        }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
+
+        echo "Download Starting ...".PHP_EOL;
+        ob_start();
+        ob_flush();
+        flush();
+
+        $parameters = array(
+            "control" => "BinaryServer",
+            "action" => "serve",
+            "item" => "pharaoh_virtualize_gui_windows_x64"
+        ) ;
+
+        $fp = fopen ($temp_exe_file, 'w') ;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://repositories.internal.pharaohtools.com/index.php?');
+        // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters);
+        $downloaded = curl_exec($ch);
+        fwrite($fp, $downloaded) ;
+        curl_close($ch);
+
+        ob_flush();
+        flush();
+
+        echo "Done".PHP_EOL ;
+        return $temp_exe_file ;
+    }
 
 }
