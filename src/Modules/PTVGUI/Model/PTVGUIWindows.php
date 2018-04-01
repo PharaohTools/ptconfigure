@@ -57,7 +57,8 @@ class PTVGUIWindows extends BaseWindowsApp {
         }
 
         // Stop running PTV GUI
-        $comms = array( "taskkill /T /F /IM ptvgui.exe" ) ;
+        $logging->log("Stop Pharaoh Virtualize GUI if it is running", $this->getModuleName() ) ;
+        $comms = "taskkill /T /F /IM ptvgui.exe" ;
         $this->executeAndOutput($comms) ;
 
         // delete package
