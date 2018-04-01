@@ -48,13 +48,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
-        $sys = new \Model\SystemDetectionAllOS();
-        $arch = $sys->architecture ;
-        if ($arch == '32') {
-            $arch_string = 'ia32' ;
-        } else if ($arch == '64') {
-            $arch_string = 'x64' ;
-        }
+        $arch_string = $this->getArchString() ;
 
         // Stop running PTV GUI
         $logging->log("Stop Pharaoh Virtualize GUI if it is running", $this->getModuleName() ) ;
@@ -70,7 +64,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         // download the package
         $source = "http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/ptvgui-win32-{$arch_string}.zip" ;
         $this->packageDownload($source, BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
-//        $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+        // $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
 
         // delete package
         if (is_dir(PFILESDIR."PTVGUI")) {
@@ -83,11 +77,11 @@ class PTVGUIWindows extends BaseWindowsApp {
         if (!file_exists(PFILESDIR."PTVGUI")) {
             mkdir(PFILESDIR."PTVGUI", null, true) ;
         }
+
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        // $uzc = "cd \"".PFILESDIR."PTVGUI\\\" && ".getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" " ;
         $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
-//        $logging->log("UZ: $uzc", $this->getModuleName() ) ;
+        // $logging->log("UZ: $uzc", $this->getModuleName() ) ;
         $this->executeAndOutput($uzc) ;
 
         // move to applications dir
@@ -98,7 +92,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $comm .= " \"".PFILESDIR."PTVGUI\\ptvgui-win32-{$arch_string}\\ptvgui.exe\""  ;
         $comm1 = $comm . " startmenu"  ;
         $comm2 = $comm . " taskbar"  ;
-//        $logging->log("UZ: $comm", $this->getModuleName() ) ;
+        // $logging->log("UZ: $comm", $this->getModuleName() ) ;
         $this->executeAndOutput($comm1) ;
         $this->executeAndOutput($comm2) ;
 
@@ -108,13 +102,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $params['target'] = getenv('SystemDrive')."\\logtail.php" ;
         $copyFac = new \Model\Copy();
         $copy = $copyFac->getModel('Default', $params);
-        $copy->put();
-
-        // delete package
-        if (is_dir(PFILESDIR."PTVGUI")) {
-            $logging->log("Delete previous App Directory", $this->getModuleName() ) ;
-            $this-> delTree(PFILESDIR."PTVGUI") ;
-        }
+        $copy->performCopyPut();
 
         // delete package
         if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
@@ -132,13 +120,34 @@ class PTVGUIWindows extends BaseWindowsApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
+        $arch_string = $this->getArchString() ;
+
         // delete package
-        $logging->log("Delete previous packages", $this->getModuleName() ) ;
-        $comms = array( "DEL /S /Q ".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip",  "DEL /S /Q ".BASE_TEMP_DIR."created_ptvgui_app" ) ;
-        $this->executeAsShell($comms) ;
+        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+            $logging->log("Delete previous package file", $this->getModuleName() ) ;
+            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+        }
+
+        // delete package
+        if (is_dir(PFILESDIR."PTVGUI")) {
+            $logging->log("Delete previous App Directory", $this->getModuleName() ) ;
+            $this-> delTree(PFILESDIR."PTVGUI") ;
+        }
 
         return true;
 
+    }
+
+    public function getArchString() {
+        $sys = new \Model\SystemDetectionAllOS();
+        $arch = $sys->architecture ;
+        $arch_string = '' ;
+        if ($arch == '32') {
+            $arch_string = 'ia32' ;
+        } else if ($arch == '64') {
+            $arch_string = 'x64' ;
+        }
+        return $arch_string ;
     }
 
     public function versionInstalledCommandTrimmer($text) {
