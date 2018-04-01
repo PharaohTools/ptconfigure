@@ -25,7 +25,7 @@ class CopyAllLinux extends Base {
         return $this->doCopyPut($sourcePath, $targetPath) ;
     }
 
-    private function doCopyPut($source, $target) {
+    public function doCopyPut($source, $target) {
         $comm = "cp -r $source $target" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
