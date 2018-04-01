@@ -101,7 +101,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $params['source'] = dirname(__DIR__).DS.'Files'.DS.'logtail.php' ;
         $params['target'] = getenv('SystemDrive')."\\logtail.php" ;
         $copyFac = new \Model\Copy();
-        $copy = $copyFac->getModel('Default', $params);
+        $copy = $copyFac->getModel($params, 'Default');
         $copy->performCopyPut();
 
         // delete package
