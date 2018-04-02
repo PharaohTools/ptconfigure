@@ -147,7 +147,6 @@ class FileAllOS extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Reading File {$this->fileName}", $this->getModuleName()) ;
         $this->fileData = file_get_contents($this->fileName);
-        var_dump('file read', $this->fileData) ;
         return $this->fileData ;
     }
 
