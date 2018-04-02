@@ -147,6 +147,7 @@ class FileAllOS extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Reading File {$this->fileName}", $this->getModuleName()) ;
         $this->fileData = file_get_contents($this->fileName);
+        var_dump('file read', $this->fileData) ;
         return $this->fileData ;
     }
 
@@ -233,7 +234,7 @@ class FileAllOS extends BaseLinuxApp {
             return preg_match($needle->regexp, $this->fileData); }
         else {
             $st = strpos($this->fileData, $needle) !== false ; //;
-//            var_dump("stt",$st, "nd", $needle) ;
+            var_dump("stt",$st, "nd", $needle) ;
             return $st ; }
     }
 
@@ -346,10 +347,8 @@ class FileAllOS extends BaseLinuxApp {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
-        if (substr($searchString, -1, 1) != "\n") {
-            $searchString .= "\n"; }
         if ($this->findString($searchString)) {
-            $this->removeIfPresent($string . "\n"); }
+            $this->removeIfPresent($string); }
         return $this;
     }
 
