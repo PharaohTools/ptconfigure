@@ -188,9 +188,7 @@ class PTVGUIWindows extends BaseWindowsApp {
 
 
     public function guiDownload($remote_source, $temp_exe_file) {
-        if (is_null($temp_exe_file)) {
-            $temp_exe_file = $_ENV['TEMP'].DS.'temp.exe' ;
-        }
+
         if (file_exists($temp_exe_file)) {
             unlink($temp_exe_file) ;
         }
@@ -203,25 +201,9 @@ class PTVGUIWindows extends BaseWindowsApp {
         ob_flush();
         flush();
 
-        $parameters = array(
-            "control" => "BinaryServer",
-            "action" => "serve",
-            "item" => "pharaoh_virtualize_gui_windows_x64"
-        ) ;
-
+        $downloaded = file_get_contents($remote_source) ;
         $fp = fopen ($temp_exe_file, 'w') ;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://repositories.internal.pharaohtools.com/index.php');
-        // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
-        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters);
-        $downloaded = curl_exec($ch);
         fwrite($fp, $downloaded) ;
-        curl_close($ch);
 
         ob_flush();
         flush();
