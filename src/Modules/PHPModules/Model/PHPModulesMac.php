@@ -2,13 +2,13 @@
 
 Namespace Model;
 
-class PHPModulesUbuntu extends BaseLinuxApp {
+class PHPModulesMac extends PHPModulesUbuntu {
 
     // Compatibility
-    public $os = array("Linux") ;
-    public $linuxType = array("Debian") ;
-    public $distros = array("Ubuntu") ;
-    public $versions = array(array("11.04", "+")) ;
+    public $os = array("Darwin") ;
+    public $linuxType = array("any") ;
+    public $distros = array("any") ;
+    public $versions = array("any") ;
     public $architectures = array("any") ;
 
     // Model Group
@@ -19,7 +19,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         $this->setPackages() ;
         parent::__construct($params);
         $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", $this->packages ) ) ),
         );
 
         if (PHP_MAJOR_VERSION > 6) {
@@ -31,7 +31,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         }
 
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", $this->packages ) ) ),
         );
         $this->programDataFolder = "/opt/PHPModules"; // command and app dir name
         $this->programNameMachine = "phpmodules"; // command and app dir name
@@ -41,18 +41,19 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     }
 
     private function setPackages() {
-        if (PHP_MAJOR_VERSION > 6) {
+//        if (PHP_MAJOR_VERSION > 6) {
             $ps2 = "php7.0" ;
-            $ps1 = "php7.0-opcache " ; }
-        else {
-            $ps2 = "php5" ;
-            $ps1 = "php-apc {$ps2}-memcached php5-memcache {$ps2}-mongo {$ps2}-imagick" ; }
+            $ps1 = "php7.0-opcache " ;
+//        } else {
+//            $ps2 = "php5" ;
+//            $ps1 = "php-apc {$ps2}-memcached php5-memcache {$ps2}-mongo {$ps2}-imagick" ; }
 
         $pstr = "{$ps1} {$ps2}-dev {$ps2}-gd {$ps2}-curl {$ps2}-mysql ".
         "{$ps2}-sqlite {$ps2}-ldap php-pear" ;
 
-        if (PHP_MAJOR_VERSION > 6) {
-            $pstr .= " {$ps2}-xml openssl pkg-config" ; }  // openssl, pkg-config are required for mongo in php7
+//        if (PHP_MAJOR_VERSION > 6) {
+            $pstr .= " {$ps2}-xml openssl pkg-config" ;
+//        }  // openssl, pkg-config are required for mongo in php7
 
         $this->packages = array( $pstr ) ;
     }
