@@ -25,4 +25,5 @@ class simplePsrLogger {
   public function log($type, $message) {
     $this->{$type}($message);
   }
+
 }

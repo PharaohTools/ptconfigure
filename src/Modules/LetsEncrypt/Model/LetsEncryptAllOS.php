@@ -112,14 +112,13 @@ class LetsEncryptAllOS extends Base {
         } catch (\Throwable $e) {
             print_r($e->getMessage());
             print_r($e->getTraceAsString());
-        }
-        
-        if (in_array(false, $res)) {
             $logging->log("Unable to store certificate", $this->getModuleName()) ;
-            return false;}
-        else {
-            $logging->log("Certificate successfully generated", $this->getModuleName()) ;
-            return true;}
+            return false;
+        }
+
+        $logging->log("Certificate successfully generated", $this->getModuleName()) ;
+        return true;
+
 	}
 
 
