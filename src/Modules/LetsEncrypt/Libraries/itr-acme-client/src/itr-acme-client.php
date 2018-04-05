@@ -244,7 +244,7 @@ class itrAcmeClient {
    */
   public $sctLogServerJsonUrl = 'https://raw.githubusercontent.com/ITronic/itr-acme-client/master/assets/log_list.json';
   /**
-   * @var \Psr\Log\LoggerInterface|null The logger to use, loglevel is always info
+   * @var \Model\LoggingAll
    */
   public $logger = null;
 
