@@ -21,7 +21,7 @@ class LetsEncrypt extends Base {
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
         if ($action=="sign") {
-            $this->content["result"] = $thisModel->performEncryptionInstall();
+            $this->content["result"] = $thisModel->itrEncryptionInstall();
             return array ("type"=>"view", "view"=>"LetsEncrypt", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
