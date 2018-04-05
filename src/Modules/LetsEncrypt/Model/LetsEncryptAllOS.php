@@ -2,6 +2,9 @@
 
 Namespace Model;
 
+use stonemax\acme2\Client;
+use stonemax\acme2\constants\CommonConstant;
+
 class LetsEncryptAllOS extends Base {
 
 	// Compatibility
@@ -47,67 +50,72 @@ class LetsEncryptAllOS extends Base {
             if (file_exists($certlocation)) { unlink($certlocation); }
             mkdir ($certlocation); }
 
-        require_once (dirname(__DIR__).DS.'Libraries'.DS.'itr-acme-client'.DS.'src'.DS.'itr-acme-client.php') ;
-        require_once (dirname(__DIR__).DS.'Libraries'.DS.'itr-acme-client'.DS.'examples'.DS.'simplelogger.php') ;
+        require_once (dirname(__DIR__).DS.'Libraries'.DS.'acme2'.DS.'vendor'.DS.'autoload.php') ;
 
         try {
 
-            // Create the itrAcmeClient object
-            $iac = new \itrAcmeClient();
+            $domainInfo = [
+                CommonConstant::CHALLENGE_TYPE_HTTP => [
+                    $domain
+                ],
 
-            // Activate debug mode, we automatically use staging endpoint in testing mode
-            $iac->testing = true;
-
-            // The root directory of the certificate store
-            $iac->certDir = $certlocation ;
-            // The root directory of the account store
-            $iac->certAccountDir = 'accounts';
-            // This token will be attached to the $certAccountDir
-            $iac->certAccountToken = 'itronic';
-
-            // The certificate contact information
-            $iac->certAccountContact = [
-                'mailto:other@example.com',
-                'tel:+43123123123'
+//                CommonConstant::CHALLENGE_TYPE_DNS => [
+//                    '*.www.example.com',
+//                    'www.example.com',
+//                ],
             ];
 
-            $iac->certDistinguishedName = [
-                /** @var string The certificate ISO 3166 country code */
-                'countryName'            => 'GB',
-                'stateOrProvinceName'    => 'London',
-                'localityName'           => 'London',
-                'organizationName'       => 'Pharaoh Tools',
-                'organizationalUnitName' => 'Webserver',
-                'street'                 => 'London Bridge'
-            ];
+            $client = new Client(['enquiries@pharaohtools.com'], '../data/', TRUE);
 
-            $iac->webRootDir          = $webroot ;
-            $iac->appendDomain        = false;
-            $iac->appendWellKnownPath = true;
+            $order = $client->getOrder($domainInfo, CommonConstant::KEY_PAIR_TYPE_RSA);
+// $order = $client->getOrder($domainInfo, CommonConstant::KEY_PAIR_TYPE_RSA, TRUE);    // Renew certificates
+
+            $challengeList = $order->getPendingChallengeList();
+
+            /* Verify authorizations */
+            foreach ($challengeList as $challenge)
+            {
+                $challengeType = $challenge->getType();    // http-01 or dns-01
+                $credential = $challenge->getCredential();
+
+                // echo $challengeType."\n";
+                // print_r($credential);
+
+                /* http-01 */
+                if ($challengeType == CommonConstant::CHALLENGE_TYPE_HTTP)
+                {
+                    /* example purpose, create or update the ACME challenge file for this domain */
+//                    setChallengeFile(
+//                        $credential['identifier'],
+//                        $credential['fileName'],
+//                        $credential['fileContent']
+//                    );
+                    $file = $webroot.DS.$credential['fileName'] ;
+                    file_put_contents($file, $credential['fileContent']) ;
+                }
+
+                /* dns-01 */
+//                else if ($challengeType == CommonConstant::CHALLENGE_TYPE_DNS)
+//                {
+                    /* example purpose, create or update the ACME challenge DNS record for this domain */
+//                    \setDNSRecore(
+//                        $credential['identifier'],
+//                        $credential['dnsContent']
+//                    );
+//                }
+
+                /* Infinite loop until the authorization status becomes valid */
+                $challenge->verify();
+            }
+
+            $certificateInfo = $order->getCertificateFile();
+
+ print_r($certificateInfo);
 
 
-            // A \Psr\Log\LoggerInterface or null The logger to use
-            // At the end of this file we have as simplePsrLogger implemntation
-            $iac->logger = new \simplePsrLogger();
-
-            // Initialise the object
-            $iac->init();
-
-            // Create an account if it doesn't exists
-            $iac->createAccount();
-
-            // The Domains we want to sign
-            $domains = [ $domain ];
-
-            // Sign the Domains and get the certificates
-            $pem = $iac->signDomains($domains);
-
-            // Output the certificate informatione
-            print_r($pem);
-
-            $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
-            $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
-            $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
+//            $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
+//            $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
+//            $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
 
         } catch (\Throwable $e) {
             print_r($e->getMessage());
