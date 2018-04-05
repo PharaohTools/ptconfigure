@@ -84,9 +84,18 @@ class LetsEncryptAllOS extends Base {
             $iac->appendDomain        = false;
             $iac->appendWellKnownPath = true;
 
+
+
+            $log_method = function ($type, $message) use ($logging) {
+                $logging->log($message.' - '.$type, 'LetsEncrypt') ;
+            } ;
+
+            $log_class = new \stdClass();
+            $log_class->log = $log_method ;
+
             // A \Psr\Log\LoggerInterface or null The logger to use
             // At the end of this file we have as simplePsrLogger implemntation
-            $iac->logger = new \simplePsrLogger;
+            $iac->logger = $log_class;
 
             // Initialise the object
             $iac->init();
