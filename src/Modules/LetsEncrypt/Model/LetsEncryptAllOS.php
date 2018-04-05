@@ -105,29 +105,15 @@ class LetsEncryptAllOS extends Base {
             // Output the certificate informatione
             print_r($pem);
 
+            $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
+            $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
+            $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
+
         } catch (\Throwable $e) {
             print_r($e->getMessage());
             print_r($e->getTraceAsString());
         }
-
-
-//
-//        file_put_contents($iac->certDir . '/cert.crt', $pem['RSA']['cert']);
-//        file_put_contents($iac->certDir . '/chain.pem', $pem['RSA']['chain']);
-//        file_put_contents($iac->certDir . '/cert.pem', $pem['RSA']['pem']);
-//
-//        // Create a complete .pem file for use with haproxy or apache 2.4,
-//        // and save it as domain.name.pem for easy reference. It doesn't
-//        // matter that this is updated each time, as it'll be exactly
-//        // the same.
-//
-
-
-//        $pem = file_get_contents("$certlocation".DS."$domain".DS."fullchain.pem")."\n".file_get_contents("$certlocation".DS."$domain".DS."private.pem");
-        $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
-        $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
-        $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
-
+        
         if (in_array(false, $res)) {
             $logging->log("Unable to store certificate", $this->getModuleName()) ;
             return false;}
