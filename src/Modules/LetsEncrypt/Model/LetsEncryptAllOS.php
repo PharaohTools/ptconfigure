@@ -48,6 +48,7 @@ class LetsEncryptAllOS extends Base {
             mkdir ($certlocation); }
 
         require_once (dirname(__DIR__).DS.'Libraries'.DS.'itr-acme-client'.DS.'src'.DS.'itr-acme-client.php') ;
+        require_once (dirname(__DIR__).DS.'Libraries'.DS.'itr-acme-client'.DS.'examples'.DS.'simplelogger.php') ;
 
         try {
 
@@ -85,17 +86,9 @@ class LetsEncryptAllOS extends Base {
             $iac->appendWellKnownPath = true;
 
 
-
-            $log_method = function ($type, $message) use ($logging) {
-                $logging->log($message.' - '.$type, 'LetsEncrypt') ;
-            } ;
-
-            $log_class = new \stdClass();
-            $log_class->log = $log_method ;
-
             // A \Psr\Log\LoggerInterface or null The logger to use
             // At the end of this file we have as simplePsrLogger implemntation
-            $iac->logger = $log_class;
+            $iac->logger = new \simplePsrLogger();
 
             // Initialise the object
             $iac->init();
