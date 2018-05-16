@@ -233,7 +233,6 @@ class FileAllOS extends BaseLinuxApp {
             return preg_match($needle->regexp, $this->fileData); }
         else {
             $st = strpos($this->fileData, $needle) !== false ; //;
-            var_dump("stt",$st, "nd", $needle) ;
             return $st ; }
     }
 
@@ -318,8 +317,8 @@ class FileAllOS extends BaseLinuxApp {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
-        if (substr($searchString, -1, 1) != "\n") {
-            $searchString .= "\n"; }
+//        if (substr($searchString, -1, 1) != "\n") {
+//            $searchString .= "\n"; }
         if ($this->findString($searchString) === false) {
             $this->append($searchString); }
         return $this;
