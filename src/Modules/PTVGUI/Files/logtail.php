@@ -2,7 +2,7 @@
 
 error_reporting(0) ;
 
-$tail = new PHPTail("C:\\ptv_gui_log");
+$tail = new PHPTail("C:\\ptv_gui_log.log");
 
 echo $tail->getNewLines($_GET['lastsize'], $_GET['grep'], $_GET['invert']);
 
@@ -62,17 +62,21 @@ class PHPTail
         /**
          * Verify that we don't load more data then allowed.
          */
+        $loaded_size = round(($maxLength / 1048576), 2) ;
         if ($maxLength > $this->maxSizeToLoad) {
-            return json_encode(array("size" => $fsize, "data" => array("ERROR: PHPTail attempted to load more (" . round(($maxLength / 1048576), 2) . "MB) then the maximum size (" . round(($this->maxSizeToLoad / 1048576), 2) . "MB) of bytes into memory. You should lower the defaultUpdateTime to prevent this from happening. ")));
+            $msg = "ERROR: PHPTail attempted to load more (" . $loaded_size . "MB) then " .
+                "the maximum size (" . $loaded_size . "MB) of bytes into memory. You should ".
+                "lower the defaultUpdateTime to prevent this from happening. " ;
+            return json_encode(array("size" => $fsize, "data" => array($msg)));
         }
         /**
          * Actually load the data
          */
         $data = array();
         if ($maxLength > 0) {
-            $fp = fopen($this->log, 'r');
-            fseek($fp, -$maxLength, SEEK_END);
-            $data = explode("\n", fread($fp, $maxLength));
+            $fp = fopen($this->log, 'r') ;
+            fseek($fp, -$maxLength, SEEK_END) ;
+            $data = explode("\n", fread($fp, $maxLength))  ;
         }
         /**
          * Run the grep function to return only the lines we're interested in.
