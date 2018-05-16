@@ -52,6 +52,10 @@ class PortDebian extends BaseLinuxApp {
             $this->ipAddress = $this->params["ip-address"]; }
         else if (isset($this->params["ip"])) {
             $this->ipAddress = $this->params["ip"]; }
+        else if (isset($this->params["host"])) {
+            $this->ipAddress = $this->params["host"]; }
+        else if (isset($this->params["hostname"])) {
+            $this->ipAddress = $this->params["hostname"]; }
         else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             $this->ipAddress = '127.0.0.1'; }
         else {
