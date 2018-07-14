@@ -52,8 +52,11 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performCreation() {
         $this->setFile();
-//        $this->create();
-        return $this->shouldExist();
+        if ($this->exists() == false) {
+            $this->creationData() ;
+        }
+        $this->shouldExist();
+        return $this->write() ;
     }
 
     public function performAppendLine() {
@@ -174,12 +177,13 @@ class FileAllOS extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting to create File {$this->fileName}", $this->getModuleName()) ;
         $res = touch($this->fileName);
-        if ($res === false) {
-            $logging->log("Unable to write to File {$this->fileName}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            return false ; }
+        if ($res === true) {
+            $logging->log("Successfully created File {$this->fileName}", $this->getModuleName()) ;
+            return $this ;}
         else {
-            $logging->log("Successfully written {$res} bytes to File {$this->fileName}", $this->getModuleName()) ;
-            return $this ; }
+            $logging->log("Unable to write to File {$this->fileName}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
     }
 
     public function filedelete() {
@@ -233,7 +237,6 @@ class FileAllOS extends BaseLinuxApp {
             return preg_match($needle->regexp, $this->fileData); }
         else {
             $st = strpos($this->fileData, $needle) !== false ; //;
-            var_dump("stt",$st, "nd", $needle) ;
             return $st ; }
     }
 
@@ -279,6 +282,14 @@ class FileAllOS extends BaseLinuxApp {
             else {
                 $logging->log("Unable to find Searched String", $this->getModuleName()) ;
                 return false; } }
+    }
+
+    public function creationData() {
+        if (isset($this->params["data"]) && strlen($this->params["data"])>0) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Found data to create file with, adding", $this->getModuleName()) ;
+            $this->fileData = $this->params["data"] ; }
     }
 
     public function shouldHaveLines($lines) {
