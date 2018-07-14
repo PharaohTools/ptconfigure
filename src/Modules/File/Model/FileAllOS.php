@@ -44,7 +44,7 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performFileExistenceCheck() {
         $this->setFile();
-        return $this->exists();
+        return $this->exists(true);
     }
 
     public function performDeletion() {
@@ -160,12 +160,18 @@ class FileAllOS extends BaseLinuxApp {
         return $this->fileData ;
     }
 
-    public function exists() {
+    public function exists($log = false) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if(file_exists($this->fileName)){
-            echo "File {$this->fileName} exists \n";
+            if ($log === true) {
+                $logging->log("File {$this->fileName} exists", $this->getModuleName()) ;
+            }
         }
-        else{
-            echo "File {$this->fileName} not exists \n";
+        else {
+            if ($log === true) {
+                $logging->log("File {$this->fileName} does not exist", $this->getModuleName()) ;
+            }
         }
         return file_exists($this->fileName);
     }
@@ -175,7 +181,11 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Writing File {$this->fileName}", $this->getModuleName()) ;
-        file_put_contents($this->fileName, $content);
+        $fpc_res = @file_put_contents($this->fileName, $content);
+        if ($fpc_res == false) {
+            $logging->log("Writing File {$this->fileName} has failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
         return $this;
     }
 
