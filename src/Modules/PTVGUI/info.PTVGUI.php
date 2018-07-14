@@ -28,9 +28,8 @@ class PTVGUIInfo extends PTConfigureBase {
 
         - install
         Installs Pharaoh Virtualize GUI.
-        as it is a prerequisite for Selenium
+        
         example: ptconfigure ptvgui install
-        example: ptconfigure ptvgui install --with-chrome-driver # will set the executor command to use default chrome driver
 
 
 HELPDATA;
