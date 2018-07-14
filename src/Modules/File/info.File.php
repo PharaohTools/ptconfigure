@@ -13,9 +13,8 @@ class FileInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-        // return array( "File" =>  array_merge(parent::routesAvailable(), array() ) );
-        return array( "File" =>  array_merge( array("help", "create", "delete", "exists", "should-exist", "append", "should-have-line",
-            "should-not-have-line", "replace-line") ) );
+        return array( "File" =>  array_merge( array("help", "create", "fill", "populate", "set", "delete", "exists",
+            "should-exist", "append", "should-have-line", "should-not-have-line", "replace-line") ) );
     }
 
     public function routeAliases() {
@@ -24,43 +23,49 @@ class FileInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module allows you to modify files or check their existence
+  This module allows you to modify files or check their existence. The Parameters file and path are interchangeable
 
   File, file
 
-        - create
+        - create, fill, populate, set
         Create a new system file
-        example: ptconfigure file create --file="somename"
-                    --overwrite-existing # overwrite files that exist
-                    --data="things to put in the file" # data for putting in the file
+        example: ptconfigure file create
+            --file="/some/file/path"
+            --overwrite-existing # overwrite files that exist
+            --data="things to put in the file" # data for putting in the file
 
         - delete
         Delete a system file
-        example: ptconfigure file delete --file="somename"
+        example: ptconfigure file delete --file="/some/file/path"
+        example: ptconfigure file delete --file="/some/file/path"
 
         - exists
         Check the existence of a file
-        example: ptconfigure file exists --file="somename"
+        example: ptconfigure file exists --file="/some/file/path"
+
+        - should-exist
+        Ensure that a file exists at a path, or create an empty one
+        example: ptconfigure file exists --file="/some/file/path"
 
         - append
         Append a line to a file
-        example: ptconfigure file append --file="somename" --line="a line"
+        example: ptconfigure file append --file="/some/file/path" --line="a line"
 
         - should-have-line
         Ensure that a file contains a particular line
-        example: ptconfigure file should-have-line --file="somename" --search="a subject"
+        example: ptconfigure file should-have-line --file="/some/file/path" --search="a subject"
 
         - should-not-have-line
         Ensure that a file does not contain a particular line
-        example: ptconfigure file should-not-have-line --file="somename" --search="a subject"
+        example: ptconfigure file should-not-have-line --file="/some/file/path" --search="a subject"
 
         - replace-line
         Replace a particular line if it's found in the file
-        example: ptconfigure file replace-line --file="somename" --search="a subject" --replace="a replacment"
+        example: ptconfigure file replace-line --file="/some/file/path" --search="a subject" --replace="a replacment"
 
         - replace-text
         Replace an arbritrary sized string (including \n, \r, PHP_EOL) if it's found in the file
-        example: ptconfigure file replace-line --file="somename" --search="a subject" --replace="a replacment"
+        example: ptconfigure file replace-line --file="/some/file/path" --search="a subject" --replace="a replacment"
 
 
 

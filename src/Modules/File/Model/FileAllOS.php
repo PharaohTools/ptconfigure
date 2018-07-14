@@ -22,6 +22,9 @@ class FileAllOS extends BaseLinuxApp {
             "exists" => "performFileExistenceCheck",
             "append" => "performAppendLine",
             "create" => "performCreation",
+            "fill" => "performCreation",
+            "populate" => "performCreation",
+            "set" => "performCreation",
             "delete" => "performDeletion",
             "should-exist" => "performCreation",
             "should-have-line" => "performShouldHaveLine",
@@ -54,6 +57,8 @@ class FileAllOS extends BaseLinuxApp {
         $this->setFile();
         if ($this->exists() == false) {
             $this->creationData() ;
+        } else {
+            $this->creationData(true) ;
         }
         $this->shouldExist();
         return $this->write() ;
@@ -114,6 +119,8 @@ class FileAllOS extends BaseLinuxApp {
             $this->fileName = $fileName; }
         else if (isset($this->params["file"])) {
             $this->fileName = $this->params["file"]; }
+        else if (isset($this->params["path"])) {
+            $this->fileName = $this->params["path"]; }
         else {
             $this->fileName = self::askForInput("Enter File Path:", true); }
         $loggingFactory = new \Model\Logging();
@@ -284,7 +291,18 @@ class FileAllOS extends BaseLinuxApp {
                 return false; } }
     }
 
-    public function creationData() {
+    public function creationData($only_if_overwrite = false) {
+        if ($only_if_overwrite == true) {
+            $do_overwrite = false ;
+            if ($this->params['overwrite-existing'] == true) {
+                $do_overwrite = true ;
+            } else if ($this->params['overwrite'] == true) {
+                $do_overwrite = true ;
+            }
+            if ($do_overwrite == false) {
+                return ;
+            }
+        }
         if (isset($this->params["data"]) && strlen($this->params["data"])>0) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
