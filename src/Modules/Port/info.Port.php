@@ -29,11 +29,14 @@ class PortInfo extends PTConfigureBase {
 
         - process
         See which process is using a port
-        example: ptconfigure port process --port-number="25"
+        example: ptconfigure port process -yg --port="25"
 
         - is-responding
         Test if a port is responding
-        example: ptconfigure port is-responding --port-number="25"
+        example: ptconfigure port is-responding -yg --port="25" # No IP specified will guess 127.0.0.1
+        example: ptconfigure port is-responding -yg --port="22" --ip=1.2.3.4
+        example: ptconfigure port is-responding -yg --port="80" --ip=www.google.com
+        example: ptconfigure port is-responding -yg --port="80" --hostname=www.google.com
 
         - until-responding
         Test if a port is listening for a set amount of time or until it begins listening
@@ -41,6 +44,11 @@ class PortInfo extends PTConfigureBase {
             --port=25 # port to test
             --interval=5 # no seconds to wait between requests, will guess 2
             --max-wait=100 # no seconds in total to keep trying, will guess 60
+            --host=www.google.com # Hostname and IP are interchangeable
+        example: ptconfigure port until-responding -yg --port="22" --ip=www.google.com --interval=5 --max-wait=30
+        example: ptconfigure port until-responding -yg --port="25" --ip=www.google.com --interval=5 --max-wait=30
+        example: ptconfigure port until-responding -yg --port="80" --ip=www.google.com --interval=5 --max-wait=60
+        example: ptconfigure port until-responding -yg --port="81" --ip=www.google.com --interval=5 --max-wait=100
 
 HELPDATA;
       return $help ;

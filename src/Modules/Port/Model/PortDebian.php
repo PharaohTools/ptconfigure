@@ -52,6 +52,10 @@ class PortDebian extends BaseLinuxApp {
             $this->ipAddress = $this->params["ip-address"]; }
         else if (isset($this->params["ip"])) {
             $this->ipAddress = $this->params["ip"]; }
+        else if (isset($this->params["host"])) {
+            $this->ipAddress = $this->params["host"]; }
+        else if (isset($this->params["hostname"])) {
+            $this->ipAddress = $this->params["hostname"]; }
         else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
             $this->ipAddress = '127.0.0.1'; }
         else {
@@ -93,10 +97,11 @@ class PortDebian extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $result = @fsockopen($this->ipAddress, $this->portNumber, $errno, $errstr, 5);
         if (is_resource($result)) {
-            $logging->log("Port {$this->portNumber} is responding", $this->getModuleName()) ;
+            $logging->log("Host {$this->ipAddress}, Port {$this->portNumber} is responding", $this->getModuleName()) ;
             return true; }
         else {
-            $logging->log("Port {$this->portNumber} is not responding. Error: $errno, $errstr", $this->getModuleName()) ;
+            $logging->log("Host {$this->ipAddress}, Port {$this->portNumber} is not responding. Error: $errno, $errstr", $this->getModuleName()) ;
+            \Core\BootStrap::setExitCode(1);
             return false; }
     }
 
@@ -110,12 +115,14 @@ class PortDebian extends BaseLinuxApp {
         while ($totalTime < $this->maxWait) {
             $port_result = $this->performPortCheck() ;
             if ($port_result == true) {
-                $logging->log("Port {$this->portNumber} is responding after {$totalTime} seconds", $this->getModuleName()) ;
+                $logging->log("Host {$this->ipAddress}, Port {$this->portNumber} is responding after {$totalTime} seconds", $this->getModuleName()) ;
                 return true ;
             }
             sleep($this->interval) ;
             $totalTime = $totalTime + $this->interval ;
             $i++; }
+        $logging->log("Host {$this->ipAddress}, Port {$this->portNumber} is not responding.", $this->getModuleName()) ;
+        \Core\BootStrap::setExitCode(1);
         return false ;
     }
 
@@ -141,7 +148,7 @@ class PortDebian extends BaseLinuxApp {
         $proc_tails = array_diff($proc_tails, array("")) ;
         $proc_tails = array_values($proc_tails) ;
 
-        var_dump('oxy', $proc_tails[5]) ;
+//        var_dump('oxy', $proc_tails[5]) ;
         $process_id = $proc_tails[5] ;
 
         if (isset($process)) {

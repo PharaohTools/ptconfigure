@@ -347,8 +347,8 @@ class FileAllOS extends BaseLinuxApp {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
-        if (substr($searchString, -1, 1) != "\n") {
-            $searchString .= "\n"; }
+//        if (substr($searchString, -1, 1) != "\n") {
+//            $searchString .= "\n"; }
         if ($this->findString($searchString) === false) {
             $this->append($searchString); }
         return $this;
