@@ -185,8 +185,8 @@ class PackageManagerAllOS extends BaseLinuxApp {
 
     public function isInstalled() {
         $packager = $this->getPackager() ;
-        $search_string = $this->requestingModel->getPackageSearchString() ;
-        $is_in = $packager->isInstalled($this->packageName, $search_string) ;
+//        $search_string = $this->requestingModel->getPackageSearchString() ;
+        $is_in = $packager->isInstalled($this->packageName) ;
         if ($is_in) { return true ; }
         return false;
     }
