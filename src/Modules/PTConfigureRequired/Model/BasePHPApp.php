@@ -151,10 +151,10 @@ class BasePHPApp extends Base {
             $logging->log("Executing Pre Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("pre") ; }
         $this->programDataFolder = $this->askForProgramDataFolder();
-        $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-        if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
-        if ($this->makeProgramDataFolderIfNeeded() === false) { return false ; }
         if ( isset($this->params['no-clone']) && strlen($this->params['no-clone'])>0 ) {
+            $this->programExecutorFolder = $this->askForProgramExecutorFolder();
+            if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
+            if ($this->makeProgramDataFolderIfNeeded() === false) { return false ; }
             if ($this->doGitClone() === false) { return false ; }
             if ($this->copyFilesToProgramDataFolder() === false) { return false ; }
         }
