@@ -154,8 +154,10 @@ class BasePHPApp extends Base {
         $this->programExecutorFolder = $this->askForProgramExecutorFolder();
         if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
         if ($this->makeProgramDataFolderIfNeeded() === false) { return false ; }
-        if ($this->doGitClone() === false) { return false ; }
-        if ($this->copyFilesToProgramDataFolder() === false) { return false ; }
+        if ( isset($this->params['no-clone']) && strlen($this->params['no-clone'])>0 ) {
+            if ($this->doGitClone() === false) { return false ; }
+            if ($this->copyFilesToProgramDataFolder() === false) { return false ; }
+        }
         $de = $this->deleteExecutorIfExists() ;
         if ($de === false) { return false ; }
         if ($this->populateExecutorFile() === false) { return false ; }
