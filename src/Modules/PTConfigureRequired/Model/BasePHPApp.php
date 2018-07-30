@@ -162,8 +162,14 @@ class BasePHPApp extends Base {
         if ($de === false) { return false ; }
         if ($this->populateExecutorFile() === false) { return false ; }
         if ($this->saveExecutorFile() === false) { return false ; }
-        if ($this->deleteInstallationFiles() === false) { return false ; }
-        if ($this->changePermissions() === false) { return false ; }
+        if ( isset($this->params['no-clone']) && strlen($this->params['no-clone'])>0 ) {
+            if ($this->deleteInstallationFiles() === false) {
+                return false;
+            }
+            if ($this->changePermissions() === false) {
+                return false;
+            }
+        }
         if ($this->hookInstExists("post")) {
             $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("post") ;  }
