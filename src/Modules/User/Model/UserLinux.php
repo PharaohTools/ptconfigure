@@ -220,8 +220,12 @@ class UserLinux extends BaseLinuxApp {
         if (isset($groupName) ) { }
         else if (isset($this->params["group-name"])) {
             $groupName = $this->params["group-name"]; }
+        else if (isset($this->params["groupname"])) {
+            $groupName = $this->params["groupname"]; }
+        else if (isset($this->params["group"])) {
+            $groupName = $this->params["group"]; }
         else {
-            $groupName = self::askForInput("Enter New Password:", true); }
+            $groupName = self::askForInput("Enter Group Name:", true); }
         $returnCode = $this->executeAndGetReturnCode("usermod -aG {$groupName} {$this->userName}");
         if ($returnCode !== 0) {
             $loggingFactory = new \Model\Logging();
@@ -237,8 +241,12 @@ class UserLinux extends BaseLinuxApp {
         if (isset($groupName) ) { }
         else if (isset($this->params["group-name"])) {
             $groupName = $this->params["group-name"]; }
+        else if (isset($this->params["groupname"])) {
+            $groupName = $this->params["groupname"]; }
+        else if (isset($this->params["group"])) {
+            $groupName = $this->params["group"]; }
         else {
-            $groupName = self::askForInput("Enter New Password:", true); }
+            $groupName = self::askForInput("Enter Group Name:", true); }
         if ($groupName == "") {
             $logging->log("Group name cannot be empty", $this->getModuleName()) ;
             return false ; }
