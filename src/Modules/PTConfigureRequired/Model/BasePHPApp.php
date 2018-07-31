@@ -162,11 +162,12 @@ class BasePHPApp extends Base {
         if ($de === false) { return false ; }
         if ($this->populateExecutorFile() === false) { return false ; }
         if ($this->saveExecutorFile() === false) { return false ; }
+        if ($this->changeExecutorPermissions() === false) { return false; }
         if ( !isset($this->params['no-clone']) ) {
             if ($this->deleteInstallationFiles() === false) {
                 return false;
             }
-            if ($this->changePermissions() === false) {
+            if ($this->changeSourcePermissions() === false) {
                 return false;
             }
         }
@@ -347,6 +348,11 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
 
     protected function saveExecutorFile(){
         if (isset($this->params["no-executor"])) { return true ; }
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Preparing to save executor file", $this->getModuleName()) ;
+
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $file_ext = '.cmd' ; }
         else {
@@ -356,25 +362,34 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         return file_put_contents($pxf.$this->programNameMachine.$file_ext, $this->bootStrapData);
     }
 
-    protected function changePermissions(){
+    protected function changeSourcePermissions(){
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             return true ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Preparing to change file permissions", $this->getModuleName()) ;
+        $logging->log("Preparing to change application file permissions", $this->getModuleName()) ;
         $command = "chmod -R +x $this->programDataFolder";
         $this->executeAndOutput($command);
         $rc = self::executeAndGetReturnCode($command, true, true);
         if ($rc["rc"] !== 0) {
             $logging->log("Error changing file permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
+        $logging->log("Changing application file permissions complete", $this->getModuleName()) ;
+        return true ;
+    }
+
+    protected function changeExecutorPermissions(){
+        if (in_array(PHP_OS, array("Windows", "WINNT"))) {
+            return true ; }
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["no-executor"])) { return true ; }
         $command = "chmod +x {$this->programExecutorFolder}{$this->programNameMachine}";
         $rc = self::executeAndGetReturnCode($command, true, true);
         if ($rc["rc"] !== 0) {
             $logging->log("Error changing executor permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
-        $logging->log("Changing permissions complete", $this->getModuleName()) ;
+        $logging->log("Changing executor permissions complete", $this->getModuleName()) ;
         return true ;
     }
 
