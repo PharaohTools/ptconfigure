@@ -29,6 +29,7 @@ class PTTrackLinux extends BasePHPApp {
         $this->programNameInstaller = "PTTrack - Update to latest version";
         $this->programExecutorTargetPath = 'pttrack/src/Bootstrap.php';
         $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
+        $this->programExecutorFolder = "/usr/bin";
         $this->initialize();
     }
 

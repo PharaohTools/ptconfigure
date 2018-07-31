@@ -30,6 +30,7 @@ class PTBuildLinux extends BasePHPApp {
         $this->programNameInstaller = "PTBuild - Update to latest version";
         $this->programExecutorTargetPath = 'ptbuild/src/Bootstrap.php';
         $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
+        $this->programExecutorFolder = "/usr/bin";
         $this->initialize();
     }
 
