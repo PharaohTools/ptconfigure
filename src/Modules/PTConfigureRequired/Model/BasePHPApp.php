@@ -392,7 +392,7 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         if ($rc["rc"] !== 0) {
             $logging->log("Error changing executor permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
-        $logging->log("Changing executor permissions complete", $this->getModuleName()) ;
+        $logging->log("Changing executor permissions complete for {$full_file}", $this->getModuleName()) ;
         return true ;
     }
 
