@@ -384,7 +384,10 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if (isset($this->params["no-executor"])) { return true ; }
-        $command = "chmod +x {$this->programExecutorFolder}{$this->programNameMachine}";
+        $file_ext = '' ;
+        $pxf = $this->ensureTrailingSlash($this->programExecutorFolder);
+        $full_file = $pxf.$this->programNameMachine.$file_ext ;
+        $command = "chmod +x {$full_file}";
         $rc = self::executeAndGetReturnCode($command, true, true);
         if ($rc["rc"] !== 0) {
             $logging->log("Error changing executor permissions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
