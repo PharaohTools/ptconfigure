@@ -151,7 +151,7 @@ class BasePHPApp extends Base {
             $logging->log("Executing Pre Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("pre") ; }
         $this->programDataFolder = $this->askForProgramDataFolder();
-        if ( isset($this->params['no-clone']) && strlen($this->params['no-clone'])>0 ) {
+        if ( !isset($this->params['no-clone']) ) {
             $this->programExecutorFolder = $this->askForProgramExecutorFolder();
             if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
             if ($this->makeProgramDataFolderIfNeeded() === false) { return false ; }
@@ -162,7 +162,7 @@ class BasePHPApp extends Base {
         if ($de === false) { return false ; }
         if ($this->populateExecutorFile() === false) { return false ; }
         if ($this->saveExecutorFile() === false) { return false ; }
-        if ( isset($this->params['no-clone']) && strlen($this->params['no-clone'])>0 ) {
+        if ( !isset($this->params['no-clone']) ) {
             if ($this->deleteInstallationFiles() === false) {
                 return false;
             }
