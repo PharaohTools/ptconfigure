@@ -152,7 +152,7 @@ COMPLETION;
         return $outputText;
     }
 
-    public static function executeAndGetReturnCode($command, $show_output = true, $get_output = null) {
+    public static function executeAndGetReturnCode($command, $show_output = true, $get_output = null, $quiet_shell = null) {
             if (in_array(PHP_OS, array("Windows", "WINNT"))) {
                 if ($get_output == true) {
                     ob_start();
@@ -181,6 +181,12 @@ COMPLETION;
                     // @todo this wont work on windows
                     shell_exec("chmod 755 $tempFile 2>/dev/null");
                     shell_exec("chmod +x $tempFile 2>/dev/null"); }
+
+
+                $ex_string = '-ex' ;
+                if ($quiet_shell !== null) {
+                    $ex_string = '' ;
+                }
 
                 $proc = proc_open("bash -ex $tempFile", array(
                     0 => array("pipe","r"),
