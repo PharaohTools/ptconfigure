@@ -38,10 +38,23 @@ class LetsEncryptAllOS extends Base {
         // Configuration:
         $domain = $this->params["domain"];
         $webroot = $this->params["webroot"];
-        $certlocation = $this->params["cert-path"];
+        if (substr($webroot, -1, 1) === DS) {
+            $webroot = substr($webroot, 0, strlen($webroot)-1) ;
+        }
+        $certlocation = (isset($this->params["cert-path"])) ? $this->params["cert-path"] : "" ;
+        if ($certlocation === '') {
+            $certlocation = (isset($this->params["certificate-path"])) ? $this->params["certificate-path"] : "" ;
+        }
+        $email = (isset($this->params["email"])) ? $this->params["email"] : "" ;
+        $country = (isset($this->params["country"])) ? $this->params["country"] : "" ;
+        $state_or_province = (isset($this->params["state"])) ? $this->params["state"] : "" ;
+        $locality = (isset($this->params["locality"])) ? $this->params["locality"] : "" ;
+        $organization = (isset($this->params["organization"])) ? $this->params["organization"] : "" ;
+        $organizational_unit = (isset($this->params["organizational_unit"])) ? $this->params["organizational_unit"] : "" ;
+        $street = (isset($this->params["street"])) ? $this->params["street"] : "" ;
 
-        if ($domain=="" || $webroot=="" || $certlocation=="") {
-            $logging->log("Domain, Webroot and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        if ($domain=="" || $webroot=="" || $certlocation=="" || $email=="") {
+            $logging->log("Email, Domain, Webroot and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
 
         // Make sure our cert location exists
@@ -50,67 +63,63 @@ class LetsEncryptAllOS extends Base {
             if (file_exists($certlocation)) { unlink($certlocation); }
             mkdir ($certlocation); }
 
-        require_once (dirname(__DIR__).DS.'Libraries'.DS.'acme2'.DS.'vendor'.DS.'autoload.php') ;
+        require_once (dirname(__DIR__).DS.'Libraries'.DS.'itr-acme-client'.DS.'src'.DS.'itr-acme-client.php') ;
+        require_once (dirname(__DIR__).DS.'Libraries'.DS.'itr-acme-client'.DS.'examples'.DS.'simplelogger.php') ;
 
         try {
 
-            $domainInfo = [
-                CommonConstant::CHALLENGE_TYPE_HTTP => [
-                    $domain
-                ],
 
-//                CommonConstant::CHALLENGE_TYPE_DNS => [
-//                    '*.www.example.com',
-//                    'www.example.com',
-//                ],
+            // Create the itrAcmeClient object
+            $iac = new \itrAcmeClient();
+
+            // Activate debug mode, we automatically use staging endpoint in testing mode
+            $iac->testing = true;
+
+            // The root directory of the certificate store
+            $iac->certDir = $certlocation;
+            // The root directory of the account store
+            $iac->certAccountDir = 'accounts';
+            // This token will be attached to the $certAccountDir
+            $iac->certAccountToken = $email;
+
+            // The certificate contact information
+            $iac->certAccountContact = [
+                $email
             ];
 
-            $client = new Client(['enquiries@pharaohtools.com'], '../data/', TRUE);
+            $iac->certDistinguishedName = [
+                /** @var string The certificate ISO 3166 country code */
+                'countryName'            => $country,
+                'stateOrProvinceName'    => $state_or_province,
+                'localityName'           => $locality,
+                'organizationName'       => $organization,
+                'organizationalUnitName' => $organizational_unit,
+                'street'                 => $street
+            ];
 
-            $order = $client->getOrder($domainInfo, CommonConstant::KEY_PAIR_TYPE_RSA);
-// $order = $client->getOrder($domainInfo, CommonConstant::KEY_PAIR_TYPE_RSA, TRUE);    // Renew certificates
+            $iac->webRootDir          = $webroot;
+            $iac->appendDomain        = false;
+            $iac->appendWellKnownPath = true;
 
-            $challengeList = $order->getPendingChallengeList();
+            // A \Psr\Log\LoggerInterface or null The logger to use
+            // At the end of this file we have as simplePsrLogger implemntation
+            $iac->logger = new \simplePsrLogger;
 
-            /* Verify authorizations */
-            foreach ($challengeList as $challenge)
-            {
-                $challengeType = $challenge->getType();    // http-01 or dns-01
-                $credential = $challenge->getCredential();
+            // Initialise the object
+            $iac->init();
 
-                // echo $challengeType."\n";
-                // print_r($credential);
+            // Create an account if it doesn't exists
+            $iac->createAccount();
 
-                /* http-01 */
-                if ($challengeType == CommonConstant::CHALLENGE_TYPE_HTTP)
-                {
-                    /* example purpose, create or update the ACME challenge file for this domain */
-//                    setChallengeFile(
-//                        $credential['identifier'],
-//                        $credential['fileName'],
-//                        $credential['fileContent']
-//                    );
-                    $file = $webroot.DS.$credential['fileName'] ;
-                    file_put_contents($file, $credential['fileContent']) ;
-                }
+            // The Domains we want to sign
+            $domains_exploded = explode(',', $domain ) ;
+            $domains = $domains_exploded ;
 
-                /* dns-01 */
-//                else if ($challengeType == CommonConstant::CHALLENGE_TYPE_DNS)
-//                {
-                    /* example purpose, create or update the ACME challenge DNS record for this domain */
-//                    \setDNSRecore(
-//                        $credential['identifier'],
-//                        $credential['dnsContent']
-//                    );
-//                }
+            // Sign the Domains and get the certificates
+            $pem = $iac->signDomains($domains);
 
-                /* Infinite loop until the authorization status becomes valid */
-                $challenge->verify();
-            }
-
-            $certificateInfo = $order->getCertificateFile();
-
- print_r($certificateInfo);
+            // Output the certificate informatione
+            print_r($pem);
 
 
 //            $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
@@ -128,6 +137,120 @@ class LetsEncryptAllOS extends Base {
         return true;
 
 	}
+//
+//	public function itrEncryptionInstall() {
+//
+//        $loggingFactory = new \Model\Logging();
+//        $logging = $loggingFactory->getModel($this->params);
+//
+//        $wu_time = (isset($this->params["wait"]) && $this->params["wait"]==true) ? $this->params["wait"] : 3 ;
+//        $logging->log("Waiting for Web Server warm up of {$wu_time} seconds", $this->getModuleName()) ;
+//        for ($i=1; $i<=$wu_time; $i++)  {
+//            sleep(1) ;
+//            echo "." ; }
+//
+//        if (!class_exists('LetsEncryptWrap')) {
+//            require dirname(__DIR__).DS.'Libraries'.DS.'LetsEncrypt'.DS.'LetsEncryptWrap.php'; }
+//
+//        if(!defined("PHP_VERSION_ID") || PHP_VERSION_ID < 50300 || !extension_loaded('openssl') || !extension_loaded('curl')) {
+//            $logging->log("You need at least PHP 5.3.0 with OpenSSL and curl extensions", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+//            return false ; }
+//
+//        // Configuration:
+//        $domain = $this->params["domain"];
+//        $webroot = $this->params["webroot"];
+//        $certlocation = $this->params["cert-path"];
+//
+//        if ($domain=="" || $webroot=="" || $certlocation=="") {
+//            $logging->log("Domain, Webroot and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+//            return false ; }
+//
+//        // Make sure our cert location exists
+//        if (!is_dir($certlocation)) {
+//            // Make sure nothing is already there.
+//            if (file_exists($certlocation)) { unlink($certlocation); }
+//            mkdir ($certlocation); }
+//
+//        require_once (dirname(__DIR__).DS.'Libraries'.DS.'acme2'.DS.'vendor'.DS.'autoload.php') ;
+//
+//        try {
+//
+//            $domainInfo = [
+//                CommonConstant::CHALLENGE_TYPE_HTTP => [
+//                    $domain
+//                ],
+//
+////                CommonConstant::CHALLENGE_TYPE_DNS => [
+////                    '*.www.example.com',
+////                    'www.example.com',
+////                ],
+//            ];
+//
+//            $client = new Client(['enquiries@pharaohtools.com'], '../data/', TRUE);
+//
+//            $order = $client->getOrder($domainInfo, CommonConstant::KEY_PAIR_TYPE_RSA);
+//// $order = $client->getOrder($domainInfo, CommonConstant::KEY_PAIR_TYPE_RSA, TRUE);    // Renew certificates
+//
+//            $challengeList = $order->getPendingChallengeList();
+//
+//            /* Verify authorizations */
+//            foreach ($challengeList as $challenge)
+//            {
+//                $challengeType = $challenge->getType();    // http-01 or dns-01
+//                $credential = $challenge->getCredential();
+//
+//                // echo $challengeType."\n";
+//                // print_r($credential);
+//
+//                /* http-01 */
+//                if ($challengeType == CommonConstant::CHALLENGE_TYPE_HTTP)
+//                {
+//                    /* example purpose, create or update the ACME challenge file for this domain */
+////                    setChallengeFile(
+////                        $credential['identifier'],
+////                        $credential['fileName'],
+////                        $credential['fileContent']
+////                    );
+//                    $file = $webroot.DS.$credential['fileName'] ;
+//                    file_put_contents($file, $credential['fileContent']) ;
+//                }
+//
+//                /* dns-01 */
+////                else if ($challengeType == CommonConstant::CHALLENGE_TYPE_DNS)
+////                {
+//                    /* example purpose, create or update the ACME challenge DNS record for this domain */
+////                    \setDNSRecore(
+////                        $credential['identifier'],
+////                        $credential['dnsContent']
+////                    );
+////                }
+//
+//                /* Infinite loop until the authorization status becomes valid */
+//                echo "Verify Attempt\n" ;
+//                sleep(3);
+//                $challenge->verify();
+//            }
+//
+//            $certificateInfo = $order->getCertificateFile();
+//
+// print_r($certificateInfo);
+//
+//
+////            $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
+////            $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
+////            $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
+//
+//        } catch (\Throwable $e) {
+//            print_r($e->getMessage());
+//            print_r($e->getTraceAsString());
+//            $logging->log("Unable to store certificate", $this->getModuleName()) ;
+//            return false;
+//        }
+//
+//        $logging->log("Certificate successfully generated", $this->getModuleName()) ;
+//        return true;
+//
+//	}
 
 
 	public function performEncryptionInstall() {
