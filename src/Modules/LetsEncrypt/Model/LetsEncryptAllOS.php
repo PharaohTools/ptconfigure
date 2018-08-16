@@ -7,17 +7,17 @@ use stonemax\acme2\constants\CommonConstant;
 
 class LetsEncryptAllOS extends Base {
 
-	// Compatibility
-	public $os = array("any");
-	public $linuxType = array("any");
-	public $distros = array("any");
-	public $versions = array("any");
-	public $architectures = array("any");
+    // Compatibility
+    public $os = array("any");
+    public $linuxType = array("any");
+    public $distros = array("any");
+    public $versions = array("any");
+    public $architectures = array("any");
 
-	// Model Group
-	public $modelGroup = array("Default");
+    // Model Group
+    public $modelGroup = array("Default");
 
-	public function itrEncryptionInstall() {
+    public function itrEncryptionInstall() {
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -52,6 +52,17 @@ class LetsEncryptAllOS extends Base {
         $organization = (isset($this->params["organization"])) ? $this->params["organization"] : "" ;
         $organizational_unit = (isset($this->params["organizational_unit"])) ? $this->params["organizational_unit"] : "" ;
         $street = (isset($this->params["street"])) ? $this->params["street"] : "" ;
+
+        $logging->log("Certificate Domain: {$domain}", $this->getModuleName()) ;
+        $logging->log("Certificate Webroot: {$webroot}", $this->getModuleName()) ;
+        $logging->log("Certificate Location: {$certlocation}", $this->getModuleName()) ;
+        $logging->log("Certificate Email: {$email}", $this->getModuleName()) ;
+        $logging->log("Certificate Country Code: {$country}", $this->getModuleName()) ;
+        $logging->log("Certificate State: {$state_or_province}", $this->getModuleName()) ;
+        $logging->log("Certificate Locality: {$locality}", $this->getModuleName()) ;
+        $logging->log("Certificate Organization {$organization}", $this->getModuleName()) ;
+        $logging->log("Certificate Organizational Unit: {$organizational_unit}", $this->getModuleName()) ;
+        $logging->log("Certificate Street: {$street}", $this->getModuleName()) ;
 
         if ($domain=="" || $webroot=="" || $certlocation=="" || $email=="") {
             $logging->log("Email, Domain, Webroot and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
@@ -131,7 +142,6 @@ class LetsEncryptAllOS extends Base {
             $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
             $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
 
-
         } catch (\Throwable $e) {
             print_r($e->getMessage());
             print_r($e->getTraceAsString());
@@ -142,7 +152,7 @@ class LetsEncryptAllOS extends Base {
         $logging->log("Certificate successfully generated", $this->getModuleName()) ;
         return true;
 
-	}
+    }
 //
 //	public function itrEncryptionInstall() {
 //
@@ -259,7 +269,7 @@ class LetsEncryptAllOS extends Base {
 //	}
 
 
-	public function performEncryptionInstall() {
+    public function performEncryptionInstall() {
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -344,6 +354,6 @@ class LetsEncryptAllOS extends Base {
         else {
             $logging->log("Certificate successfully generated", $this->getModuleName()) ;
             return true;}
-	}
+    }
 
 }
