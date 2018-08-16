@@ -84,7 +84,7 @@ class LetsEncryptAllOS extends Base {
             $iac = new \itrAcmeClient();
 
             // Activate debug mode, we automatically use staging endpoint in testing mode
-            $iac->testing = true;
+            // $iac->testing = true;
 
             // The root directory of the certificate store
             $iac->certDir = $certlocation;
