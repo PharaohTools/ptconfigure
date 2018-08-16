@@ -107,24 +107,30 @@ class LetsEncryptAllOS extends Base {
 
             // Initialise the object
             $iac->init();
+            $logging->log("IAC Object Initialized", $this->getModuleName()) ;
 
             // Create an account if it doesn't exists
             $iac->createAccount();
+            $logging->log("Account Created", $this->getModuleName()) ;
 
             // The Domains we want to sign
             $domains_exploded = explode(',', $domain ) ;
             $domains = $domains_exploded ;
 
+            $logging->log("domains are : ".var_export($domains, true), $this->getModuleName()) ;
+            $logging->log("Attempting Sign", $this->getModuleName()) ;
+
             // Sign the Domains and get the certificates
             $pem = $iac->signDomains($domains);
+            $logging->log("Signed", $this->getModuleName()) ;
 
             // Output the certificate informatione
-            print_r($pem);
+            // print_r($pem);
 
+            $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
+            $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
+            $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
 
-//            $res[] = file_put_contents("$certlocation".DS."$domain.cert.crt", $pem['RSA']['cert']);
-//            $res[] = file_put_contents("$certlocation".DS."$domain.chain.pem", $pem['RSA']['chain']);
-//            $res[] = file_put_contents("$certlocation".DS."$domain.cert.pem", $pem['RSA']['pem']);
 
         } catch (\Throwable $e) {
             print_r($e->getMessage());
