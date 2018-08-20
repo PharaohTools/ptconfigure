@@ -17,7 +17,8 @@ class File extends Base {
             $this->content["helpData"] = $helpModel->getHelpData($pageVars["route"]["control"]);
             return array ("type"=>"view", "view"=>"help", "pageVars"=>$this->content); }
 
-        if (in_array($action, array("exists", "append", "should-exist", "should-have-line", "should-not-have-line", "replace-line", "replace-text") )) {
+        if (in_array($action, array("create", "fill", "populate", "set", "exists", "append", "should-exist",
+            "should-have-line", "should-not-have-line", "replace-line", "replace-text") )) {
             $this->content["result"] = $thisModel->askAction($action);
             $this->content["appName"] = $thisModel->programNameInstaller ;
             return array ("type"=>"view", "view"=>"file", "pageVars"=>$this->content); }
