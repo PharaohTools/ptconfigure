@@ -22,6 +22,9 @@ class FileAllOS extends BaseLinuxApp {
             "exists" => "performFileExistenceCheck",
             "append" => "performAppendLine",
             "create" => "performCreation",
+            "fill" => "performCreation",
+            "populate" => "performCreation",
+            "set" => "performCreation",
             "delete" => "performDeletion",
             "should-exist" => "performCreation",
             "should-have-line" => "performShouldHaveLine",
@@ -41,7 +44,7 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performFileExistenceCheck() {
         $this->setFile();
-        return $this->exists();
+        return $this->exists(true);
     }
 
     public function performDeletion() {
@@ -52,16 +55,20 @@ class FileAllOS extends BaseLinuxApp {
 
     public function performCreation() {
         $this->setFile();
-//        $this->create();
-        return $this->shouldExist();
+        if ($this->exists() == false) {
+            $this->creationData() ;
+        } else {
+            $this->creationData(true) ;
+        }
+        $this->shouldExist();
+        return $this->write() ;
     }
 
     public function performAppendLine() {
         $this->setFile();
-        $this->askInput();
-        // $this->setSearchLine();
+        $this->read();
         $this->append();
-        return true ;
+        return $this->write() ;
     }
 
     protected function askInput(){
@@ -69,8 +76,6 @@ class FileAllOS extends BaseLinuxApp {
             $this->input = $input; }
         else if (isset($this->params["file"])) {
             $this->input = $this->params["file"]; }
-        else if (isset($autopilot["file"])) {
-            $this->input = $autopilot["file"]; }
         else {
             $this->input = self::askForInput("Enter the input for append:", true); }
     }
@@ -114,6 +119,8 @@ class FileAllOS extends BaseLinuxApp {
             $this->fileName = $fileName; }
         else if (isset($this->params["file"])) {
             $this->fileName = $this->params["file"]; }
+        else if (isset($this->params["path"])) {
+            $this->fileName = $this->params["path"]; }
         else {
             $this->fileName = self::askForInput("Enter File Path:", true); }
         $loggingFactory = new \Model\Logging();
@@ -153,13 +160,19 @@ class FileAllOS extends BaseLinuxApp {
         return $this->fileData ;
     }
 
-    public function exists() {
+    public function exists($log = false) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if(file_exists($this->fileName)){
-            $logging->log("File {$this->fileName} exists", $this->getModuleName()) ; }
-        else{
-            $logging->log("File {$this->fileName} does not exist", $this->getModuleName()) ; }
+            if ($log === true) {
+                $logging->log("File {$this->fileName} exists", $this->getModuleName()) ;
+            }
+        }
+        else {
+            if ($log === true) {
+                $logging->log("File {$this->fileName} does not exist", $this->getModuleName()) ;
+            }
+        }
         return file_exists($this->fileName);
     }
 
@@ -168,8 +181,12 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Writing File {$this->fileName}", $this->getModuleName()) ;
-        $res = file_put_contents($this->fileName, $content);
-        return ($res == false) ? false : true ;
+        $fpc_res = @file_put_contents($this->fileName, $content);
+        if ($fpc_res == false) {
+            $logging->log("Writing File {$this->fileName} has failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
+        return $this;
     }
 
     public function create() {
@@ -177,12 +194,13 @@ class FileAllOS extends BaseLinuxApp {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting to create File {$this->fileName}", $this->getModuleName()) ;
         $res = touch($this->fileName);
-        if ($res === false) {
-            $logging->log("Unable to write to File {$this->fileName}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-            return false ; }
+        if ($res === true) {
+            $logging->log("Successfully created File {$this->fileName}", $this->getModuleName()) ;
+            return $this ;}
         else {
-            $logging->log("Successfully written {$res} bytes to File {$this->fileName}", $this->getModuleName()) ;
-            return $this ; }
+            $logging->log("Unable to write to File {$this->fileName}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
     }
 
     public function filedelete() {
@@ -193,7 +211,6 @@ class FileAllOS extends BaseLinuxApp {
             $comm = 'del /S /Q ' ; }
         else {
             $comm = "rm -f " ; }
-        $comm = "rm -rf ";
         $comm .= $this->fileName ;
         self::executeAndOutput($comm, $this->fileName." Deleted") ;
         return $this;
@@ -237,7 +254,6 @@ class FileAllOS extends BaseLinuxApp {
             return preg_match($needle->regexp, $this->fileData); }
         else {
             $st = strpos($this->fileData, $needle) !== false ; //;
-//            var_dump("stt",$st, "nd", $needle) ;
             return $st ; }
     }
 
@@ -245,7 +261,7 @@ class FileAllOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting to append to file {$this->fileName}", $this->getModuleName()) ;
-        if (is_null($str)) {$str = $this->params["replace"].PHP_EOL ; }
+        if (is_null($str)) {$str = $this->params["line"].PHP_EOL ; }
         if (isset($this->params["after-line"]) && strlen($this->params["after-line"])>0) {
             $logging->log("Looking for line to append after...", $this->getModuleName()) ;
             $fileData = "" ;
@@ -258,6 +274,7 @@ class FileAllOS extends BaseLinuxApp {
                 else { $fileData .= "$fileLine\n" ; } }
             $this->fileData = $fileData ; }
         else { $this->fileData .= $str ; }
+        return true;
     }
 
     public function chmod($string) {
@@ -282,6 +299,25 @@ class FileAllOS extends BaseLinuxApp {
             else {
                 $logging->log("Unable to find Searched String", $this->getModuleName()) ;
                 return false; } }
+    }
+
+    public function creationData($only_if_overwrite = false) {
+        if ($only_if_overwrite == true) {
+            $do_overwrite = false ;
+            if ($this->params['overwrite-existing'] == true) {
+                $do_overwrite = true ;
+            } else if ($this->params['overwrite'] == true) {
+                $do_overwrite = true ;
+            }
+            if ($do_overwrite == false) {
+                return ;
+            }
+        }
+        if (isset($this->params["data"]) && strlen($this->params["data"])>0) {
+            $loggingFactory = new \Model\Logging();
+            $logging = $loggingFactory->getModel($this->params);
+            $logging->log("Found data to create file with, adding", $this->getModuleName()) ;
+            $this->fileData = $this->params["data"] ; }
     }
 
     public function shouldHaveLines($lines) {
@@ -349,10 +385,8 @@ class FileAllOS extends BaseLinuxApp {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
         else {
             $searchString = $string; }
-        if (substr($searchString, -1, 1) != "\n") {
-            $searchString .= "\n"; }
         if ($this->findString($searchString)) {
-            $this->removeIfPresent($string . "\n"); }
+            $this->removeIfPresent($string); }
         return $this;
     }
 
