@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class TemplatingLinuxMac extends BaseTemplater {
+class TemplatingAllOS extends BaseTemplater {
 
     // Compatibility
-    public $os = array("Linux", "Darwin") ;
+    public $os = array("any") ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -47,11 +47,14 @@ class TemplatingLinuxMac extends BaseTemplater {
             $logging->log("Found file {$original} as template source", $this->getModuleName()) ;
             $fData = file_get_contents($original) ; }
         else {
-            $logging->log("No File found matching template source Parameter", $this->getModuleName()) ;
+//            $logging->log("No File found matching template source Parameter", $this->getModuleName()) ;
             $fData = $original ; }
 
         foreach ($replacements as $replaceKey => $replaceValue) {
-            $fData = $this->replaceData($fData, $replaceKey, $replaceValue); }
+            $fData = $this->replaceData($fData, $replaceKey, $replaceValue);
+            $fData = $this->replaceVariables($fData, $replaceKey, $replaceValue);
+        }
+        $fData = $this->replaceCode($fData);
         if (!file_exists(dirname($targetLocation))) {
             mkdir(dirname($targetLocation), 0775, true) ; }
         $rcs = array() ;
@@ -71,7 +74,7 @@ class TemplatingLinuxMac extends BaseTemplater {
             $logging->log("Attempting to change file group of $targetLocation to $group", $this->getModuleName()) ;
             $rcs[] = $this->executeAndGetReturnCode("chgrp $group $targetLocation") ; }
         $result = (array_diff($rcs, array(0)) == array()) ? true : false ;
-        $fname = substr($targetLocation, strrpos($targetLocation, DS)+1) ;
+        $fname = basename($targetLocation) ;
         $logging->log("Templating file $fname successful", $this->getModuleName()) ;
         return $result ;
     }
@@ -80,6 +83,49 @@ class TemplatingLinuxMac extends BaseTemplater {
         $lookFor = $startTag.$replaceKey.$endTag ;
         $fData = str_replace($lookFor, $replaceValue, $fData) ;
         return $fData ;
+    }
+
+    public function replaceVariables($fData, $replaceKey, $replaceValue, $startTag='<%var.tpl.php%>', $endTag='</%var.tpl.php%>') {
+        $lookFor = $startTag.$replaceKey.$endTag ;
+        $fData = str_replace($lookFor, $replaceValue, $fData) ;
+        return $fData ;
+    }
+
+    public function replaceCode($fData, $startTag='<%code.tpl.php%>', $endTag='</%code.tpl.php%>') {
+        $count_starts = substr_count($fData, $startTag) ;
+        $count_ends = substr_count($fData, $endTag) ;
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        if ($count_starts != $count_ends) {
+            $logging->log("Mismatch in count of start and end code tags", $this->getModuleName()) ;
+            $logging->log("Found {$count_starts} start tags", $this->getModuleName()) ;
+            $logging->log("Found {$count_ends} end tags", $this->getModuleName()) ;
+        }
+        $offset = 0 ;
+//        $logging->log("Found {$count_ends} code snippets", $this->getModuleName()) ;
+        for ($i = 1; $i <= $count_starts ; $i++) {
+            $one_code_set = array() ;
+            $one_code_set['start_pos'] = strpos($fData, $startTag, $offset);
+            $one_code_set['end_pos'] = strpos($fData, $endTag, $offset) + strlen($endTag) ;
+            $offset = $one_code_set['end_pos'] ;
+            $length = $one_code_set['end_pos'] - $one_code_set['start_pos'] ;
+            $one_code_set['raw'] = substr($fData, $one_code_set['start_pos'], $length) ;
+            $one_code_set['code'] = $this->removeTags($one_code_set['raw'], $startTag, $endTag) ;
+            // var_dump($one_code_set) ;
+            ob_start() ;
+            extract($this->params) ;
+            eval($one_code_set['code']) ;
+            $parsed = ob_get_clean() ;
+            $fData = substr_replace($fData, '', $one_code_set['start_pos'], $length);
+            $fData = substr_replace($fData, $parsed, $one_code_set['start_pos'], 0);
+        }
+        return $fData ;
+    }
+
+    public function removeTags($data, $startTag, $endTag) {
+        $data = str_replace($startTag, '', $data) ;
+        $data = str_replace($endTag, '', $data) ;
+        return $data ;
     }
 
     public function runTemplating() {
