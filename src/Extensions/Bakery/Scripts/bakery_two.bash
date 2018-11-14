@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cd vanubu
 ptvirtualize up now --mod --pro
 ptvirtualize halt now --die-hard

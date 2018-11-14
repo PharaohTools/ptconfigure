@@ -71,6 +71,22 @@ VBoxManage storageattach "$vmName" --storagectl "IDE" --port 1 --device 0 --type
 echo "Unattended install"
 echo "VBoxManage unattended install ${vmName} --iso=${isoImage} --user=${var_ssh_user_name} --password=${var_ssh_user_pass} --full-user-name=${var_full_user} --script-template=/opt/ptv_box_scripts/preseed.cfg --post-install-template=/opt/ptv_box_scripts/postinstall.sh --install-additions --locale=en_GB --country=GB --language=EN --start-vm=gui"
 VBoxManage unattended install ${vmName} --iso=${isoImage} --user="${var_ssh_user_name}" --password="${var_ssh_user_pass}" --full-user-name="${var_full_user}" --script-template=/opt/ptv_box_scripts/preseed.cfg --post-install-template=/opt/ptv_box_scripts/postinstall.sh --install-additions --locale=en_GB --country=GB --language=EN --start-vm=gui
+#
+## wait for the installation to complete
+#$comm = 'VBoxManage list runningvms' ;
+#for ($i=0; $i<timeout; $i++) {
+#    $out = run($comm) ;
+#    if ($out includes $vmName) {
+#        if (should_notify() == true) {
+#            echo "Still installing" ;
+#            sleep $check_delay ;
+#        }
+#    } else {
+#        echo "Installation Complete, Guest Terminated" ;
+#        break ;
+#    }
+#}
+
 
 ## Package That
 #echo "Init a matching name"
@@ -97,3 +113,4 @@ VBoxManage unattended install ${vmName} --iso=${isoImage} --user="${var_ssh_user
 #cd /opt/ptvirtualize/boxes/
 #echo "Starting PT Repositories Upload"
 #curl -F group=development -F version=${var_os_version} -F file=@/path/to/file -F control=BinaryServer -F action=serve -F item=${var_os} -F auth_user=${var_auth_user} -F auth_pw=${var_auth_pw} https://repositories.internal.pharaohtools.com/index.php
+
