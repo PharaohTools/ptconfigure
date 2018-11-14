@@ -414,8 +414,13 @@ class InvokeAllOS extends Base {
 	}
 
     protected function attemptSSH2Connection($server) {
-        $pword = (isset($server["pword"])) ? $server["pword"] : false;
-        $pword = (isset($server["password"])) ? $server["password"] : $pword;
+	    $askpass = $this->askForServerPassword(true) ;
+	    if ($askpass !== false) {
+            $pword = $askpass ;
+        } else {
+            $pword = (isset($server["pword"])) ? $server["pword"] : false;
+            $pword = (isset($server["password"])) ? $server["password"] : $pword;
+        }
         $invokeFactory = new \Model\Invoke() ;
         $serverObj = $invokeFactory->getModel($this->params, "Server") ;
         $target = $this->findTarget($server) ;
@@ -620,7 +625,7 @@ QUESTION;
 		return $this->params["ssh-user"] ;
 	}
 
-	protected function askForServerPassword()	{
+	protected function askForServerPassword($silent = false)	{
         if (isset($this->params["ssh-key-path"])) {
             return $this->params["ssh-key-path"]; }
         else if (isset($this->params["key-path"])) {
