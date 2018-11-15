@@ -424,6 +424,16 @@ class SFTPAllLinux extends Base {
 
     // @todo it currently looks for both pword and password lets stick to one
     protected function attemptSFTPConnection($server) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $askpass = $this->askForServerPassword(true) ;
+        if ($askpass !== false) {
+            $logging->log("Overriding Stored Password or Key.", $this->getModuleName()) ;
+            $pword = $askpass ;
+        } else {
+            $pword = (isset($server["pword"])) ? $server["pword"] : false;
+            $pword = (isset($server["password"])) ? $server["password"] : $pword;
+        }
         // @ todo native not working
         if (1 === 0) {
             $this->isNativeSSH = true ;
@@ -455,15 +465,6 @@ class SFTPAllLinux extends Base {
             $target_scope_string = $this->findTargetScopeString();
 
             $sftp = new \Net_SFTP($server[$target_scope_string], $this->params["port"], $this->params["timeout"]);
-
-            $askpass = $this->askForServerPassword(true) ;
-            if ($askpass !== false) {
-                $pword = $askpass ;
-            } else {
-                $pword = (isset($server["pword"])) ? $server["pword"] : false;
-                $pword = (isset($server["password"])) ? $server["password"] : $pword;
-            }
-
             $pword = $this->getKeyIfAvailable($pword);
             if ($sftp->login($server["user"], $pword) == true) { return $sftp; }
             return null; }

@@ -414,8 +414,11 @@ class InvokeAllOS extends Base {
 	}
 
     protected function attemptSSH2Connection($server) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 	    $askpass = $this->askForServerPassword(true) ;
 	    if ($askpass !== false) {
+            $logging->log("Overriding Stored Password or Key.", $this->getModuleName()) ;
             $pword = $askpass ;
         } else {
             $pword = (isset($server["pword"])) ? $server["pword"] : false;
