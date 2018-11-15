@@ -37,6 +37,9 @@ class PharaohToolRunnerAnyOS extends Base {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("About to spawn execution of a Pharaoh Tool", $this->getModuleName());
         $env = $this->getEnvironmentName() ;
+
+        $askpass = $this->askForServerPassword(true) ;
+
         if ($env !== false && strlen($env)>0) {
             $logging->log("Environment specified, initiating a remote execution", $this->getModuleName());
             $sshParams["yes"] = true ;
@@ -45,6 +48,8 @@ class PharaohToolRunnerAnyOS extends Base {
             $sshParams["environment-name"] = $env ;
             $env_scope = $this->getEnvironmentScope() ;
             $logging->log("Target Environment scope {$env_scope} specified to target machines", $this->getModuleName());
+            if ($askpass !== false) {
+                $sshParams["password"] = $askpass ; }
             $sshParams["env-scope"] = $env_scope ;
             $sshParams["driver"] = (isset($this->params["driver"])) ? $this->params["driver"] : "seclib" ;
             $sshParams["port"] = (isset($this->params["port"])) ? $this->params["port"] : 22 ;
@@ -77,6 +82,8 @@ class PharaohToolRunnerAnyOS extends Base {
                 $sftpParams["target"] = $target_path ;
                 $sftpParams["environment-name"] = $env ;
                 $sftpParams["env-scope"]= $this->getEnvironmentScope() ;
+                if ($askpass !== false) {
+                    $sftpParams["password"] = $askpass ; }
                 if ($hopEnv !== false) {
                     $logging->log("Hop environment specified, will connect to target environment through hop environment {$hopEnv}", $this->getModuleName());
                     $sftpParams["hops"] = $hopEnv ;
@@ -315,6 +322,24 @@ class PharaohToolRunnerAnyOS extends Base {
             else {
                 if (!in_array($pair, $drop_keys)) { $ray[$pair] = "true" ;} } }
         return $ray ;
+    }
+
+    protected function askForServerPassword($silent = false)	{
+        if (isset($this->params["ssh-key-path"])) {
+            return $this->params["ssh-key-path"]; }
+        else if (isset($this->params["key-path"])) {
+            return $this->params["key-path"]; }
+        else if (isset($this->params["path"])) {
+            return $this->params["path"]; }
+        else if (isset($this->params["ssh-pass"])) {
+            return $this->params["ssh-pass"]; }
+        else if (isset($this->params["pass"])) {
+            return $this->params["pass"]; }
+        if ($silent !== true) {
+            $question = 'Please Enter Server Password or Key Path';
+            $input = self::askForInput($question);
+            return $input; }
+        return false ;
     }
 
 }
