@@ -424,8 +424,6 @@ class SFTPAllLinux extends Base {
 
     // @todo it currently looks for both pword and password lets stick to one
     protected function attemptSFTPConnection($server) {
-        $pword = (isset($server["pword"])) ? $server["pword"] : false ;
-        $pword = (isset($server["password"])) ? $server["password"] : $pword ;
         // @ todo native not working
         if (1 === 0) {
             $this->isNativeSSH = true ;
@@ -457,8 +455,15 @@ class SFTPAllLinux extends Base {
             $target_scope_string = $this->findTargetScopeString();
 
             $sftp = new \Net_SFTP($server[$target_scope_string], $this->params["port"], $this->params["timeout"]);
-            $pword = (isset($server["pword"])) ? $server["pword"] : false ;
-            $pword = (isset($server["password"])) ? $server["password"] : $pword ;
+
+            $askpass = $this->askForServerPassword(true) ;
+            if ($askpass !== false) {
+                $pword = $askpass ;
+            } else {
+                $pword = (isset($server["pword"])) ? $server["pword"] : false;
+                $pword = (isset($server["password"])) ? $server["password"] : $pword;
+            }
+
             $pword = $this->getKeyIfAvailable($pword);
             if ($sftp->login($server["user"], $pword) == true) { return $sftp; }
             return null; }
@@ -550,11 +555,25 @@ QUESTION;
         return  $input ;
     }
 
-    protected function askForServerPassword(){
-        $question = 'Please Enter Server Password or Key Path';
-        $input = self::askForInput($question) ;
-        return  $input ;
+    protected function askForServerPassword($silent = false)	{
+        if (isset($this->params["ssh-key-path"])) {
+            return $this->params["ssh-key-path"]; }
+        else if (isset($this->params["key-path"])) {
+            return $this->params["key-path"]; }
+        else if (isset($this->params["path"])) {
+            return $this->params["path"]; }
+        else if (isset($this->params["ssh-pass"])) {
+            return $this->params["ssh-pass"]; }
+        else if (isset($this->params["pass"])) {
+            return $this->params["pass"]; }
+        if ($silent !== true) {
+            $question = 'Please Enter Server Password or Key Path';
+            $input = self::askForInput($question);
+            return $input;
+        }
+        return false ;
     }
+
 
     protected function getSourceFilePath($flag = null){
         if (isset($this->params["source"])) { return $this->params["source"] ; }

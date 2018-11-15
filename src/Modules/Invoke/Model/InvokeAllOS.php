@@ -636,9 +636,12 @@ QUESTION;
             return $this->params["ssh-pass"]; }
         else if (isset($this->params["pass"])) {
             return $this->params["pass"]; }
-		$question = 'Please Enter Server Password or Key Path';
-		$input = self::askForInput($question);
-		return $input;
+        if ($silent !== true) {
+            $question = 'Please Enter Server Password or Key Path';
+            $input = self::askForInput($question);
+            return $input;
+        }
+        return false ;
 	}
 
 	protected function askForACommand() {
