@@ -39,6 +39,7 @@ class PharaohToolRunnerAnyOS extends Base {
         $env = $this->getEnvironmentName() ;
 
         $askpass = $this->askForServerPassword(true) ;
+        var_dump('askpass', $askpass) ;
 
         if ($env !== false && strlen($env)>0) {
             $logging->log("Environment specified, initiating a remote execution", $this->getModuleName());
@@ -49,7 +50,7 @@ class PharaohToolRunnerAnyOS extends Base {
             $env_scope = $this->getEnvironmentScope() ;
             $logging->log("Target Environment scope {$env_scope} specified to target machines", $this->getModuleName());
             if ($askpass !== false) {
-                $sshParams["password"] = $askpass ; }
+                $sshParams["pass"] = $askpass ; }
             $sshParams["env-scope"] = $env_scope ;
             $sshParams["driver"] = (isset($this->params["driver"])) ? $this->params["driver"] : "seclib" ;
             $sshParams["port"] = (isset($this->params["port"])) ? $this->params["port"] : 22 ;
@@ -83,7 +84,7 @@ class PharaohToolRunnerAnyOS extends Base {
                 $sftpParams["environment-name"] = $env ;
                 $sftpParams["env-scope"]= $this->getEnvironmentScope() ;
                 if ($askpass !== false) {
-                    $sftpParams["password"] = $askpass ; }
+                    $sftpParams["pass"] = $askpass ; }
                 if ($hopEnv !== false) {
                     $logging->log("Hop environment specified, will connect to target environment through hop environment {$hopEnv}", $this->getModuleName());
                     $sftpParams["hops"] = $hopEnv ;
