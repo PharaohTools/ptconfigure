@@ -37,10 +37,7 @@ class PharaohToolRunnerAnyOS extends Base {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("About to spawn execution of a Pharaoh Tool", $this->getModuleName());
         $env = $this->getEnvironmentName() ;
-
         $askpass = $this->askForServerPassword(true) ;
-        var_dump('askpass', $askpass) ;
-
         if ($env !== false && strlen($env)>0) {
             $logging->log("Environment specified, initiating a remote execution", $this->getModuleName());
             $sshParams["yes"] = true ;
