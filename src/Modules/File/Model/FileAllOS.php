@@ -383,6 +383,8 @@ class FileAllOS extends BaseLinuxApp {
         $logging->log("Ensuring line does not exist in file {$this->fileName}", $this->getModuleName()) ;
         if ($string instanceof RegExp) {
             $searchString = new RegExp("/^" . rtrim(str_replace('/', '\\/', preg_quote($string))) . "$/m"); }
+        else if ($this->params['regex'] == true) {
+            $searchString = new RegExp($string); }
         else {
             $searchString = $string; }
         if ($this->findString($searchString)) {
