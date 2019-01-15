@@ -28,10 +28,13 @@ class AptUbuntu extends BasePackager {
 
     public function isInstalled($packageName) {
         if (!is_array($packageName)) { $packageName = array($packageName) ; }
-        $passing = true ;
+        $passing = false ;
         foreach ($packageName as $package) {
-            $out = $this->executeAndLoad(SUDOPREFIX."apt-cache policy {$package}") ;
-            if (strpos($out, "Installed: (none)") != false) { $passing = false ; } }
+            $command = SUDOPREFIX.' dpkg -l | grep ^ii | awk \'{print $2}\' | grep -P "^\b'.$package.'\b$"' ;
+            $out = $this->executeAndLoad($command) ;
+            if (strpos($out, "{$package}") != false) {
+                $passing = true ; }
+        }
         return $passing ;
     }
 
@@ -51,7 +54,7 @@ class AptUbuntu extends BasePackager {
             if (!is_null($version)) {
                  $versionToInstall = "" ;
             }
-            $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq install $package -y > /dev/null ");
+            $out = $this->executeAndLoad(SUDOPREFIX."apt-get install $package -y ");
             if (strpos($out, "Setting up $package") !== false) {
                 $logging->log("Adding Package $package from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
             else if (strpos($package, " ") !== false) {
@@ -60,8 +63,15 @@ class AptUbuntu extends BasePackager {
                     if (strpos($out, "Setting up $onePackageName") !== false) {
                         $logging->log("Adding Package $onePackageName from the Packager {$this->programNameInstaller} executed correctly", $this->getModuleName()) ; }
                 } }
-            else if (strpos($out, "is already the newest version.") !== false) {
-                $ltext  = "Package $package from the Packager {$this->programNameInstaller} is " ;
+            else if (strpos($out, "is already the newest version") !== false) {
+                $str_start_pos = strpos($out, "is already the newest version") ;
+                $str_start = substr($out, 0, $str_start_pos) ;
+                $last_newline_pos = strrpos( $str_start, "...", -1) + 4 ;
+                $provided_by = substr($str_start, $last_newline_pos) ;
+                $provided_by = trim($provided_by) ;
+                $ltext  = "" ;
+                $ltext  .= "Package $package is provided by $provided_by. " ;
+                $ltext  .= "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
                 $logging->log($ltext, $this->getModuleName()) ; }
 //            else if (strpos($out, "ldconfig deferred processing now taking place") === false) {
