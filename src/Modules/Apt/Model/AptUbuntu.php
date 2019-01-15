@@ -70,7 +70,9 @@ class AptUbuntu extends BasePackager {
                 $provided_by = substr($str_start, $last_newline_pos) ;
                 $provided_by = trim($provided_by) ;
                 $ltext  = "" ;
-                $ltext  .= "Package $package is provided by $provided_by. " ;
+                if ($provided_by !== $package) {
+                    $ltext  .= "Package $package is provided by $provided_by. " ;
+                }
                 $ltext  .= "Package $package from the Packager {$this->programNameInstaller} is " ;
                 $ltext .= "already installed, so not installing." ;
                 $logging->log($ltext, $this->getModuleName()) ; }
