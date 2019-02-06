@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/opt/pharaoh_virtualize_gui/Pharaoh_Virtualize_GUI
+Name=Pharaoh Virtualize GUI
+Comment=Virtual Machine Management from Pharaoh Tools
+Icon=/opt/pharaoh_virtualize_gui/app-icon.png
