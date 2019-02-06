@@ -21,10 +21,10 @@ class PTVGUILinux extends BaseLinuxApp {
         $this->autopilotDefiner = "PTVGUI";
         $this->installCommands = array(
 //            array("method"=> array("object" => $this, "method" => "askForPTVGUIVersion", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
-            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "deleteExecutorIfExists", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "saveExecutorFile", "params" => array()) ),
         );
         $this->uninstallCommands = array(
             array("command"=> array("rm -rf {$this->programDataFolder}")));
@@ -34,7 +34,7 @@ class PTVGUILinux extends BaseLinuxApp {
         $this->programNameInstaller = "Pharaoh Vitualize GUI";
         $this->programExecutorFolder = "/usr/bin";
         $this->programExecutorTargetPath = "ptvgui";
-        $this->programExecutorCommand = $this->getExecutorCommand();
+        $this->programExecutorCommand = '/opt/pharaoh_virtualize_gui/Pharaoh_Virtualize_GUI';
         $this->statusCommand = "cat /usr/bin/ptvgui > /dev/null 2>&1";
         // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.44.0"' ;
@@ -58,64 +58,83 @@ class PTVGUILinux extends BaseLinuxApp {
         $this->params["version"] = $tempVersion ;
     }
 
+
+
     public function doInstallCommands() {
+        # curl -X POST -O -J -d "control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_linux_x64" https://repositories.internal.pharaohtools.com/index.php
+        # https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_linux_x64
+        #
+        #
+        # get application dir, default /opt/pharaoh_virtualize_gui
+        # download the gui zip files to temp dir
+        # extract the gui zip file to application dir
+        # set file permissions in application dir
+        # create the launcher in /usr/share/applications
+        # set launcher permissions
 
-        // http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/pharaohinstaller-darwin-x64.zip
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
 
+        $logging->log("Performing Download of Archive", $this->getModuleName()) ;
+        $zip_file_path = '/opt/Pharaoh_Virtualize_GUI.zip' ;
+        $app_dir = '/opt/pharaoh_virtualize_gui/' ;
+        $downloadFactory = new \Model\Download();
+        $params['source'] = 'https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_linux_x64' ;
+        $params['target'] = $zip_file_path ;
+        $download = $downloadFactory->getModel($params);
+        $download->performDownload() ;
 
-        $comms = array(
-            "cd /tmp" ,
-            "mkdir -p /tmp/ptvgui" ,
-            "cd /tmp/ptvgui" ,
-            "wget http://ptvgui-release.storage.googleapis.com/{$this->sv}/ptvgui-server-standalone-{$this->sv}.0.jar",
-            "mkdir -p {$this->programDataFolder}",
-            "mv /tmp/ptvgui/* {$this->programDataFolder}",
-            "rm -rf /tmp/ptvgui/",
-            "cd {$this->programDataFolder}",
-            "mv ptvgui-server-standalone-{$this->sv}.0.jar ptvgui-server.jar" ) ;
-        $this->executeAsShell($comms) ;
-    }
+        $logging->log("Extracting Zip Archive", $this->getModuleName()) ;
+        $zip = new \ZipArchive;
+        if ($zip->open($zip_file_path) === TRUE) {
+            $zip->extractTo($app_dir);
+            $zip->close();
+        } else {
+            return false ;
+        }
 
-    public function startPTVGUI() {
-        $silentFlag = (isset($this->params["silent"])) ? " &" : "" ;
-        if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedriver" : "" ;
-            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
-            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
-            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
-        else {
-            $cdFlag = "" ; }
-        $comms = array(
-            'java -jar ' . $this->programDataFolder . "/ptvgui-server.jar {$cdFlag}{$silentFlag}") ;
-        $this->executeAsShell($comms) ;
-    }
+        $logging->log("Changing readable permissions", $this->getModuleName()) ;
+        $chmodFactory = new \Model\Chmod();
+        $params['yes'] = 'true' ;
+        $params['guess'] = 'true' ;
+        $params['recursive'] = 'true' ;
+        $params['executable'] = 'true' ;
+        $params['path'] = $app_dir ;
+        $params['mode'] = '0755' ;
+        $chmod = $chmodFactory->getModel($params) ;
+        $chmod->performChmod() ;
 
-    public function getExecutorCommand() {
-        if (isset($this->params["with-chrome-driver"])) {
-            $cdsPath = (isset($this->params["guess"])) ? "/opt/chromedriver/chromedriver" : "" ;
-            $cdsPath = (isset($this->params["chrome-driver-path"])) ? $this->params["chrome-driver-path"] : "$cdsPath" ;
-            if ($cdsPath == "") { $cdsPath = $this->askForChromeDriverPath() ; }
-            $cdFlag = "-Dwebdriver.chrome.driver=$cdsPath" ; }
-        else {
-            $cdFlag = "" ; }
-        return 'java -jar ' . $this->programDataFolder . "/ptvgui-server.jar {$cdFlag}" ;
-    }
+        $logging->log("Changing log directory writable permissions", $this->getModuleName()) ;
+        $chmodFactory = new \Model\Chmod();
+        $params['yes'] = 'true' ;
+        $params['guess'] = 'true' ;
+        $params['recursive'] = 'true' ;
+        $params['executable'] = 'true' ;
+        $params['path'] = $app_dir.'temp_logs' ;
+        $params['mode'] = '0777' ;
+        $chmod = $chmodFactory->getModel($params) ;
+        $chmod->performChmod() ;
 
-//    protected function askForPTVGUIVersion(){
-//        $ao = array("2.39", "2.40", "2.41", "2.42", "2.43", "2.44") ;
-//        if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
-//            $this->sv = $this->params["version"] ; }
-//        else if (isset($this->params["guess"])) {
-//            $count = count($ao)-1 ;
-//            $this->sv = $ao[$count] ; }
-//        else {
-//            $question = 'Enter PTVGUI Version';
-//            return self::askForArrayOption($question, $ao, true); }
-//    }
+        $logging->log("Creating Launcher", $this->getModuleName()) ;
+        $templatingFactory = new \Model\Templating();
+        $params['yes'] = 'true' ;
+        $params['guess'] = 'true' ;
+        $replacements = [] ;
+        $source_path = dirname(__DIR__).DS.'Templates'.DS.'Pharaoh_Virtualize_GUI.desktop' ;
+        $target_location = '/usr/share/applications/Pharaoh_Virtualize_GUI.desktop' ;
+        $templating = $templatingFactory->getModel($params) ;
+        $templating->template($source_path, $replacements, $target_location) ;
 
-    protected function askForChromeDriverPath(){
-        $question = 'Enter Chrome Driver Version';
-        return self::askForInput($question, true);
+        $logging->log("Changing Launcher executable permissions", $this->getModuleName()) ;
+        $chmodFactory = new \Model\Chmod();
+        $params['yes'] = 'true' ;
+        $params['guess'] = 'true' ;
+        $params['executable'] = 'true' ;
+        $params['path'] = '/usr/share/applications/Pharaoh_Virtualize_GUI.desktop' ;
+        $params['mode'] = '0755' ;
+        $chmod = $chmodFactory->getModel($params) ;
+        $chmod->performChmod() ;
+
     }
 
     public function versionInstalledCommandTrimmer($text) {
