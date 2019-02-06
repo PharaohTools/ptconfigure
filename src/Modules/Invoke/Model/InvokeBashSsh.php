@@ -40,11 +40,11 @@ class InvokeBashSsh extends BaseLinuxApp {
             $this->server->password = $ks->findKey() ; }
         $launcher = $this->getLauncher() ;
         $this->commandsPipe = tempnam(null, 'ssh');
-        if (!function_exists("pcntl_fork")) {
-            $loggingFactory = new \Model\Logging();
-            $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Unable to use pcntl_fork, ending", $this->getModuleName()) ;
-            return false ; }
+//        if (!function_exists("pcntl_fork")) {
+//            $loggingFactory = new \Model\Logging();
+//            $logging = $loggingFactory->getModel($this->params);
+//            $logging->log("Unable to use pcntl_fork, ending", $this->getModuleName()) ;
+//            return false ; }
         $pcomm = "$launcher 'echo Pharaoh Tools'" ;
         passthru($pcomm, $res) ;
         return true ;
