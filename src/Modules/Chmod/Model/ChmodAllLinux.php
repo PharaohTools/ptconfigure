@@ -31,8 +31,14 @@ class ChmodAllLinux extends Base {
         $comm = "chmod $recursive{$mode} $dirPath" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Executing $comm", $this->getModuleName());
+        $logging->log("Executing $comm", $this->getModuleName()) ;
         self::executeAndOutput($comm) ;
+        $executable = (isset($this->params["executable"])) ;
+        if (isset($executable)) {
+            $comm = "chmod {$recursive}+x $dirPath" ;
+            $logging->log("Executing $comm", $this->getModuleName());
+            self::executeAndOutput($comm) ;
+        }
     }
 
     private function askForChmodExecute(){
