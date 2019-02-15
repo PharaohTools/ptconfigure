@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTVGUIWindows extends BaseWindowsApp {
+class PTSourceDesktopGUIWindows extends BaseWindowsApp {
 
     // Compatibility
     public $os = array("Windows", 'WINNT') ;
@@ -18,7 +18,7 @@ class PTVGUIWindows extends BaseWindowsApp {
     // @todo ensure wget is installed
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTVGUI";
+        $this->autopilotDefiner = "PTSourceDesktopGUI";
         $this->installCommands = array(
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
         );
@@ -68,20 +68,20 @@ class PTVGUIWindows extends BaseWindowsApp {
         // $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
 
         // delete package
-        if (is_dir(PFILESDIR."PTVGUI")) {
+        if (is_dir(PFILESDIR."PTSourceDesktopGUI")) {
             $logging->log("Delete previous App Directory", $this->getModuleName() ) ;
-            $this-> delTree(PFILESDIR."PTVGUI") ;
+            $this-> delTree(PFILESDIR."PTSourceDesktopGUI") ;
         }
 
         // Ensure App Directory
         $logging->log("Ensure App Directory", $this->getModuleName() ) ;
-        if (!file_exists(PFILESDIR."PTVGUI")) {
-            mkdir(PFILESDIR."PTVGUI", null, true) ;
+        if (!file_exists(PFILESDIR."PTSourceDesktopGUI")) {
+            mkdir(PFILESDIR."PTSourceDesktopGUI", null, true) ;
         }
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
+        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTSourceDesktopGUI\" " ;
         // $logging->log("UZ: $uzc", $this->getModuleName() ) ;
         $this->executeAndOutput($uzc) ;
 
@@ -90,7 +90,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $lib_path = dirname(__DIR__).DS.'Libraries' ;
         $lib_path .= "\\bscripts\\pinnerJS.bat" ;
         $comm  = "\"{$lib_path}\"" ;
-        $comm .= " \"".PFILESDIR."PTVGUI\\ptvgui-win32-{$arch_string}\\ptvgui.exe\""  ;
+        $comm .= " \"".PFILESDIR."PTSourceDesktopGUI\\ptvgui-win32-{$arch_string}\\ptvgui.exe\""  ;
         $comm1 = $comm . " startmenu"  ;
         $comm2 = $comm . " taskbar"  ;
         // $logging->log("UZ: $comm", $this->getModuleName() ) ;
@@ -130,9 +130,9 @@ class PTVGUIWindows extends BaseWindowsApp {
         }
 
         // delete package
-        if (is_dir(PFILESDIR."PTVGUI")) {
+        if (is_dir(PFILESDIR."PTSourceDesktopGUI")) {
             $logging->log("Delete previous App Directory", $this->getModuleName() ) ;
-            $this-> delTree(PFILESDIR."PTVGUI") ;
+            $this-> delTree(PFILESDIR."PTSourceDesktopGUI") ;
         }
 
         return true;

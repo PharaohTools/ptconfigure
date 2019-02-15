@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PTVGUIMac extends BaseLinuxApp {
+class PTSourceDesktopGUIMac extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Darwin") ;
@@ -20,9 +20,9 @@ class PTVGUIMac extends BaseLinuxApp {
     // @todo ensure wget is installed
     public function __construct($params) {
         parent::__construct($params);
-        $this->autopilotDefiner = "PTVGUI";
+        $this->autopilotDefiner = "PTSourceDesktopGUI";
         $this->installCommands = array(
-//            array("method"=> array("object" => $this, "method" => "askForPTVGUIVersion", "params" => array()) ),
+//            array("method"=> array("object" => $this, "method" => "askForPTSourceDesktopGUIVersion", "params" => array()) ),
 //            array("method"=> array("object" => $this, "method" => "executeDependencies", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "doInstallCommands", "params" => array()) ),
         );

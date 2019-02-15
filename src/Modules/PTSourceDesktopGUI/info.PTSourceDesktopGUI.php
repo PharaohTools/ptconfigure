@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PTVGUIInfo extends PTConfigureBase {
+class PTSourceDesktopGUIInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -13,23 +13,23 @@ class PTVGUIInfo extends PTConfigureBase {
   }
 
   public function routesAvailable() {
-    return array( "PTVGUI" =>  array_merge(parent::routesAvailable(), array("install") ) );
+    return array( "PTSourceDesktopGUI" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
-    return array("ptv-gui"=>"PTVGUI", "ptvgui"=>"PTVGUI");
+    return array("ptsgui"=>"PTSourceDesktopGUI", "ptsource-gui"=>"PTSourceDesktopGUI", "ptsourcegui"=>"PTSourceDesktopGUI");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This module allows you to install Pharaoh Virtualize GUI.
+  This module allows you to install Pharaoh Source Desktop GUI.
 
-  PTVGUI, ptv-gui, ptvgui
+  PTSourceDesktopGUI, ptsource-gui, ptsourcegui
 
         - install
-        Installs Pharaoh Virtualize GUI.
+        Installs Pharaoh Source Desktop GUI.
         
-        example: ptconfigure ptvgui install
+        example: ptconfigure ptsourcegui install
 
 
 HELPDATA;

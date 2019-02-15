@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class PTVGUI extends BaseModelFactory {
+class PTSourceDesktopGUI extends BaseModelFactory {
 
 }

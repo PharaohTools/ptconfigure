@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class PTVGUI extends Base {
+class PTSourceDesktopGUI extends Base {
 
     public function execute($pageVars) {
         $defaultExecution = $this->defaultExecution($pageVars) ;
