@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Terminal=false
-Exec=/opt/pharaoh_virtualize_gui/Pharaoh_Virtualize_GUI
-Name=Pharaoh Virtualize GUI
-Comment=Virtual Machine Management from Pharaoh Tools
-Icon=/opt/pharaoh_virtualize_gui/app-icon.png
+Exec=/opt/pharaoh_source_desktop_gui/Pharaoh_Source_Desktop_GUI
+Name=Pharaoh Source Desktop GUI
+Comment=Source Code Repository Management Client from Pharaoh Tools
+Icon=/opt/pharaoh_source_desktop_gui/app-icon.png
