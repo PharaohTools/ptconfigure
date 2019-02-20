@@ -156,54 +156,74 @@ class AutopilotExecutor extends Base {
         $mod_is = $mod_ray_is[0] ;
         $act_ray_is = array_keys($current_params[$mod_is]) ;
         $act_is = $act_ray_is[0] ;
-        if (isset($current_params[$mod_is][$act_is]["when"]) && isset($current_params[$mod_is][$act_is]["equals"])) {
+        $current_when = isset($current_params[$mod_is][$act_is]["when"]) ? $current_params[$mod_is][$act_is]["when"] : null ;
+        $current_not_when = isset($current_params[$mod_is][$act_is]["not_when"]) ? $current_params[$mod_is][$act_is]["when"] : null ;
+        if (isset($current_params[$mod_is][$act_is]["when_equals"])) {
+            $current_w_equals = $current_params[$mod_is][$act_is]["when_equals"] ;
+            $current_equals = $current_w_equals ;
+        }
+
+        if (isset($current_params[$mod_is][$act_is]["not_when_equals"])) {
+            $current_nw_equals = $current_params[$mod_is][$act_is]["not_when_equals"] ;
+            $current_equals = $current_nw_equals ;
+        }
+
+        if (isset($current_params[$mod_is][$act_is]["equals"])) {
+            $current_equals = $current_nw_equals = $current_equals = $current_params[$mod_is][$act_is]["equals"] ;
+        }
+
+        if (!isset($current_equals)) {
+            $current_equals = null ;
+        }
+
+        if (!is_null($current_when) && !is_null($current_equals)) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
-            $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
+            $when_result = $autoModel->transformParameterValue($current_when) ;
+            $equals_result = $autoModel->transformParameterValue($current_equals) ;
 //            var_dump($when_result, $equals_result) ;
             $when_text = ( ($when_result == $equals_result) && ($when_result != "") ) ? "Do Run" : "Don't Run" ;
             $when_bool = ( ($when_result == $equals_result) && ($when_result != "") ) ? true : false ;
             $logging->log("When Equals Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_bool ; }
-        else if (isset($current_params[$mod_is][$act_is]["when"])) {
+        else if (!is_null($current_when)) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            $when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["when"]) ;
+            $when_result = $autoModel->transformParameterValue($current_when) ;
             $when_text = ( ($when_result == true) && ($when_result != "")) ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
             $return_stat["should_run"] = $when_result ; }
-        else if ((isset($current_params[$mod_is][$act_is]["not_when"])) && (isset($current_params[$mod_is][$act_is]["equals"]))) {
+        else if (!is_null($current_not_when) && !is_null($current_equals)) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("Not When Equals Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
-            $equals_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["equals"]) ;
+            $not_when_result = $autoModel->transformParameterValue($current_not_when) ;
+            $equals_result = $autoModel->transformParameterValue($current_equals) ;
 //            var_dump($not_when_result, $equals_result) ;
             $not_when_text = ( $not_when_result != $equals_result ) ? "Do Run" : "Don't Run" ;
             $logging->log("Not When Equals Condition evaluated to {$not_when_text}", "Autopilot") ;
 //            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
             $not_when_bool = ( $not_when_result != $equals_result ) ? true : false ;
             $return_stat["should_run"] = $not_when_bool ; }
-        else if (isset($current_params[$mod_is][$act_is]["not_when"])) {
+        else if (!is_null($current_not_when)) {
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("Not When Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            $not_when_result = $autoModel->transformParameterValue($current_params[$mod_is][$act_is]["not_when"]) ;
+            $not_when_result = $autoModel->transformParameterValue($current_not_when) ;
             if (is_bool($not_when_result)) {
 //               var_dump("one") ;
             }
