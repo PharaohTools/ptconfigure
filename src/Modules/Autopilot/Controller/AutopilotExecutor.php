@@ -262,6 +262,11 @@ class AutopilotExecutor extends Base {
 
         if (count($return_stat["results"]) == 0) {
             $return_stat["should_run"] = true ;  }
+        else if (in_array(false, $return_stat["results"])) {
+            $return_stat["should_run"] = false ;
+        } else {
+            $return_stat["should_run"] = true ;
+        }
 
         return $return_stat ;
     }
