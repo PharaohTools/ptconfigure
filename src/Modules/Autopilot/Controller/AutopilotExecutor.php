@@ -178,6 +178,9 @@ class AutopilotExecutor extends Base {
             $current_equals = null ;
         }
 
+        $return_stat = array() ;
+        $return_stat['results'] = array() ;
+
         if (!is_null($current_when) && (!is_null($current_equals) || isset($current_w_equals))) {
             if (is_null($current_equals) && isset($current_w_equals)) {
                 $current_equals = $current_w_equals ;
@@ -195,7 +198,7 @@ class AutopilotExecutor extends Base {
             $when_text = ( ($when_result == $equals_result) && ($when_result != "") ) ? "Do Run" : "Don't Run" ;
             $when_bool = ( ($when_result == $equals_result) && ($when_result != "") ) ? true : false ;
             $logging->log("When Equals Condition evaluated to {$when_text}", "Autopilot") ;
-            $return_stat["should_run"] = $when_bool ; }
+            $return_stat["results"] = $when_bool ; }
 
         else if (!is_null($current_when)) {
             $logFactory = new \Model\Logging() ;
@@ -207,10 +210,10 @@ class AutopilotExecutor extends Base {
             $when_result = $autoModel->transformParameterValue($current_when) ;
             $when_text = ( ($when_result == true) && ($when_result != "")) ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
-            $return_stat["should_run"] = $when_result ; }
+            $return_stat["results"] = $when_result ; }
 
 
-        if (!isset($return_stat["should_run"])) {
+        if (!in_array(false, $return_stat["results"])) {
 
             if (!is_null($current_not_when) && !is_null($current_equals)) {
                 $logFactory = new \Model\Logging();
@@ -226,7 +229,7 @@ class AutopilotExecutor extends Base {
                 $logging->log("Not When Equals Condition evaluated to {$not_when_text}", "Autopilot");
 //            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
                 $not_when_bool = ($not_when_result != $equals_result) ? true : false;
-                $return_stat["should_run"] = $not_when_bool;
+                $return_stat["results"] = $not_when_bool;
             } else if (!is_null($current_not_when)) {
                 $logFactory = new \Model\Logging();
                 $logging = $logFactory->getModel(array(), "Default");
@@ -250,14 +253,14 @@ class AutopilotExecutor extends Base {
                 $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run";
                 $logging->log("Not When Condition evaluated to {$not_when_text}", "Autopilot");
 
-                $return_stat["should_run"] = $not_when_result;
+                $return_stat["results"] = $not_when_result;
             } else {
-                $return_stat["should_run"] = true;
+                $return_stat["results"] = true;
             }
 
         }
 
-        if (!isset($return_stat["should_run"])) {
+        if (count($return_stat["results"]) == 0) {
             $return_stat["should_run"] = true ;  }
 
         return $return_stat ;
