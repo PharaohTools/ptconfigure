@@ -185,7 +185,6 @@ class AutopilotExecutor extends Base {
             if (is_null($current_equals) && isset($current_w_equals)) {
                 $current_equals = $current_w_equals ;
             }
-            var_dump('when equals', $current_when, $current_equals) ;
             $logFactory = new \Model\Logging() ;
             $logging = $logFactory->getModel(array(), "Default") ;
             $name_or_mod = $this->getNameOrMod($current_params, $autoModel) ;
