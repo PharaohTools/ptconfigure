@@ -157,7 +157,7 @@ class AutopilotExecutor extends Base {
         $act_ray_is = array_keys($current_params[$mod_is]) ;
         $act_is = $act_ray_is[0] ;
         $current_when = isset($current_params[$mod_is][$act_is]["when"]) ? $current_params[$mod_is][$act_is]["when"] : null ;
-        $current_not_when = isset($current_params[$mod_is][$act_is]["not_when"]) ? $current_params[$mod_is][$act_is]["when"] : null ;
+        $current_not_when = isset($current_params[$mod_is][$act_is]["not_when"]) ? $current_params[$mod_is][$act_is]["not_when"] : null ;
         if (isset($current_params[$mod_is][$act_is]["when_equals"])) {
             $current_w_equals = $current_params[$mod_is][$act_is]["when_equals"] ;
             $current_equals = $current_w_equals ;
