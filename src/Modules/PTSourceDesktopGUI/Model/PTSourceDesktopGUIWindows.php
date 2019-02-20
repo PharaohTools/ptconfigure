@@ -51,20 +51,21 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $arch_string = $this->getArchString() ;
 
         // Stop running PTV GUI
-        $logging->log("Stop Pharaoh Virtualize GUI if it is running", $this->getModuleName() ) ;
-        $comms = "taskkill /T /F /IM ptvgui.exe" ;
+        $logging->log("Stop Pharaoh Source GUI if it is running", $this->getModuleName() ) ;
+        $comms = "taskkill /T /F /IM Pharaoh_Source_Desktop_GUI.exe" ;
         $this->executeAndOutput($comms) ;
 
         // delete package
-        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+        $package_file = BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip" ;
+        if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
-            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+            unlink($package_file) ;
         }
 
         // download the package
         // $source = "http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/ptvgui-win32-{$arch_string}.zip" ;
-        $source = "https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_windows_{$arch_string}" ;
-        $this->guiDownload($source, BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+        $source = "https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_source_desktop_gui_windows_{$arch_string}" ;
+        $this->guiDownload($source, $package_file) ;
         // $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
 
         // delete package
@@ -81,7 +82,7 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTSourceDesktopGUI\" " ;
+        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".$package_file."\" -d \"".PFILESDIR."PTSourceDesktopGUI\" " ;
         // $logging->log("UZ: $uzc", $this->getModuleName() ) ;
         $this->executeAndOutput($uzc) ;
 
@@ -90,7 +91,7 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $lib_path = dirname(__DIR__).DS.'Libraries' ;
         $lib_path .= "\\bscripts\\pinnerJS.bat" ;
         $comm  = "\"{$lib_path}\"" ;
-        $comm .= " \"".PFILESDIR."PTSourceDesktopGUI\\ptvgui-win32-{$arch_string}\\ptvgui.exe\""  ;
+        $comm .= " \"".PFILESDIR."PTSourceDesktopGUI\\Pharaoh_Source_Desktop_GUI.exe\""  ;
         $comm1 = $comm . " startmenu"  ;
         $comm2 = $comm . " taskbar"  ;
         // $logging->log("UZ: $comm", $this->getModuleName() ) ;
@@ -106,9 +107,9 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $copy->performCopyPut();
 
         // delete package
-        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+        if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
-            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+            unlink($package_file) ;
         }
 
         return true;
@@ -121,12 +122,11 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
-        $arch_string = $this->getArchString() ;
-
+        $package_file = BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip" ;
         // delete package
-        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+        if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
-            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+            unlink($package_file) ;
         }
 
         // delete package
