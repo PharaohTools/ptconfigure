@@ -198,7 +198,7 @@ class AutopilotExecutor extends Base {
             $when_text = ( ($when_result == $equals_result) && ($when_result != "") ) ? "Do Run" : "Don't Run" ;
             $when_bool = ( ($when_result == $equals_result) && ($when_result != "") ) ? true : false ;
             $logging->log("When Equals Condition evaluated to {$when_text}", "Autopilot") ;
-            $return_stat["results"] = $when_bool ; }
+            $return_stat["results"][] = $when_bool ; }
 
         else if (!is_null($current_when)) {
             $logFactory = new \Model\Logging() ;
@@ -210,7 +210,7 @@ class AutopilotExecutor extends Base {
             $when_result = $autoModel->transformParameterValue($current_when) ;
             $when_text = ( ($when_result == true) && ($when_result != "")) ? "Do Run" : "Don't Run" ;
             $logging->log("When Condition evaluated to {$when_text}", "Autopilot") ;
-            $return_stat["results"] = $when_result ; }
+            $return_stat["results"][] = $when_result ; }
 
 
         if (!in_array(false, $return_stat["results"])) {
@@ -229,7 +229,7 @@ class AutopilotExecutor extends Base {
                 $logging->log("Not When Equals Condition evaluated to {$not_when_text}", "Autopilot");
 //            $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run" ;
                 $not_when_bool = ($not_when_result != $equals_result) ? true : false;
-                $return_stat["results"] = $not_when_bool;
+                $return_stat["results"][] = $not_when_bool;
             } else if (!is_null($current_not_when)) {
                 $logFactory = new \Model\Logging();
                 $logging = $logFactory->getModel(array(), "Default");
@@ -253,9 +253,9 @@ class AutopilotExecutor extends Base {
                 $not_when_text = ($not_when_result == true) ? "Do Run" : "Don't Run";
                 $logging->log("Not When Condition evaluated to {$not_when_text}", "Autopilot");
 
-                $return_stat["results"] = $not_when_result;
+                $return_stat["results"][] = $not_when_result;
             } else {
-                $return_stat["results"] = true;
+                $return_stat["results"][] = true;
             }
 
         }
