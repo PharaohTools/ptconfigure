@@ -214,7 +214,10 @@ class AutopilotExecutor extends Base {
 
         if (!in_array(false, $return_stat["results"])) {
 
-            if (!is_null($current_not_when) && !is_null($current_equals)) {
+            if (!is_null($current_not_when) && (!is_null($current_equals) || isset($current_nw_equals))) {
+                if (is_null($current_equals) && isset($current_nw_equals)) {
+                    $current_equals = $current_nw_equals ;
+                }
                 $logFactory = new \Model\Logging();
                 $logging = $logFactory->getModel(array(), "Default");
                 $name_or_mod = $this->getNameOrMod($current_params, $autoModel);
