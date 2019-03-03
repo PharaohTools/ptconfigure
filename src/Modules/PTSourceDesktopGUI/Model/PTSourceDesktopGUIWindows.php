@@ -118,6 +118,8 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $logging->log("Updating Settings file for ISO PHP", $this->getModuleName()) ;
         $this->settingsFileUpdateISOPHP() ;
 
+        return true ;
+
     }
 
     public function settingsFileUpdatePHPDesktop() {

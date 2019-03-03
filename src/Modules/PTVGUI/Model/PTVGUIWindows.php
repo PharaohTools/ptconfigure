@@ -52,20 +52,21 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         // Stop running PTV GUI
         $logging->log("Stop Pharaoh Virtualize GUI if it is running", $this->getModuleName() ) ;
-        $comms = "taskkill /T /F /IM ptvgui.exe" ;
+        $comms = "taskkill /T /F /IM Pharaoh_Virtualize_GUI.exe" ;
         $this->executeAndOutput($comms) ;
 
         // delete package
-        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+        $package_file = BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip" ;
+        if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
-            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+            unlink($package_file) ;
         }
 
         // download the package
-        // $source = "http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/ptvgui-win32-{$arch_string}.zip" ;
+        // $source = "http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/Pharaoh_Source_Desktop_GUI.windows.zip" ;
         $source = "https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_windows_{$arch_string}" ;
-        $this->guiDownload($source, BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
-        // $logging->log("Download to: ". BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+        $this->guiDownload($source, $package_file) ;
+        // $logging->log("Download to: ". $package_file) ;
 
         // delete package
         if (is_dir(PFILESDIR."PTVGUI")) {
@@ -81,7 +82,7 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
+        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
         // $logging->log("UZ: $uzc", $this->getModuleName() ) ;
         $this->executeAndOutput($uzc) ;
 
@@ -90,7 +91,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $lib_path = dirname(__DIR__).DS.'Libraries' ;
         $lib_path .= "\\bscripts\\pinnerJS.bat" ;
         $comm  = "\"{$lib_path}\"" ;
-        $comm .= " \"".PFILESDIR."PTVGUI\\ptvgui-win32-{$arch_string}\\ptvgui.exe\""  ;
+        $comm .= " \"".PFILESDIR."PTVGUI\\Pharaoh_Virtualize_GUI.exe\""  ;
         $comm1 = $comm . " startmenu"  ;
         $comm2 = $comm . " taskbar"  ;
         // $logging->log("UZ: $comm", $this->getModuleName() ) ;
@@ -106,27 +107,84 @@ class PTVGUIWindows extends BaseWindowsApp {
         $copy->performCopyPut();
 
         // delete package
-        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+        if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
-            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+            unlink($package_file) ;
         }
+
+        $logging->log("Updating Settings file for Desktop Application", $this->getModuleName()) ;
+        $this->settingsFileUpdatePHPDesktop() ;
+
+        $logging->log("Updating Settings file for ISO PHP", $this->getModuleName()) ;
+        $this->settingsFileUpdateISOPHP() ;
 
         return true;
 
     }
 
+    public function settingsFileUpdatePHPDesktop() {
+        $settings_file_path = $this->programDataFolder.'settings.json' ;
+        $settings_string = file_get_contents($settings_file_path) ;
+        $settings = json_decode($settings_string, true) ;
+//        $new_resolution = $this->resolutionFind() ;
+        $settings["chrome"]["log_file"] = "debug.log" ;
+//        $settings["main_window"]["default_size"] = $new_resolution ;
+        $settings["main_window"]["context_menu"] = true ;
+        $settings["main_window"]["enable_menu"] = true ;
+        $settings["main_window"]["navigation"] = true ;
+        $settings["main_window"]["print"] = true ;
+        $settings["main_window"]["view_source"] = true ;
+        $settings["main_window"]["devtools"] = true ;
+        $string = json_encode($settings, JSON_PRETTY_PRINT) ;
+        file_put_contents($settings_file_path, $string) ;
+    }
 
+    public function settingsFileUpdateISOPHP() {
+        $settings_file_path = $this->programDataFolder.'www'.DS.'app'.DS.'Settings'.DS.'Data'.DS.'app-settings.json' ;
+        $settings_string = file_get_contents($settings_file_path) ;
+        $settings = json_decode($settings_string, true) ;
+        $project_directories = $this->defaultProjectDirectories() ;
+        $settings["project_directories"] = $project_directories ;
+        $string = json_encode($settings, JSON_PRETTY_PRINT) ;
+        file_put_contents($settings_file_path, $string) ;
+    }
+
+    public function resolutionFind() {
+        $command = "wmic desktopmonitor get screenheight, screenwidth" ;
+        $info = shell_exec($command) ;
+        $info = trim($info) ;
+        var_dump('finding resolution', $info) ;
+        $parts = explode('x', $info) ;
+        $width = $parts[0] ;
+        $height = $parts[1] ;
+        $new_resolution = [] ;
+        $new_resolution[] = floor($width / 3) ;
+        $new_resolution[] = $height * 0.4 ;
+        return $new_resolution ;
+    }
+
+    public function defaultProjectDirectories() {
+        $dir_options[] = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'] ;
+        $dir_options[] = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'].DS.'Documents' ;
+        $dirs = [] ;
+        foreach ($dir_options as $dir_option) {
+            if (is_dir($dir_option)) {
+                $dirs[] = $dir_option ;
+            }
+        }
+        return $dirs ;
+    }
+    
     public function doUninstallCommands() {
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
-        $arch_string = $this->getArchString() ;
-
         // delete package
-        if (file_exists(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip")) {
+        $package_file = BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip" ;
+        if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
-            unlink(BASE_TEMP_DIR."ptvgui-win32-{$arch_string}.zip") ;
+            unlink($package_file) ;
         }
 
         // delete package
@@ -137,18 +195,6 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         return true;
 
-    }
-
-    public function getArchString() {
-        $sys = new \Model\SystemDetectionAllOS();
-        $arch = $sys->architecture ;
-        $arch_string = '' ;
-        if ($arch == '32') {
-            $arch_string = 'ia32' ;
-        } else if ($arch == '64') {
-            $arch_string = 'x64' ;
-        }
-        return $arch_string ;
     }
 
     public function versionInstalledCommandTrimmer($text) {
