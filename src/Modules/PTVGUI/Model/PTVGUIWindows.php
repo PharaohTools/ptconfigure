@@ -25,7 +25,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "doUninstallCommands", "params" => array()) ),
         );
-        $this->programDataFolder = "/opt/ptvgui"; // command and app dir name
+        $this->programDataFolder = PFILESDIR."PTVGUI\\"; // command and app dir name
         $this->programNameMachine = "ptvgui"; // command and app dir name
         $this->programNameFriendly = "PTV GUI"; // 12 chars
         $this->programNameInstaller = "Pharaoh Vitualize GUI";
@@ -174,7 +174,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         }
         return $dirs ;
     }
-    
+
     public function doUninstallCommands() {
 
         $loggingFactory = new \Model\Logging();
@@ -195,6 +195,18 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         return true;
 
+    }
+
+    public function getArchString() {
+        $sys = new \Model\SystemDetectionAllOS();
+        $arch = $sys->architecture ;
+        $arch_string = '' ;
+        if ($arch == '32') {
+            $arch_string = 'ia32' ;
+        } else if ($arch == '64') {
+            $arch_string = 'x64' ;
+        }
+        return $arch_string ;
     }
 
     public function versionInstalledCommandTrimmer($text) {
