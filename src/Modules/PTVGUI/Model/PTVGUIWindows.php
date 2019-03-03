@@ -56,14 +56,14 @@ class PTVGUIWindows extends BaseWindowsApp {
         $this->executeAndOutput($comms) ;
 
         // delete package
-        $package_file = BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip" ;
+        $package_file = BASE_TEMP_DIR."Pharaoh_Virtualize_GUI.windows.zip" ;
         if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
             unlink($package_file) ;
         }
 
         // download the package
-        // $source = "http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/Pharaoh_Source_Desktop_GUI.windows.zip" ;
+        // $source = "http://41aa6c13130c155b18f6-e732f09b5e2f2287aef1580c786eed68.r92.cf3.rackcdn.com/Pharaoh_Virtualize_GUI.windows.zip" ;
         $source = "https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_windows_{$arch_string}" ;
         $this->guiDownload($source, $package_file) ;
         // $logging->log("Download to: ". $package_file) ;
@@ -82,7 +82,7 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
+        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."Pharaoh_Virtualize_GUI.windows.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
         // $logging->log("UZ: $uzc", $this->getModuleName() ) ;
         $this->executeAndOutput($uzc) ;
 
@@ -181,7 +181,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $logging = $loggingFactory->getModel($this->params);
 
         // delete package
-        $package_file = BASE_TEMP_DIR."Pharaoh_Source_Desktop_GUI.windows.zip" ;
+        $package_file = BASE_TEMP_DIR."Pharaoh_Virtualize_GUI.windows.zip" ;
         if (file_exists($package_file)) {
             $logging->log("Delete previous package file", $this->getModuleName() ) ;
             unlink($package_file) ;
