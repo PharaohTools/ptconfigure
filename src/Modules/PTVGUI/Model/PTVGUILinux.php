@@ -28,7 +28,7 @@ class PTVGUILinux extends BaseLinuxApp {
         );
         $this->uninstallCommands = array(
             array("command"=> array("rm -rf {$this->programDataFolder}")));
-        $this->programDataFolder = "/opt/ptvgui"; // command and app dir name
+        $this->programDataFolder = "/opt/pharaoh_virtualize_gui/"; // command and app dir name
         $this->programNameMachine = "ptvgui"; // command and app dir name
         $this->programNameFriendly = "PTV GUI"; // 12 chars
         $this->programNameInstaller = "Pharaoh Vitualize GUI";
@@ -93,6 +93,9 @@ class PTVGUILinux extends BaseLinuxApp {
             return false ;
         }
 
+        $logging->log("Remove Zip Archive", $this->getModuleName()) ;
+        unlink($zip_file_path) ;
+
         $logging->log("Changing readable permissions", $this->getModuleName()) ;
         $chmodFactory = new \Model\Chmod();
         $params['yes'] = 'true' ;
@@ -103,6 +106,15 @@ class PTVGUILinux extends BaseLinuxApp {
         $params['mode'] = '0755' ;
         $chmod = $chmodFactory->getModel($params) ;
         $chmod->performChmod() ;
+
+        $logging->log("Ensuring log directory existence", $this->getModuleName()) ;
+        $mkdirFactory = new \Model\Mkdir();
+        $params['yes'] = 'true' ;
+        $params['guess'] = 'true' ;
+        $params['recursive'] = 'true' ;
+        $params['path'] = $this->programDataFolder.'temp_logs' ;
+        $mkdir = $mkdirFactory->getModel($params) ;
+        $mkdir->performMkdir() ;
 
         $logging->log("Changing log directory writable permissions", $this->getModuleName()) ;
         $chmodFactory = new \Model\Chmod();
@@ -135,6 +147,71 @@ class PTVGUILinux extends BaseLinuxApp {
         $chmod = $chmodFactory->getModel($params) ;
         $chmod->performChmod() ;
 
+        $logging->log("Updating Settings file for Desktop Application", $this->getModuleName()) ;
+        $this->settingsFileUpdatePHPDesktop() ;
+
+        $logging->log("Updating Settings file for ISO PHP", $this->getModuleName()) ;
+        $this->settingsFileUpdateISOPHP() ;
+
+        $logging->log("Updating Settings file for ISO PHP writable permissions", $this->getModuleName()) ;
+        $settings_file_path = $this->programDataFolder.'www/app/Settings/Data/app-settings.json' ;
+        $chmodFactory = new \Model\Chmod();
+        $params['yes'] = 'true' ;
+        $params['guess'] = 'true' ;
+        $params['path'] = $settings_file_path ;
+        $params['mode'] = '0777' ;
+        $chmod = $chmodFactory->getModel($params) ;
+        $chmod->performChmod() ;
+
+    }
+
+    public function settingsFileUpdatePHPDesktop() {
+        $settings_file_path = $this->programDataFolder.'settings.json' ;
+        $settings_string = file_get_contents($settings_file_path) ;
+        $settings = json_decode($settings_string, true) ;
+        $new_resolution = $this->resolutionFind() ;
+        $settings["chrome"]["log_file"] = "debug.log" ;
+        $settings["main_window"]["default_size"] = $new_resolution ;
+        $settings["main_window"]["context_menu"] = true ;
+        $settings["main_window"]["enable_menu"] = true ;
+        $settings["main_window"]["navigation"] = true ;
+        $settings["main_window"]["print"] = true ;
+        $settings["main_window"]["view_source"] = true ;
+        $settings["main_window"]["devtools"] = true ;
+        $string = json_encode($settings, JSON_PRETTY_PRINT) ;
+        file_put_contents($settings_file_path, $string) ;
+    }
+
+    public function settingsFileUpdateISOPHP() {
+        $settings_file_path = $this->programDataFolder.'www/app/Settings/Data/app-settings.json' ;
+        $settings_string = file_get_contents($settings_file_path) ;
+        $settings = json_decode($settings_string, true) ;
+        $project_directories = $this->defaultProjectDirectories() ;
+        $settings["project_directories"] = $project_directories ;
+        $string = json_encode($settings, JSON_PRETTY_PRINT) ;
+        file_put_contents($settings_file_path, $string) ;
+    }
+
+    public function resolutionFind() {
+        $command = "xdpyinfo  | grep -oP 'dimensions:\s+\K\S+'" ;
+        $info = shell_exec($command) ;
+        $info = trim($info) ;
+        $parts = explode('x', $info) ;
+//        var_dump('$parts') ;
+//        var_dump($parts) ;
+        $width = $parts[0] ;
+        $height = $parts[1] ;
+        $new_resolution = [] ;
+        $new_resolution[] = floor($width / 3) ;
+        $new_resolution[] = $height * 0.4 ;
+        return $new_resolution ;
+    }
+
+    public function defaultProjectDirectories() {
+//        $dirs[] = $_SERVER['HOME'] ;
+//        $dirs[] = $_SERVER['HOME'].DIRECTORY_SEPARATOR.'Documents' ;
+        $dirs[] = '/opt' ;
+        return $dirs ;
     }
 
     public function versionInstalledCommandTrimmer($text) {
