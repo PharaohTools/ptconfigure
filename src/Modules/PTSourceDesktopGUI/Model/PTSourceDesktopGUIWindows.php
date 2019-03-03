@@ -25,14 +25,14 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "doUninstallCommands", "params" => array()) ),
         );
-        $this->programDataFolder = "/opt/ptvgui"; // command and app dir name
-        $this->programNameMachine = "ptvgui"; // command and app dir name
-        $this->programNameFriendly = "PTV GUI"; // 12 chars
-        $this->programNameInstaller = "Pharaoh Vitualize GUI";
+        $this->programDataFolder = PFILESDIR."PTSourceDesktopGUI\\"; // command and app dir name
+        $this->programNameMachine = "ptsgui"; // command and app dir name
+        $this->programNameFriendly = "PTSource GUI"; // 12 chars
+        $this->programNameInstaller = "Pharaoh Source Desktop GUI";
         $this->programExecutorFolder = "/usr/bin";
-        $this->programExecutorTargetPath = "ptvgui";
-        $this->programExecutorCommand = 'ptvgui';
-        $this->statusCommand = "cat /usr/bin/ptvgui > /dev/null 2>&1";
+        $this->programExecutorTargetPath = "ptsgui";
+        $this->programExecutorCommand = 'ptsgui';
+        $this->statusCommand = "cat /usr/bin/ptsgui > /dev/null 2>&1";
         // @todo dont hardcode the installed version
         $this->versionInstalledCommand = 'echo "2.44.0"' ;
         $this->versionRecommendedCommand = 'echo "2.44.0"' ;
@@ -124,9 +124,9 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $settings_file_path = $this->programDataFolder.'settings.json' ;
         $settings_string = file_get_contents($settings_file_path) ;
         $settings = json_decode($settings_string, true) ;
-        $new_resolution = $this->resolutionFind() ;
+//        $new_resolution = $this->resolutionFind() ;
         $settings["chrome"]["log_file"] = "debug.log" ;
-        $settings["main_window"]["default_size"] = $new_resolution ;
+//        $settings["main_window"]["default_size"] = $new_resolution ;
         $settings["main_window"]["context_menu"] = true ;
         $settings["main_window"]["enable_menu"] = true ;
         $settings["main_window"]["navigation"] = true ;
@@ -159,6 +159,18 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $new_resolution[] = floor($width / 3) ;
         $new_resolution[] = $height * 0.4 ;
         return $new_resolution ;
+    }
+
+    public function defaultProjectDirectories() {
+        $dir_options[] = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'] ;
+        $dir_options[] = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'].DS.'Documents' ;
+        $dirs = [] ;
+        foreach ($dir_options as $dir_option) {
+            if (is_dir($dir_option)) {
+                $dirs[] = $dir_option ;
+            }
+        }
+        return $dirs ;
     }
 
     public function doUninstallCommands() {
