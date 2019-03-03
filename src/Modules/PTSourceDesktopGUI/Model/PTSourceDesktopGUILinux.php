@@ -162,6 +162,8 @@ class PTSourceDesktopGUILinux extends BaseLinuxApp {
         $chmod = $chmodFactory->getModel($params) ;
         $chmod->performChmod() ;
 
+        return true ;
+
     }
 
     public function settingsFileUpdatePHPDesktop() {
