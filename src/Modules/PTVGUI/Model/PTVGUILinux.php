@@ -169,9 +169,9 @@ class PTVGUILinux extends BaseLinuxApp {
         $settings_file_path = $this->programDataFolder.'settings.json' ;
         $settings_string = file_get_contents($settings_file_path) ;
         $settings = json_decode($settings_string, true) ;
-        $new_resolution = $this->resolutionFind() ;
+//        $new_resolution = $this->resolutionFind() ;
         $settings["chrome"]["log_file"] = "debug.log" ;
-        $settings["main_window"]["default_size"] = $new_resolution ;
+//        $settings["main_window"]["default_size"] = $new_resolution ;
         $settings["main_window"]["context_menu"] = true ;
         $settings["main_window"]["enable_menu"] = true ;
         $settings["main_window"]["navigation"] = true ;
