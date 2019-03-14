@@ -386,30 +386,47 @@ exec('".$this->programExecutorCommand."');\n
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
 
-        echo "Download Starting ...".PHP_EOL;
-        ob_start();
-        ob_flush();
-        flush();
 
-        $fp = fopen ($temp_exe_file, 'w') ;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $remote_source);
-        // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FILE, $fp);
-        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
-        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_exec($ch);
-        # $error = curl_error($ch) ;
-        # var_dump('downloaded', $downloaded, $error) ;
-        curl_close($ch);
+        if (function_exists('curl_version')) {
 
-        ob_flush();
-        flush();
+            echo "Download Starting ...".PHP_EOL;
+            ob_start();
+            ob_flush();
+            flush();
+            $fp = fopen ($temp_exe_file, 'w') ;
+            $ch = \curl_init();
+            \curl_setopt($ch, CURLOPT_URL, $remote_source);
+            // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            \curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+            \curl_setopt($ch, CURLOPT_FILE, $fp);
+            \curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
+            \curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
+            \curl_setopt($ch, CURLOPT_HEADER, 0);
+            \curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            \curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            \curl_exec($ch);
+            # $error = curl_error($ch) ;
+            # var_dump('downloaded', $downloaded, $error) ;
+            \curl_close($ch);
+
+            ob_flush();
+            flush();
+
+        } else {
+            echo "No PHP cURL Available".PHP_EOL;
+            echo "Fallback Download Starting ...".PHP_EOL;
+            $allowed = ini_get('allow_url_fopen') ;
+            if ($allowed === true) {
+                echo "Using FOpen Fallback".PHP_EOL;
+                $file_data = file_get_contents($remote_source) ;
+                file_put_contents($temp_exe_file, $file_data) ;
+            } else {
+                echo "Using CLI Fallback".PHP_EOL;
+                $comm = "wget $remote_source $temp_exe_file" ;
+                passthru($comm, $return_var) ;
+            }
+        }
 
         echo "Done".PHP_EOL ;
         return $temp_exe_file ;
