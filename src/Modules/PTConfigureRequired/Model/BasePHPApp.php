@@ -508,23 +508,37 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
     protected function doInstallCommand($hook) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $property = "{$hook}installCommands" ;
-        $method = "set{$hook}installCommands" ;
+        $property = "{$hook}installCommands";
+        $method = "set{$hook}installCommands";
 //        var_dump($method) ;
-        if (method_exists($this, $method)) { $this->$method(); }
+        if (method_exists($this, $method)) {
+            $this->$method();
+        }
         $this->swapCommandArrayPlaceHolders($this->$property);
         foreach ($this->$property as $installCommand) {
-            $res = "" ;
-            if ( array_key_exists("method", $installCommand)) {
-                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]); }
-            else if ( array_key_exists("command", $installCommand)) {
-                if (!is_array($installCommand["command"])) { $installCommand["command"] = array($installCommand["command"]); }
-                $this->swapCommandArrayPlaceHolders($installCommand["command"]) ;
-                $res = $this->executeAsShell($installCommand["command"]) ; }
+            $res = "";
+            if (array_key_exists("method", $installCommand)) {
+                $res = call_user_func_array(array($installCommand["method"]["object"], $installCommand["method"]["method"]), $installCommand["method"]["params"]);
+            } else if (array_key_exists("command", $installCommand)) {
+                if (!is_array($installCommand["command"])) {
+                    $installCommand["command"] = array($installCommand["command"]);
+                }
+                $this->swapCommandArrayPlaceHolders($installCommand["command"]);
+                $return_var = false ;
+                foreach ($installCommand["command"] as $command) {
+                    passthru($command, $return_var);
+                    if ($return_var !== 0) {
+                        break ;
+                    }
+                }
+                if ($return_var === 0) {
+                    $res = true ;
+                } else {
+                    $res = false ; } }
             if ($res === false) {
-                $logging->log("Failed Uninstall Step", $this->getModuleName()) ;
-                \Core\BootStrap::setExitCode(1) ;
-                break ; }  }
+                $logging->log("Failed Uninstall Step", $this->getModuleName());
+                \Core\BootStrap::setExitCode(1);
+                break; } }
     }
 
     protected function doUnInstallCommand($hook){
