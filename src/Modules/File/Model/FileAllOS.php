@@ -304,9 +304,11 @@ class FileAllOS extends BaseLinuxApp {
     public function creationData($only_if_overwrite = false) {
         if ($only_if_overwrite == true) {
             $do_overwrite = false ;
-            if ($this->params['overwrite-existing'] == true) {
+            if (isset($this->params['overwrite-existing']) &&
+                $this->params['overwrite-existing'] == true) {
                 $do_overwrite = true ;
-            } else if ($this->params['overwrite'] == true) {
+            } else if (isset($this->params['overwrite']) &&
+                       $this->params['overwrite'] == true) {
                 $do_overwrite = true ;
             }
             if ($do_overwrite == false) {
