@@ -83,6 +83,8 @@ class ServiceDebian extends BaseLinuxApp {
             $this->serviceName = $this->params["servicename"]; }
         else if (isset($this->params["service-name"])) {
             $this->serviceName = $this->params["service-name"]; }
+        else if (isset($this->params["name"])) {
+            $this->serviceName = $this->params["name"]; }
         else {
             $this->serviceName = self::askForInput("Enter Service Name:", true); }
     }
