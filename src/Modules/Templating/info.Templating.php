@@ -31,6 +31,9 @@ class TemplatingInfo extends PTConfigureBase {
         example: ptconfigure template install
         example: ptconfigure template install -yg
         example: ptconfigure template install -yg --source="" --target=""
+        example: ptconfigure template install -yg --template_foo="bar" # prefix your replacements with template_
+        
+        Placeholders for Variables within your files should be expressed in the form of <%tpl.php>foo</%tpl.php>
 
 HELPDATA;
       return $help ;
