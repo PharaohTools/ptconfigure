@@ -71,14 +71,14 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-repositories/repositories/* /opt/ptsource/repositories/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/*" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-data/* /opt/ptsource/data/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars" ; }
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/" ;
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptsource /opt/ptsource/repositories/" ;
-        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-repositories/repositories/* /opt/ptsource/repositories/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/* || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-data/* /opt/ptsource/data/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars || true" ; }
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/ || true" ;
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptsource /opt/ptsource/repositories/ || true" ;
+        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/ || true" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
     }
