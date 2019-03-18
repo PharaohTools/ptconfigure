@@ -62,6 +62,7 @@ PHPFPM restart
 File should-exist
   label "Ensure the Pharaoh log file exists"
   file "/var/log/pharaoh.log"
+  ignore_errors
 
 Logging log
   log-message "Configuration Management for Pharaoh Web Application Complete"
