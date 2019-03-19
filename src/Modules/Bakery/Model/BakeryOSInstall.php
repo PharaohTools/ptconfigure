@@ -14,22 +14,35 @@ class BakeryOSInstall extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("OSInstall") ;
 
-    protected $bakeryDetails ;
+    protected $bakery_details ;
 
     public function __construct($params) {
         parent::__construct($params);
         $this->autopilotDefiner = "Bakery";
         $this->installCommands = array(
-//            array("method"=> array("object" => $this, "method" => "askForBakeryInstallVersion", "params" => array()) ),
-//            array("method"=> array("object" => $this, "method" => "askForBakeryInstallDirectory", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForVMName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForISOImagePath", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForOSType", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForMemory", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForVRam", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForCPUCount", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForSSHForwardingPort", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForUserName", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForUserPass", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForFullUser", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForLocale", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForCountry", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForLanguage", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForGUIMode", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForNotifyDelay", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "runBakeryInstall", "params" => array()) ),
         );
         //@todo uninstall commands of bakery
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "askForBakeryInstallDirectory", "params" => array()) ),);
         $this->programNameMachine = "bakery"; // command and app dir name
-        $this->programNameFriendly = "!!Bakery JDK!!"; // 12 chars
-        $this->programNameInstaller = "The Oracle Bakery JDK";
+        $this->programNameFriendly = "Pharaoh Bakery"; // 12 chars
+        $this->programNameInstaller = "The Image Baking Module";
         $this->statusCommand = 'bakery -version' ;
         $this->versionInstalledCommand = 'bakery -version 2>&1' ;
         $this->versionRecommendedCommand = SUDOPREFIX."apt-cache policy bakery" ;
@@ -37,227 +50,359 @@ class BakeryOSInstall extends BaseLinuxApp {
         $this->initialize();
     }
 
-    protected function askForBakeryInstallVersion() {
-        if (isset($this->params["version"])) {
-            $this->params["bakery-install-version"] = $this->params["version"] ;
-            $this->bakeryDetails = $this->getBakeryDetails($this->params["version"]);
-            $this->programDataFolder = "/var/lib/jvm/jdk".$this->params["version"] ;
-            return ;  }
-        else if (isset($this->params["bakery-install-version"])) {
-            $this->bakeryDetails = $this->getBakeryDetails($this->params["bakery-install-version"]); }
-        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-            $this->params["bakery-install-version"] = "1.7" ;
-            $this->bakeryDetails = $this->getBakeryDetails("1.7") ; }
-        else {
-            $question = "Enter Bakery Install Version (1.7 or 1.8):";
-            $jd = self::askForInput($question, true);
-            $this->params["bakery-install-version"] = $jd ;
-            $this->bakeryDetails = $this->getBakeryDetails($jd); }
-        $this->programDataFolder = "/var/lib/jvm/jdk".$this->params["bakery-install-version"];
-    }
-
     protected function runBakeryInstall() {
-        $is_bakery_installed_command = "bash -c '. /etc/profile ; bakery -version;' 2>&1" ;
-        $is_bakery_installed_out = $this->executeAndLoad($is_bakery_installed_command) ;
-        $str_to_find = 'bakery version' ;
-        if (substr_count($is_bakery_installed_out, $str_to_find) == 1 ) {
-            $is_bakery_installed = true ;
-        } else {
-            $is_bakery_installed = false ;
-        }
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
-        if ($is_bakery_installed === true) {
-            $str_two_to_find = 'build '.$this->bakeryDetails['version_short'] ;
-            if (substr_count($is_bakery_installed_out, $str_two_to_find) == 1 ) {
-                $requested_version_is_installed = true ;
-            } else {
-                $msg =
-                    "A Different Bakery JDK Version than the requested {$this->bakeryDetails['version_short']} has ben found." ;
-                $logging->log($msg, $this->getModuleName()) ;
-                $requested_version_is_installed = false ;
-            }
-        } else {
-            $msg =
-                "No Bakery JDK installation has ben found." ;
-            $logging->log($msg, $this->getModuleName()) ;
-            $requested_version_is_installed = false ;
+        $attached_ok = $this->attachISOToVM() ;
+        if ($attached_ok !== true) {
+            $logging->log('Unable to Attach ISO to VM', $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
         }
-        $force_param_is_set = (isset($this->params["force"]) && $this->params["force"] != false ) ;
-        if ($requested_version_is_installed && !$force_param_is_set) {
-            $msg =
-                "Requested Bakery JDK Version {$this->bakeryDetails['version_short']} is already installed." .
-                " Use force parameter to install anyway." ;
-            $logging->log($msg, $this->getModuleName()) ;
-            $ray = array( ) ;
 
-        } else {
-
-            if ($force_param_is_set && $is_bakery_installed != "") {
-                $msg = "Found $is_bakery_installed version already installed, though installing anyway as force param is set." ;
-                $logging->log($msg, $this->getModuleName()) ;
-            }
-
-            $stamp = time() ;
-            $tmp_bakery = "/tmp/oraclejdk{$stamp}.tar.gz" ;
-            if (!file_exists($tmp_bakery)) {
-                $this->packageDownload($this->bakeryDetails['jdk_url'], $tmp_bakery) ;
-            }
-
-            $tmp_str = "/tmp/oraclejdk{$stamp}" ;
-
-            mkdir($tmp_str, 0775) ;
-
-            // decompress from gz
-            $p = new \PharData($tmp_str.'.tar.gz');
-            $p->decompress(); // creates /path/to/my.tar
-
-            // unarchive from the tar
-            $phar = new \PharData($tmp_str.'.tar');
-            $phar->extractTo($tmp_str, null, true);
-
-            unlink($tmp_str.'.tar.gz') ;
-
-            if (!is_dir($this->programDataFolder)) {
-                mkdir($this->programDataFolder, 0775, true) ;
-            }
-
-            $comm = "rm -rf {$this->programDataFolder}" ;
-            $this->executeAndOutput($comm) ;
-
-            // MAKE IT RECURSIVE
-            $comm = 'cp -r '.$tmp_str.DIRECTORY_SEPARATOR."{$this->bakeryDetails['extracted_dir']} {$this->programDataFolder}" ;
-            $this->executeAndOutput($comm) ;
-
-            chmod($tmp_str, octdec('0711') ) ;
-
-            $profile_lines = array(
-                'echo \'JAVA_HOME='.$this->programDataFolder.'\' >> /etc/profile',
-                'echo \'PATH=$PATH:$HOME/bin:$JAVA_HOME/bin\' >> /etc/profile',
-                'echo \'export JAVA_HOME\' >> /etc/profile',
-                'echo \'export PATH\' >> /etc/profile',
-            ) ;
-
-            foreach ($profile_lines as $profile_line) {
-                $this->executeAndOutput($profile_line) ;
-            }
-
-            $j_opts = array('bakery', 'bakeryc', 'bakeryws') ;
-            foreach ($j_opts as $j_opt) {
-                $comm = SUDOPREFIX.'update-alternatives --install "/usr/bin/'.$j_opt.'" "'.$j_opt.'" "'.$this->programDataFolder.'/bin/'.$j_opt.'" 1 ' ;
-                $this->executeAndOutput($comm) ;
-            }
-
-            foreach ($j_opts as $j_opt) {
-                $comm = SUDOPREFIX.'update-alternatives --set '.$j_opt.' '.$this->programDataFolder.'/bin/'.$j_opt.' ' ;
-                $this->executeAndOutput($comm) ;
-            }
-
+        $unattended_install = $this->unattendedInstall() ;
+        if ($unattended_install !== true) {
+            $logging->log('Starting Unattended Install Failed', $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
         }
-//        $this->installCommands = $ray ;
-//        return $this->doInstallCommand() ;
+
+        $completion_ok = $this->waitForInstallCompletion() ;
+        if ($completion_ok !== true) {
+            $logging->log('Completing Unattended Install Failed', $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
+
         return true ;
     }
 
-    public function fsmodify($obj) {
-        $chunks = explode(DIRECTORY_SEPARATOR, $obj);
-        chmod($obj, is_dir($obj) ? 0755 : 0644);
-        chown($obj, $chunks[2]);
-        chgrp($obj, $chunks[2]);
-    }
+    public function attachISOToVM() {
+        $vm_name = $this->bakery_details['vm_name'] ;
+        $iso_image = $this->bakery_details['iso'] ;
+        $os_type = $this->bakery_details['ostype'] ;
+        $memory = $this->bakery_details['memory'] ;
+        $vram = $this->bakery_details['vram'] ;
+        $cpu_count = $this->bakery_details['cpus'] ;
+        $temp_ssh_forwarding_port = $this->bakery_details['ssh_forwarding_port'] ;
 
-
-    public function fsmodifyr($dir) {
-        if($objs = glob($dir.DIRECTORY_SEPARATOR."*")) {
-            foreach($objs as $obj) {
-                $this->fsmodify($obj);
-                if(is_dir($obj)) $this->fsmodifyr($obj);
-            }
-        }
-        return $this->fsmodify($dir);
-    }
-
-
-    public function packageDownload($remote_source, $temp_exe_file) {
-        if (file_exists($temp_exe_file)) {
-            unlink($temp_exe_file) ;
-        }
-        # var_dump('BWA packageDownload 2', $_ENV, $temp_exe_file) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
 
-        echo "Download Starting ...".PHP_EOL;
-        ob_start();
-        ob_flush();
-        flush();
+        $logging->log('VM Name is: '.$vm_name, $this->getModuleName()) ;
+        $logging->log('ISO Image is: '.$iso_image, $this->getModuleName()) ;
+        $profile_line = VBOXMGCOMM.' list runningvms' ;
+        $raw = $this->executeAndLoad($profile_line) ;
+        $lines = explode("\n", $raw) ;
 
-        $fp = fopen ($temp_exe_file, 'w') ;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $remote_source);
-        // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FILE, $fp);
-        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
-        curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_exec($ch);
-        # $error = curl_error($ch) ;
-        # var_dump('downloaded', $downloaded, $error) ;
-        curl_close($ch);
-
-        ob_flush();
-        flush();
-
-        echo "Done".PHP_EOL ;
-        return $temp_exe_file ;
-    }
-
-    public function progress($resource, $download_size, $downloaded, $upload_size, $uploaded) {
-        $is_quiet = (isset($this->params['quiet']) && ($this->params['quiet'] == true) ) ;
-        if ($is_quiet == false) {
-            if($download_size > 0) {
-                $dl = ($downloaded / $download_size)  * 100 ;
-                # var_dump('downloaded', $dl) ;
-                $perc = round($dl, 2) ;
-                # var_dump('perc', $perc) ;
-                echo "{$perc} % \r" ;
+        foreach ($lines as $line) {
+            $vm_found = (strpos($line, '"'.$vm_name.'"') !== false) ? true : false ;
+            if ($vm_found === true) {
+                $message = "VM {$vm_name} is Running in Provider. Stopping." ;
+                $logging->log($message, $this->getModuleName()) ;
+                $stop_comm = VBOXMGCOMM.' controlvm "'.$vm_name.'" poweroff' ;
+                $res = $this->executeAsShell($stop_comm) ;
+                if ($res !== 0) {
+                    $message = "Command Failed: $stop_comm" ;
+                    $logging->log($message, $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                }
+                sleep(3) ; # replace this with a check that it has actually stopped
             }
-            ob_flush();
-            flush();
         }
+
+        $profile_line = VBOXMGCOMM.' list vms' ;
+        $raw = $this->executeAndLoad($profile_line) ;
+        $lines = explode("\n", $raw) ;
+
+        foreach ($lines as $line) {
+            $vm_found = (strpos($line, '"'.$vm_name.'"') !== false) ? true : false ;
+            if ($vm_found === true) {
+                $message = "Found VM {$vm_name} in Provider. Removing." ;
+                $logging->log($message, $this->getModuleName()) ;
+                $unreg_comm = VBOXMGCOMM.' unregistervm "'.$vm_name.'" --delete || true > /dev/null' ;
+                for ($i=0; $i<2; $i++) {
+                    $res = $this->executeAsShell($unreg_comm) ;
+                    if ($res !== 0) {
+                        $message = "Command Failed: $unreg_comm" ;
+                        $logging->log($message, $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                    }
+                }
+            }
+        }
+
+        $vm_create_comm = VBOXMGCOMM.' createvm --name "'.$vm_name.'" --register' ;
+        $this->executeAndOutput($vm_create_comm) ;
+        $vm_dir_comm  = VBOXMGCOMM.' showvminfo "'.$vm_name.'" | grep "^Config file:"  ' ;
+        $vm_dir_comm .= '| awk -F":" \'{print $2}\' | xargs -L1 -IX dirname "X"' ;
+        $vm_dir = self::executeAndLoad($vm_dir_comm) ;
+
+        $profile_lines = array(
+            VBOXMGCOMM.' modifyvm "'.$vm_name.'" --memory '.$memory.' --acpi on --boot1 disk --boot2 dvd --vram '.$vram.' --cpus '.$cpu_count ,
+            VBOXMGCOMM.' modifyvm "'.$vm_name.'" --nic1 nat --nictype1 82540EM --cableconnected1 on',
+            VBOXMGCOMM.' modifyvm "'.$vm_name.'" --natpf1 ",tcp,,'.$temp_ssh_forwarding_port.',,22"',
+            VBOXMGCOMM.' modifyvm "'.$vm_name.'" --ostype '.$os_type,
+            VBOXMGCOMM.' modifyvm "'.$vm_name.'"  --ioapic on',
+            VBOXMGCOMM.' createhd --filename "'.$vm_dir.DS.$vm_name.'.vdi" --size 80000',
+            VBOXMGCOMM.' storagectl "'.$vm_name.'" --name "SATA" --add sata',
+            VBOXMGCOMM.' storageattach "'.$vm_name.'" --storagectl "SATA" --port 0 --device 0 --type hdd --medium "'.$vm_dir.DS.$vm_name.'.vdi"',
+            VBOXMGCOMM.' storagectl "'.$vm_name.'" --name "IDE" --add ide',
+            VBOXMGCOMM.' storageattach "'.$vm_name.'" --storagectl "IDE" --port 1 --device 0 --type dvddrive --medium "'.$iso_image.'"'
+        ) ;
+
+        foreach ($profile_lines as $profile_line) {
+            sleep(1) ;
+            $res = $this->executeAsShell($profile_line) ;
+            if ($res !== 0) {
+                $message = "Command Failed: $profile_line" ;
+                $logging->log($message, $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                return false ;
+            }
+        }
+
+        return true ;
+
     }
 
-    public function getBakeryDetails($version) {
-        if ($version == "1.8") {
-            $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk1.8x64.tar.gz" ;
-            $details['path_in_repo'] = "phpengine-cleo-jdk-64-6c383e2868bd/jdk-7u60-linux-x64.tar.gz" ;
-            $details['fname_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
-            $details['version_short'] = "1.8.0" ;
-            $details['extracted_dir'] = "jdk{$details['version_short']}_144" ;
-        } else {
-            $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk1.7.tar.gz" ;
-            $details['path_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
-            $details['fname_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
-            $details['version_short'] = "1.7.0" ;
-            $details['extracted_dir'] = "jdk{$details['version_short']}_60" ;
+    public function unattendedInstall() {
+
+        $vm_name = $this->bakery_details['vm_name'] ;
+        $preseed_location = dirname(__DIR__) . DS . 'Templates'. DS . 'Ubuntu' . DS . 'preseed.cfg' ;
+        $postinstall_location = dirname(__DIR__) . DS . 'Templates'. DS . 'Ubuntu' . DS . 'postinstall.sh' ;
+
+        $comm  = VBOXMGCOMM.' unattended install ' ;
+        $comm .= $vm_name.' ' ;
+        $comm .= '--iso='.$this->bakery_details['iso'].' ' ;
+        $comm .= '--user="'.$this->bakery_details['user_name'].'" ' ;
+        $comm .= '--password="'.$this->bakery_details['user_pass'].'" ' ;
+        $comm .= '--full-user-name="'.$this->bakery_details['full_user'].'" ' ;
+        $comm .= '--script-template='.$preseed_location.' ' ;
+        $comm .= '--post-install-template='.$postinstall_location.' ' ;
+        $comm .= '--install-additions ' ;
+        $comm .= '--locale='.$this->bakery_details['locale'].' ' ;
+        $comm .= '--country='.$this->bakery_details['country'].' ' ;
+        $comm .= '--language='.$this->bakery_details['language'].' ' ;
+        $comm .= '--start-vm='.$this->bakery_details['gui_mode'].'' ;
+
+        $descriptors = array(
+            0 => array("pipe", "r"),  // STDIN
+            1 => array("pipe", "w"),  // STDOUT
+            2 => array("pipe", "w")   // STDERR
+        );
+        $process = proc_open($comm, $descriptors, $pipes) ;
+
+        $timeout = 60 ; # 1 Minute
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Waiting for Unattended Install to start", $this->getModuleName() ) ;
+        sleep(1) ;
+        $start_ok = false ;
+        for ($seconds_passed = 0; $seconds_passed < $timeout ; $seconds_passed ++) {
+            $status = proc_get_status($process) ;
+            if ($status['running'] === true) {
+                echo '.' ;
+                sleep(1) ;
+            } else {
+                $start_ok = true ;
+                break ;
+            }
         }
-        return $details ;
+        echo "\n" ;
+        if ($start_ok == true) {
+            return true;
+        }
+        return false;
     }
 
-    protected function askForBakeryInstallDirectory() {
-        if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-            return; }
-        else if (isset($this->params["bakery-install-dir"])) {
-            $this->programDataFolder = $this->params["bakery-install-dir"]; }
+    public function waitForInstallCompletion() {
+        $timeout = 60 * 120 ; # 2 hours
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Waiting for Install Completion", $this->getModuleName() ) ;
+        sleep(1) ;
+        $vm_name = $this->bakery_details['vm_name'] ;
+
+        $ua_file_path = '/tmp/ptv_unattended_complete' ;
+        $installed_check = 'ls -1 '.$ua_file_path ;
+
+        $dump_path = '/tmp/unattended_tmp_status_'.$vm_name ;
+        $comm = VBOXMGCOMM.' guestcontrol '.$vm_name.' run --exe "'.$installed_check.'" &> '.$dump_path ;
+        $completion_ok = false ;
+        $check_delay = 10 ;
+        $needle = 'The guest execution service is not ready (yet)' ;
+        $needle_not_running = 'Machine "'.$vm_name.'" is not running' ;
+        $notify_waited = 0 ;
+        for ($seconds_passed = 0; $seconds_passed < $timeout ; $seconds_passed += $check_delay ) {
+            $res = self::executeAsShell($comm) ;
+            $data = file_get_contents($dump_path) ;
+            if (strpos($data, $needle) !== false) {
+                if ($notify_waited >= $this->bakery_details['notify-delay']) {
+                    $notify_waited = 0 ;
+                    $logging->log("Waiting for Guest Execution to be ready, {$seconds_passed} Seconds", $this->getModuleName() ) ;
+                }
+                sleep($check_delay) ;
+                $notify_waited += $check_delay ;
+            } else if (strpos($data, $needle_not_running)) {
+                $logging->log('Machine "'.$vm_name.'" is not running', $this->getModuleName() ) ;
+                $logging->log($data, $this->getModuleName() ) ;
+                $completion_ok = true ;
+                break ;
+            } else if ($res !== $ua_file_path) {
+                $logging->log("Installing, {$seconds_passed} Seconds", $this->getModuleName() ) ;
+                $logging->log($data, $this->getModuleName() ) ;
+                sleep($check_delay) ;
+            }
+        }
+        echo "\n" ;
+        if ($completion_ok == true) {
+            return true;
+        }
+        return false;
+    }
+
+    protected function askForVMName() {
+        if (isset($this->params["name"])) {
+            $this->bakery_details['vm_name'] = $this->params["name"]; }
         else {
-            $question = "Enter Bakery Install Directory (no trailing slash):";
-            $this->programDataFolder = self::askForArrayOption($question, array("1.7", "1.8"), true); }
+            $question = "Enter Name for Virtual Machine to create for Baking";
+            $this->bakery_details['vm_name'] = self::askForInput($question, true); }
+    }
+
+    protected function askForISOImagePath() {
+        if (isset($this->params["iso"])) {
+            $this->bakery_details['iso'] = $this->params["iso"]; }
+        else {
+            $question = "Enter Path of ISO File for Virtual Machine";
+            $this->bakery_details['iso'] = self::askForInput($question, true); }
+    }
+
+    protected function askForOSType() {
+        if (isset($this->params["ostype"])) {
+            $this->bakery_details['ostype'] = $this->params["ostype"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['ostype'] = 'Ubuntu_64'; }
+        else {
+            $question = "Enter Operating Sytem type (eg. Ubuntu_64)";
+            $this->bakery_details['ostype'] = self::askForInput($question, true); }
+    }
+
+    protected function askForMemory() {
+        if (isset($this->params["memory"])) {
+            $this->bakery_details['memory'] = $this->params["memory"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['memory'] = '512'; }
+        else {
+            $question = "Enter RAM Size in Megabytes";
+            $this->bakery_details['memory'] = self::askForInput($question, true); }
+    }
+
+    protected function askForVRam() {
+        if (isset($this->params["vram"])) {
+            $this->bakery_details['vram'] = $this->params["vram"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['vram'] = '33'; }
+        else {
+            $question = "Enter VRAM Size in Megabytes";
+            $this->bakery_details['vram'] = self::askForInput($question, true); }
+    }
+
+    protected function askForCPUCount() {
+        if (isset($this->params["cpus"])) {
+            $this->bakery_details['cpus'] = $this->params["cpus"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['cpus'] = '1'; }
+        else {
+            $question = "Enter CPU Count";
+            $this->bakery_details['cpus'] = self::askForInput($question, true); }
+    }
+
+    protected function askForSSHForwardingPort() {
+        if (isset($this->params["ssh_forwarding_port"])) {
+            $this->bakery_details['ssh_forwarding_port'] = $this->params["ssh_forwarding_port"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['ssh_forwarding_port'] = '1'; }
+        else {
+            $question = "Enter SSH Forwarding Port";
+            $this->bakery_details['ssh_forwarding_port'] = self::askForInput($question, true); }
+    }
+
+    protected function askForUserName() {
+        if (isset($this->params["user_name"])) {
+            $this->bakery_details['user_name'] = $this->params["user_name"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['user_name'] = 'ptv'; }
+        else {
+            $question = "Enter Default User Name";
+            $this->bakery_details['user_name'] = self::askForInput($question, true); }
+    }
+
+    protected function askForUserPass() {
+        if (isset($this->params["user_pass"])) {
+            $this->bakery_details['user_pass'] = $this->params["user_pass"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['user_pass'] = 'ptv'; }
+        else {
+            $question = "Enter Default User Password";
+            $this->bakery_details['user_pass'] = self::askForInput($question, true); }
+    }
+
+    protected function askForFullUser() {
+        if (isset($this->params["full_user"])) {
+            $this->bakery_details['full_user'] = $this->params["full_user"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['full_user'] = 'Pharaoh Virtualize'; }
+        else {
+            $question = "Enter CPU Count";
+            $this->bakery_details['full_user'] = self::askForInput($question, true); }
+    }
+
+    protected function askForLocale() {
+        if (isset($this->params["locale"])) {
+            $this->bakery_details['locale'] = $this->params["locale"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['locale'] = 'en_GB'; }
+        else {
+            $question = "Enter CPU Count";
+            $this->bakery_details['locale'] = self::askForInput($question, true); }
+    }
+
+
+    protected function askForCountry() {
+        if (isset($this->params["country"])) {
+            $this->bakery_details['country'] = $this->params["country"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['country'] = 'GB'; }
+        else {
+            $question = "Enter Country";
+            $this->bakery_details['country'] = self::askForInput($question, true); }
+    }
+
+    protected function askForLanguage() {
+        if (isset($this->params["language"])) {
+            $this->bakery_details['language'] = $this->params["language"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['language'] = 'EN'; }
+        else {
+            $question = "Enter Language";
+            $this->bakery_details['language'] = self::askForInput($question, true); }
+    }
+
+    protected function askForGUIMode() {
+        if (isset($this->params["gui_mode"])) {
+            $this->bakery_details['gui_mode'] = $this->params["gui_mode"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['gui_mode'] = 'gui'; }
+        else {
+            $question = "Enter GUI Mode";
+            $this->bakery_details['gui_mode'] = self::askForInput($question, true); }
+    }
+
+    protected function askForNotifyDelay() {
+        if (isset($this->params["notify-delay"])) {
+            $this->bakery_details['notify-delay'] = $this->params["notify-delay"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['notify-delay'] = 60; }
+        else {
+            $question = "Enter Notification Delay";
+            $this->bakery_details['notify-delay'] = self::askForInput($question, true); }
     }
 
     public function versionInstalledCommandTrimmer($text) {
