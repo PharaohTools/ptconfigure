@@ -252,10 +252,10 @@ class JavaUbuntu64 extends BaseLinuxApp {
     }
 
     protected function askForJavaInstallDirectory() {
-        if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-            return; }
-        else if (isset($this->params["java-install-dir"])) {
+        if (isset($this->params["java-install-dir"])) {
             $this->programDataFolder = $this->params["java-install-dir"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            return; }
         else {
             $question = "Enter Java Install Directory (no trailing slash):";
             $this->programDataFolder = self::askForArrayOption($question, array("1.7", "1.8"), true); }
