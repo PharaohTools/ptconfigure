@@ -1,5 +1,5 @@
 Logging log
-  log-message "Lets initialise a confguration"
+  log-message "Lets initialise a configuration"
 #
 #Initialise now
 #  label "Perform the Initialise"
