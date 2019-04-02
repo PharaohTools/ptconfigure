@@ -29,39 +29,46 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
         $start_time = time() ;
         $date_format = date('H:i:s, d/m/Y', $start_time) ;
         $logging->log("Execution started at {$date_format}\n\n", $this->getModuleName()) ;
-        $trawl_line = 0 ;
-        $total_loops = 0 ;
-        while ( $trawl_line < $total_line_count && $total_loops < 10000) {
-            $cur_lines_trawled = $this->trawlFile($lines, $trawl_line) ;
-            if (isset($cur_lines_trawled["data"])) {
-                $new_steps[] = $cur_lines_trawled["data"] ; }
-            else if (isset($cur_lines_trawled["name"]) && $cur_lines_trawled["name"] !=="" ) {
-                $new_vars[$cur_lines_trawled["name"]] = $cur_lines_trawled["value"] ; }
-            else if (isset($cur_lines_trawled["comments"])) {
-//                var_dump("the new vars", $cur_lines_trawled) ;
-            }
-            // @todo below is for verbose logging
-            // $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
-            $trawl_line = $cur_lines_trawled["line"] ;
-            $total_loops++ ; }
-        return array("vars" => $new_vars, "steps" => $new_steps) ;
+
+        $unformatted = yaml_parse_file($file) ;
+        $formatted = $this->transformArray($unformatted) ;
+
+//        while ( $trawl_line < $total_line_count && $total_loops < 10000) {
+//            $cur_lines_trawled = $this->trawlFile($lines, $trawl_line) ;
+//            if (isset($cur_lines_trawled["data"])) {
+//                $new_steps[] = $cur_lines_trawled["data"] ; }
+//            else if (isset($cur_lines_trawled["name"]) && $cur_lines_trawled["name"] !=="" ) {
+//                $new_vars[$cur_lines_trawled["name"]] = $cur_lines_trawled["value"] ; }
+//            else if (isset($cur_lines_trawled["comments"])) {
+////                var_dump("the new vars", $cur_lines_trawled) ;
+//            }
+//            // @todo below is for verbose logging
+//            // $logging->log("Current trawl line is {$trawl_line}", $this->getModuleName()) ;
+//            $trawl_line = $cur_lines_trawled["line"] ;
+//            $total_loops++ ; }
+
+        $transformed_autopilot = array("vars" => $new_vars, "steps" => $formatted) ;
+        return $transformed_autopilot ;
+
     }
 
 
-    public function trawlFile($lines, $start_line) {
-        $total = count($lines) ;
-        $i = $start_line ;
-        // allow comments
-        // @todo fix comments
-        $res = $this->parseComments($lines, $i) ;
-        if ($res !== false) {
-            $i = $res["line"] + 1 ; }
-        $parsedLine = $this->parseHeadLineText($lines[$i]) ;
-        $i2 = $i + 1 ;
-        $parsedParamsLine = $this->parseParamsText($lines, $i2, $total) ;
-        $section = array_merge($parsedLine, array("params" => $parsedParamsLine["params"])) ;
-        $i = $parsedParamsLine["line"] ;
-        return array("line" => $i, "data"  => $section) ;
+    public function transformArray($unformatted) {
+
+
+        $transformed = [] ;
+
+        foreach ($unformatted as $step) {
+            $one_transformed_step = [] ;
+            $modact_string = key($step) ;
+            $modact = $this->getModuleAndAction($modact_string) ;
+            $one_transformed_step['module'] = $modact['module'] ;
+            $one_transformed_step['action'] = $modact['action'] ;
+            $one_transformed_step['params'] = $step[$modact_string] ;
+            $transformed[] = $one_transformed_step ;
+        }
+
+        return $transformed ;
     }
 
     public function loadFile($file_name) {
@@ -76,6 +83,13 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
             $logging->log("Something bad happened. The file has no lines", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
         return $lines ;
+    }
+
+    public function getModuleAndAction($line) {
+        $parts = explode('[', $line) ;
+        $modact['module'] = $parts[0] ;
+        $modact['action'] = substr($parts[1], 0, strlen($parts[1])-1) ;
+        return $modact ;
     }
 
     public function parseVariables($line) {

@@ -75,7 +75,14 @@ class Autopilot extends Base {
 
         foreach ($paths as $path) {
             if (file_exists($path)) {
-                if (substr($autoPilotFileName, -7) == "dsl.php") {
+                if (substr($autoPilotFileName, -7) == "dsl.yml" ||substr($autoPilotFileName, -8) == "dsl.yaml") {
+                    $dsl_au = $this->loadYAMLAutoPilot($autoPilotFileName, $pageVars) ;
+                    if (is_object($dsl_au)) {
+                        return $dsl_au ; }
+                    else {
+                        $logging->log("Unable to build object from YAML", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
+                        return false ; } }
+                else if (substr($autoPilotFileName, -7) == "dsl.php") {
                     $dsl_au = $this->loadDSLAutoPilot($autoPilotFileName, $pageVars) ;
                     if (is_object($dsl_au)) {
                         return $dsl_au ; }
@@ -121,6 +128,16 @@ class Autopilot extends Base {
     private function loadDSLAutoPilot($filename, $pageVars){
         $dslModel = $this->getModelAndCheckDependencies("AutopilotDSL", $pageVars) ;
         $autoPilotReturn = $dslModel->loopOurDSLFile($filename) ;
+        $autoPilotData = $this->transformData($autoPilotReturn["steps"]);
+        $auto = new \StdClass() ;
+        $auto->vars = $autoPilotReturn["vars"] ;
+        $auto->steps = $autoPilotData ;
+        return $auto ;
+    }
+
+    private function loadYAMLAutoPilot($filename, $pageVars){
+        $dslModel = $this->getModelAndCheckDependencies("AutopilotYAML", $pageVars) ;
+        $autoPilotReturn = $dslModel->loopOurYAMLFile($filename) ;
         $autoPilotData = $this->transformData($autoPilotReturn["steps"]);
         $auto = new \StdClass() ;
         $auto->vars = $autoPilotReturn["vars"] ;

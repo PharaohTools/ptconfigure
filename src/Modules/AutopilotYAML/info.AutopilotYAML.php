@@ -31,11 +31,12 @@ class AutopilotYAMLInfo extends PTConfigureBase {
 
   YAML Example:
 
-Logging log
-message: "A Test Autopilot"
+- Logging[log]:
+    message: "This is the first Pharaoh Yaml DSL"
+    guess: true
 
-Logging log
-message: "is dave there"
+- Logging[log]:
+    message: "is dave there"
 
 
 HELPDATA;
