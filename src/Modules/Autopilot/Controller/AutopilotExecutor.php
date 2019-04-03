@@ -400,13 +400,29 @@ class AutopilotExecutor extends Base {
                 $liRay = $this->getArrayOfLoopItems($modParams, $thisModel);
                 $this->liRay = $liRay;
             }
-            foreach ($this->liRay as $loop_iteration) {
-                $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
-                $tempParams = $modParams ;
-                foreach($tempParams as $origParamKey => $origParamVal) {
-                    $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
+            foreach ($this->liRay as $loop_key => $loop_iteration) {
+                if (is_string($loop_iteration)) {
+                    $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
+                    $tempParams = $modParams ;
+                    foreach($tempParams as $origParamKey => $origParamVal) {
+//                    var_dump('opk', $origParamKey, 'opv', $origParamVal, 'lit', $loop_iteration) ;
+                        $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
+                    }
+                    $newParams[][$currentControl][$currentAction] = $tempParams ;
+                } else {
+                    $logging->log("Adding loop with array {$loop_key}", "Autopilot") ;
+                    $tempParams = $modParams ;
+                    foreach($tempParams as $origParamKey => $origParamVal) {
+                        $tempParams[$origParamKey] = $origParamVal ;
+                        $tempParams[$origParamKey] = $this->swapLoopPlaceholder($tempParams[$origParamKey], $loop_key, 'title') ;
+                        foreach($loop_iteration as $loop_single_key => $loop_single_value) {
+//                            var_dump('opk', $origParamKey, 'opv', $origParamVal, 'lit', $loop_iteration, 'lsk', $loop_single_key, 'lsv', $loop_single_value) ;
+//                            $tempParams[$origParamKey] = $this->swapLoopPlaceholder($origParamVal, $loop_iteration) ;
+                            $tempParams[$origParamKey] = $this->swapLoopPlaceholder($tempParams[$origParamKey], $loop_single_value, $loop_single_key) ;
+                        }
+                    }
+                    $newParams[][$currentControl][$currentAction] = $tempParams ;
                 }
-                $newParams[][$currentControl][$currentAction] = $tempParams ;
             }
             unset($this->liRay) ;
         } else {
@@ -425,13 +441,22 @@ class AutopilotExecutor extends Base {
     }
 
     protected function getArrayOfLoopItems($modParams, $thisModel) {
-        if (isset($modParams["loop"])) {
+        if (isset($modParams["loop"]) && is_string($modParams["loop"])) {
             $autoFactory = new \Model\Autopilot() ;
             $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
             $loop_value = $modParams["loop"] ;
             $loop_value = $autoModel->transformParameterValue($loop_value) ;
             $litems =  explode(",", $loop_value) ;
-            return $litems ; }
+            return $litems ;
+        } else if (isset($modParams["loop"]) && is_array($modParams["loop"])) {
+            $autoFactory = new \Model\Autopilot() ;
+            $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
+            $loop_value = $modParams["loop"] ;
+            $loop_value = serialize($loop_value) ;
+            $loop_value = $autoModel->transformParameterValue($loop_value) ;
+            $litems = unserialize($loop_value) ;
+            return $litems ;
+        }
         $logFactory = new \Model\Logging() ;
         $logging = $logFactory->getModel(array(), "Default") ;
         $logging->log("Empty array of Loop items specified", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
@@ -440,15 +465,36 @@ class AutopilotExecutor extends Base {
 
     public function findLoopInParameterValue($paramValue) {
         if (is_array($paramValue))  {
-            var_dump($paramValue) ; }
-        if ( (strpos($paramValue, '{{ loop }}') !== false) || (strpos($paramValue, '{{loop}}') !== false) ) {
-            return true ;}
+            if ($this->array_depth($paramValue) == 1) {
+                foreach ($paramValue as $multiLoop) {
+                    $loop_found = $this->findLoopInString($multiLoop) ;
+                    if ($loop_found) {
+                        return true ; } } }
+            else if ($this->array_depth($paramValue) == 2) {
+                // is a loop definition if its this depth
+                return false ; } }
+        else if ($this->findLoopInString($paramValue)) {
+            return true ; }
         return false ;
     }
 
-    public function swapLoopPlaceholder($paramValue, $newVal) {
-        $paramValue = str_replace('{{ loop }}', $newVal, $paramValue) ;
-        $paramValue = str_replace('{{loop}}', $newVal, $paramValue) ;
+    public function findLoopInString($string) {
+        if ( (strpos($string, 'loop->') !== false) ) {
+            return true ; }
+        if ( (strpos($string, '{{ loop }}') !== false) ||
+             (strpos($string, '{{loop}}')   !== false) ) {
+            return true ; }
+        return false ;
+    }
+
+    public function swapLoopPlaceholder($paramValue, $newVal, $loop_key = null) {
+        if (!is_null($loop_key)) {
+            $paramValue = str_replace('{{ loop->'.$loop_key.' }}', $newVal, $paramValue) ;
+            $paramValue = str_replace('{{loop->'.$loop_key.'}}', $newVal, $paramValue) ;
+        } else {
+            $paramValue = str_replace('{{ loop }}', $newVal, $paramValue) ;
+            $paramValue = str_replace('{{loop}}', $newVal, $paramValue) ;
+        }
         return $paramValue ;
     }
 
@@ -503,9 +549,21 @@ class AutopilotExecutor extends Base {
         $newParams = array();
         foreach($params as $origParamKey => $origParamVal) {
 //            var_dump('fp:',  $origParamKey , $origParamVal) ;
-//            if (!is_array($origParamVal)) {
-            $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
-//        }
+            if (!is_array($origParamVal)) {
+                $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
+            } else {
+                $depth = $this->array_depth($origParamVal) ;
+                if ($depth == 1) {
+                    $newParams[] = '--'.$origParamKey.'='.implode(',', $origParamVal) ;
+                } else {
+                    if ($origParamKey == 'loop') {
+                        $newParams[] = '--'.$origParamKey.'='.serialize($origParamVal) ;
+                    }
+//                    else {
+//                        $newParams[] = '--'.$origParamKey.'='.implode(',', $origParamVal) ;
+//                    }
+                }
+            }
 //            else {
 //                $a = $origParamVal;
 //                $r=array();
@@ -543,6 +601,31 @@ class AutopilotExecutor extends Base {
 //        }
 //        $data = $viewObject->loadLayout ( "blank", $templateData, $viewVars) ;
         return $templateData ;
+    }
+
+    public function array_depth($array, $childrenkey = "_no_children_")
+    {
+        if (!empty($array[$childrenkey]))
+        {
+            $array = $array[$childrenkey];
+        }
+
+        $max_depth = 1;
+
+        foreach ($array as $value)
+        {
+            if (is_array($value))
+            {
+                $depth = $this->array_depth($value, $childrenkey) + 1;
+
+                if ($depth > $max_depth)
+                {
+                    $max_depth = $depth;
+                }
+            }
+        }
+
+        return $max_depth;
     }
 
 }
