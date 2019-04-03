@@ -179,6 +179,9 @@ class HostEditorAllLinuxMac extends Base {
             $appConfig = $appSettingsFactory->getModel($this->params, "AppConfig") ;
             $allHostFileEntries = $appConfig::getProjectVariable("host-entries");
             if ($allHostFileEntries instanceof \stdClass) { $allHostFileEntries = new \ArrayObject($allHostFileEntries); }
+            if (!is_array($allHostFileEntries)) {
+                $allHostFileEntries = array() ;
+            }
             for ($i = 0; $i<=count($allHostFileEntries) ; $i++ ) {
                 if (isset($allHostFileEntries[$i]) && is_array($allHostFileEntries[$i]) && array_key_exists($this->uri, $allHostFileEntries[$i])) {
                     $logging->log("Attempting to remove host entry from project file, {$this->uri}...") ;
