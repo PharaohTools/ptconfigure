@@ -31,6 +31,7 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
         $logging->log("Execution started at {$date_format}\n\n", $this->getModuleName()) ;
 
         $unformatted = yaml_parse_file($file) ;
+//        var_dump('unformatted', $unformatted) ;
         $formatted = $this->transformArray($unformatted) ;
 
 //        while ( $trawl_line < $total_line_count && $total_loops < 10000) {
@@ -49,15 +50,11 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
 
         $transformed_autopilot = array("vars" => $new_vars, "steps" => $formatted) ;
         return $transformed_autopilot ;
-
     }
 
 
     public function transformArray($unformatted) {
-
-
         $transformed = [] ;
-
         foreach ($unformatted as $step) {
             $one_transformed_step = [] ;
             $modact_string = key($step) ;
@@ -67,7 +64,6 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
             $one_transformed_step['params'] = $step[$modact_string] ;
             $transformed[] = $one_transformed_step ;
         }
-
         return $transformed ;
     }
 
