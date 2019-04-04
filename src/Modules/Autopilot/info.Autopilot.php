@@ -31,8 +31,8 @@ class AutopilotInfo extends PTConfigureBase {
     example: ".PHARAOH_APP." autopilot install --autopilot-file=*path-to-file*
     example: ".PHARAOH_APP." auto x --af=*path-to-file* 
     example: ".PHARAOH_APP." auto x --af=*path-to-file*.dsl.php # In Pharaoh DSL Format
-    example: ".PHARAOH_APP." auto x --af=*path-to-file*.yml.php # In Yaml Format
-    example: ".PHARAOH_APP." auto x --af=*path-to-file*.yaml.php # In Yaml Format
+    example: ".PHARAOH_APP." auto x --af=*path-to-file*.dsl.yml # In Yaml Format
+    example: ".PHARAOH_APP." auto x --af=*path-to-file*.dsl.yaml # In Yaml Format
 
     - test
     execute all of the steps defined as tests in your Autopilot file
