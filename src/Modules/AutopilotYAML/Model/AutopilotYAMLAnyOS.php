@@ -30,9 +30,24 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
         $date_format = date('H:i:s, d/m/Y', $start_time) ;
         $logging->log("Execution started at {$date_format}\n\n", $this->getModuleName()) ;
         $unformatted = yaml_parse_file($file) ;
+        if ($unformatted === false) {
+            $logging->log("About to parse this file", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
         $formatted = $this->transformArray($unformatted) ;
         $transformed_autopilot = array("vars" => $new_vars, "steps" => $formatted) ;
         return $transformed_autopilot ;
+    }
+
+
+    public function yamlParser($file_data) {
+        if (function_exists('yaml_parse_file')) {
+            $unformatted = yaml_parse_file($file_data) ;
+        } else {
+            require dirname(__DIR__).DS.'Libraries'.DS.'Spyc.php' ;
+            $unformatted = \Spyc::YAMLLoadString($file_data) ;
+        }
+        return $unformatted ;
     }
 
 
