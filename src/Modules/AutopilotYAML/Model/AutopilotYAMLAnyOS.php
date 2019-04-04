@@ -29,7 +29,7 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
         $start_time = time() ;
         $date_format = date('H:i:s, d/m/Y', $start_time) ;
         $logging->log("Execution started at {$date_format}\n\n", $this->getModuleName()) ;
-        $unformatted = yaml_parse_file($file) ;
+        $unformatted = $this->yamlParser($file) ;
         if ($unformatted === false) {
             $logging->log("About to parse this file", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ;
@@ -39,17 +39,19 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
         return $transformed_autopilot ;
     }
 
-
     public function yamlParser($file_data) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (function_exists('yaml_parse_file')) {
+            $logging->log("Using PHP Native Yaml Parser", $this->getModuleName()) ;
             $unformatted = yaml_parse_file($file_data) ;
         } else {
+            $logging->log("Using Yaml Parser Library", $this->getModuleName()) ;
             require dirname(__DIR__).DS.'Libraries'.DS.'Spyc.php' ;
             $unformatted = \Spyc::YAMLLoadString($file_data) ;
         }
         return $unformatted ;
     }
-
 
     public function transformArray($unformatted) {
         $transformed = [] ;
