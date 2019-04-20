@@ -21,6 +21,7 @@ class BakeryInfo extends PTConfigureBase {
     }
 
     public function helpDefinition() {
+      $mod_path = PFILESDIR.PHARAOH_APP.DS.PHARAOH_APP.DS.'src'.DS.'Modules'.DS.'Bakery' ;
       $help = <<<"HELPDATA"
   This module allows you to create OS Images for multiple platforms. Create Base images installed from Operating System
   ISO Files or Configured Images using Pharaoh Configure DSL Scripts too.
@@ -45,6 +46,12 @@ class BakeryInfo extends PTConfigureBase {
         example: ptconfigure bakery bake # will install 1.7
         example: ptconfigure bakery bake --bakery-install-version=1.7
         example: ptconfigure bakery bake --bakery-install-version=1.8
+        
+  We have also included examples of Autopilot files which would be used with Bakery. With Autopilots set up in this
+  way, you can create a complete.
+  
+  ptconfigure auto x --af={$mod_path}/Autopilots/PTConfigure/osinstall.dsl.php \ 
+                     --vars={$mod_path}/Autopilots/PTConfigure/vars.php 
 
 
 HELPDATA;
