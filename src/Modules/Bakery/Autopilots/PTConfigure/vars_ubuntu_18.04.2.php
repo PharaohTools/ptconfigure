@@ -1,18 +1,20 @@
 <?php
 
-if (isset($params)) {
-    $variables = $params ;
-} else {
-    $variables = array() ;
+if (!isset($variables)) {
+    $variables = array();
 }
 
-$variables['vm_name'] = 'ptv_bakery_temp_vm' ;
-$variables['var_os'] = 'Ubuntu' ;
-$variables['var_os_version'] = '18.04.2' ;
-$variables['var_os_group'] = "server-64bit" ;
+if (isset($params)) {
+    $variables = array_merge($variables, $params) ;
+}
+
+$variables['os'] = 'Ubuntu' ;
+$variables['os_type'] = 'Ubuntu_64' ;
+$variables['os_major_version'] = '18' ;
+$variables['os_minor_version'] = '04' ;
+$variables['os_build_version'] = '2' ;
+$variables['os_full_version'] = $variables['os_major_version'].'.'.$variables['os_minor_version'].'.'.$variables['os_build_version'] ;
+$variables['os_vbox_version'] = $variables['os_major_version'].'.'.$variables['os_minor_version'] ;
+$variables['os_group'] = "server-64bit" ;
 $variables['iso_file_remote_location'] = "";
-$variables['vm_full_name'] = $variables['var_os'].' '.$variables['var_os_version'].' Server Edition 64 Bit' ;
-$variables['vm_description']  = 'This is an addition to the vanilla install of '.$variables['var_os'].' ' ;
-$variables['vm_description'] .= $variables['var_os_version'].', 64Bit Architecture, ' ;
-$variables['vm_description'] .= 'Server Edition. This box contains the same configuration as that one, and also includes ' ;
-$variables['vm_description'] .= 'Virtualbox Guest Packages, PHP with some standard modules, and Pharaoh Configure.' ;
+$variables['iso_path'] = "/home/pharaoh/Downloads/ubuntu-18.04.2-live-server-amd64.iso";

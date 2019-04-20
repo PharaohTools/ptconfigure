@@ -11,22 +11,22 @@
 
 - Bakery[osinstall]:
     label: "The OS Installation Stage"
-    iso: "/home/pharaoh/Downloads/ubuntu-18.04.2-live-server-amd64.iso"
+    iso: "$$iso_path"
     name: "$$vm_name"
-    ostype: "Ubuntu_64"
-    osversion: "18.04"
+    ostype: "$$os_type"
+    osversion: "$$os_vbox_version"
     memory: "512"
     vram: "33"
     cpus: "1"
     ssh_forwarding_port: "9988"
-    user_name: ptv
-    user_pass: ptv
-    full_user: "Pharaoh Virtualize"
-    locale: en_GB
-    country: GB
-    language: EN
-    gui_mode: gui
-    notify-delay: 60
+    user_name: "$$user_name"
+    user_pass: "$$user_pass"
+    full_user: "$$full_user"
+    locale: "$$locale"
+    country: "$$country"
+    language: "$$language"
+    gui_mode: "$$gui_mode"
+    notify-delay: "$$notify_delay"
     guess: yes
 
 - Mkdir[path]:
@@ -35,10 +35,26 @@
     recursive: true
     guess: yes
 
-- RunCommand[execute]:
+- PharaohToolRunner[run]:
     label: "Initialize a matching name"
-    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize init now --name="{{{ var::vm_name }}}" --vars="/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars.php" -yg'
-    guess: yes
+    guess: true
+    tool: "ptvirtualize"
+    module: "init"
+    action: "now"
+    prefix: "cd /tmp/ptv_vm_osinstall && "
+    params:
+      vars:
+        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_16.04.6.php"
+        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php"
+      'yes': true
+      guess: true
+      step-times: true
+      step-numbers: true
+#
+#- RunCommand[execute]:
+#    label: "Initialize a matching name"
+#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize init now --name="{{{ var::vm_name }}}" --vars="/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars.php" -yg'
+#    guess: yes
 
 - RunCommand[execute]:
     label: "Start it and install Guest Additions"

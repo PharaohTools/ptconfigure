@@ -1,13 +1,3 @@
-#Logging log
-#  log-message "Lets Bake an ISO"
-#
-#Download file
-#  label 'Download the ISO file'
-#  source "$$iso_file_remote_location"
-#  target "/opt/ptvirtualize/boxes/$$var_os.$$var_os_version.$$var_os_group.iso"
-#  yes
-#  guess
-#
 Bakery osinstall
   label "The "
   iso "/home/pharaoh/Downloads/ubuntu-18.04.2-server-amd64.iso"
@@ -56,7 +46,7 @@ RunCommand execute
 #
 #RunCommand execute
 #  label "Starting PT Repositories Upload"
-#  command "curl -F group=development -F version=${var_os_version} -F file=@/path/to/file -F control=BinaryServer -F action=serve -F item=${var_os} -F auth_user=${var_auth_user} -F auth_pw=${var_auth_pw} https://repositories.internal.pharaohtools.com/index.php"
+#  command "curl -F group=server-64bit -F version=18.04.02 -F file=@/opt/ptvirtualize/boxes/ubuntu18042serveredition64bit.box -F control=BinaryServer -F action=serve -F item=ptv_ubuntu -F auth_user=${var_auth_user} -F auth_pw=${var_auth_pw} https://repositories.internal.pharaohtools.com/index.php"
 #  guess
 
 Logging log
