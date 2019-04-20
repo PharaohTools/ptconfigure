@@ -19,11 +19,11 @@ class PharaohToolRunnerAnyOS extends Base {
     }
 
     public function performPharaohToolRunnerPut() {
-        if ($this->askForPharaohToolRunnerExecute() != true) { return false; }
+        if ($this->askForPharaohToolRunnerExecute() != true) {
+            return false ;
+        }
         $tool = $this->getNameOfToolToRun() ;
-//        var_dump('tool one', $tool) ;
         $tool = $this->parseAvailableTools($tool);
-//        var_dump('tool two', $tool) ;
         $module = $this->getNameOfModuleToRun() ;
         $action = $this->getNameOfActionToRun() ;
         $prefix = $this->getForcePrefix() ;
@@ -31,7 +31,6 @@ class PharaohToolRunnerAnyOS extends Base {
         return $this->doPharaohToolRun($tool, $module, $action, $prefix, $suffix) ;
     }
 
-    // @todo this is ridiculous
     protected function doPharaohToolRun($tool, $module, $action, $prefix  = false, $suffix  = false) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -272,44 +271,62 @@ class PharaohToolRunnerAnyOS extends Base {
             if ($afn !== false && $env !== false && strlen($env)>0) {
                 $res = $this->transformOurParams($this->params["params"], array("af", "autopilot-file") ) ;
                 $file_only = basename($afn) ;
-
                 if (isset($this->params["remote-tmp-dir"])) {
                     $remote_tmp_dir = $this->params["remote-tmp-dir"] ;
                     $remote_tmp_dir = $this->ensureTrailingSlash($remote_tmp_dir) ;
                 } else {
                     $remote_tmp_dir = $this->ensureTrailingSlash(self::$tempDir) ;
                 }
-
                 $target_path = $remote_tmp_dir.$file_only ;
                 $logging->log("Automatically forwarding autopilot file parameter value of {$target_path}", $this->getModuleName());
                 $res .= " --autopilot-file=".$target_path ; }
             else {
                 $res = $this->transformOurParams($this->params["params"]) ; }
-            return $res ; }
-        else if (isset( $this->params["guess"]) && $this->params["guess"]==true) {
-            $res = ""; }
-        else {
-            $question = "Enter parameter string";
+            return $res ;
+        } else if (isset( $this->params["guess"]) && $this->params["guess"]==true) {
+            $res = "" ;
+        } else {
+            $question = "Enter parameter string" ;
             $input = self::askForInput($question) ;
-            $res = $this->transformOurParams($input) ;}
+            $res = $this->transformOurParams($input) ; }
         return $res ;
     }
 
     protected function transformOurParams($pstr, $drop_keys = array(), $to_array = false) {
-        $pairs = explode(",", $pstr) ;
+        if (!is_array($pstr)) {
+            $pairs = explode(",", $pstr) ;
+        } else {
+            $pairs = $pstr ;
+        }
         $parameter_string = "" ;
-        foreach ($pairs as $pair) {
-            if (strpos($pair, ":") !== false) {
+//        var_dump($pairs) ;
+//        die() ;
+        foreach ($pairs as $key => $pair) {
+            if (is_array($pair)) {
+                if (!in_array($key, $drop_keys)) {
+                    $val = serialize($pair) ;
+                    $parameter_string .= " --{$key}='".$val."'" ; }
+            } else if (is_string($key)) {
+                if (!in_array($key, $drop_keys)) {
+                    $parameter_string .= " --{$key}=\"{$pair}\"" ; }
+            } else if (strpos($pair, ":") !== false) {
                 $key = substr($pair, 0, strpos($pair, ":") ) ;
                 $val = substr($pair, strpos($pair, ":") + 1 ) ;
                 $val = $this->transformParameterValue($val) ;
-                if (!in_array($key, $drop_keys)) { $parameter_string .= " --{$key}=\"{$val}\"" ; } }
-            else {
-                if (!in_array($pair, $drop_keys)) { $parameter_string .= " --\"{$pair}\"" ; } } }
+                if (!in_array($key, $drop_keys)) {
+                    $parameter_string .= " --{$key}=\"{$val}\"" ; }
+            } else {
+//                var_dump('transformOurParams', $key, $pair, $pairs) ;
+//                die() ;
+                if (!in_array($pair, $drop_keys)) {
+                    $parameter_string .= " --\"{$pair}\"" ; } } }
         return $parameter_string ;
     }
 
     protected function transformOurParamsToArray($pstr, $drop_keys = array()) {
+        if (is_array($pstr)) {
+            return $pstr ;
+        }
         $pairs = explode(",", $pstr) ;
         $ray = array() ;
         foreach ($pairs as $pair) {

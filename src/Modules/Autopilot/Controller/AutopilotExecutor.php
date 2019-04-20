@@ -96,8 +96,6 @@ class AutopilotExecutor extends Base {
             $logging->log("Step Begun at {$date_format}", "Autopilot") ;
         }
         $modParams = $this->getModParamsFromArray($modelArray);
-//                var_dump('modray:', $modelArray, $autopilotParams) ;
-
         if ($should_run["should_run"] == false) {
             $step_out["status"] = true ;
             $step_out["out"] = "No need to run this step" ; }
@@ -552,17 +550,7 @@ class AutopilotExecutor extends Base {
             if (!is_array($origParamVal)) {
                 $newParams[] = '--'.$origParamKey.'='.$origParamVal ;
             } else {
-                $depth = $this->array_depth($origParamVal) ;
-                if ($depth == 1) {
-                    $newParams[] = '--'.$origParamKey.'='.implode(',', $origParamVal) ;
-                } else {
-                    if ($origParamKey == 'loop') {
-                        $newParams[] = '--'.$origParamKey.'='.serialize($origParamVal) ;
-                    }
-//                    else {
-//                        $newParams[] = '--'.$origParamKey.'='.implode(',', $origParamVal) ;
-//                    }
-                }
+                $newParams[] = '--'.$origParamKey.'='.serialize($origParamVal) ;
             }
 //            else {
 //                $a = $origParamVal;
