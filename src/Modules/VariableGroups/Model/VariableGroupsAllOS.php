@@ -22,8 +22,9 @@ class VariableGroupsAllOS extends Base {
         $vg = $this->getVariableGroups() ;
         $variables = array() ;
         if (is_array($vg) && count($vg)>0) {
+            $variables = array() ;
             foreach ($vg as $group) {
-                $set = $this->loadVariableSet($group) ;
+                $set = $this->loadVariableSet($group, $variables) ;
                 $variables = array_merge($variables, $set) ; } }
         return $variables ;
     }
@@ -33,11 +34,12 @@ class VariableGroupsAllOS extends Base {
         if (isset($this->params["vargroups"])) { $vg = $this->params["vargroups"] ; }
         if (isset($this->params["vars"])) { $vg = $this->params["vars"] ; }
         if (isset($this->params["variables"])) { $vg = $this->params["variables"] ; }
+        if (is_array($vg)) { return $vg ; }
         if (!is_null($vg)) { return explode(",", $vg) ; }
         return $vg ;
     }
 
-    protected function loadVariableSet($set) {
+    protected function loadVariableSet($set, $variables) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $set = $this->findVariableFilePath($set) ;
@@ -51,7 +53,7 @@ class VariableGroupsAllOS extends Base {
                     break;
                 default:
                     break; } }
-        if (isset($variables) &&(is_array($variables))) { return $variables ; }
+        if (isset($variables) && (is_array($variables))) { return $variables ; }
         return array();
     }
 
