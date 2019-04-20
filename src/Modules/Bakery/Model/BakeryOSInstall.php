@@ -23,6 +23,7 @@ class BakeryOSInstall extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForVMName", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForISOImagePath", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForOSType", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForOSVersion", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForMemory", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForVRam", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForCPUCount", "params" => array()) ),
@@ -164,9 +165,36 @@ class BakeryOSInstall extends BaseLinuxApp {
 
     public function unattendedInstall() {
 
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $vm_name = $this->bakery_details['vm_name'] ;
-        $preseed_location = dirname(__DIR__) . DS . 'Templates'. DS . 'Ubuntu' . DS . 'preseed.cfg' ;
-        $postinstall_location = dirname(__DIR__) . DS . 'Templates'. DS . 'Ubuntu' . DS . 'postinstall.sh' ;
+        $underscore_pos = strpos($this->bakery_details['ostype'], '_') ;
+        $os_string = substr($this->bakery_details['ostype'], 0, $underscore_pos) ;
+        $os_version_string = $this->bakery_details['osversion'] ;
+        if ($os_string === 'Ubuntu') {
+            if (strpos($os_version_string, '.') !== false) {
+                $os_version_string = str_replace('.', DS, $os_version_string) ;
+            }
+        }
+        $full_preseed_location = dirname(__DIR__) . DS . 'Templates'. DS . $os_string . DS . $os_version_string . DS . 'preseed.cfg' ;
+        $generic_preseed_location = dirname(__DIR__) . DS . 'Templates'. DS . $os_string . DS . 'preseed.cfg' ;
+        if (file_exists($full_preseed_location)) {
+            $preseed_location = $full_preseed_location ;
+        } else {
+            $preseed_location = $generic_preseed_location ;
+        }
+        $logging->log("Preseed Location: {$preseed_location}", $this->getModuleName() ) ;
+
+        $full_postinstall_location = dirname(__DIR__) . DS . 'Templates'. DS . $os_string . DS . $os_version_string . DS . 'postinstall.sh' ;
+        $generic_postinstall_location = dirname(__DIR__) . DS . 'Templates'. DS . $os_string . DS . 'postinstall.sh' ;
+        if (file_exists($full_postinstall_location)) {
+            $postinstall_location = $full_postinstall_location ;
+        } else {
+            $postinstall_location = $generic_postinstall_location ;
+        }
+        $logging->log("PostInstall Script Location: {$postinstall_location}", $this->getModuleName() ) ;
+
+        // d-i pkgsel/install-language-support boolean false
 
         $comm  = VBOXMGCOMM.' unattended install ' ;
         $comm .= $vm_name.' ' ;
@@ -182,6 +210,8 @@ class BakeryOSInstall extends BaseLinuxApp {
         $comm .= '--language='.$this->bakery_details['language'].' ' ;
         $comm .= '--start-vm='.$this->bakery_details['gui_mode'].'' ;
 
+        $logging->log("Command: {$comm}", $this->getModuleName() ) ;
+
         $descriptors = array(
             0 => array("pipe", "r"),  // STDIN
             1 => array("pipe", "w"),  // STDOUT
@@ -190,8 +220,6 @@ class BakeryOSInstall extends BaseLinuxApp {
         $process = proc_open($comm, $descriptors, $pipes) ;
 
         $timeout = 60 ; # 1 Minute
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
         $logging->log("Waiting for Unattended Install to start", $this->getModuleName() ) ;
         sleep(1) ;
         $start_ok = false ;
@@ -216,7 +244,7 @@ class BakeryOSInstall extends BaseLinuxApp {
         $timeout = 60 * 120 ; # 2 hours
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Waiting for Install Completion", $this->getModuleName() ) ;
+        $logging->log("Installation has started", $this->getModuleName() ) ;
         sleep(1) ;
         $vm_name = $this->bakery_details['vm_name'] ;
 
@@ -282,6 +310,22 @@ class BakeryOSInstall extends BaseLinuxApp {
         else {
             $question = "Enter Operating Sytem type (eg. Ubuntu_64)";
             $this->bakery_details['ostype'] = self::askForInput($question, true); }
+    }
+
+    protected function askForOSVersion() {
+        if (isset($this->params["osversion"])) {
+            $this->bakery_details['osversion'] = $this->params["osversion"] ; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            if ( strpos($this->bakery_details['ostype'], 'Ubuntu') == 0 ) {
+                $this->bakery_details['osversion'] = '18.04';
+            } else if ( strpos($this->bakery_details['ostype'], 'Centos') == 0 ) {
+                $this->bakery_details['osversion'] = '7'  ;
+            } else {
+                $this->bakery_details['osversion'] = '' ;
+            } }
+        else {
+            $question = "Enter Operating Sytem Release Version (eg. 18, 18.04 for Ubuntu or 6/7 for Centos)";
+            $this->bakery_details['osversion'] = self::askForInput($question, true) ; }
     }
 
     protected function askForMemory() {
