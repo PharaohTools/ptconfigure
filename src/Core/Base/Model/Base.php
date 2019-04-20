@@ -269,14 +269,19 @@ COMPLETION;
         $this->transformAllParameters() ;
     }
 
-    protected function getParamsFromRaw($params) {
+    protected function getParamsFromRaw($params = array()) {
 
         $cmdParams = array();
-//        if (!is_array($params)) { var_dump($params) ; debug_print_backtrace() ; }
+//        debug_print_backtrace() ;
+        if (!is_array($params)) {
+            var_dump('from raw', $params) ;
+//            debug_print_backtrace() ;
+        }
         foreach ($params as $paramKey => $paramValue) {
-//            var_dump($paramValue);
+//            var_dump('any value', $paramValue);
             if (is_array($paramValue)) {
                 // if the value is a php array, the param must be already formatted so do nothing
+//                var_dump('its an array', $paramKey, $paramValue) ;
             }
             else if ($paramValue=="-y") {
                 $paramKey = "yes" ;
@@ -289,9 +294,17 @@ COMPLETION;
                 $paramKey = "guess" ;
                 $paramValue = "true" ; }
             else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
+                $orig_pv = $paramValue ;
                 $equalsPos = strpos($paramValue, "=") ;
                 $paramKey = substr($paramValue, 2, $equalsPos-2) ;
-                $paramValue = substr($paramValue, $equalsPos+1, strlen($paramValue)) ; }
+                $paramValue = substr($paramValue, $equalsPos+1, strlen($paramValue)) ;
+                $looks_like_serialized_array = (substr($paramValue, 0, 2) == 'a:' ) ;
+                if ($looks_like_serialized_array) {
+                    $try_unserialize = @unserialize($paramValue) ;
+//                    var_dump('$try_unserialize', $try_unserialize, $paramValue, $orig_pv) ;
+                    if (is_array($try_unserialize)) {
+                        $paramValue = $try_unserialize ; }
+                } }
             else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') == false ) {
                 $paramKey = substr($paramValue, 2) ;
                 $paramValue = true ; }
