@@ -223,9 +223,11 @@ class BakeryOSInstall extends BaseLinuxApp {
         $logging->log("Waiting for Unattended Install to start", $this->getModuleName() ) ;
         sleep(1) ;
         $start_ok = false ;
+        $has_counted = false ;
         for ($seconds_passed = 0; $seconds_passed < $timeout ; $seconds_passed ++) {
             $status = proc_get_status($process) ;
             if ($status['running'] === true) {
+                $has_counted = true ;
                 echo '.' ;
                 sleep(1) ;
             } else {
@@ -233,7 +235,9 @@ class BakeryOSInstall extends BaseLinuxApp {
                 break ;
             }
         }
-        echo "\n" ;
+        if ($has_counted == true) {
+            echo "\n" ;
+        }
         if ($start_ok == true) {
             return true;
         }
