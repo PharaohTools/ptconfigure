@@ -12,7 +12,10 @@
     params:
       autopilot-file: /opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/single-os-install.dsl.yml
       vars:
-        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_16.04.6.php"
+        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_{{ loop }}.php"
         - '/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php'
       step-times: true
       step-numbers: true
+    loop:
+      - ubuntu_18.04.2
+      - ubuntu_16.04.6
