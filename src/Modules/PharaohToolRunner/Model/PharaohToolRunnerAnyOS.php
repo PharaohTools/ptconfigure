@@ -132,12 +132,31 @@ class PharaohToolRunnerAnyOS extends Base {
 //            $logging->log("Executing $comm", $this->getModuleName());
 //            self::executeAndOutput($comm) ;
 //            return true ;
-            $rc = self::executeAndGetReturnCode($comm, true, false) ;
-            $wasOk = ($rc["rc"]==0) ;
+//            $rc = self::executeAndGetReturnCode($comm, true, false) ;
+//            passthru($comm, $rc) ;
+            $rc = $this->liveOutput($comm) ;
+            $wasOk = ($rc==0) ;
+//            $wasOk = ($rc['rc']==0) ;
             if ($wasOk == true) { return true ; }
             else {
                 $logging->log("Pharaoh Tool Runner received a non-zero exit code of {$rc["rc"]}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
                 return false ; } }
+    }
+
+    protected function liveOutput($comm) {
+        require_once(dirname(__DIR__).DS.'Libraries'.DS.'vendor'.DS.'autoload.php') ;
+        $process = new \Symfony\Component\Process\Process($comm);
+        $process->setTimeout(0);
+        $process->start();
+
+        foreach ($process as $type => $data) {
+            if ($process::OUT === $type) {
+                echo $data;
+            } else { // $process::ERR === $type
+                echo "ERR: ".$data;
+            }
+        }
+        return $process->getExitCode(); ;
     }
 
     protected function askForPharaohToolRunnerExecute() {
