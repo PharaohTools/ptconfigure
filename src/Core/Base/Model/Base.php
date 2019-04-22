@@ -188,7 +188,7 @@ COMPLETION;
                     $ex_string = '' ;
                 }
 
-                $proc = proc_open("bash -ex $tempFile", array(
+                $proc = proc_open("bash -e $tempFile", array(
                     0 => array("pipe","r"),
                     1 => array("pipe",'w'),
                     2 => array("pipe",'w'),
