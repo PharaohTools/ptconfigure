@@ -50,32 +50,81 @@
       guess: true
       step-times: true
       step-numbers: true
+      name: ptv_bakery_temp_vm
 #
 #- RunCommand[execute]:
 #    label: "Initialize a matching name"
 #    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize init now --name="{{{ var::vm_name }}}" --vars="/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars.php" -yg'
 #    guess: yes
 
-- RunCommand[execute]:
+- PharaohToolRunner[run]:
     label: "Start it and install Guest Additions"
-    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize up now --name="{{{ var::vm_name }}}" --vars="/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars.php" -yg'
-    guess: yes
+    guess: true
+    tool: "ptvirtualize"
+    module: "up"
+    action: "now"
+    prefix: "cd /tmp/ptv_vm_osinstall && "
+#
+#- RunCommand[execute]:
+#    label: "Start it and install Guest Additions"
+#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize up now'
+#    guess: yes
 
-- RunCommand[execute]:
+- PharaohToolRunner[run]:
     label: "PTV Halt it"
-    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize halt now --die-hard -yg'
-    guess: yes
-    ignore_errors: yes
+    guess: true
+    tool: "ptvirtualize"
+    module: "halt"
+    action: "now"
+    prefix: "cd /tmp/ptv_vm_osinstall && "
+    params:
+      'die-hard': true
 
-- RunCommand[execute]:
+#- RunCommand[execute]:
+#    label: "PTV Halt it"
+#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize halt now --die-hard -yg'
+#    guess: yes
+#    ignore_errors: yes
+
+
+- PharaohToolRunner[run]:
     label: "PTV Package the Virtual Machine into a Box file"
-    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize box package --name="$$full_name" --vmname="$$vm_name" --group="ptvirtualize" --description="$$vm_description" --target="/opt/ptvirtualize/boxes" -yg '
-    guess: yes
+    guess: true
+    tool: "ptvirtualize"
+    module: "box"
+    action: "package"
+    prefix: "cd /tmp/ptv_vm_osinstall && "
+    params:
+      vars:
+        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_16.04.6.php"
+        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php"
+      'yes': true
+      guess: true
+      name: "ubuntu_16.04.6.server-64bit"
+      vmname: "ptv_bakery_temp_vm"
+      group: "ptvirtualize"
+      provider: "virtualbox"
+      description: "description placeholder"
+      target: "/opt/ptvirtualize/boxes"
+#
+#- RunCommand[execute]:
+#    label: "PTV Package the Virtual Machine into a Box file"
+#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize box package --name="$$full_name" --vmname="$$vm_name" --group="ptvirtualize" --description="$$vm_description" --target="/opt/ptvirtualize/boxes" -yg '
+#    guess: yes
 
-- RunCommand[execute]:
+
+- PharaohToolRunner[run]:
     label: "Destroy the Virtual Machine"
-    command: "cd /tmp/ptv_vm_osinstall && ptvirtualize destroy now"
-    guess: yes
+    guess: true
+    tool: "ptvirtualize"
+    module: "destroy"
+    action: "now"
+    prefix: "cd /tmp/ptv_vm_osinstall && "
+#
+#- RunCommand[execute]:
+#    label: "Destroy the Virtual Machine"
+#    command: "cd /tmp/ptv_vm_osinstall && ptvirtualize destroy now"
+#    guess: yes
 
 - Logging[log]:
-    log-message: "Baking of Image Completed Packaging "
+    log-message: "Baking of Image Completed "
