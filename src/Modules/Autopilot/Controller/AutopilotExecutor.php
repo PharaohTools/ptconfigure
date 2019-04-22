@@ -7,6 +7,7 @@ use Core\View;
 class AutopilotExecutor extends Base {
 
     protected $liRay ;
+    public static $raw_out ;
 
     public function executeAuto($pageVars, $autopilot, $test = false ) {
 
@@ -77,7 +78,6 @@ class AutopilotExecutor extends Base {
             }
         }
 
-
         $autoModel = $autoFactory->getModel($thisModel->params, "Default") ;
         $name_or_mod = $this->getNameOrMod($modelArray, $autoModel) ;
         $label = (isset($name_or_mod["step-name"])) ? "Label: {$name_or_mod["step-name"]}" : "" ;
@@ -102,31 +102,34 @@ class AutopilotExecutor extends Base {
         else {
 
 //            var_dump('step ex', $modelArray, $autopilotParams) ;
+            \Controller\AutopilotExecutor::$raw_out = '' ;
+            $buffer_handler = function($buffer) {
+                echo $buffer ;
+                \Controller\AutopilotExecutor::$raw_out .= $buffer ;
+                return $buffer ;
+            } ;
 
-            ob_start() ;
+            ob_start($buffer_handler, 1) ;
             $step_out = $this->executeStep($modelArray, $autopilotParams) ;
-            $raw_out = ob_get_clean() ;
-            echo $raw_out ;
+            ob_end_flush();
+
             if (isset($modParams["register"])) {
                 $reg = trim($modParams["register"],'"') ;
                 $reg = trim($reg,"'") ;
                 $logging->log("Registering result of step as a new variable, named {$reg}.", "Autopilot") ;
-                $raw_out = trim($raw_out) ;
-                $lines = explode("\n", $raw_out) ;
+                \Controller\AutopilotExecutor::$raw_out = trim(\Controller\AutopilotExecutor::$raw_out) ;
+                $lines = explode("\n", \Controller\AutopilotExecutor::$raw_out) ;
                 $line_count = count($lines) - 1 ;
                 unset($lines[$line_count]) ;
                 $raw_without_end = implode( "\n", $lines) ;
                 $registered_vars[$reg] = $raw_without_end ;
-//                        var_dump('new vo:', $raw_without_end, $registered_vars) ;
-
+//              var_dump('new vo:', $raw_without_end, $registered_vars) ;
                 if (count($registered_vars) > 0) {
                     foreach ($registered_vars as $registered_var_key => $registered_var_value) {
                         $thisModel->params[$registered_var_key] = $registered_var_value ;
 //                $modelArray[$mod_is][$act_is][$registered_var_key] = $registered_var_value ;
                     }
                 }
-
-
             }
         }
 
@@ -137,6 +140,7 @@ class AutopilotExecutor extends Base {
                 \Core\BootStrap::setExitCode(0) ; }
             else {
                 $dataFromThis[] = $step_out ;
+                echo "\n\n" ;
                 return $dataFromThis ; } }
 
         if ($show_step_times === true) {
@@ -386,8 +390,6 @@ class AutopilotExecutor extends Base {
             $resRay[] = $this->findLoopInParameterValue($origParamVal) ;
         }
 
-//        var_dump('loop ray', $modParams, $resRay) ;
-
         $logFactory = new \Model\Logging() ;
         $logging = $logFactory->getModel(array(), "Default") ;
 
@@ -463,17 +465,27 @@ class AutopilotExecutor extends Base {
 
     public function findLoopInParameterValue($paramValue) {
         if (is_array($paramValue))  {
-            if ($this->array_depth($paramValue) == 1) {
+            $current_array_depth = $this->array_depth($paramValue) ;
+            if (in_array($current_array_depth, array(1, 2))) {
                 foreach ($paramValue as $multiLoop) {
-                    $loop_found = $this->findLoopInString($multiLoop) ;
+                    $loop_found = $this->findLoopInValue($multiLoop) ;
                     if ($loop_found) {
+                        $logFactory = new \Model\Logging() ;
+                        $logging = $logFactory->getModel(array(), "Default") ;
+                        $logging->log("Empty array of Loop items specified", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
                         return true ; } } }
-            else if ($this->array_depth($paramValue) == 2) {
-                // is a loop definition if its this depth
-                return false ; } }
+        }
         else if ($this->findLoopInString($paramValue)) {
             return true ; }
         return false ;
+    }
+
+    public function findLoopInValue($value) {
+        if (is_array($value)) {
+            return $this->findLoopInArray($value) ;
+        } else {
+            return $this->findLoopInString($value) ;
+        }
     }
 
     public function findLoopInString($string) {
@@ -485,13 +497,50 @@ class AutopilotExecutor extends Base {
         return false ;
     }
 
+    public function findLoopInArray(&$array) {
+        $results = array() ;
+        foreach ($array as $key => &$value) {
+            if (is_array($value)) {
+                $res = $this->findLoopInArray($value) ;
+            } else {
+                $res = $this->findLoopInString($value) ;
+            }
+//            var_dump('found res in array', $res) ;
+            $results[] = $res ;
+        }
+        if (in_array(true, $results)) {
+            return true ;
+        }
+        return false ;
+    }
+
     public function swapLoopPlaceholder($paramValue, $newVal, $loop_key = null) {
+        if (is_array($paramValue)) {
+            $paramValue = $this->swapLoopPlaceholderArray($paramValue, $newVal, $loop_key = null) ;
+        } else {
+            $paramValue = $this->swapLoopPlaceholderString($paramValue, $newVal, $loop_key = null) ;
+        }
+        return $paramValue ;
+    }
+
+    public function swapLoopPlaceholderString($paramValue, $newVal, $loop_key = null) {
         if (!is_null($loop_key)) {
             $paramValue = str_replace('{{ loop->'.$loop_key.' }}', $newVal, $paramValue) ;
             $paramValue = str_replace('{{loop->'.$loop_key.'}}', $newVal, $paramValue) ;
         } else {
             $paramValue = str_replace('{{ loop }}', $newVal, $paramValue) ;
             $paramValue = str_replace('{{loop}}', $newVal, $paramValue) ;
+        }
+        return $paramValue ;
+    }
+
+    public function swapLoopPlaceholderArray(&$paramValue, $newVal, $loop_key = null) {
+        foreach ($paramValue as $key => &$value) {
+            if (is_array($value)) {
+                $paramValue[$key] = $this->swapLoopPlaceholderArray($value, $newVal, $loop_key) ;
+            } else {
+                $paramValue[$key] = $this->swapLoopPlaceholderString($value, $newVal, $loop_key) ;
+            }
         }
         return $paramValue ;
     }
