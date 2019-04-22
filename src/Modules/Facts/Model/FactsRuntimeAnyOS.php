@@ -32,5 +32,14 @@ class FactsRuntimeAnyOS extends FactsAnyOS {
         return constant($const) ;
     }
 
+    public function factGetEnvVar($env_var) {
+        $res = getenv($env_var) ;
+        if ($res !== false) {
+            return $res ;
+        } else {
+            return false ;
+        }
+    }
+
 }
 
