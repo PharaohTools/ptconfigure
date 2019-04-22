@@ -16,5 +16,5 @@ $variables['os_build_version'] = '2' ;
 $variables['os_full_version'] = $variables['os_major_version'].'.'.$variables['os_minor_version'].'.'.$variables['os_build_version'] ;
 $variables['os_vbox_version'] = $variables['os_major_version'].'.'.$variables['os_minor_version'] ;
 $variables['os_group'] = "server-64bit" ;
-$variables['iso_file_remote_location'] = "";
-$variables['iso_path'] = "/home/pharaoh/Downloads/ubuntu-18.04.2-live-server-amd64.iso";
+$variables['iso_file_remote_location'] = "http://cdimages.ubuntu.com/ubuntu/releases/bionic/release/ubuntu-18.04.2-server-amd64.iso";
+$variables['iso_path'] = "{{{ Facts::Runtime::factGetEnvVar::HOME }}}/Downloads/ubuntu-18.04.2-server-amd64.iso";

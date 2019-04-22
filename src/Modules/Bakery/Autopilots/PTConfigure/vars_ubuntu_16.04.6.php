@@ -17,4 +17,4 @@ $variables['os_full_version'] = $variables['os_major_version'].'.'.$variables['o
 $variables['os_vbox_version'] = $variables['os_major_version'].'.'.$variables['os_minor_version'] ;
 $variables['os_group'] = "server-64bit" ;
 $variables['iso_file_remote_location'] = "";
-$variables['iso_path'] = "/home/pharaoh/Downloads/ubuntu-16.04.6-server-amd64.iso";
+$variables['iso_path'] = "{{{ Facts::Runtime::factGetEnvVar::HOME }}}/Downloads/ubuntu-16.04.6-server-amd64.iso";
