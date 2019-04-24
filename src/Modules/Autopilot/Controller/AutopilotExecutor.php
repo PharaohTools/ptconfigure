@@ -118,19 +118,14 @@ class AutopilotExecutor extends Base {
                 $reg = trim($reg,"'") ;
                 $logging->log("Registering result of step as a new variable, named {$reg}.", "Autopilot") ;
                 \Controller\AutopilotExecutor::$raw_out = trim(\Controller\AutopilotExecutor::$raw_out) ;
-                $lines = explode("\n", \Controller\AutopilotExecutor::$raw_out) ;
-                $line_count = count($lines) - 1 ;
-                unset($lines[$line_count]) ;
-                $raw_without_end = implode( "\n", $lines) ;
-                $registered_vars[$reg] = $raw_without_end ;
-//              var_dump('new vo:', $raw_without_end, $registered_vars) ;
+                $registered_vars[$reg] = \Controller\AutopilotExecutor::$raw_out ;
                 if (count($registered_vars) > 0) {
                     foreach ($registered_vars as $registered_var_key => $registered_var_value) {
                         $thisModel->params[$registered_var_key] = $registered_var_value ;
-//                $modelArray[$mod_is][$act_is][$registered_var_key] = $registered_var_value ;
                     }
                 }
             }
+
         }
 
         if (isset($step_out["status"]) && $step_out["status"]==false ) {
