@@ -6,7 +6,7 @@ class FactsInfo extends Base {
 
   public $hidden = false;
 
-  public $name = "Digital Ocean Demonstration Module";
+  public $name = "Retrieve Facts about system";
 
   public function __construct() {
     parent::__construct();
