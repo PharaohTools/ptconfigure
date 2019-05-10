@@ -77,9 +77,9 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-keys/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptbuild-data/" ;
             $ray[]["command"][] = "echo 'Copy to temp ptbuild directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/pipes /tmp/ptbuild-pipes/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/keys /tmp/ptbuild-keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/data/* /tmp/ptbuild-data/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/pipes /tmp/ptbuild-pipes/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/keys /tmp/ptbuild-keys/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/data/* /tmp/ptbuild-data/ || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/ptbuildvars /tmp/ptbuild-settings/" ;
             $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt /tmp/ptbuild-settings/" ; }
         $this->preinstallCommands = $ray ;
