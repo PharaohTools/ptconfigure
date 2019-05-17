@@ -31,10 +31,17 @@ class LetsEncryptInfo extends PTConfigureBase {
         - sign
         Will ask you for details for servers, then open a shell for you to execute on multiple servers
         example: '.PHARAOH_APP.' LetsEncrypt sign -yg
-            --domain=www.site.com
-            --webroot=/var/www/mysite
-            --cert-path=/etc/ssl/certificates
+            --domain=www.site.com # Domain you are creating the certificate for
+            --webroot=/var/www/html # Your webroot to allow creation of file to be checked by LE 
+            --cert-path=/etc/ssl/certificates # Where to store the Generated Certificate
             --wait=15 # optional, will wait before execution if you need a web server to be ready first
+            --email="devops@pharaohtools.com" # Email
+            --country="United Kingdom" # Your Country
+            --state_or_province="England" # State or Province
+            --locality="London" # Your Locality
+            --organization="Pharaoh Tools" # Your Organization
+            --organizational_unit="DevOps" # Your Organizational Unit
+            --street="Buckingham Palace Road" # Where your business lives ;
 
 
 ';
