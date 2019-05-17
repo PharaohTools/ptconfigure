@@ -43,7 +43,6 @@ class LetsEncryptInfo extends PTConfigureBase {
             --organizational_unit="DevOps" # Your Organizational Unit
             --street="Buckingham Palace Road" # Where your business lives ;
 
-
 ';
       return $help ;
     }
