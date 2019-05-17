@@ -18,14 +18,14 @@ class NginxSBEditorInfo extends Base {
     }
 
     public function routeAliases() {
-        return array("nginx-sb-editor"=>"NginxSBEditor", "nginxsbe"=>"NginxSBEditor");
+        return array("nginxsbeditor"=>"NginxSBEditor", "nginx-sb-editor"=>"NginxSBEditor", "nginxsbe"=>"NginxSBEditor", "sbeditor"=>"NginxSBEditor");
     }
 
     public function helpDefinition() {
         $help = <<<"HELPDATA"
   This command is part of Default Modules and handles Nginx ServerBlocks Functions.
 
-  NginxSBEditor, nginx-sb-editor, nginxsbe
+  NginxSBEditor, nginx-sb-editor, nginxsbe, nginxsbeditor
 
           - add
           create a Server Block
