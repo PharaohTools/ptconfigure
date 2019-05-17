@@ -41,7 +41,7 @@ class LetsEncryptInfo extends PTConfigureBase {
             --locality="London" # Your Locality
             --organization="Pharaoh Tools" # Your Organization
             --organizational_unit="DevOps" # Your Organizational Unit
-            --street="Buckingham Palace Road" # Where your business lives ;
+            --street="Buckingham Palace Road" # Where your business lives
 
 ';
       return $help ;
