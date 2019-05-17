@@ -128,7 +128,7 @@ class LetsEncryptAllOS extends Base {
             $domains_exploded = explode(',', $domain ) ;
             $domains = $domains_exploded ;
 
-            $logging->log("domains are : ".var_export($domains, true), $this->getModuleName()) ;
+            $logging->log("Domains are : ".var_export($domains, true), $this->getModuleName()) ;
             $logging->log("Attempting Sign", $this->getModuleName()) ;
 
             // Sign the Domains and get the certificates
