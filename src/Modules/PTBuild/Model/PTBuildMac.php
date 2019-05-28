@@ -36,13 +36,13 @@ class PTBuildMac extends PTBuildLinux {
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/pipes/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptbuild directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptbuild/keys/*" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/users.txt /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/ptbuildvars /opt/ptbuild/ptbuild/ptbuildvars" ; }
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptbuild:ptbuild /opt/ptbuild/" ;
-        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptbuild/" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptbuild/keys/* || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/users.txt /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/ptbuildvars /opt/ptbuild/ptbuild/ptbuildvars || true" ; }
+        $ray[]["command"][] = SUDOPREFIX."chown -R ptbuild:ptbuild /opt/ptbuild/ || true" ;
+        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptbuild/ || true" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
     }

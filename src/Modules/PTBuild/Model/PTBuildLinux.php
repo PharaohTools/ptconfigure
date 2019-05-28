@@ -54,11 +54,11 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/data/" ;}
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptbuild directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-data/* /opt/ptbuild/data/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/users.txt /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/ptbuildvars /opt/ptbuild/ptbuild/ptbuildvars" ; }
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-keys/* /opt/ptbuild/keys/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-data/* /opt/ptbuild/data/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/users.txt /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptbuild-settings/ptbuildvars /opt/ptbuild/ptbuild/ptbuildvars || true" ; }
         if (!isset($this->params["no-permissions"])) {
             $ray[]["command"][] = SUDOPREFIX."chown -R ptbuild:ptbuild /opt/ptbuild/" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptbuild/" ;
@@ -80,8 +80,8 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/pipes /tmp/ptbuild-pipes/ || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/keys /tmp/ptbuild-keys/ || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptbuild/data/* /tmp/ptbuild-data/ || true" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/ptbuildvars /tmp/ptbuild-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt /tmp/ptbuild-settings/" ; }
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/ptbuildvars /tmp/ptbuild-settings/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptbuild/ptbuild/src/Modules/Signup/Data/users.txt /tmp/ptbuild-settings/ || true" ; }
         $this->preinstallCommands = $ray ;
         return $ray ;
     }
