@@ -17,7 +17,7 @@ class ApacheModulesUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         parent::__construct($params);
         if (PHP_MAJOR_VERSION >6) {
-            $phpv = '7.0' ;
+            $phpv = '7.'.PHP_MINOR_VERSION ;
         } else {
             $phpv = '5' ;
         }
