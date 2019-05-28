@@ -219,7 +219,6 @@ class AutopilotExecutor extends Base {
             $module = (isset($name_or_mod["module"])) ? " Module: {$name_or_mod["module"]}" : "" ;
             $name_text = (isset($name_or_mod["step-name"])) ? " Name: {$name_or_mod["step-name"]}" : "" ;
             $logging->log("When Exists Condition found for Step {$module}{$name_text}", "Autopilot") ;
-            $logging->log("Current Equals is ".var_export($current_equals, true), "Autopilot") ;
             $when_result = $autoModel->transformParameterValue($current_when) ;
             $when_text = ( ($when_result == true) && ($when_result != "")) ? "Do Run" : "Don't Run" ;
             $logging->log("When Exists Condition evaluated to {$when_text}", "Autopilot") ;
