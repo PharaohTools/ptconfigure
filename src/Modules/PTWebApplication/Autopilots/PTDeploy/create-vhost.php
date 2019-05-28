@@ -88,6 +88,13 @@ class AutoPilotConfigured extends AutoPilot {
                     "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
                 ), ), ),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Ensure Apache SSL Module is enabled", ), ), ),
+                array ( "RunCommand" => array( "execute" => array(
+                    "command" => 'a2enmod ssl',
+                    "guess" => true,
+                    "ignore_errors" => true,
+                ), ), ),
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
                 array ( "ApacheControl" => array( "restart" => array(
                     "guess" => true,
