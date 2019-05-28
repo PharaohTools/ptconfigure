@@ -1,0 +1,27 @@
+---
+
+- Logging[log]:
+    label: 'Setup the Sahara Server'
+
+# Virtufile forward 443 on the Host to 443 on the VM
+# Install Snakeoil Certificate
+
+# Install NGinx
+- Runcommand[exec]:
+    label: 'Install NGinx'
+    command: 'apt-get install nginx'
+    guess: true
+
+# PHP Inbuilt server, run on port 9090
+- Runcommand[exec]:
+    label: 'Start the Inbuilt PHP Server'
+    command: 'cd /opt/saharaws && php -s localhost:9090 &'
+    guess: true
+
+# Proxy from 443 to 9090 Port Running Saharaws
+- Runcommand[exec]:
+    label: 'Create NGinx'
+    command: 'cd /opt/$$full_slug && php -s localhost:9090'
+    guess: true
+
+# That should be it, should be able to handle requests as if it was Amazon
