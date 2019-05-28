@@ -75,6 +75,7 @@ class AutoPilotConfigured extends AutoPilot {
                     "webroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
                     "domain" => $vhe_url,
                     "cert-path" => "/etc/ssl/certificates",
+                    "email" => "noreply@pharaohtools.com",
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
