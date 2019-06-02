@@ -75,7 +75,11 @@ class Autopilot extends Base {
 
         foreach ($paths as $path) {
             if (file_exists($path)) {
-                if (substr($autoPilotFileName, -7) == ".yml" ||substr($autoPilotFileName, -8) == ".yaml") {
+                $logging->log("File $path found", "Autopilot") ;
+//                $logging->log('$autoPilotFileName: '." $autoPilotFileName", "Autopilot") ;
+
+                if (substr($autoPilotFileName, -4) == ".yml" || substr($autoPilotFileName, -5) == ".yaml") {
+                    $logging->log('Loading YAML Autopilot from '." $autoPilotFileName", "Autopilot") ;
                     $dsl_au = $this->loadYAMLAutoPilot($autoPilotFileName, $pageVars) ;
                     if (is_object($dsl_au)) {
                         return $dsl_au ; }
@@ -97,7 +101,12 @@ class Autopilot extends Base {
                         $logging->log("Unable to build object from PHP File", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
                         return false ; } }
                 else  {
-                    $logging->log("Unable to find $path", "AutopilotDSL") ; } } }
+                    $logging->log("Unable to use file at path: $path", "AutopilotDSL") ; } }
+            else {
+
+                $logging->log("File $path does not exist", "Autopilot", LOG_FAILURE_EXIT_CODE) ; }
+
+        }
 
         $logging->log("No more paths to attempt to load", "Autopilot") ;
         $logging->log("Unable to find Default Autopilot Class", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
