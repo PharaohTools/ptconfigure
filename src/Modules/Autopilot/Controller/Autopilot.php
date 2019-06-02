@@ -75,7 +75,7 @@ class Autopilot extends Base {
 
         foreach ($paths as $path) {
             if (file_exists($path)) {
-                if (substr($autoPilotFileName, -7) == "dsl.yml" ||substr($autoPilotFileName, -8) == "dsl.yaml") {
+                if (substr($autoPilotFileName, -7) == ".yml" ||substr($autoPilotFileName, -8) == ".yaml") {
                     $dsl_au = $this->loadYAMLAutoPilot($autoPilotFileName, $pageVars) ;
                     if (is_object($dsl_au)) {
                         return $dsl_au ; }
