@@ -43,7 +43,7 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     private function setPackages() {
         if (PHP_MAJOR_VERSION > 6) {
             $ps2 = "php7.".PHP_MINOR_VERSION  ;
-            $ps1 = "php7.".PHP_MINOR_VERSION."-opcache " ; }
+            $ps1 = "" ; }
         else {
             $ps2 = "php5" ;
             $ps1 = "php-apc {$ps2}-memcached php5-memcache {$ps2}-mongo {$ps2}-imagick" ; }
