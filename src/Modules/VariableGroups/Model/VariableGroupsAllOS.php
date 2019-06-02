@@ -29,6 +29,12 @@ class VariableGroupsAllOS extends Base {
         return $variables ;
     }
 
+    public function dump() {
+        $vars = $this->getVariableGroups() ;
+        var_export($vars, true) ;
+        return true ;
+    }
+
     protected function getVariableGroups() {
         $vg = null ;
         if (isset($this->params["vargroups"])) { $vg = $this->params["vargroups"] ; }
