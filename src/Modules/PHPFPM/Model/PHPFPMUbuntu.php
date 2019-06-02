@@ -29,14 +29,17 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         $this->programNameMachine = "PHPFPM"; // command and app dir name
         $this->programNameFriendly = "PHP FPM!"; // 12 chars
         $this->programNameInstaller = "PHP Fast Process Manager";
+        $this->prefixLength = 6 ;
         $this->initialize();
     }
 
     private function setPackages() {
 
         if (PHP_MAJOR_VERSION > 6) {
-            $this->packages = array("php7.0-fpm") ; }
+            $this->prefixLength = 6 ;
+            $this->packages = array("php7.".PHP_MINOR_VERSION."-fpm") ; }
         else {
+            $this->prefixLength = 5 ;
             $this->packages = array("php5-fpm") ; }
 
     }
@@ -45,7 +48,7 @@ class PHPFPMUbuntu extends BaseLinuxApp {
         $modsTextCmd = 'php -m';
         $modsText = $this->executeAndLoad($modsTextCmd) ;
         $pax = $this->packages ;
-        foreach ($pax as &$pack) { $pack = substr($pack, 5) ; }
+        foreach ($pax as &$pack) { $pack = substr($pack, $this->prefixLength) ; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $passing = true ;
@@ -71,12 +74,10 @@ class PHPFPMUbuntu extends BaseLinuxApp {
     }
 
     public function restartFPM() {
-
         if (PHP_MAJOR_VERSION > 6) {
-            $ps = "php7.0" ; }
+            $ps = "php7.".PHP_MINOR_VERSION ; }
         else {
             $ps = "php5" ; }
-
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Stopping any running PHP FPM Processes", $this->getModuleName()) ;

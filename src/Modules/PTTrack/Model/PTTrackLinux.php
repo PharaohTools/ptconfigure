@@ -53,10 +53,10 @@ class PTTrackLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=track --fpm-port=6042'.$sslstring ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp pttrack directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-data/* /opt/pttrack/data/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-jobs/* /opt/pttrack/jobs/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/users.txt /opt/pttrack/pttrack/src/Modules/Signup/Data/users.txt" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/pttrackvars /opt/pttrack/pttrack/pttrackvars" ; }
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-data/* /opt/pttrack/data/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-jobs/* /opt/pttrack/jobs/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/users.txt /opt/pttrack/pttrack/src/Modules/Signup/Data/users.txt || true" ;
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/pttrackvars /opt/pttrack/pttrack/pttrackvars || true" ; }
         $ray[]["command"][] = SUDOPREFIX."chown -R pttrack:pttrack /opt/pttrack/" ;
         $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/pttrack/" ;
         $this->postinstallCommands = $ray ;
