@@ -20,7 +20,7 @@ class VariableGroups extends Base {
         if (in_array($action, array("dump") )) {
             $this->content["result"] = $thisModel->dump();
             $this->content["appName"] = $thisModel->programNameInstaller ;
-            return array ("type"=>"view", "view"=>"sshharden", "pageVars"=>$this->content); }
+            return array ("type"=>"view", "view"=>"variableGroups", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
