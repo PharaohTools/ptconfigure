@@ -48,10 +48,9 @@ class BakeryInfo extends PTConfigureBase {
         example: ptconfigure bakery bake --bakery-install-version=1.8
         
   We have also included examples of Autopilot files which would be used with Bakery. With Autopilots set up in this
-  way, you can create a complete.
+  way, you can create a complete set of Operating system images.
   
-  ptconfigure auto x --af={$mod_path}/Autopilots/PTConfigure/osinstall.dsl.php \ 
-                     --vars={$mod_path}/Autopilots/PTConfigure/vars.php 
+  ptconfigure auto x --af={$mod_path}/Autopilots/PTConfigure/multi-os-install.dsl.yml --vars={$mod_path}/Autopilots/PTConfigure/vars.php 
 
 
 HELPDATA;
