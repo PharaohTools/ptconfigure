@@ -9,6 +9,10 @@
 #    target: "/opt/ptvirtualize/boxes/$$var_os.$$var_os_version.$$var_os_group.iso"
 #    guess: yes
 
+- VariableGroups[dump]:
+    label: 'Dump all loaded variables'
+    guess: yes
+
 - Bakery[osinstall]:
     label: "The OS Installation Stage"
     iso: "$$iso_path"
