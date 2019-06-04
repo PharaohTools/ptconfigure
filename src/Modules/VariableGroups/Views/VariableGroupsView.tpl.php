@@ -1,1 +1,6 @@
-<?php echo $pageVars["commandExecResult"]."\n"; ?>
+<?php
+
+echo "Dave Rave" ;
+var_dump($pageVars);
+
+?>

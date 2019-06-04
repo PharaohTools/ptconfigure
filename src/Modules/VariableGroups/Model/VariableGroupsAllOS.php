@@ -30,8 +30,18 @@ class VariableGroupsAllOS extends Base {
     }
 
     public function dump() {
-        $vars = $this->getVariableGroups() ;
-        var_export($vars, true) ;
+        $vars = $this->getVariables() ;
+        echo "\n" ;
+        echo "Dumping all loaded Variables: \n" ;
+        echo "----------------------------- \n" ;
+        foreach ($vars as $key => $value) {
+            if (is_string($value) ) {
+                echo "  $key => $value \n" ;
+            } else {
+                echo "  $key => ".var_export($value, true)." \n" ;
+            }
+        }
+
         return true ;
     }
 
