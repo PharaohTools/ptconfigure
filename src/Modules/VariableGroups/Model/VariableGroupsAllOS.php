@@ -63,9 +63,14 @@ class VariableGroupsAllOS extends Base {
             $ext = pathinfo($set, PATHINFO_EXTENSION);
             switch ($ext) {
                 case "php" :
+                    $full_set = realpath($set); ;
                     $params = (isset($this->params["raw"])) ? $this->params["raw"] : array() ;
-                    $logging->log("Loading Variable Set from {$set}", $this->getModuleName());
-                    require $set ;
+                    $logging->log("Loading Variable Set from {$full_set}", $this->getModuleName());
+                    if (file_exists($full_set)) {
+                        require $full_set ;
+                    } else {
+                        $logging->log("Unable to load Variable Set from {$full_set}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                    }
                     break;
                 default:
                     break; } }
