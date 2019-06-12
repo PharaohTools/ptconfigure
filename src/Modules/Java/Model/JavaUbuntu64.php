@@ -47,8 +47,8 @@ class JavaUbuntu64 extends BaseLinuxApp {
         else if (isset($this->params["java-install-version"])) {
             $this->javaDetails = $this->getJavaDetails($this->params["java-install-version"]); }
         else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
-            $this->params["java-install-version"] = "1.7" ;
-            $this->javaDetails = $this->getJavaDetails("1.7") ; }
+            $this->params["java-install-version"] = "1.8" ;
+            $this->javaDetails = $this->getJavaDetails("1.8") ; }
         else {
             $question = "Enter Java Install Version (1.7 or 1.8):";
             $jd = self::askForInput($question, true);
@@ -105,6 +105,9 @@ class JavaUbuntu64 extends BaseLinuxApp {
             $tmp_java = "/tmp/oraclejdk{$stamp}.tar.gz" ;
             if (!file_exists($tmp_java)) {
                 $this->packageDownload($this->javaDetails['jdk_url'], $tmp_java) ;
+//                $msg = "Copying from opt to tmp" ;
+//                $logging->log($msg, $this->getModuleName()) ;
+//                copy('/opt/jdk1.8x64.tar.gz', $tmp_java) ;
             }
 
             $tmp_str = "/tmp/oraclejdk{$stamp}" ;
@@ -236,11 +239,11 @@ class JavaUbuntu64 extends BaseLinuxApp {
 
     public function getJavaDetails($version) {
         if ($version == "1.8") {
-            $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk1.8x64.tar.gz" ;
+            $details['jdk_url'] = "https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=java_jdk" ;
             $details['path_in_repo'] = "phpengine-cleo-jdk-64-6c383e2868bd/jdk-7u60-linux-x64.tar.gz" ;
             $details['fname_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
             $details['version_short'] = "1.8.0" ;
-            $details['extracted_dir'] = "jdk{$details['version_short']}_144" ;
+            $details['extracted_dir'] = "jdk{$details['version_short']}_211" ;
         } else {
             $details['jdk_url'] = "http://46f95a86014936ec1625-77a12a9c8b6f69dd83500dbd082befcc.r16.cf3.rackcdn.com/jdk1.7.tar.gz" ;
             $details['path_in_repo'] = "jdk-7u60-linux-x64.tar.gz" ;
