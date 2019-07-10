@@ -414,8 +414,16 @@ class InvokeAllOS extends Base {
 	}
 
     protected function attemptSSH2Connection($server) {
-        $pword = (isset($server["pword"])) ? $server["pword"] : false;
-        $pword = (isset($server["password"])) ? $server["password"] : $pword;
+	    $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $askpass = $this->askForServerPassword(true) ;
+        if ($askpass !== false) {
+            $logging->log("Overriding Stored Password or Key.", $this->getModuleName()) ;
+            $pword = $askpass ;
+        } else {
+            $pword = (isset($server["pword"])) ? $server["pword"] : false;
+            $pword = (isset($server["password"])) ? $server["password"] : $pword;
+        }
         $invokeFactory = new \Model\Invoke() ;
         $serverObj = $invokeFactory->getModel($this->params, "Server") ;
         $target = $this->findTarget($server) ;
@@ -620,7 +628,7 @@ QUESTION;
 		return $this->params["ssh-user"] ;
 	}
 
-	protected function askForServerPassword()	{
+    protected function askForServerPassword($silent = false)	{
         if (isset($this->params["ssh-key-path"])) {
             return $this->params["ssh-key-path"]; }
         else if (isset($this->params["key-path"])) {
@@ -631,10 +639,13 @@ QUESTION;
             return $this->params["ssh-pass"]; }
         else if (isset($this->params["pass"])) {
             return $this->params["pass"]; }
-		$question = 'Please Enter Server Password or Key Path';
-		$input = self::askForInput($question);
-		return $input;
-	}
+        if ($silent !== true) {
+            $question = 'Please Enter Server Password or Key Path';
+            $input = self::askForInput($question);
+            return $input;
+        }
+        return false ;
+    }
 
 	protected function askForACommand() {
 		$question = 'Enter command to be executed on remote servers? Enter none to close connection and end program';
