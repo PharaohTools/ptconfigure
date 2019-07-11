@@ -76,13 +76,13 @@ class JavaUbuntu64 extends BaseLinuxApp {
                 $requested_version_is_installed = true ;
             } else {
                 $msg =
-                    "A Different Java JDK Version than the requested {$this->javaDetails['version_short']} has ben found." ;
+                    "A Different Java JDK Version than the requested {$this->javaDetails['version_short']} has been found." ;
                 $logging->log($msg, $this->getModuleName()) ;
                 $requested_version_is_installed = false ;
             }
         } else {
             $msg =
-                "No Java JDK installation has ben found." ;
+                "No Java JDK installation has been found." ;
             $logging->log($msg, $this->getModuleName()) ;
             $requested_version_is_installed = false ;
         }
