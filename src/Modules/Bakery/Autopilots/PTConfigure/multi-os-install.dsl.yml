@@ -16,6 +16,7 @@
         - '/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php'
       step-times: true
       step-numbers: true
+      os_slug: "{{ loop }}"
     loop:
       - ubuntu_18.04.2
       - ubuntu_16.04.6
