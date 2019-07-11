@@ -156,7 +156,7 @@ class PharaohToolRunnerAnyOS extends Base {
                 echo "ERR: ".$data;
             }
         }
-        return $process->getExitCode(); ;
+        return $process->getExitCode();
     }
 
     protected function askForPharaohToolRunnerExecute() {
