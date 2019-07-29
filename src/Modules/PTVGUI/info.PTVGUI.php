@@ -24,7 +24,7 @@ class PTVGUIInfo extends PTConfigureBase {
     $help = <<<"HELPDATA"
   This module allows you to install Pharaoh Virtualize GUI.
 
-  PTVGUI, ptv-gui, ptvgui
+  PTVGUI, ptv-gui, ptvgui, ptvirtualizegui
 
         - install
         Installs Pharaoh Virtualize GUI.
