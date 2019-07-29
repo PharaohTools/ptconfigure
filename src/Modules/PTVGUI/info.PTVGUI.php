@@ -17,7 +17,7 @@ class PTVGUIInfo extends PTConfigureBase {
   }
 
   public function routeAliases() {
-    return array("ptv-gui"=>"PTVGUI", "ptvgui"=>"PTVGUI");
+    return array("ptv-gui"=>"PTVGUI", "ptvgui"=>"PTVGUI", "ptvirtualizegui"=>"PTVGUI");
   }
 
   public function helpDefinition() {
