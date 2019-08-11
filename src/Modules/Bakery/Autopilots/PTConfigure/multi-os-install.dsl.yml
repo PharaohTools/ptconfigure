@@ -18,5 +18,5 @@
       step-numbers: true
       os_slug: "{{ loop }}"
     loop:
-      - ubuntu_18.04.2
-      - ubuntu_16.04.6
+      - ubuntu_14.04.6
+#      - ubuntu_16.04.6

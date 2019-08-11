@@ -42,20 +42,13 @@
 - PharaohToolRunner[run]:
     label: "Initialize a matching name"
     guess: true
-    tool: "ptvirtualize"
-    module: "init"
-    action: "now"
-    prefix: "cd /tmp/ptv_vm_osinstall && "
-    params:
-      vars:
-        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_{{{ param::os_slug }}}.php"
-        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php"
+    command: "cd /tmp/ptv_vm_osinstall && ptvirtualize init now --vars=/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_{{{ var::os_slug }}}.php,/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php"
       'yes': true
       guess: true
       step-times: true
       step-numbers: true
       name: ptv_bakery_temp_vm
-      os_slug: "{{{ param::os_slug }}}"
+      os_slug: "$$os_slugvar"
 #
 #- RunCommand[execute]:
 #    label: "Initialize a matching name"
@@ -101,17 +94,17 @@
     prefix: "cd /tmp/ptv_vm_osinstall && "
     params:
       vars:
-        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_{{{ param::os_slug }}}.php"
+        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_{{{ var::os_slug }}}.php"
         - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php"
       'yes': true
       guess: true
-      name: "ubuntu_{{{ param::os_slug }}}.server-64bit"
+      name: "ubuntu_{{{ var::os_slug }}}.server-64bit"
       vmname: "ptv_bakery_temp_vm"
       group: "ptvirtualize"
       provider: "virtualbox"
       description: "description placeholder"
       target: "/opt/ptvirtualize/boxes"
-      os_slug: "{{{ param::os_slug }}}"
+      os_slug: "{{{ var::os_slug }}}"
 #
 #- RunCommand[execute]:
 #    label: "PTV Package the Virtual Machine into a Box file"
