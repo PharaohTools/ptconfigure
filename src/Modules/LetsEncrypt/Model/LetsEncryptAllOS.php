@@ -64,8 +64,8 @@ class LetsEncryptAllOS extends Base {
         $logging->log("Certificate Organizational Unit: {$organizational_unit}", $this->getModuleName()) ;
         $logging->log("Certificate Street: {$street}", $this->getModuleName()) ;
 
-        if ($domain=="" || $webroot=="" || $certlocation=="" || $email=="") {
-            $logging->log("Email, Domain, Webroot and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        if ($domain=="" || $webroot=="" || $certlocation=="" || $email=="" || $country=="" || $state_or_province=="" || $locality=="" || $organization=="" || $organizational_unit=="" || $street=="") {
+            $logging->log("Email, Domain, Webroot, Country, State, Locality, Organization, Organizational Unit, Street and Certificate location are required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
 
         // Make sure our cert location exists
