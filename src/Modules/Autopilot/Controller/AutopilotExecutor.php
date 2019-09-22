@@ -495,7 +495,7 @@ class AutopilotExecutor extends Base {
                     if ($loop_found) {
                         $logFactory = new \Model\Logging() ;
                         $logging = $logFactory->getModel(array(), "Default") ;
-                        $logging->log("Empty array of Loop items specified", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
+                        $logging->log("Loop items found", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
                         return true ; } } }
         }
         else if ($this->findLoopInString($paramValue)) {
@@ -539,9 +539,9 @@ class AutopilotExecutor extends Base {
 
     public function swapLoopPlaceholder($paramValue, $newVal, $loop_key = null) {
         if (is_array($paramValue)) {
-            $paramValue = $this->swapLoopPlaceholderArray($paramValue, $newVal, $loop_key = null) ;
+            $paramValue = $this->swapLoopPlaceholderArray($paramValue, $newVal, $loop_key) ;
         } else {
-            $paramValue = $this->swapLoopPlaceholderString($paramValue, $newVal, $loop_key = null) ;
+            $paramValue = $this->swapLoopPlaceholderString($paramValue, $newVal, $loop_key) ;
         }
         return $paramValue ;
     }
