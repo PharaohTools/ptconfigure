@@ -69,15 +69,15 @@ class PTVGUIWindows extends BaseWindowsApp {
         // $logging->log("Download to: ". $package_file) ;
 
         // delete package
-        if (is_dir(PFILESDIR."PTVGUI")) {
+        if (is_dir(PFILESDIR."Pharaoh_Virtualize_GUI")) {
             $logging->log("Delete previous App Directory", $this->getModuleName() ) ;
-            $this-> delTree(PFILESDIR."PTVGUI") ;
+            $this-> delTree(PFILESDIR."Pharaoh_Virtualize_GUI") ;
         }
 
         // Ensure App Directory
         $logging->log("Ensure App Directory", $this->getModuleName() ) ;
-        if (!file_exists(PFILESDIR."PTVGUI")) {
-            mkdir(PFILESDIR."PTVGUI", null, true) ;
+        if (!file_exists(PFILESDIR."Pharaoh_Virtualize_GUI")) {
+            mkdir(PFILESDIR."Pharaoh_Virtualize_GUI", null, true) ;
         }
 
         // unzip the package
@@ -99,7 +99,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $lib_path = dirname(__DIR__).DS.'Libraries' ;
         $lib_path .= "\\bscripts\\pinnerJS.bat" ;
         $comm  = "\"{$lib_path}\"" ;
-        $comm .= " \"".PFILESDIR."PTVGUI\\Pharaoh_Virtualize_GUI.exe\""  ;
+        $comm .= " \"".PFILESDIR."Pharaoh_Virtualize_GUI\\Pharaoh_Virtualize_GUI.exe\""  ;
         $comm1 = $comm . " startmenu"  ;
         $comm2 = $comm . " taskbar"  ;
         // $logging->log("UZ: $comm", $this->getModuleName() ) ;
@@ -196,9 +196,9 @@ class PTVGUIWindows extends BaseWindowsApp {
         }
 
         // delete package
-        if (is_dir(PFILESDIR."PTVGUI")) {
+        if (is_dir(PFILESDIR."Pharaoh_Virtualize_GUI")) {
             $logging->log("Delete previous App Directory", $this->getModuleName() ) ;
-            $this-> delTree(PFILESDIR."PTVGUI") ;
+            $this-> delTree(PFILESDIR."Pharaoh_Virtualize_GUI") ;
         }
 
         return true;
