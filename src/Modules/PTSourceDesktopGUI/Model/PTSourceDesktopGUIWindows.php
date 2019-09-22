@@ -82,9 +82,17 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".$package_file."\" -d \"".PFILESDIR."PTSourceDesktopGUI\" " ;
+//        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".$package_file."\" -d \"".PFILESDIR."PTSourceDesktopGUI\" " ;
+        $zip = new \ZipArchive;
+        if ($zip->open($package_file) === TRUE) {
+            $zip->extractTo(PFILESDIR."PTSourceDesktopGUI");
+            $zip->close();
+            $logging->log("Unzip Successful", $this->getModuleName() ) ;
+        } else {
+            $logging->log("Unzip Failed", $this->getModuleName() ) ;
+        }
         // $logging->log("UZ: $uzc", $this->getModuleName() ) ;
-        $this->executeAndOutput($uzc) ;
+//        $this->executeAndOutput($uzc) ;
 
         // move to applications dir
         $logging->log("Add to Start Menu", $this->getModuleName() ) ;

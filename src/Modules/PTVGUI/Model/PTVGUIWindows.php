@@ -82,9 +82,17 @@ class PTVGUIWindows extends BaseWindowsApp {
 
         // unzip the package
         $logging->log("Unzip the packages", $this->getModuleName() ) ;
-        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."Pharaoh_Virtualize_GUI.windows.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
+//        $uzc = getenv('SystemDrive')."\\unzip.exe -quo \"".BASE_TEMP_DIR."Pharaoh_Virtualize_GUI.windows.zip\" -d \"".PFILESDIR."PTVGUI\" " ;
         // $logging->log("UZ: $uzc", $this->getModuleName() ) ;
-        $this->executeAndOutput($uzc) ;
+        $zip = new \ZipArchive;
+        if ($zip->open($package_file) === TRUE) {
+            $zip->extractTo(PFILESDIR."Pharaoh_Virtualize_GUI");
+            $zip->close();
+            $logging->log("Unzip Successful", $this->getModuleName() ) ;
+        } else {
+            $logging->log("Unzip Failed", $this->getModuleName() ) ;
+        }
+//        $this->executeAndOutput($uzc) ;
 
         // move to applications dir
         $logging->log("Add to Start Menu", $this->getModuleName() ) ;
