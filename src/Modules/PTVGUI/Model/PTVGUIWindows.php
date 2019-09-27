@@ -109,7 +109,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $logging->log("Add log tailing script", $this->getModuleName() ) ;
         $params = $this->params ;
         $params['source'] = dirname(__DIR__).DS.'Files'.DS.'logtail.php' ;
-        $params['target'] = getenv('SystemDrive')."\\logtail.php" ;
+        $params['target'] = PFILESDIR."logtail.php" ;
         $copyFac = new \Model\Copy();
         $copy = $copyFac->getModel($params, 'Default');
         $copy->performCopyPut();
