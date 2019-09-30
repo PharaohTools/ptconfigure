@@ -62,23 +62,17 @@ class ApacheFastCGIModulesUbuntu extends BaseLinuxApp {
     }
 
     public function getDevCode($code) {
-        $ubuntuDevCodeNames = array(
-            "11.04" => "natty" ,
-            "11.10" => "oneiric" ,
-            "12.04" => "precise",
-            "12.10" => "quantal",
-            "13.04" => "raring",
-            "13.10" => "saucy",
-            "14.04" => "trusty",
-            "14.10" => "utopic",
-            "15.04" => "vivid",
-            "15.10" => "wily",
-            "16.04" => "xenial",
-            "16.10" => "kylin",
-            "17.04" => "zesty",
-            "17.10" => "artful",
-        ) ;
-        return $ubuntuDevCodeNames[$code] ;
+        $code_command = "lsb_release -c | cut -d':' -f2" ;
+//        $temp_params['run-as-user'] = '' ;
+//        $temp_params['command'] = $code_command ;
+//        $temp_params['nohup'] = false ;
+//        $temp_params['background'] = false ;
+//        $temp_params['guess'] = true ;
+        $return  = shell_exec($code_command);
+        $return = trim($return) ;
+//        var_dump($return) ;
+//        die() ;
+        return $return ;
     }
 
     public function apacheReload() {
