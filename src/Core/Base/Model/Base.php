@@ -471,6 +471,8 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName() ) ;
+//        $vars[$var] = false ;
+//        \Model\RegistryStore::setValue("runtime_variables", $vars);
         return false ;
     }
 
@@ -496,6 +498,8 @@ COMPLETION;
         $var_requested = $parts_array[1] ;
         if (isset($vars[$var_requested])) { return $vars[$var_requested] ; }
         $logging->log("No value set for requested Variable \${$var_requested}", $this->getModuleName()) ;
+        $vars[$var_requested] = false ;
+        \Model\RegistryStore::setValue("runtime_variables", $vars);
         return false ;
     }
 
@@ -523,6 +527,8 @@ COMPLETION;
             $vars = $runtime_vars ; }
         if (isset($vars[$var])) { return $vars[$var] ; }
         $logging->log("No value set for requested Variable \${$var} ", $this->getModuleName()) ;
+        $vars[$var] = false ;
+        \Model\RegistryStore::setValue("runtime_variables", $vars);
         return false ;
     }
 
