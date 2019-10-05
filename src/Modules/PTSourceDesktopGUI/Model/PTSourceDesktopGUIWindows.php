@@ -161,7 +161,7 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
         $command = "wmic desktopmonitor get screenheight, screenwidth" ;
         $info = shell_exec($command) ;
         $info = trim($info) ;
-        var_dump('finding resolution', $info) ;
+//        var_dump('finding resolution', $info) ;
         $parts = explode('x', $info) ;
         $width = $parts[0] ;
         $height = $parts[1] ;
