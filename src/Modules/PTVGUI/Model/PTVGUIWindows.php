@@ -99,7 +99,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $lib_path = dirname(__DIR__).DS.'Libraries' ;
         $lib_path .= "\\bscripts\\pinnerJS.bat" ;
         $comm  = "\"{$lib_path}\"" ;
-        $comm .= " \"".PFILESDIR."Pharaoh_Virtualize_GUI\\ptvgui-win32-x64\\ptvgui.exe\""  ;
+        $comm .= " \"".PFILESDIR."Pharaoh_Virtualize_GUI\\Pharaoh_Virtualize_GUI.exe\""  ;
         $comm1 = $comm . " startmenu"  ;
         $comm2 = $comm . " taskbar"  ;
         // $logging->log("UZ: $comm", $this->getModuleName() ) ;
@@ -161,7 +161,7 @@ class PTVGUIWindows extends BaseWindowsApp {
         $command = "wmic desktopmonitor get screenheight, screenwidth" ;
         $info = shell_exec($command) ;
         $info = trim($info) ;
-        var_dump('finding resolution', $info) ;
+//        var_dump('finding resolution', $info) ;
         $parts = explode('x', $info) ;
         $width = $parts[0] ;
         $height = $parts[1] ;
