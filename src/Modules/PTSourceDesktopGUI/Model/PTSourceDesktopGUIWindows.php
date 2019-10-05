@@ -173,7 +173,7 @@ class PTSourceDesktopGUIWindows extends BaseWindowsApp {
 
     public function defaultProjectDirectories() {
         $dir_options[] = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'] ;
-        $dir_options[] = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'].DS.'Documents' ;
+//        $dir_options[] = $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'].DS.'Documents' ;
         $dirs = [] ;
         foreach ($dir_options as $dir_option) {
             if (is_dir($dir_option)) {
