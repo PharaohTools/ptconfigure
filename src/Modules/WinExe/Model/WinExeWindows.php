@@ -31,10 +31,13 @@ class WinExeWindows extends BasePackager {
         $logging = $loggingFactory->getModel($this->params);
         $c1 = 'reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" /s | findstr /B ".*DisplayName" ' ;
         $one_str = self::executeAndLoad($c1) ;
+        $logging->log('Reg Query One', $this->getModuleName()) ;
         $c2 = 'reg query "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall" /s | findstr /B ".*DisplayName" ';
         $two_str = self::executeAndLoad($c2) ;
+        $logging->log('Reg Query Two', $this->getModuleName()) ;
         $c3 = 'wmic /PRIVILEGES:enable product get name,version ';
         $three_str = self::executeAndLoad($c3) ;
+        $logging->log('Reg Query Three', $this->getModuleName()) ;
         $full_str = $one_str."\n".$two_str."\n".$three_str ;
         $installed_apps = explode("\n", $full_str) ;
         # var_dump('inst app', $installed_apps) ;
@@ -73,16 +76,20 @@ class WinExeWindows extends BasePackager {
             if (!is_null($version)) {
                 $versionToInstall = "" ;
             }
-            # var_dump('WinExeWindows installPackage 1 ') ;
+//            var_dump('WinExeWindows installPackage 1 ') ;
             $requestingModel->askForVersion() ;
             $requestingModel->setPackageUrl() ;
-            # var_dump('WinExeWindows installPackage 2 ', $requestingModel) ;
+//            var_dump('WinExeWindows installPackage 2 ') ;
+//            var_dump('WinExeWindows installPackage 2 ', $requestingModel) ;
             $temp_exe = $requestingModel->packageDownload($requestingModel->packageUrl) ;
-            $install_command = $temp_exe. ' '.$requestingModel->exeInstallFlags ;
-            # var_dump('WinExeWindows installPackage 2 install_command  ', $install_command) ;
+//            $install_command = 'START "Oracle Virtualbox" "'.$temp_exe.'" '.$requestingModel->exeInstallFlags ;
+            $install_command = PFILESDIR.'elevate.exe - "'.$temp_exe.'" '.$requestingModel->exeInstallFlags ;
+//            var_dump('WinExeWindows installPackage 2 install_command  ', $install_command) ;
             $out = $this->executeAndOutput($install_command) ;
             $search_string = $requestingModel->getPackageSearchString() ;
-            # var_dump('WinExeWindows installPackage 3 ', $search_string, $install_command) ;
+//            var_dump('WinExeWindows installPackage 3 ') ;
+//            var_dump($out) ;
+//            var_dump($search_string) ;
             if ($this->isInstalled($search_string) != false) {
                 $logging->log("Adding Package $package from the Packager Windows Executable executed correctly") ; }
             else {
