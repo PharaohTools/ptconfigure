@@ -16,6 +16,8 @@ class VirtualboxWindows extends BaseWindowsApp {
 
     // Virtualbox requested version
     public $exeInstallFlags = ' --silent -msiparams ALLUSERS=1' ;
+    public $versionsAvailable = ['5.2.0', '6.0.1'] ;
+//    public $versionsAvailable = ['6.0.1', '5.2.0'] ;
 
     // Windows Package
     public $packageUrl ;
@@ -46,17 +48,25 @@ class VirtualboxWindows extends BaseWindowsApp {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("WinExe", "Virtualbox")) ),
         ) ;
         if (isset($this->params["with-guest-additions"]) && $this->params["with-guest-additions"]==true) {
-            $logging->log("Virtualbox Guest additions have been requested by parameter, but are installed by default on OSx", $this->getModuleName()) ;
+            $logging->log("Virtualbox Guest additions have been requested by parameter, but are installed by default on Windows", $this->getModuleName()) ;
 //            array_push($ray, array("command" => array( SUDOPREFIX."apt-get install -y virtualbox-guest-additions-iso") ) ) ;
         }
         return $ray ;
     }
 
     public function setPackageUrl(){
+//        var_dump($this->params);
         $pus = array(
-            "5.2.0" => "http://download.virtualbox.org/virtualbox/5.2.0/VirtualBox-5.2.0-118431-Win.exe" ,
+            "6.0.1" => "http://download.virtualbox.org/virtualbox/6.0.12/VirtualBox-6.0.12-133076-Win.exe",
+            "5.2.0" => "http://download.virtualbox.org/virtualbox/5.2.0/VirtualBox-5.2.0-118431-Win.exe"
         ) ;
         $this->packageUrl = $pus[$this->params["version"]] ;
+    }
+
+    public function msiCertificate($text) {
+//        'certutil -addstore "TrustedPublisher" oracle-vbox.cer' ;
+        $done = substr($text, 23, 15) ;
+        return $done ;
     }
 
     public function versionInstalledCommandTrimmer($text) {
