@@ -45,15 +45,15 @@ class BaseWindowsApp extends BaseLinuxApp {
         return true;
     }
 
-    public function packageDownload($remote_source, $temp_exe_file) {
-        # var_dump('BWA packageDownload 1') ;
+    public function packageDownload($remote_source, $temp_exe_file=null) {
+//        var_dump('BWA packageDownload 1') ;
         if (is_null($temp_exe_file)) {
             $temp_exe_file = $_ENV['TEMP'].DS.'temp.exe' ;
         }
         if (file_exists($temp_exe_file)) {
             unlink($temp_exe_file) ;
         }
-        # var_dump('BWA packageDownload 2', $_ENV, $temp_exe_file) ;
+//        var_dump('BWA packageDownload 2', $temp_exe_file) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
@@ -89,20 +89,28 @@ class BaseWindowsApp extends BaseLinuxApp {
                 $dl = ($downloaded / $download_size)  * 100 ;
                 # var_dump('downloaded', $dl) ;
                 $perc = round($dl, 2) ;
-                # var_dump('perc', $perc) ;
-                echo "{$perc} % \r" ;
+                if (isset($this->params['percentage'])) {
+                    if ($perc % $this->params['percentage'] == 0) {
+                        # var_dump('perc', $perc) ;
+                        echo "{$perc} % \r" ;
+                    }
+                } else {
+                    # var_dump('perc', $perc) ;
+                    echo "{$perc} % \r" ;
+                }
             }
             ob_flush();
             flush();
         }
     }
 
-    public function askForVersion(){
-        # var_dump('vbw 1');
-        $ao = array("5.2.0") ;
+    public function askForVersion($ao=array()){
+//        var_dump('vbw 1', $ao);
+        $ao = $this->getVersionsAvailable() ;
+        if ($ao == false) { $ao = array() ; }
         if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
             $this->params['version'] = $this->params["version"] ; }
-        else if (isset($this->params["guess"])) {
+        else if (isset($this->params["guess"]) && count($ao)>0 ) {
             $index = count($ao)-1 ;
             $this->params['version'] = $ao[$index] ;
             # var_dump('vbw 2', $this->params['version']);

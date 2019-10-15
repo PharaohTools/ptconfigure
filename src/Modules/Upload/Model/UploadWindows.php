@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DownloadWindows extends BaseWindowsApp {
+class UploadWindows extends BaseWindowsApp {
 
     // Compatibility
     public $os = array("any") ;
@@ -14,8 +14,8 @@ class DownloadWindows extends BaseWindowsApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    public function askWhetherToDownload() {
-        return $this->performDownload();
+    public function askWhetherToUpload() {
+        return $this->performUpload();
     }
 
     protected function attemptToLoad($sourceDataPath){
@@ -25,18 +25,18 @@ class DownloadWindows extends BaseWindowsApp {
             return null ; }
     }
 
-    public function performDownload() {
+    public function performUpload() {
         $sourceDataPath = $this->getSourceFilePath("remote");
         $targetPath = $this->getTargetFilePath("local");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Performing Download...", $this->getModuleName());
-        $res = $this->packageDownload($sourceDataPath, $targetPath) ;
+        $logging->log("Performing Upload...", $this->getModuleName());
+        $res = $this->packageUpload($sourceDataPath, $targetPath) ;
         if ($res == true) {
-            $logging->log("Download Completed Successfully...", $this->getModuleName());
+            $logging->log("Upload Completed Successfully...", $this->getModuleName());
             return true;
         }
-        $logging->log("Download Failed...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+        $logging->log("Upload Failed...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
         return false;
     }
 
@@ -55,5 +55,5 @@ class DownloadWindows extends BaseWindowsApp {
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;
     }
-
+    
 }
