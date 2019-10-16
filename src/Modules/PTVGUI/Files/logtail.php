@@ -2,7 +2,7 @@
 
 error_reporting(0) ;
 
-$tail = new PHPTail("C:\\ptv_gui_log.log");
+$tail = new PHPTail($argv[1]);
 
 echo $tail->getNewLines($_GET['lastsize'], $_GET['grep'], $_GET['invert']);
 
