@@ -54,6 +54,9 @@ class AutopilotYAMLAnyOS extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Loading YAML Autopilot File", $this->getModuleName()) ;
+        if (substr(php_uname(), 0, 7) == "Windows") {
+            $file_name = str_replace("^\\", '\\\\', $file_name) ;
+        }
         if (!file_exists($file_name)) {
             $logging->log("Something bad happened. The file $file_name does not exist", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
