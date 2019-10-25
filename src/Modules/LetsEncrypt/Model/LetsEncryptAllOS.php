@@ -68,7 +68,7 @@ class LetsEncryptAllOS extends Base {
 
         $falsy = false ;
         foreach ($expected as $one_expected) {
-            if ($$one_expected=="") {
+            if (!isset($$one_expected) || $$one_expected=="") {
                 $logging->log("$one_expected is required", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                 $falsy = true ; }
         }
