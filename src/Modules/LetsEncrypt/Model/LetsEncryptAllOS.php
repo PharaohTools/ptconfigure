@@ -64,7 +64,7 @@ class LetsEncryptAllOS extends Base {
         $logging->log("Certificate Organizational Unit: {$organizational_unit}", $this->getModuleName()) ;
         $logging->log("Certificate Street: {$street}", $this->getModuleName()) ;
 
-        $expected = ['domain', 'webroot', 'certlocation', 'email', 'country', 'state_or_province', 'locality', 'organization', 'organizational_unit street'] ;
+        $expected = ['domain', 'webroot', 'certlocation', 'email', 'country', 'state_or_province', 'locality', 'organization', 'organizational_unit', 'street'] ;
 
         $falsy = false ;
         foreach ($expected as $one_expected) {
