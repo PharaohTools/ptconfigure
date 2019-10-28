@@ -33,7 +33,11 @@ class HostEditorWindows extends HostEditorAllLinuxMac {
         if ($res3['rc'] != 0) { return false ; }
         return true ;
     }
-
+/*
+ * takeown /f "%windir%\system32\drivers\etc\hosts"
+ * icacls "%windir%\system32\drivers\etc\hosts" /grant administrators:F
+attrib -r -h -s hosts
+ */
 
     protected function hostFileDataAdd($ipEntry, $uri){
         $loggingFactory = new \Model\Logging();
