@@ -82,7 +82,12 @@ class PTVGUILinux extends BaseLinuxApp {
         $params['source'] = 'https://repositories.internal.pharaohtools.com/index.php?control=BinaryServer&action=serve&item=pharaoh_virtualize_gui_linux_x64' ;
         $params['target'] = $zip_file_path ;
         $download = $downloadFactory->getModel($params);
-        $download->performDownload() ;
+        $downloaded = $download->performDownload() ;
+
+        if ($downloaded === false) {
+            $logging->log("Zip Archive Download Failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+            return false ;
+        }
 
         $logging->log("Extracting Zip Archive", $this->getModuleName()) ;
         $zip = new \ZipArchive;
@@ -162,6 +167,16 @@ class PTVGUILinux extends BaseLinuxApp {
         $params['mode'] = '0777' ;
         $chmod = $chmodFactory->getModel($params) ;
         $chmod->performChmod() ;
+
+        $system = new \Model\SystemDetectionAllOS() ;
+        if ($system->os === 'Linux' && $system->distro === 'Ubuntu') {
+            $logging->log("Ubuntu OS - Installing sshpass through apt-get", $this->getModuleName()) ;
+            $aptFactory = new \Model\Apt();
+            $params['yes'] = 'true' ;
+            $params['guess'] = 'true' ;
+            $apt = $aptFactory->getModel($params) ;
+            $apt->installPackage('sshpass') ;
+        }
 
     }
 
