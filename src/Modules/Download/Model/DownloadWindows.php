@@ -30,6 +30,13 @@ class DownloadWindows extends BaseWindowsApp {
         $targetPath = $this->getTargetFilePath("local");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+
+        $is_conn = $this->is_connected($sourceDataPath) ;
+        if ($is_conn === false) {
+            $logging->log("Unable to access network", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false;
+        }
+
         $logging->log("Performing Download...", $this->getModuleName());
         $res = $this->packageDownload($sourceDataPath, $targetPath) ;
         if ($res == true) {
@@ -38,6 +45,28 @@ class DownloadWindows extends BaseWindowsApp {
         }
         $logging->log("Download Failed...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
         return false;
+    }
+
+    protected function is_connected($addr) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+//        var_dump( stripos($addr, 'https') ) ;
+        if (stripos($addr, 'https') === 0) {
+            $parse = parse_url($addr);
+            $port = 443 ;
+            $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
+            $addr = str_replace('https://', 'ssl://', $addr) ;
+        } elseif (stripos($addr, 'http') === 0) {
+            $port = 80 ;
+        } else {
+            $port = 80 ;
+        }
+        if (!$socket = @fsockopen($addr, $port, $errno, $errstr)) {
+            $logging->log("$errstr", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     protected function getSourceFilePath($flag = null){
