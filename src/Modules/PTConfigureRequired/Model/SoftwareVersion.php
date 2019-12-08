@@ -16,7 +16,8 @@ class SoftwareVersion {
     private function getShortVersionNumber($versionNumber) {
         $shortNum = "" ;
         for ($i=0; $i<strlen($versionNumber); $i++) {
-            if (in_array($versionNumber[$i], array("1","2","3","4","5","6","7","8","9","0")) || $versionNumber[$i] == ".") {
+            $is_int = in_array($versionNumber[$i], array("1","2","3","4","5","6","7","8","9","0")) ;
+            if ($is_int || $versionNumber[$i] == ".") {
                 $shortNum .= $versionNumber[$i]; }
             else {
                 break ; } }
