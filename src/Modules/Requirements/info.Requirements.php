@@ -13,24 +13,24 @@ class RequirementsInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "Requirements" => array_merge(array("help", "run") ) );
+      return array( "Requirements" => array_merge(array("help", "run", "install") ) );
     }
 
     public function routeAliases() {
-      return array("role-execution" => "Requirements", "rolex" => "Requirements",
-          "roleexecution" => "Requirements");
+      return array("req" => "Requirements", "requirements-install" => "Requirements",
+          "requirements" => "Requirements");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
   This module handles Running methods from Other Pharaoh Tools.
 
-  Requirements, roleexecution, rolex, role-execution
+  requirements, req, requirements-install
 
         - run
         Will roleexecution a file or directory from one location to another
-        example: ptconfigure rolex run
-        example: ptconfigure rolex run -yg --tool=
+        example: ptconfigure req run
+        example: ptconfigure req run -yg --tool=
                     --module={Module Name}
                     --action={Action Name}
                     --params="param1:value1,param2:value2"
