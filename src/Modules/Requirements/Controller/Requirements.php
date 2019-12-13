@@ -15,7 +15,7 @@ class Requirements extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="run") {
+        if (in_array($action, array("run"))) {
             $this->content["result"] = $thisModel->performRequirements();
             return array ("type"=>"view", "view"=>"Requirements", "pageVars"=>$this->content); }
 
