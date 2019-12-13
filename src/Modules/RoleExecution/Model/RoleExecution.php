@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class PharaohToolRunner extends BaseModelFactory {
+class RoleExecution extends BaseModelFactory {
 
 }

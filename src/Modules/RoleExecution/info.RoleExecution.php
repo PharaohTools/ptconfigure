@@ -2,37 +2,35 @@
 
 Namespace Info;
 
-class PharaohToolRunnerInfo extends PTConfigureBase {
+class RoleExecutionInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "PharaohToolRunner Functionality";
+    public $name = "RoleExecution Functionality";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "PharaohToolRunner" => array_merge(array("help", "run") ) );
+      return array( "RoleExecution" => array_merge(array("help", "run") ) );
     }
 
     public function routeAliases() {
-      return array("pharaohtoolrunner" => "PharaohToolRunner", "ptrunner" => "PharaohToolRunner",
-          "pt-runner" => "PharaohToolRunner");
+      return array("role-execution" => "RoleExecution", "rolex" => "RoleExecution",
+          "roleexecution" => "RoleExecution");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
   This module handles Running methods from Other Pharaoh Tools.
 
-  PharaohToolRunner, pharaohtoolrunner
+  RoleExecution, roleexecution, rolex, role-execution
 
         - run
-        Will pharaohtoolrunner a file or directory from one location to another
-        example: ptconfigure pharaohtoolrunner run
-        example: ptconfigure pharaohtoolrunner run
-                    --yes
-                    --tool={configure,deploy,build or any prefixes}
+        Will roleexecution a file or directory from one location to another
+        example: ptconfigure rolex run
+        example: ptconfigure rolex run -yg --tool=
                     --module={Module Name}
                     --action={Action Name}
                     --params="param1:value1,param2:value2"

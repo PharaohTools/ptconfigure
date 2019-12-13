@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class PharaohToolRunner extends Base {
+class RoleExecution extends Base {
 
     public function execute($pageVars) {
 
@@ -16,8 +16,8 @@ class PharaohToolRunner extends Base {
         $this->content["route"] = $pageVars["route"] ;
 
         if ($action=="run") {
-            $this->content["result"] = $thisModel->askWhetherToPharaohToolRunnerPut();
-            return array ("type"=>"view", "view"=>"PharaohToolRunner", "pageVars"=>$this->content); }
+            $this->content["result"] = $thisModel->performRoleExecution();
+            return array ("type"=>"view", "view"=>"RoleExecution", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";
