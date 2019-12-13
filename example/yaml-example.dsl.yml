@@ -1,0 +1,40 @@
+---
+
+- RunCommand[execute]:
+    label: "Stop this Autopilot if the run type parameter is not set"
+    command: "exit 1"
+    not_when: "{{{ Param::run_type }}}"
+    guess: true
+
+- Logging[log]:
+    message: "This is the first Pharaoh Yaml DSL, user is {{ loop }}"
+    guess: true
+    loop:
+      - dave
+      - mike
+      - tom
+
+- Logging[log]:
+    message: "This is the first Pharaoh Yaml DSL, a name is {{ loop->title }} a height is {{ loop->height }}, do you like php? {{ loop->php }}"
+    guess: true
+    loop:
+      dave:
+        height: 6.5
+        php: 'yes'
+      mike:
+        height: 5.6
+        php: 'no'
+      tom:
+        height: 5.5
+        php: 'no'
+
+#
+#Logging: message
+#  message:
+#    - user_one:
+#      - height: "5.5"
+#      - name: "Dave"
+#    - user_two:
+#      - height: "5.5"
+#      - name: "Dave"
+#  guess: true

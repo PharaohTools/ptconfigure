@@ -1,0 +1,5 @@
+---
+
+- requirements:
+  - mysql: "ssh://ptgit@repositories.internal.pharaohtools.com/git/public/ptc_mysql_role"
+  - apache: "ssh://ptgit@repositories.internal.pharaohtools.com/git/public/ptc_apache_role"

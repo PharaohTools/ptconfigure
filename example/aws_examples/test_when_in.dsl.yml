@@ -1,0 +1,35 @@
+---
+
+- Logging[log]:
+    message: "NEXT - WHEN Parameter rayval EXISTS"
+
+- Logging[log]:
+    message: "WHEN Parameter rayval EXISTS - YES"
+    when: "{{{ param::rayval }}}"
+
+- Logging[log]:
+    message: "NEXT - WHEN Parameter rayval IS in one or two"
+
+- Logging[log]:
+    message: "WHEN Parameter rayval IS in one or two - YES"
+    when: "{{{ param::rayval }}}"
+    when_in:
+      - one
+      - two
+
+- Logging[log]:
+    message: "NEXT - WHEN Parameter rayval IS NOT in one or two"
+
+- Logging[log]:
+    message: "NOT WHEN Parameter rayval IS in one or two - YES"
+    not_when: "{{{ param::rayval }}}"
+    not_when_in:
+      - one
+      - two
+
+- Logging[log]:
+    message: "NEXT - NOT WHEN Parameter rayval EXISTS"
+
+- Logging[log]:
+    message: "NOT WHEN Parameter rayval EXISTS"
+    not_when: "{{{ param::rayval }}}"
