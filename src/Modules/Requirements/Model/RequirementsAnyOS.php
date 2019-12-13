@@ -18,7 +18,14 @@ class RequirementsAnyOS extends Base {
         if ($this->askForRequirementsExecute() != true) {
             return false ;
         }
+
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         $requirements = $this->getRequirementsObject();
+        if ($requirements === false) {
+            $logging->log("Unable to load Requirements", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false ;
+        }
 //
         return $this->executeAllRequirements($requirements) ;
     }
@@ -26,45 +33,44 @@ class RequirementsAnyOS extends Base {
     protected function getRequirementsObject() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-//        $logging->log("Loading Requirements Object", $this->getModuleName());
         $logging->log("Loading Requirements", $this->getModuleName());
-
-        $requirements_dir = $this->getRequirementsDirectory() ;
-        $requirements_path = $requirements_dir.'requirements.yml' ;
+        $requirements_path = $this->getRequirementsFile() ;
         $logging->log("Using Requirements Path of $requirements_path", $this->getModuleName());
+        if (!file_exists($requirements_path)) {
+            $logging->log("Unable to find file $requirements_path", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            return false ;
+        }
         $requirements = $this->yamlParser($requirements_path) ;
+        $requirements = $requirements[0] ;
         return $requirements ;
     }
-
 
     protected function executeAllRequirements($requirements) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting Requirements Install", $this->getModuleName());
-
+        $role_dir = $this->getRolesDirectory() ;
         foreach ($requirements as $requirement) {
-
-
-            var_dump($requirement) ;
-
-//            if (!is_dir($full_role_dir)) {
-//                $logging->log("Unable to find role directory {$full_role_dir}", $this->getModuleName()) ;
-//                return false ;
-//            }
-
-            $comm  = 'cd  '.getcwd().DS. ' && ' ;
-            $comm .= 'ptconfigure auto x ' ;
-            $comm .= '--af="'.$requirement_object->role_path.'" ' ;
-            $comm .= ' --vars="'.implode(',', $requirement_object->vars).'" ;' ;
-
-            $logging->log("Executing $comm", $this->getModuleName()) ;
-//            $res = 0 ;
-            $res = $this->liveOutput($comm) ;
-            if ($res == 0) {
-                $logging->log("Requirement Execution Successful", $this->getModuleName()) ;
+            $keys = array_keys($requirement) ;
+            $new_role_directory = $keys[0] ;
+            $git_source_url = $requirement[$new_role_directory] ;
+            $full_role_dir = $role_dir.$new_role_directory ;
+            if (is_dir($full_role_dir)) {
+                $logging->log("Role exists at path {$full_role_dir}, skipping ", $this->getModuleName()) ;
+                continue ;
             } else {
-                $logging->log("Requirement Execution Failed", $this->getModuleName()) ;
-                return false ;
+                $logging->log("Installing Role {$new_role_directory} to path {$full_role_dir} ", $this->getModuleName()) ;
+                $comm  = 'git clone ' ;
+                $comm .= $git_source_url.' ' ;
+                $comm .= $full_role_dir ;
+                $logging->log("Executing $comm", $this->getModuleName()) ;
+                $res = $this->liveOutput($comm) ;
+                if ($res == 0) {
+                    $logging->log("Requirement Execution Successful", $this->getModuleName()) ;
+                } else {
+                    $logging->log("Requirement Execution Failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                    return false ;
+                }
             }
         }
         return true ;
@@ -91,11 +97,11 @@ class RequirementsAnyOS extends Base {
         $process->start();
 
         foreach ($process as $type => $data) {
-            if ($process::OUT === $type) {
-                echo $data;
-            } else { // $process::ERR === $type
-                echo "ERR: ".$data;
-            }
+            echo $data;
+//            if ($process::OUT === $type) {
+//            } else { // $process::ERR === $type
+//                echo "ERR: ".$data;
+//            }
         }
         return $process->getExitCode();
     }
@@ -120,21 +126,7 @@ class RequirementsAnyOS extends Base {
         return getcwd().DS.'roles'.DS ;
     }
 
-    protected function getRequirementsDirectory() {
-        if (isset($this->params["requirements-dir"]) &&
-            strlen($this->params["requirements-dir"])>0) {
-                if (substr($this->params["requirements-dir"], -1, 1) !== DS) {
-                    $this->params["requirements-dir"] .= DS ;
-                }
-                if (is_dir(getcwd().DS.$this->params["requirements-dir"])) {
-                    return getcwd().DS.$this->params["requirements-dir"] ;
-                }
-                return $this->params["requirements-dir"] ;
-        }
-        return getcwd().DS.'requirements'.DS ;
-    }
-
-    protected function getRequirementFile() {
+    protected function getRequirementsFile() {
         if (isset($this->params["requirements-file"])) { return $this->params["requirements-file"] ; }
         return getcwd().DS.'requirements.yml' ;
     }
