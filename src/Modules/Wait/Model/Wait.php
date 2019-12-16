@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class Upload extends BaseModelFactory {
+class Wait extends BaseModelFactory {
 
 }

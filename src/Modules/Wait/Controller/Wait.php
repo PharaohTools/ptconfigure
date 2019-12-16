@@ -2,7 +2,7 @@
 
 Namespace Controller ;
 
-class Upload extends Base {
+class Wait extends Base {
 
     public function execute($pageVars) {
 
@@ -15,9 +15,9 @@ class Upload extends Base {
         $action = $pageVars["route"]["action"];
         $this->content["route"] = $pageVars["route"] ;
 
-        if ($action=="file") {
-            $this->content["result"] = $thisModel->askWhetherToUpload();
-            return array ("type"=>"view", "view"=>"Upload", "pageVars"=>$this->content); }
+        if ($action=="time") {
+            $this->content["result"] = $thisModel->performWait();
+            return array ("type"=>"view", "view"=>"Wait", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);
         $this->content["messages"][] = "Action $action is not supported by ".get_class($this)." Module";

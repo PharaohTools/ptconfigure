@@ -2,10 +2,10 @@
 
 Namespace Model;
 
-class UploadNonWindows extends BaseLinuxApp {
+class WaitAllOS extends BaseLinuxApp {
 
     // Compatibility
-    public $os = array('Linux', 'Darwin') ;
+    public $os = array('any') ;
     public $linuxType = array("any") ;
     public $distros = array("any") ;
     public $versions = array("any") ;
@@ -14,45 +14,20 @@ class UploadNonWindows extends BaseLinuxApp {
     // Model Group
     public $modelGroup = array("Default") ;
 
-    public function askWhetherToUpload() {
-        return $this->performUpload();
-    }
-
-    protected function attemptToLoad($sourceDataPath){
-        if (file_exists($sourceDataPath)) {
-            return file_get_contents($sourceDataPath) ; }
-        else {
-            return null ; }
-    }
-
-    public function performUpload() {
-        $sourceDataPath = $this->getSourceFilePath("remote");
-        $targetPath = $this->getTargetFilePath("local");
+    public function performWait() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Performing Upload...", $this->getModuleName());
-        $res = $this->packageUpload($sourceDataPath, $targetPath) ;
-        if ($res == true) {
-            $logging->log("Upload Completed Successfully...", $this->getModuleName());
-            return true;
-        }
-        $logging->log("Upload Failed...", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
-        return false;
+        $wait_amout = $this->getWaitAmount() ;
+        $logging->log("Performing Wait of {$wait_amout} seconds...", $this->getModuleName());
+        sleep($wait_amout) ;
+        $logging->log("Wait Completed Successfully...", $this->getModuleName());
+        return true;
     }
 
-    protected function getSourceFilePath($flag = null){
-        if (isset($this->params["source"])) { return $this->params["source"] ; }
-        if (isset($flag)) { $question = "Enter $flag source file path" ; }
-        else { $question = "Enter source file path"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
+    protected function getWaitAmount() {
+        if (isset($this->params["seconds"])) { return $this->params["seconds"] ; }
+        if (isset($this->params["sec"])) { return $this->params["sec"] ; }
+        return 10 ;
     }
 
-    protected function getTargetFilePath($flag = null){
-        if (isset($this->params["target"])) { return $this->params["target"] ; }
-        if (isset($flag)) { $question = "Enter $flag target file path" ; }
-        else { $question = "Enter target file path"; }
-        $input = self::askForInput($question) ;
-        return ($input=="") ? false : $input ;
-    }
 }

@@ -2,34 +2,35 @@
 
 Namespace Info;
 
-class UploadInfo extends PTConfigureBase {
+class WaitInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Upload Functionality";
+    public $name = "Wait Functionality";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "Upload" => array_merge(parent::routesAvailable(), array("file") ) );
+      return array( "Wait" => array_merge(parent::routesAvailable(), array("time") ) );
     }
 
     public function routeAliases() {
-      return array("upload" => "Upload");
+      return array("wait" => "Wait");
     }
 
   public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module handles HTTP File Upload Functions.
+  This module handles Waiting for a defined time
 
-  Upload, upload
+  Wait, wait
 
-        - file
-        Will ask you for a Source URL, Target IP, Authentication Method / Credentials to upload a File
-        example: ptconfigure upload file
-        example: ptconfigure upload file --yes --source="/tmp/myfile.html" --target="http://www.google.co.uk"
+        - time
+        Will wait for a specified period of time
+        example: ptconfigure wait time
+        example: ptconfigure wait time -yg # will guess 10 seconds
+        example: ptconfigure wait time -yg --seconds="10"
 
 HELPDATA;
       return $help ;
