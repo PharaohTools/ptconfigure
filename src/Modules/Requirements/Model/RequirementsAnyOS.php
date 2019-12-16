@@ -95,7 +95,6 @@ class RequirementsAnyOS extends Base {
         $process = new \Symfony\Component\Process\Process($comm);
         $process->setTimeout(0);
         $process->start();
-
         foreach ($process as $type => $data) {
             echo $data;
 //            if ($process::OUT === $type) {
