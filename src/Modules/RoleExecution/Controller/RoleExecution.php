@@ -17,6 +17,10 @@ class RoleExecution extends Base {
 
         if ($action=="run") {
             $this->content["result"] = $thisModel->performRoleExecution();
+            return array ("type"=>"view", "view"=>"RoleExecution", "pageVars"=>$this->content); }        $this->content["route"] = $pageVars["route"] ;
+
+        if ($action=="steps") {
+            $this->content["result"] = $thisModel->performStepsExecution();
             return array ("type"=>"view", "view"=>"RoleExecution", "pageVars"=>$this->content); }
 
         \Core\BootStrap::setExitCode(1);

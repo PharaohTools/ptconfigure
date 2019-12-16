@@ -13,7 +13,7 @@ class RoleExecutionInfo extends PTConfigureBase {
     }
 
     public function routesAvailable() {
-      return array( "RoleExecution" => array_merge(array("help", "run") ) );
+      return array( "RoleExecution" => array_merge(array("help", "run", "steps") ) );
     }
 
     public function routeAliases() {
@@ -30,10 +30,18 @@ class RoleExecutionInfo extends PTConfigureBase {
         - run
         Will roleexecution a file or directory from one location to another
         example: ptconfigure rolex run
-        example: ptconfigure rolex run -yg --tool=
-                    --module={Module Name}
-                    --action={Action Name}
-                    --params="param1:value1,param2:value2"
+        example: ptconfigure rolex run -yg 
+        example: ptconfigure rolex run -yg --roledir=roles
+        example: ptconfigure rolex run -yg --rolefile=roles.yml
+        example: ptconfigure rolex run -yg --roledir=roles --rolefile=roles.yml
+
+        - steps
+        Will roleexecution a file or directory from one location to another
+        example: ptconfigure rolex steps
+        example: ptconfigure rolex steps -yg 
+        example: ptconfigure rolex steps -yg --roledir=roles
+        example: ptconfigure rolex steps -yg --rolefile=steps.yml
+        example: ptconfigure rolex steps -yg --roledir=roles --rolefile=steps.yml
 
 HELPDATA;
       return $help ;
