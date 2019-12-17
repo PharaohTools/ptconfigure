@@ -202,7 +202,14 @@ class RoleExecutionAnyOS extends Base {
                 $comm  = 'cd  '.getcwd().DS. ' && ' ;
                 $comm .= 'ptconfigure auto x ' ;
                 $comm .= '--af="'.$role_object->role_path.'" ' ;
-                $comm .= ' --vars="'.implode(',', $role_object->vars).'" ;' ;
+                if (isset($role_object->vars)) {
+                    if (is_string($role_object->vars)) {
+                        $stringy = $role_object->vars ;
+                    } elseif (is_array($role_object->vars)) {
+                        $stringy = implode(',', $role_object->vars) ;
+                    }
+                    $comm .= ' --vars="'.$stringy.'" ;' ;
+                }
                 $logging->log("Executing $comm", $this->getModuleName()) ;
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
