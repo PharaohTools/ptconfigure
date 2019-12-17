@@ -35,9 +35,9 @@ class RoleExecutionAnyOS extends Base {
 
         foreach ($steps as $step) {
             if ($step['type'] == 'role') {
-                echo "{$step['type']}, {$step['name']}" ;
+                echo "{$step['type']}, {$step['name']}\n" ;
             } else if ($step['type'] == 'auto') {
-                echo "{$step['type']}, {$step['path']}" ;
+                echo "{$step['type']}, {$step['path']}\n" ;
             }
         }
 
