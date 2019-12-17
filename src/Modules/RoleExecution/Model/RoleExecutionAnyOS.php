@@ -43,7 +43,9 @@ class RoleExecutionAnyOS extends Base {
         $logging->log("Using Role Index of $role_path", $this->getModuleName());
         $object = new \StdClass() ;
         $object->role_path = $role_path ;
-        $object->vars = $config->vars ;
+        if (isset($config->vars)) {
+            $object->vars = $config->vars ;
+        }
         return $object ;
     }
 
