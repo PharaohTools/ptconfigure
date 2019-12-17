@@ -89,7 +89,8 @@ COMPLETION;
             // echo "chmod +x $tempFile 2>/dev/null\n";
             shell_exec("chmod +x $tempFile 2>/dev/null"); }
 //        $logging->log("Changing $tempFile Permissions", $this->getModuleName());
-//        $logging->log("Executing $tempFile", $this->getModuleName());
+        $logging->log("Executing $tempFile", $this->getModuleName());
+
         // @todo this should refer to the actual shell we are running
         $commy = "{$tempFile}" ;
         $rc = $this->executeAndGetReturnCode($commy, true) ;
@@ -182,13 +183,12 @@ COMPLETION;
                 shell_exec("chmod 755 $tempFile 2>/dev/null");
                 shell_exec("chmod +x $tempFile 2>/dev/null"); }
 
-
             $ex_string = '-ex' ;
             if ($quiet_shell !== null) {
                 $ex_string = '' ;
             }
 
-            $proc = proc_open("bash -e $tempFile", array(
+            $proc = proc_open("bash ".$ex_string." $tempFile", array(
                 0 => array("pipe","r"),
                 1 => array("pipe",'w'),
                 2 => array("pipe",'w'),
@@ -260,7 +260,6 @@ COMPLETION;
                 return $retVal; }
         }
 
-
     }
 
     protected function setCmdLineParams($params) {
@@ -294,6 +293,7 @@ COMPLETION;
                 $paramKey = "guess" ;
                 $paramValue = "true" ; }
             else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') != null ) {
+
                 $orig_pv = $paramValue ;
                 $equalsPos = strpos($paramValue, "=") ;
                 $paramKey = substr($paramValue, 2, $equalsPos-2) ;
@@ -305,6 +305,8 @@ COMPLETION;
                     if (is_array($try_unserialize)) {
                         $paramValue = $try_unserialize ; }
                 } }
+
+
             else if (substr($paramValue, 0, 2)=="--" && strpos($paramValue, '=') == false ) {
                 $paramKey = substr($paramValue, 2) ;
                 $paramValue = true ; }
@@ -471,8 +473,10 @@ COMPLETION;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
         $logging->log("No value set for requested Parameter {$param_requested}", $this->getModuleName() ) ;
+
 //        $vars[$var] = false ;
 //        \Model\RegistryStore::setValue("runtime_variables", $vars);
+
         return false ;
     }
 
@@ -500,15 +504,18 @@ COMPLETION;
         $logging->log("No value set for requested Variable \${$var_requested}", $this->getModuleName()) ;
         $vars[$var_requested] = false ;
         \Model\RegistryStore::setValue("runtime_variables", $vars);
+
         return false ;
     }
 
     protected function loadSingleVariable($var) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
+
         if (substr($var, -1, 1) === '"') {
             $var = rtrim($var, '"') ;
         }
+
         $vars = \Model\RegistryStore::getValue("runtime_variables");
         if (is_null($vars)) {
             $logging->log("Populating Runtime Variables", $this->getModuleName()) ;
@@ -524,11 +531,13 @@ COMPLETION;
             $res = $vg->getVariables() ;
             $runtime_vars = (is_null($res)) ? array() : $res ;
             \Model\RegistryStore::setValue("runtime_variables", $runtime_vars);
+
             $vars = $runtime_vars ; }
         if (isset($vars[$var])) { return $vars[$var] ; }
         $logging->log("No value set for requested Variable \${$var} ", $this->getModuleName()) ;
         $vars[$var] = false ;
         \Model\RegistryStore::setValue("runtime_variables", $vars);
+
         return false ;
     }
 

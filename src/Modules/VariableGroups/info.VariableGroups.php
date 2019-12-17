@@ -5,7 +5,6 @@ Namespace Info;
 class VariableGroupsInfo extends PTConfigureBase {
 
     public $hidden = false;
-
     public $name = "Use Variable Files in Autopilots.";
 
     public function __construct() {
@@ -22,6 +21,7 @@ class VariableGroupsInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
+
   This module allows you to use Variable Files in Autopilots.
 
   VariableGroups, variablegroups
@@ -30,7 +30,6 @@ class VariableGroupsInfo extends PTConfigureBase {
         Dump all existing Variables to console
         example: ptconfigure variablegroups dump
         example: ptconfigure variablegroups dump -yg
-        example: ptconfigure variablegroups dump -yg --source="" --target=""
 
 HELPDATA;
       return $help ;

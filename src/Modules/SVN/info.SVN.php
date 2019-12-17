@@ -23,7 +23,7 @@ class SVNInfo extends PTConfigureBase {
     public function helpDefinition() {
       $help = <<<"HELPDATA"
   This module allows you to install the latest available SVN in the Ubuntu
-  repositories.
+  repositories. Also handles SVN Checkout Functions.
 
   SVN, svn
 
@@ -38,6 +38,14 @@ class SVNInfo extends PTConfigureBase {
         - uninstall
         Installs the latest version of SVN
         example: ptconfigure svn uninstall
+
+
+  Checkout, checkout, co
+
+        - perform a checkout into configured projects folder. If you don't want to specify target dir but do want
+        to specify a branch, then enter the text "none" as that parameter.
+        example: ptdeploy svn co https://svnhub.com/phpengine/yourmum {optional target dir} {optional branch}
+        example: ptdeploy svn co https://svnhub.com/phpengine/yourmum none {optional branch}
 
 HELPDATA;
       return $help ;

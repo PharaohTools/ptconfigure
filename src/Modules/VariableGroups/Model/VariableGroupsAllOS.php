@@ -77,6 +77,7 @@ class VariableGroupsAllOS extends Base {
         else {
             $logging->log("Unable to load Variable Set from {$set}", $this->getModuleName());
         }
+
         if (isset($variables) && (is_array($variables))) { return $variables ; }
         return array();
     }

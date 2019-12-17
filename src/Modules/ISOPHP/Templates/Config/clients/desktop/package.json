@@ -1,0 +1,56 @@
+{
+  "name": "<%tpl.php%>project_slug</%tpl.php%>",
+  "displayName": "<%tpl.php%>project_slug</%tpl.php%>",
+  "version": "1.0.0",
+  "author": "<%tpl.php%>author_name</%tpl.php%>",
+  "license": "none",
+  "description": "<%tpl.php%>project_description_desktop</%tpl.php%>",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "node fs > /dev/null && (browserify app --standalone=<%tpl.php%>project_slug</%tpl.php%> | uglifyjs > uniter_bundle/bundle.js)",
+    "webpack": "webpack"
+  },
+  "repository": "https://anon:any@source.internal.pharaohtools.com/git/public/<%tpl.php%>project_slug</%tpl.php%>/",
+  "keywords": [
+    "PharaohTools",
+    "uniter",
+    "php",
+    "Electron",
+    "browserify",
+    "fs"
+  ],
+  "dependencies": {
+    "electron": "1.6.2",
+    "jquery": "^2.1.4",
+    "uuid": "^3.0.0",
+    "json-loader": "^0.5.1",
+    "uglifyify": "^3.0.1",
+    "uniter": "^1.0",
+    "browserify": "^10.2.0",
+    "globby": "^2.0.0",
+    "node-libs-browser": "^0.5.0",
+    "uglify-js": "^2.4.23",
+    "webpack": "^1.9.7",
+    "phpjs": "^1.3.2"
+  },
+  "devDependencies": {
+    "electron": "1.6.2",
+    "jquery": "^2.1.4",
+    "uuid": "^3.0.0",
+    "json-loader": "^0.5.1",
+    "uglifyify": "^3.0.1",
+    "uniter": "^1.0",
+    "browserify": "^10.2.0",
+    "globby": "^2.0.0",
+    "node-libs-browser": "^0.5.0",
+    "uglify-js": "^2.4.23",
+    "webpack": "^1.9.7",
+    "phpjs": "^1.3.2"
+  },
+  "browserify": {
+    "transform": [
+      "uglifyify"
+    ]
+  }
+}

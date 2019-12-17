@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description><%tpl.php%>project_description</%tpl.php%></description>
+  <logRotator>
+    <daysToKeep><%tpl.php%>days_to_keep</%tpl.php%></daysToKeep>
+    <numToKeep><%tpl.php%>num_to_keep</%tpl.php%></numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.gitbucket.GitBucketProjectProperty plugin="gitbucket@0.5.1">
+      <linkEnabled>false</linkEnabled>
+    </org.jenkinsci.plugins.gitbucket.GitBucketProjectProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+      <projectUrl><%tpl.php%>github_url</%tpl.php%></projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+      <skip>true</skip>
+    </org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name></name>
+        <refspec></refspec>
+        <url><%tpl.php%>github_url</%tpl.php%></url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name><%tpl.php%>source_branch_spec</%tpl.php%></name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <useShallowClone>false</useShallowClone>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <reference></reference>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <includedRegions></includedRegions>
+    <scmName></scmName>
+    <submoduleCfg class="list"/>
+    <extensions>
+    <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>deployed</relativeTargetDir>
+    </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers></triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+cd $WORKSPACE/deployed
+echo "Just Deploying"
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+<command>#!/bin/bash
+echo &quot;Running PTTest Executors for <%tpl.php%>build_type</%tpl.php%>...&quot;&#xd;
+cd $WORKSPACE/deployed
+# sudo testingkamen autopilot execute --autopilot-file=&quot;build/config/testingkamen/autopilots/<%tpl.php%>build_type</%tpl.php%>.php&quot;</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+<command>#!/bin/bash
+echo &quot;BUILD SUCCESSFUL&quot;</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+      <hudson.plugins.postbuildtask.PostbuildTask plugin="postbuild-task@1.8">
+          <tasks>
+              <hudson.plugins.postbuildtask.TaskProperties>
+                  <logTexts>
+                      <hudson.plugins.postbuildtask.LogProperties>
+                          <logText>BUILD SUCCESSFUL</logText>
+                          <operator>AND</operator>
+                      </hudson.plugins.postbuildtask.LogProperties>
+                  </logTexts>
+                  <EscalateStatus>false</EscalateStatus>
+                  <RunIfJobSuccessful>true</RunIfJobSuccessful>
+                  <script>#!/bin/bash&#xd;
+echo &quot;Successful Build, deploying to Production&quot;&#xd;
+cd $WORKSPACE/deployed
+CHANGEDFILES=`git diff --name-only HEAD~1 HEAD`
+echo &quot;CHANGED FILES:&quot;
+echo &quot;$CHANGEDFILES&quot;
+echo &quot;Running Application Installation...&quot;&#xd;
+case &quot;*db/database.sql*&quot; in
+*&quot;$CHANGEDFILES&quot;*)
+echo &quot;Database File database.sql has been changed, so we will install it in our deployment&quot; ;
+echo &quot;sudo ptdeploy autopilot execute --autopilot-file=<%tpl.php%>autopilot-prod-invoke-dbinstall-install-file</%tpl.php%>&quot;;
+  sudo ptdeploy autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-prod-invoke-dbinstall-install-file</%tpl.php%>&quot;;;
+*)
+echo &quot;Database File database.sql has not been changed, so we will not modify database in our deployment&quot;;
+echo &quot;sudo ptdeploy autopilot execute --autopilot-file=<%tpl.php%>autopilot-prod-invoke-dbconf-install-file</%tpl.php%>&quot;;
+sudo ptdeploy autopilot execute --autopilot-file=&quot;<%tpl.php%>autopilot-prod-invoke-dbconf-install-file</%tpl.php%>&quot;;;
+esac</script>
+              </hudson.plugins.postbuildtask.TaskProperties>
+          </tasks>
+      </hudson.plugins.postbuildtask.PostbuildTask>
+      <hudson.tasks.Mailer plugin="mailer@1.8">
+        <recipients><%tpl.php%>error-email</%tpl.php%></recipients>
+        <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+        <sendToIndividuals>true</sendToIndividuals>
+      </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

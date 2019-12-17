@@ -40,6 +40,19 @@ class PHPSSHMac extends PHPSSHUbuntu {
         return $ret ;
     }
 
+    protected function getPHPVersion() {
+        $text = $this->executeAndLoad("php -v") ;
+        $lines = explode("\n", $text) ;
+        foreach ($lines as $line) {
+            if (substr($line, 0, 5) == "PHP 5") {
+                $phpline = $line ;
+                break ; } }
+//        var_dump(substr($phpline, 0, 5), substr($phpline, 4, 3)) ;
+        $php_version_string = substr($phpline, 4, 3) ;
+        $digits_only = str_replace(".", "", $php_version_string) ;
+        return $digits_only ;
+    }
+
     public function ensurePHPIniFile() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -110,7 +123,6 @@ class PHPSSHMac extends PHPSSHUbuntu {
             $logging->log("Unable to find PHP SSH Extension", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ;
         }
-
 
         $logging->log("Removing any old extension line from PHP Ini", $this->getModuleName()) ;
         $iniFileLocation = '/private/etc/php.ini' ;

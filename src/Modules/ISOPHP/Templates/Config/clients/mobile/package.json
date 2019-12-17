@@ -1,0 +1,56 @@
+{
+    "name": "<%tpl.php%>project_slug</%tpl.php%>",
+    "displayName": "<%tpl.php%>project_slug</%tpl.php%>",
+    "version": "1.0.0",
+    "description": "<%tpl.php%>project_description_mobile</%tpl.php%>",
+    "main": "index.js",
+    "scripts": {
+        "build": "browserify app --standalone=<%tpl.php%>project_slug</%tpl.php%>/ | uglifyjs > www/uniter_bundle/bundle.js",
+        "webpack": "webpack"
+    },
+    "author": "<%tpl.php%>author_name</%tpl.php%>",
+    "license": "none",
+    "repository": "https://anon:any@source.internal.pharaohtools.com/git/public/<%tpl.php%>project_slug</%tpl.php%>/",
+    "dependencies": {
+        "async": "^2.1.4",
+        "browserify": "^10.2.0",
+        "contacts": "^1.0.0",
+        "cordova-android": "^6.2.3",
+        "cordova-ios": "^4.4.0",
+        "cordova-plugin-whitelist": "^1.3.2",
+        "cordova-webos": "^3.7.0",
+        "globby": "^2.0.0",
+        "jquery": "^2.1.4",
+        "json-loader": "^0.5.1",
+        "node-libs-browser": "^0.5.0",
+        "phpjs": "^1.3.2",
+        "socket.io": "1.2.0",
+        "uglify-js": "^2.4.23",
+        "uglifyify": "^3.0.1",
+        "uniter": "^1.0",
+        "uuid": "^3.0.0",
+        "webpack": "^1.9.7",
+        "whitelist": "^1.0.2"
+    },
+    "browserify": {
+        "transform": [
+            "uglifyify"
+        ]
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-whitelist": {}
+        },
+        "platforms": [
+            "android"
+        ]
+    },
+    "keywords": [
+        "PharaohTools",
+        "uniter",
+        "cordova",
+        "php",
+        "browserify",
+        "fs"
+    ]
+}

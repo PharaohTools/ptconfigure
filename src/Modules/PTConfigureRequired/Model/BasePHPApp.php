@@ -348,11 +348,9 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
 
     protected function saveExecutorFile(){
         if (isset($this->params["no-executor"])) { return true ; }
-
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Preparing to save executor file", $this->getModuleName()) ;
-
         if (in_array(PHP_OS, array("Windows", "WINNT"))) {
             $file_ext = '.cmd' ; }
         else {

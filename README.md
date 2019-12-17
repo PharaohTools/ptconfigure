@@ -11,7 +11,6 @@ systems with one or two PHP files, or our friendly DSL.
 This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
-
 ## Quick Examples
 
 # Create a Pharaoh Environment in your Papyrusfile to store servers in

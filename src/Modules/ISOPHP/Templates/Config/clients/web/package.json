@@ -1,0 +1,41 @@
+{
+  "name": "<%tpl.php%>project_slug</%tpl.php%>",
+  "displayName": "<%tpl.php%>project_slug</%tpl.php%>",
+  "version": "1.0.0",
+  "author": "<%tpl.php%>author_name</%tpl.php%>",
+  "license": "none",
+  "description": "<%tpl.php%>project_description_web</%tpl.php%>",
+  "main": "main.js",
+  "scripts": {
+    "build": "node fs > /dev/null && ( browserify app --standalone=<%tpl.php%>project_slug</%tpl.php%> | uglifyjs > uniter_bundle/bundle.js)",
+    "webpack": "webpack"
+  },
+  "repository": "https://anon:any@source.internal.pharaohtools.com/git/public/<%tpl.php%>project_slug</%tpl.php%>",
+  "keywords": [
+    "PharaohTools",
+    "uniter",
+    "php",
+    "browserify",
+    "fs"
+  ],
+  "devDependencies": {
+    "jquery": "^2.1.4",
+    "uuid": "^3.0.0",
+    "json-loader": "^0.5.1",
+    "uglifyify": "^3.0.1",
+    "uniter": "^1.0",
+    "browserify": "^10.2.0",
+    "globby": "^2.0.0",
+    "uglify-js": "^2.4.23",
+    "webpack": "^1.9.7",
+    "async": "^2.1.4",
+    "phpjs": "^1.3.2" ,
+    "node-libs-browser": "^0.5.0",
+    "socket.io": "1.2.0"
+  },
+  "browserify": {
+    "transform": [
+      "uglifyify"
+    ]
+  }
+}

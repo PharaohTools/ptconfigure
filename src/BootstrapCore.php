@@ -23,13 +23,16 @@ class BootStrap {
     }
 
     public function main($argv_or_boot_params_null) {
+
         ini_set('display_errors', 0) ;
         ini_set('display_startup_errors', 0) ;
         date_default_timezone_set('Europe/London');
+
         $this->start = time() ;
         $date_format = date('H:i:s, d/m/Y', $this->start) ;
         $friendly = substr(PHARAOH_APP, 2) ;
         $friendly = ucfirst($friendly) ;
+
         $is_cli = $this->isCLI($argv_or_boot_params_null) ;
         if ($is_cli === true) {
             echo "[Pharaoh {$friendly}] [Start] Execution begun at ".$date_format.PHP_EOL;
@@ -39,6 +42,7 @@ class BootStrap {
         $emptyPageVars = array("messages"=>array(), "route"=>$route);
         $this->executeControl($route["control"], $emptyPageVars);
         $this->exitGracefully($is_cli);
+
     }
 
     public function executeControl($controlToExecute, $pageVars=null) {
@@ -52,6 +56,7 @@ class BootStrap {
         } catch (\Exception $e) {
             throw new \Exception( 'No controller result type specified', 0, $e);
         }
+
     }
 
     private function executeView($viewTemplate, $viewVars) {

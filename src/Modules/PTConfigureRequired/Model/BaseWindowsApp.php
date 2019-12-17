@@ -6,7 +6,6 @@ class BaseWindowsApp extends BaseLinuxApp {
 
     public $defaultStatusCommandPrefix = "where.exe";
     public $exeInstallFlags = '' ;
-
     public function __construct($params) {
         parent::__construct($params);
     }
@@ -120,6 +119,5 @@ class BaseWindowsApp extends BaseLinuxApp {
             $question = 'Enter '.$this->programNameInstaller.' Version';
             $this->params['version'] = self::askForArrayOption($question, $ao, true); }
     }
-
 
 }

@@ -53,7 +53,6 @@ class PackageManagerAllOS extends BaseLinuxApp {
         $this->setVersion($version) ;
         $this->setVersionAccuracy($versionAccuracy) ;
         $this->setModel($requestingModel) ;
-        # var_dump('PM AllOS performPackageEnsure') ;
         return $this->ensureInstalled();
     }
 

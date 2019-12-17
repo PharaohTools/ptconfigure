@@ -96,6 +96,7 @@ class AutopilotExecutor extends Base {
             $logging->log("Step Begun at {$date_format}", "Autopilot") ;
         }
         $modParams = $this->getModParamsFromArray($modelArray);
+//                var_dump('modray:', $modelArray, $autopilotParams) ;
         if ($should_run["should_run"] == false) {
             $step_out["status"] = true ;
             $step_out["out"] = "No need to run this step" ; }
@@ -112,7 +113,6 @@ class AutopilotExecutor extends Base {
             ob_start($buffer_handler, 1) ;
             $step_out = $this->executeStep($modelArray, $autopilotParams) ;
             ob_end_flush();
-
             if (isset($modParams["register"])) {
                 $reg = trim($modParams["register"],'"') ;
                 $reg = trim($reg,"'") ;
@@ -412,6 +412,8 @@ class AutopilotExecutor extends Base {
         foreach($modParams as $origParamKey => $origParamVal) {
             $resRay[] = $this->findLoopInParameterValue($origParamVal) ;
         }
+
+//        var_dump('loop ray', $modParams, $resRay) ;
 
         $logFactory = new \Model\Logging() ;
         $logging = $logFactory->getModel(array(), "Default") ;

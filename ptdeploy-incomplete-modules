@@ -1,0 +1,184 @@
+PTDeploy Incomplete Modules
+-------------------------------------
+
+/opt/ptdeploy/ptdeploy/src/Bootstrap.php
+line 8
+// @todo document this feature that allows a user to provide a json envoronment variable of parameters
+
+/opt/ptdeploy/ptdeploy/src/Core/Base/Controller/Base.php
+// @todo child controllers should specify this
+This is a massive method that specifies what to do as default actions .
+The method is too big, and this should nt be specified in core. This should be specified in the XXXRequired of
+an application, so, we copy this into PTConfigureRequired, PTDeployRequired, PTTestRequired etc
+line 114 // @todo we should be able to specify an alias as well as a module
+In an autopilot file we call modules by their exact name. since we have aliases we should be able to use them
+The below line needs to find whatever logic get alias from modulename and use that instead of module = currentKey
+So, it should look like:
+module = getModuleNameFromAliasIfNeeded($currentKey);
+
+
+/opt/ptdeploy/ptdeploy/src/Core/Base/Info/Base.php
+line 16 // @todo some app settings class should contain this instead, so an individual pyramid app can specify those
+this should nt be specified in core. This should be specified in the XXXRequired of
+an application, so, we copy this into PTConfigureRequired, PTDeployRequired, PTTestRequired etc
+
+
+
+
+--------------------------
+Below is all in trello
+--------------------------
+
+
+ModelGroups should be more modular.
+
+Dapperfy must use templateing like clefoy does
+
+remove references to $this->baseTempDir
+
+BUG FOUND
+-----------
+Github SSH prompt on first Connect!!
+write a flag file to ignore on first connection... or it'll hang waiting
+
+BUG FOUND
+-----------
+Github SSH prompt on first Connect!!
+write a flag file to ignore on first connection... or it'll hang waiting
+
+
+
+Concepts
+--------
+database should use templating for config
+git and svn should have web server reset functions removed
+
+Parameterize/Autopilotize
+-----------------------
+ApacheControl - Apache Server Control - DONE
+ApacheVHostEditor - Apache Virtual Host Functions - DONE
+AppSettings - PTDeploy Application Settings  - DONE
+Autopilot - Dappestrano Autopilot - User Defined Installations - DONE
+CukeConf - Cucumber Configuration - DONE
+DBConfigure - Database Connection Configuration Functions - DONE
+DBInstall - Database Installation Management Functions - DONE
+Dapperfy - PTDeploy Dapperfyer - Create some standard autopilots for your project - DONE MOST
+EnvironmentConfig - Environment Configuration - Configure Environments for a project  - DONE
+GitClone - GitClone Source Control Clone Functions - DONE
+HostEditor - Host File Management Functions - DONE
+Invoke - SSH Invocation Functions - DONE
+LighttpdControl - Lighttpd Server Control - WAIT
+Logging - Logging - Output errors to the logging - DONE
+NginxControl - Nginx Server Control - DONE
+NginxSBEditor - Nginx Server Block Functions
+ParallelSshChild - Command Execution Functions - WAIT
+Project - PTDeploy Project Management Functions
+SVN - SVN Source Control Project Checkout/Download Functions - DONE
+SystemDetection - System Detection - Detect the Running Operating System - DONE
+Version - Versioning Functions - DONE
+
+MVP Above Here
+-------------------------------------------------------------
+
+
+Not Done
+-----------
+Parallel SSH
+Mercurial
+Plain Copy - instead of SCM. This is so that you can asset build, etc on one box,
+  then you can just copy the built version (SCP probably) to your target machine.
+phpvm control
+phpvm vhc
+zend server control
+zend server vhc
+
+
+Not Done
+-----------
+CVS
+
+
+https://github.com/jokkedk/webgrind
+Webgrind is an Xdebug profiling Web front end in PHP 5. It implements a subset of the features of kcachegrind, installs in seconds and works on all platforms. For quick ‘n’ dirty optimizations, it does the job.
+
+PHPUnit
+PHPUnit is a complete port of the popular JUnit unit testing suite to PHP 5. It’s a tool that helps you test your Web application’s stability and scalability. Writing test cases within the PHPUnit framework is easy; here’s how to do it.
+
+SimpleTest
+SimpleTest is a straightforward unit-testing platform for PHP applications. To get up and running with SimpleTest quickly, read through this pragmatic tutorial that shows you how to create a new test case.
+
+PHP_CodeSniffer
+PHP_CodeSniffer is a PHP 5 script for detecting conformance to a predefined PHP coding standard. It’s a helpful tool for maintaining uniform coding styles for large projects and teams.
+
+xinc
+xinc is a continuous integration server version-control system written in PHP 5 (i.e. continuous builds instead of nightly builds). It works great with other systems such as Subversion and Phing.
+
+
+Documentation Tools
+-------------------
+PEAR – PHP Extension and Application Repository
+PEAR is a popular framework and distribution system for reusable PHP components. The purpose of the framework is to provide a structured library of open-source code for PHP users, a system for code distribution and package maintenance and a standard style for PHP code.
+
+Scavenger
+Scavenger is an open-source, real-time vulnerability management tool. It helps system administrators respond to vulnerability findings, track vulnerability findings and review accepted and false-positive answered vulnerabilities, without “nagging” them with old vulnerabilities.
+
+phpMyAdmin
+phpMyAdmin is a tool written in PHP intended to handle the administration of MySQL over the Web. Currently it can create and drop databases, create/drop/alter tables, delete/edit/add fields, execute any SQL statement, manage keys on fields, manage privileges, export data into various formats and is available in 50 languages. Development is backed up by the phpMyAdmin team.
+1999
+
+SquirrelMail
+SquirrelMail is a standards-based Webmail package. It includes built-in pure PHP support for the IMAP and SMTP protocols, and all pages are rendered in pure HTML 4.0 for maximum compatibility across browsers. It has very few requirements, and is very easy to configure and install. It has all the functionality you would want from an email client, including strong MIME support, address books, and folder manipulation.
+
+Piwik
+Piwik aims to be an open source alternative to Google Analytics. Piwik is a software that you download and install on your own webserver. At the end of the five minute installation process you will be given a JavaScript tag. Simply copy and paste this tag on websites you wish to track, or use an existing plugin to do it automatically for you.
+
+Open Atrium
+Open Atrium is a platform for building team portals that can be extended to meet highly custom knowledge management needs for large organizations’ intranets and extranets. It starts with “out of the box” features like a blog, a wiki, a calendar, a case tracker, a shoutbox, and a dashboard to manage content. These features can be expanded to meet unique needs for large organizations so that full scale enterprise collaboration sites can be built with Open Atrium as a base. By fully leveraging Drupal, all of the strengths of Drupal can contribute to creating custom features for Open Atrium within a framework that is already tailored for team collaboration.
+
+Elgg
+Elgg is a open source social networking platform. It offers blogging, networking, community, collecting of news using feeds aggregation and file sharing features. Everything can be shared among users with access controls and everything can be cataloged by tags as well.
+
+PHPmotion
+PHPmotion is a free video sharing software that also has support for other types of media such as audio/mp3 sharing. The Content Managent System or (media cms application) will allow you to create and run your very own Video Sharing website, Music Sharing Site, Picture Sharing Site. With very little knowledge required you can now have a website just like YouTube, DailyMotion, Veoh, hi5 and other proprietary applications. Best of all, its 100% free to download and use.
+
+eyeOS (Cloud Computing OS)
+eyeOS is an open source web desktop following the cloud computing concept that leverages collaboration and communication among users. It is mainly written in PHP, XML, and JavaScript. It acts as a platform for web applications written using the eyeOS Toolkit. It includes a Desktop environment with 67 applications and system utilities. It is accessible by portable devices via its mobile front-end.
+
+MediaWiki
+MediaWiki is a web-based wiki software application used by all projects of the Wikimedia Foundation, all wikis hosted by Wikia, and many other wikis, including some of the largest and most popular ones. Originally developed to serve the needs of the free content Wikipedia encyclopedia, today it has also been deployed by companies for internal knowledge management, and as a content management system. Notably, Novell uses it to operate several of its high traffic websites.
+
+Gallery
+Gallery is a slick Web-based photo album written using PHP. It is easy to install, includes a config wizard, and provides users with the ability to create and maintain their own albums in the album collection via an intuitive Web interface. Photo management includes automatic thumbnail creation, image resizing, rotation, ordering, captioning and more. Albums can have read, write, and caption permissions per individual authenticated user for an additional level of privacy.
+
+
+
+Done
+-----------
+get system detection from cleo - this is part of composerising pyramid
+SVN
+
+lighttpd control - done
+lighttpd vhc
+ - add enable/disable vhost
+nginx control - done
+nginx vhc - done
+ - add enable/disable srv blk - done
+ - add guess - done
+Checkout should become Git  - DONE
+VHC need to add --guess parameter - done
+VHC needs to become Apache-VHC, so that we can make the LigHTTPD and Nginx modules, and deploy to those nice n easy
+ - add enable/disable vhost
+
+database should be split into
+ - db configure (which only does string changes in files so should also allow for
+   postgres or others)
+ - db install (for different RDBMS's, currently mysql, but postgresql, oracle,
+   mongo)
+
+   DONE
+
+
+
+AWS - EC2 In ptconfigure
+
+Pharaoh exit codes are working.  set from anywhere with \Bootstrap\setExitCode($int)

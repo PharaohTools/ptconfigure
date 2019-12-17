@@ -5,7 +5,6 @@ Namespace Info;
 class FactsInfo extends Base {
 
   public $hidden = false;
-
   public $name = "Retrieve Facts about system";
 
   public function __construct() {
@@ -22,7 +21,7 @@ class FactsInfo extends Base {
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
-  This is a dummy Linux module that doesn't execute any commands.
+  This is to provide information at runtime
 
   Facts, Facts
 

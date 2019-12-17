@@ -575,7 +575,6 @@ QUESTION;
         return false ;
     }
 
-
     protected function getSourceFilePath($flag = null){
         if (isset($this->params["source"])) { return $this->params["source"] ; }
         if (isset($flag)) { $question = "Enter $flag source file path" ; }
@@ -591,4 +590,5 @@ QUESTION;
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;
     }
+
 }

@@ -241,6 +241,7 @@ class PharaohToolRunnerAnyOS extends Base {
         if (isset($this->params["module"])) {
             return $this->params["module"] ;
         }
+
         else { $question = "Enter module name"; }
         $input = self::askForInput($question) ;
         return ($input=="") ? false : $input ;

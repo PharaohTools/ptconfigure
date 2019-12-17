@@ -227,7 +227,6 @@ if not doing versions
         return true ;
         // @todo should probably return askStatus
         // return $this->askStatus();
-        // return $this->askStatus();
     }
 
     public function unInstall() {

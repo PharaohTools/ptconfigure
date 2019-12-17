@@ -29,7 +29,7 @@ class AptInfo extends PTConfigureBase {
 
     public function helpDefinition() {
       $help = <<<"HELPDATA"
-  This module allows you to modify create or modify apts
+  This module allows you to handle apt packages
 
   Apt, apt
 
@@ -44,6 +44,10 @@ class AptInfo extends PTConfigureBase {
         - exists
         Check the existence of an apt package
         example: ptconfigure apt pkg-exists --package-name="somename"
+        
+        - remove
+        Remove a system apt
+        example: ptconfigure apt remove --aptname="somename"
 
 HELPDATA;
       return $help ;

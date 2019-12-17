@@ -42,7 +42,6 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
     else { define('SUDOPREFIX', "sudo "); }
 
     define('PFILESDIR', "/opt/") ;
-
     if (PHP_OS == 'Darwin') {
         $prefix = '/usr/local/bin/' ;
         define('VBOXMGCOMM', "{$prefix}vboxmanage ") ;
@@ -65,6 +64,7 @@ else if (in_array(PHP_OS, array("Linux", "Solaris", "FreeBSD", "OpenBSD", "Darwi
         define('PTMCOMM',  "ptmanage") ;
         define('PTSCOMM', "ptsource") ;
     }
+
 
     define("DS", "/");
     define("BASE_TEMP_DIR", '/tmp/');

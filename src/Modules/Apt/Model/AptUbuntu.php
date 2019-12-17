@@ -111,6 +111,7 @@ class AptUbuntu extends BasePackager {
 
     public function versionCompatible() {
         $out = $this->executeAndOutput(SUDOPREFIX."apt-get -qq update -y > /dev/null ");
+
         if (strpos($out, "Done") != false) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
