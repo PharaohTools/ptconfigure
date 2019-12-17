@@ -28,6 +28,22 @@ class RoleExecutionAnyOS extends Base {
         return $this->executeAllRoles($roles) ;
     }
 
+    protected function displaySteps($steps) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Displaying Steps Object", $this->getModuleName());
+
+        foreach ($steps as $step) {
+            if ($step['type'] == 'role') {
+                echo "{$step['type']}, {$step['name']}" ;
+            } else if ($step['type'] == 'auto') {
+                echo "{$step['type']}, {$step['path']}" ;
+            }
+        }
+
+    }
+
+
     protected function getRoleObject($role) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -77,7 +93,7 @@ class RoleExecutionAnyOS extends Base {
 //        var_dump('$steps_path', $steps_path) ;
         $steps = $this->yamlParser($steps_path) ;
         $steps = $steps[0] ;
-//        var_dump('$steps', $steps) ;
+        $this->displaySteps($steps) ;
         return $this->executeAllSteps($steps) ;
     }
 
