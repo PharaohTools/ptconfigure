@@ -202,8 +202,10 @@ class RoleExecutionAnyOS extends Base {
                     } else {
                         $comm .= ' --vars="'.$stringy2.'" ;' ;
                     }
+                } else if (isset($stringy1)) {
+                    $comm .= ' --vars="'.$stringy1.'" ;' ;
                 }
-                $comm .= '" ;' ;
+
                 $logging->log("Executing $comm", $this->getModuleName()) ;
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
