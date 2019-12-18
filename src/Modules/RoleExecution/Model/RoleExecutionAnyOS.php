@@ -225,24 +225,34 @@ class RoleExecutionAnyOS extends Base {
                 $comm .= 'ptconfigure auto x ' ;
                 $comm .= '--af="'.$role_object->role_path.'" ' ;
                 if (isset($this->params['vars'])) {
+                    echo "step 1\n" ;
                     if (is_string($this->params['vars'])) {
-                        $stringy = $this->params['vars'] ;
+                        echo "step 2\n" ;
+                        $stringy1 = $this->params['vars'] ;
                     } elseif (is_array($this->params['vars'])) {
-                        $stringy = implode(',', $this->params['vars']) ;
+                        echo "step 3\n" ;
+                        $stringy1 = implode(',', $this->params['vars']) ;
                     }
                 }
+                echo "step 4\n" ;
                 if (isset($role_object->vars)) {
+                    echo "step 5\n" ;
                     if (is_string($role_object->vars)) {
+                        echo "step 6\n" ;
                         $stringy2 = $role_object->vars ;
                     } elseif (is_array($role_object->vars)) {
+                        echo "step 7\n" ;
                         $stringy2 = implode(',', $role_object->vars) ;
                     }
                     if (isset($stringy1)) {
+                        echo "step 8\n" ;
                         $comm .= ' --vars="'.$stringy1.','.$stringy2.'" ;' ;
                     } else {
+                        echo "step 9\n" ;
                         $comm .= ' --vars="'.$stringy2.'" ;' ;
                     }
                 }
+
                 $logging->log("Executing $comm", $this->getModuleName()) ;
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
