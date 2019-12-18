@@ -32,7 +32,6 @@ class RoleExecutionAnyOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Displaying Steps Object", $this->getModuleName());
-        var_dump('params', $this->params) ;
         foreach ($steps as $step) {
             if ($step['type'] == 'role') {
                 echo "{$step['type']}, {$step['name']}\n" ;
@@ -40,10 +39,8 @@ class RoleExecutionAnyOS extends Base {
                 echo "{$step['type']}, {$step['path']}\n" ;
             }
         }
-
     }
-
-
+    
     protected function getRoleObject($role) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
@@ -176,7 +173,7 @@ class RoleExecutionAnyOS extends Base {
                 $auto_object = $this->getAutoObject($step) ;
 
                 $comm  = 'cd  '.getcwd().DS. ' && ' ;
-                $comm .= 'ptconfigure auto x ' ;
+                $comm .= PTCCOMM.' auto x ' ;
                 if (isset($this->params['step-times'])) {
                     $comm .= '--step-times="true" ' ;
                 }
@@ -225,6 +222,12 @@ class RoleExecutionAnyOS extends Base {
                 }
                 $comm  = 'cd  '.getcwd().DS. ' && ' ;
                 $comm .= 'ptconfigure auto x ' ;
+                if (isset($this->params['step-times'])) {
+                    $comm .= '--step-times="true" ' ;
+                }
+                if (isset($this->params['step-numbers'])) {
+                    $comm .= '--step-numbers="true" ' ;
+                }
                 $comm .= '--af="'.$role_object->role_path.'" ' ;
                 if (isset($this->params['vars'])) {
                     if (is_string($this->params['vars'])) {
