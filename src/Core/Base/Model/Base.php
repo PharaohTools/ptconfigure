@@ -183,7 +183,7 @@ COMPLETION;
                 shell_exec("chmod 755 $tempFile 2>/dev/null");
                 shell_exec("chmod +x $tempFile 2>/dev/null"); }
 
-            $ex_string = '-ex' ;
+            $ex_string = '-e' ;
             if ($quiet_shell !== null) {
                 $ex_string = '' ;
             }
