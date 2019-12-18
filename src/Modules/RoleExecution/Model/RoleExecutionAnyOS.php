@@ -251,6 +251,9 @@ class RoleExecutionAnyOS extends Base {
                         echo "step 9\n" ;
                         $comm .= ' --vars="'.$stringy2.'" ;' ;
                     }
+                } else if (isset($stringy1)) {
+                    echo "step 8\n" ;
+                    $comm .= ' --vars="'.$stringy1.'" ;' ;
                 }
 
                 $logging->log("Executing $comm", $this->getModuleName()) ;
