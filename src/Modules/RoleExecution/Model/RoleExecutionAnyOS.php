@@ -233,14 +233,14 @@ class RoleExecutionAnyOS extends Base {
                 }
                 if (isset($role_object->vars)) {
                     if (is_string($role_object->vars)) {
-                        $stringy = $role_object->vars ;
+                        $stringy2 = $role_object->vars ;
                     } elseif (is_array($role_object->vars)) {
-                        $stringy = implode(',', $role_object->vars) ;
+                        $stringy2 = implode(',', $role_object->vars) ;
                     }
-                    if (isset($stringy)) {
-                        $comm .= ' --vars="'.join(',', $stringy).'" ;' ;
+                    if (isset($stringy1)) {
+                        $comm .= ' --vars="'.$stringy1.','.$stringy2.'" ;' ;
                     } else {
-                        $comm .= ' --vars="'.$stringy.'" ;' ;
+                        $comm .= ' --vars="'.$stringy2.'" ;' ;
                     }
                 }
                 $logging->log("Executing $comm", $this->getModuleName()) ;
