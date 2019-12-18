@@ -177,9 +177,31 @@ class RoleExecutionAnyOS extends Base {
 
                 $comm  = 'cd  '.getcwd().DS. ' && ' ;
                 $comm .= 'ptconfigure auto x ' ;
+                if (isset($this->params['step-times'])) {
+                    $comm .= '--step-times="true" ' ;
+                }
+                if (isset($this->params['step-numbers'])) {
+                    $comm .= '--step-numbers="true" ' ;
+                }
                 $comm .= '--af="'.$full_auto_path.'" ' ;
+                if (isset($this->params['vars'])) {
+                    if (is_string($this->params['vars'])) {
+                        $stringy = $this->params['vars'] ;
+                    } elseif (is_array($this->params['vars'])) {
+                        $stringy = implode(',', $this->params['vars']) ;
+                    }
+                }
                 if (isset($auto_object->vars)) {
-                    $comm .= ' --vars="'.implode(',', $auto_object->vars) ;
+                    if (is_string($auto_object->vars)) {
+                        $stringy = $auto_object->vars ;
+                    } elseif (is_array($auto_object->vars)) {
+                        $stringy = implode(',', $auto_object->vars) ;
+                    }
+                    if (isset($stringy)) {
+                        $comm .= ' --vars="'.join(',', $stringy).'" ;' ;
+                    } else {
+                        $comm .= ' --vars="'.$stringy.'" ;' ;
+                    }
                 }
                 $comm .= '" ;' ;
                 $logging->log("Executing $comm", $this->getModuleName()) ;
@@ -202,13 +224,24 @@ class RoleExecutionAnyOS extends Base {
                 $comm  = 'cd  '.getcwd().DS. ' && ' ;
                 $comm .= 'ptconfigure auto x ' ;
                 $comm .= '--af="'.$role_object->role_path.'" ' ;
+                if (isset($this->params['vars'])) {
+                    if (is_string($this->params['vars'])) {
+                        $stringy = $this->params['vars'] ;
+                    } elseif (is_array($this->params['vars'])) {
+                        $stringy = implode(',', $this->params['vars']) ;
+                    }
+                }
                 if (isset($role_object->vars)) {
                     if (is_string($role_object->vars)) {
                         $stringy = $role_object->vars ;
                     } elseif (is_array($role_object->vars)) {
                         $stringy = implode(',', $role_object->vars) ;
                     }
-                    $comm .= ' --vars="'.$stringy.'" ;' ;
+                    if (isset($stringy)) {
+                        $comm .= ' --vars="'.join(',', $stringy).'" ;' ;
+                    } else {
+                        $comm .= ' --vars="'.$stringy.'" ;' ;
+                    }
                 }
                 $logging->log("Executing $comm", $this->getModuleName()) ;
                 $res = $this->liveOutput($comm) ;
