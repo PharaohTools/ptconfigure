@@ -186,21 +186,21 @@ class RoleExecutionAnyOS extends Base {
                 $comm .= '--af="'.$full_auto_path.'" ' ;
                 if (isset($this->params['vars'])) {
                     if (is_string($this->params['vars'])) {
-                        $stringy = $this->params['vars'] ;
+                        $stringy1 = $this->params['vars'] ;
                     } elseif (is_array($this->params['vars'])) {
-                        $stringy = implode(',', $this->params['vars']) ;
+                        $stringy1 = implode(',', $this->params['vars']) ;
                     }
                 }
                 if (isset($auto_object->vars)) {
                     if (is_string($auto_object->vars)) {
-                        $stringy = $auto_object->vars ;
+                        $stringy2 = $auto_object->vars ;
                     } elseif (is_array($auto_object->vars)) {
-                        $stringy = implode(',', $auto_object->vars) ;
+                        $stringy2 = implode(',', $auto_object->vars) ;
                     }
-                    if (isset($stringy)) {
-                        $comm .= ' --vars="'.join(',', $stringy).'" ;' ;
+                    if (isset($stringy1)) {
+                        $comm .= ' --vars="'.$stringy1.','.$stringy2.'" ;' ;
                     } else {
-                        $comm .= ' --vars="'.$stringy.'" ;' ;
+                        $comm .= ' --vars="'.$stringy2.'" ;' ;
                     }
                 }
                 $comm .= '" ;' ;
