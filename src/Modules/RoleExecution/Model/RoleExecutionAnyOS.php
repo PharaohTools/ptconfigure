@@ -32,7 +32,7 @@ class RoleExecutionAnyOS extends Base {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Displaying Steps Object", $this->getModuleName());
-
+        var_dump('params', $this->params) ;
         foreach ($steps as $step) {
             if ($step['type'] == 'role') {
                 echo "{$step['type']}, {$step['name']}\n" ;
