@@ -192,88 +192,8 @@ COMPLETION;
 //                }
             }
 
-//            $tempFile = self::tempfileStaticFromCommand($command) ;
-//            $loggingFactory = new \Model\Logging();
-//            $params["echo-log"] = true ;
-//            $logging = $loggingFactory->getModel($params);
-//            if (!is_executable($tempFile)) {
-//
-//                // @todo this wont work on windows
-//                shell_exec("chmod 755 $tempFile 2>/dev/null");
-//                shell_exec("chmod +x $tempFile 2>/dev/null"); }
-//
-//            $ex_string = '-e' ;
-//            if ($quiet_shell !== null) {
-//                $ex_string = '' ;
-//            }
-//
-//            $proc = proc_open("bash ".$ex_string." $tempFile", array(
-//                0 => array("pipe","r"),
-//                1 => array("pipe",'w'),
-//                2 => array("pipe",'w'),
-//            ),$pipes);
-//            if ($show_output==true) {
-//                stream_set_blocking($pipes[1], true);
-//                stream_set_blocking($pipes[2], true);
-//                $data = "";
-//                $data2 = "";
-//                while ( ($buf = fread($pipes[1], 131072)) || ( $buf2 = fread($pipes[2], 131072))) {
-//                    if (isset($buf) && $buf !== false) {
-//                        $data .= $buf;
-//                        echo $buf ; }
-//                    if ( (isset($buf2) && $buf2 !== false) || $buf2 = fread($pipes[2], 131072) ) {
-//                        $data2 .= $buf2;
-//                        unset($buf2) ;} }
-//                echo $data2 ; }
-//
-//
-//            $logFactory = new \Model\Logging() ;
-//            $colours = $logFactory->getModel(array(), "Colours") ;
-//
-//            $should_continue_err = $should_continue_out = true ;
-//            while ( $should_continue_err == true || $should_continue_out == true ) {
-//
-//                $st_out_line = stream_get_line ( $pipes[1] , 131072 ) ;
-//                if ($st_out_line !== false) {
-//                    $fullMessage = $colours->getColoredString($st_out_line, "green", null) ;
-//                    file_put_contents("php://stderr", $fullMessage ); }
-//                else {
-//                    $should_continue_out = false ; }
-//
-//                $st_err_line = stream_get_line ( $pipes[2] , 131072 ) ;
-//                if ($st_err_line !== false) {
-//                    $fullMessage = $colours->getColoredString($st_out_line, "red", null) ;
-//                    file_put_contents("php://stderr", $fullMessage ); }
-//                else {
-//                    $should_continue_err = false ; }
-//
-//            }
-//
-//
-//            $status = proc_get_status($proc);
-//            $stdout = stream_get_contents($pipes[1]);
-//            fclose($pipes[1]);
-//            $stderr = stream_get_contents($pipes[2]);
-//            fclose($pipes[2]) ;
-//            // @note geting status s necessary as sometimes this doesn't return an exit code
-//            // http://php.net/manual/en/function.proc-close.php
-//            // morrisdavid gmail comment
-//            $retVal = proc_close($proc);
-//            $retVal = ($status["running"] ? $retVal : $status["exitcode"] );
-//            $output = (isset($stderr)) ? $stdout.$stderr : $stdout ;
-//            $output = explode("\n", $output) ;
-
             $retVal = $process->getExitCode() ;
             if ($show_output == true) {
-////            $stdout = explode("\n", $stdout) ;
-////            foreach ($stdout as $stdoutline) {
-////                echo $stdoutline."\n" ; }
-//                if (strlen($stderr)>0) {
-////                echo "ERRORS:\n";
-//                    $stderr = explode("\n", $stderr) ;
-//                    foreach ($stderr as $stderrline) {
-////                    echo $stderrline."\n" ;
-//                    } }
                 return array("rc"=>$retVal, "output"=>$output) ; }
             if ($get_output == true) {
                 return array("rc"=>$retVal, "output"=>$output) ;}
@@ -428,10 +348,8 @@ COMPLETION;
     protected function loadFromMethod(&$parts_string, $i, $sc) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel(array());
-
         $is_reg = \Model\RegistryStore::getValue($parts_string) ;
         if (!is_null($is_reg)) { return $is_reg ; }
-
 //        var_dump("ps", $parts_string) ;
         $parts_array = explode("::", $parts_string) ;
         $module = $parts_array[0] ;
@@ -441,7 +359,6 @@ COMPLETION;
             // @todo exception and log
             // var_dump("pray:", $parts_afear and loathing in las vegasrray, $parts_string, "myi:", $i, "mysc:", $sc) ;
         }
-
         $method_params = (isset($parts_array[3])) ? explode(",", $parts_array[3]) : array() ;
         $fclass = "\\Model\\{$module}" ;
         $modFactory = new $fclass();
