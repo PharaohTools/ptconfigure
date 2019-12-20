@@ -51,17 +51,30 @@ class DownloadNonWindows extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 //        var_dump( stripos($addr, 'https') ) ;
+        $parse = parse_url($addr);
         if (stripos($addr, 'https') === 0) {
-            $parse = parse_url($addr);
             $port = 443 ;
             $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
-            $addr = str_replace('https://', 'ssl://', $addr) ;
+            $addr = str_replace('https://', 'tls://', $addr) ;
         } elseif (stripos($addr, 'http') === 0) {
             $port = 80 ;
+            $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
+            $addr = str_replace('https://', 'tcp://', $addr) ;
         } else {
             $port = 80 ;
         }
-        if (!$socket = @fsockopen($addr, $port, $errno, $errstr)) {
+
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false
+            ]
+        ]);
+
+        $hostname = "$addr";
+        $socket = stream_socket_client($hostname, $errno, $errstr, ini_get("default_socket_timeout"), STREAM_CLIENT_CONNECT, $context);
+
+        if (!$socket) {
             $logging->log("$errstr", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
             return false;
         } else {
