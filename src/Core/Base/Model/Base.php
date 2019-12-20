@@ -177,9 +177,12 @@ COMPLETION;
             require_once(dirname(__DIR__).DS.'Libraries'.DS.'vendor'.DS.'autoload.php') ;
             $process = new \Symfony\Component\Process\Process($command);
             $process->setTimeout(0);
-            $process->run(function ($type, $buffer) {
+            $last_buffer = '' ;
+            $process->run(function ($type, $buffer) use ($last_buffer) {
                 if (\Symfony\Component\Process\Process::ERR === $type) {
-                    echo 'ERR > '.$buffer;
+                    if ($last_buffer != $buffer) {
+                        echo 'ERR > '.$buffer;
+                    }
                 } else {
                     echo $buffer;
                 }
