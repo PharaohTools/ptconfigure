@@ -181,7 +181,7 @@ COMPLETION;
                 if (\Symfony\Component\Process\Process::ERR === $type) {
                     echo 'ERR > '.$buffer;
                 } else {
-                    echo 'OUT > '.$buffer;
+                    echo $buffer;
                 }
             });
 
