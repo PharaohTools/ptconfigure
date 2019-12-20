@@ -47,7 +47,7 @@ class LetsEncryptAllOS extends Base {
         }
         $email = (isset($this->params["email"])) ? $this->params["email"] : "" ;
         $country = (isset($this->params["country"])) ? $this->params["country"] : "" ;
-        $state_or_province = (isset($this->params["state"])) ? $this->params["state"] : "" ;
+        $state = (isset($this->params["state"])) ? $this->params["state"] : "" ;
         $locality = (isset($this->params["locality"])) ? $this->params["locality"] : "" ;
         $organization = (isset($this->params["organization"])) ? $this->params["organization"] : "" ;
         $organizational_unit = (isset($this->params["organizational_unit"])) ? $this->params["organizational_unit"] : "" ;
@@ -58,13 +58,13 @@ class LetsEncryptAllOS extends Base {
         $logging->log("Certificate Location: {$certlocation}", $this->getModuleName()) ;
         $logging->log("Certificate Email: {$email}", $this->getModuleName()) ;
         $logging->log("Certificate Country Code: {$country}", $this->getModuleName()) ;
-        $logging->log("Certificate State: {$state_or_province}", $this->getModuleName()) ;
+        $logging->log("Certificate State: {$state}", $this->getModuleName()) ;
         $logging->log("Certificate Locality: {$locality}", $this->getModuleName()) ;
         $logging->log("Certificate Organization {$organization}", $this->getModuleName()) ;
         $logging->log("Certificate Organizational Unit: {$organizational_unit}", $this->getModuleName()) ;
         $logging->log("Certificate Street: {$street}", $this->getModuleName()) ;
 
-        $expected = ['domain', 'webroot', 'certlocation', 'email', 'country', 'state_or_province', 'locality', 'organization', 'organizational_unit', 'street'] ;
+        $expected = ['domain', 'webroot', 'certlocation', 'email', 'country', 'state', 'locality', 'organization', 'organizational_unit', 'street'] ;
 
         $falsy = false ;
         foreach ($expected as $one_expected) {
@@ -109,7 +109,7 @@ class LetsEncryptAllOS extends Base {
             $iac->certDistinguishedName = [
                 /** @var string The certificate ISO 3166 country code */
                 'countryName'            => $country,
-                'stateOrProvinceName'    => $state_or_province,
+                'stateOrProvinceName'    => $state,
                 'localityName'           => $locality,
                 'organizationName'       => $organization,
                 'organizationalUnitName' => $organizational_unit,
