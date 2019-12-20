@@ -177,20 +177,31 @@ COMPLETION;
             require_once(dirname(__DIR__).DS.'Libraries'.DS.'vendor'.DS.'autoload.php') ;
             $process = new \Symfony\Component\Process\Process($command);
             $process->setTimeout(0);
-            $process->start();
+            $process->run(function ($type, $buffer) {
+                if (\Symfony\Component\Process\Process::ERR === $type) {
+                    echo 'ERR > '.$buffer;
+                } else {
+                    echo 'OUT > '.$buffer;
+                }
+            });
+
 
             $output = '' ;
-            foreach ($process as $type => $data) {
-//                if ($process::OUT === $type) {
-                $output .= $data ;
 
-                if ($show_output == true) {
-                    echo $data;
-                }
-//                } else { // $process::ERR === $type
-//                    echo "ERR: ".$data;
+
+
+
+//            foreach ($process as $type => $data) {
+////                if ($process::OUT === $type) {
+//                $output .= $data ;
+//
+//                if ($show_output == true) {
+//                    echo $data;
 //                }
-            }
+////                } else { // $process::ERR === $type
+////                    echo "ERR: ".$data;
+////                }
+//            }
 
             $retVal = $process->getExitCode() ;
             if ($show_output == true) {
