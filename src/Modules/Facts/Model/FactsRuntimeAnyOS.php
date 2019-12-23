@@ -18,7 +18,9 @@ class FactsRuntimeAnyOS extends FactsAnyOS {
         $all_fact_names = array(
             "cwd" => "factGetCwd",
             "getcwd" => "factGetCwd",
-            "constant" => "factGetConstant"
+            "constant" => "factGetConstant",
+            "envvar" => "envVar",
+            "env_var" => "envVar"
         );
         return $all_fact_names ;
     }
@@ -32,7 +34,7 @@ class FactsRuntimeAnyOS extends FactsAnyOS {
         return constant($const) ;
     }
 
-    public function factGetEnvVar($env_var) {
+    public function envVar($env_var) {
         $res = getenv($env_var) ;
         if ($res !== false) {
             return $res ;
