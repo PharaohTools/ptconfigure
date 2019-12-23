@@ -79,7 +79,7 @@ class FirewallUbuntu extends BaseLinuxApp {
     }
 
     protected function performFirewallReset() {
-        return $this->resetRule();
+        return $this->resetAll();
     }
 
     protected function performFirewallDefault() {
@@ -218,8 +218,8 @@ class FirewallUbuntu extends BaseLinuxApp {
         return true ;
     }
 
-    public function resetRule() {
-        $out = $this->executeAndOutput("echo y | ".SUDOPREFIX." ufw reset --force $this->firewallRule");
+    public function resetAll() {
+        $out = $this->executeAndOutput(SUDOPREFIX." ufw --force reset");
         if (strpos($out, "Resetting all rules to installed defaults") != false ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
