@@ -544,6 +544,8 @@ class InvokeAllOS extends Base {
 	protected function askForSSHData() {
 		if (isset($this->params["ssh-data"])) {
 			return $this->params["ssh-data"]; }
+        if (isset($this->params["data"])) {
+            return $this->params["data"]; }
 		$question = 'Enter data to execute via SSH';
 		return self::askForInput($question, true);
 	}
