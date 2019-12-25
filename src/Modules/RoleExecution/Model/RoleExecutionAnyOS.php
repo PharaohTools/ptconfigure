@@ -152,6 +152,7 @@ class RoleExecutionAnyOS extends Base {
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Attempting Steps Execution", $this->getModuleName());
 
+        $summary = [] ;
         foreach ($steps as $step) {
 
             if ($step['type'] === 'auto') {
@@ -255,12 +256,18 @@ class RoleExecutionAnyOS extends Base {
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
                     $logging->log("Role Execution Successful", $this->getModuleName()) ;
+                    $step['result'] = 'Success' ;
+                    $summary[] = $step ;
                 } else {
                     $logging->log("Role Execution Failed", $this->getModuleName()) ;
+                    $step['result'] = 'Fail' ;
+                    $summary[] = $step ;
+                    $this->displayStepSummary($summary) ;
                     return false ;
                 }
             }
         }
+        $this->displayStepSummary($summary) ;
         return true ;
     }
 
@@ -329,6 +336,19 @@ class RoleExecutionAnyOS extends Base {
         if (isset($this->params["steps"])) { return $this->params["steps"] ; }
         if (isset($this->params["stepsfile"])) { return $this->params["stepsfile"] ; }
         return getcwd().DS.'steps.yml' ;
+    }
+
+    protected function displayStepSummary($steps) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Displaying Steps Summary", $this->getModuleName());
+        foreach ($steps as $step) {
+            if ($step['type'] == 'role') {
+                echo "{$step['result']}, {$step['type']}, {$step['name']}\n" ;
+            } else if ($step['type'] == 'auto') {
+                echo "{$step['result']}, {$step['type']}, {$step['path']}\n" ;
+            }
+        }
     }
 
 }
