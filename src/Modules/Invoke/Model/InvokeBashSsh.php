@@ -60,7 +60,7 @@ class InvokeBashSsh extends BaseLinuxApp {
         $all_data = '' ;
         foreach ($process as $type => $data) {
             if ($process::OUT === $type) {
-                echo "\nRead from stdout: ".$data;
+                echo $data;
             } else { // $process::ERR === $type
                 echo "[STDERR] ".$data;
             }
