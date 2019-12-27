@@ -53,8 +53,21 @@ class InvokeBashSsh extends BaseLinuxApp {
     public function exec($command) {
         $launcher = $this->getLauncher() ;
         $pcomm = "$launcher $command" ;
-        $data = system($pcomm, $res) ;
-        return array("rc" => $res, "data" => $data) ;
+//        $data = system($pcomm, $res) ;
+        include(dirname(__DIR__).'/Libraries/process/vendor/autoload.php') ;
+        $process = new \Symfony\Component\Process\Process($pcomm);
+        $process->start();
+        $all_data = '' ;
+        foreach ($process as $type => $data) {
+            if ($process::OUT === $type) {
+                echo "\nRead from stdout: ".$data;
+            } else { // $process::ERR === $type
+                echo "[STDERR] ".$data;
+            }
+            $all_data .= $data ;
+        }
+//        return array("rc" => $res, "data" => $data) ;
+        return array("rc" => $process->getExitCode(), "data" => $all_data) ;
     }
 
     public function getLauncher() {
