@@ -422,7 +422,7 @@ exec('".$this->programExecutorCommand."');\n
                 file_put_contents($temp_exe_file, $file_data) ;
             } else {
                 echo "Using CLI Fallback".PHP_EOL;
-                $comm = "wget $remote_source $temp_exe_file" ;
+                $comm = "wget --progress=dot:giga $remote_source $temp_exe_file" ;
                 passthru($comm, $return_var) ;
             }
         }
