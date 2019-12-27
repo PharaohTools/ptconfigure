@@ -135,20 +135,21 @@ class InvokeSsh2 extends Base {
             $logging = $loggingFactory->getModel($this->params) ;
             $logging->log("SSH command failed", "Invoke - PHP SSH") ;
             \Core\BootStrap::setExitCode(1) ; }
+
         $error_stream = ssh2_fetch_stream( $this->stream, SSH2_STREAM_STDERR );
         stream_set_blocking( $this->stream, TRUE );
         stream_set_blocking( $error_stream, TRUE );
         $data = "" ;
         $error_output = "" ;
-        while ($buf = fread($this->stream, 1048576)) {
+        while ($buf = fread($this->stream, 16)) {
             $data .= $buf;
-            //echo $buf ;
+            echo $buf ;
         }
         $eo = stream_get_contents( $error_stream ) ;
         if (strlen($eo)>0) { $error_output .= $eo ; }
         fclose( $this->stream );
         fclose( $error_stream );
-        return array( $data, $error_output );
+        return array( '', $error_output );
     }
 
     protected function findRC() {

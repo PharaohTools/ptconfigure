@@ -47,13 +47,15 @@ class InvokeBashSsh extends BaseLinuxApp {
 //            return false ; }
         $pcomm = "$launcher 'echo Pharaoh Tools'" ;
         passthru($pcomm, $res) ;
-        return true ;
+        if ($res == 0) {
+            return true ;
+        }
+        return false ;
     }
 
     public function exec($command) {
         $launcher = $this->getLauncher() ;
         $pcomm = "$launcher $command" ;
-//        $data = system($pcomm, $res) ;
         include(dirname(__DIR__).'/Libraries/process/vendor/autoload.php') ;
         $process = new \Symfony\Component\Process\Process($pcomm);
         $process->start();
@@ -72,12 +74,13 @@ class InvokeBashSsh extends BaseLinuxApp {
 
     public function getLauncher() {
         if(file_exists($this->server->password)){
-            $launcher = 'ssh -t -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i '.escapeshellarg($this->server->password); }
+            $launcher = 'ssh -t -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -i '.escapeshellarg($this->server->password); }
         else{
             $launcher = 'sshpass -p '.escapeshellarg($this->server->password).' ssh -t -o UserKnownHostsFile=/dev/null ' .
                 '-o StrictHostKeyChecking=no -o PubkeyAuthentication=no'; }
         $launcher .= " -T -p {$this->server->port} ";
         $launcher .= escapeshellarg($this->server->username.'@'.$this->server->host);
+//        echo "\n\n$launcher\n\n" ;
         return $launcher ;
     }
 

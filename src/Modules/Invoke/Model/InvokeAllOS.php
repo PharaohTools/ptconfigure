@@ -119,18 +119,21 @@ class InvokeAllOS extends Base {
 
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
-            foreach ($this->sshCommands as $sshCommand) {
-                if ($sshCommand === "") continue ;
+
+//            foreach ($this->sshCommands as $sshCommand) {
+//                if ($sshCommand === "") continue ;
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
-                        $rc = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
-                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $this->sshCommands...", $this->getModuleName()) ;
+                        $rc = $this->doSSHCommand($server["ssh2Object"], $this->sshCommands);
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $this->sshCommands Completed...", $this->getModuleName()) ;
                         if ($rc !== 0) {
                             $logging->log("Command failed on remote with exit code {$rc}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                             return false ; } }
                     else {
-                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
+                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } }
+//            }
+            }
         else {
             $logging->log("No successful connections available", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
@@ -224,9 +227,11 @@ class InvokeAllOS extends Base {
                     return $cli_commands ; }
                 else {
                     $data = $this->askForSSHData();
-                    $lines = explode("\n", $data);
+//                    $lines = explode("\n", $data);
 //                    $lines[] = "\n" ;
-                    return $lines ;}  }
+//                    return $lines ;
+                    return $data ;
+                }  }
             else if ($type=="script") {
                 $scriptLoc = $this->askForScriptLocation();
                 $shc = explode(PHP_EOL, file_get_contents($scriptLoc));
@@ -487,7 +492,17 @@ class InvokeAllOS extends Base {
     protected function findDriver() {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $optionsKeep = array("os" => "DriverBashSSH", "native" => "DriverNativeSSH", "seclib" => "DriverSecLib") ;
+        $optionsKeep = array(
+            "os" => "DriverBashSSH",
+            "bash" => "DriverBashSSH",
+            "bashssh" => "DriverBashSSH",
+            "BashSSH" => "DriverBashSSH",
+            "osnative" => "DriverBashSSH",
+            "native" => "DriverNativeSSH",
+            "phpnative" => "DriverNativeSSH",
+            "php" => "DriverNativeSSH",
+            "seclib" => "DriverSecLib"
+        ) ;
         $optionsAsk = array_keys($optionsKeep) ;
         $system = new \Model\SystemDetectionAllOS() ;
         if (isset($this->params["driver"]) && in_array($this->params["driver"], $optionsAsk) ) {
