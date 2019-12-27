@@ -78,7 +78,7 @@ class InvokeAllOS extends Base {
             return false; }
         $scriptLoc = $this->askForScriptLocation();
         $this->populateServers();
-        $this->sshCommands = explode("\n", file_get_contents($scriptLoc));
+        $this->sshCommands = file_get_contents($scriptLoc);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 
@@ -86,20 +86,20 @@ class InvokeAllOS extends Base {
 
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
-            foreach ($this->sshCommands as $sshCommand) {
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
-                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $sshCommand...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $this->sshCommands...", $this->getModuleName()) ;
 
-                        $out = $this->doSSHCommand($server["ssh2Object"], $sshCommand);
+                        $out = $this->doSSHCommand($server["ssh2Object"], $this->sshCommands);
                         echo $out["data"] ;
-                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] $sshCommand Completed...", $this->getModuleName()) ;
+                        $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] SSH Command Completed...", $this->getModuleName()) ;
                         if ($out["rc"] != 0) {
                             $logging->log("Command failed on remote with exit code {$out["rc"]}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                             return false ; } }
                     else {
-                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } } }}
-        else {
+                        $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; }
+                }
+        } else {
             $logging->log("No successful connections available", $this->getModuleName()) ;
             \Core\BootStrap::setExitCode(1) ;
             return false ; }
@@ -119,9 +119,6 @@ class InvokeAllOS extends Base {
 
         if (count($this->servers) > 0) {
             $logging->log("Opening CLI...", $this->getModuleName()) ;
-
-//            foreach ($this->sshCommands as $sshCommand) {
-//                if ($sshCommand === "") continue ;
                 foreach ($this->servers as &$server) {
                     if (isset($server["ssh2Object"]) && is_object($server["ssh2Object"])) {
                         $logging->log(  "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Executing $this->sshCommands...", $this->getModuleName()) ;
@@ -132,9 +129,7 @@ class InvokeAllOS extends Base {
                             return false ; } }
                     else {
                         $logging->log( "[" . $server["name"] . " : " . $server[$target_scope_string] . "] Connection failure. Will not execute commands on this box...", $this->getModuleName()) ; } }
-//            }
-            }
-        else {
+        } else {
             $logging->log("No successful connections available", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
             return false ; }
         $logging->log("Data by SSH Completed", $this->getModuleName()) ;
