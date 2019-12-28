@@ -53,11 +53,14 @@ class RunCommandLinuxMac extends BaseLinuxApp {
             $commandRay[] = "exit" ; }
         // @todo only show this under verbose output
 //        foreach ($commandRay as $command) { echo $command."\n" ; }
+//        $rc = $this->executeAndGetReturnCode($commandRay) ;
         $rc = $this->executeAsShell($commandRay) ;
-//        var_dump('cray: ', $commandRay) ;
-        if ($rc == 0) { return true; }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+//        $logging->log("Run Command ".var_export($rc, true), $this->getModuleName());
+        if ($rc == 0) {
+            $logging->log("Run Command success", $this->getModuleName());
+            return true; }
         $logging->log("Run Command failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
         return false;
     }
