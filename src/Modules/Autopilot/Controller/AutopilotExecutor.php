@@ -50,7 +50,16 @@ class AutopilotExecutor extends Base {
             foreach ($steps as $modelArray) {
                 $step_set = $this->getLoopRay($modelArray, $thisModel) ;
                 foreach ($step_set as $one_step_in_set) {
-                    $this->runOneRegisteredModel($autoPilot, $autopilotParams, $thisModel, $one_step_in_set, $registered_vars, $show_step_numbers, $show_step_times, $counter) ;
+                    $dft = $this->runOneRegisteredModel($autoPilot, $autopilotParams, $thisModel, $one_step_in_set, $registered_vars, $show_step_numbers, $show_step_times, $counter) ;
+                    $dataFromThis = array_merge($dataFromThis, $dft) ;
+//                    var_dump('xc', \Core\BootStrap::getExitCode(), $dft) ;
+                    if ($dft[0]['status'] === false) {
+                        $logFactory = new \Model\Logging() ;
+                        $logging = $logFactory->getModel($thisModel->params) ;
+                        $logging->log("Step encountered error", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
+                        break(2) ;
+
+                    }
                     $counter ++ ; } } }
         else {
             \Core\BootStrap::setExitCode(1);
@@ -145,6 +154,7 @@ class AutopilotExecutor extends Base {
 
         $dataFromThis[] = $step_out ;
         echo "\n\n" ;
+        return $dataFromThis ;
     }
 
     protected function onlyRunWhen($current_params, $autoModel) {
