@@ -12,14 +12,16 @@ if (isset($pageVars["result"]) && is_array($pageVars["result"])) {
         ?>Step <?php echo $key ; ?> : <?php echo $prc ; ?>, <?php echo $pra ; ?> : <?php
 
 
-if ($value["status"]==true) {
-    $stepSuccessString = "Success" ; }
-else {
-    $stepSuccessString = "Failure" ;
-    $has_failure = true ; }
+        if ($value["status"]==true) {
+            $stepSuccessString = "Success" ; }
+        else {
+            $stepSuccessString = "Failure" ;
+            $has_failure = true ; }
 
-//    echo $stepSuccessString."\n" ;
-    echo $value["out"]."\n" ;
+        if (isset($value["out"])) {
+            echo $value["out"]."\n" ;
+        }
+        
     }
 }
 else {
