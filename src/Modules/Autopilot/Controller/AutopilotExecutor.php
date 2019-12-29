@@ -53,7 +53,7 @@ class AutopilotExecutor extends Base {
                     $dft = $this->runOneRegisteredModel($autoPilot, $autopilotParams, $thisModel, $one_step_in_set, $registered_vars, $show_step_numbers, $show_step_times, $counter) ;
                     $dataFromThis = array_merge($dataFromThis, $dft) ;
 //                    var_dump('xc', \Core\BootStrap::getExitCode(), $dft) ;
-                    if ($dft[0]['status'] === false) {
+                    if (\Core\BootStrap::getExitCode() != 0) {
                         $logFactory = new \Model\Logging() ;
                         $logging = $logFactory->getModel($thisModel->params) ;
                         $logging->log("Step encountered error", "Autopilot", LOG_FAILURE_EXIT_CODE) ;
