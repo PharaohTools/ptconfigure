@@ -1,6 +1,4 @@
-<?php echo $pageVars["appName"] ; ?>: <?php
+<?php
   $result_summary = ($pageVars["result"] == true) ? "Success" : "Failure" ;
-  echo $result_summary."\n" ;
-  if (is_string($pageVars["result"])) {
-    echo $pageVars["result"]."\n" ; }
+  echo $result_summary ;
 ?>
