@@ -85,7 +85,8 @@ class VersionLinuxMac extends Base {
     }
 
     private function selectAppRoot() {
-        if ( isset($this->params["container"])) { return $this->params["container"] ; }
+        if ( isset($this->params["container"])) {
+            return $this->ensureTrailingSlash($this->params["container"]) ; }
         $question = 'What is the Project Container Directory? (The one with versions in) Enter none for '.getcwd();
         $input = self::askForInput($question) ;
         return ($input=="") ? getcwd() : $this->ensureTrailingSlash($input);
