@@ -26,7 +26,7 @@ class FileAllOS extends BaseLinuxApp {
             "populate" => "performCreation",
             "set" => "performCreation",
             "delete" => "performDeletion",
-            "should-exist" => "performCreation",
+            "should-exist" => "shouldExist",
             "should-have-line" => "performShouldHaveLine",
             "should-not-have-line" => "performShouldNotHaveLine",
             "replace-line" => "performReplaceLine",
@@ -53,7 +53,7 @@ class FileAllOS extends BaseLinuxApp {
         return ($this->exists()==false) ? true : false ;
     }
 
-    public function performCreation() {
+    public function performShouldExist() {
         $this->setFile();
         if ($this->exists() == false) {
             $this->creationData() ;
