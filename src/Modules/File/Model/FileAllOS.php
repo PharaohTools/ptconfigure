@@ -53,15 +53,20 @@ class FileAllOS extends BaseLinuxApp {
         return ($this->exists()==false) ? true : false ;
     }
 
+    public function performCreation() {
+        $this->setFile();
+        if ($this->exists() == false) {
+            $this->creationData() ;
+        } else {
+            $this->creationData(true) ;
+        }
+        $this->shouldExist();
+        return $this->write() ;
+    }
+
     public function performShouldExist() {
         $this->setFile();
-//        if ($this->exists() == false) {
-//            $this->creationData() ;
-//        } else {
-//            $this->creationData(true) ;
-//        }
         return $this->shouldExist();
-//        $this->write() ;
     }
 
     public function performAppendLine() {
