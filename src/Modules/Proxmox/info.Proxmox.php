@@ -2,40 +2,40 @@
 
 Namespace Info;
 
-class DigitalOceanV2Info extends PTConfigureBase {
+class ProxmoxInfo extends PTConfigureBase {
 
     public $hidden = false;
 
-    public $name = "Digital Ocean Server Management Functions - API Version 2";
+    public $name = "Proxmox Server Management Functions - API Version 2";
 
     public function _construct() {
       parent::__construct();
     }
 
     public function routesAvailable() {
-      return array( "DigitalOceanV2" => array_merge(parent::routesAvailable(), array("save-ssh-key",
+      return array( "Proxmox" => array_merge(parent::routesAvailable(), array("save-ssh-key",
           "box-add", "box-remove", "box-destroy", "box-destroy-all", "list", "test", 'loadbalancer-add') ) );
     }
 
     public function routeAliases() {
       return array(
-          "digitalocean"=>"DigitalOceanV2", "digitaloceanv2"=>"DigitalOceanV2",
-          "digital-ocean-v2"=>"DigitalOceanV2");
+          "proxmox"=>"Proxmox", "proxmox"=>"Proxmox",
+          "proxmox"=>"Proxmox");
     }
 
     public function boxProviderName() {
-        return "DigitalOceanV2";
+        return "Proxmox";
     }
 
     public function helpDefinition() {
        $help = <<<"HELPDATA"
-    This is an extension provided for Handling Servers on Digital Ocean.
+    This is an extension provided for Handling Servers on Proxmox.
 
-    DigitalOceanV2, digitalocean, digitaloceanv2, digital-ocean-v2
+    Proxmox, proxmox, proxmox, proxmox
 
         - box-add
-        Lets you add boxes to Digital Ocean, and adds them to your papyrusfile
-        example: ptconfigure digital-ocean-v2 box-add
+        Lets you add boxes to Proxmox, and adds them to your papyrusfile
+        example: ptconfigure proxmox box-add
                     --yes
                     --server-prefix=webservers # common prefix to use for these instances, none is fine
                     --environment-name=demodave # papyrusfile environment to add instances to - must already exist
@@ -49,7 +49,7 @@ class DigitalOceanV2Info extends PTConfigureBase {
 
         - box-destroy
         Will destroy box/es in an environment for you, and remove them from the papyrus file
-        example: ptconfigure digital-ocean-v2 box-destroy
+        example: ptconfigure proxmox box-destroy
                     --yes
                     --guess
                     --env=testenv # name of the environment to destroy boxes in
@@ -57,28 +57,28 @@ class DigitalOceanV2Info extends PTConfigureBase {
                     --destroy-all-boxes # Destroy all boxes in environment. This or above param must be set
 
         - box-destroy-all
-        Will destroy all boxes in your digital ocean account - Careful - its irreversible
-        example: ptconfigure digital-ocean-v2 box-destroy-all --guess
+        Will destroy all boxes in your proxmox account - Careful - its irreversible
+        example: ptconfigure proxmox box-destroy-all --guess
 
         - save-ssh-key
-        Will let you save a local ssh key to your Digital Ocean account, so you can ssh in to your nodes
+        Will let you save a local ssh key to your Proxmox account, so you can ssh in to your nodes
         securely and without a password
-        example: ptconfigure digital-ocean-v2 save-ssh-key
+        example: ptconfigure proxmox save-ssh-key
                     --yes
                     --path="/home/dave/.ssh/bastion.pub"
                     --name="bastion"
 
         - list
-        Will display data about your digital ocean account
-        example: ptconfigure digital-ocean-v2 list
-        example: ptconfigure digital-ocean-v2 list --yes
+        Will display data about your proxmox account
+        example: ptconfigure proxmox list
+        example: ptconfigure proxmox list --yes
                     --guess # use project saved connection details if possible
-                    --type=sizes # droplets, sizes, images, domains, regions, ssh_keys
+                    --type=sizes # virtual_machines, sizes, images, domains, regions, ssh_keys
 
         - test
         Will test health of nodes in an environment
-        example: ptconfigure digital-ocean-v2 test
-        example: ptconfigure digital-ocean-v2 test -yg --env=production
+        example: ptconfigure proxmox test
+        example: ptconfigure proxmox test -yg --env=production
 
 HELPDATA;
       return $help ;

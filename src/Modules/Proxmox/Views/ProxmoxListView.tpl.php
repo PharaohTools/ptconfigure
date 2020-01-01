@@ -1,32 +1,33 @@
 <?php
+//var_dump($pageVars) ;
 if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
     $arrayObject = new \ArrayObject($pageVars["result"]);
     foreach ($arrayObject as $arrayObjectKey => $arrayObjectValue) {
         $outVar = "" ;
         if ($arrayObjectKey == "status") {
             echo $arrayObjectKey.": $arrayObjectValue\n";  }
-        else if ($arrayObjectKey == "droplets") {
-            foreach($arrayObjectValue as $dropletEntry) {
-                $outVar .= "id: ".$dropletEntry->id.", ";
-                $outVar .= "name: ".$dropletEntry->name.", ";
-                $outVar .= "image_id: ".$dropletEntry->image->id.", ";
-                $outVar .= "size_id: ".$dropletEntry->size_slug.", ";
-                $outVar .= "region_id: ".$dropletEntry->region->slug.", ";
-                $ba = (isset($dropletEntry->backups_ids) && count($dropletEntry->backups_ids)>0) ?  "Yes" : "No" ;
+        else if ($arrayObjectKey == "virtual_machines") {
+            foreach($arrayObjectValue as $virtual_machineEntry) {
+                $outVar .= "id: ".$virtual_machineEntry->id.", ";
+                $outVar .= "name: ".$virtual_machineEntry->name.", ";
+                $outVar .= "image_id: ".$virtual_machineEntry->image->id.", ";
+                $outVar .= "size_id: ".$virtual_machineEntry->size_slug.", ";
+                $outVar .= "region_id: ".$virtual_machineEntry->region->slug.", ";
+                $ba = (isset($virtual_machineEntry->backups_ids) && count($virtual_machineEntry->backups_ids)>0) ?  "Yes" : "No" ;
                 $outVar .= "backups_active: ".$ba.", ";
 
-                foreach ($dropletEntry->networks->v4 as $v4ip) {
+                foreach ($virtual_machineEntry->networks->v4 as $v4ip) {
                     if ($v4ip->type == "public") {
                         $outVar .= "public_ip_address: ".$v4ip->ip_address.", "; } }
 
-                foreach ($dropletEntry->networks->v4 as $v4ip) {
+                foreach ($virtual_machineEntry->networks->v4 as $v4ip) {
                     if ($v4ip->type == "private") {
                         $outVar .= "private_ip_address: ".$v4ip->ip_address.", "; } }
 
-                $lck = ($dropletEntry->locked ==true) ?  "Yes" : "No" ;
+                $lck = ($virtual_machineEntry->locked ==true) ?  "Yes" : "No" ;
                 $outVar .= "locked: ".$lck.", ";
-                $outVar .= "status: ".$dropletEntry->status.", ";
-                $outVar .= "created_at: ".$dropletEntry->created_at;
+                $outVar .= "status: ".$virtual_machineEntry->status.", ";
+                $outVar .= "created_at: ".$virtual_machineEntry->created_at;
                 $outVar .= "\n\n" ; } }
         else if ($arrayObjectKey == "sizes") {
             foreach($arrayObjectValue as $sizeEntry) {
@@ -78,9 +79,9 @@ if (is_object($pageVars["result"]) || is_array($pageVars["result"])) {
                 $outVar .= "algorithm: ".$loadBalancerEntry->algorithm."\n";
                 $outVar .= "sticky_sessions: ".$loadBalancerEntry->sticky_sessions->type."\n";
                 $outVar .= "created_at: ".$loadBalancerEntry->created_at."\n";
-                $outVar .= "droplet_ids: \n" ;
-                foreach ($loadBalancerEntry->droplet_ids as $droplet_id) {
-                    $outVar .= "  ".$droplet_id."\n" ; }
+                $outVar .= "virtual_machine_ids: \n" ;
+                foreach ($loadBalancerEntry->virtual_machine_ids as $virtual_machine_id) {
+                    $outVar .= "  ".$virtual_machine_id."\n" ; }
                 $outVar .= "health_check: \n" ;
                 $outVar .= "  protocol: ".$loadBalancerEntry->health_check->protocol."\n" ;
                 $outVar .= "  port: ".$loadBalancerEntry->health_check->port."\n" ;

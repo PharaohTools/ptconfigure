@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
+class ProxmoxOverwriteNew extends BaseProxmoxAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -15,17 +15,17 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
     public $modelGroup = array("OverwriteNew") ;
 
     public function askWhetherToSaveOverwriteNew($params=null) {
-        return $this->performDigitalOceanV2OverwriteNew($params);
+        return $this->performProxmoxOverwriteNew($params);
     }
 
-    public function performDigitalOceanV2OverwriteNew($params=null){
+    public function performProxmoxOverwriteNew($params=null){
         if ($this->askForOverwriteExecute() != true) { return false; }
-        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        $this->accessToken = $this->askForProxmoxAccessToken();
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $serverPrefix = $this->getServerPrefix();
         foreach ($environments as $environment) {
             $envName = $environment["any-app"]["gen_env_name"];
-            $question = 'Overwrite current server details for '.$envName.' with new Digital Ocean Servers?';
+            $question = 'Overwrite current server details for '.$envName.' with new Proxmox Servers?';
             $overwriteThisEnvironment = self::askYesOrNo($question);
             if ($overwriteThisEnvironment == true) {
                 $sCount = 0;
@@ -37,7 +37,7 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
                     $serverData["imageID"] = $this->getServerGroupImageID();
                     $serverData["sizeID"] = $this->getServerGroupSizeID();
                     $serverData["regionID"] = $this->getServerGroupRegionID();
-                    $newDigitalOceanV2Server = $this->getNewServerFromDigitalOceanV2($serverData) ;
+                    $newProxmoxServer = $this->getNewServerFromProxmox($serverData) ;
                     $sCount++; } } }
         $envConfig = new EnvironmentConfig();
         $envConfig->environments = $environments ;
@@ -47,7 +47,7 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
 
     private function askForOverwriteExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Overwrite current server details with new Digital Ocean Servers?';
+        $question = 'Overwrite current server details with new Proxmox Servers?';
         return self::askYesOrNo($question);
     }
 
@@ -71,14 +71,14 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
         return self::askForInput($question, true);
     }
 
-    private function getNewServerFromDigitalOceanV2($serverData){
+    private function getNewServerFromProxmox($serverData){
         $callVars = (array) $this->getNewServerCallVarsFromData($serverData) ;
-        $curlUrl = $this->_apiURL."/v2/droplets/" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl);
+        $curlUrl = $this->_apiURL."/v2/virtual_machines/" ;
+        return $this->proxmoxCall($callVars, $curlUrl);
     }
 
     private function getNewServerCallVarsFromData($serverData){
-        # name=[droplet_name]
+        # name=[virtual_machine_name]
         # size_id=[size_id]
         # image_id=[image_id]
         # region_id=[region_id]
@@ -89,13 +89,13 @@ class DigitalOceanV2OverwriteNew extends BaseDigitalOceanV2AllOS {
         $callVars["image_id"] = $serverData["imageID"];
         $callVars["region_id"] = $serverData["regionID"];
         $callVars["ssh_key_ids"] = $this->getAllSshKeyIdsString();
-        $curlUrl = $this->_apiURL."/v2/droplets/" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl);
+        $curlUrl = $this->_apiURL."/v2/virtual_machines/" ;
+        return $this->proxmoxCall($callVars, $curlUrl);
     }
 
     private function getAllSshKeyIdsString(){
         $curlUrl = $this->_apiURL."/v2/account/keys" ;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->proxmoxCall(array(), $curlUrl);
         $keysString = "";
         for ($i=0; $i<count($sshKeysObject->ssh_keys); $i++) {
             $keysString .= "{$sshKeysObject->ssh_keys[$i]->id}" ;

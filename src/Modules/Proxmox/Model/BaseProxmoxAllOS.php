@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class BaseDigitalOceanV2AllOS extends Base {
+class BaseProxmoxAllOS extends Base {
 
     // Compatibility
     public $os = array("any") ;
@@ -14,35 +14,133 @@ class BaseDigitalOceanV2AllOS extends Base {
     // Model Group
     public $modelGroup = array("Base") ;
 
-    protected $accessToken ;
     // set api url
-    protected $_apiURL = 'https://api.digitalocean.com';
+    protected $_apiURL ;
+    protected $credentials = array() ;
 
-    protected function askForDigitalOceanV2AccessToken(){
-        if (isset($this->params["digital-ocean-v2-access-token"])) { return $this->params["digital-ocean-v2-access-token"] ; }
-        $papyrusVar = \Model\AppConfig::getProjectVariable("digital-ocean-v2-access-token") ;
-
+    protected function askForProxmoxHost(){
+        if (isset($this->params["proxmox-host"])) { return $this->params["proxmox-host"] ; }
+        if (isset($this->params["host"])) { return $this->params["host"] ; }
+        $papyrusVar = \Model\AppConfig::getProjectVariable("proxmox-host") ;
 //        var_dump($this->params) ;
-
         if ($papyrusVar != null) {
             if (isset($this->params["guess"])) {
                 return $papyrusVar ; }
-            if (isset($this->params["use-project-access-token"]) && $this->params["use-project-access-token"] == true) {
+            if (isset($this->params["use-project-host"]) && $this->params["use-project-host"] == true) {
                 return $papyrusVar ; }
-            $question = 'Use Project saved Digital Ocean Access Token?';
+            $question = 'Use Project saved Proxmox Host?';
             if (self::askYesOrNo($question, true) == true) { return $papyrusVar ; } }
-        $appVar = \Model\AppConfig::getProjectVariable("digital-ocean-v2-access-token") ;
+        $appVar = \Model\AppConfig::getProjectVariable("proxmox-host") ;
         if ($appVar != null) {
-            $question = 'Use Application saved Digital Ocean Access Token?';
+            $question = 'Use Application saved Proxmox Host?';
             if (self::askYesOrNo($question, true) == true) {
                 return $appVar ; } }
-        $question = 'Enter Digital Ocean Access Token';
+        $question = 'Enter Proxmox Host';
+        $input = self::askForInput($question, true);
+        $this->_apiURL = $input ;
+        return $input ;
+    }
+
+    protected function askForProxmoxUser(){
+        if (isset($this->params["proxmox-user"])) { return $this->params["proxmox-user"] ; }
+        if (isset($this->params["user"])) { return $this->params["user"] ; }
+        $papyrusVar = \Model\AppConfig::getProjectVariable("proxmox-user") ;
+//        var_dump($this->params) ;
+        if ($papyrusVar != null) {
+            if (isset($this->params["guess"])) {
+                return $papyrusVar ; }
+            if (isset($this->params["use-project-user"]) && $this->params["use-project-user"] == true) {
+                return $papyrusVar ; }
+            $question = 'Use Project saved Proxmox User?';
+            if (self::askYesOrNo($question, true) == true) { return $papyrusVar ; } }
+        $appVar = \Model\AppConfig::getProjectVariable("proxmox-user") ;
+        if ($appVar != null) {
+            $question = 'Use Application saved Proxmox User?';
+            if (self::askYesOrNo($question, true) == true) {
+                return $appVar ; } }
+        $question = 'Enter Proxmox User';
         return self::askForInput($question, true);
     }
 
-    protected function digitalOceanV2Call(Array $curlParams, $curlUrl, $httpType='GET') {
+    protected function askForProxmoxPassword(){
+        if (isset($this->params["proxmox-password"])) { return $this->params["proxmox-password"] ; }
+        if (isset($this->params["password"])) { return $this->params["password"] ; }
+        $papyrusVar = \Model\AppConfig::getProjectVariable("proxmox-password") ;
+//        var_dump($this->params) ;
+        if ($papyrusVar != null) {
+            if (isset($this->params["guess"])) {
+                return $papyrusVar ; }
+            if (isset($this->params["use-project-password"]) && $this->params["use-project-password"] == true) {
+                return $papyrusVar ; }
+            $question = 'Use Project saved Proxmox Password?';
+            if (self::askYesOrNo($question, true) == true) { return $papyrusVar ; } }
+        $appVar = \Model\AppConfig::getProjectVariable("proxmox-password") ;
+        if ($appVar != null) {
+            $question = 'Use Application saved Proxmox Password?';
+            if (self::askYesOrNo($question, true) == true) {
+                return $appVar ; } }
+        $question = 'Enter Proxmox Password';
+        return self::askForInput($question, true);
+    }
 
-        \Model\AppConfig::setProjectVariable("digital-ocean-v2-access-token", $this->accessToken) ;
+    protected function askForProxmoxRealm(){
+        if (isset($this->params["proxmox-realm"])) { return $this->params["proxmox-realm"] ; }
+        if (isset($this->params["realm"])) { return $this->params["realm"] ; }
+        $papyrusVar = \Model\AppConfig::getProjectVariable("proxmox-realm") ;
+        if (isset($this->params["guess"])) {
+            return 'pam' ; }
+//        var_dump($this->params) ;
+        if ($papyrusVar != null) {
+            if (isset($this->params["guess"])) {
+                return $papyrusVar ; }
+            if (isset($this->params["use-project-realm"]) && $this->params["use-project-realm"] == true) {
+                return $papyrusVar ; }
+            $question = 'Use Project saved Proxmox Realm?';
+            if (self::askYesOrNo($question, true) == true) { return $papyrusVar ; } }
+        $appVar = \Model\AppConfig::getProjectVariable("proxmox-realm") ;
+        if ($appVar != null) {
+            $question = 'Use Application saved Proxmox Realm?';
+            if (self::askYesOrNo($question, true) == true) {
+                return $appVar ; } }
+        $question = 'Enter Proxmox Realm';
+        return self::askForInput($question, true);
+    }
+
+    protected function askForProxmoxPort(){
+        if (isset($this->params["proxmox-port"])) { return $this->params["proxmox-port"] ; }
+        if (isset($this->params["port"])) { return $this->params["port"] ; }
+        $papyrusVar = \Model\AppConfig::getProjectVariable("proxmox-port") ;
+//        var_dump($this->params) ;
+        if (isset($this->params["guess"])) {
+            return '8006' ; }
+        if ($papyrusVar != null) {
+            if (isset($this->params["guess"])) {
+                return $papyrusVar ; }
+            if (isset($this->params["use-project-port"]) && $this->params["use-project-port"] == true) {
+                return $papyrusVar ; }
+            $question = 'Use Project saved Proxmox Port?';
+            if (self::askYesOrNo($question, true) == true) { return $papyrusVar ; } }
+        $appVar = \Model\AppConfig::getProjectVariable("proxmox-port") ;
+        if ($appVar != null) {
+            $question = 'Use Application saved Proxmox Port?';
+            if (self::askYesOrNo($question, true) == true) {
+                return $appVar ; } }
+        $question = 'Enter Proxmox Port';
+        return self::askForInput($question, true);
+    }
+
+    protected function setCredentials(){
+        $this->credentials['hostname'] = $this->askForProxmoxHost() ;
+        $this->credentials['username'] = $this->askForProxmoxUser() ;
+        $this->credentials['password'] = $this->askForProxmoxPassword() ;
+        $this->credentials['realm'] = $this->askForProxmoxRealm() ;
+        $this->credentials['port'] = $this->askForProxmoxPort() ;
+        return true ;
+    }
+
+    protected function proxmoxCall(Array $curlParams, $curlUrl, $httpType='GET') {
+
+        \Model\AppConfig::setProjectVariable("proxmox-access-token", $this->accessToken) ;
 
         $postQuery = "";
         $ch = curl_init();

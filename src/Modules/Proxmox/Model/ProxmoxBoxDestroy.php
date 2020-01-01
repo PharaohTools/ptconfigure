@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
+class ProxmoxBoxDestroy extends BaseProxmoxAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -21,7 +21,7 @@ class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
 
     public function destroyBox() {
         if ($this->askForOverwriteExecute() != true) { return false; }
-        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        $this->accessToken = $this->askForProxmoxAccessToken();
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $workingEnvironment = $this->getWorkingEnvironment();
 
@@ -40,7 +40,7 @@ class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
                     if (isset($this->params["yes"]) && $this->params["yes"]==true) {
                         $removeFromThisEnvironment = true ; }
                     else {
-                        $question = 'Remove Digital Ocean Server Boxes from '.$envName.'?';
+                        $question = 'Remove Proxmox Server Boxes from '.$envName.'?';
                         $removeFromThisEnvironment = self::askYesOrNo($question); }
 
                     if ($removeFromThisEnvironment == true) {
@@ -48,16 +48,16 @@ class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
                             $responses = array();
                             for ($iBox = 0; $iBox < count($environments[$i]["servers"]); $iBox++) {
                                 $serverData = array();
-                                $serverData["dropletID"] = $environments[$i]["servers"][$iBox]["id"] ;
-                                $responses[] = $this->destroyServerFromDigitalOceanV2($serverData) ;
-                                $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]); }
+                                $serverData["virtual_machineID"] = $environments[$i]["servers"][$iBox]["id"] ;
+                                $responses[] = $this->destroyServerFromProxmox($serverData) ;
+                                $this->deleteServerFromPapyrus($workingEnvironment, $serverData["virtual_machineID"]); }
                             return true ; }
                         else if (isset($this->params["destroy-box-id"])) {
                             $responses = array();
                             $serverData = array();
-                            $serverData["dropletID"] = $this->params["destroy-box-id"] ;
-                            $responses[] = $this->destroyServerFromDigitalOceanV2($serverData) ;
-                            $this->deleteServerFromPapyrus($workingEnvironment, $serverData["dropletID"]);
+                            $serverData["virtual_machineID"] = $this->params["destroy-box-id"] ;
+                            $responses[] = $this->destroyServerFromProxmox($serverData) ;
+                            $this->deleteServerFromPapyrus($workingEnvironment, $serverData["virtual_machineID"]);
                             return true ; }
                         else {
                             \Core\BootStrap::setExitCode(1) ;
@@ -71,7 +71,7 @@ class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
 
     private function askForOverwriteExecute() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Destroy Digital Ocean Server Boxes?';
+        $question = 'Destroy Proxmox Server Boxes?';
         return self::askYesOrNo($question);
     }
 
@@ -84,24 +84,24 @@ class DigitalOceanV2BoxDestroy extends BaseDigitalOceanV2AllOS {
         return self::askForInput($question);
     }
 
-    private function destroyServerFromDigitalOceanV2($serverData) {
+    private function destroyServerFromProxmox($serverData) {
         $callVars = array() ;
-        $callVars["droplet_id"] = $serverData["dropletID"];
-        $curlUrl = $this->_apiURL."/v2/droplets/{$callVars["droplet_id"]}" ;
-        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl,'DELETE');
+        $callVars["virtual_machine_id"] = $serverData["virtual_machineID"];
+        $curlUrl = $this->_apiURL."/v2/virtual_machines/{$callVars["virtual_machine_id"]}" ;
+        $callOut = $this->proxmoxCall($callVars, $curlUrl,'DELETE');
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Request for destroying Droplet {$callVars["droplet_id"]} complete") ;
+        $logging->log("Request for destroying Droplet {$callVars["virtual_machine_id"]} complete") ;
         return $callOut ;
     }
 
-    private function deleteServerFromPapyrus($workingEnvironment, $dropletId) {
+    private function deleteServerFromPapyrus($workingEnvironment, $virtual_machineId) {
         $environments = \Model\AppConfig::getProjectVariable("environments");
         $newServers = array() ;
         foreach ($environments as &$environment) {
             if ($environment["any-app"]["gen_env_name"] == $workingEnvironment) {
                 foreach ($environment["servers"] as $server ) {
-                    if ($server["id"] != $dropletId) { $newServers[] = $server ; }
+                    if ($server["id"] != $virtual_machineId) { $newServers[] = $server ; }
                     $environment["servers"] = $newServers ; }
                 \Model\AppConfig::setProjectVariable("environments", $environments); } }
     }

@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
+class ProxmoxBoxAdd extends BaseProxmoxAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -24,10 +24,11 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $logging = $loggingFactory->getModel($this->params);
 
         if ($this->askForBoxAddExecute() != true) { return false; }
-        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        if ($this->setCredentials() != true) { return false; }
+        $this->accessToken = $this->askForProxmoxAccessToken();
         if (strlen($this->accessToken)==0) {
             \Core\BootStrap::setExitCode(1) ;
-            $logging->log("Unable to initialize Digital Ocean credentials.", $this->getModuleName()) ;
+            $logging->log("Unable to initialize Proxmox credentials.", $this->getModuleName()) ;
             return false ;
         }
         $serverPrefix = $this->getServerPrefix();
@@ -47,7 +48,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                     if (isset($this->params["yes"]) && $this->params["yes"]==true) {
                         $addToThisEnvironment = true ; }
                     else {
-                        $question = 'Add Digital Ocean Server Boxes to '.$envName.'?';
+                        $question = 'Add Proxmox Server Boxes to '.$envName.'?';
                         $addToThisEnvironment = self::askYesOrNo($question); }
 
                     if ($addToThisEnvironment == true) {
@@ -66,7 +67,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                             $epn = $this->getEnablePrivateNetwork() ;
                             if ($epn === true ) { $serverData["privateNetwork"] = true ; }
                             $serverData["sshKeyIds"] = $this->getSshKeyIds();
-                            $response = $this->getNewServerFromDigitalOceanV2($serverData) ;
+                            $response = $this->getNewServerFromProxmox($serverData) ;
                             if ( isset($response->id) && $response->id == "unprocessable_entity") {
                                 $logging->log("Node Request for {$serverData["name"]} failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                                 return false ; }
@@ -79,7 +80,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
     private function askForBoxAddExecute() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Add Digital Ocean Server Boxes?';
+        $question = 'Add Proxmox Server Boxes?';
         return self::askYesOrNo($question);
     }
 
@@ -196,7 +197,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         return $this->params["private-ssh-key-path"] ;
     }
 
-    private function getNewServerFromDigitalOceanV2($serverData) {
+    private function getNewServerFromProxmox($serverData) {
         $callVars = array() ;
         $callVars["name"] = $serverData["name"];
         $callVars["size"] = $serverData["sizeID"];
@@ -206,9 +207,9 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
         $epn = $this->getEnablePrivateNetwork() ;
         if ($epn === true ) {
             $callVars["private_networking"] = true ; }
-        $curlUrl = $this->_apiURL."/v2/droplets/" ;
+        $curlUrl = $this->_apiURL."/v2/virtual_machines/" ;
         $httpType = "POST" ;
-        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
+        $callOut = $this->proxmoxCall($callVars, $curlUrl, $httpType);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         if ( isset($callOut->id) && $callOut->id == "unprocessable_entity") {
@@ -222,7 +223,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
 
     private function addServerToPapyrus($envName, $data) {
 
-        if (!isset($data->droplet)) {
+        if (!isset($data->virtual_machine)) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
 //            debug_print_backtrace() ;
@@ -230,15 +231,15 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             return false ; }
 
         if (isset($data) && is_object($data)) {
-            $dropletData = $this->getDropletData($data->droplet->id);
-            if (!isset($dropletData->droplet->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
-                $dropletData = $this->waitForBoxInfo($data->droplet->id); }
-            if (($dropletData->droplet->status != "active") && isset($this->params["wait-until-active"])) {
-                $dropletData = $this->waitUntilActive($data->droplet->id); }
+            $virtual_machineData = $this->getDropletData($data->virtual_machine->id);
+            if (!isset($virtual_machineData->virtual_machine->networks->v4[0]->ip_address) && isset($this->params["wait-for-box-info"])) {
+                $virtual_machineData = $this->waitForBoxInfo($data->virtual_machine->id); }
+            if (($virtual_machineData->virtual_machine->status != "active") && isset($this->params["wait-until-active"])) {
+                $virtual_machineData = $this->waitUntilActive($data->virtual_machine->id); }
             $server = array();
-//            var_dump('net', $dropletData->droplet->networks) ;
+//            var_dump('net', $virtual_machineData->virtual_machine->networks) ;
 
-            foreach ($dropletData->droplet->networks->v4 as $iface) {
+            foreach ($virtual_machineData->virtual_machine->networks->v4 as $iface) {
                 if ($iface->type == 'private') {
                     $server["target_private"] = $iface->ip_address;
                     if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'private') ||
@@ -249,13 +250,13 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
                     if ( (isset($this->params["default-target"]) && $this->params["default-target"] == 'public') ||
                         !isset($this->params["default-target"])) {
                         $server["target"] = $iface->ip_address; } } }
-//            $server["target"] = $dropletData->droplet->networks->v4[0]->ip_address;
+//            $server["target"] = $virtual_machineData->virtual_machine->networks->v4[0]->ip_address;
             $server["user"] = $this->getUsernameOfBox() ;
             $server["password"] = $this->getSSHKeyLocation() ;
-            $server["provider"] = "DigitalOceanV2";
-            $server["id"] = $data->droplet->id;
-            $server["name"] = $data->droplet->name;
-            $server["image"] = $data->droplet->image->id;
+            $server["provider"] = "Proxmox";
+            $server["id"] = $data->virtual_machine->id;
+            $server["name"] = $data->virtual_machine->name;
+            $server["image"] = $data->virtual_machine->image->id;
             // file_put_contents("/tmp/outloc", getcwd()) ;
             // file_put_contents("/tmp/outsrv", $server) ;
             $environments = \Model\AppConfig::getProjectVariable("environments");
@@ -310,7 +311,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
      */
     private function getSshKeyInfoByKeyId($keyID){
         $curlUrl = $this->_apiURL."/v2/account/keys/".$keyID;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->proxmoxCall(array(), $curlUrl);
 
         return $sshKeysObject;
     }
@@ -322,7 +323,7 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
      */
     private function getSshKeyInfoByKeyFingerprint($keyFingerprint){
         $curlUrl = $this->_apiURL."/v2/account/keys/".$keyFingerprint;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->proxmoxCall(array(), $curlUrl);
 
         return $sshKeysObject;
     }
@@ -336,58 +337,58 @@ class DigitalOceanV2BoxAdd extends BaseDigitalOceanV2AllOS {
             return $this->params["ssh-key-ids"] ;
         }
         $curlUrl = $this->_apiURL."/v2/account/keys" ;
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->proxmoxCall(array(), $curlUrl);
         return $sshKeysObject->ssh_keys;
     }
 
     private function getSshKeyIdFromName($name) {
         $curlUrl = $this->_apiURL."/v2/account/keys";
-        $sshKeysObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $sshKeysObject =  $this->proxmoxCall(array(), $curlUrl);
         foreach($sshKeysObject->ssh_keys as $sshKey) {
             if ($sshKey->name == $name) {
                 return $sshKey->id ; } }
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Unable to locate a key on Digital Ocean by name {$name}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+        $logging->log("Unable to locate a key on Proxmox by name {$name}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
         return false ;
     }
 
     /**
-     * Get droplet information via droplet-id
-     * @param $dropletId
+     * Get virtual_machine information via virtual_machine-id
+     * @param $virtual_machineId
      * @return mixed
      */
-    private function getDropletData($dropletId) {
-        $curlUrl = $this->_apiURL."/v2/droplets/$dropletId" ;
-        $dropletObject =  $this->digitalOceanV2Call(array(), $curlUrl);
-        return $dropletObject;
+    private function getDropletData($virtual_machineId) {
+        $curlUrl = $this->_apiURL."/v2/virtual_machines/$virtual_machineId" ;
+        $virtual_machineObject =  $this->proxmoxCall(array(), $curlUrl);
+        return $virtual_machineObject;
     }
 
-    private function waitForBoxInfo($dropletId) {
+    private function waitForBoxInfo($virtual_machineId) {
         $maxWaitTime = (isset($this->params["max-box-info-wait-time"])) ? $this->params["max-box-info-wait-time"] : "300" ;
         $i2 = 1 ;
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for droplet $dropletId box info...", $this->getModuleName()) ;
-            $dropletData = $this->getDropletData($dropletId);
-            if (isset($dropletData->droplet->networks->v4[0]->ip_address)) {
-                return $dropletData ; }
+            $logging->log("Attempt $i2 for virtual_machine $virtual_machineId box info...", $this->getModuleName()) ;
+            $virtual_machineData = $this->getDropletData($virtual_machineId);
+            if (isset($virtual_machineData->virtual_machine->networks->v4[0]->ip_address)) {
+                return $virtual_machineData ; }
             sleep (10);
             $i2++; }
         return null;
     }
 
-    private function waitUntilActive($dropletId) {
+    private function waitUntilActive($virtual_machineId) {
         $maxWaitTime = (isset($this->params["max-active-wait-time"])) ? $this->params["max-active-wait-time"] : "300" ;
         $i2 = 1 ;
         for($i=0; $i<=$maxWaitTime; $i=$i+10){
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($this->params);
-            $logging->log("Attempt $i2 for droplet $dropletId to become active...", $this->getModuleName()) ;
-            $dropletData = $this->getDropletData($dropletId);
-            if (isset($dropletData->droplet->status) && $dropletData->droplet->status=="active") {
-                return $dropletData ; }
+            $logging->log("Attempt $i2 for virtual_machine $virtual_machineId to become active...", $this->getModuleName()) ;
+            $virtual_machineData = $this->getDropletData($virtual_machineId);
+            if (isset($virtual_machineData->virtual_machine->status) && $virtual_machineData->virtual_machine->status=="active") {
+                return $virtual_machineData ; }
             sleep (10);
             $i2++; }
         return null;

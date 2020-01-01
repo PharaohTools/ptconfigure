@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
+class ProxmoxSshKey extends BaseProxmoxAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -15,21 +15,21 @@ class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
     public $modelGroup = array("SshKey") ;
 
     public function askWhetherToSaveSshKey($params=null) {
-        return $this->performDigitalOceanV2SaveSshKey($params);
+        return $this->performProxmoxSaveSshKey($params);
     }
 
-    public function performDigitalOceanV2SaveSshKey($params=null){
+    public function performProxmoxSaveSshKey($params=null){
         if ($this->askForSSHKeyExecute() != true) { return false; }
-        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        $this->accessToken = $this->askForProxmoxAccessToken();
         $fileLocation = $this->askForSSHKeyPublicFileLocation();
         $fileData = file_get_contents($fileLocation);
-        $keyName = $this->askForSSHKeyNameForDigitalOceanV2();
-        return $this->saveSshKeyToDigitalOceanV2($fileData, $keyName);
+        $keyName = $this->askForSSHKeyNameForProxmox();
+        return $this->saveSshKeyToProxmox($fileData, $keyName);
     }
 
     private function askForSSHKeyExecute(){
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Save local SSH Public Key file to Digital Ocean?';
+        $question = 'Save local SSH Public Key file to Proxmox?';
         return self::askYesOrNo($question);
     }
 
@@ -40,14 +40,14 @@ class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
         return self::askForInput($question, true);
     }
 
-    private function askForSSHKeyNameForDigitalOceanV2(){
+    private function askForSSHKeyNameForProxmox(){
         if (isset($this->params["name"]) && $this->params["name"]==true) {
             return $this->params["name"] ; }
-        $question = 'Enter name to store ssh key under on Digital Ocean';
+        $question = 'Enter name to store ssh key under on Proxmox';
         return self::askForInput($question, true);
     }
 
-    public function saveSshKeyToDigitalOceanV2($keyData, $keyName){
+    public function saveSshKeyToProxmox($keyData, $keyName){
         $callVars = array();
         $keyData = str_replace("\n", "", $keyData);
 
@@ -56,7 +56,7 @@ class DigitalOceanV2SshKey extends BaseDigitalOceanV2AllOS {
         $callVars["name"] = $keyName;
         $curlUrl = $this->_apiURL."/v2/account/keys" ;
         $httpType = "POST" ;
-        return $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
+        return $this->proxmoxCall($callVars, $curlUrl, $httpType);
     }
 
 }

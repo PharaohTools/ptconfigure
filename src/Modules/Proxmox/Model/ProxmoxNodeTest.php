@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
+class ProxmoxNodeTest extends BaseProxmoxAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -19,40 +19,40 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
     }
 
     public function askWhetherToTestNode() {
-        return $this->performDigitalOceanV2TestNode();
+        return $this->performProxmoxTestNode();
     }
 
     public function askWhetherToTestAllEnvNodes() {
-        return $this->performDigitalOceanV2TestAllEnvNodes();
+        return $this->performProxmoxTestAllEnvNodes();
     }
 
-    protected function performDigitalOceanV2TestNode(){
+    protected function performProxmoxTestNode(){
         if ($this->askForTestNodeExecute() != true) { return false; }
-        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        $this->accessToken = $this->askForProxmoxAccessToken();
         $this->params["id"] = $this->askForNodeID();
         $this->params["name"] = $this->askForNodeName();
         $this->params["image"] = $this->askForNodeImage();
-        $processed = $this->getDataTestNodeFromDigitalOceanV2();
+        $processed = $this->getDataTestNodeFromProxmox();
         return $processed ;
     }
 
-    protected function performDigitalOceanV2TestAllEnvNodes(){
+    protected function performProxmoxTestAllEnvNodes(){
         if ($this->askForTestNodeExecute() != true) { return false; }
-        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        $this->accessToken = $this->askForProxmoxAccessToken();
         $this->params["environment-name"] = $this->askForEnvironment();
-        $doFactory = new \Model\DigitalOceanV2();
-        $listParams = array("yes" => true, "guess" => true, "type" => "droplets") ;
+        $doFactory = new \Model\Proxmox();
+        $listParams = array("yes" => true, "guess" => true, "type" => "virtual_machines") ;
         $listParams = array_merge($listParams, $this->params) ;
         $doListing = $doFactory->getModel($listParams, "Listing") ;
         $allBoxes = $doListing->askWhetherToListData();
         $processed = array() ;
         $server_ids = $this->getEnvironmentServerIDs() ;
-        foreach($allBoxes->droplets as $box) {
+        foreach($allBoxes->virtual_machines as $box) {
             if (in_array($box->id, $server_ids)) {
                 $this->params["id"] = $box->id;
                 $this->params["name"] = $box->name;
                 $this->params["image"] = $box->image->id;
-                $processed[] = $this->getDataTestNodeFromDigitalOceanV2(); } }
+                $processed[] = $this->getDataTestNodeFromProxmox(); } }
         return $processed ;
     }
 
@@ -91,7 +91,7 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         return "" ;
     }
 
-    public function getDataTestNodeFromDigitalOceanV2(){
+    public function getDataTestNodeFromProxmox(){
 
         $ret = array() ;
 
@@ -114,12 +114,12 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
             $ret["status"] = false ;
             return $ret ; }
 
-        $curlUrl = $this->_apiURL."/v2/droplets/$node_id" ;
+        $curlUrl = $this->_apiURL."/v2/virtual_machines/$node_id" ;
         $httpType = "GET" ;
-        $ret["data"] = $this->digitalOceanV2Call(array(), $curlUrl, $httpType);
+        $ret["data"] = $this->proxmoxCall(array(), $curlUrl, $httpType);
         $ret["info"] = $this->getInfoFromData($ret["data"]);
         $ret["status"] = $this->checkNodeStatusFromData($ret["data"]) ;
-        $logging->log("Calling Digital Ocean Data", $this->getModuleName()) ;
+        $logging->log("Calling Proxmox Data", $this->getModuleName()) ;
 
         return $ret ;
     }
@@ -137,15 +137,15 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $ret = array() ;
-        if (isset($data->droplet)) {
+        if (isset($data->virtual_machine)) {
             $logging->log("Collecting data from cloud node", $this->getModuleName()) ;
-            $ret["id"] = $data->droplet->id ;
-            $ret["image"] = $data->droplet->image->id ;
-            $ret["target_ip"] = $data->droplet->networks->v4[0]->ip_address ;
-            $ret["name"] = $data->droplet->name ;
-            $ret["size"] = $data->droplet->size_slug ;
-            $ret["region"] = $data->droplet->region->slug ;
-            $ret["region_name"] = $data->droplet->region->name ; }
+            $ret["id"] = $data->virtual_machine->id ;
+            $ret["image"] = $data->virtual_machine->image->id ;
+            $ret["target_ip"] = $data->virtual_machine->networks->v4[0]->ip_address ;
+            $ret["name"] = $data->virtual_machine->name ;
+            $ret["size"] = $data->virtual_machine->size_slug ;
+            $ret["region"] = $data->virtual_machine->region->slug ;
+            $ret["region_name"] = $data->virtual_machine->region->name ; }
         else {
             $logging->log("Unable to collect node data from cloud node", $this->getModuleName()) ; }
         return $ret ;
@@ -154,11 +154,11 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
     private function checkNodeImageFromData($data) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (isset($data->droplet)) {
-            if ($data->droplet->image->id == $this->params["image"]) {
-                $logging->log("Node reports expected image id {$data->droplet->image->id}", $this->getModuleName()) ;
+        if (isset($data->virtual_machine)) {
+            if ($data->virtual_machine->image->id == $this->params["image"]) {
+                $logging->log("Node reports expected image id {$data->virtual_machine->image->id}", $this->getModuleName()) ;
                 return true ; }
-            $logging->log("Node reports unexpected image id of {$data->droplet->image->id}", $this->getModuleName()) ; }
+            $logging->log("Node reports unexpected image id of {$data->virtual_machine->image->id}", $this->getModuleName()) ; }
         else {
             $logging->log("Unable to collect image data from cloud node", $this->getModuleName()) ; }
         return false ;
@@ -167,8 +167,8 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
     private function checkNodeActiveFromData($data) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (isset($data->droplet)) {
-            if ($data->droplet->status == "active") {
+        if (isset($data->virtual_machine)) {
+            if ($data->virtual_machine->status == "active") {
                 $logging->log("Node reports expected active status", $this->getModuleName()) ;
                 return true ; }
             $logging->log("Node reports unexpected status of {$data->status} ", $this->getModuleName()) ;
@@ -182,18 +182,18 @@ class DigitalOceanV2NodeTest extends BaseDigitalOceanV2AllOS {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Finding ID of Node from name {$name}", $this->getModuleName()) ;
-        $droplets = $this->getAllDroplets() ;
-        foreach ($droplets as $droplet) {
-            if ($droplet->name == $name) {
-                $logging->log("Found ID of {$droplet->ID} for Node from name {$name}", $this->getModuleName()) ;
-                return $droplet->ID ; } }
+        $virtual_machines = $this->getAllDroplets() ;
+        foreach ($virtual_machines as $virtual_machine) {
+            if ($virtual_machine->name == $name) {
+                $logging->log("Found ID of {$virtual_machine->ID} for Node from name {$name}", $this->getModuleName()) ;
+                return $virtual_machine->ID ; } }
         return false ;
     }
 
     private function getAllDroplets() {
-        $curlUrl = $this->_apiURL."/v2/droplets" ;
+        $curlUrl = $this->_apiURL."/v2/virtual_machines" ;
         $httpType = "GET" ;
-        return $this->digitalOceanV2Call(array(), $curlUrl, $httpType);
+        return $this->proxmoxCall(array(), $curlUrl, $httpType);
     }
 
     protected function getEnvironment() {

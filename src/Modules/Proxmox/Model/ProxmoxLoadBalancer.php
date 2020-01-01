@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
+class ProxmoxLoadBalancer extends BaseProxmoxAllOS {
 
     // Compatibility
     public $os = array("any") ;
@@ -16,7 +16,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
 
     public function askForLoadBalancerAddExecute() {
         if (isset($this->params["yes"]) && $this->params["yes"]==true) { return true ; }
-        $question = 'Ensure Digital Ocean Load Balancer?';
+        $question = 'Ensure Proxmox Load Balancer?';
         return self::askYesOrNo($question);
     }
 
@@ -62,7 +62,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
         return self::askForInput($question, true);
     }
 
-    public function getNewLoadBalancerFromDigitalOceanV2($serverData) {
+    public function getNewLoadBalancerFromProxmox($serverData) {
         $callVars = array() ;
         $callVars["name"] = $serverData["name"];
 //        $callVars["size"] = $serverData["sizeID"];
@@ -73,7 +73,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
 
         $curlUrl = $this->_apiURL."/v2/load_balancers/" ;
         $httpType = "POST" ;
-        $callOut = $this->digitalOceanV2Call($callVars, $curlUrl, $httpType);
+        $callOut = $this->proxmoxCall($callVars, $curlUrl, $httpType);
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Request for {$callVars["name"]} complete", $this->getModuleName()) ;
@@ -114,7 +114,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
 //            $server["target"] = $load_balancerData->load_balancer->networks->v4[0]->ip_address;
 //            $server["user"] = $this->getUsernameOfLoadBalancer() ;
 //            $server["password"] = $this->getSSHKeyLocation() ;
-            $server["provider"] = "DigitalOceanV2";
+            $server["provider"] = "Proxmox";
             $server["id"] = $data->load_balancer->id;
             $server["name"] = $data->load_balancer->name;
 //            $server["image"] = $data->load_balancer->image->id;
@@ -140,7 +140,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
      */
     public function getLoadBalancerData($load_balancerId) {
         $curlUrl = $this->_apiURL."/v2/load_balancers/$load_balancerId" ;
-        $load_balancerObject =  $this->digitalOceanV2Call(array(), $curlUrl);
+        $load_balancerObject =  $this->proxmoxCall(array(), $curlUrl);
         return $load_balancerObject;
     }
 
@@ -367,10 +367,10 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
         $logging = $loggingFactory->getModel($this->params);
 
         if ($this->askForLoadBalancerAddExecute() != true) { return false; }
-        $this->accessToken = $this->askForDigitalOceanV2AccessToken();
+        $this->accessToken = $this->askForProxmoxAccessToken();
         if (strlen($this->accessToken)==0) {
             \Core\BootStrap::setExitCode(1) ;
-            $logging->log("Unable to initialize Digital Ocean credentials.", $this->getModuleName()) ;
+            $logging->log("Unable to initialize Proxmox credentials.", $this->getModuleName()) ;
             return false ;
         }
         $serverPrefix = $this->getLoadBalancerPrefix();
@@ -390,7 +390,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
                     if (isset($this->params["yes"]) && $this->params["yes"]==true) {
                         $addToThisEnvironment = true ; }
                     else {
-                        $question = 'Add Digital Ocean Load Balancers to '.$envName.'?';
+                        $question = 'Add Proxmox Load Balancers to '.$envName.'?';
                         $addToThisEnvironment = self::askYesOrNo($question); }
 
                     if ($addToThisEnvironment == true) {
@@ -409,7 +409,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
 //                            $epn = $this->getEnablePrivateNetwork() ;
 //                            if ($epn === true ) { $serverData["privateNetwork"] = true ; }
 //                            $serverData["sshKeyIds"] = $this->getSshKeyIds();
-                            $response = $this->getNewLoadBalancerFromDigitalOceanV2($serverData) ;
+                            $response = $this->getNewLoadBalancerFromProxmox($serverData) ;
                             if ( isset($response->id) && $response->id == "unprocessable_entity") {
                                 $logging->log("Load Balancer Request for {$serverData["name"]} failed", $this->getModuleName()) ;
                                 return false ; }
@@ -425,7 +425,7 @@ class DigitalOceanV2LoadBalancer extends BaseDigitalOceanV2AllOS {
             $balancer = array();
             $address = $data->virtualIps->current();
             $balancer["target"] = $address->address ;
-            $balancer["provider"] = "Rackspace" ;
+            $balancer["provider"] = "Proxmox" ;
             $balancer["id"] = $data->id ;
             $balancer["name"] = $data->name ;
             $balancer["port"] = $data->port ;
