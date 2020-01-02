@@ -108,22 +108,26 @@ class Base {
                 $currentKeys = array_keys($modelClassNameOrArray) ;
                 $currentKey = $currentKeys[0] ;
                 if (\Core\AutoLoader::moduleExists($currentKey) == false) {
-                    $errors[] = "Module $currentKey does not exist. Cannot continue without dependency."; }
+                    $errors[] = "Module $currentKey does not exist. Cannot continue without dependency.";
+                    \Core\BootStrap::setExitCode(1) ; }
                 else {
                     $fullClassName = '\Model\\'.$currentKey;
                     $moduleModelFactory = new $fullClassName($params);
                     $compatibleObject = $moduleModelFactory::getModel($params) ;
                     if ( !is_object($compatibleObject) ) {
-                        $errors[] = "Module $currentKey Does not have compatible models for this system"; } } }
+                        $errors[] = "Module $currentKey Does not have compatible models for this system";
+                        \Core\BootStrap::setExitCode(1) ;  } } }
             else {
                 $fullClassName = '\Model\\'.$modelClassNameOrArray;
                 if (\Core\AutoLoader::moduleExists($modelClassNameOrArray) == false) {
-                    $errors[] = "Module $modelClassNameOrArray does not exist. Cannot continue without dependency."; }
+                    $errors[] = "Module $modelClassNameOrArray does not exist. Cannot continue without dependency.";
+                    \Core\BootStrap::setExitCode(1) ;  }
                 else {
                     $moduleModelFactory = new $fullClassName($params);
                     $compatibleObject = $moduleModelFactory::getModel($params) ;
                     if ( !is_object($compatibleObject) ) {
-                        $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system"; } } } }
+                        $errors[] = "Module $modelClassNameOrArray Does not have compatible models for this system";
+                        \Core\BootStrap::setExitCode(1) ;  } } } }
         if ( count($errors) > 0 ) {
             $loggingFactory = new \Model\Logging();
             $logging = $loggingFactory->getModel($params) ;
