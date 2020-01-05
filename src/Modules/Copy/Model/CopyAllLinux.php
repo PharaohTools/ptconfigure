@@ -26,12 +26,21 @@ class CopyAllLinux extends Base {
     }
 
     public function doCopyPut($source, $target) {
-        $comm = "cp -r $source $target" ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Executing $comm", $this->getModuleName());
-        $rc = self::executeAndGetReturnCode($comm, true, false) ;
-        return ($rc["rc"]==0) ? true : false ;
+        if (strrpos($source, '/')==strlen($source)) {
+            $logging->log("Copying file from $source to $target", $this->getModuleName());
+            $res = copy($source, $target) ;
+            if ($res !== true) {
+                $logging->log("Copying file to $target failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+            }
+            return $res ;
+        } else {
+            $comm = "cp -r $source $target" ;
+            $logging->log("Executing $comm", $this->getModuleName());
+            $rc = self::executeAndGetReturnCode($comm, true, false) ;
+            return ($rc["rc"]==0) ? true : false ;
+        }
     }
 
     private function askForCopyExecute(){
