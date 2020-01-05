@@ -28,7 +28,8 @@ class CopyAllLinux extends Base {
     public function doCopyPut($source, $target) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (strrpos($source, '/')==strlen($source)) {
+        if (strrpos($source, '/') !== (strlen($source)-1) &&
+            strrpos($source, '*') !== (strlen($source)-1) ) {
             $logging->log("Copying file from $source to $target", $this->getModuleName());
             $res = copy($source, $target) ;
             if ($res !== true) {
