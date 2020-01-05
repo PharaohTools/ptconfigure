@@ -51,7 +51,8 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getWebappConfigureAutoPath().' --app-slug=ptbuild --fpm-port=6041' ;
             $ray[]["command"][] = SUDOPREFIX.PTDCOMM." auto x --af=".$this->getDeployAutoPath(). " $vhestring $vheipport".' --app-slug=build --fpm-port=6041'.$sslstring ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/pipes/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/data/" ;}
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/keys/" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/data/" ; }
         if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptbuild directories'" ;
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptbuild-pipes/pipes/* /opt/ptbuild/pipes/ || true" ;
