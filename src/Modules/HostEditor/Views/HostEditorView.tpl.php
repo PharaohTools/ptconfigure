@@ -1,1 +1,1 @@
-<?php echo ($pageVars["result"] == true ) ? "Success" : "Failure" ; ?> Host Editor Finished
+<?php echo ($pageVars["result"] == true ) ? "Success" : "Failure" ; ?>
