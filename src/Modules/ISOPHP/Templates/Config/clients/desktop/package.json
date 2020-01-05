@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "electron": "7.1.5",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.1",
     "uuid": "^3.0.0",
     "json-loader": "^0.5.1",
     "uglifyify": "^3.0.1",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "electron": "7.1.5",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.1",
     "uuid": "^3.0.0",
     "json-loader": "^0.5.1",
     "uglifyify": "^3.0.1",
