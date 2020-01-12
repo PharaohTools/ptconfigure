@@ -47,16 +47,43 @@ class RoleExecutionAnyOS extends Base {
         $logging->log("Loading Role Object", $this->getModuleName());
         $roles_dir = $this->getRolesDirectory() ;
         $config_path = $roles_dir.$role.DS.'config.yml' ;
-        $role_path = $roles_dir.$role.DS.'index.dsl.yml' ;
+        $role_directory = $roles_dir.$role.DS ;
+        $role_index_path = $roles_dir.$role.DS.'index.dsl.yml' ;
         if (file_exists($config_path)) {
             $config = $this->yamlParser($config_path) ;
-            if (!isset($config->index)) {
-                $role_path = $roles_dir.$role.DS.$config->index ;
+            if (isset($config->index)) {
+                $role_index_path = $roles_dir.$role.DS.$config->index ;
             }
         }
-        $logging->log("Using Role Index of $role_path", $this->getModuleName());
+        $logging->log("Using Role Index of $role_index_path", $this->getModuleName());
         $object = new \StdClass() ;
-        $object->role_path = $role_path ;
+        $object->role_path = $role_index_path ;
+        $object->role_directory = $role_directory ;
+        if (isset($config['vars'])) {
+            $object->vars = $config['vars'] ;
+        }
+//        var_dump($config, $object) ;
+//        die() ;
+        return $object ;
+    }
+
+    protected function getStepsObject($role) {
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        $logging->log("Loading Steps Object", $this->getModuleName());
+        $roles_dir = $this->getRolesDirectory() ;
+        $config_path = $roles_dir.$role.DS.'config.yml' ;
+        $config = $this->yamlParser($config_path) ;
+        $role_index_path = $roles_dir.$role.DS.'index.dsl.yml' ;
+        if (file_exists($config_path)) {
+            $config = $this->yamlParser($config_path) ;
+            if (isset($config->index)) {
+                $role_index_path = $roles_dir.$role.DS.$config->index ;
+            }
+        }
+        $logging->log("Using Role Index of $role_index_path", $this->getModuleName());
+        $object = new \StdClass() ;
+        $object->role_path = $role_index_path ;
         if (isset($config->vars)) {
             $object->vars = $config->vars ;
         }
@@ -93,25 +120,6 @@ class RoleExecutionAnyOS extends Base {
         $steps = $steps[0] ;
         $this->displaySteps($steps) ;
         return $this->executeAllSteps($steps) ;
-    }
-
-    protected function getStepsObject($role) {
-        $loggingFactory = new \Model\Logging();
-        $logging = $loggingFactory->getModel($this->params);
-        $logging->log("Loading Steps Object", $this->getModuleName());
-        $roles_dir = $this->getRolesDirectory() ;
-        $config_path = $roles_dir.$role.DS.'config.yml' ;
-        $config = $this->yamlParser($config_path) ;
-        if (!isset($config->index)) {
-            $role_path = $roles_dir.$role.DS.'index.dsl.yml' ;
-        } else {
-            $role_path = $roles_dir.$role.DS.$config->index ;
-        }
-        $logging->log("Using Role Index of $role_path", $this->getModuleName());
-        $object = new \StdClass() ;
-        $object->role_path = $role_path ;
-        $object->vars = $config->vars ;
-        return $object ;
     }
 
     protected function executeAllRoles($roles) {
@@ -242,12 +250,16 @@ class RoleExecutionAnyOS extends Base {
                 if (isset($role_object->vars)) {
                     $stringy2 = $role_object->vars ;
                     if (is_string($role_object->vars)) {
-                        $stringy2 = $role_object->vars ;
+                        $stringy2 = $role_object->role_directory.$role_object->vars ;
                     } elseif (is_array($role_object->vars)) {
-                        $stringy2 = implode(',', $role_object->vars) ;
+                        $all_var_files = [] ;
+                        foreach ($role_object->vars as $one_var_file) {
+                            $all_var_files[] = $role_object->role_directory.$one_var_file ;
+                        }
+                        $stringy2 = implode(',', $all_var_files) ;
                     }
                     if (isset($stringy1)) {
-                        $comm .= ' --vars="'.$stringy1.','.$stringy2.'" ;' ;
+                        $comm .= ' --vars="'.$stringy2.','.$stringy1.'" ;' ;
                     } else {
                         $comm .= ' --vars="'.$stringy2.'" ;' ;
                     }
