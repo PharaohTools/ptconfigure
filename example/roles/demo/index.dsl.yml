@@ -1,0 +1,5 @@
+---
+
+- Logging[log]:
+    message: "The Apache Pharaoh Configure Role"
+    guess: true
