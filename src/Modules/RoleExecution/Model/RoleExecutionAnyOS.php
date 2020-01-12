@@ -47,11 +47,12 @@ class RoleExecutionAnyOS extends Base {
         $logging->log("Loading Role Object", $this->getModuleName());
         $roles_dir = $this->getRolesDirectory() ;
         $config_path = $roles_dir.$role.DS.'config.yml' ;
-        $config = $this->yamlParser($config_path) ;
-        if (!isset($config->index)) {
-            $role_path = $roles_dir.$role.DS.'index.dsl.yml' ;
-        } else {
-            $role_path = $roles_dir.$role.DS.$config->index ;
+        $role_path = $roles_dir.$role.DS.'index.dsl.yml' ;
+        if (file_exists($config_path)) {
+            $config = $this->yamlParser($config_path) ;
+            if (!isset($config->index)) {
+                $role_path = $roles_dir.$role.DS.$config->index ;
+            }
         }
         $logging->log("Using Role Index of $role_path", $this->getModuleName());
         $object = new \StdClass() ;
@@ -239,6 +240,7 @@ class RoleExecutionAnyOS extends Base {
                     }
                 }
                 if (isset($role_object->vars)) {
+                    $stringy2 = $role_object->vars ;
                     if (is_string($role_object->vars)) {
                         $stringy2 = $role_object->vars ;
                     } elseif (is_array($role_object->vars)) {
