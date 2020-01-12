@@ -1,4 +1,4 @@
 ---
 
-- vars: []
-- index: "index.dsl.yml"
+vars: 'demovars.php'
+index: "index.dsl.yml"

@@ -10,10 +10,10 @@ ptconfigure auto x --af=dsl-example.dsl.php -yg
 ptconfigure auto x --af=using-facts.dsl.yml -yg
 
 ### roles syntax
-ptconfigure rolex roles --af=roles.dsl.yml -yg
+ptconfigure rolex roles --roles=roles.yml -yg
 
 ### steps syntax
-ptconfigure rolex steps --af=steps.dsl.yml -yg
+ptconfigure rolex steps --steps=steps.yml -yg
 
 ### install-requirements syntax
 ptconfigure requirements execute --af=install-requirements.dsl.yml -yg
