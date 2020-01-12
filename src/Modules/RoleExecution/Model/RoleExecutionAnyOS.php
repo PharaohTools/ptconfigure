@@ -138,9 +138,10 @@ class RoleExecutionAnyOS extends Base {
 //            $res = 0 ;
             $res = $this->liveOutput($comm) ;
             if ($res == 0) {
-                $logging->log("Role Execution Successful", $this->getModuleName()) ;
+                $logging->log("Role Execution Successful, Role: {$role}", $this->getModuleName()) ;
+                echo "\n" ;
             } else {
-                $logging->log("Role Execution Failed", $this->getModuleName()) ;
+                $logging->log("Role Execution Failed, Role: {$role}", $this->getModuleName()) ;
                 return false ;
             }
         }
@@ -255,11 +256,13 @@ class RoleExecutionAnyOS extends Base {
                 $logging->log("Executing $comm", $this->getModuleName()) ;
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
-                    $logging->log("Role Execution Successful", $this->getModuleName()) ;
+                    $logging->log("Role Execution Successful, Role: {$step['name']}", $this->getModuleName()) ;
+                    echo "\n" ;
                     $step['result'] = 'Success' ;
                     $summary[] = $step ;
                 } else {
-                    $logging->log("Role Execution Failed", $this->getModuleName()) ;
+                    $logging->log("Role Execution Failed, Role: {$step['name']}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                    echo "\n" ;
                     $step['result'] = 'Fail' ;
                     $summary[] = $step ;
                     $this->displayStepSummary($summary) ;
