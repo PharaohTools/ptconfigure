@@ -163,8 +163,10 @@ class RoleExecutionAnyOS extends Base {
         $logging->log("Attempting Steps Execution", $this->getModuleName());
 
         $summary = [] ;
+        $current_step_count = 0 ;
+        $total_step_count = count($steps) ;
         foreach ($steps as $step) {
-
+            $current_step_count++ ;
             if ($step['type'] === 'auto') {
 
                 if (substr($step['type'], 0, 1) == DS) {
@@ -217,9 +219,9 @@ class RoleExecutionAnyOS extends Base {
                 $logging->log("Executing $comm", $this->getModuleName()) ;
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
-                    $logging->log("Autopilot Execution Successful", $this->getModuleName()) ;
+                    $logging->log("Autopilot Execution Successful, Step ({$current_step_count}/{$total_step_count})", $this->getModuleName()) ;
                 } else {
-                    $logging->log("Autopilot Execution Failed", $this->getModuleName()) ;
+                    $logging->log("Autopilot Execution Failed Step ({$current_step_count}/{$total_step_count})", $this->getModuleName()) ;
                     return false ;
                 }
             } else if ($step['type'] === 'role') {
@@ -270,12 +272,12 @@ class RoleExecutionAnyOS extends Base {
                 $logging->log("Executing $comm", $this->getModuleName()) ;
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
-                    $logging->log("Role Execution Successful, Role: {$step['name']}", $this->getModuleName()) ;
+                    $logging->log("Role Execution Successful, Step ({$current_step_count}/{$total_step_count}), Role: {$step['name']}", $this->getModuleName()) ;
                     echo "\n" ;
                     $step['result'] = 'Success' ;
                     $summary[] = $step ;
                 } else {
-                    $logging->log("Role Execution Failed, Role: {$step['name']}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
+                    $logging->log("Role Execution Failed, Step ({$current_step_count}/{$total_step_count}), Role: {$step['name']}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
                     echo "\n" ;
                     $step['result'] = 'Fail' ;
                     $summary[] = $step ;
