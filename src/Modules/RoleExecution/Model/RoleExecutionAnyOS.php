@@ -273,12 +273,12 @@ class RoleExecutionAnyOS extends Base {
                 $res = $this->liveOutput($comm) ;
                 if ($res == 0) {
                     $logging->log("Role Execution Successful, Step ({$current_step_count}/{$total_step_count}), Role: {$step['name']}", $this->getModuleName()) ;
-                    echo "\n" ;
+                    echo "\n\n\n" ;
                     $step['result'] = 'Success' ;
                     $summary[] = $step ;
                 } else {
                     $logging->log("Role Execution Failed, Step ({$current_step_count}/{$total_step_count}), Role: {$step['name']}", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
-                    echo "\n" ;
+                    echo "\n\n\n" ;
                     $step['result'] = 'Fail' ;
                     $summary[] = $step ;
                     $this->displayStepSummary($summary) ;
