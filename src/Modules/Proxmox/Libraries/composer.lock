@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ddd7d761392ec377540c6e313bde3d0e",
+    "content-hash": "a80a38fd469d189d6b86a0286c74c527",
     "packages": [
+        {
+            "name": "curl/curl",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-mod/curl.git",
+                "reference": "4c7cbc6d056afec339a706fff6f95741688b48b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-mod/curl/zipball/4c7cbc6d056afec339a706fff6f95741688b48b8",
+                "reference": "4c7cbc6d056afec339a706fff6f95741688b48b8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.6 | ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Curl": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hassan Amouhzi",
+                    "email": "hassan@anezi.net",
+                    "homepage": "http://hassan.amouhzi.com"
+                },
+                {
+                    "name": "php-curl-class",
+                    "homepage": "https://github.com/php-curl-class"
+                },
+                {
+                    "name": "user52",
+                    "homepage": "https://github.com/user52"
+                }
+            ],
+            "description": "cURL class for PHP",
+            "homepage": "https://github.com/php-mod/curl",
+            "keywords": [
+                "curl",
+                "dot"
+            ],
+            "time": "2019-01-07T17:14:10+00:00"
+        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "6.5.2",
@@ -286,6 +341,48 @@
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
+            "name": "saleh7/proxmox-ve_php_api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Saleh7/ProxmoxVE_PHP_API.git",
+                "reference": "f077c104a30a5bfc220f919b481c57f7d27185e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Saleh7/ProxmoxVE_PHP_API/zipball/f077c104a30a5bfc220f919b481c57f7d27185e0",
+                "reference": "f077c104a30a5bfc220f919b481c57f7d27185e0",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php-curl-class/php-curl-class": "8.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Proxmox\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saleh",
+                    "email": "Saleh7@protonmail.ch"
+                }
+            ],
+            "description": "ProxmoxVE PHP API",
+            "keywords": [
+                "PVE",
+                "Proxmox",
+                "api",
+                "php"
+            ],
+            "time": "2018-07-15T11:35:16+00:00"
+        },
+        {
             "name": "zzantares/proxmoxve",
             "version": "v4.0.0",
             "source": {
@@ -340,7 +437,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "saleh7/proxmox-ve_php_api": 20,
+        "curl/curl": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

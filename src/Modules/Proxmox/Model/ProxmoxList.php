@@ -37,7 +37,7 @@ class ProxmoxList extends BaseProxmoxAllOS {
 
     private function askForDataTypeToList(){
         $question = 'Please choose a data type to list:';
-        $options = array("virtual_machines", "sizes", "images", "domains", "regions", "ssh_keys");
+        $options = array("virtual_machines", "sizes", "images", "ssh_keys");
         if (isset($this->params["type"]) &&
             in_array($this->params["type"], $options)) {
             return $this->params["type"] ; }
@@ -47,50 +47,75 @@ class ProxmoxList extends BaseProxmoxAllOS {
     public function getDataListFromProxmox($dataToList, $callVars = array()){
 //        if ($dataToList == "ssh_keys") {$dataToList = "account/keys";}
         require_once (dirname(__DIR__)).DS.'Libraries'.DS.'vendor'.DS.'autoload.php' ;
-        $proxmox = new \ProxmoxVE\Proxmox($this->credentials);
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
+        try {
+            $proxmox = new \ProxmoxVE\Proxmox($this->credentials);
+        } catch (\Error $e) {
+            $logging->log("Proxmox Error: {$e->getMessage()}", $this->getModuleName()) ;
+            return false ;
+        }
+        $return_data = [] ;
         if ($dataToList == 'virtual_machines') {
             $nodenames = array() ;
-            $allNodes = $proxmox->get('/nodes');
+            try {
+                $allNodes = $proxmox->get('/nodes');
+            } catch (\Error $e) {
+                $logging->log("Proxmox Error: {$e->getMessage()}", $this->getModuleName()) ;
+                return false ;
+            }
             foreach ($allNodes['data'] as $node) {
                 $nodenames[] = $node['node'] ;
             }
-            $vms_all_nodes = array() ;
+            $return_data['vms_all_nodes'] = array() ;
             foreach ($nodenames as $nodename) {
                 $vms_from_node = $proxmox->get('/nodes/'.$nodename.'/qemu');
-                $vms_all_nodes = array_merge($vms_all_nodes, $vms_from_node) ;
+                $return_data['vms_all_nodes'] = array_merge($return_data['vms_all_nodes'], $vms_from_node) ;
             }
+
+            if ($this->params['output-format'] == 'JSON') {
+
+            } else {
+
 //            return $vms_all_nodes ;
-            foreach ($vms_all_nodes as $one_vm) {
-                foreach ($one_vm as $one_vm_index => $one_vm_details) {
-                    echo "\nVirtual Machine $one_vm_index:\n" ;
-                    echo '  Name: '.$one_vm_details['name'] . "\n" ;
-                    echo '  ID: '.$one_vm_details['vmid'] . "\n" ;
-                    echo '  Status: '.$one_vm_details['status'] . "\n" ;
-                    echo '  CPU Usage: '.$one_vm_details['cpu'] . "\n" ;
-                    echo '  CPU Count: '.$one_vm_details['cpus'] . "\n" ;
-                    echo '  Memory: '.$one_vm_details['mem'] . "\n" ;
-                    echo '  Disk: '.$one_vm_details['disk'] . "\n" ;
-                    echo '  Max Disk: '.$one_vm_details['maxdisk'] . "\n" ;
-                    echo '  Network Input: '.$one_vm_details['netin'] . "\n" ;
-                    echo '  Network Output: '.$one_vm_details['netout'] . "\n" ;
-                    echo '  Disk Read: '.$one_vm_details['diskread'] . "\n" ;
-                    echo '  Disk Write: '.$one_vm_details['diskwrite'] . "\n" ;
-                    echo '  Max Memory: '.$one_vm_details['maxmem'] . "\n" ;
-                    echo '  Uptime: '.$one_vm_details['uptime'] . "\n" ;
-                    echo '  PID: '.$one_vm_details['pid'] . "\n" ;
-                    echo '  Template: '.$one_vm_details['template'] . "\n" ;
+                foreach ($return_data['vms_all_nodes'] as $one_vm) {
+                    foreach ($one_vm as $one_vm_index => $one_vm_details) {
+                        echo "\nVirtual Machine $one_vm_index:\n" ;
+                        echo '  Name: '.$one_vm_details['name'] . "\n" ;
+                        echo '  ID: '.$one_vm_details['vmid'] . "\n" ;
+                        echo '  Status: '.$one_vm_details['status'] . "\n" ;
+                        echo '  CPU Usage: '.$one_vm_details['cpu'] . "\n" ;
+                        echo '  CPU Count: '.$one_vm_details['cpus'] . "\n" ;
+                        echo '  Memory: '.$one_vm_details['mem'] . "\n" ;
+                        echo '  Disk: '.$one_vm_details['disk'] . "\n" ;
+                        echo '  Max Disk: '.$one_vm_details['maxdisk'] . "\n" ;
+                        echo '  Network Input: '.$one_vm_details['netin'] . "\n" ;
+                        echo '  Network Output: '.$one_vm_details['netout'] . "\n" ;
+                        echo '  Disk Read: '.$one_vm_details['diskread'] . "\n" ;
+                        echo '  Disk Write: '.$one_vm_details['diskwrite'] . "\n" ;
+                        echo '  Max Memory: '.$one_vm_details['maxmem'] . "\n" ;
+                        echo '  Uptime: '.$one_vm_details['uptime'] . "\n" ;
+                        echo '  PID: '.$one_vm_details['pid'] . "\n" ;
+                        echo '  Template: '.$one_vm_details['template'] . "\n" ;
 //                    foreach ($one_vm_details as $one_vm_detail_key => $one_vm_detail_value) {
 //                        echo "  $one_vm_detail_key: $one_vm_detail_value\n" ;
 //                    }
+                    }
                 }
             }
+
+        } else if ($dataToList == 'sizes') {
+
+        } else if ($dataToList == 'images') {
+
+        } else if ($dataToList == 'ssh_keys') {
 
         }
 
 //        $curlUrl = $this->_apiURL."/v2/$dataToList" ;
 //        $httpType = "GET" ;
 //        return $this->proxmoxCall($callVars, $curlUrl, $httpType);
-        return array() ;
+        return $return_data ;
     }
 
 }

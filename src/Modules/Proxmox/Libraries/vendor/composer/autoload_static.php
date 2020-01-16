@@ -17,6 +17,7 @@ class ComposerStaticInitd84c1b7a1c74f70918cf325ab3ec115a
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
+            'Proxmox\\' => 8,
             'ProxmoxVE\\' => 10,
         ),
         'G' => 
@@ -31,6 +32,10 @@ class ComposerStaticInitd84c1b7a1c74f70918cf325ab3ec115a
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Proxmox\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/saleh7/proxmox-ve_php_api/src',
         ),
         'ProxmoxVE\\' => 
         array (
@@ -50,11 +55,22 @@ class ComposerStaticInitd84c1b7a1c74f70918cf325ab3ec115a
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'C' => 
+        array (
+            'Curl' => 
+            array (
+                0 => __DIR__ . '/..' . '/curl/curl/src',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd84c1b7a1c74f70918cf325ab3ec115a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd84c1b7a1c74f70918cf325ab3ec115a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd84c1b7a1c74f70918cf325ab3ec115a::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

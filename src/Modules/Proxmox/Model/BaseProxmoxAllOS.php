@@ -129,7 +129,8 @@ class BaseProxmoxAllOS extends Base {
         return self::askForInput($question, true);
     }
 
-    protected function setCredentials(){
+    protected function setCredentials() {
+        require_once (dirname(__DIR__)).DS.'Libraries'.DS.'vendor'.DS.'autoload.php' ;
         $this->credentials['hostname'] = $this->askForProxmoxHost() ;
         $this->credentials['username'] = $this->askForProxmoxUser() ;
         $this->credentials['password'] = $this->askForProxmoxPassword() ;

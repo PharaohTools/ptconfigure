@@ -24,13 +24,12 @@ class ProxmoxBoxAdd extends BaseProxmoxAllOS {
         $logging = $loggingFactory->getModel($this->params);
 
         if ($this->askForBoxAddExecute() != true) { return false; }
-        if ($this->setCredentials() != true) { return false; }
-        $this->accessToken = $this->askForProxmoxAccessToken();
-        if (strlen($this->accessToken)==0) {
+        if ($this->setCredentials() != true) {
             \Core\BootStrap::setExitCode(1) ;
             $logging->log("Unable to initialize Proxmox credentials.", $this->getModuleName()) ;
-            return false ;
+            return false;
         }
+
         $serverPrefix = $this->getServerPrefix();
         $environments = \Model\AppConfig::getProjectVariable("environments");
 
@@ -58,15 +57,15 @@ class ProxmoxBoxAdd extends BaseProxmoxAllOS {
                             $serverData["prefix"] = $serverPrefix ;
                             $serverData["envName"] = $envName ;
                             $serverData["sCount"] = $i + $this->getServerCountStart() ;
-                            $serverData["sizeID"] = $this->getServerGroupSizeID() ;
-                            $serverData["imageID"] = $this->getServerGroupImageID() ;
-                            $serverData["regionID"] = $this->getServerGroupRegionID() ;
+//                            $serverData["sizeID"] = $this->getServerGroupSizeID() ;
+//                            $serverData["imageID"] = $this->getServerGroupImageID() ;
+//                            $serverData["regionID"] = $this->getServerGroupRegionID() ;
                             $serverData["name"] = (isset( $serverData["prefix"]) && strlen( $serverData["prefix"])>0)
                                 ? $serverData["prefix"].'-'.$serverData["envName"].'-'.$serverData["sCount"]
                                 : $serverData["envName"].'-'.$serverData["sCount"] ;
-                            $epn = $this->getEnablePrivateNetwork() ;
-                            if ($epn === true ) { $serverData["privateNetwork"] = true ; }
-                            $serverData["sshKeyIds"] = $this->getSshKeyIds();
+//                            $epn = $this->getEnablePrivateNetwork() ;
+//                            if ($epn === true ) { $serverData["privateNetwork"] = true ; }
+//                            $serverData["sshKeyIds"] = $this->getSshKeyIds();
                             $response = $this->getNewServerFromProxmox($serverData) ;
                             if ( isset($response->id) && $response->id == "unprocessable_entity") {
                                 $logging->log("Node Request for {$serverData["name"]} failed", $this->getModuleName(), LOG_FAILURE_EXIT_CODE) ;
@@ -199,22 +198,39 @@ class ProxmoxBoxAdd extends BaseProxmoxAllOS {
 
     private function getNewServerFromProxmox($serverData) {
         $callVars = array() ;
-        $callVars["name"] = $serverData["name"];
-        $callVars["size"] = $serverData["sizeID"];
-        $callVars["image"] = $serverData["imageID"];
-        $callVars["region"] = $serverData["regionID"];
-        $callVars["ssh_keys"] = $serverData["sshKeyIds"] ;
-        $epn = $this->getEnablePrivateNetwork() ;
-        if ($epn === true ) {
-            $callVars["private_networking"] = true ; }
-        $curlUrl = $this->_apiURL."/v2/virtual_machines/" ;
-        $httpType = "POST" ;
-        $callOut = $this->proxmoxCall($callVars, $curlUrl, $httpType);
+//        $callVars["name"] = $serverData["name"];
+//        $callVars["size"] = $serverData["sizeID"];
+//        $callVars["image"] = $serverData["imageID"];
+//        $callVars["region"] = $serverData["regionID"];
+//        $callVars["ssh_keys"] = $serverData["sshKeyIds"] ;
+//        $epn = $this->getEnablePrivateNetwork() ;
+//        if ($epn === true ) {
+//            $callVars["private_networking"] = true ; }
+
+        \Proxmox\Request::Login($this->credentials); // Login ..
+
+# Create VM
+        $nextId = \Proxmox\Cluster::nextVmid(); // get next vmid
+        $create = [
+            'vmid'        => $nextId->data,
+            'cores'       => 1,
+            'name'        => $serverData["name"],
+            'scsi0'       => 'local:32,format=qcow2',
+            'sockets'     => 1,
+        ];
+
+        $firstNode = \Proxmox\Nodes::listNodes()->data[0]->node;
+        $created = \Proxmox\Nodes::createQemu($firstNode, $create) ;
+//        $curlUrl = $this->_apiURL."/v2/virtual_machines/" ;
+//        $httpType = "POST" ;
+//        $callOut = $this->proxmoxCall($callVars, $curlUrl, $httpType);
+
+
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if ( isset($callOut->id) && $callOut->id == "unprocessable_entity") {
-            $logging->log("Request for {$callVars["name"]} errored with message: {$callOut->message}", $this->getModuleName()) ; }
-        else if ( is_null($callOut)) {
+        if ( isset($created->id) && $created->id == "unprocessable_entity") {
+            $logging->log("Request for {$callVars["name"]} errored with message: {$created->message}", $this->getModuleName()) ; }
+        else if ( is_null($created)) {
             $logging->log("Request for {$callVars["name"]} failed", $this->getModuleName()) ; }
         else {
             $logging->log("Request for {$callVars["name"]} complete", $this->getModuleName()) ; }

@@ -1,5 +1,7 @@
 {
     "require": {
-        "zzantares/proxmoxve": "~4.0"
+        "zzantares/proxmoxve": "~4.0",
+        "saleh7/proxmox-ve_php_api": "@dev",
+        "curl/curl": "dev-master"
     }
 }
