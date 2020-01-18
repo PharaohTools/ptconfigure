@@ -82,7 +82,7 @@ class PTTrackLinux extends BasePHPApp {
     }
 
     public function getDeployAutoPath() {
-        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
+        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'create-vhost.php' ;
         return $path ;
     }
 

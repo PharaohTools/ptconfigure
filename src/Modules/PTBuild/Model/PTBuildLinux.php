@@ -63,7 +63,8 @@ class PTBuildLinux extends BasePHPApp {
         if (!isset($this->params["no-permissions"])) {
             $ray[]["command"][] = SUDOPREFIX."chown -R ptbuild:ptbuild /opt/ptbuild/" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptbuild/" ;
-            $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptbuild/keys/*" ;
+            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/keys/ " ;
+            $ray[]["command"][] = SUDOPREFIX.'chmod -R 0600 /opt/ptbuild/keys/*' ;
         }
         $this->postinstallCommands = $ray ;
         return $ray ;
@@ -88,7 +89,7 @@ class PTBuildLinux extends BasePHPApp {
     }
 
     public function getDeployAutoPath() {
-        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
+        $path = dirname(dirname(dirname(__FILE__))).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'create-vhost.php' ;
         return $path ;
     }
 

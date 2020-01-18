@@ -81,7 +81,7 @@ class PTSourceWindows extends BasePHPWindowsApp {
     }
 
     public function getDeployAutoPath() {
-        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
+        $path = dirname(dirname(__FILE__)).DS.'Autopilots'.DS.'PTConfigure'.DS.'create-vhost.php' ;
         return $path ;
     }
 

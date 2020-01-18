@@ -122,7 +122,7 @@ class PTSourceLinux extends BasePHPApp {
     }
 
     public function getDeployAutoPath() {
-        $path = dirname(dirname(__DIR__)).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTDeploy'.DS.'create-vhost.php' ;
+        $path = dirname(dirname(__DIR__)).DS.'PTWebApplication'.DS.'Autopilots'.DS.'PTConfigure'.DS.'create-vhost.php' ;
         return $path ;
     }
 
