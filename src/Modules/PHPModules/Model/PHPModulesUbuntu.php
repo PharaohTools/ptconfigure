@@ -46,10 +46,10 @@ class PHPModulesUbuntu extends BaseLinuxApp {
             $ps1 = "" ; }
         else {
             $ps2 = "php5" ;
-            $ps1 = "php-apc {$ps2}-memcached php5-memcache {$ps2}-mongo {$ps2}-imagick" ; }
+            $ps1 = "php-apc {$ps2}-memcached php5-memcache {$ps2}-imagick" ; } # {$ps2}-mongo
 
         $pstr = "{$ps1} {$ps2}-dev {$ps2}-gd {$ps2}-curl {$ps2}-mysql ".
-        "{$ps2}-sqlite {$ps2}-ldap php-pear" ;
+        "{$ps2}-sqlite {$ps2}-ldap" ; # php-pear
 
         if (PHP_MAJOR_VERSION > 6) {
             $pstr .= " {$ps2}-xml openssl pkg-config" ; }  // openssl, pkg-config are required for mongo in php7
