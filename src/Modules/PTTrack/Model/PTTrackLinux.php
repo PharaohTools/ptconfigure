@@ -59,8 +59,8 @@ class PTTrackLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/pttrack-jobs/* /opt/pttrack/jobs/ || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/users.txt /opt/pttrack/pttrack/src/Modules/Signup/Data/users.txt || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/pttrack-settings/pttrackvars /opt/pttrack/pttrack/pttrackvars || true" ; }
-        $ray[]["command"][] = SUDOPREFIX."chown -R pttrack:pttrack /opt/pttrack/" ;
-        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/pttrack/" ;
+        $ray[]["command"][] = SUDOPREFIX."chown -R pttrack:pttrack /opt/pttrack/ || true" ;
+        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/pttrack/ || true" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
     }
