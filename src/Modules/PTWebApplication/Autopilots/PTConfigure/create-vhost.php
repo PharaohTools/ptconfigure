@@ -51,7 +51,7 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "Logging" => array( "log" => array( "log-message" => "Disable default Apache vhost", ), ), ),
                 array ( "ApacheVHostEditor" => array( "disable-default" => array( "guess" => true, ), ), ),
 
-                array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our Pharaoh Build VHost" ),),),
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our Pharaoh {$uc_app_slug} VHost" ),),),
                 array ( "ApacheVHostEditor" => array( "add" => array(
                     "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
                     "guess" => true,
@@ -76,6 +76,12 @@ class AutoPilotConfigured extends AutoPilot {
                     "domain" => $vhe_url,
                     "cert-path" => "/etc/ssl/certificates",
                     "email" => "noreply@pharaohtools.com",
+                    "country" => "GB",
+                    "state" => "England",
+                    "locality" => "London",
+                    "organization" => "Pharaoh Tools",
+                    "organizational_unit" => "DevOps",
+                    "street" => "Street"
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
