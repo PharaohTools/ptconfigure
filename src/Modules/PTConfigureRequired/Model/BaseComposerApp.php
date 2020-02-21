@@ -32,7 +32,8 @@ class BaseComposerApp extends BasePHPApp {
         $this->populateExecutorFile();
         $this->saveExecutorFile();
         $this->deleteInstallationFiles();
-        $this->changePermissions();
+        $this->changeSourcePermissions();
+        $this->changeExecutorPermissions();
         if ($this->hookInstExists("post")) {
             $logging->log("Executing Post Install Commands", $this->getModuleName()) ;
             $this->doInstallCommand("post") ;  }
