@@ -64,7 +64,7 @@ class PTBuildLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."chown -R ptbuild:ptbuild /opt/ptbuild/" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptbuild/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptbuild/keys/ " ;
-            $ray[]["command"][] = SUDOPREFIX.'chmod -R 0600 /opt/ptbuild/keys/*' ;
+            $ray[]["command"][] = SUDOPREFIX.'chmod -R 0600 /opt/ptbuild/keys/* || true' ;
         }
         $this->postinstallCommands = $ray ;
         return $ray ;
