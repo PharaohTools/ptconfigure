@@ -52,13 +52,22 @@ class AutoPilotConfigured extends AutoPilot {
                 array ( "ApacheVHostEditor" => array( "disable-default" => array( "guess" => true, ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Lets Add our Pharaoh {$uc_app_slug} VHost" ),),),
-                array ( "ApacheVHostEditor" => array( "add" => array(
-                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
+//                array ( "ApacheVHostEditor" => array( "add" => array(
+//                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
+//                    "guess" => true,
+//                    "vhe-url" => $vhe_url,
+//                    "vhe-ip-port" => $vhe_ipport,
+//                    "vhe-vhost-dir" => $a2dir,
+//                    "vhe-template" => $this->getTemplateHTTP($app_slug, $fpm_port),
+//                ),),),
+
+                array ( "Templating" => array( "install" => array(
+                    "source" => $this->getTemplateHTTP($app_slug, $fpm_port),
+                    "target" => $a2dir.DS.$vhe_url.'.conf',
                     "guess" => true,
-                    "vhe-url" => $vhe_url,
-                    "vhe-ip-port" => $vhe_ipport,
-                    "vhe-vhost-dir" => $a2dir,
-                    "vhe-template" => $this->getTemplateHTTP($app_slug, $fpm_port),
+                    "template_url" => $vhe_url,
+                    "template_ip_port" => $vhe_ipport,
+                    "template_vhost_dir" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
                 ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
@@ -85,14 +94,23 @@ class AutoPilotConfigured extends AutoPilot {
                 ), ), ),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Now create our HTTPS Virtual host"), ) ),
-                array ( "ApacheVHostEditor" => array( "add" => array (
+//                array ( "ApacheVHostEditor" => array( "add" => array (
+//                    "guess" => true,
+//                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
+//                    "vhe-url" => $vhe_url,
+//                    "vhe-ip-port" => $vhe_ip ,
+//                    "vhe-vhost-dir" => $a2dir,
+//                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
+//                ), ), ),
+
+                array ( "Templating" => array( "install" => array(
+                    "source" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
+                    "target" => $a2dir.DS.$vhe_url.'.conf',
                     "guess" => true,
-                    "vhe-docroot" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput',
-                    "vhe-url" => $vhe_url,
-                    "vhe-ip-port" => $vhe_ip ,
-                    "vhe-vhost-dir" => $a2dir,
-                    "vhe-template" => $this->getTemplateHTTPS($app_slug, $fpm_port, $vhe_ip),
-                ), ), ),
+                    "template_url" => $vhe_url,
+                    "template_ip_port" => $vhe_ipport,
+                    "template_vhost_dir" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
+                ),),),
 
                 array ( "Logging" => array( "log" => array( "log-message" => "Ensure Apache SSL Module is enabled", ), ), ),
                 array ( "RunCommand" => array( "execute" => array(
@@ -128,12 +146,12 @@ class AutoPilotConfigured extends AutoPilot {
         $comm = $this->findA2Command() ;
 
         $template ='
- NameVirtualHost ****IP ADDRESS****
- <VirtualHost ****IP ADDRESS****>
+ NameVirtualHost <%tpl.php%>ip_port</%tpl.php%>
+ <VirtualHost <%tpl.php%>ip_port</%tpl.php%>>
    ServerAdmin webmaster@localhost
- 	ServerName ****SERVER NAME****
- 	DocumentRoot ****WEB ROOT****
- 	<Directory ****WEB ROOT****>
+ 	ServerName <%tpl.php%>url</%tpl.php%>
+ 	DocumentRoot <%tpl.php%>vhost_dir</%tpl.php%>
+ 	<Directory <%tpl.php%>vhost_dir</%tpl.php%>>
  	'. $dir_section .'
  	</Directory>
    ErrorLog /var/log/'.$comm.'/error.log
@@ -180,9 +198,9 @@ class AutoPilotConfigured extends AutoPilot {
  NameVirtualHost '.$vhe_ip.':80
  <VirtualHost '.$vhe_ip.':80>
    ServerAdmin webmaster@localhost
- 	ServerName ****SERVER NAME****
- 	DocumentRoot ****WEB ROOT****
- 	<Directory ****WEB ROOT****>
+ 	ServerName <%tpl.php%>url</%tpl.php%>
+ 	DocumentRoot <%tpl.php%>vhost_dir</%tpl.php%>
+ 	<Directory <%tpl.php%>vhost_dir</%tpl.php%>>
  	'. $dir_section .'
  	</Directory>
    ErrorLog /var/log/'.$comm.'/error.log
@@ -218,13 +236,13 @@ class AutoPilotConfigured extends AutoPilot {
  NameVirtualHost '.$vhe_ip.':443
  <VirtualHost '.$vhe_ip.':443>
    ServerAdmin webmaster@localhost
-   ServerName ****SERVER NAME****
-   DocumentRoot ****WEB ROOT****
+   ServerName <%tpl.php%>url</%tpl.php%>
+   DocumentRoot <%tpl.php%>vhost_dir</%tpl.php%>
      SSLEngine on
- 	 SSLCertificateFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
-     SSLCertificateKeyFile /etc/ssl/certificates/****SERVER NAME****/private.pem
-     SSLCertificateChainFile /etc/ssl/certificates/****SERVER NAME****/fullchain.pem
- 	<Directory ****WEB ROOT****>
+ 	 SSLCertificateFile /etc/ssl/certificates/<%tpl.php%>url</%tpl.php%>/fullchain.pem
+     SSLCertificateKeyFile /etc/ssl/certificates/<%tpl.php%>url</%tpl.php%>/private.pem
+     SSLCertificateChainFile /etc/ssl/certificates/<%tpl.php%>url</%tpl.php%>/fullchain.pem
+ 	<Directory <%tpl.php%>vhost_dir</%tpl.php%>>
  	'. $dir_section .'
  	</Directory>
    ErrorLog /var/log/'.$comm.'/error.log
