@@ -221,15 +221,19 @@ class BakeryOSInstall extends BaseLinuxApp {
 
         $timeout = 60 ; # 1 Minute
         $logging->log("Waiting for Unattended Install to start", $this->getModuleName() ) ;
-        sleep(1) ;
+        sleep(5) ;
         $start_ok = false ;
         $has_counted = false ;
         for ($seconds_passed = 0; $seconds_passed < $timeout ; $seconds_passed ++) {
             $status = proc_get_status($process) ;
+            $logging->log(var_export($status, true), $this->getModuleName() ) ;
             if ($status['running'] === true) {
                 $has_counted = true ;
                 echo '.' ;
                 sleep(1) ;
+            } else if ($status['running'] === false && $status['exitcode'] === 1) {
+                $logging->log('Failed to start the Virtal Machine', $this->getModuleName(), LOG_FAILURE_EXIT_CODE ) ;
+                return false ;
             } else {
                 $start_ok = true ;
                 break ;
@@ -256,7 +260,7 @@ class BakeryOSInstall extends BaseLinuxApp {
         $installed_check = 'ls -1 '.$ua_file_path ;
 
         $dump_path = '/tmp/unattended_tmp_status_'.$vm_name ;
-        $comm = VBOXMGCOMM.' guestcontrol '.$vm_name.' run --exe "'.$installed_check.'" &> '.$dump_path ;
+        $comm = VBOXMGCOMM.' guestcontrol "'.$vm_name.'" run --exe "'.$installed_check.'" > '.$dump_path . ' 2>&1';
         $completion_ok = false ;
         $check_delay = 10 ;
         $needle = 'The guest execution service is not ready (yet)' ;
