@@ -71,7 +71,10 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
     }
 
     protected function askForChromeDriverVersion(){
-        $ao = array("2.0", "2.10", "2.1", "2.11", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9" ) ;
+        $ao = array (
+            "2.0", "2.10", "2.1", "2.11", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7",
+            "2.8", "2.9", "80.0.3987.106"
+        ) ;
         if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
             $this->sv = $this->params["version"] ; }
         else if (isset($this->params["guess"])) {
