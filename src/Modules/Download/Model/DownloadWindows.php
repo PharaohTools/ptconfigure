@@ -30,13 +30,15 @@ class DownloadWindows extends BaseWindowsApp {
         $targetPath = $this->getTargetFilePath("local");
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-
-        $is_conn = $this->is_connected($sourceDataPath) ;
-        if ($is_conn === false) {
-            $logging->log("Unable to access network", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
-            return false;
+        if (isset($this->params['ignore-network'])) {
+            $logging->log("Ignoring Network Check", $this->getModuleName());
+        } else {
+            $is_conn = $this->is_connected($sourceDataPath) ;
+            if ($is_conn === false) {
+                $logging->log("Unable to access network", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                return false;
+            }
         }
-
         $logging->log("Performing Download...", $this->getModuleName());
         $res = $this->packageDownload($sourceDataPath, $targetPath) ;
         if ($res == true) {
@@ -51,15 +53,19 @@ class DownloadWindows extends BaseWindowsApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
 //        var_dump( stripos($addr, 'https') ) ;
+        $parse = parse_url($addr);
         if (stripos($addr, 'https') === 0) {
-            $parse = parse_url($addr);
             $port = 443 ;
             $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
             $addr = str_replace('https://', 'ssl://', $addr) ;
         } elseif (stripos($addr, 'http') === 0) {
             $port = 80 ;
+            $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
+            $addr = str_replace('http://', 'tcp://', $addr) ;
         } else {
             $port = 80 ;
+            $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
+            $addr = str_replace('http://', 'tcp://', $addr) ;
         }
         if (!$socket = @fsockopen($addr, $port, $errno, $errstr)) {
             $logging->log("$errstr", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);

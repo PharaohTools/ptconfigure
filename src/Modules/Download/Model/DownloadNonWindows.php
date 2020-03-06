@@ -31,11 +31,14 @@ class DownloadNonWindows extends BaseLinuxApp {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Performing Download...", $this->getModuleName());
-
-        $is_conn = $this->is_connected($sourceDataPath) ;
-        if ($is_conn === false) {
-            $logging->log("Unable to access network", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
-            return false;
+        if (isset($this->params['ignore-network'])) {
+            $logging->log("Ignoring Network Check", $this->getModuleName());
+        } else {
+            $is_conn = $this->is_connected($sourceDataPath) ;
+            if ($is_conn === false) {
+                $logging->log("Unable to access network", $this->getModuleName(), LOG_FAILURE_EXIT_CODE);
+                return false;
+            }
         }
 
         $res = $this->packageDownload($sourceDataPath, $targetPath) ;
@@ -59,17 +62,27 @@ class DownloadNonWindows extends BaseLinuxApp {
         } elseif (stripos($addr, 'http') === 0) {
             $port = 80 ;
             $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
-            $addr = str_replace('https://', 'tcp://', $addr) ;
+            $addr = str_replace('http://', '', $addr) ;
         } else {
             $port = 80 ;
+            $addr = str_replace($parse['host'], $parse['host'].':'.$port, $addr) ;
+            $addr = str_replace('http://', '', $addr) ;
         }
 
-        $context = stream_context_create([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false
-            ]
-        ]);
+        if (isset($this->params['ignore-ssl'])) {
+            $logging->log("Ignoring SSL Check", $this->getModuleName());
+            $scc_array = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false
+                ]
+            ] ;
+        } else {
+            $logging->log("Enforcing SSL Check", $this->getModuleName());
+            $scc_array = [] ;
+        }
+
+        $context = stream_context_create($scc_array);
 
         $hostname = "$addr";
         $socket = stream_socket_client($hostname, $errno, $errstr, ini_get("default_socket_timeout"), STREAM_CLIENT_CONNECT, $context);

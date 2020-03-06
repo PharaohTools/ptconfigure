@@ -30,6 +30,7 @@ class DownloadInfo extends PTConfigureBase {
         Will ask you for a Source URL, and Download to a Target File
         example: ptconfigure download file
         example: ptconfigure download file --yes --source="http://www.google.co.uk" --target="/tmp/myfile.html"
+        example: ptconfigure download file --yes --source="http://www.google.co.uk" --target="/tmp/myfile.html" --ignore-network --ignore-ssl --overwrite
 
 HELPDATA;
       return $help ;
