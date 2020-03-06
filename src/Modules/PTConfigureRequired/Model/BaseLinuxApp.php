@@ -382,16 +382,18 @@ exec('".$this->programExecutorCommand."');\n
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
         $logging->log("Downloading To {$temp_exe_file}", $this->getModuleName() ) ;
-
         if (file_exists($temp_exe_file)) {
-            if (isset($this->params['overwrite'])) {
+            if (isset($this->params['skip-existing'])) {
+                $logging->log("File {$temp_exe_file} exists and skip-existing parameter is set, skipping this download.", $this->getModuleName() ) ;
+                return true ;
+            } elseif (isset($this->params['overwrite'])) {
+                $logging->log("File {$temp_exe_file} exists and overwrite parameter is set, removing.", $this->getModuleName() ) ;
                 unlink($temp_exe_file) ;
             } else {
                 $logging->log("File {$temp_exe_file} exists and overwrite parameter is unset.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE ) ;
                 return false ;
             }
         }
-
         if (function_exists('curl_version')) {
 
             echo "Download Starting ...".PHP_EOL;
