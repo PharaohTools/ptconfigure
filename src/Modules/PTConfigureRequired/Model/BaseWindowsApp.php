@@ -48,15 +48,21 @@ class BaseWindowsApp extends BaseLinuxApp {
 //        var_dump('BWA packageDownload 1') ;
         if (is_null($temp_exe_file)) {
             $temp_exe_file = $_ENV['TEMP'].DS.'temp.exe' ;
-        }
-        if (file_exists($temp_exe_file)) {
-            unlink($temp_exe_file) ;
+            $this->params['overwrite'] = true ;
         }
 //        var_dump('BWA packageDownload 2', $temp_exe_file) ;
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
-
+        $logging->log("Downloading To {$temp_exe_file}", $this->getModuleName() ) ;
+        if (file_exists($temp_exe_file)) {
+            if (isset($this->params['overwrite'])) {
+                unlink($temp_exe_file) ;
+            } else {
+                $logging->log("File {$temp_exe_file} exists and overwrite parameter is unset.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE ) ;
+                return false ;
+            }
+        }
         echo "Download Starting ...".PHP_EOL;
         ob_start();
         ob_flush();

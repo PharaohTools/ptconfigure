@@ -377,27 +377,33 @@ exec('".$this->programExecutorCommand."');\n
 
 
     public function packageDownload($remote_source, $temp_exe_file) {
-        if (file_exists($temp_exe_file)) {
-            unlink($temp_exe_file) ;
-        }
 
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Downloading From {$remote_source}", $this->getModuleName() ) ;
+        $logging->log("Downloading To {$temp_exe_file}", $this->getModuleName() ) ;
 
+        if (file_exists($temp_exe_file)) {
+            if (isset($this->params['overwrite'])) {
+                unlink($temp_exe_file) ;
+            } else {
+                $logging->log("File {$temp_exe_file} exists and overwrite parameter is unset.", $this->getModuleName(), LOG_FAILURE_EXIT_CODE ) ;
+                return false ;
+            }
+        }
 
         if (function_exists('curl_version')) {
 
             echo "Download Starting ...".PHP_EOL;
+            ob_clean();
+            ob_end_clean();
             ob_start();
-            ob_flush();
-            flush();
             $fp = fopen ($temp_exe_file, 'w') ;
             $ch = \curl_init();
             \curl_setopt($ch, CURLOPT_URL, $remote_source);
             // curl_setopt($ch, CURLOPT_BUFFERSIZE,128);
-            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            \curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//            \curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
             \curl_setopt($ch, CURLOPT_FILE, $fp);
             \curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, array($this, 'progress'));
             \curl_setopt($ch, CURLOPT_NOPROGRESS, false); // needed to make progress function work
@@ -409,8 +415,10 @@ exec('".$this->programExecutorCommand."');\n
             # var_dump('downloaded', $downloaded, $error) ;
             \curl_close($ch);
 
-            ob_flush();
-            flush();
+//            ob_flush();
+//            flush();
+            ob_clean();
+            ob_end_clean();
 
         } else {
             echo "No PHP cURL Available".PHP_EOL;
@@ -418,13 +426,13 @@ exec('".$this->programExecutorCommand."');\n
             $allowed = ini_get('allow_url_fopen') ;
             if ($allowed === true) {
                 echo "Using FOpen Fallback".PHP_EOL;
-                $file_data = file_get_contents($remote_source) ;
-                file_put_contents($temp_exe_file, $file_data) ;
+//                $file_data = file_get_contents($remote_source) ;
+//                file_put_contents($temp_exe_file, $file_data) ;
             } else {
                 echo "Using CLI Fallback".PHP_EOL;
                 $comm = "wget --progress=dot:giga -O $temp_exe_file $remote_source" ;
                 echo "$comm".PHP_EOL;
-                passthru($comm, $return_var) ;
+//                passthru($comm, $return_var) ;
             }
         }
 
