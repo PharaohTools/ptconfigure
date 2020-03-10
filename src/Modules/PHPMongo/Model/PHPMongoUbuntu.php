@@ -2,7 +2,7 @@
 
 Namespace Model;
 
-class PHPModulesUbuntu extends BaseLinuxApp {
+class PHPMongoUbuntu extends BaseLinuxApp {
 
     // Compatibility
     public $os = array("Linux") ;
@@ -18,9 +18,6 @@ class PHPModulesUbuntu extends BaseLinuxApp {
     public function __construct($params) {
         $this->setPackages() ;
         parent::__construct($params);
-        $this->installCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("Apt", $this->packages ) ) ),
-        );
 
         if (PHP_MAJOR_VERSION > 6) {
             $ray = $this->installCommands ;
@@ -31,12 +28,12 @@ class PHPModulesUbuntu extends BaseLinuxApp {
         }
 
         $this->uninstallCommands = array(
-            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("Apt", $this->packages ) ) ),
+            array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("PECL", array("mongodb") ) ) )
         );
-        $this->programDataFolder = "/opt/PHPModules"; // command and app dir name
-        $this->programNameMachine = "phpmodules"; // command and app dir name
-        $this->programNameFriendly = "PHP Mods!"; // 12 chars
-        $this->programNameInstaller = "PHP Modules";
+        $this->programDataFolder = "/opt/PHPMongo"; // command and app dir name
+        $this->programNameMachine = "phpmongo"; // command and app dir name
+        $this->programNameFriendly = "PHP Mongo!"; // 12 chars
+        $this->programNameInstaller = "PHP Mongo";
         $this->initialize();
     }
 

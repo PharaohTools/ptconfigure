@@ -2,6 +2,6 @@
 
 Namespace Controller ;
 
-class PHPModules extends Base {
+class PHPMongo extends Base {
 
 }

@@ -2,6 +2,6 @@
 
 Namespace Model;
 
-class PHPModules extends BaseModelFactory {
+class PHPMongo extends BaseModelFactory {
 
 }

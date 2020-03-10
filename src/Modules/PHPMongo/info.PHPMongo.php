@@ -2,7 +2,7 @@
 
 Namespace Info;
 
-class PHPModulesInfo extends PTConfigureBase {
+class PHPMongoInfo extends PTConfigureBase {
 
   public $hidden = false;
 
@@ -13,25 +13,22 @@ class PHPModulesInfo extends PTConfigureBase {
   }
 
   public function routesAvailable() {
-    return array( "PHPModules" =>  array_merge(parent::routesAvailable(), array("install") ) );
+    return array( "PHPMongo" =>  array_merge(parent::routesAvailable(), array("install") ) );
   }
 
   public function routeAliases() {
-    return array("php-mods"=>"PHPModules", "phpmods"=>"PHPModules", "php-modules"=>"PHPModules",
-      "phpmodules"=>"PHPModules");
+    return array("php-mongo"=>"PHPMongo", "phpmongo"=>"PHPMongo");
   }
 
   public function helpDefinition() {
     $help = <<<"HELPDATA"
   This module allows you to install some common and helpful PHP Modules.
 
-  PHPModules, php-mods, phpmods, php-modules, phpmodules
+  PHPMongo, php-mongo, phpmongo, php-mongo, phpmongo
 
         - install
-        Installs some common PHP Modules. These include php5-gd the image libs,
-        php5-imagick the image libs, php5-curl the remote file handling libs,
-        php5-mysql the libs for handling mysql connections.
-        example: ptconfigure phpmods install
+        Installs PHP Mongo PHP Module.
+        example: ptconfigure phpmongo install -yg
 
 HELPDATA;
     return $help ;

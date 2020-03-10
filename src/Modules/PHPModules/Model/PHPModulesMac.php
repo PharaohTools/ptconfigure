@@ -22,14 +22,6 @@ class PHPModulesMac extends PHPModulesUbuntu {
             array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("MacPorts", $this->packages ) ) ),
         );
 
-        if (PHP_MAJOR_VERSION > 6) {
-            $ray = $this->installCommands ;
-            $first = $ray[0] ;
-            $second =
-                array("method"=> array("object" => $this, "method" => "packageAdd", "params" => array("PECL", array("mongodb") ) ) ) ;
-            $this->installCommands = array($first, $second) ;
-        }
-
         $this->uninstallCommands = array(
             array("method"=> array("object" => $this, "method" => "packageRemove", "params" => array("MacPorts", $this->packages ) ) ),
         );
