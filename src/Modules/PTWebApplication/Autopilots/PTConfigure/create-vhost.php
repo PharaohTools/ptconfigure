@@ -70,6 +70,13 @@ class AutoPilotConfigured extends AutoPilot {
                     "template_vhost_dir" => PFILESDIR.'pt'.$app_slug.DS.'pt'.$app_slug.DS.'src'.DS.'Modules'.DS.'PostInput'.DS,
                 ),),),
 
+                array ( "Logging" => array( "log" => array( "log-message" => "Lets enable the vhost", ), ), ),
+                array ( "ApacheControl" => array( "enable" => array(
+                    "vhost" => $a2dir.DS.$vhe_url.'.conf',
+                    "ignore_errors" => true,
+                    "guess" => true,
+                ), ), ),
+
                 array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new proxy", ), ), ),
                 array ( "ApacheControl" => array( "restart" => array( "guess" => true, ), ), ),
 
