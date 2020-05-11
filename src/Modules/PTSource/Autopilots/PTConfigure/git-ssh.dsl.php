@@ -47,14 +47,14 @@ Copy put
   label 'Copy in our Git Bash Wrapper Script'
   guess
   source "/opt/ptsource/ptsource/src/Modules/GitServer/Scripts/openssh_wrap_git.bash"
-  target "/home/ptgit/ptsource/"
+  target "/home/ptgit/ptsource/openssh_wrap_git.bash"
   when "{{{ Param::enable-ssh }}}"
 
 Copy put
   label 'Copy in our Pharaoh Source Repository Auth Script'
   guess
   source "/opt/ptsource/ptsource/src/Modules/GitServer/Scripts/openssh_auth.php"
-  target "/home/ptgit/ptsource/"
+  target "/home/ptgit/ptsource/openssh_auth.php"
   when "{{{ Param::enable-ssh }}}"
 
 Chown path
