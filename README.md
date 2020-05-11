@@ -11,19 +11,6 @@ systems with one or two PHP files, or our friendly DSL.
 This is part of the Pharaoh Tools suite, which covers Configuration Management, Test Automation Management, Automated
 Deployment, Build and Release Management and more, all implemented in code, and all in PHP.
 
-## Quick Examples
-
-# Create a Pharaoh Environment in your Papyrusfile to store servers in
-ptconfigure envconfig -yg --env=website --tmp-dir=/tmp/ --no-manual-servers --add-single-environment
-# Create server/s on Digital Ocean {Change the box-amount}
-ptconfigure boxify box-ensure -yg --env=website --provider-name=DigitalOceanV2 --box-amount=2 --image-id=17154032 \
-  --region-id=lon1 --size-id=512mb --server-prefix="" --box-user-name=root --private-ssh-key-path=KS::id_rsa \
-  --wait-for-box-info --wait-until-active --ssh-key-name={Your Key Name on Digital Ocean} --networks=default
-# Ping the Server
-ptconfigure ping once -yg --env=website
-# SSH in to the Server
-ptconfigure invoke cli -yg --env=website --driver=seclib
-
     
 ## Installation
 
@@ -37,6 +24,7 @@ or on Windows, open a terminal with the "Run as Administrator" option...
 git clone https://github.com/PharaohTools/ptconfigure.git && php ptconfigure\install-silent
 
 ... that's it, now the ptconfigure command should be available at the command line for you.
+
 
 
 ## Usage:
@@ -59,7 +47,44 @@ available actions too.
 You'll be able to automate any action from any available module into an autopilot file, or run it from the CLI.
 
 
-## Or some examples
+
+
+
+## Quick Examples
+
+### Single module command, create SSH Key
+```
+ptconfigure ssh-keygen install --yes --bits=4096 --type=rsa --path="/home/user/.ssh/id_rsa" --comment="My Key" --passphrase=""
+```
+
+### Single module command, service restart
+```
+ptconfigure service restart --service-name="apache2"
+```
+
+### Create a Server and do something with it
+```
+# Create a Pharaoh Environment in your Papyrusfile to store servers in
+ptconfigure envconfig -yg --env=website --tmp-dir=/tmp/ --no-manual-servers --add-single-environment
+
+# Create server/s on Digital Ocean {Change the box-amount}
+ptconfigure boxify box-ensure -yg --env=website --provider-name=DigitalOceanV2 --box-amount=2 --image-id=17154032 \
+  --region-id=lon1 --size-id=512mb --server-prefix="" --box-user-name=root --private-ssh-key-path=KS::id_rsa \
+  --wait-for-box-info --wait-until-active --ssh-key-name={Your Key Name on Digital Ocean} --networks=default
+
+# Ping the Server
+ptconfigure ping once -yg --env=website
+
+# SSH in to the Server
+ptconfigure invoke cli -yg --env=website --driver=seclib
+```
+
+### Using Bakery to create Images
+[The Bakery Readme](src/Modules/Bakery/Autopilots/PTConfigure/readme.md)
+
+
+
+### Or some further examples...
 
 The following URL contains a bunch of tutorials
 
@@ -69,6 +94,27 @@ http://www.pharaohtools.com/tutorials
 ## Available Modules:
 
  - DummyLinuxModule - Dummy Linux Module
+
+## Usage:
+
+So, there are a few simple commands...
+
+First, you can just use
+
+ptconfigure
+
+...This will give you a list of the available modules...
+
+Then you can use
+
+ptconfigure *ModuleName* help
+
+...This will display the help for that module, and tell you a list of available alias for the module command, and the
+available actions too.
+
+You'll be able to automate any action from any available module into an autopilot file, or run it from the CLI.
+
+
  - AWSCloudFormation - The AWS CloudFormation CLI Tools
  - AWSCloudWatch - The AWS CloudWatch CLI Tools
  - AWSEC2 - AWS EC2 Server Management Functions

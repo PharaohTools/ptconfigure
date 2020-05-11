@@ -3,11 +3,16 @@
 - Logging[log]:
     log-message: "Lets Bake an ISO"
 
+- VariableGroups[dump]:
+    label: 'Dump all loaded variables'
+    guess: yes
+
 - Download[file]:
     label: 'Download the ISO file'
     source: "$$iso_file_remote_location"
     target: "$$iso_path"
     guess: yes
+    skip-existing: true
 #
 #- VariableGroups[dump]:
 #    label: 'Dump all loaded variables'
