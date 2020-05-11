@@ -36,6 +36,7 @@ class BakeryOSInstall extends BaseLinuxApp {
             array("method"=> array("object" => $this, "method" => "askForLanguage", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForGUIMode", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "askForNotifyDelay", "params" => array()) ),
+            array("method"=> array("object" => $this, "method" => "askForAddtionsIsoPath", "params" => array()) ),
             array("method"=> array("object" => $this, "method" => "runBakeryInstall", "params" => array()) ),
         );
         //@todo uninstall commands of bakery
@@ -204,7 +205,7 @@ class BakeryOSInstall extends BaseLinuxApp {
         $comm .= '--full-user-name="'.$this->bakery_details['full_user'].'" ' ;
         $comm .= '--script-template='.$preseed_location.' ' ;
         $comm .= '--post-install-template='.$postinstall_location.' ' ;
-        $comm .= '--install-additions ' ;
+        $comm .= '--additions-iso='.$this->bakery_details['additions-iso'].' ' ;
         $comm .= '--locale='.$this->bakery_details['locale'].' ' ;
         $comm .= '--country='.$this->bakery_details['country'].' ' ;
         $comm .= '--language='.$this->bakery_details['language'].' ' ;
@@ -226,7 +227,6 @@ class BakeryOSInstall extends BaseLinuxApp {
         $has_counted = false ;
         for ($seconds_passed = 0; $seconds_passed < $timeout ; $seconds_passed ++) {
             $status = proc_get_status($process) ;
-            $logging->log(var_export($status, true), $this->getModuleName() ) ;
             if ($status['running'] === true) {
                 $has_counted = true ;
                 echo '.' ;
@@ -263,27 +263,31 @@ class BakeryOSInstall extends BaseLinuxApp {
         $comm = VBOXMGCOMM.' guestcontrol "'.$vm_name.'" run --exe "'.$installed_check.'" > '.$dump_path . ' 2>&1';
         $completion_ok = false ;
         $check_delay = 10 ;
-        $needle = 'The guest execution service is not ready (yet)' ;
+        $needle1 = 'The guest execution service is not ready (yet)' ;
+        $needle2 = 'Session is not in started state' ;
         $needle_not_running = 'Machine "'.$vm_name.'" is not running' ;
         $notify_waited = 0 ;
         for ($seconds_passed = 0; $seconds_passed < $timeout ; $seconds_passed += $check_delay ) {
-            $res = self::executeAsShell($comm) ;
+//            $res = self::executeAsShell($comm) ;
+            $res = self::executeAndGetReturnCode($comm, false, false) ;
             $data = file_get_contents($dump_path) ;
-            if (strpos($data, $needle) !== false) {
+            if (strpos($data, $needle1) !== false ||
+                strpos($data, $needle2) !== false ) {
                 if ($notify_waited >= $this->bakery_details['notify-delay']) {
                     $notify_waited = 0 ;
-                    $logging->log("Waiting for Guest Execution to be ready, {$seconds_passed} Seconds", $this->getModuleName() ) ;
+                    $logging->log("Installing, {$seconds_passed} Seconds", $this->getModuleName() ) ;
+//                    $logging->log("Waiting for Guest Execution to be ready, {$seconds_passed} Seconds", $this->getModuleName() ) ;
                 }
                 sleep($check_delay) ;
                 $notify_waited += $check_delay ;
             } else if (strpos($data, $needle_not_running)) {
-                $logging->log('Machine "'.$vm_name.'" is not running', $this->getModuleName() ) ;
-                $logging->log($data, $this->getModuleName() ) ;
+                $logging->log('Machine "'.$vm_name.'" shutdown, '.$seconds_passed.' Seconds', $this->getModuleName() ) ;
+//                $logging->log($data, $this->getModuleName() ) ;
                 $completion_ok = true ;
                 break ;
             } else if ($res !== $ua_file_path) {
                 $logging->log("Installing, {$seconds_passed} Seconds", $this->getModuleName() ) ;
-                $logging->log($data, $this->getModuleName() ) ;
+//                $logging->log($data, $this->getModuleName() ) ;
                 sleep($check_delay) ;
             }
         }
@@ -455,6 +459,16 @@ class BakeryOSInstall extends BaseLinuxApp {
         else {
             $question = "Enter Notification Delay";
             $this->bakery_details['notify-delay'] = self::askForInput($question, true); }
+    }
+
+    protected function askForAddtionsIsoPath() {
+        if (isset($this->params["additions-iso"])) {
+            $this->bakery_details['additions-iso'] = $this->params["additions-iso"]; }
+        else if (isset($this->params["guess"]) && $this->params["guess"]==true) {
+            $this->bakery_details['additions-iso'] = "/usr/share/virtualbox/VBoxGuestAdditions.iso"; }
+        else {
+            $question = "Enter Additions ISO Path";
+            $this->bakery_details['additions-iso'] = self::askForInput($question, true); }
     }
 
     public function versionInstalledCommandTrimmer($text) {

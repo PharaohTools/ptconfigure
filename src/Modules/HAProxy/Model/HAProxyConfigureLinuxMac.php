@@ -72,6 +72,7 @@ class HAProxyConfigureLinuxMac extends BaseTemplater {
     protected function getServerString() {
         $servers = $this->getServersArray() ;
         $st = "" ;
+        $loggingFactory = new \Model\Logging() ;
         if (isset($this->params["private-targets"]) && $this->params["private-targets"]==true) {
             $log = $loggingFactory->getModel($this->params) ;
             $log->log("Attempting to use private targets for Load Balancing", $this->getModuleName()) ;

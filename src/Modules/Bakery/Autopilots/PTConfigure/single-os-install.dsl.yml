@@ -1,133 +1,150 @@
 ---
 
-- Logging[log]:
-    log-message: "Lets Bake an ISO"
-
-- VariableGroups[dump]:
-    label: 'Dump all loaded variables'
-    guess: yes
-
-- Download[file]:
-    label: 'Download the ISO file'
-    source: "$$iso_file_remote_location"
-    target: "$$iso_path"
-    guess: yes
-    skip-existing: true
 #
-#- VariableGroups[dump]:
-#    label: 'Dump all loaded variables'
-#    guess: yes
-
-- Bakery[osinstall]:
-    label: "The OS Installation Stage"
-    iso: "$$iso_path"
-    name: "$$vm_name"
-    ostype: "$$os_type"
-    osversion: "$$os_vbox_version"
-    memory: "512"
-    vram: "33"
-    cpus: "1"
-    ssh_forwarding_port: "9988"
-    user_name: "$$user_name"
-    user_pass: "$$user_pass"
-    full_user: "$$full_user"
-    locale: "$$locale"
-    country: "$$country"
-    language: "$$language"
-    gui_mode: "$$gui_mode"
-    notify-delay: "$$notify_delay"
-    guess: yes
-
-- Mkdir[path]:
-    label: "Ensure Temp Directory for Virtufile"
-    path: "/tmp/ptv_vm_osinstall"
-    recursive: true
-    guess: yes
-
-- PharaohToolRunner[run]:
-    label: "Initialize a matching name"
-    guess: true
-    command: "cd /tmp/ptv_vm_osinstall && ptvirtualize init now --vars=/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_{{{ var::os_slug }}}.php,/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php"
-      'yes': true
-      guess: true
-      step-times: true
-      step-numbers: true
-      name: ptv_bakery_temp_vm
-      os_slug: "$$os_slugvar"
+#- Logging[log]:
+#    log-message: "Lets Bake an ISO"
 #
-#- RunCommand[execute]:
-#    label: "Initialize a matching name"
-#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize init now --name="{{{ var::vm_name }}}" --vars="/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars.php" -yg'
+#- PackageManager[pkg-ensure]:
+#    label: 'Ensure Virtualbox Guest Additions ISO on Host'
+#    package-name: "virtualbox-guest-additions-iso"
+#    packager: Apt
+#
+#- Download[file]:
+#    label: 'Download the ISO file'
+#    source: "$$iso_file_remote_location"
+#    target: "$$iso_path"
+#    skip-existing: yes
 #    guess: yes
-
-- PharaohToolRunner[run]:
-    label: "Start it and install Guest Additions"
-    guess: true
-    tool: "ptvirtualize"
-    module: "up"
-    action: "now"
-    prefix: "cd /tmp/ptv_vm_osinstall && "
+##
+##- VariableGroups[dump]:
+##    label: 'Dump all loaded variables'
+##    guess: yes
+#
+#- Bakery[osinstall]:
+#    label: "The OS Installation Stage"
+#    iso: "$$iso_path"
+#    name: "$$vm_name"
+#    ostype: "$$os_type"
+#    osversion: "$$os_vbox_version"
+#    memory: "512"
+#    vram: "33"
+#    cpus: "1"
+#    ssh_forwarding_port: "9988"
+#    user_name: "$$user_name"
+#    user_pass: "$$user_pass"
+#    full_user: "$$full_user"
+#    locale: "$$locale"
+#    country: "$$country"
+#    language: "$$language"
+#    gui_mode: "$$gui_mode"
+#    notify-delay: "$$notify_delay"
+#    additions-iso: "/usr/share/virtualbox/VBoxGuestAdditions.iso"
+#    guess: yes
+#
+#- Mkdir[path]:
+#    label: "Ensure Temp Directory for Virtufile"
+#    path: "/tmp/ptv_vm_osinstall"
+#    recursive: true
+#    guess: yes
+#
+#- Logging[log]:
+#    log-message: |
+#      cd /tmp/ptv_vm_osinstall
+#      ptvirtualize init now \
+#       --name="{{{ var::vm_name }}}" \
+#       --os_slug=$$os_type \
+#       --vars="vars_all.php,vars_ubuntu_$$os_full_version.php" \
+#       -yg
+#    guess: yes
+#
+#- Templating[install]:
+#    label: "Initialize a matching name with Templating"
+#    source: "{{{ Facts::Runtime::envVar::PWD }}}/../Templates/Virtufile.php.tpl"
+#    target: "/tmp/ptv_vm_osinstall/Virtufile"
+#    template_name: "{{{ var::vm_name }}}"
+#    template_os_slug: "$$os_type"
+#    template_box: "$$box"
+#    template_box_url: "$$box_url"
+#    vars: "vars_ubuntu_$$os_full_version.php,vars_all.php"
+#    guess: yes
 #
 #- RunCommand[execute]:
 #    label: "Start it and install Guest Additions"
-#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize up now'
+#    command: |
+#      cd /tmp/ptv_vm_osinstall
+#      ptvirtualize up now --mod --pro --step-times --step-numbers
 #    guess: yes
 
-- PharaohToolRunner[run]:
+- RunCommand[execute]:
     label: "PTV Halt it"
-    guess: true
-    tool: "ptvirtualize"
-    module: "halt"
-    action: "now"
-    prefix: "cd /tmp/ptv_vm_osinstall && "
-    params:
-      'die-hard': true
+    command: |
+      cd /tmp/ptv_vm_osinstall
+      ptvirtualize halt now --die-hard -yg
+    guess: yes
+    ignore_errors: yes
 
-#- RunCommand[execute]:
-#    label: "PTV Halt it"
-#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize halt now --die-hard -yg'
-#    guess: yes
-#    ignore_errors: yes
+- Logging[log]:
+    log-message: |
+      cd /tmp/ptv_vm_osinstall
+      ptvirtualize box package \
+       --name="{{{ var::vm_full_name }}}" \
+       --vmname=$$vm_name \
+       --group="ptvirtualize" \
+       --provider="virtualbox" \
+       --slug="{{{ var::os_type }}}" \
+       --description="{{{ var::vm_description }}}" \
+       --target="/opt/ptvirtualize/boxes" \
+       --vars="vars_ubuntu_$$os_full_version.php,vars_all.php" \
+       -yg
+    guess: yes
 
+- VariableGroups[dump]:
+    label: 'Dump all loaded variables'
+    vars: "vars_ubuntu_$$os_full_version.php,vars_all.php"
+    guess: yes
 
-- PharaohToolRunner[run]:
+- RunCommand[execute]:
     label: "PTV Package the Virtual Machine into a Box file"
-    guess: true
-    tool: "ptvirtualize"
-    module: "box"
-    action: "package"
-    prefix: "cd /tmp/ptv_vm_osinstall && "
-    params:
-      vars:
-        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_ubuntu_{{{ var::os_slug }}}.php"
-        - "/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars_all.php"
-      'yes': true
-      guess: true
-      name: "ubuntu_{{{ var::os_slug }}}.server-64bit"
-      vmname: "ptv_bakery_temp_vm"
-      group: "ptvirtualize"
-      provider: "virtualbox"
-      description: "description placeholder"
-      target: "/opt/ptvirtualize/boxes"
-      os_slug: "{{{ var::os_slug }}}"
-#
-#- RunCommand[execute]:
-#    label: "PTV Package the Virtual Machine into a Box file"
-#    command: 'cd /tmp/ptv_vm_osinstall && ptvirtualize box package --name="$$full_name" --vmname="$$vm_name" --group="ptvirtualize" --description="$$vm_description" --target="/opt/ptvirtualize/boxes" -yg '
-#    guess: yes
+    command: |
+      cd /tmp/ptv_vm_osinstall
+      ptvirtualize box package \
+       --name="{{{ var::vm_full_name }}}" \
+       --vmname=$$vm_name \
+       --group="ptvirtualize" \
+       --provider="virtualbox" \
+       --slug=$$os_type \
+       --description="$$vm_description " \
+       --target="/opt/ptvirtualize/boxes" \
+       --vars="vars_ubuntu_$$os_full_version.php,vars_all.php" \
+       -yg
+    guess: yes
 
+- RunCommand[execute]:
+    label: "Move box to correct name"
+    command: |
+      cd /opt/ptvirtualize/boxes
+      mv Ubuntu_64.box ubuntu-18.04.4-server-amd64.box
+    guess: yes
 
-- PharaohToolRunner[run]:
-    label: "Destroy the Virtual Machine"
-    guess: true
-    tool: "ptvirtualize"
-    module: "destroy"
-    action: "now"
-    prefix: "cd /tmp/ptv_vm_osinstall && "
-#
+- RunCommand[execute]:
+    label: "Remove any eisting files from /opt/ptvirtualize/boxes/ubuntu-18.04.4-server-amd64"
+    command: rm -rf /opt/ptvirtualize/boxes/ubuntu-18.04.4-server-amd64
+    guess: yes
+
+- RunCommand[execute]:
+    label: "Locally add the file we've just made a box from"
+    command: |
+      cd /opt/ptvirtualize/boxes
+      ptvirtualize box add \
+        --source=ubuntu-18.04.4-server-amd64.box \
+        --name=ubuntu-18.04.4-server-amd64
+    guess: yes
+
 #- RunCommand[execute]:
 #    label: "Destroy the Virtual Machine"
-#    command: "cd /tmp/ptv_vm_osinstall && ptvirtualize destroy now"
+#    command: |
+#      cd /tmp/ptv_vm_osinstall
+#      ptvirtualize destroy now
 #    guess: yes
 
 - Logging[log]:

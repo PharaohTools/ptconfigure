@@ -79,7 +79,7 @@ Copy put
   label 'Copy in our Git Key Auth Script'
   guess
   source "/opt/ptsource/ptsource/src/Modules/GitServer/Scripts/openssh_find_keys.php"
-  target "/PTSourceScripts/"
+  target "/PTSourceScripts/openssh_find_keys.php"
   when "{{{ Param::enable-ssh }}}"
 
 Chmod path
