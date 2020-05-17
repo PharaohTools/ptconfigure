@@ -62,6 +62,12 @@ ptconfigure ssh-keygen install --yes --bits=4096 --type=rsa --path="/home/user/.
 ptconfigure service restart --service-name="apache2"
 ```
 
+### Execute an autopilot 
+```
+ptconfigure auto x --af=example/using_facts.dsl.yml --step-times --step-numbers
+ptconfigure auto x --af=example/when_examples.dsl.yml --step-times --step-numbers
+```
+
 ### Create a Server and do something with it
 ```
 # Create a Pharaoh Environment in your Papyrusfile to store servers in
