@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "Post install did run" > /opt/postinstall.diditrun
 apt-get update -y
 apt-get -qq install -y expect virtualbox-guest-x11 virtualbox-guest-dkms virtualbox-guest-additions-iso virtualbox-guest-utils
 ln -sf /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions

@@ -16,7 +16,6 @@ $variables['country'] = 'GB' ;
 $variables['language'] = 'EN' ;
 $variables['gui_mode'] = 'gui' ;
 $variables['notify_delay'] = '60' ;
-
 $variables['vm_name'] = 'ptv_bakery_temp_vm' ;
 $variables['vm_full_name'] = $variables['os_full_version'].' Server Edition 64 Bit' ;
 $variables['vm_description']  = 'This is an addition to the vanilla install of '.$variables['os_type'].' ' ;

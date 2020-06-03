@@ -4,10 +4,16 @@
 #- Logging[log]:
 #    log-message: "Lets Bake an ISO"
 #
+
 #- PackageManager[pkg-ensure]:
 #    label: 'Ensure Virtualbox Guest Additions ISO on Host'
 #    package-name: "virtualbox-guest-additions-iso"
 #    packager: Apt
+
+##- VariableGroups[dump]:
+##    label: 'Dump all loaded variables'
+##    guess: yes
+
 #
 #- Download[file]:
 #    label: 'Download the ISO file'
@@ -54,6 +60,43 @@
 #       --name="{{{ var::vm_name }}}" \
 #       --os_slug=$$os_type \
 #       --vars="vars_all.php,vars_ubuntu_$$os_full_version.php" \
+##
+##- VariableGroups[dump]:
+##    label: 'Dump all loaded variables'
+##    guess: yes
+#
+#- Bakery[osinstall]:
+#    label: "The OS Installation Stage"
+#    iso: "$$iso_path"
+#    name: "$$vm_name"
+#    ostype: "$$os_type"
+#    osversion: "$$os_vbox_version"
+#    memory: "512"
+#    vram: "33"
+#    cpus: "1"
+#    ssh_forwarding_port: "9988"
+#    user_name: "$$user_name"
+#    user_pass: "$$user_pass"
+#    full_user: "$$full_user"
+#    locale: "$$locale"
+#    country: "$$country"
+#    language: "$$language"
+#    gui_mode: "$$gui_mode"
+#    notify-delay: "$$notify_delay"
+#    guess: yes
+#
+#- Mkdir[path]:
+#    label: "Ensure Temp Directory for Virtufile"
+#    path: "/tmp/ptv_vm_osinstall"
+#    recursive: true
+#    guess: yes
+#
+#- RunCommand[execute]:
+#    label: "Initialize a matching name"
+#    command: |
+#      cd /tmp/ptv_vm_osinstall
+#      ptvirtualize init now --name="{{{ var::vm_name }}}" \
+#       --vars="/opt/ptconfigure/ptconfigure/src/Modules/Bakery/Autopilots/PTConfigure/vars.php" \
 #       -yg
 #    guess: yes
 #
@@ -101,6 +144,18 @@
 - VariableGroups[dump]:
     label: 'Dump all loaded variables'
     vars: "vars_ubuntu_$$os_full_version.php,vars_all.php"
+
+- Logging[log]:
+    label: "Display the command to PTV Package the Virtual Machine into a Box file"
+    log-message: |
+      cd /tmp/ptv_vm_osinstall
+      ptvirtualize box package \
+        --name="{{{ var::os_full_version }}}" \
+        --vmname='$$vm_name' \
+        --group="ptvirtualize" \
+        --description='$$vm_description' \
+        --target="/opt/ptvirtualize/boxes" \
+        -yg
     guess: yes
 
 - RunCommand[execute]:
@@ -137,7 +192,12 @@
       cd /opt/ptvirtualize/boxes
       ptvirtualize box add \
         --source=ubuntu-18.04.4-server-amd64.box \
-        --name=ubuntu-18.04.4-server-amd64
+        --name="{{{ var::os_full_version }}}" \
+        --vmname='$$vm_name' \
+        --group="ptvirtualize" \
+        --description='$$vm_description' \
+        --target="/opt/ptvirtualize/boxes" \
+        -yg
     guess: yes
 
 #- RunCommand[execute]:
