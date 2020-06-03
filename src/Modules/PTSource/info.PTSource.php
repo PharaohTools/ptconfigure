@@ -28,6 +28,9 @@ class PTSourceInfo extends PTConfigureBase {
 
         - install
         Installs the latest version of ptsource
+        
+        example: ptconfigure ptsource install -yg --with-webfaces --vhe-url=track.example.com --vhe-ip-port=0.0.0.0:80 --enable-ssl --enable-ssh --enable-http --enable-git
+        
         example: ptconfigure ptsource install -yg # will install no web interfaces for cli only use
         example: ptconfigure ptsource install -yg --with-webfaces # will guess source.pharaoh.tld at 127.0.0.1
         example: ptconfigure ptsource install -yg --with-webfaces --vhe-url=source.site.com --vhe-ip-port=1.2.3.4:80

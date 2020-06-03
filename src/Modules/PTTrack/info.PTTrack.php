@@ -28,6 +28,9 @@ class PTTrackInfo extends PTConfigureBase {
 
         - install
         Installs the latest version of pttrack
+        
+        example: ptconfigure pttrack install -yg --version=latest --vhe-url=track.example.com --vhe-ip-port=0.0.0.0:80 --enable-ssl
+        
         example: ptconfigure pttrack install -yg --with-webfaces
 
 HELPDATA;
