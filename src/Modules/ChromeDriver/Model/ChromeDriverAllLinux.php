@@ -51,6 +51,7 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
         $system = new \Model\SystemDetectionAllOS() ;
         $arch = $system->architecture ;
         $comms = array(
+                "apt-get install -y unzip" ,
                 "cd /tmp" ,
                 "mkdir -p /tmp/chromedriver" ,
                 "cd /tmp/chromedriver" ,
@@ -73,7 +74,7 @@ class ChromeDriverAllLinux extends BaseLinuxApp {
     protected function askForChromeDriverVersion(){
         $ao = array (
             "2.0", "2.10", "2.1", "2.11", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7",
-            "2.8", "2.9", "80.0.3987.106"
+            "2.8", "2.9", "80.0.3987.106", "81.0.4044.138", "83.0.4103.39", "84.0.4147.30"
         ) ;
         if (isset($this->params["version"]) && in_array($this->params["version"], $ao)) {
             $this->sv = $this->params["version"] ; }
