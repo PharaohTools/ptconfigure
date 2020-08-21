@@ -28,8 +28,9 @@ class GitCloneInfo extends Base {
 
           - perform a checkout into configured projects folder. If you don't want to specify target dir but do want
           to specify a branch, then enter the text "none" as that parameter.
-          example: ptdeploy git co https://github.com/phpengine/yourmum {optional target dir} {optional branch}
-          example: ptdeploy git co https://github.com/phpengine/yourmum none {optional branch}
+          example: ptdeploy git co https://github.com/org/repo {optional target dir} {optional branch}
+          example: ptdeploy git co https://github.com/org/repo none {optional branch}
+          example: ptdeploy git co --private-key=/path/tokey git://github.com/org/repo 
 
 HELPDATA;
       return $help ;
