@@ -436,7 +436,7 @@ class AutopilotExecutor extends Base {
                 $this->liRay = $liRay;
             }
             foreach ($this->liRay as $loop_key => $loop_iteration) {
-                if (is_string($loop_iteration)) {
+                if (is_string($loop_iteration) && $loop_iteration !== 'Array') {
                     $logging->log("Adding loop with value {$loop_iteration}", "Autopilot") ;
                     $tempParams = $modParams ;
                     foreach($tempParams as $origParamKey => $origParamVal) {
