@@ -31,6 +31,7 @@ class VariableGroupsAllOS extends Base {
 
     public function dump() {
         $vars = $this->getVariables() ;
+        asort($vars, SORT_ASC) ;
         echo "\n" ;
         echo "Dumping all loaded Variables: \n" ;
         echo "----------------------------- \n" ;
