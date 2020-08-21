@@ -661,17 +661,27 @@ TEMPLATE2;
     }
 
     protected function getServersArray() {
+        $loggingFactory = new \Model\Logging() ;
+        $log = $loggingFactory->getModel($this->params) ;
+        if (isset($this->params["targets"])) {
+            $log->log("Targets parameter provided, using these instead of Environments", $this->getModuleName()) ;
+            $servers_raw = explode(',', $this->params["targets"]) ;
+            $servers = [] ;
+            foreach ($servers_raw as $server_target) {
+                $one_server['name'] = '' ;
+                $one_server['target'] = $server_target ;
+                $servers[] = $one_server ;
+            }
+            return $servers ; }
         if (isset($this->params["env"])) {
             $this->params["environment-name"] = $this->params["env"] ; }
         if (!isset($this->params["environment-name"])) {
-            $loggingFactory = new \Model\Logging() ;
-            $log = $loggingFactory->getModel($this->params) ;
             $log->log("No environment name provided for Load Balancing", $this->getModuleName()) ;
             $this->params["environment-name"] = $this->askForEnvironment() ; }
         $envs = $this->getEnvironments();
         $names = $this->getEnvironmentNames($envs) ;
-        $this->servers = $envs[$names[$this->params["environment-name"]]]["servers"];
-        return $this->servers ;
+        $servers = $envs[$names[$this->params["environment-name"]]]["servers"];
+        return $servers ;
     }
 
     protected function getEnvironmentNames($envs) {
