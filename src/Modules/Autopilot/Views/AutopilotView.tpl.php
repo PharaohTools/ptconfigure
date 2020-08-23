@@ -1,4 +1,4 @@
-Autopilot Execution - <?php echo $pageVars["package-friendly"] ; ?> Installer:
+Autopilot Execution Summary:
 --------------------------------------------
 <?php
 
