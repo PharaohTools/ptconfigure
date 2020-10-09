@@ -466,6 +466,7 @@ class SFTPAllLinux extends Base {
 
             $sftp = new \Net_SFTP($server[$target_scope_string], $this->params["port"], $this->params["timeout"]);
             $pword = $this->getKeyIfAvailable($pword);
+//            var_dump($server) ;
             if ($sftp->login($server["user"], $pword) == true) { return $sftp; }
             return null; }
     }
