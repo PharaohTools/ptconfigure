@@ -81,13 +81,40 @@ class TemplatingAllOS extends BaseTemplater {
 
     public function replaceData($fData, $replaceKey, $replaceValue, $startTag='<%tpl.php%>', $endTag='</%tpl.php%>') {
         $lookFor = $startTag.$replaceKey.$endTag ;
-        $fData = str_replace($lookFor, $replaceValue, $fData) ;
+//        var_dump('$lookFor', $lookFor, '$replaceValue', $replaceValue, '$fData', $fData) ;
+        if ( is_array($replaceValue) ) {
+            foreach ($replaceValue as $each_value) {
+//                $replaceValue = $replaceValue[0] ;
+                if (substr($each_value, 0, 5) === 'var::') {
+                    $trimmed = substr($each_value, 5) ;
+                    $each_value = $trimmed ;
+                }
+//                var_dump($lookFor, $each_value, $fData) ;
+                $fData = str_replace($lookFor, $each_value, $fData) ;
+            }
+        } else {
+            $fData = str_replace($lookFor, $replaceValue, $fData) ;
+        }
         return $fData ;
     }
 
     public function replaceVariables($fData, $replaceKey, $replaceValue, $startTag='<%var.tpl.php%>', $endTag='</%var.tpl.php%>') {
         $lookFor = $startTag.$replaceKey.$endTag ;
-        $fData = str_replace($lookFor, $replaceValue, $fData) ;
+//        var_dump($lookFor, $replaceValue, $fData) ;
+        if ( is_array($replaceValue) ) {
+            foreach ($replaceValue as $each_value) {
+//                $replaceValue = $replaceValue[0] ;
+                if (substr($each_value, 0, 5) === 'var::') {
+                    $trimmed = substr($each_value, 5) ;
+                    $each_value = $trimmed ;
+                }
+//                var_dump($lookFor, $each_value, $fData) ;
+                $fData = str_replace($lookFor, $each_value, $fData) ;
+            }
+        } else {
+            $fData = str_replace($lookFor, $replaceValue, $fData) ;
+        }
+//        $fData = str_replace($lookFor, $replaceValue, $fData) ;
         return $fData ;
     }
 
