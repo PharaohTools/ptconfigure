@@ -50,7 +50,7 @@ class FileInfo extends PTConfigureBase {
 
         - append
         Append a line to a file
-        example: ptconfigure file append --file="/some/file/path" --line="a line"
+        example: ptconfigure file append --file="/some/file/path" --line="a line" --after-line="append after this"
 
         - should-have-line
         Ensure that a file contains a particular line
