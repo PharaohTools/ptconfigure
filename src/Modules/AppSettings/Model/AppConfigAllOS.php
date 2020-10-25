@@ -124,12 +124,12 @@ class AppConfigAllOS extends Base {
     }
 
     private static function getVarFileLocation() {
-        $baseDir = self::getAppBaseDir().DS.'ptdeployvars' ;
+        $baseDir = self::getAppBaseDir().DS.'ptconfigurevars' ;
         return $baseDir;
     }
 
     private static function getAppBaseDir() {
-        $baseDir = PFILESDIR."ptdeploy".DS."ptdeploy";
+        $baseDir = PFILESDIR."ptconfigure".DS."ptconfigure";
         return $baseDir;
     }
 
