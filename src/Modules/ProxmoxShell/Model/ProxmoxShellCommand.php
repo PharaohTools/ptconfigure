@@ -45,7 +45,7 @@ class ProxmoxShellCommand extends BaseProxmoxAllOS {
             $path = $this->params['path'] ;
             if (in_array($action, $available_actions)) {
                 $data = $this->collateDataParams() ;
-                var_dump("data is: ".var_export($data, true)) ;
+                // var_dump("data is: ".var_export($data, true)) ;
                 $result = $proxmox->$action($path, $data);
                 echo var_export($result, true) ;
             }
