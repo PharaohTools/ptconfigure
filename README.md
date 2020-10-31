@@ -14,15 +14,16 @@ Deployment, Build and Release Management and more, all implemented in code, and 
     
 ## Installation
 
-First you'll need to install Git and PHP5. If you don't have either, google them - they're easy to install. To install
+First you'll need to install Git and PHP 7+. If you don't have either, google them - they're easy to install. To install
 ptconfigure cli on your On your Mac, Linux or Unix Machine silently do the following:
 
+```
 git clone https://github.com/PharaohTools/ptconfigure.git && sudo php ptconfigure/install-silent
-
+```
 or on Windows, open a terminal with the "Run as Administrator" option...
-
+```
 git clone https://github.com/PharaohTools/ptconfigure.git && php ptconfigure\install-silent
-
+```
 ... that's it, now the ptconfigure command should be available at the command line for you.
 
 
