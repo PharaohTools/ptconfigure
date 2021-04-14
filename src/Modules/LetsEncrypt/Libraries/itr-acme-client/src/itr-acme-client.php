@@ -1427,7 +1427,8 @@ class itrAcmeChallengeManagerHttp extends itrAcmeChallengeManagerClass {
     $domainWellKnownPath = $this->itrAcmeClient->getDomainWellKnownPath($domain);
 
     if (!is_dir($domainWellKnownPath)) {
-      @mkdir($domainWellKnownPath, 0755, true);
+      $mkd_res = mkdir($domainWellKnownPath, 0755, true);
+      var_dump($mkd_res) ;
 
       if (!is_dir($domainWellKnownPath)) {
         throw new \RuntimeException('Cannot create path: ' . $domainWellKnownPath, 500);
