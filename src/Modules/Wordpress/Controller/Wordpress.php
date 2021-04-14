@@ -84,7 +84,7 @@ class Wordpress extends Base {
             $wpDBInstallHooks = $this->getModelAndCheckDependencies(substr(get_class($this), 11), $pageVars, "WordpressDBIHooks") ;
             $thisModel->setPlatformDBIHooks($wpDBInstallHooks);
             $thisModel->params["action"] = $action ;
-            $this->content["result"] = $thisModel->askWhetherToInstallDB();
+            $this->content["dbResult"] = $this->content["result"] = $thisModel->askWhetherToSaveDB();
             return array ("type"=>"view", "view"=>"DBInstall", "pageVars"=>$this->content); }
 
         $this->content["messages"][] = "Invalid DBInstall Wordpress Action";
