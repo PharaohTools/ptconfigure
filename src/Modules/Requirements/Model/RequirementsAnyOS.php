@@ -79,14 +79,14 @@ class RequirementsAnyOS extends Base {
     public function yamlParser($file_path) {
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
-        if (function_exists('yaml_parse_file')) {
-            $logging->log("Using PHP Native Yaml Parser", $this->getModuleName()) ;
-            $unformatted = yaml_parse_file($file_path) ;
-        } else {
+//        if (function_exists('yaml_parse_file')) {
+//            $logging->log("Using PHP Native Yaml Parser", $this->getModuleName()) ;
+//            $unformatted = yaml_parse_file($file_path) ;
+//        } else {
             $logging->log("Using Yaml Parser Library", $this->getModuleName()) ;
             require dirname(__DIR__).DS.'Libraries'.DS.'Spyc.php' ;
             $unformatted = \Spyc::YAMLLoad($file_path) ;
-        }
+//        }
         return $unformatted ;
     }
 
