@@ -31,7 +31,9 @@ class PTSourceLinux extends BasePHPApp {
         $this->programExecutorTargetPath = 'ptsource/src/Bootstrap.php';
         $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->programExecutorFolder = "/usr/bin";
+        $this->force_code_dir = '/opt/ptsource/ptsource' ;
         $this->initialize();
+
     }
 
     public function setpostinstallCommands() {
@@ -68,16 +70,26 @@ class PTSourceLinux extends BasePHPApp {
                 else if ($cur_os_family === 'redhat') {
                     $ray[]["command"][] = SUDOPREFIX.PTCCOMM." auto x --af=".$this->getSSHConfigureAutoPath().' --app-slug=ptsource --enable-ssh=true --is_redhat --step-times --step-numbers ' ; } }
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/data/" ;
-            $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ; }
-        if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
+            if (!isset($this->params["no-repository-move"])) {
+                $ray[]["command"][] = SUDOPREFIX."mkdir -p /opt/ptsource/repositories/" ;
+            }
+        } if (is_array($this->preinstallCommands) && count($this->preinstallCommands)>0) {
             $ray[]["command"][] = "echo 'Copy from temp ptsource directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-repositories/repositories/* /opt/ptsource/repositories/ || true" ;
+            if (!isset($this->params["no-repository-move"])) {
+                $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-repositories/repositories/* /opt/ptsource/repositories/ || true" ;
+            }
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/ || true" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/* || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-data/* /opt/ptsource/data/ || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars || true" ; }
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/ || true" ;
-        $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptsource /opt/ptsource/repositories/ || true" ;
+
+            if (!isset($this->params["no-owner-change"])) {
+                $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/ || true" ;
+                $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptsource /opt/ptsource/repositories/ || true" ;
+            } else {
+                $ray[]["command"][] = "echo 'Not changing repositories owner as no-owner-change is set'" ;
+            }
+
         $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/ || true" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
@@ -92,10 +104,20 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-settings/" ;
             $ray[]["command"][] = SUDOPREFIX."mkdir -p /tmp/ptsource-keys/" ;
             $ray[]["command"][] = "echo 'Copy to temp ptsource directories'" ;
-            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/repositories /tmp/ptsource-repositories/" ;
+            if (!isset($this->params["no-repository-move"])) {
+                $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/repositories /tmp/ptsource-repositories/" ;
+            } else {
+                $ray[]["command"][] = "echo 'Not copying repositories as no-repository-move is set'" ;
+            }
 //            $ray[]["command"][] = SUDOPREFIX."cp -r /opt/ptsource/keys /tmp/ptsource-keys/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/ptsource/ptsourcevars /tmp/ptsource-settings/" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/data/* /tmp/ptsource-data/" ; }
+            $ptsv = '/opt/ptsource/ptsource/ptsourcevars' ;
+            if (file_exists($ptsv)) {
+                $ray[]["command"][] = SUDOPREFIX."cp $ptsv /tmp/ptsource-settings/" ;
+            }
+            if (is_dir('/opt/ptsource/data')) {
+                $ray[]["command"][] = SUDOPREFIX."cp /opt/ptsource/data/* /tmp/ptsource-data/" ;
+            }
+        }
         $this->preinstallCommands = $ray ;
         return $ray ;
     }
