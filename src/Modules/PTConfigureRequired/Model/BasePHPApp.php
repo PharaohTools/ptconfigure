@@ -153,7 +153,11 @@ class BasePHPApp extends Base {
         $this->programDataFolder = $this->askForProgramDataFolder();
         if ( !isset($this->params['no-clone']) ) {
             $this->programExecutorFolder = $this->askForProgramExecutorFolder();
-            if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
+            if (isset($this->force_code_dir)) {
+                if ($this->deleteProgramDataFolderAsRootIfExists($this->force_code_dir) === false) { return false ; }
+            } else {
+                if ($this->deleteProgramDataFolderAsRootIfExists() === false) { return false ; }
+            }
             if ($this->makeProgramDataFolderIfNeeded() === false) { return false ; }
             if ($this->doGitClone() === false) { return false ; }
             if ($this->copyFilesToProgramDataFolder() === false) { return false ; }
@@ -167,8 +171,10 @@ class BasePHPApp extends Base {
             if ($this->deleteInstallationFiles() === false) {
                 return false;
             }
-            if ($this->changeSourcePermissions() === false) {
-                return false;
+            if (!isset($this->params["no-permissions-change"])) {
+                if ($this->changeSourcePermissions() === false) {
+                    return false;
+                }
             }
         }
         if ($this->hookInstExists("post")) {
