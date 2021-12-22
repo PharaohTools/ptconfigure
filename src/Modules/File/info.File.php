@@ -14,7 +14,7 @@ class FileInfo extends PTConfigureBase {
 
     public function routesAvailable() {
         return array( "File" =>  array_merge( array("help", "create", "fill", "populate", "set", "delete", "exists",
-            "should-exist", "append", "should-have-line", "should-not-have-line", "replace-line") ) );
+            "should-exist", "append", "should-have-line", "should-not-have-line", "replace-line", "replace-text") ) );
     }
 
     public function routeAliases() {
