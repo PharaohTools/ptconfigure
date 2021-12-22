@@ -66,7 +66,7 @@ class FileInfo extends PTConfigureBase {
 
         - replace-text
         Replace an arbritrary sized string (including \n, \r, PHP_EOL) if it's found in the file
-        example: ptconfigure file replace-line --file="/some/file/path" --search="a subject" --replace="a replacment"
+        example: ptconfigure file replace-text --file="/some/file/path" --search="a subject" --replace="a replacment"
 
 
 
