@@ -17,6 +17,7 @@ class HostEditorAllLinuxMac extends Base {
     protected $hostFileData;
     protected $uri;
     protected $ipAddress;
+    protected $sudoPrefix;
 
     public function askWhetherToDoHostEntry(){
         return $this->performHostAddition();
@@ -26,9 +27,18 @@ class HostEditorAllLinuxMac extends Base {
         return $this->performHostDeletion();
     }
 
+    private function setSudoPrefix(){
+        if (posix_getuid() === 0) {
+            $this->sudoPrefix = '';
+        } else {
+            $this->sudoPrefix = 'sudo ';
+        }
+    }
+
     protected function performHostAddition(){
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $this->setSudoPrefix();
         $hostFileEntry = $this->askForHostEntryToScreen();
         if (!$hostFileEntry) {
             $logging->log("Host file change refused", $this->getModuleName()) ;
@@ -51,6 +61,7 @@ class HostEditorAllLinuxMac extends Base {
     protected function performHostDeletion(){
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
+        $this->setSudoPrefix();
         $hostFileDel = $this->askForHostDeletionToScreen();
         if (!$hostFileDel) { return false; }
         $this->ipAddress = $this->askForIPEntryToScreen();
