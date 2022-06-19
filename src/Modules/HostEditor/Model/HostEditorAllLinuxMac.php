@@ -28,9 +28,13 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     private function setSudoPrefix(){
+        $loggingFactory = new \Model\Logging();
+        $logging = $loggingFactory->getModel($this->params);
         if (posix_getuid() === 0) {
+            $logging->log("Running as root", $this->getModuleName()) ;
             $this->sudoPrefix = '';
         } else {
+            $logging->log("Will attempt to escalate to root", $this->getModuleName()) ;
             $this->sudoPrefix = 'sudo ';
         }
     }
