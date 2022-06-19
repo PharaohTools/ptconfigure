@@ -113,7 +113,7 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     protected function loadCurrentHostFile() {
-        $command = 'sudo cat /etc/hosts';
+        $command = $this->sudoPrefix.'cat /etc/hosts';
         $this->hostFileData = self::executeAndLoad($command);
         return (strlen($this->hostFileData)>0) ? true : false ;
     }
@@ -125,9 +125,9 @@ class HostEditorAllLinuxMac extends Base {
     }
 
     protected function moveHostFileAsRoot(){
-        $command = 'sudo mv '.self::$tempDir.DS.'hostfile'.DS.'hosts '.DS.'etc'.DS.'hosts';
+        $command = $this->sudoPrefix.'mv '.self::$tempDir.DS.'hostfile'.DS.'hosts '.DS.'etc'.DS.'hosts';
         self::executeAndOutput($command);
-        $command = 'sudo rm -rf '.self::$tempDir.DS.'hostfile';
+        $command = $this->sudoPrefix.'rm -rf '.self::$tempDir.DS.'hostfile';
         self::executeAndOutput($command);
     }
 
