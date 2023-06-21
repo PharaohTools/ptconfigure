@@ -645,8 +645,18 @@ COMPLETION;
         if (is_array($commandArray) && count($commandArray)>0) {
             foreach ($commandArray as &$comm) {
                 if (is_array($comm)) {
-                    $comm['method']['object']->params['command'] = str_replace("****PROGDIR****", $this->programDataFolder, $comm['method']['object']->params['command']);
-                    $comm['method']['object']->params['command'] = str_replace("****PROG EXECUTOR****", $this->programExecutorTargetPath, $comm['method']['object']->params['command']);
+                    if (isset($comm['method']['object']->params['command'])) {
+                        $comm['method']['object']->params['command'] = str_replace(
+                            "****PROGDIR****",
+                            $this->programDataFolder,
+                            $comm['method']['object']->params['command']
+                        );
+                        $comm['method']['object']->params['command'] = str_replace(
+                            "****PROG EXECUTOR****",
+                            $this->programExecutorTargetPath,
+                            $comm['method']['object']->params['command']
+                        );
+                    }
                 } else {
                     $comm = str_replace("****INSTALL USER NAME****", $this->installUserName, $comm);
                     $comm = str_replace("****INSTALL USER HOME DIR****", $this->installUserHomeDir, $comm);
