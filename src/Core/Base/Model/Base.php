@@ -332,12 +332,26 @@ COMPLETION;
 
     protected function swapResForVariable($res, $paramValue, $parts_string) {
         $orig = '{{{'.$parts_string.'}}}' ;
-//        if (is_array($res)) { var_dump("res is", $res) ; die("\n\nres\n\n"); }
-//        if (is_array($orig)) { var_dump("orig is", $orig) ; die("\n\norig\n\n"); }
-//        if (is_array($paramValue)) { var_dump("pv is", $paramValue) ; die("\n\nparamValue\n\n"); }
-        $paramValue = str_replace($orig, $res, $paramValue);
+	
+	if (is_array($res)) {
+		# var_dump("res is", $res);
+		#$serialized = true;
+		#$res = serialize($res);
+//		var_dump('its an array, so dont swap');
+		#idie("\n\nres\n\n");
+		return $paramValue ;
+	}
+
+	if (is_array($orig)) { var_dump("orig is", $orig) ; die("\n\norig\n\n"); }
+        if (is_array($paramValue)) { var_dump("pv is", $paramValue) ; die("\n\nparamValue\n\n"); }
+	$paramValue = str_replace($orig, $res, $paramValue);
         $orig = '{{{ '.$parts_string.' }}}' ;
-        $paramValue = str_replace($orig, $res, $paramValue);
+	$paramValue = str_replace($orig, $res, $paramValue);
+
+		#if ($serialized === true) {
+	#		$res = unserialize()
+	#	}
+
         return $paramValue ;
     }
 
