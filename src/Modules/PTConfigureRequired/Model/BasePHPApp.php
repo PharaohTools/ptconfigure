@@ -372,7 +372,12 @@ require('".$this->programDataFolder.DIRECTORY_SEPARATOR.$this->programExecutorTa
         $loggingFactory = new \Model\Logging();
         $logging = $loggingFactory->getModel($this->params);
         $logging->log("Preparing to change application file permissions", $this->getModuleName()) ;
-        $command = "chmod -R +x $this->programDataFolder";
+        if (isset($this->force_code_dir)) {
+            $command = "chmod -R +x $this->force_code_dir";
+        } else {
+            $command = "chmod -R +x $this->programDataFolder";
+        }
+        $logging->log("$command", $this->getModuleName()) ;
         $this->executeAndOutput($command);
         $rc = self::executeAndGetReturnCode($command, true, true);
         if ($rc["rc"] !== 0) {

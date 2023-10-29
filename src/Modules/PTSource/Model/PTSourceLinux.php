@@ -31,6 +31,7 @@ class PTSourceLinux extends BasePHPApp {
         $this->programExecutorTargetPath = 'ptsource/src/Bootstrap.php';
         $this->statusCommand = $this->programNameMachine.' --quiet > /dev/null' ;
         $this->programExecutorFolder = "/usr/bin";
+        $this->programDataFolder = '/opt/ptsource/ptsource' ;
         $this->force_code_dir = '/opt/ptsource/ptsource' ;
         $this->initialize();
 
@@ -81,16 +82,17 @@ class PTSourceLinux extends BasePHPApp {
             $ray[]["command"][] = SUDOPREFIX."cp -r /tmp/ptsource-keys/* /opt/ptsource/keys/ || true" ;
             $ray[]["command"][] = SUDOPREFIX."chmod -R 0600 /opt/ptsource/keys/* || true" ;
             $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-data/* /opt/ptsource/data/ || true" ;
-            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars || true" ; }
+            $ray[]["command"][] = SUDOPREFIX."cp /tmp/ptsource-settings/ptsourcevars /opt/ptsource/ptsource/ptsourcevars || true" ;
+        }
 
-            if (!isset($this->params["no-owner-change"])) {
-                $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/ || true" ;
-                $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptsource /opt/ptsource/repositories/ || true" ;
-            } else {
-                $ray[]["command"][] = "echo 'Not changing repositories owner as no-owner-change is set'" ;
-            }
+        if (!isset($this->params["no-owner-change"])) {
+            $ray[]["command"][] = SUDOPREFIX."chown -R ptsource:ptsource /opt/ptsource/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."chown -R ptgit:ptsource /opt/ptsource/repositories/ || true" ;
+            $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/ || true" ;
+        } else {
+            $ray[]["command"][] = "echo 'Not changing repositories owner as no-owner-change is set'" ;
+        }
 
-        $ray[]["command"][] = SUDOPREFIX."chmod -R 775 /opt/ptsource/ || true" ;
         $this->postinstallCommands = $ray ;
         return $ray ;
     }
