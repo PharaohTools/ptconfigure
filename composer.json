@@ -1,6 +1,6 @@
 {
     "require": {
-        "phpseclib/phpseclib": "0.3.7",
+        "phpseclib/phpseclib": "2.0.31",
         "phpunit/phpunit": "~4.4"
     },
     "autoload": {
